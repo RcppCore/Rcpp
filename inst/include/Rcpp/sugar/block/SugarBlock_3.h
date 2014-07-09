@@ -26,22 +26,22 @@ namespace Rcpp{
 namespace sugar{
 
 template <
-    bool NA, typename OUT,
+    bool NA, typename RESULT_TYPE,
     typename U1, typename T1,
     typename U2, typename T2,
     typename U3, typename T3
 >
 class SugarBlock_3_VVV : public Rcpp::VectorBase<
-    Rcpp::traits::r_sexptype_traits<OUT>::rtype ,
+    Rcpp::traits::r_sexptype_traits<RESULT_TYPE>::rtype ,
     NA,
-    SugarBlock_3_VVV<NA,OUT,U1,T1,U2,T2,U3,T3> > {
+    SugarBlock_3_VVV<NA,RESULT_TYPE,U1,T1,U2,T2,U3,T3> > {
 public:
-    typedef OUT (*FunPtr)(U1,U2,U3) ;
+    typedef RESULT_TYPE (*FunPtr)(U1,U2,U3) ;
     SugarBlock_3_VVV( FunPtr ptr_, const T1 & x_, const T2& y_, const T3& z_ ) :
         ptr(ptr_), x(x_), y(y_), z(z_) {
         // TODO: size checks, recycling, etc ...
     }
-    inline OUT operator[]( int i) const {
+    inline RESULT_TYPE operator[]( int i) const {
         return ptr( x[i], y[i], z[i] ) ;
     }
     inline int size() const { return x.size() ; }
@@ -54,14 +54,14 @@ private:
 };
 
 
-// template <bool NA, typename OUT, typename U1, typename T1, typename U2>
-// class SugarBlock_3__VP : public Rcpp::VectorBase< Rcpp::traits::r_sexptype_traits<OUT>::rtype , NA, SugarBlock_3__VP<NA,OUT,U1,T1,U2> > {
+// template <bool NA, typename RESULT_TYPE, typename U1, typename T1, typename U2>
+// class SugarBlock_3__VP : public Rcpp::VectorBase< Rcpp::traits::r_sexptype_traits<RESULT_TYPE>::rtype , NA, SugarBlock_3__VP<NA,RESULT_TYPE,U1,T1,U2> > {
 // public:
-// 	typedef OUT (*FunPtr)(U1,U2) ;
+// 	typedef RESULT_TYPE (*FunPtr)(U1,U2) ;
 // 	SugarBlock_3__VP( FunPtr ptr_, const T1 & x_, U2 u2 ) :
 // 		ptr(ptr_), x(x_), y(u2){}
 //
-// 	inline OUT operator[]( int i) const {
+// 	inline RESULT_TYPE operator[]( int i) const {
 // 		return ptr( x[i], y ) ;
 // 	}
 // 	inline int size() const { return x.size() ; }
@@ -72,14 +72,14 @@ private:
 // 	U2 y ;
 // };
 //
-// template <bool NA, typename OUT, typename U1, typename U2, typename T2>
-// class SugarBlock_3__PV : public Rcpp::VectorBase< Rcpp::traits::r_sexptype_traits<OUT>::rtype , NA, SugarBlock_3__PV<NA,OUT,U1,U2,T2> > {
+// template <bool NA, typename RESULT_TYPE, typename U1, typename U2, typename T2>
+// class SugarBlock_3__PV : public Rcpp::VectorBase< Rcpp::traits::r_sexptype_traits<RESULT_TYPE>::rtype , NA, SugarBlock_3__PV<NA,RESULT_TYPE,U1,U2,T2> > {
 // public:
-// 	typedef OUT (*FunPtr)(U1,U2) ;
+// 	typedef RESULT_TYPE (*FunPtr)(U1,U2) ;
 // 	SugarBlock_3__PV( FunPtr ptr_, U1 u1, const T2& y_ ) :
 // 		ptr(ptr_), x(u1), y(y_){}
 //
-// 	inline OUT operator[]( int i) const {
+// 	inline RESULT_TYPE operator[]( int i) const {
 // 		return ptr( x, y[i] ) ;
 // 	}
 // 	inline int size() const { return y.size() ; }

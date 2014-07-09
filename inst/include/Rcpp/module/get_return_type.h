@@ -26,21 +26,21 @@ namespace Rcpp {
 
     struct void_type{} ;
 
-    template <typename OUT>
+    template <typename RESULT_TYPE>
     inline std::string get_return_type_dispatch( Rcpp::traits::false_type ){
-        return demangle( typeid(OUT).name() ).data() ;
+        return demangle( typeid(RESULT_TYPE).name() ).data() ;
     }
-    template <typename OUT>
+    template <typename RESULT_TYPE>
     inline std::string get_return_type_dispatch( Rcpp::traits::true_type ){
-        typedef typename Rcpp::traits::un_pointer<OUT>::type pointer ;
+        typedef typename Rcpp::traits::un_pointer<RESULT_TYPE>::type pointer ;
         std::string res = demangle( typeid( pointer ).name() ).data() ;
         res += "*" ;
         return res ;
     }
 
-    template <typename OUT>
+    template <typename RESULT_TYPE>
     inline std::string get_return_type(){
-        return get_return_type_dispatch<OUT>( typename Rcpp::traits::is_pointer<OUT>::type() ) ;
+        return get_return_type_dispatch<RESULT_TYPE>( typename Rcpp::traits::is_pointer<RESULT_TYPE>::type() ) ;
     }
     template <>
     inline std::string get_return_type<void_type>(){

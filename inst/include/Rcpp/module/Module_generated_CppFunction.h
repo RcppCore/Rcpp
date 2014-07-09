@@ -24,22 +24,22 @@
 
 namespace Rcpp{
 
-template <typename OUT>
+template <typename RESULT_TYPE>
 class CppFunction0 : public CppFunction {
     public:
-        CppFunction0(OUT (*fun)(void), const char* docstring = 0 ) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction0(RESULT_TYPE (*fun)(void), const char* docstring = 0 ) : CppFunction(docstring), ptr_fun(fun){}
         SEXP operator()(SEXP*) {
             BEGIN_RCPP
-            return Rcpp::module_wrap<OUT>( ptr_fun() ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun() ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 0; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(void) ;
+        RESULT_TYPE (*ptr_fun)(void) ;
 } ;
 
 
@@ -64,22 +64,22 @@ class CppFunction0<void> : public CppFunction {
 } ;
 
 
-template <typename OUT>
+template <typename RESULT_TYPE>
 class CppFunction_WithFormals0 : public CppFunction {
     public:
-        CppFunction_WithFormals0(OUT (*fun)(void), Rcpp::List,  const char* docstring = 0 ) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction_WithFormals0(RESULT_TYPE (*fun)(void), Rcpp::List,  const char* docstring = 0 ) : CppFunction(docstring), ptr_fun(fun){}
         SEXP operator()(SEXP*) {
             BEGIN_RCPP
-            return Rcpp::module_wrap<OUT>( ptr_fun() ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun() ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 0; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(void) ;
+        RESULT_TYPE (*ptr_fun)(void) ;
 } ;
 
 
@@ -104,26 +104,26 @@ class CppFunction_WithFormals0<void> : public CppFunction {
 } ;
 
 
-template <typename OUT, typename U0> class CppFunction1 : public CppFunction {
+template <typename RESULT_TYPE, typename U0> class CppFunction1 : public CppFunction {
     public:
 
-        CppFunction1(OUT (*fun)(U0) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction1(RESULT_TYPE (*fun)(U0) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
 
             typename traits::input_parameter< U0 >::type x0( args[0] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 1; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0) ;
+        RESULT_TYPE (*ptr_fun)(U0) ;
 } ;
 
 template <typename U0>
@@ -150,28 +150,28 @@ class CppFunction1<void,U0> : public CppFunction {
 
 
 
-template <typename OUT, typename U0>
+template <typename RESULT_TYPE, typename U0>
 class CppFunction_WithFormals1 : public CppFunction {
     public:
 
-        CppFunction_WithFormals1(OUT (*fun)(U0) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals1(RESULT_TYPE (*fun)(U0) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0( args[0] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 1; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0) ;
+        RESULT_TYPE (*ptr_fun)(U0) ;
 } ;
 
 template <typename U0>
@@ -200,10 +200,10 @@ class CppFunction_WithFormals1<void,U0> : public CppFunction {
 
 
 
-template <typename OUT, typename U0,typename U1> class CppFunction2 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1> class CppFunction2 : public CppFunction {
     public:
 
-        CppFunction2(OUT (*fun)(U0,U1) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction2(RESULT_TYPE (*fun)(U0,U1) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -211,16 +211,16 @@ template <typename OUT, typename U0,typename U1> class CppFunction2 : public Cpp
             typename traits::input_parameter< U0 >::type x0( args[0] ) ;
             typename traits::input_parameter< U1 >::type x1( args[1] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 2; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1) ;
 } ;
 
 template <typename U0, typename U1>
@@ -248,29 +248,29 @@ class CppFunction2<void,U0,U1> : public CppFunction {
 
 
 
-template <typename OUT, typename U0,typename U1>
+template <typename RESULT_TYPE, typename U0,typename U1>
 class CppFunction_WithFormals2 : public CppFunction {
     public:
 
-        CppFunction_WithFormals2(OUT (*fun)(U0,U1) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals2(RESULT_TYPE (*fun)(U0,U1) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0( args[0] ) ;
             typename traits::input_parameter< U1 >::type x1( args[1] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 2; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1) ;
 } ;
 
 template <typename U0, typename U1>
@@ -300,10 +300,10 @@ class CppFunction_WithFormals2<void,U0,U1> : public CppFunction {
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2> class CppFunction3 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2> class CppFunction3 : public CppFunction {
     public:
 
-        CppFunction3(OUT (*fun)(U0,U1,U2) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction3(RESULT_TYPE (*fun)(U0,U1,U2) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -312,16 +312,16 @@ template <typename OUT, typename U0,typename U1,typename U2> class CppFunction3 
             typename traits::input_parameter< U1 >::type x1( args[1] ) ;
             typename traits::input_parameter< U2 >::type x2( args[2] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 3; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2) ;
 } ;
 
 template <typename U0, typename U1, typename U2>
@@ -350,11 +350,11 @@ class CppFunction3<void,U0,U1,U2> : public CppFunction {
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2>
 class CppFunction_WithFormals3 : public CppFunction {
     public:
 
-        CppFunction_WithFormals3(OUT (*fun)(U0,U1,U2) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals3(RESULT_TYPE (*fun)(U0,U1,U2) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -362,18 +362,18 @@ class CppFunction_WithFormals3 : public CppFunction {
             typename traits::input_parameter< U0 >::type x0( args[0] ) ;
             typename traits::input_parameter< U1 >::type x1( args[1] ) ;
             typename traits::input_parameter< U2 >::type x2( args[2] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 3; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2) ;
 } ;
 
 template <typename U0, typename U1, typename U2>
@@ -404,10 +404,10 @@ class CppFunction_WithFormals3<void,U0,U1,U2> : public CppFunction {
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3> class CppFunction4 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3> class CppFunction4 : public CppFunction {
     public:
 
-        CppFunction4(OUT (*fun)(U0,U1,U2,U3) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction4(RESULT_TYPE (*fun)(U0,U1,U2,U3) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -417,16 +417,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3> class C
             typename traits::input_parameter< U2 >::type x2( args[2] ) ;
             typename traits::input_parameter< U3 >::type x3( args[3] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 4; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3>
@@ -456,11 +456,11 @@ class CppFunction4<void,U0,U1,U2,U3> : public CppFunction {
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3>
 class CppFunction_WithFormals4 : public CppFunction {
     public:
 
-        CppFunction_WithFormals4(OUT (*fun)(U0,U1,U2,U3) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals4(RESULT_TYPE (*fun)(U0,U1,U2,U3) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -469,18 +469,18 @@ class CppFunction_WithFormals4 : public CppFunction {
             typename traits::input_parameter< U1 >::type x1( args[1] ) ;
             typename traits::input_parameter< U2 >::type x2( args[2] ) ;
             typename traits::input_parameter< U3 >::type x3( args[3] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 4; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3>
@@ -512,10 +512,10 @@ class CppFunction_WithFormals4<void,U0,U1,U2,U3> : public CppFunction {
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4> class CppFunction5 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4> class CppFunction5 : public CppFunction {
     public:
 
-        CppFunction5(OUT (*fun)(U0,U1,U2,U3,U4) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction5(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -526,16 +526,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U3 >::type x3( args[3] ) ;
             typename traits::input_parameter< U4 >::type x4( args[4] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 5; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4>
@@ -566,11 +566,11 @@ class CppFunction5<void,U0,U1,U2,U3,U4> : public CppFunction {
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4>
 class CppFunction_WithFormals5 : public CppFunction {
     public:
 
-        CppFunction_WithFormals5(OUT (*fun)(U0,U1,U2,U3,U4) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals5(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -580,18 +580,18 @@ class CppFunction_WithFormals5 : public CppFunction {
             typename traits::input_parameter< U2 >::type x2( args[2] ) ;
             typename traits::input_parameter< U3 >::type x3( args[3] ) ;
             typename traits::input_parameter< U4 >::type x4( args[4] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 5; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4>
@@ -624,10 +624,10 @@ class CppFunction_WithFormals5<void,U0,U1,U2,U3,U4> : public CppFunction {
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5> class CppFunction6 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5> class CppFunction6 : public CppFunction {
     public:
 
-        CppFunction6(OUT (*fun)(U0,U1,U2,U3,U4,U5) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction6(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -639,16 +639,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U4 >::type x4( args[4] ) ;
             typename traits::input_parameter< U5 >::type x5( args[5] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 6; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5>
@@ -680,11 +680,11 @@ class CppFunction6<void,U0,U1,U2,U3,U4,U5> : public CppFunction {
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5>
 class CppFunction_WithFormals6 : public CppFunction {
     public:
 
-        CppFunction_WithFormals6(OUT (*fun)(U0,U1,U2,U3,U4,U5) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals6(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -695,18 +695,18 @@ class CppFunction_WithFormals6 : public CppFunction {
             typename traits::input_parameter< U3 >::type x3( args[3] ) ;
             typename traits::input_parameter< U4 >::type x4( args[4] ) ;
             typename traits::input_parameter< U5 >::type x5( args[5] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 6; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5>
@@ -740,10 +740,10 @@ class CppFunction_WithFormals6<void,U0,U1,U2,U3,U4,U5> : public CppFunction {
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6> class CppFunction7 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6> class CppFunction7 : public CppFunction {
     public:
 
-        CppFunction7(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction7(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -756,16 +756,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U5 >::type x5( args[5] ) ;
             typename traits::input_parameter< U6 >::type x6( args[6] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 7; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6>
@@ -798,11 +798,11 @@ class CppFunction7<void,U0,U1,U2,U3,U4,U5,U6> : public CppFunction {
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6>
 class CppFunction_WithFormals7 : public CppFunction {
     public:
 
-        CppFunction_WithFormals7(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals7(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -814,18 +814,18 @@ class CppFunction_WithFormals7 : public CppFunction {
             typename traits::input_parameter< U4 >::type x4( args[4] ) ;
             typename traits::input_parameter< U5 >::type x5( args[5] ) ;
             typename traits::input_parameter< U6 >::type x6( args[6] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 7; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6>
@@ -860,10 +860,10 @@ class CppFunction_WithFormals7<void,U0,U1,U2,U3,U4,U5,U6> : public CppFunction {
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7> class CppFunction8 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7> class CppFunction8 : public CppFunction {
     public:
 
-        CppFunction8(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction8(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -877,16 +877,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U6 >::type x6( args[6] ) ;
             typename traits::input_parameter< U7 >::type x7( args[7] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 8; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7>
@@ -920,11 +920,11 @@ class CppFunction8<void,U0,U1,U2,U3,U4,U5,U6,U7> : public CppFunction {
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7>
 class CppFunction_WithFormals8 : public CppFunction {
     public:
 
-        CppFunction_WithFormals8(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals8(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -937,18 +937,18 @@ class CppFunction_WithFormals8 : public CppFunction {
             typename traits::input_parameter< U5 >::type x5( args[5] ) ;
             typename traits::input_parameter< U6 >::type x6( args[6] ) ;
             typename traits::input_parameter< U7 >::type x7( args[7] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 8; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7>
@@ -984,10 +984,10 @@ class CppFunction_WithFormals8<void,U0,U1,U2,U3,U4,U5,U6,U7> : public CppFunctio
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8> class CppFunction9 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8> class CppFunction9 : public CppFunction {
     public:
 
-        CppFunction9(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction9(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -1002,16 +1002,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U7 >::type x7( args[7] ) ;
             typename traits::input_parameter< U8 >::type x8( args[8] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 9; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8>
@@ -1046,11 +1046,11 @@ class CppFunction9<void,U0,U1,U2,U3,U4,U5,U6,U7,U8> : public CppFunction {
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8>
 class CppFunction_WithFormals9 : public CppFunction {
     public:
 
-        CppFunction_WithFormals9(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals9(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -1064,18 +1064,18 @@ class CppFunction_WithFormals9 : public CppFunction {
             typename traits::input_parameter< U6 >::type x6( args[6] ) ;
             typename traits::input_parameter< U7 >::type x7( args[7] ) ;
             typename traits::input_parameter< U8 >::type x8( args[8] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 9; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8>
@@ -1112,10 +1112,10 @@ class CppFunction_WithFormals9<void,U0,U1,U2,U3,U4,U5,U6,U7,U8> : public CppFunc
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9> class CppFunction10 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9> class CppFunction10 : public CppFunction {
     public:
 
-        CppFunction10(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction10(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -1131,16 +1131,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U8 >::type x8( args[8] ) ;
             typename traits::input_parameter< U9 >::type x9( args[9] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 10; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9>
@@ -1176,11 +1176,11 @@ class CppFunction10<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9> : public CppFunction {
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9>
 class CppFunction_WithFormals10 : public CppFunction {
     public:
 
-        CppFunction_WithFormals10(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals10(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -1195,18 +1195,18 @@ class CppFunction_WithFormals10 : public CppFunction {
             typename traits::input_parameter< U7 >::type x7( args[7] ) ;
             typename traits::input_parameter< U8 >::type x8( args[8] ) ;
             typename traits::input_parameter< U9 >::type x9( args[9] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 10; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9>
@@ -1244,10 +1244,10 @@ class CppFunction_WithFormals10<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9> : public Cpp
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10> class CppFunction11 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10> class CppFunction11 : public CppFunction {
     public:
 
-        CppFunction11(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction11(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -1264,16 +1264,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U9 >::type x9( args[9] ) ;
             typename traits::input_parameter< U10 >::type x10( args[10] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 11; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10>
@@ -1310,11 +1310,11 @@ class CppFunction11<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10> : public CppFunction
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10>
 class CppFunction_WithFormals11 : public CppFunction {
     public:
 
-        CppFunction_WithFormals11(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals11(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -1330,18 +1330,18 @@ class CppFunction_WithFormals11 : public CppFunction {
             typename traits::input_parameter< U8 >::type x8( args[8] ) ;
             typename traits::input_parameter< U9 >::type x9( args[9] ) ;
             typename traits::input_parameter< U10 >::type x10( args[10] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 11; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10>
@@ -1380,10 +1380,10 @@ class CppFunction_WithFormals11<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10> : public
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11> class CppFunction12 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11> class CppFunction12 : public CppFunction {
     public:
 
-        CppFunction12(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction12(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -1401,16 +1401,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U10 >::type x10( args[10] ) ;
             typename traits::input_parameter< U11 >::type x11( args[11] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 12; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11>
@@ -1448,11 +1448,11 @@ class CppFunction12<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11> : public CppFunc
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11>
 class CppFunction_WithFormals12 : public CppFunction {
     public:
 
-        CppFunction_WithFormals12(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals12(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -1469,18 +1469,18 @@ class CppFunction_WithFormals12 : public CppFunction {
             typename traits::input_parameter< U9 >::type x9( args[9] ) ;
             typename traits::input_parameter< U10 >::type x10( args[10] ) ;
             typename traits::input_parameter< U11 >::type x11( args[11] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 12; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11>
@@ -1520,10 +1520,10 @@ class CppFunction_WithFormals12<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11> : pu
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12> class CppFunction13 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12> class CppFunction13 : public CppFunction {
     public:
 
-        CppFunction13(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction13(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -1542,16 +1542,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U11 >::type x11( args[11] ) ;
             typename traits::input_parameter< U12 >::type x12( args[12] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 13; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12>
@@ -1590,11 +1590,11 @@ class CppFunction13<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12> : public Cpp
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12>
 class CppFunction_WithFormals13 : public CppFunction {
     public:
 
-        CppFunction_WithFormals13(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals13(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -1612,18 +1612,18 @@ class CppFunction_WithFormals13 : public CppFunction {
             typename traits::input_parameter< U10 >::type x10( args[10] ) ;
             typename traits::input_parameter< U11 >::type x11( args[11] ) ;
             typename traits::input_parameter< U12 >::type x12( args[12] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 13; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12>
@@ -1664,10 +1664,10 @@ class CppFunction_WithFormals13<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12> 
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13> class CppFunction14 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13> class CppFunction14 : public CppFunction {
     public:
 
-        CppFunction14(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction14(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -1687,16 +1687,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U12 >::type x12( args[12] ) ;
             typename traits::input_parameter< U13 >::type x13( args[13] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 14; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13>
@@ -1736,11 +1736,11 @@ class CppFunction14<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13> : public
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13>
 class CppFunction_WithFormals14 : public CppFunction {
     public:
 
-        CppFunction_WithFormals14(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals14(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -1759,18 +1759,18 @@ class CppFunction_WithFormals14 : public CppFunction {
             typename traits::input_parameter< U11 >::type x11( args[11] ) ;
             typename traits::input_parameter< U12 >::type x12( args[12] ) ;
             typename traits::input_parameter< U13 >::type x13( args[13] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 14; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13>
@@ -1812,10 +1812,10 @@ class CppFunction_WithFormals14<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14> class CppFunction15 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14> class CppFunction15 : public CppFunction {
     public:
 
-        CppFunction15(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction15(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -1836,16 +1836,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U13 >::type x13( args[13] ) ;
             typename traits::input_parameter< U14 >::type x14( args[14] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 15; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14>
@@ -1886,11 +1886,11 @@ class CppFunction15<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14> : pu
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14>
 class CppFunction_WithFormals15 : public CppFunction {
     public:
 
-        CppFunction_WithFormals15(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals15(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -1910,18 +1910,18 @@ class CppFunction_WithFormals15 : public CppFunction {
             typename traits::input_parameter< U12 >::type x12( args[12] ) ;
             typename traits::input_parameter< U13 >::type x13( args[13] ) ;
             typename traits::input_parameter< U14 >::type x14( args[14] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 15; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14>
@@ -1964,10 +1964,10 @@ class CppFunction_WithFormals15<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15> class CppFunction16 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15> class CppFunction16 : public CppFunction {
     public:
 
-        CppFunction16(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction16(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -1989,16 +1989,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U14 >::type x14( args[14] ) ;
             typename traits::input_parameter< U15 >::type x15( args[15] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 16; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15>
@@ -2040,11 +2040,11 @@ class CppFunction16<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15> 
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15>
 class CppFunction_WithFormals16 : public CppFunction {
     public:
 
-        CppFunction_WithFormals16(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals16(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -2065,18 +2065,18 @@ class CppFunction_WithFormals16 : public CppFunction {
             typename traits::input_parameter< U13 >::type x13( args[13] ) ;
             typename traits::input_parameter< U14 >::type x14( args[14] ) ;
             typename traits::input_parameter< U15 >::type x15( args[15] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 16; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15>
@@ -2120,10 +2120,10 @@ class CppFunction_WithFormals16<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16> class CppFunction17 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16> class CppFunction17 : public CppFunction {
     public:
 
-        CppFunction17(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction17(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -2146,16 +2146,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U15 >::type x15( args[15] ) ;
             typename traits::input_parameter< U16 >::type x16( args[16] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 17; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16>
@@ -2198,11 +2198,11 @@ class CppFunction17<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16>
 class CppFunction_WithFormals17 : public CppFunction {
     public:
 
-        CppFunction_WithFormals17(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals17(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -2224,18 +2224,18 @@ class CppFunction_WithFormals17 : public CppFunction {
             typename traits::input_parameter< U14 >::type x14( args[14] ) ;
             typename traits::input_parameter< U15 >::type x15( args[15] ) ;
             typename traits::input_parameter< U16 >::type x16( args[16] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 17; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16>
@@ -2280,10 +2280,10 @@ class CppFunction_WithFormals17<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17> class CppFunction18 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17> class CppFunction18 : public CppFunction {
     public:
 
-        CppFunction18(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction18(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -2307,16 +2307,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U16 >::type x16( args[16] ) ;
             typename traits::input_parameter< U17 >::type x17( args[17] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 18; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17>
@@ -2360,11 +2360,11 @@ class CppFunction18<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17>
 class CppFunction_WithFormals18 : public CppFunction {
     public:
 
-        CppFunction_WithFormals18(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals18(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -2387,18 +2387,18 @@ class CppFunction_WithFormals18 : public CppFunction {
             typename traits::input_parameter< U15 >::type x15( args[15] ) ;
             typename traits::input_parameter< U16 >::type x16( args[16] ) ;
             typename traits::input_parameter< U17 >::type x17( args[17] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 18; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17>
@@ -2444,10 +2444,10 @@ class CppFunction_WithFormals18<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18> class CppFunction19 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18> class CppFunction19 : public CppFunction {
     public:
 
-        CppFunction19(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction19(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -2472,16 +2472,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U17 >::type x17( args[17] ) ;
             typename traits::input_parameter< U18 >::type x18( args[18] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 19; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18>
@@ -2526,11 +2526,11 @@ class CppFunction19<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18>
 class CppFunction_WithFormals19 : public CppFunction {
     public:
 
-        CppFunction_WithFormals19(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals19(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -2554,18 +2554,18 @@ class CppFunction_WithFormals19 : public CppFunction {
             typename traits::input_parameter< U16 >::type x16( args[16] ) ;
             typename traits::input_parameter< U17 >::type x17( args[17] ) ;
             typename traits::input_parameter< U18 >::type x18( args[18] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 19; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18>
@@ -2612,10 +2612,10 @@ class CppFunction_WithFormals19<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19> class CppFunction20 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19> class CppFunction20 : public CppFunction {
     public:
 
-        CppFunction20(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction20(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -2641,16 +2641,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U18 >::type x18( args[18] ) ;
             typename traits::input_parameter< U19 >::type x19( args[19] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 20; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19>
@@ -2696,11 +2696,11 @@ class CppFunction20<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19>
 class CppFunction_WithFormals20 : public CppFunction {
     public:
 
-        CppFunction_WithFormals20(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals20(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -2725,18 +2725,18 @@ class CppFunction_WithFormals20 : public CppFunction {
             typename traits::input_parameter< U17 >::type x17( args[17] ) ;
             typename traits::input_parameter< U18 >::type x18( args[18] ) ;
             typename traits::input_parameter< U19 >::type x19( args[19] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 20; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19>
@@ -2784,10 +2784,10 @@ class CppFunction_WithFormals20<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20> class CppFunction21 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20> class CppFunction21 : public CppFunction {
     public:
 
-        CppFunction21(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction21(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -2814,16 +2814,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U19 >::type x19( args[19] ) ;
             typename traits::input_parameter< U20 >::type x20( args[20] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 21; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20>
@@ -2870,11 +2870,11 @@ class CppFunction21<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20>
 class CppFunction_WithFormals21 : public CppFunction {
     public:
 
-        CppFunction_WithFormals21(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals21(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -2900,18 +2900,18 @@ class CppFunction_WithFormals21 : public CppFunction {
             typename traits::input_parameter< U18 >::type x18( args[18] ) ;
             typename traits::input_parameter< U19 >::type x19( args[19] ) ;
             typename traits::input_parameter< U20 >::type x20( args[20] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 21; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20>
@@ -2960,10 +2960,10 @@ class CppFunction_WithFormals21<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21> class CppFunction22 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21> class CppFunction22 : public CppFunction {
     public:
 
-        CppFunction22(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction22(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -2991,16 +2991,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U20 >::type x20( args[20] ) ;
             typename traits::input_parameter< U21 >::type x21( args[21] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 22; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21>
@@ -3048,11 +3048,11 @@ class CppFunction22<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21>
 class CppFunction_WithFormals22 : public CppFunction {
     public:
 
-        CppFunction_WithFormals22(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals22(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -3079,18 +3079,18 @@ class CppFunction_WithFormals22 : public CppFunction {
             typename traits::input_parameter< U19 >::type x19( args[19] ) ;
             typename traits::input_parameter< U20 >::type x20( args[20] ) ;
             typename traits::input_parameter< U21 >::type x21( args[21] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 22; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21>
@@ -3140,10 +3140,10 @@ class CppFunction_WithFormals22<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22> class CppFunction23 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22> class CppFunction23 : public CppFunction {
     public:
 
-        CppFunction23(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction23(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -3172,16 +3172,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U21 >::type x21( args[21] ) ;
             typename traits::input_parameter< U22 >::type x22( args[22] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 23; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22>
@@ -3230,11 +3230,11 @@ class CppFunction23<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22>
 class CppFunction_WithFormals23 : public CppFunction {
     public:
 
-        CppFunction_WithFormals23(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals23(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -3262,18 +3262,18 @@ class CppFunction_WithFormals23 : public CppFunction {
             typename traits::input_parameter< U20 >::type x20( args[20] ) ;
             typename traits::input_parameter< U21 >::type x21( args[21] ) ;
             typename traits::input_parameter< U22 >::type x22( args[22] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 23; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22>
@@ -3324,10 +3324,10 @@ class CppFunction_WithFormals23<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23> class CppFunction24 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23> class CppFunction24 : public CppFunction {
     public:
 
-        CppFunction24(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction24(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -3357,16 +3357,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U22 >::type x22( args[22] ) ;
             typename traits::input_parameter< U23 >::type x23( args[23] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 24; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23>
@@ -3416,11 +3416,11 @@ class CppFunction24<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23>
 class CppFunction_WithFormals24 : public CppFunction {
     public:
 
-        CppFunction_WithFormals24(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals24(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -3449,18 +3449,18 @@ class CppFunction_WithFormals24 : public CppFunction {
             typename traits::input_parameter< U21 >::type x21( args[21] ) ;
             typename traits::input_parameter< U22 >::type x22( args[22] ) ;
             typename traits::input_parameter< U23 >::type x23( args[23] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 24; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23>
@@ -3512,10 +3512,10 @@ class CppFunction_WithFormals24<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24> class CppFunction25 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24> class CppFunction25 : public CppFunction {
     public:
 
-        CppFunction25(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction25(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -3546,16 +3546,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U23 >::type x23( args[23] ) ;
             typename traits::input_parameter< U24 >::type x24( args[24] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 25; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24>
@@ -3606,11 +3606,11 @@ class CppFunction25<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24>
 class CppFunction_WithFormals25 : public CppFunction {
     public:
 
-        CppFunction_WithFormals25(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals25(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -3640,18 +3640,18 @@ class CppFunction_WithFormals25 : public CppFunction {
             typename traits::input_parameter< U22 >::type x22( args[22] ) ;
             typename traits::input_parameter< U23 >::type x23( args[23] ) ;
             typename traits::input_parameter< U24 >::type x24( args[24] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 25; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24>
@@ -3704,10 +3704,10 @@ class CppFunction_WithFormals25<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25> class CppFunction26 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25> class CppFunction26 : public CppFunction {
     public:
 
-        CppFunction26(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction26(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -3739,16 +3739,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U24 >::type x24( args[24] ) ;
             typename traits::input_parameter< U25 >::type x25( args[25] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 26; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25>
@@ -3800,11 +3800,11 @@ class CppFunction26<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25>
 class CppFunction_WithFormals26 : public CppFunction {
     public:
 
-        CppFunction_WithFormals26(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals26(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -3835,18 +3835,18 @@ class CppFunction_WithFormals26 : public CppFunction {
             typename traits::input_parameter< U23 >::type x23( args[23] ) ;
             typename traits::input_parameter< U24 >::type x24( args[24] ) ;
             typename traits::input_parameter< U25 >::type x25( args[25] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 26; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25>
@@ -3900,10 +3900,10 @@ class CppFunction_WithFormals26<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26> class CppFunction27 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26> class CppFunction27 : public CppFunction {
     public:
 
-        CppFunction27(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction27(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -3936,16 +3936,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U25 >::type x25( args[25] ) ;
             typename traits::input_parameter< U26 >::type x26( args[26] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 27; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26>
@@ -3998,11 +3998,11 @@ class CppFunction27<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26>
 class CppFunction_WithFormals27 : public CppFunction {
     public:
 
-        CppFunction_WithFormals27(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals27(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -4034,18 +4034,18 @@ class CppFunction_WithFormals27 : public CppFunction {
             typename traits::input_parameter< U24 >::type x24( args[24] ) ;
             typename traits::input_parameter< U25 >::type x25( args[25] ) ;
             typename traits::input_parameter< U26 >::type x26( args[26] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 27; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26>
@@ -4100,10 +4100,10 @@ class CppFunction_WithFormals27<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27> class CppFunction28 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27> class CppFunction28 : public CppFunction {
     public:
 
-        CppFunction28(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction28(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -4137,16 +4137,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U26 >::type x26( args[26] ) ;
             typename traits::input_parameter< U27 >::type x27( args[27] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 28; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27>
@@ -4200,11 +4200,11 @@ class CppFunction28<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27>
 class CppFunction_WithFormals28 : public CppFunction {
     public:
 
-        CppFunction_WithFormals28(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals28(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -4237,18 +4237,18 @@ class CppFunction_WithFormals28 : public CppFunction {
             typename traits::input_parameter< U25 >::type x25( args[25] ) ;
             typename traits::input_parameter< U26 >::type x26( args[26] ) ;
             typename traits::input_parameter< U27 >::type x27( args[27] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 28; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27>
@@ -4304,10 +4304,10 @@ class CppFunction_WithFormals28<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28> class CppFunction29 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28> class CppFunction29 : public CppFunction {
     public:
 
-        CppFunction29(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction29(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -4342,16 +4342,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U27 >::type x27( args[27] ) ;
             typename traits::input_parameter< U28 >::type x28( args[28] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 29; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28>
@@ -4406,11 +4406,11 @@ class CppFunction29<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28>
 class CppFunction_WithFormals29 : public CppFunction {
     public:
 
-        CppFunction_WithFormals29(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals29(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -4444,18 +4444,18 @@ class CppFunction_WithFormals29 : public CppFunction {
             typename traits::input_parameter< U26 >::type x26( args[26] ) ;
             typename traits::input_parameter< U27 >::type x27( args[27] ) ;
             typename traits::input_parameter< U28 >::type x28( args[28] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 29; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28>
@@ -4512,10 +4512,10 @@ class CppFunction_WithFormals29<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29> class CppFunction30 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29> class CppFunction30 : public CppFunction {
     public:
 
-        CppFunction30(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction30(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -4551,16 +4551,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U28 >::type x28( args[28] ) ;
             typename traits::input_parameter< U29 >::type x29( args[29] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 30; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29>
@@ -4616,11 +4616,11 @@ class CppFunction30<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29>
 class CppFunction_WithFormals30 : public CppFunction {
     public:
 
-        CppFunction_WithFormals30(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals30(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -4655,18 +4655,18 @@ class CppFunction_WithFormals30 : public CppFunction {
             typename traits::input_parameter< U27 >::type x27( args[27] ) ;
             typename traits::input_parameter< U28 >::type x28( args[28] ) ;
             typename traits::input_parameter< U29 >::type x29( args[29] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 30; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29>
@@ -4724,10 +4724,10 @@ class CppFunction_WithFormals30<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30> class CppFunction31 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30> class CppFunction31 : public CppFunction {
     public:
 
-        CppFunction31(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction31(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -4764,16 +4764,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U29 >::type x29( args[29] ) ;
             typename traits::input_parameter< U30 >::type x30( args[30] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 31; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30>
@@ -4830,11 +4830,11 @@ class CppFunction31<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30>
 class CppFunction_WithFormals31 : public CppFunction {
     public:
 
-        CppFunction_WithFormals31(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals31(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -4870,18 +4870,18 @@ class CppFunction_WithFormals31 : public CppFunction {
             typename traits::input_parameter< U28 >::type x28( args[28] ) ;
             typename traits::input_parameter< U29 >::type x29( args[29] ) ;
             typename traits::input_parameter< U30 >::type x30( args[30] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 31; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30>
@@ -4940,10 +4940,10 @@ class CppFunction_WithFormals31<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31> class CppFunction32 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31> class CppFunction32 : public CppFunction {
     public:
 
-        CppFunction32(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction32(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -4981,16 +4981,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U30 >::type x30( args[30] ) ;
             typename traits::input_parameter< U31 >::type x31( args[31] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 32; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31>
@@ -5048,11 +5048,11 @@ class CppFunction32<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31>
 class CppFunction_WithFormals32 : public CppFunction {
     public:
 
-        CppFunction_WithFormals32(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals32(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -5089,18 +5089,18 @@ class CppFunction_WithFormals32 : public CppFunction {
             typename traits::input_parameter< U29 >::type x29( args[29] ) ;
             typename traits::input_parameter< U30 >::type x30( args[30] ) ;
             typename traits::input_parameter< U31 >::type x31( args[31] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 32; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31>
@@ -5160,10 +5160,10 @@ class CppFunction_WithFormals32<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32> class CppFunction33 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32> class CppFunction33 : public CppFunction {
     public:
 
-        CppFunction33(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction33(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -5202,16 +5202,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U31 >::type x31( args[31] ) ;
             typename traits::input_parameter< U32 >::type x32( args[32] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 33; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32>
@@ -5270,11 +5270,11 @@ class CppFunction33<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32>
 class CppFunction_WithFormals33 : public CppFunction {
     public:
 
-        CppFunction_WithFormals33(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals33(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -5312,18 +5312,18 @@ class CppFunction_WithFormals33 : public CppFunction {
             typename traits::input_parameter< U30 >::type x30( args[30] ) ;
             typename traits::input_parameter< U31 >::type x31( args[31] ) ;
             typename traits::input_parameter< U32 >::type x32( args[32] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 33; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32>
@@ -5384,10 +5384,10 @@ class CppFunction_WithFormals33<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33> class CppFunction34 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33> class CppFunction34 : public CppFunction {
     public:
 
-        CppFunction34(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction34(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -5427,16 +5427,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U32 >::type x32( args[32] ) ;
             typename traits::input_parameter< U33 >::type x33( args[33] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 34; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33>
@@ -5496,11 +5496,11 @@ class CppFunction34<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33>
 class CppFunction_WithFormals34 : public CppFunction {
     public:
 
-        CppFunction_WithFormals34(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals34(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -5539,18 +5539,18 @@ class CppFunction_WithFormals34 : public CppFunction {
             typename traits::input_parameter< U31 >::type x31( args[31] ) ;
             typename traits::input_parameter< U32 >::type x32( args[32] ) ;
             typename traits::input_parameter< U33 >::type x33( args[33] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 34; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33>
@@ -5612,10 +5612,10 @@ class CppFunction_WithFormals34<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34> class CppFunction35 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34> class CppFunction35 : public CppFunction {
     public:
 
-        CppFunction35(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction35(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -5656,16 +5656,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U33 >::type x33( args[33] ) ;
             typename traits::input_parameter< U34 >::type x34( args[34] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 35; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34>
@@ -5726,11 +5726,11 @@ class CppFunction35<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34>
 class CppFunction_WithFormals35 : public CppFunction {
     public:
 
-        CppFunction_WithFormals35(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals35(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -5770,18 +5770,18 @@ class CppFunction_WithFormals35 : public CppFunction {
             typename traits::input_parameter< U32 >::type x32( args[32] ) ;
             typename traits::input_parameter< U33 >::type x33( args[33] ) ;
             typename traits::input_parameter< U34 >::type x34( args[34] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 35; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34>
@@ -5844,10 +5844,10 @@ class CppFunction_WithFormals35<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35> class CppFunction36 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35> class CppFunction36 : public CppFunction {
     public:
 
-        CppFunction36(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction36(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -5889,16 +5889,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U34 >::type x34( args[34] ) ;
             typename traits::input_parameter< U35 >::type x35( args[35] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 36; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35>
@@ -5960,11 +5960,11 @@ class CppFunction36<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35>
 class CppFunction_WithFormals36 : public CppFunction {
     public:
 
-        CppFunction_WithFormals36(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals36(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -6005,18 +6005,18 @@ class CppFunction_WithFormals36 : public CppFunction {
             typename traits::input_parameter< U33 >::type x33( args[33] ) ;
             typename traits::input_parameter< U34 >::type x34( args[34] ) ;
             typename traits::input_parameter< U35 >::type x35( args[35] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 36; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35>
@@ -6080,10 +6080,10 @@ class CppFunction_WithFormals36<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36> class CppFunction37 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36> class CppFunction37 : public CppFunction {
     public:
 
-        CppFunction37(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction37(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -6126,16 +6126,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U35 >::type x35( args[35] ) ;
             typename traits::input_parameter< U36 >::type x36( args[36] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 37; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36>
@@ -6198,11 +6198,11 @@ class CppFunction37<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36>
 class CppFunction_WithFormals37 : public CppFunction {
     public:
 
-        CppFunction_WithFormals37(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals37(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -6244,18 +6244,18 @@ class CppFunction_WithFormals37 : public CppFunction {
             typename traits::input_parameter< U34 >::type x34( args[34] ) ;
             typename traits::input_parameter< U35 >::type x35( args[35] ) ;
             typename traits::input_parameter< U36 >::type x36( args[36] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 37; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36>
@@ -6320,10 +6320,10 @@ class CppFunction_WithFormals37<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37> class CppFunction38 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37> class CppFunction38 : public CppFunction {
     public:
 
-        CppFunction38(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction38(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -6367,16 +6367,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U36 >::type x36( args[36] ) ;
             typename traits::input_parameter< U37 >::type x37( args[37] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 38; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37>
@@ -6440,11 +6440,11 @@ class CppFunction38<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37>
 class CppFunction_WithFormals38 : public CppFunction {
     public:
 
-        CppFunction_WithFormals38(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals38(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -6487,18 +6487,18 @@ class CppFunction_WithFormals38 : public CppFunction {
             typename traits::input_parameter< U35 >::type x35( args[35] ) ;
             typename traits::input_parameter< U36 >::type x36( args[36] ) ;
             typename traits::input_parameter< U37 >::type x37( args[37] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 38; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37>
@@ -6564,10 +6564,10 @@ class CppFunction_WithFormals38<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38> class CppFunction39 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38> class CppFunction39 : public CppFunction {
     public:
 
-        CppFunction39(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction39(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -6612,16 +6612,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U37 >::type x37( args[37] ) ;
             typename traits::input_parameter< U38 >::type x38( args[38] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 39; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38>
@@ -6686,11 +6686,11 @@ class CppFunction39<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38>
 class CppFunction_WithFormals39 : public CppFunction {
     public:
 
-        CppFunction_WithFormals39(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals39(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -6734,18 +6734,18 @@ class CppFunction_WithFormals39 : public CppFunction {
             typename traits::input_parameter< U36 >::type x36( args[36] ) ;
             typename traits::input_parameter< U37 >::type x37( args[37] ) ;
             typename traits::input_parameter< U38 >::type x38( args[38] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 39; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38>
@@ -6812,10 +6812,10 @@ class CppFunction_WithFormals39<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39> class CppFunction40 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39> class CppFunction40 : public CppFunction {
     public:
 
-        CppFunction40(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction40(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -6861,16 +6861,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U38 >::type x38( args[38] ) ;
             typename traits::input_parameter< U39 >::type x39( args[39] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 40; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39>
@@ -6936,11 +6936,11 @@ class CppFunction40<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39>
 class CppFunction_WithFormals40 : public CppFunction {
     public:
 
-        CppFunction_WithFormals40(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals40(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -6985,18 +6985,18 @@ class CppFunction_WithFormals40 : public CppFunction {
             typename traits::input_parameter< U37 >::type x37( args[37] ) ;
             typename traits::input_parameter< U38 >::type x38( args[38] ) ;
             typename traits::input_parameter< U39 >::type x39( args[39] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 40; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39>
@@ -7064,10 +7064,10 @@ class CppFunction_WithFormals40<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40> class CppFunction41 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40> class CppFunction41 : public CppFunction {
     public:
 
-        CppFunction41(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction41(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -7114,16 +7114,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U39 >::type x39( args[39] ) ;
             typename traits::input_parameter< U40 >::type x40( args[40] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 41; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40>
@@ -7190,11 +7190,11 @@ class CppFunction41<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40>
 class CppFunction_WithFormals41 : public CppFunction {
     public:
 
-        CppFunction_WithFormals41(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals41(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -7240,18 +7240,18 @@ class CppFunction_WithFormals41 : public CppFunction {
             typename traits::input_parameter< U38 >::type x38( args[38] ) ;
             typename traits::input_parameter< U39 >::type x39( args[39] ) ;
             typename traits::input_parameter< U40 >::type x40( args[40] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 41; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40>
@@ -7320,10 +7320,10 @@ class CppFunction_WithFormals41<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41> class CppFunction42 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41> class CppFunction42 : public CppFunction {
     public:
 
-        CppFunction42(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction42(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -7371,16 +7371,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U40 >::type x40( args[40] ) ;
             typename traits::input_parameter< U41 >::type x41( args[41] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 42; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41>
@@ -7448,11 +7448,11 @@ class CppFunction42<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41>
 class CppFunction_WithFormals42 : public CppFunction {
     public:
 
-        CppFunction_WithFormals42(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals42(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -7499,18 +7499,18 @@ class CppFunction_WithFormals42 : public CppFunction {
             typename traits::input_parameter< U39 >::type x39( args[39] ) ;
             typename traits::input_parameter< U40 >::type x40( args[40] ) ;
             typename traits::input_parameter< U41 >::type x41( args[41] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 42; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41>
@@ -7580,10 +7580,10 @@ class CppFunction_WithFormals42<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42> class CppFunction43 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42> class CppFunction43 : public CppFunction {
     public:
 
-        CppFunction43(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction43(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -7632,16 +7632,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U41 >::type x41( args[41] ) ;
             typename traits::input_parameter< U42 >::type x42( args[42] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 43; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42>
@@ -7710,11 +7710,11 @@ class CppFunction43<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42>
 class CppFunction_WithFormals43 : public CppFunction {
     public:
 
-        CppFunction_WithFormals43(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals43(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -7762,18 +7762,18 @@ class CppFunction_WithFormals43 : public CppFunction {
             typename traits::input_parameter< U40 >::type x40( args[40] ) ;
             typename traits::input_parameter< U41 >::type x41( args[41] ) ;
             typename traits::input_parameter< U42 >::type x42( args[42] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 43; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42>
@@ -7844,10 +7844,10 @@ class CppFunction_WithFormals43<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43> class CppFunction44 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43> class CppFunction44 : public CppFunction {
     public:
 
-        CppFunction44(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction44(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -7897,16 +7897,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U42 >::type x42( args[42] ) ;
             typename traits::input_parameter< U43 >::type x43( args[43] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 44; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43>
@@ -7976,11 +7976,11 @@ class CppFunction44<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43>
 class CppFunction_WithFormals44 : public CppFunction {
     public:
 
-        CppFunction_WithFormals44(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals44(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -8029,18 +8029,18 @@ class CppFunction_WithFormals44 : public CppFunction {
             typename traits::input_parameter< U41 >::type x41( args[41] ) ;
             typename traits::input_parameter< U42 >::type x42( args[42] ) ;
             typename traits::input_parameter< U43 >::type x43( args[43] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 44; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43>
@@ -8112,10 +8112,10 @@ class CppFunction_WithFormals44<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44> class CppFunction45 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44> class CppFunction45 : public CppFunction {
     public:
 
-        CppFunction45(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction45(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -8166,16 +8166,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U43 >::type x43( args[43] ) ;
             typename traits::input_parameter< U44 >::type x44( args[44] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 45; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44>
@@ -8246,11 +8246,11 @@ class CppFunction45<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44>
 class CppFunction_WithFormals45 : public CppFunction {
     public:
 
-        CppFunction_WithFormals45(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals45(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -8300,18 +8300,18 @@ class CppFunction_WithFormals45 : public CppFunction {
             typename traits::input_parameter< U42 >::type x42( args[42] ) ;
             typename traits::input_parameter< U43 >::type x43( args[43] ) ;
             typename traits::input_parameter< U44 >::type x44( args[44] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 45; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44>
@@ -8384,10 +8384,10 @@ class CppFunction_WithFormals45<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45> class CppFunction46 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45> class CppFunction46 : public CppFunction {
     public:
 
-        CppFunction46(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction46(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -8439,16 +8439,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U44 >::type x44( args[44] ) ;
             typename traits::input_parameter< U45 >::type x45( args[45] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 46; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45>
@@ -8520,11 +8520,11 @@ class CppFunction46<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45>
 class CppFunction_WithFormals46 : public CppFunction {
     public:
 
-        CppFunction_WithFormals46(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals46(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -8575,18 +8575,18 @@ class CppFunction_WithFormals46 : public CppFunction {
             typename traits::input_parameter< U43 >::type x43( args[43] ) ;
             typename traits::input_parameter< U44 >::type x44( args[44] ) ;
             typename traits::input_parameter< U45 >::type x45( args[45] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 46; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45>
@@ -8660,10 +8660,10 @@ class CppFunction_WithFormals46<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46> class CppFunction47 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46> class CppFunction47 : public CppFunction {
     public:
 
-        CppFunction47(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction47(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -8716,16 +8716,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U45 >::type x45( args[45] ) ;
             typename traits::input_parameter< U46 >::type x46( args[46] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 47; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46>
@@ -8798,11 +8798,11 @@ class CppFunction47<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46>
 class CppFunction_WithFormals47 : public CppFunction {
     public:
 
-        CppFunction_WithFormals47(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals47(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -8854,18 +8854,18 @@ class CppFunction_WithFormals47 : public CppFunction {
             typename traits::input_parameter< U44 >::type x44( args[44] ) ;
             typename traits::input_parameter< U45 >::type x45( args[45] ) ;
             typename traits::input_parameter< U46 >::type x46( args[46] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 47; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46>
@@ -8940,10 +8940,10 @@ class CppFunction_WithFormals47<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47> class CppFunction48 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47> class CppFunction48 : public CppFunction {
     public:
 
-        CppFunction48(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction48(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -8997,16 +8997,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U46 >::type x46( args[46] ) ;
             typename traits::input_parameter< U47 >::type x47( args[47] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 48; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47>
@@ -9080,11 +9080,11 @@ class CppFunction48<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47>
 class CppFunction_WithFormals48 : public CppFunction {
     public:
 
-        CppFunction_WithFormals48(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals48(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -9137,18 +9137,18 @@ class CppFunction_WithFormals48 : public CppFunction {
             typename traits::input_parameter< U45 >::type x45( args[45] ) ;
             typename traits::input_parameter< U46 >::type x46( args[46] ) ;
             typename traits::input_parameter< U47 >::type x47( args[47] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 48; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47>
@@ -9224,10 +9224,10 @@ class CppFunction_WithFormals48<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48> class CppFunction49 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48> class CppFunction49 : public CppFunction {
     public:
 
-        CppFunction49(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction49(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -9282,16 +9282,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U47 >::type x47( args[47] ) ;
             typename traits::input_parameter< U48 >::type x48( args[48] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 49; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48>
@@ -9366,11 +9366,11 @@ class CppFunction49<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48>
 class CppFunction_WithFormals49 : public CppFunction {
     public:
 
-        CppFunction_WithFormals49(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals49(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -9424,18 +9424,18 @@ class CppFunction_WithFormals49 : public CppFunction {
             typename traits::input_parameter< U46 >::type x46( args[46] ) ;
             typename traits::input_parameter< U47 >::type x47( args[47] ) ;
             typename traits::input_parameter< U48 >::type x48( args[48] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 49; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48>
@@ -9512,10 +9512,10 @@ class CppFunction_WithFormals49<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49> class CppFunction50 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49> class CppFunction50 : public CppFunction {
     public:
 
-        CppFunction50(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction50(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -9571,16 +9571,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U48 >::type x48( args[48] ) ;
             typename traits::input_parameter< U49 >::type x49( args[49] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 50; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49>
@@ -9656,11 +9656,11 @@ class CppFunction50<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49>
 class CppFunction_WithFormals50 : public CppFunction {
     public:
 
-        CppFunction_WithFormals50(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals50(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -9715,18 +9715,18 @@ class CppFunction_WithFormals50 : public CppFunction {
             typename traits::input_parameter< U47 >::type x47( args[47] ) ;
             typename traits::input_parameter< U48 >::type x48( args[48] ) ;
             typename traits::input_parameter< U49 >::type x49( args[49] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 50; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49>
@@ -9804,10 +9804,10 @@ class CppFunction_WithFormals50<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50> class CppFunction51 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50> class CppFunction51 : public CppFunction {
     public:
 
-        CppFunction51(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction51(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -9864,16 +9864,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U49 >::type x49( args[49] ) ;
             typename traits::input_parameter< U50 >::type x50( args[50] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 51; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50>
@@ -9950,11 +9950,11 @@ class CppFunction51<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50>
 class CppFunction_WithFormals51 : public CppFunction {
     public:
 
-        CppFunction_WithFormals51(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals51(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -10010,18 +10010,18 @@ class CppFunction_WithFormals51 : public CppFunction {
             typename traits::input_parameter< U48 >::type x48( args[48] ) ;
             typename traits::input_parameter< U49 >::type x49( args[49] ) ;
             typename traits::input_parameter< U50 >::type x50( args[50] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 51; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50>
@@ -10100,10 +10100,10 @@ class CppFunction_WithFormals51<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51> class CppFunction52 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51> class CppFunction52 : public CppFunction {
     public:
 
-        CppFunction52(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction52(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -10161,16 +10161,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U50 >::type x50( args[50] ) ;
             typename traits::input_parameter< U51 >::type x51( args[51] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 52; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51>
@@ -10248,11 +10248,11 @@ class CppFunction52<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51>
 class CppFunction_WithFormals52 : public CppFunction {
     public:
 
-        CppFunction_WithFormals52(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals52(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -10309,18 +10309,18 @@ class CppFunction_WithFormals52 : public CppFunction {
             typename traits::input_parameter< U49 >::type x49( args[49] ) ;
             typename traits::input_parameter< U50 >::type x50( args[50] ) ;
             typename traits::input_parameter< U51 >::type x51( args[51] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 52; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51>
@@ -10400,10 +10400,10 @@ class CppFunction_WithFormals52<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52> class CppFunction53 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52> class CppFunction53 : public CppFunction {
     public:
 
-        CppFunction53(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction53(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -10462,16 +10462,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U51 >::type x51( args[51] ) ;
             typename traits::input_parameter< U52 >::type x52( args[52] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 53; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52>
@@ -10550,11 +10550,11 @@ class CppFunction53<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52>
 class CppFunction_WithFormals53 : public CppFunction {
     public:
 
-        CppFunction_WithFormals53(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals53(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -10612,18 +10612,18 @@ class CppFunction_WithFormals53 : public CppFunction {
             typename traits::input_parameter< U50 >::type x50( args[50] ) ;
             typename traits::input_parameter< U51 >::type x51( args[51] ) ;
             typename traits::input_parameter< U52 >::type x52( args[52] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 53; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52>
@@ -10704,10 +10704,10 @@ class CppFunction_WithFormals53<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53> class CppFunction54 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53> class CppFunction54 : public CppFunction {
     public:
 
-        CppFunction54(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction54(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -10767,16 +10767,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U52 >::type x52( args[52] ) ;
             typename traits::input_parameter< U53 >::type x53( args[53] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 54; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53>
@@ -10856,11 +10856,11 @@ class CppFunction54<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53>
 class CppFunction_WithFormals54 : public CppFunction {
     public:
 
-        CppFunction_WithFormals54(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals54(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -10919,18 +10919,18 @@ class CppFunction_WithFormals54 : public CppFunction {
             typename traits::input_parameter< U51 >::type x51( args[51] ) ;
             typename traits::input_parameter< U52 >::type x52( args[52] ) ;
             typename traits::input_parameter< U53 >::type x53( args[53] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 54; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53>
@@ -11012,10 +11012,10 @@ class CppFunction_WithFormals54<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54> class CppFunction55 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54> class CppFunction55 : public CppFunction {
     public:
 
-        CppFunction55(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction55(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -11076,16 +11076,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U53 >::type x53( args[53] ) ;
             typename traits::input_parameter< U54 >::type x54( args[54] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 55; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54>
@@ -11166,11 +11166,11 @@ class CppFunction55<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54>
 class CppFunction_WithFormals55 : public CppFunction {
     public:
 
-        CppFunction_WithFormals55(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals55(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -11230,18 +11230,18 @@ class CppFunction_WithFormals55 : public CppFunction {
             typename traits::input_parameter< U52 >::type x52( args[52] ) ;
             typename traits::input_parameter< U53 >::type x53( args[53] ) ;
             typename traits::input_parameter< U54 >::type x54( args[54] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 55; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54>
@@ -11324,10 +11324,10 @@ class CppFunction_WithFormals55<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55> class CppFunction56 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55> class CppFunction56 : public CppFunction {
     public:
 
-        CppFunction56(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction56(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -11389,16 +11389,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U54 >::type x54( args[54] ) ;
             typename traits::input_parameter< U55 >::type x55( args[55] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 56; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55>
@@ -11480,11 +11480,11 @@ class CppFunction56<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55>
 class CppFunction_WithFormals56 : public CppFunction {
     public:
 
-        CppFunction_WithFormals56(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals56(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -11545,18 +11545,18 @@ class CppFunction_WithFormals56 : public CppFunction {
             typename traits::input_parameter< U53 >::type x53( args[53] ) ;
             typename traits::input_parameter< U54 >::type x54( args[54] ) ;
             typename traits::input_parameter< U55 >::type x55( args[55] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 56; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55>
@@ -11640,10 +11640,10 @@ class CppFunction_WithFormals56<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56> class CppFunction57 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56> class CppFunction57 : public CppFunction {
     public:
 
-        CppFunction57(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction57(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -11706,16 +11706,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U55 >::type x55( args[55] ) ;
             typename traits::input_parameter< U56 >::type x56( args[56] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 57; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56>
@@ -11798,11 +11798,11 @@ class CppFunction57<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56>
 class CppFunction_WithFormals57 : public CppFunction {
     public:
 
-        CppFunction_WithFormals57(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals57(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -11864,18 +11864,18 @@ class CppFunction_WithFormals57 : public CppFunction {
             typename traits::input_parameter< U54 >::type x54( args[54] ) ;
             typename traits::input_parameter< U55 >::type x55( args[55] ) ;
             typename traits::input_parameter< U56 >::type x56( args[56] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 57; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56>
@@ -11960,10 +11960,10 @@ class CppFunction_WithFormals57<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56,typename U57> class CppFunction58 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56,typename U57> class CppFunction58 : public CppFunction {
     public:
 
-        CppFunction58(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction58(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -12027,16 +12027,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U56 >::type x56( args[56] ) ;
             typename traits::input_parameter< U57 >::type x57( args[57] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 58; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57>
@@ -12120,11 +12120,11 @@ class CppFunction58<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56,typename U57>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56,typename U57>
 class CppFunction_WithFormals58 : public CppFunction {
     public:
 
-        CppFunction_WithFormals58(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals58(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -12187,18 +12187,18 @@ class CppFunction_WithFormals58 : public CppFunction {
             typename traits::input_parameter< U55 >::type x55( args[55] ) ;
             typename traits::input_parameter< U56 >::type x56( args[56] ) ;
             typename traits::input_parameter< U57 >::type x57( args[57] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 58; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57>
@@ -12284,10 +12284,10 @@ class CppFunction_WithFormals58<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56,typename U57,typename U58> class CppFunction59 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56,typename U57,typename U58> class CppFunction59 : public CppFunction {
     public:
 
-        CppFunction59(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction59(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -12352,16 +12352,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U57 >::type x57( args[57] ) ;
             typename traits::input_parameter< U58 >::type x58( args[58] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 59; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58>
@@ -12446,11 +12446,11 @@ class CppFunction59<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56,typename U57,typename U58>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56,typename U57,typename U58>
 class CppFunction_WithFormals59 : public CppFunction {
     public:
 
-        CppFunction_WithFormals59(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals59(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -12514,18 +12514,18 @@ class CppFunction_WithFormals59 : public CppFunction {
             typename traits::input_parameter< U56 >::type x56( args[56] ) ;
             typename traits::input_parameter< U57 >::type x57( args[57] ) ;
             typename traits::input_parameter< U58 >::type x58( args[58] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 59; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58>
@@ -12612,10 +12612,10 @@ class CppFunction_WithFormals59<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56,typename U57,typename U58,typename U59> class CppFunction60 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56,typename U57,typename U58,typename U59> class CppFunction60 : public CppFunction {
     public:
 
-        CppFunction60(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction60(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -12681,16 +12681,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U58 >::type x58( args[58] ) ;
             typename traits::input_parameter< U59 >::type x59( args[59] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 60; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59>
@@ -12776,11 +12776,11 @@ class CppFunction60<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56,typename U57,typename U58,typename U59>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56,typename U57,typename U58,typename U59>
 class CppFunction_WithFormals60 : public CppFunction {
     public:
 
-        CppFunction_WithFormals60(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals60(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -12845,18 +12845,18 @@ class CppFunction_WithFormals60 : public CppFunction {
             typename traits::input_parameter< U57 >::type x57( args[57] ) ;
             typename traits::input_parameter< U58 >::type x58( args[58] ) ;
             typename traits::input_parameter< U59 >::type x59( args[59] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 60; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59>
@@ -12944,10 +12944,10 @@ class CppFunction_WithFormals60<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56,typename U57,typename U58,typename U59,typename U60> class CppFunction61 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56,typename U57,typename U58,typename U59,typename U60> class CppFunction61 : public CppFunction {
     public:
 
-        CppFunction61(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction61(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -13014,16 +13014,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U59 >::type x59( args[59] ) ;
             typename traits::input_parameter< U60 >::type x60( args[60] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 61; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60>
@@ -13110,11 +13110,11 @@ class CppFunction61<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56,typename U57,typename U58,typename U59,typename U60>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56,typename U57,typename U58,typename U59,typename U60>
 class CppFunction_WithFormals61 : public CppFunction {
     public:
 
-        CppFunction_WithFormals61(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals61(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -13180,18 +13180,18 @@ class CppFunction_WithFormals61 : public CppFunction {
             typename traits::input_parameter< U58 >::type x58( args[58] ) ;
             typename traits::input_parameter< U59 >::type x59( args[59] ) ;
             typename traits::input_parameter< U60 >::type x60( args[60] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 61; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60>
@@ -13280,10 +13280,10 @@ class CppFunction_WithFormals61<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56,typename U57,typename U58,typename U59,typename U60,typename U61> class CppFunction62 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56,typename U57,typename U58,typename U59,typename U60,typename U61> class CppFunction62 : public CppFunction {
     public:
 
-        CppFunction62(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction62(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -13351,16 +13351,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U60 >::type x60( args[60] ) ;
             typename traits::input_parameter< U61 >::type x61( args[61] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 62; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61>
@@ -13448,11 +13448,11 @@ class CppFunction62<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56,typename U57,typename U58,typename U59,typename U60,typename U61>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56,typename U57,typename U58,typename U59,typename U60,typename U61>
 class CppFunction_WithFormals62 : public CppFunction {
     public:
 
-        CppFunction_WithFormals62(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals62(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -13519,18 +13519,18 @@ class CppFunction_WithFormals62 : public CppFunction {
             typename traits::input_parameter< U59 >::type x59( args[59] ) ;
             typename traits::input_parameter< U60 >::type x60( args[60] ) ;
             typename traits::input_parameter< U61 >::type x61( args[61] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 62; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61>
@@ -13620,10 +13620,10 @@ class CppFunction_WithFormals62<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56,typename U57,typename U58,typename U59,typename U60,typename U61,typename U62> class CppFunction63 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56,typename U57,typename U58,typename U59,typename U60,typename U61,typename U62> class CppFunction63 : public CppFunction {
     public:
 
-        CppFunction63(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction63(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -13692,16 +13692,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U61 >::type x61( args[61] ) ;
             typename traits::input_parameter< U62 >::type x62( args[62] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61,x62 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61,x62 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 63; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62>
@@ -13790,11 +13790,11 @@ class CppFunction63<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56,typename U57,typename U58,typename U59,typename U60,typename U61,typename U62>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56,typename U57,typename U58,typename U59,typename U60,typename U61,typename U62>
 class CppFunction_WithFormals63 : public CppFunction {
     public:
 
-        CppFunction_WithFormals63(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals63(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -13862,18 +13862,18 @@ class CppFunction_WithFormals63 : public CppFunction {
             typename traits::input_parameter< U60 >::type x60( args[60] ) ;
             typename traits::input_parameter< U61 >::type x61( args[61] ) ;
             typename traits::input_parameter< U62 >::type x62( args[62] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61,x62 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61,x62 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 63; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62>
@@ -13964,10 +13964,10 @@ class CppFunction_WithFormals63<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56,typename U57,typename U58,typename U59,typename U60,typename U61,typename U62,typename U63> class CppFunction64 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56,typename U57,typename U58,typename U59,typename U60,typename U61,typename U62,typename U63> class CppFunction64 : public CppFunction {
     public:
 
-        CppFunction64(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62,U63) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction64(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62,U63) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -14037,16 +14037,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U62 >::type x62( args[62] ) ;
             typename traits::input_parameter< U63 >::type x63( args[63] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61,x62,x63 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61,x62,x63 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 64; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62,U63>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62,U63>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62,U63) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62,U63) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62, typename U63>
@@ -14136,11 +14136,11 @@ class CppFunction64<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56,typename U57,typename U58,typename U59,typename U60,typename U61,typename U62,typename U63>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56,typename U57,typename U58,typename U59,typename U60,typename U61,typename U62,typename U63>
 class CppFunction_WithFormals64 : public CppFunction {
     public:
 
-        CppFunction_WithFormals64(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62,U63) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals64(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62,U63) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -14209,18 +14209,18 @@ class CppFunction_WithFormals64 : public CppFunction {
             typename traits::input_parameter< U61 >::type x61( args[61] ) ;
             typename traits::input_parameter< U62 >::type x62( args[62] ) ;
             typename traits::input_parameter< U63 >::type x63( args[63] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61,x62,x63 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61,x62,x63 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 64; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62,U63>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62,U63>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62,U63) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62,U63) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62, typename U63>
@@ -14312,10 +14312,10 @@ class CppFunction_WithFormals64<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56,typename U57,typename U58,typename U59,typename U60,typename U61,typename U62,typename U63,typename U64> class CppFunction65 : public CppFunction {
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56,typename U57,typename U58,typename U59,typename U60,typename U61,typename U62,typename U63,typename U64> class CppFunction65 : public CppFunction {
     public:
 
-        CppFunction65(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62,U63,U64) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
+        CppFunction65(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62,U63,U64) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
             BEGIN_RCPP
@@ -14386,16 +14386,16 @@ template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename
             typename traits::input_parameter< U63 >::type x63( args[63] ) ;
             typename traits::input_parameter< U64 >::type x64( args[64] ) ;
 
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61,x62,x63,x64 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61,x62,x63,x64 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 65; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62,U63,U64>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62,U63,U64>(s, name) ; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62,U63,U64) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62,U63,U64) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62, typename U63, typename U64>
@@ -14486,11 +14486,11 @@ class CppFunction65<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
 
 
 
-template <typename OUT, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56,typename U57,typename U58,typename U59,typename U60,typename U61,typename U62,typename U63,typename U64>
+template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,typename U4,typename U5,typename U6,typename U7,typename U8,typename U9,typename U10,typename U11,typename U12,typename U13,typename U14,typename U15,typename U16,typename U17,typename U18,typename U19,typename U20,typename U21,typename U22,typename U23,typename U24,typename U25,typename U26,typename U27,typename U28,typename U29,typename U30,typename U31,typename U32,typename U33,typename U34,typename U35,typename U36,typename U37,typename U38,typename U39,typename U40,typename U41,typename U42,typename U43,typename U44,typename U45,typename U46,typename U47,typename U48,typename U49,typename U50,typename U51,typename U52,typename U53,typename U54,typename U55,typename U56,typename U57,typename U58,typename U59,typename U60,typename U61,typename U62,typename U63,typename U64>
 class CppFunction_WithFormals65 : public CppFunction {
     public:
 
-        CppFunction_WithFormals65(OUT (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62,U63,U64) , Rcpp::List formals_, const char* docstring = 0) :
+        CppFunction_WithFormals65(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62,U63,U64) , Rcpp::List formals_, const char* docstring = 0) :
             CppFunction(docstring), formals(formals_), ptr_fun(fun){}
 
         SEXP operator()(SEXP* args) {
@@ -14560,18 +14560,18 @@ class CppFunction_WithFormals65 : public CppFunction {
             typename traits::input_parameter< U62 >::type x62( args[62] ) ;
             typename traits::input_parameter< U63 >::type x63( args[63] ) ;
             typename traits::input_parameter< U64 >::type x64( args[64] ) ;
-            return Rcpp::module_wrap<OUT>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61,x62,x63,x64 ) ) ;
+            return Rcpp::module_wrap<RESULT_TYPE>( ptr_fun( x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61,x62,x63,x64 ) ) ;
             END_RCPP
         }
 
         inline int nargs(){ return 65; }
-        inline void signature(std::string& s, const char* name){ Rcpp::signature<OUT,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62,U63,U64>(s, name) ; }
+        inline void signature(std::string& s, const char* name){ Rcpp::signature<RESULT_TYPE,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62,U63,U64>(s, name) ; }
         SEXP get_formals(){ return formals; }
         inline DL_FUNC get_function_ptr(){ return (DL_FUNC)ptr_fun ; }
 
     private:
         Rcpp::List formals ;
-        OUT (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62,U63,U64) ;
+        RESULT_TYPE (*ptr_fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62,U63,U64) ;
 } ;
 
 template <typename U0, typename U1, typename U2, typename U3, typename U4, typename U5, typename U6, typename U7, typename U8, typename U9, typename U10, typename U11, typename U12, typename U13, typename U14, typename U15, typename U16, typename U17, typename U18, typename U19, typename U20, typename U21, typename U22, typename U23, typename U24, typename U25, typename U26, typename U27, typename U28, typename U29, typename U30, typename U31, typename U32, typename U33, typename U34, typename U35, typename U36, typename U37, typename U38, typename U39, typename U40, typename U41, typename U42, typename U43, typename U44, typename U45, typename U46, typename U47, typename U48, typename U49, typename U50, typename U51, typename U52, typename U53, typename U54, typename U55, typename U56, typename U57, typename U58, typename U59, typename U60, typename U61, typename U62, typename U63, typename U64>

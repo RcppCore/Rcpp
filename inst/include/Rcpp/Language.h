@@ -160,32 +160,32 @@ namespace Rcpp{
 
     typedef Language_Impl<PreserveStorage> Language ;
 
-    template <typename OUT=SEXP>
+    template <typename RESULT_TYPE=SEXP>
     class fixed_call {
     public:
-        typedef OUT result_type ;
+        typedef RESULT_TYPE result_type ;
 
         fixed_call( Language call_ ) : call(call_){}
         fixed_call( Function fun ) : call(fun){}
 
-        OUT operator()(){
-            return as<OUT>( call.eval() ) ;
+        RESULT_TYPE operator()(){
+            return as<RESULT_TYPE>( call.eval() ) ;
         }
 
     private:
         Language call ;
     } ;
 
-    template <typename T, typename OUT = SEXP>
-    class unary_call : public std::unary_function<T,OUT> {
+    template <typename T, typename RESULT_TYPE = SEXP>
+    class unary_call : public std::unary_function<T,RESULT_TYPE> {
     public:
         unary_call( Language call_ ) : call(call_), proxy(call_,1) {}
         unary_call( Language call_, int index ) : call(call_), proxy(call_,index){}
         unary_call( Function fun ) : call( fun, R_NilValue), proxy(call,1) {}
 
-        OUT operator()( const T& object ){
+        RESULT_TYPE operator()( const T& object ){
             proxy = object ;
-            return as<OUT>( call.eval() ) ;
+            return as<RESULT_TYPE>( call.eval() ) ;
         }
 
     private:
@@ -193,17 +193,17 @@ namespace Rcpp{
         Language::Proxy proxy ;
     } ;
 
-    template <typename T1, typename T2, typename OUT = SEXP>
-    class binary_call : public std::binary_function<T1,T2,OUT> {
+    template <typename T1, typename T2, typename RESULT_TYPE = SEXP>
+    class binary_call : public std::binary_function<T1,T2,RESULT_TYPE> {
     public:
         binary_call( Language call_ ) : call(call_), proxy1(call_,1), proxy2(call_,2) {}
         binary_call( Language call_, int index1, int index2 ) : call(call_), proxy1(call_,index1), proxy2(call_,index2){}
         binary_call( Function fun) : call(fun, R_NilValue, R_NilValue), proxy1(call,1), proxy2(call,2){}
 
-        OUT operator()( const T1& o1, const T2& o2 ){
+        RESULT_TYPE operator()( const T1& o1, const T2& o2 ){
             proxy1 = o1 ;
             proxy2 = o2 ;
-            return as<OUT>( call.eval() ) ;
+            return as<RESULT_TYPE>( call.eval() ) ;
         }
 
     private:
