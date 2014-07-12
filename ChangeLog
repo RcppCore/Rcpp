@@ -1,3 +1,10 @@
+2014-07-14  Kevin Ushey  <kevinushey@gmail.com>
+
+        * inst/unitTests/runit.Matrix.R: DimNames Proxy
+        * inst/unitTests/cpp/Matrix.cpp: Idem
+        * inst/include/Rcpp/vector/Matrix.h: Idem
+        * inst/include/Rcpp/vector/DimNameProxy.h: Idem
+
 2014-07-12  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/generated/InternalFunction__ctors.h: Regenerated
