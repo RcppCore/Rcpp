@@ -146,5 +146,14 @@ if (.runThisTest) {
         checkEquals(m, matrix_opequals(m))
     }
 
+    test.NumericMatrix.rownames.colnames.proxy <- function() {
+        m <- matrix(as.numeric(1:4), nrow = 2)
+        runit_rownames_colnames_proxy(m, letters[1:2], LETTERS[1:2])
+        checkEquals(rownames(m), letters[1:2])
+        checkEquals(colnames(m), LETTERS[1:2])
+        checkException(runit_rownames_colnames_proxy(m, letters[1:3], letters[1:3]))
+        checkException(runit_rownames_colnames_proxy(m, letters[1:2], NULL))
+    } 
+
 
 }

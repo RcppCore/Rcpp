@@ -205,3 +205,9 @@ NumericMatrix runit_SubMatrix( ){
     return res;
 }
 
+// [[Rcpp::export]]
+void runit_rownames_colnames_proxy(
+    NumericMatrix x, CharacterVector row_names, CharacterVector col_names) {
+    rownames(x) = row_names;
+    colnames(x) = col_names;
+}
