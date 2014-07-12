@@ -865,7 +865,8 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
         return (character())
 
     linkingTo <- strsplit(linkingTo, "\\s*\\,")[[1]]
-    gsub("\\s", "", linkingTo)
+    result <- gsub("\\s", "", linkingTo)
+    gsub("\\(.*", "", result)
 }
 
 # show diagnostics for failed builds
