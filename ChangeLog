@@ -6,6 +6,7 @@
         * inst/include/Rcpp/module/Module_generated_CppFunction.h: Idem
         * inst/include/Rcpp/module/Module_generated_CppMethod.h: Idem
         * inst/include/Rcpp/module/Module_generated_Pointer_CppMethod.h: Idem
+        * inst/include/Rcpp/module/Module_generated_Pointer_method.h: Idem
 
 2014-07-09  Kevin Ushey  <kevinushey@gmail.com>
 
