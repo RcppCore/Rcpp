@@ -2,7 +2,7 @@
 
         * inst/include/Rcpp/generated/InternalFunction__ctors.h: Regenerated
         with tighter whitespace and updated header information from updated
-        generator script in corresponding rcpp-scripts repoIdem
+        generator script in corresponding rcpp-scripts repo
 
 2014-07-09  Kevin Ushey  <kevinushey@gmail.com>
 
