@@ -3,6 +3,7 @@
         * inst/include/Rcpp/generated/InternalFunction__ctors.h: Regenerated
         with tighter whitespace and updated header information from updated
         generator script in corresponding rcpp-scripts repo
+        * inst/include/Rcpp/module/Module_generated_CppFunction.h: Idem
 
 2014-07-09  Kevin Ushey  <kevinushey@gmail.com>
 
