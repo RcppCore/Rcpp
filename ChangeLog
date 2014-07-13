@@ -1,6 +1,7 @@
-2014-07-09  Kevin Ushey  <kevinushey@gmail.com>
+2014-07-12  Kevin Ushey  <kevinushey@gmail.com>
 
         * R/Attributes.R: Strip version in .parseLinkingTo
+
 2014-07-12  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/generated/InternalFunction__ctors.h: Regenerated
