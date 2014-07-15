@@ -188,7 +188,15 @@ private:
         }
     }
 
-} ;
+};
+
+inline internal::DimNameProxy rownames(SEXP x) {
+    return internal::DimNameProxy(x, 0);
+}
+
+inline internal::DimNameProxy colnames(SEXP x) {
+    return internal::DimNameProxy(x, 1);
+}
 
 }
 

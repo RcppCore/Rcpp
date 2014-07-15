@@ -50,6 +50,9 @@ namespace Rcpp{
 #include <Rcpp/vector/Vector.h>
 #include <Rcpp/vector/proxy.h>
 #include <Rcpp/vector/traits.h>
+
+#include <Rcpp/vector/DimNameProxy.h>
+
 #include <Rcpp/vector/Matrix.h>
 #include <Rcpp/vector/SubMatrix.h>
 #include <Rcpp/vector/MatrixRow.h>
