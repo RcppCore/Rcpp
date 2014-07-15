@@ -153,7 +153,12 @@ if (.runThisTest) {
         checkEquals(colnames(m), LETTERS[1:2])
         checkException(runit_rownames_colnames_proxy(m, letters[1:3], letters[1:3]))
         checkException(runit_rownames_colnames_proxy(m, letters[1:2], NULL))
-    } 
+
+        m <- matrix(as.numeric(1:9), nrow = 3)
+        runit_rownames_proxy(m)
+        checkEquals(rownames(m), c("A", "B", "C"))
+        checkEquals(colnames(m), NULL)
+    }
 
 
 }

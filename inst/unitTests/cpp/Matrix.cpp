@@ -211,3 +211,8 @@ void runit_rownames_colnames_proxy(
     rownames(x) = row_names;
     colnames(x) = col_names;
 }
+
+// [[Rcpp::export]]
+void runit_rownames_proxy(NumericMatrix x) {
+    rownames(x) = CharacterVector::create("A", "B", "C");
+}
