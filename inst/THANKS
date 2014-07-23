@@ -15,6 +15,7 @@ Glenn Lawyer		for sending in documentation patches
 Gong-Yi Liao		for a corrected compile-time test for long long variables
 Uwe Ligges              for help with Windows (32 and 64 bit) build issues
 Tama Ma                 for a patch that extends Module constructors
+Omar Andres Zapata Mesa for spotting a missing update() in InternalFunction_Impl
 Karl Millar             for a patch helping with a non-g++ compiler
 Anirban Mukherjee       for reporting more clang++ warnings we had not seen
 Ben North		for a bug report and patch concerning iterators
