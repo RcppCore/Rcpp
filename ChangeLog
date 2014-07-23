@@ -43,7 +43,8 @@
 2014-07-08  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/InternalFunction.h: Add missing update(SEXP) method
-        per GitHub Pull Request #152
+        per GitHub Pull Request #152, with thanks to Omar Andres Zapata Mesa
+        * inst/THANKS: Updated
 
 2014-07-04  Dirk Eddelbuettel  <edd@debian.org>
 
