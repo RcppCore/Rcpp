@@ -100,15 +100,6 @@ namespace Rcpp{
 
 #endif
 
-    namespace{
-        std::string get_first(const std::pair<std::string,nanotime_t>& pair) {
-            return pair.first;
-        }
-        double get_second(const std::pair<std::string,nanotime_t>& pair){
-            return static_cast<double>(pair.second);
-        }
-    }
-
     class Timer {
     public:
         Timer() : data(), start_time( get_nanotime() ){}
@@ -129,6 +120,10 @@ namespace Rcpp{
             }
             out.attr("names") = names;
             return out;
+        }
+        
+        static std::vector<Timer> get_timers(int n){
+            return std::vector<Timer>( n, Timer() ) ;
         }
 
     private:
