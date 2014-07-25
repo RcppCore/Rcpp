@@ -9,6 +9,8 @@
       \item The deprecation of \code{RCPP_FUNCTION_*} which was announced with
       release 0.10.5 last year is proceeding as planned, and the file
       \code{macros/preprocessor_generated.h} has been removed.
+      \item The \code{Timer} class has a new method providing a set of timers
+      which is useful in multhithreaded contexts.
     }
     \item Changes in Rcpp Sugar:
     \itemize{
