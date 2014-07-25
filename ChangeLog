@@ -1,3 +1,9 @@
+2014-07-25  Romain Francois  <romain@r-enthusiasts.com>
+
+        * inst/include/Rcpp/Benchmark/Timer.h: Added new static method
+        get_timers() to return a vector of timers useful for multithreaded
+        contexts; also removed two unused old member functions (cf #157)
+
 2014-07-14  Kevin Ushey  <kevinushey@gmail.com>
 
         * inst/unitTests/runit.Matrix.R: DimNames Proxy
