@@ -121,6 +121,10 @@ namespace Rcpp{
             out.attr("names") = names;
             return out;
         }
+        
+        static std::vector<Timer> get_timers(int n){
+            return std::vector<Timer>( n, Timer() ) ;
+        }
 
     private:
         typedef std::pair<std::string,nanotime_t> Step;
