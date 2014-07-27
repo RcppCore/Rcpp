@@ -9,6 +9,14 @@
       \item The deprecation of \code{RCPP_FUNCTION_*} which was announced with
       release 0.10.5 last year is proceeding as planned, and the file
       \code{macros/preprocessor_generated.h} has been removed.
+      \item \code{Timer} no longer records time between steps, but times from 
+      the origin. It also gains a \code{get_timers(int)} methods that 
+      creates a vector of \code{Timer} that have the same origin. This is modelled
+      on the \code{Rcpp11} implementation and is more useful for situations where
+      we use timers in several threads. \code{Timer} also gains a constructor 
+      taking a \code{nanotime_t} to use as its origin, and a \code{origin} method. 
+      This can be useful for situations where the number of threads is not known
+      in advance but we still want to track what goes on in each thread. 
     }
     \item Changes in Rcpp Sugar:
     \itemize{
