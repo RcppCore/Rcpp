@@ -103,11 +103,10 @@ namespace Rcpp{
     class Timer {
     public:
         Timer() : data(), start_time( get_nanotime() ){}
+        Timer(nanotime_t start_time_) : data(), start_time(start_time_){}
 
         void step( const std::string& name){
-            nanotime_t now = get_nanotime();
-            data.push_back(std::make_pair(name, now - start_time));
-            start_time = get_nanotime();
+            data.push_back(std::make_pair(name, now()));
         }
 
         operator SEXP() const {
@@ -116,7 +115,7 @@ namespace Rcpp{
             CharacterVector names(n);
             for (size_t i=0; i<n; i++) {
                 names[i] = data[i].first;
-                out[i] = data[i].second;
+                out[i] = data[i].second - start_time ;
             }
             out.attr("names") = names;
             return out;
@@ -125,13 +124,21 @@ namespace Rcpp{
         static std::vector<Timer> get_timers(int n){
             return std::vector<Timer>( n, Timer() ) ;
         }
+        
+        inline nanotime_t now() const {
+            return get_nanotime() ;
+        }
+        
+        inline nanotime_t origin() const {
+            return start_time ;    
+        }
 
     private:
         typedef std::pair<std::string,nanotime_t> Step;
         typedef std::vector<Step> Steps;
 
         Steps data;
-        nanotime_t start_time;
+        const nanotime_t start_time;
     };
 
 }
