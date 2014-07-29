@@ -1,3 +1,8 @@
+2014-07-29  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/vector/proxy.h: Removed operator bool() cast as
+        discusses by Christian Authmann on rcpp-devel 
+
 2014-07-28  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/generated/InternalFunction__ctors.h: Updated from

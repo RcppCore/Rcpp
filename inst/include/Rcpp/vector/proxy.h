@@ -2,7 +2,7 @@
 //
 // proxy.h: Rcpp R/C++ interface class library -- proxies
 //
-// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2014  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
