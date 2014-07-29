@@ -172,10 +172,6 @@ namespace internal{
 			#endif
 		}
 
-		operator bool() const{
-		    return ::Rcpp::as<bool>(get());
-		}
-
 	private:
 		VECTOR& parent ;
 		std::string name;
