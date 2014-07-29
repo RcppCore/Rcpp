@@ -16,7 +16,9 @@
       we use timers in several threads. \code{Timer} also gains a constructor 
       taking a \code{nanotime_t} to use as its origin, and a \code{origin} method. 
       This can be useful for situations where the number of threads is not known
-      in advance but we still want to track what goes on in each thread. 
+      in advance but we still want to track what goes on in each thread.
+      \item A cast to \code{bool} was removed in the vector proxy code as
+      inconsistent behaviour between clang and g++ compilations was noticed
     }
     \item Changes in Rcpp Sugar:
     \itemize{
