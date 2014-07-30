@@ -24,9 +24,12 @@
 
 namespace Rcpp{
 
-class no_init {
+template <int RTYPE, template <class> class StoragePolicy>
+class Matrix;
+
+class no_init_vector {
 public:
-    no_init(int size_): size(size_){}
+    no_init_vector(int size_): size(size_){}
 
     inline int get() const {
         return size;
@@ -40,6 +43,37 @@ public:
 private:
     int size ;
 } ;
+
+class no_init_matrix {
+public:
+    no_init_matrix(int nr_, int nc_): nr(nr_), nc(nc_) {}
+
+    inline int nrow() const {
+        return nr;
+    }
+
+    inline int ncol() const {
+        return nc;
+    }
+
+    template <int RTYPE, template <class> class StoragePolicy >
+    operator Matrix<RTYPE, StoragePolicy>() const {
+        return Rf_allocMatrix(RTYPE, nr, nc);
+    }
+
+private:
+    int nr;
+    int nc;
+} ;
+
+inline no_init_vector no_init(int size) {
+    return no_init_vector(size);
+}
+
+inline no_init_matrix no_init(int nr, int nc) {
+    return no_init_matrix(nr, nc);
+}
+
 
 }
 #endif

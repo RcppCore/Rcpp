@@ -160,5 +160,10 @@ if (.runThisTest) {
         checkEquals(colnames(m), NULL)
     }
 
+    test.NumericMatrix.no.init <- function() {
+      m <- runit_no_init_matrix()
+      checkEquals(m, matrix(c(0, 1, 2, 3), nrow = 2))
+    }
+
 
 }

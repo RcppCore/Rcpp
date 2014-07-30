@@ -79,7 +79,7 @@ public:
         Storage::set__( r_cast<RTYPE>(proxy.get()) ) ;
     }
 
-    explicit Vector( const no_init& obj) {
+    explicit Vector( const no_init_vector& obj) {
         Storage::set__( Rf_allocVector( RTYPE, obj.get() ) ) ;
     }
 
