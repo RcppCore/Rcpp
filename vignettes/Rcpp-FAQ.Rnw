@@ -135,10 +135,10 @@ Specific per-platform notes:
 \end{description}
 
 The \texttt{clang} and \texttt{clang++} compilers from the LLVM project can
-also be used as they are inter-operable with \texttt{gcc} et al.  The
-\texttt{clang++} compiler is interesting as it emits much more
-comprehensible error messages than \texttt{g++} (though \texttt{g++} 4.8 and 4.9
-have caught up).
+also be used. On Linux, they are inter-operable with \texttt{gcc} et al. On
+OS X, they are unfortunately not ABI compatible.  The \texttt{clang++}
+compiler is interesting as it emits much more comprehensible error messages
+than \texttt{g++} (though \texttt{g++} 4.8 and 4.9 have caught up).
 
 The Intel \texttt{icc} family has also been used successfully  as its output
 files can also be combined with those from \texttt{gcc}.
@@ -405,16 +405,20 @@ complain to its vendor if you are still upset.
 
 OS X used to be a little more conservative with compiler versions as Apple
 stuck with gcc-4.2. Following the 'Mavericks' release, it is the opposite as
-only llvm is provide in Xcode---while the R build provided by CRAN still has
-hardwired settings for the gcc/g++ combination. 
+only llvm is provide in Xcode.  Moreover, OS X currently has two incompatible
+binary modes for the pre- and post-Mavericks world, and CRAN provides
+releases for both variants. Users have to ensure they are not mixing
+releases between packages, and packages and the corresponding R binary package.
 
-Until that is resolved, users either need to create softlinks (say, in,
-\code{/usr/local/bin}) or override the \code{CC} and \code{CXX} variables via a
-file \code{~/.R/Makevars} or its system-equivalent in R's \code{etc/}
-directory. Also see \faq{q:OSXArma} below. In general, consult the
-\code{r-sig-mac} mailing list for further details.
+A helpful post was provided by Brian Ripley in April 2014
+\href{https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010835.html}{on the
+\code{r-sig-mac} list}, which is generally recommended for OS X-specific questions.
+and further consultation.
 
-Compilation from source is recommended.  
+Another helpful write-up for installation / compilation on OS X Mavericks is
+provided \href{http://www.bioconductor.org/developers/how-to/mavericks-howto/}{by the BioConductor project}.
+
+Also see  \faq{q:OSXArma} below. 
 
 %At the time of writing this paragraph (in the spring of 2011), \pkg{Rcpp}
 %(just like CRAN) supports all OS X releases greater or equal to 10.5.
@@ -488,6 +492,8 @@ package from \href{http://r.research.att.com/libs/}{the
   \texttt{r.research.att.com} site} maintained by Simon.  
 See \href{http://www.thecoatlessprofessor.com/programming/rcpp-rcpparmadillo-and-os-x-mavericks-lgfortran-and-lquadmath-error}{this
 post for details}.
+
+Also see \faq{q:OSX} above, and the links provided in that answer.
 
 
 \section{Examples}
