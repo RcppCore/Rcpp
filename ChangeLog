@@ -1,3 +1,8 @@
+2014-08-03  Dirk Eddelbuettel  <edd@debian.org>
+
+        * vignettes/Rcpp-FAQ.Rnw: Updated with respect to OS X installations
+        requiring Fortran (to e.g. build against RcppArmadillo)
+
 2014-07-29  Kevin Ushey  <kevinushey@gmail.com>
 
         * inst/include/Rcpp/vector/no_init.h: Add no_init for matrices

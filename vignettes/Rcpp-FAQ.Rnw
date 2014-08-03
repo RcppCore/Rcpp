@@ -108,22 +108,27 @@ On almost all platforms, the GNU Compiler Collection (or \texttt{gcc}, which
 is also the name of its \proglang{C} language compiler) has to be used along
 with the corresponding \texttt{g++} compiler for the \proglang{C++} language.
 A minimal suitable version is a final 4.2.* release; earlier 4.2.* were
-lacking some \proglang{C++} features (and even 4.2.1, still used on OS X, has
-issues).
+lacking some \proglang{C++} features (and even 4.2.1, still used on OS X as the
+last gcc release), has issues).  
 
-Generally speaking, and as of early
-2011, the default compilers on all the common platforms are suitable.
+Generally speaking, the default compilers on all the common platforms are suitable.
 
 Specific per-platform notes:
 \begin{description}
   \item[Windows] users need the \texttt{Rtools} package from the site maintained by
     Duncan Murdoch which contains all the required tools in a single package;
     complete instructions specific to Windows are in the `R Administration'
-    manual \citep[Appendix D]{R:Administration}.
+    manual \citep[Appendix D]{R:Administration}. As of August 2014, it still
+    installs the \texttt{gcc/g++} 4.6.* compiler which limits the ability to use
+    modern C++ standards so only \code{s-std=c++0x} is supported. R 3.1.0 and
+    above detect this and set appropriate flags.
   \item[OS X] users, as noted in the `R Administration' manual \citep[Appendix
     C.4]{R:Administration}, need to install the Apple Developer Tools
     (\textsl{e.g.}, \texttt{Xcode}) (as well as \texttt{gfortran} if \proglang{R} or
-    Fortran-using packages are to be built); also see \faq{q:OSX} below.
+    Fortran-using packages are to be built); also see \faq{q:OSX} and
+    \faq{q:OSXArma} below. Depending on whether on OS X release before or after
+    Mavericks is used, different additional installation may be needed. Consult
+    the \code{r-sig-mac} list (and its archives) for (current) details.
   \item[Linux] user need to install the standard developement packages. Some
     distributions provide helper packages which pull in all the required
     packages; the \texttt{r-base-dev} package on Debian and Ubuntu is an example.
@@ -131,8 +136,9 @@ Specific per-platform notes:
 
 The \texttt{clang} and \texttt{clang++} compilers from the LLVM project can
 also be used as they are inter-operable with \texttt{gcc} et al.  The
-\texttt{clang++} compiler is particularly interesting as it emits much more
-comprehensible error messages than \texttt{g++}.
+\texttt{clang++} compiler is interesting as it emits much more
+comprehensible error messages than \texttt{g++} (though \texttt{g++} 4.8 and 4.9
+have caught up).
 
 The Intel \texttt{icc} family has also been used successfully  as its output
 files can also be combined with those from \texttt{gcc}.
@@ -155,7 +161,6 @@ Additional packages that we have found useful are
 \item[\pkg{devtools}] can help the process of building, compiling and testing
   a package but it too is entirely optional.
 \end{description}
-
 
 \section{Compiling and Linking}
 
@@ -404,11 +409,13 @@ only llvm is provide in Xcode---while the R build provided by CRAN still has
 hardwired settings for the gcc/g++ combination. 
 
 Until that is resolved, users either need to create softlinks (say, in,
-\code{/usr/local/bin}) or override the \code{CC} and \code{CXX} variables via
-a file \code{~/.R/Makevars} or its system-equivalent in R's \code{etc/}
-directory. See the \code{r-sig-mac} mailing for further details.
+\code{/usr/local/bin}) or override the \code{CC} and \code{CXX} variables via a
+file \code{~/.R/Makevars} or its system-equivalent in R's \code{etc/}
+directory. Also see \faq{q:OSXArma} below. In general, consult the
+\code{r-sig-mac} mailing list for further details.
 
 Compilation from source is recommended.  
+
 %At the time of writing this paragraph (in the spring of 2011), \pkg{Rcpp}
 %(just like CRAN) supports all OS X releases greater or equal to 10.5.
 %However, building \pkg{Rcpp} from source (or building packages using
@@ -471,6 +478,16 @@ But for most packages using \pkg{Rcpp}, only two things are required:
 
 The name of the symbol does really matter; once one symbol is important all
 should be available.
+
+\subsection{I am having problems building RcppArmadillo on OS X, any help ?}
+\label{q:OSXArma}
+
+For recent OS X versions Mavericks and beyond, you need to install the additional
+\href{http://r.research.att.com/libs/gfortran-4.8.2-darwin13.tar.bz2}{gfortran 4.8.2 for Darwin 13}
+package from \href{http://r.research.att.com/libs/}{the
+  \texttt{r.research.att.com} site} maintained by Simon.  
+See \href{http://www.thecoatlessprofessor.com/programming/rcpp-rcpparmadillo-and-os-x-mavericks-lgfortran-and-lquadmath-error}{this
+post for details}.
 
 
 \section{Examples}

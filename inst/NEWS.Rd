@@ -25,6 +25,10 @@
       \item In \code{ifelse()}, the returned \code{NA} type was corrected for
       \code{operator[]} 
     }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item The \code{Rcpp-FAQ} vignette was updated with respect to OS X issues.
+    }
   }
 }
 
