@@ -26,7 +26,7 @@
 
 typedef Rcpp::XPtr<Rcpp::Module> XP_Module ;
 typedef Rcpp::XPtr<Rcpp::class_Base> XP_Class ;
-typedef Rcpp::XPtr<Rcpp::CppFunction> XP_Function ;
+typedef Rcpp::XPtr<Rcpp::CppFunctionBase> XP_Function ;
 
 RCPP_FUN_1( bool, Class__has_default_constructor, XP_Class cl ){
     return cl->has_default_constructor() ;
