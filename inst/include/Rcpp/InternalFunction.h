@@ -26,12 +26,28 @@
 
 #include <Rcpp/grow.h>
 
+#ifdef RCPP_USE_STD_FUNCTION
+#include <Rcpp/InternalFunctionWithStdFunction.h>
+#endif
+
 namespace Rcpp{
 
     RCPP_API_CLASS(InternalFunction_Impl) {
     public:
 
         RCPP_GENERATE_CTOR_ASSIGN(InternalFunction_Impl)
+
+#ifdef RCPP_USE_STD_FUNCTION
+    	template <typename RESULT_TYPE, typename... Args>
+        InternalFunction_Impl(const std::function<RESULT_TYPE(Args...)> &fun) {
+        	set(
+        		XPtr<Rcpp::InternalFunctionWithStdFunction::CppFunctionBaseFromStdFunction<RESULT_TYPE, Args...> >(
+        			new Rcpp::InternalFunctionWithStdFunction::CppFunctionBaseFromStdFunction<RESULT_TYPE, Args...>(fun),
+        			false
+        		)
+        	);
+        }
+#endif
 
         #include <Rcpp/generated/InternalFunction__ctors.h>
         void update(SEXP){}
