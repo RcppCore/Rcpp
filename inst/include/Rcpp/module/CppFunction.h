@@ -24,15 +24,14 @@
 
 namespace Rcpp {
 
-    /**
-     * base class of all exported C++ functions. Template deduction in the
-     * Module_generated_function.h file creates an instance of a class that
-     * derives CppFunction (see Module_generated_CppFunction.h fr all the
-     * definitions
-     */
-    class CppFunction {
-    public:
-        CppFunction(const char* doc = 0) : docstring( doc == 0 ? "" : doc) {}
+	/**
+	 * base class for a callable function. This limited functionality is
+	 * just barely enough for an InternalFunction, nothing more.
+	 */
+	class CppFunctionBase {
+	public:
+		CppFunctionBase() {}
+        virtual ~CppFunctionBase(){} ;
 
         /**
          * modules call the function with this interface. input: an array of SEXP
@@ -41,6 +40,18 @@ namespace Rcpp {
         virtual SEXP operator()(SEXP*) {
             return R_NilValue ;
         }
+
+	};
+
+    /**
+     * base class of all exported C++ functions. Template deduction in the
+     * Module_generated_function.h file creates an instance of a class that
+     * derives CppFunction (see Module_generated_CppFunction.h for all the
+     * definitions
+     */
+    class CppFunction : public CppFunctionBase {
+    public:
+        CppFunction(const char* doc = 0) : docstring( doc == 0 ? "" : doc) {}
         virtual ~CppFunction(){} ;
 
         /**
