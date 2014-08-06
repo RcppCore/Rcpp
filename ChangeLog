@@ -1,3 +1,8 @@
+2014-08-05  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/Date.h: Remove a const qualifier which triggers a
+        warnings as 'type qualifiers ignored on function return type'
+
 2014-08-03  Dirk Eddelbuettel  <edd@debian.org>
 
         * vignettes/Rcpp-FAQ.Rnw: Updated with respect to OS X installations

@@ -80,8 +80,8 @@ namespace Rcpp {
         int getYearday() const { return m_tm.tm_yday + 1; }     // makes it 1 .. 366
 
         // 1900 as per POSIX mktime() et al
-        static inline const unsigned int baseYear(){
-            return 1900 ;
+        static inline unsigned int baseYear() {
+            return 1900;
         }
 
         // Minimal set of date operations.
