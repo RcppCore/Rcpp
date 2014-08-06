@@ -1,3 +1,9 @@
+2014-08-06  Christian Authmann <authmanc@Mathematik.Uni-Marburg.de>
+
+        * inst/include/Rcpp/InternalFunctionWithStdFunction.h: Extend the
+        existing Rcpp::InternalFunction interface to work with std::function,
+        conditional on a #define RCPP_USE_STD_FUNCTION as C++11 is needed
+
 2014-08-05  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/Date.h: Remove a const qualifier which triggers a

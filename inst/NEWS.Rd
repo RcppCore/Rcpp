@@ -6,6 +6,9 @@
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
+      \item New \code{Rcpp::InternalFunction} interface using
+      \code{std::function}; it needs a \code{define} for \code{RCPP_USE_STD_FUNCTION} 
+      as sufficiently feature-rich C++11 implemented is needed.
       \item The deprecation of \code{RCPP_FUNCTION_*} which was announced with
       release 0.10.5 last year is proceeding as planned, and the file
       \code{macros/preprocessor_generated.h} has been removed.
