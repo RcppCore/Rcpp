@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-hasCXX11 <- grepl("-std=c\\+\\+1[1-9]", Sys.getenv("PKG_CXXFLAGS"))
+hasCXX11 <- grepl("-std=c\\+\\+1[1-9yz]", Sys.getenv("PKG_CXXFLAGS"))
 
 .runThisTest <- Sys.getenv("RunAllRcppTests") == "yes" && hasCXX11
 
