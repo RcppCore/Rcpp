@@ -120,6 +120,7 @@ CALLFUN_4(CppField__set);
 
 CALLFUN_0(rcpp_capabilities) ;
 CALLFUN_0(rcpp_can_use_cxx0x) ;
+CALLFUN_0(rcpp_can_use_cxx11) ;
 
 /* .External functions */
 EXTFUN(CppMethod__invoke) ;
