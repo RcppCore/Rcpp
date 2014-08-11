@@ -18,11 +18,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-hasCXX11 <- grepl("-std=c\\+\\+1[1-9yz]", Sys.getenv("PKG_CXXFLAGS"))
+.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
 
-.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes" && hasCXX11
-
-if( .runThisTest ) {
+if( .runThisTest && Rcpp:::capabilities()[["Full C++11 support"]] ) {
 
     .tearDown <- function(){
         gc()

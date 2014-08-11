@@ -58,10 +58,10 @@
     #endif
 #endif
 
-// Check C++0x features
+// Check C++0x/11 features
 #if defined(__INTEL_COMPILER)
     #if __cplusplus >= 201103L
-        #define HAS_CXX0X_FLAG
+        #define RCPP_USING_CXX11
         #if __INTEL_COMPILER >= 1210
             // #define HAS_VARIADIC_TEMPLATES
         #endif
@@ -71,7 +71,7 @@
     #endif
 #elif defined(__clang__)
     #if __cplusplus >= 201103L
-        #define HAS_CXX0X_FLAG
+        #define RCPP_USING_CXX11
         #if __has_feature(cxx_variadic_templates)
             // #define HAS_VARIADIC_TEMPLATES
         #endif
@@ -81,12 +81,14 @@
     #endif
 #elif defined(__GNUC__)
     #ifdef __GXX_EXPERIMENTAL_CXX0X__
-        // #define HAS_CXX0X_FLAG
         #if GCC_VERSION >= 40300
             // #define HAS_VARIADIC_TEMPLATES
             #define HAS_STATIC_ASSERT
         #endif
     #endif
+	#if GCC_VERSION >= 40800 && __cplusplus >= 201103L
+		#define RCPP_USING_CXX11
+	#endif
 #endif
 
 // Check C++0x headers
@@ -141,7 +143,7 @@
 #include <initializer_list>
 #endif
 
-#ifdef HAS_CXX0X_FLAG
+#ifdef RCPP_USING_CXX11
     #if defined(HAS_CXX0X_UNORDERED_MAP)
         #include <unordered_map>
         #define RCPP_USING_UNORDERED_MAP
@@ -184,5 +186,6 @@
 #ifdef __GNUC__
   #define RCPP_HAS_DEMANGLING
 #endif
+
 
 #endif
