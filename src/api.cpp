@@ -155,8 +155,8 @@ SEXP as_character_externalptr(SEXP xp){
 
 // [[Rcpp::internal]]
 SEXP rcpp_capabilities(){
-    Shield<SEXP> cap( Rf_allocVector( LGLSXP, 11 ) );
-    Shield<SEXP> names( Rf_allocVector( STRSXP, 11 ) );
+    Shield<SEXP> cap( Rf_allocVector( LGLSXP, 12 ) );
+    Shield<SEXP> names( Rf_allocVector( STRSXP, 12 ) );
     #ifdef HAS_VARIADIC_TEMPLATES
         LOGICAL(cap)[0] = TRUE ;
     #else
@@ -210,6 +210,12 @@ SEXP rcpp_capabilities(){
       LOGICAL(cap)[10] = FALSE ;
     #endif
 
+    #ifdef RCPP_USING_CXX11
+      LOGICAL(cap)[11] = TRUE ;
+    #else
+      LOGICAL(cap)[11] = FALSE ;
+    #endif
+
     SET_STRING_ELT(names, 0, Rf_mkChar("variadic templates") ) ;
     SET_STRING_ELT(names, 1, Rf_mkChar("initializer lists") ) ;
     SET_STRING_ELT(names, 2, Rf_mkChar("exception handling") ) ;
@@ -221,6 +227,7 @@ SEXP rcpp_capabilities(){
     SET_STRING_ELT(names, 8, Rf_mkChar("long long") ) ;
     SET_STRING_ELT(names, 9, Rf_mkChar("C++0x unordered maps") ) ;
     SET_STRING_ELT(names, 10, Rf_mkChar("C++0x unordered sets") ) ;
+    SET_STRING_ELT(names, 11, Rf_mkChar("Full C++11 support") ) ;
     Rf_setAttrib( cap, R_NamesSymbol, names ) ;
     return cap ;
 }
@@ -228,7 +235,17 @@ SEXP rcpp_capabilities(){
 
 // [[Rcpp::internal]]
 SEXP rcpp_can_use_cxx0x(){
-    #ifdef HAS_VARIADIC_TEMPLATES
+    #if defined(HAS_VARIADIC_TEMPLATES) || defined(RCPP_USING_CXX11)
+        return Rf_ScalarLogical( TRUE );
+    #else
+        return Rf_ScalarLogical( FALSE );
+    #endif
+}
+
+
+// [[Rcpp::internal]]
+SEXP rcpp_can_use_cxx11(){
+    #if defined(RCPP_USING_CXX11)
         return Rf_ScalarLogical( TRUE );
     #else
         return Rf_ScalarLogical( FALSE );
