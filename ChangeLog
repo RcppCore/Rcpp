@@ -2,7 +2,7 @@
 
         * inst/include/Rcpp/InternalFunctionWithStdFunction.h: Extend the
         existing Rcpp::InternalFunction interface to work with std::function,
-        conditional on a #define RCPP_USE_STD_FUNCTION as C++11 is needed
+        conditional on a sufficient C++11 support by the compiler
 
 2014-08-05  Dirk Eddelbuettel  <edd@debian.org>
 
