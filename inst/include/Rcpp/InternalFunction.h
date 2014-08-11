@@ -26,7 +26,7 @@
 
 #include <Rcpp/grow.h>
 
-#ifdef RCPP_USE_STD_FUNCTION
+#ifdef RCPP_USING_CXX11
 #include <Rcpp/InternalFunctionWithStdFunction.h>
 #endif
 
@@ -37,7 +37,7 @@ namespace Rcpp{
 
         RCPP_GENERATE_CTOR_ASSIGN(InternalFunction_Impl)
 
-#ifdef RCPP_USE_STD_FUNCTION
+#ifdef RCPP_USING_CXX11
     	template <typename RESULT_TYPE, typename... Args>
         InternalFunction_Impl(const std::function<RESULT_TYPE(Args...)> &fun) {
         	set(

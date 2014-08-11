@@ -20,7 +20,6 @@
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 
-#define RCPP_USE_STD_FUNCTION
 #include <Rcpp.h>
 
 
