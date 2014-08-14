@@ -31,6 +31,8 @@
 #include <Rcpp/api/meat/S4.h>
 #include <Rcpp/api/meat/Environment.h>
 
+#include <Rcpp/api/meat/proxy.h>
+
 #include <Rcpp/api/meat/DottedPairImpl.h>
 #include <Rcpp/api/meat/StretchyList.h>
 #include <Rcpp/api/meat/Vector.h>
