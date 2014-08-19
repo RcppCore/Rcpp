@@ -1,3 +1,9 @@
+2014-08-18  Dirk Eddelbuettel  <edd@debian.org>
+
+        * vignettes/Rcpp-FAQ.Rnw: Added a new entry regarding licensing of
+        packages stressing that any combined work linking to the GPL-ed R will
+        also be under the terms of the GNU General Public License.
+
 2014-08-06  Christian Authmann <authmanc@Mathematik.Uni-Marburg.de>
 
         * inst/include/Rcpp/InternalFunctionWithStdFunction.h: Extend the

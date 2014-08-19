@@ -162,6 +162,32 @@ Additional packages that we have found useful are
   a package but it too is entirely optional.
 \end{description}
 
+\subsection{What licenses can I choose for my code?}
+
+The \pkg{Rcpp} package is licensed under the terms of the
+\href{http://www.gnu.org/licenses/gpl-2.0.html}{GNU GPL 2 or later}, just like
+\proglang{R} itself. A key goal of the \pkg{Rcpp} package is to make
+extending \proglang{R} more seamless.  But by \textsl{linking} your code against
+\proglang{R} (as well as \pkg{Rcpp}), the combination is bound by the GPL as
+well.  This is very clearly 
+stated at the 
+\href{https://www.gnu.org/licenses/gpl-faq.html#GPLStaticVsDynamic}{FSF website}:
+
+\begin{quote}
+  Linking a GPL covered work statically or dynamically with other modules is
+  making a combined work based on the GPL covered work. Thus, the terms and
+  conditions of the GNU General Public License cover the whole combination. 
+\end{quote}
+
+So you are free to license your work under whichever terms you find suitable
+(provided they are GPL-compatible, see the 
+\href{http://www.gnu.org/licenses/licenses.html}{FSF site for details}). However,
+the combined work will remain under the terms and conditions of the GNU General
+Public License.  This restriction comes from both \proglang{R} which is GPL-licensed
+as well as from \pkg{Rcpp} and whichever other GPL-licensed components you may
+be linking against.  
+
+
 \section{Compiling and Linking}
 
 \subsection{How do I use \pkg{Rcpp} in my package ?}
