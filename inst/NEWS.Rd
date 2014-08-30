@@ -32,6 +32,12 @@
     \itemize{
       \item The \code{Rcpp-FAQ} vignette was updated with respect to OS X issues.
     }
+    \item Deprecation of unused Rcpp featires:
+    \itemize{
+      \item The \code{Vector} class has two constructors from \code{std::string}
+      and \code{const char*} which are not fully functional and will be
+      withdrawn twelve months after this release.
+    }
   }
 }
 
