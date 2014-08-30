@@ -1,3 +1,8 @@
+2014-08-30  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/vector/Vector.h: Mark two 'from string' ctors as
+        deprecated following a suggestion by Yixuan Qiu
+
 2014-08-18  Dirk Eddelbuettel  <edd@debian.org>
 
         * vignettes/Rcpp-FAQ.Rnw: Added a new entry regarding licensing of
