@@ -1,3 +1,7 @@
+2014-08-30  Kevin Ushey  <kevinushey@gmail.com>
+
+        * inst/include/Rcpp/Environment.h: Add 'new_env' function
+
 2014-08-30  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/vector/Vector.h: Mark two 'from string' ctors as

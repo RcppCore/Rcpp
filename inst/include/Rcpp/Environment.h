@@ -22,6 +22,9 @@
 #ifndef Rcpp_Environment_h
 #define Rcpp_Environment_h
 
+// From R/Defn.h
+extern "C" SEXP R_NewHashedEnv(SEXP, SEXP);
+
 namespace Rcpp{
 
     RCPP_API_CLASS(Environment_Impl),
@@ -311,6 +314,11 @@ namespace Rcpp{
             return Rcpp::internal::get_Rcpp_namespace() ;
         }
 
+        static Environment_Impl new_env(int size = 29) {
+            Shield<SEXP> sizeSEXP(Rf_ScalarInteger(size));
+            return R_NewHashedEnv(R_EmptyEnv, sizeSEXP);
+        };
+
         /**
          * @param name the name of the package of which we want the namespace
          *
@@ -349,7 +357,7 @@ namespace Rcpp{
         void update(SEXP){}
     };
 
-    typedef Environment_Impl<PreserveStorage> Environment ;
+typedef Environment_Impl<PreserveStorage> Environment ;
 
 
 } // namespace Rcpp
