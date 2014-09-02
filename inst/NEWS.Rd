@@ -27,6 +27,10 @@
     \itemize{
       \item In \code{ifelse()}, the returned \code{NA} type was corrected for
       \code{operator[]} 
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Include LinkingTo in DESCRIPTION fields scanned to confirm that
+      C++ dependencies are referenced by package.
     }
     \item Changes in Rcpp Documentation:
     \itemize{

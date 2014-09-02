@@ -344,7 +344,8 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     pkgDesc <- read.dcf(descFile)[1,]
     pkgname = .readPkgDescField(pkgDesc, "Package")
     depends <- c(.readPkgDescField(pkgDesc, "Depends", character()),
-                 .readPkgDescField(pkgDesc, "Imports", character()))
+                 .readPkgDescField(pkgDesc, "Imports", character()),
+                 .readPkgDescField(pkgDesc, "LinkingTo", character()))
     depends <- unique(.splitDepends(depends))
     depends <- depends[depends != "R"]
                  
