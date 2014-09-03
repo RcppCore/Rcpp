@@ -1,3 +1,8 @@
+2014-09-02  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/vector/Vector.h: Reversing change from Aug 30: the
+        Vector ctor from char* and string are used for CharacterVector()
+
 2014-09-02  JJ Allaire <jj@rstudio.org>
 
         * R/Attributes.R: Include LinkingTo in DESCRIPTION fields scanned

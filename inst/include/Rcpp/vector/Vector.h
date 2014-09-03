@@ -89,14 +89,15 @@ public:
         fill( u ) ;
     }
 
+    // constructor for CharacterVector() 
     Vector( const std::string& st ){
         RCPP_DEBUG_2( "Vector<%d>( const std::string& = %s )", RTYPE, st.c_str() )
-        Rf_warning("The Vector(std::string) constructor is deprecated and will be removed in a future release.");
         Storage::set__( internal::vector_from_string<RTYPE>(st) ) ;
     }
+
+    // constructor for CharacterVector() 
     Vector( const char* st ) {
         RCPP_DEBUG_2( "Vector<%d>( const char* = %s )", RTYPE, st )
-        Rf_warning("The Vector(const char*) constructor is deprecated and will be removed in a future release.");
         Storage::set__(internal::vector_from_string<RTYPE>(st) ) ;
     }
 
