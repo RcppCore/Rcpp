@@ -125,7 +125,6 @@ namespace Rcpp {
     }
 
     // Environment Binding
-
     template <typename CLASS>
     template <typename T>
     typename BindingPolicy<CLASS>::Binding&
@@ -145,6 +144,28 @@ namespace Rcpp {
     BindingPolicy<CLASS>::const_Binding::operator T() const {
         return as<T>(get());
     }
+
+    // Dotted pair proxies
+    template <typename CLASS>
+    template <typename T>
+    typename DottedPairProxyPolicy<CLASS>::DottedPairProxy&
+    DottedPairProxyPolicy<CLASS>::DottedPairProxy::operator=(const T& rhs) {
+        set(wrap(rhs));
+        return *this;
+    }
+
+    template <typename CLASS>
+    template <typename T>
+    DottedPairProxyPolicy<CLASS>::DottedPairProxy::operator T() const {
+        return as<T>(get());
+    }
+
+    template <typename CLASS>
+    template <typename T>
+    DottedPairProxyPolicy<CLASS>::const_DottedPairProxy::operator T() const {
+        return as<T>(get());
+    }
+
 }
 
 #endif
