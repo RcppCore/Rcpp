@@ -19,8 +19,34 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+// Testing 'wrap', 'as' with custom class -- see
+// https://github.com/RcppCore/Rcpp/issues/165
+template<typename T>
+class Bar {
+    public:
+        Bar(T t) : t(t) {}
+        ~Bar() {}
+        T t;
+};
+
+#include <RcppCommon.h>
+namespace Rcpp {
+    template<typename T> SEXP wrap(const Bar<T> &b);
+}
+
 #include <Rcpp.h>
-using namespace Rcpp ;
+
+template<typename T> SEXP Rcpp::wrap(const Bar<T> &b) {
+    return Rcpp::wrap(b.t);
+}
+
+// [[Rcpp::export]]
+Bar<int> test_wrap_custom_class() {
+    Bar<int> b(42);
+    return b;
+}
+
+using namespace Rcpp;
 
 // [[Rcpp::export]]
 IntegerVector map_string_int(){
@@ -255,4 +281,3 @@ SEXP vector_Foo(){
     vec[1] = Foo( 3 ) ;
     return wrap(vec) ;
 }
-
