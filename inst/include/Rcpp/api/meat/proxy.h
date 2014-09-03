@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
-// meat.h: Rcpp R/C++ interface class library --
+// proxy.h: Rcpp R/C++ interface class library -- proxy meat
 //
 // Copyright (C) 2014    Dirk Eddelbuettel, Romain Francois, and Kevin Ushey
 //
@@ -21,187 +21,186 @@
 #ifndef RCPP_API_MEAT_PROXY_H
 #define RCPP_API_MEAT_PROXY_H
 
+// NOTE: Implementing this as 'meat' is necessary as it allows user-defined
+// classes writing their own overloads of 'wrap', 'as' to function correctly!
 namespace Rcpp {
 
-    // Attribute Proxies
-    template <typename CLASS>
-    template <typename T>
-    typename AttributeProxyPolicy<CLASS>::AttributeProxy&
-    AttributeProxyPolicy<CLASS>::AttributeProxy::operator=(const T& rhs) {
-      set( wrap(rhs) );
-      return *this;
-    }
+// AttributeProxy
+template <typename CLASS>
+template <typename T>
+typename AttributeProxyPolicy<CLASS>::AttributeProxy&
+AttributeProxyPolicy<CLASS>::AttributeProxy::operator=(const T& rhs) {
+    set( wrap(rhs) );
+    return *this;
+}
 
-    template <typename CLASS>
-    template <typename T>
-    AttributeProxyPolicy<CLASS>::AttributeProxy::operator T() const {
-      return as<T>(get());
-    }
+template <typename CLASS>
+template <typename T>
+AttributeProxyPolicy<CLASS>::AttributeProxy::operator T() const {
+    return as<T>(get());
+}
 
-    template <typename CLASS>
-    AttributeProxyPolicy<CLASS>::AttributeProxy::operator SEXP() const {
-      return get();
-    }
+template <typename CLASS>
+AttributeProxyPolicy<CLASS>::AttributeProxy::operator SEXP() const {
+    return get();
+}
 
-    template <typename CLASS>
-    template <typename T>
-    AttributeProxyPolicy<CLASS>::const_AttributeProxy::operator T() const {
-      return as<T>(get());
-    }
+template <typename CLASS>
+template <typename T>
+AttributeProxyPolicy<CLASS>::const_AttributeProxy::operator T() const {
+    return as<T>(get());
+}
 
-    template <typename CLASS>
-    AttributeProxyPolicy<CLASS>::const_AttributeProxy::operator SEXP() const {
-      return get();
-    }
+template <typename CLASS>
+AttributeProxyPolicy<CLASS>::const_AttributeProxy::operator SEXP() const {
+    return get();
+}
 
-    // Names proxy
+// NamesProxy
+template <typename CLASS>
+template <typename T>
+typename NamesProxyPolicy<CLASS>::NamesProxy&
+NamesProxyPolicy<CLASS>::NamesProxy::operator=(const T& rhs) {
+    set( wrap(rhs) );
+    return *this;
+}
 
-    template <typename CLASS>
-    template <typename T>
-    typename NamesProxyPolicy<CLASS>::NamesProxy&
-    NamesProxyPolicy<CLASS>::NamesProxy::operator=(const T& rhs) {
-      set( wrap(rhs) );
-      return *this;
-    }
+template <typename CLASS>
+template <typename T>
+NamesProxyPolicy<CLASS>::NamesProxy::operator T() const {
+    return as<T>( get() );
+}
 
-    template <typename CLASS>
-    template <typename T>
-    NamesProxyPolicy<CLASS>::NamesProxy::operator T() const {
-        return as<T>( get() );
-    }
+template <typename CLASS>
+template <typename T>
+NamesProxyPolicy<CLASS>::const_NamesProxy::operator T() const {
+    return as<T>( get() );
+}
 
-    template <typename CLASS>
-    template <typename T>
-    NamesProxyPolicy<CLASS>::const_NamesProxy::operator T() const {
-        return as<T>( get() );
-    }
+// SlotProxy
+template <typename CLASS>
+template <typename T>
+typename SlotProxyPolicy<CLASS>::SlotProxy&
+SlotProxyPolicy<CLASS>::SlotProxy::operator=(const T& rhs) {
+    set(wrap(rhs));
+    return *this;
+}
 
-    // Slot proxy
+template <typename CLASS>
+template <typename T>
+SlotProxyPolicy<CLASS>::SlotProxy::operator T() const {
+    return as<T>(get());
+}
 
-    template <typename CLASS>
-    template <typename T>
-    typename SlotProxyPolicy<CLASS>::SlotProxy&
-    SlotProxyPolicy<CLASS>::SlotProxy::operator=(const T& rhs) {
-        set(wrap(rhs));
-        return *this;
-    }
+// TagProxy
+template <typename CLASS>
+template <typename T>
+typename TagProxyPolicy<CLASS>::TagProxy&
+TagProxyPolicy<CLASS>::TagProxy::operator=(const T& rhs) {
+    set( wrap(rhs) );
+    return *this;
+}
 
-    template <typename CLASS>
-    template <typename T>
-    SlotProxyPolicy<CLASS>::SlotProxy::operator T() const {
-        return as<T>(get());
-    }
+template <typename CLASS>
+template <typename T>
+TagProxyPolicy<CLASS>::TagProxy::operator T() const {
+    return as<T>(get());
+}
 
-    // Tag proxy
+template <typename CLASS>
+TagProxyPolicy<CLASS>::TagProxy::operator SEXP() const {
+    return get();
+}
 
-    template <typename CLASS>
-    template <typename T>
-    typename TagProxyPolicy<CLASS>::TagProxy&
-    TagProxyPolicy<CLASS>::TagProxy::operator=(const T& rhs) {
-      set( wrap(rhs) );
-      return *this;
-    }
+template <typename CLASS>
+template <typename T>
+TagProxyPolicy<CLASS>::const_TagProxy::operator T() const {
+    return as<T>(get());
+}
 
-    template <typename CLASS>
-    template <typename T>
-    TagProxyPolicy<CLASS>::TagProxy::operator T() const {
-      return as<T>(get());
-    }
+template <typename CLASS>
+TagProxyPolicy<CLASS>::const_TagProxy::operator SEXP() const {
+    return get();
+}
 
-    template <typename CLASS>
-    TagProxyPolicy<CLASS>::TagProxy::operator SEXP() const {
-      return get();
-    }
+// Binding
+template <typename CLASS>
+template <typename T>
+typename BindingPolicy<CLASS>::Binding&
+BindingPolicy<CLASS>::Binding::operator=(const T& rhs) {
+    set(wrap(rhs));
+    return *this;
+}
 
-    template <typename CLASS>
-    template <typename T>
-    TagProxyPolicy<CLASS>::const_TagProxy::operator T() const {
-      return as<T>(get());
-    }
+template <typename CLASS>
+template <typename T>
+BindingPolicy<CLASS>::Binding::operator T() const {
+    return as<T>(get());
+}
 
-    template <typename CLASS>
-    TagProxyPolicy<CLASS>::const_TagProxy::operator SEXP() const {
-      return get();
-    }
+template <typename CLASS>
+template <typename T>
+BindingPolicy<CLASS>::const_Binding::operator T() const {
+    return as<T>(get());
+}
 
-    // Environment Binding
-    template <typename CLASS>
-    template <typename T>
-    typename BindingPolicy<CLASS>::Binding&
-    BindingPolicy<CLASS>::Binding::operator=(const T& rhs) {
-        set(wrap(rhs));
-        return *this;
-    }
+// DottedPairProxy
+template <typename CLASS>
+template <typename T>
+typename DottedPairProxyPolicy<CLASS>::DottedPairProxy&
+DottedPairProxyPolicy<CLASS>::DottedPairProxy::operator=(const T& rhs) {
+    set(wrap(rhs));
+    return *this;
+}
 
-    template <typename CLASS>
-    template <typename T>
-    BindingPolicy<CLASS>::Binding::operator T() const {
-        return as<T>(get());
-    }
+template <typename CLASS>
+template <typename T>
+typename DottedPairProxyPolicy<CLASS>::DottedPairProxy&
+DottedPairProxyPolicy<CLASS>::DottedPairProxy::operator=(const traits::named_object<T>& rhs) {
+    return set(wrap(rhs.object), rhs.name);
+}
 
-    template <typename CLASS>
-    template <typename T>
-    BindingPolicy<CLASS>::const_Binding::operator T() const {
-        return as<T>(get());
-    }
+template <typename CLASS>
+template <typename T>
+DottedPairProxyPolicy<CLASS>::DottedPairProxy::operator T() const {
+    return as<T>(get());
+}
 
-    // Dotted pair proxies
-    template <typename CLASS>
-    template <typename T>
-    typename DottedPairProxyPolicy<CLASS>::DottedPairProxy&
-    DottedPairProxyPolicy<CLASS>::DottedPairProxy::operator=(const T& rhs) {
-        set(wrap(rhs));
-        return *this;
-    }
+template <typename CLASS>
+template <typename T>
+DottedPairProxyPolicy<CLASS>::const_DottedPairProxy::operator T() const {
+    return as<T>(get());
+}
 
-    template <typename CLASS>
-    template <typename T>
-    typename DottedPairProxyPolicy<CLASS>::DottedPairProxy&
-    DottedPairProxyPolicy<CLASS>::DottedPairProxy::operator=(const traits::named_object<T>& rhs) {
-        return set(wrap(rhs.object), rhs.name);
-    }
+// FieldProxy
+template <typename CLASS>
+typename FieldProxyPolicy<CLASS>::FieldProxy&
+FieldProxyPolicy<CLASS>::FieldProxy::operator=(const FieldProxyPolicy<CLASS>::FieldProxy& rhs) {
+    if (this != &rhs) set(rhs.get());
+    return *this;
+}
 
-    template <typename CLASS>
-    template <typename T>
-    DottedPairProxyPolicy<CLASS>::DottedPairProxy::operator T() const {
-        return as<T>(get());
-    }
+template <typename CLASS>
+template <typename T>
+typename FieldProxyPolicy<CLASS>::FieldProxy&
+FieldProxyPolicy<CLASS>::FieldProxy::operator=(const T& rhs) {
+    SEXP tmp = PROTECT(wrap(rhs));
+    set(tmp);
+    UNPROTECT(1);
+    return *this;
+}
 
-    template <typename CLASS>
-    template <typename T>
-    DottedPairProxyPolicy<CLASS>::const_DottedPairProxy::operator T() const {
-        return as<T>(get());
-    }
+template <typename CLASS>
+template <typename T>
+FieldProxyPolicy<CLASS>::FieldProxy::operator T() const {
+    return as<T>(get());
+}
 
-    // Field proxies
-    template <typename CLASS>
-    typename FieldProxyPolicy<CLASS>::FieldProxy&
-    FieldProxyPolicy<CLASS>::FieldProxy::operator=(const FieldProxyPolicy<CLASS>::FieldProxy& rhs) {
-        if (this != &rhs) set(rhs.get());
-        return *this;
-    }
-
-    template <typename CLASS>
-    template <typename T>
-    typename FieldProxyPolicy<CLASS>::FieldProxy&
-    FieldProxyPolicy<CLASS>::FieldProxy::operator=(const T& rhs) {
-        SEXP tmp = PROTECT(wrap(rhs));
-        set(tmp);
-        UNPROTECT(1);
-        return *this;
-    }
-
-    template <typename CLASS>
-    template <typename T>
-    FieldProxyPolicy<CLASS>::FieldProxy::operator T() const {
-      return as<T>(get());
-    }
-
-    template <typename CLASS>
-    template <typename T>
-    FieldProxyPolicy<CLASS>::const_FieldProxy::operator T() const {
-      return as<T>(get());
-    }
+template <typename CLASS>
+template <typename T>
+FieldProxyPolicy<CLASS>::const_FieldProxy::operator T() const {
+    return as<T>(get());
+}
 
 }
 
