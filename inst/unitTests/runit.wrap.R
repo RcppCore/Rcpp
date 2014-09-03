@@ -183,5 +183,9 @@ if (.runThisTest) {
             )    
     }
 
+    test.wrap.custom.class <- function() {
+        checkEquals(test_wrap_custom_class(), 42)
+    }
+
 }
 

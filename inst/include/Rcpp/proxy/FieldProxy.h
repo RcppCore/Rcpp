@@ -29,24 +29,12 @@ public:
         FieldProxy( CLASS& v, const std::string& name) :
             parent(v), field_name(name) {}
 
-        FieldProxy& operator=(const FieldProxy& rhs){
-            if( this != &rhs ) set( rhs.get() ) ;
-            return *this ;
-        }
+        FieldProxy& operator=(const FieldProxy& rhs);
 
-        template <typename T> FieldProxy& operator=(const T& rhs) {
-            SEXP tmp = PROTECT( wrap(rhs) );
-            set(tmp);
-            UNPROTECT(1);
-            return *this;
-        }
+        template <typename T> FieldProxy& operator=(const T& rhs);
 
-        template <typename T> operator T() const {
-          return as<T>( get() );
-        }
-        inline operator SEXP() const {
-            return get() ;
-        }
+        template <typename T> operator T() const;
+        inline operator SEXP() const { return get(); }
 
     private:
         CLASS& parent;
@@ -68,9 +56,7 @@ public:
         const_FieldProxy( const CLASS& v, const std::string& name) :
             parent(v), field_name(name) {}
 
-        template <typename T> operator T() const {
-          return as<T>( get() );
-        }
+        template <typename T> operator T() const;
         inline operator SEXP() const {
             return get() ;
         }

@@ -156,6 +156,13 @@ namespace Rcpp {
 
     template <typename CLASS>
     template <typename T>
+    typename DottedPairProxyPolicy<CLASS>::DottedPairProxy&
+    DottedPairProxyPolicy<CLASS>::DottedPairProxy::operator=(const traits::named_object<T>& rhs) {
+        return set(wrap(rhs.object), rhs.name);
+    }
+
+    template <typename CLASS>
+    template <typename T>
     DottedPairProxyPolicy<CLASS>::DottedPairProxy::operator T() const {
         return as<T>(get());
     }
@@ -164,6 +171,36 @@ namespace Rcpp {
     template <typename T>
     DottedPairProxyPolicy<CLASS>::const_DottedPairProxy::operator T() const {
         return as<T>(get());
+    }
+
+    // Field proxies
+    template <typename CLASS>
+    typename FieldProxyPolicy<CLASS>::FieldProxy&
+    FieldProxyPolicy<CLASS>::FieldProxy::operator=(const FieldProxyPolicy<CLASS>::FieldProxy& rhs) {
+        if (this != &rhs) set(rhs.get());
+        return *this;
+    }
+
+    template <typename CLASS>
+    template <typename T>
+    typename FieldProxyPolicy<CLASS>::FieldProxy&
+    FieldProxyPolicy<CLASS>::FieldProxy::operator=(const T& rhs) {
+        SEXP tmp = PROTECT(wrap(rhs));
+        set(tmp);
+        UNPROTECT(1);
+        return *this;
+    }
+
+    template <typename CLASS>
+    template <typename T>
+    FieldProxyPolicy<CLASS>::FieldProxy::operator T() const {
+      return as<T>(get());
+    }
+
+    template <typename CLASS>
+    template <typename T>
+    FieldProxyPolicy<CLASS>::const_FieldProxy::operator T() const {
+      return as<T>(get());
     }
 
 }
