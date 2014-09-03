@@ -35,14 +35,9 @@ public:
         }
 
         template <typename T>
-        NamesProxy& operator=(const T& rhs) {
-          set( wrap(rhs) );
-          return *this;
-        }
+        NamesProxy& operator=(const T& rhs);
 
-        template <typename T> operator T() const {
-          return as<T>( get() );
-        }
+        template <typename T> operator T() const;
 
     private:
         CLASS& parent;
@@ -71,9 +66,7 @@ public:
     public:
         const_NamesProxy( const CLASS& v) : parent(v){} ;
 
-        template <typename T> operator T() const {
-          return as<T>( get() );
-        }
+        template <typename T> operator T() const;
 
     private:
         const CLASS& parent;

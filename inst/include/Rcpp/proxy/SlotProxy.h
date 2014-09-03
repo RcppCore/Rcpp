@@ -37,14 +37,9 @@ public:
             return *this ;
         }
 
-        template <typename T> SlotProxy& operator=(const T& rhs) {
-          set( wrap(rhs) );
-          return *this;
-        }
+        template <typename T> SlotProxy& operator=(const T& rhs);
 
-        template <typename T> operator T() const {
-          return as<T>( get() );
-        }
+        template <typename T> operator T() const;
         inline operator SEXP() const {
             return get() ;
         }

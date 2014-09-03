@@ -29,19 +29,12 @@ namespace Rcpp{
             TagProxy( XPtrClass& xp_ ): xp(xp_){}
 
             template <typename U>
-            TagProxy& operator=( const U& u) {
-              set( wrap( u ) ) ;
-              return *this ;
-            }
+            TagProxy& operator=( const U& u);
 
             template <typename U>
-            operator U() const {
-              return as<U>( get() ) ;
-            }
+            operator U() const;
 
-            operator SEXP() const {
-                return get();
-            }
+            operator SEXP() const;
 
 
         private:
@@ -62,13 +55,9 @@ namespace Rcpp{
             const_TagProxy( XPtrClass& xp_ ): xp(xp_){}
 
             template <typename U>
-            operator U() const {
-              return as<U>( get() );
-            }
+            operator U() const;
 
-            operator SEXP() const {
-                return get();
-            }
+            operator SEXP() const;
 
 
         private:
