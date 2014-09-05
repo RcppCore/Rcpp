@@ -22,6 +22,10 @@
 #ifndef Rcpp_Environment_h
 #define Rcpp_Environment_h
 
+// From 'R/Defn.h'
+// NOTE: can't include header directly as it checks for some C99 features
+extern "C" SEXP R_NewHashedEnv(SEXP, SEXP);
+
 namespace Rcpp{
 
     RCPP_API_CLASS(Environment_Impl),
@@ -349,7 +353,12 @@ namespace Rcpp{
         void update(SEXP){}
     };
 
-    typedef Environment_Impl<PreserveStorage> Environment ;
+typedef Environment_Impl<PreserveStorage> Environment ;
+
+inline Environment new_env(int size = 29) {
+    Shield<SEXP> sizeSEXP(Rf_ScalarInteger(size));
+    return R_NewHashedEnv(R_EmptyEnv, sizeSEXP);
+};
 
 
 } // namespace Rcpp
