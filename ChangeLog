@@ -1,3 +1,7 @@
+2014-09-03  Kevin Ushey  <kevinushey@gmail.com>
+
+        * inst/include/Rcpp/Environment.h: make new_env a free function
+
 2014-09-02  Kevin Ushey  <kevinushey@gmail.com>
 
         * inst/include/Rcpp/api/meat/proxy.h: Finish meat reintroduction + tests
@@ -19,6 +23,10 @@
 
         * inst/include/Rcpp/vector/ListOf.h: `size()` member function should
         return `R_len_t` rather than `int`
+
+2014-08-30  Kevin Ushey  <kevinushey@gmail.com>
+
+        * inst/include/Rcpp/Environment.h: Add 'new_env' function
 
 2014-08-30  Dirk Eddelbuettel  <edd@debian.org>
 
