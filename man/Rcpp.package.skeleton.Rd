@@ -18,7 +18,7 @@ Rcpp.package.skeleton(name = "anRpackage", list = character(),
 	author = "Who wrote it", 
 	maintainer = if(missing( author)) "Who to complain to" else author, 
 	email = "yourfault@somewhere.net", 
-	license = "What Licence is it under ?"
+	license = "GPL (>= 2)"
 	)
 }
 \arguments{

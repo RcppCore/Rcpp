@@ -26,8 +26,10 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
                                   maintainer = if (missing(author)) "Who to complain to"
                                                else author,
                                   email = "yourfault@somewhere.net",
-                                  license = "What Licence is it under ?") {
+                                  license = "GPL (>= 2)") {
   
+    havePkgKitten <- require("pkgKitten", quietly=TRUE, character.only=TRUE)
+
     call <- match.call()
     call[[1]] <- as.name("package.skeleton")
     env <- parent.frame(1)
@@ -117,17 +119,21 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
     close( ns )
 
 	## update the package description help page
-	package_help_page <- file.path(root, "man", sprintf( "%s-package.Rd", name))
-	if (file.exists(package_help_page)) {
-	    lines <- readLines(package_help_page)
-	    lines <- gsub("What license is it under?", license, lines, fixed = TRUE)
-	    lines <- gsub("Who to complain to <yourfault@somewhere.net>",
-                      sprintf( "%s <%s>", maintainer, email),
-                      lines, fixed = TRUE)
-	    lines <- gsub( "Who wrote it", author, lines, fixed = TRUE)
-	    writeLines(lines, package_help_page)
-	}
-
+    if (havePkgKitten) {                # if pkgKitten is available, use it
+        pkgKitten::playWithPerPackageHelpPage(name, path, maintainer, email)
+    } else {
+        package_help_page <- file.path(root, "man", sprintf( "%s-package.Rd", name))
+        if (file.exists(package_help_page)) {
+            lines <- readLines(package_help_page)
+            lines <- gsub("What license is it under?", license, lines, fixed = TRUE)
+            lines <- gsub("Who to complain to <yourfault@somewhere.net>",
+                          sprintf( "%s <%s>", maintainer, email),
+                          lines, fixed = TRUE)
+            lines <- gsub( "Who wrote it", author, lines, fixed = TRUE)
+            writeLines(lines, package_help_page)
+        }
+    }
+    
 	## lay things out in the src directory
 	src <- file.path(root, "src")
 	if (!file.exists(src)) {
