@@ -68,18 +68,18 @@ test <- function(output=if(file.exists("/tmp")) "/tmp" else getwd(),
             testDir <- system.file("unitTests", package = "Rcpp")
         }
         
-        testSuite <- defineTestSuite(name="Rcpp Unit Tests",
-                                     dirs=testDir,
-                                     testFuncRegexp = "^[Tt]est.+")
+        testSuite <- RUnit::defineTestSuite(name="Rcpp Unit Tests",
+                                            dirs=testDir,
+                                            testFuncRegexp = "^[Tt]est.+")
 
         ## if someoone calls Rcpp::test(), he/she wants all tests
         Sys.setenv("RunAllRcppTests"="yes")
 
         ## Run tests
-        tests <- runTestSuite(testSuite)
+        tests <- RUnit::runTestSuite(testSuite)
 
         ## Print results
-        printTextProtocol(tests)
+        RUnit::printTextProtocol(tests)
 
         return(tests)
     }
