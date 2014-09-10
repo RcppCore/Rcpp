@@ -17,27 +17,6 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-## local copy til pkgKitten is updated on CRAN
-.pkgKittenPlayWithPerPackageHelpPage <- function(name = "anRpackage",
-                                                 path = ".",
-                                                 maintainer = "Your Name",
-                                                 email = "your@mail.com") {
-    root <- file.path(path, name)    
-    helptgt <- file.path(root, "man", sprintf( "%s-package.Rd", name))
-    helpsrc <- system.file("replacements", "manual-page-stub.Rd", package="pkgKitten")
-    ## update the package description help page
-    if (file.exists(helpsrc)) {
-        lines <- readLines(helpsrc)
-        lines <- gsub("__placeholder__", name, lines, fixed = TRUE)
-        lines <- gsub("Who to complain to <yourfault@somewhere.net>",
-                      sprintf( "%s <%s>", maintainer, email),
-                      lines, fixed = TRUE)
-        writeLines(lines, helptgt)
-    }
-    invisible(NULL)
-}
-
-
 Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
                                   environment = .GlobalEnv,
                                   path = ".", force = FALSE,
@@ -141,8 +120,7 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
 
 	## update the package description help page
     if (havePkgKitten) {                # if pkgKitten is available, use it
-        #pkgKitten::playWithPerPackageHelpPage(name, path, maintainer, email)
-        .pkgKittenPlayWithPerPackageHelpPage(name, path, maintainer, email)
+        pkgKitten::playWithPerPackageHelpPage(name, path, maintainer, email)
     } else {
         package_help_page <- file.path(root, "man", sprintf( "%s-package.Rd", name))
         if (file.exists(package_help_page)) {
