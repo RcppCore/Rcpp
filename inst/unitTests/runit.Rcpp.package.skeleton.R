@@ -96,7 +96,7 @@ if (.runThisTest) {
         
     }
 
-    test.Rcpp.package.skeleton.Attributes <- function(){
+    test.Rcpp.package.skeleton.Attributes <- function() {
         
         tempdir <- tempdir()
         path <- tempdir
@@ -107,15 +107,15 @@ if (.runThisTest) {
         Rcpp.package.skeleton("foo", path=path, attributes=TRUE, example_code=TRUE,
                               environment=environment())
         on.exit( unlink(pkg_path, recursive=TRUE) )
-        checkTrue( file.exists( file.path(src_path, "RcppExports.cpp") ),
+        checkTrue(file.exists( file.path(src_path, "RcppExports.cpp")),
                   "RcppExports.cpp was created")
-        checkTrue( file.exists( file.path(src_path, "rcpp_hello_world.cpp") ),
+        checkTrue(file.exists( file.path(src_path, "rcpp_hello_world.cpp")),
                   "rcpp_hello_world.cpp was created" )
-        checkTrue( file.exists( file.path(R_path, "RcppExports.R") ),
+        checkTrue(file.exists( file.path(R_path, "RcppExports.R")),
                   "RcppExports.R was created")
     }
 
-    test.Rcpp.package.skeleton.NoAttributes <- function(){
+    test.Rcpp.package.skeleton.NoAttributes <- function() {
         
         tempdir <- tempdir()
         path <- tempdir
@@ -126,15 +126,15 @@ if (.runThisTest) {
         Rcpp.package.skeleton("foo", path=path, attributes=FALSE, example_code=TRUE,
                               environment=environment())
         on.exit( unlink(pkg_path, recursive=TRUE) )
-        checkTrue( file.exists( file.path(src_path, "rcpp_hello_world.cpp") ),
+        checkTrue(file.exists( file.path(src_path, "rcpp_hello_world.cpp")),
                   "rcpp_hello_world.cpp was created")
-        checkTrue( file.exists( file.path(src_path, "rcpp_hello_world.h") ),
+        checkTrue(file.exists( file.path(src_path, "rcpp_hello_world.h")),
                   "rcpp_hello_world.h was created")
-        checkTrue( file.exists( file.path(R_path, "rcpp_hello_world.R") ),
+        checkTrue(file.exists( file.path(R_path, "rcpp_hello_world.R")),
                   "rcpp_hello_world.R was created" )
     }
 
-    test.Rcpp.package.skeleton.Module <- function(){
+    test.Rcpp.package.skeleton.Module <- function() {
         
         tempdir <- tempdir()
         path <- tempdir
@@ -143,9 +143,9 @@ if (.runThisTest) {
         src_path <- file.path(pkg_path, "src")
         
         Rcpp.package.skeleton("foo", path=path, module=TRUE, environment=environment())
-        on.exit( unlink(pkg_path, recursive=TRUE) )
-        checkTrue( file.exists( file.path(src_path, "rcpp_module.cpp") ),
-                  "rcpp_module.cpp was created" )
+        on.exit(unlink(pkg_path, recursive=TRUE))
+        checkTrue(file.exists( file.path(src_path, "rcpp_module.cpp")),
+                  "rcpp_module.cpp was created")
     }
   
 }
