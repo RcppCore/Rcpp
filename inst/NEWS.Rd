@@ -37,6 +37,13 @@
     \itemize{
       \item The \code{Rcpp-FAQ} vignette was updated with respect to OS X issues.
     }
+    \item Changes in Rcpp support functions:
+    \itemize{
+      \item The \code{Rcpp.package.skeleton()} function will now use
+      \cpkg{pkgKitten} package, if available, to create a package which passes
+      \code{R CMD check} without warnings. A new \code{Suggests:} has been added
+      for \cpkg{pkgKitten}.
+    }      
   }
 }
 
