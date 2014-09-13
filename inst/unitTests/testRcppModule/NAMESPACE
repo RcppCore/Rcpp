@@ -1,4 +1,4 @@
 useDynLib(testRcppModule)
 exportPattern("^[[:alpha:]]+")
-import(Rcpp)
+import(Rcpp,methods)
 
