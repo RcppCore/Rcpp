@@ -1,3 +1,10 @@
+2014-09-13  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/skeleton/Rcpp_modules_examples.Rd: Added to document modules examples
+
+        * inst/unitTests/testRcppModule/NAMESPACE: Updated for current Modules use
+        * inst/unitTests/testRcppModule/R/zzz.R: Updated for current Modules use
+
 2014-09-09  Dirk Eddelbuettel  <edd@debian.org>
 
         * R/unit.tests.R: Fully qualify three functions from RUnit via ::
