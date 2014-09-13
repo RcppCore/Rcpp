@@ -43,6 +43,8 @@
       \cpkg{pkgKitten} package, if available, to create a package which passes
       \code{R CMD check} without warnings. A new \code{Suggests:} has been added
       for \cpkg{pkgKitten}.
+      \item The \code{modules=TRUE} case for \code{Rcpp.package.skeleton()} has
+      been improved and now runs without complaints from \code{R CMD check} as well.
     }      
   }
 }
