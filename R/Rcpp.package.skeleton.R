@@ -44,7 +44,7 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
 			assign("rcpp_hello_world", function() {}, envir = env)
 			remove_hello_world <- TRUE
 		} else {
-	    remove_hello_world <- FALSE
+            remove_hello_world <- FALSE
 		}
 	} else {
         if (example_code && !isTRUE(attributes)) {
@@ -87,10 +87,6 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
 		x <- cbind(read.dcf(DESCRIPTION),
                    "Imports" = paste(imports, collapse = ", "),
                    "LinkingTo" = "Rcpp")
-		if (isTRUE(module)) {
-		    x <- cbind(x, "RcppModules" = "yada, stdVector, NumEx")
-		    message(" >> added RcppModules: yada, stdVector, NumEx")
-		}
 		x[, "Author"] <- author
 		x[, "Maintainer"] <- sprintf("%s <%s>", maintainer, email)
 		x[, "License"] <- license
@@ -110,12 +106,12 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
         message(" >> added useDynLib directive to NAMESPACE" )
     }
     if (isTRUE(module)) {
-        writeLines('import(methods)', ns)
-        writeLines('importFrom(Rcpp, loadModule)', ns)
-        message(" >> added importFrom(Rcpp, loadModule) directive to NAMESPACE")
+        writeLines('import(methods, Rcpp)', ns)
+        message(" >> added import(methods, Rcpp) directive to NAMESPACE")
+    } else {
+        writeLines('importFrom(Rcpp, evalCpp)', ns)
+        message(" >> added importFrom(Rcpp, evalCpp) directive to NAMESPACE" )
     }
-    writeLines('importFrom(Rcpp, evalCpp)', ns)
-    message(" >> added importFrom(Rcpp, evalCpp) directive to NAMESPACE" )
     close( ns )
 
 	## update the package description help page
@@ -177,15 +173,17 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
 		message( " >> added Rd file for rcpp_hello_world")
 	}
 
-	if (isTRUE( module)) {
+	if (isTRUE(module)) {
 		file.copy(system.file("skeleton", "rcpp_module.cpp", package="Rcpp"),
                   file.path(root, "src"))
 		file.copy(system.file("skeleton", "Num.cpp", package="Rcpp"),
                   file.path(root, "src"))
 		file.copy(system.file("skeleton", "stdVector.cpp", package="Rcpp"),
                   file.path(root, "src"))
-		file.copy(system.file( "skeleton", "zzz.R", package ="Rcpp"),
+		file.copy(system.file("skeleton", "zzz.R", package ="Rcpp"),
                   file.path(root, "R"))
+		file.copy(system.file("skeleton", "Rcpp_modules_examples.Rd", package ="Rcpp"),
+                  file.path(root, "man"))
 		message(" >> copied the example module file ")
 	}
 
