@@ -3,8 +3,8 @@ Type: Package
 Title: Some test examples using Rcpp with the Module feature
 Version: 0.1
 Date: 2010-09-06
-Author: JMC
-Maintainer:  <jmc@stat.stanford.edu>
+Author: John Chambers
+Maintainer: John Chambers <jmc@stat.stanford.edu>
 Description: Some examples taken (and perhaps modified) from the Rcpp	Modules documentation.
 License: GPL(>=2)
 LazyLoad: yes
