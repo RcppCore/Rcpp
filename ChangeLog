@@ -1,9 +1,15 @@
+2014-09-14  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/unitTests/testRcppClass/man/Rcpp_class_examples.Rd: Similar
+        update to yesterday's update for testRcppModule
+
 2014-09-13  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/skeleton/Rcpp_modules_examples.Rd: Added to document modules examples
 
         * inst/unitTests/testRcppModule/NAMESPACE: Updated for current Modules use
         * inst/unitTests/testRcppModule/R/zzz.R: Updated for current Modules use
+        * inst/unitTests/testRcppModule/man/Rcpp_modules_examples.Rd: Also added here
 
 2014-09-09  Dirk Eddelbuettel  <edd@debian.org>
 
