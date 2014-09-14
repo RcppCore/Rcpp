@@ -1,3 +1,9 @@
+2014-09-14  Kevin Ushey  <kevinushey@gmail.com>
+
+        * inst/include/Rcpp/vector/Vector.h: Alternate strategy using SFINAE
+        * inst/include/Rcpp/traits/traits.h: Idem
+        * inst/include/Rcpp/traits/enable_if.h: Idem
+
 2014-09-13  Kevin Ushey  <kevinushey@gmail.com>
 
         * inst/include/Rcpp/vector/Vector.h: Allow logical vectors to be created
