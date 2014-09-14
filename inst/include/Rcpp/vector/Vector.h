@@ -89,13 +89,13 @@ public:
         fill( u ) ;
     }
 
-    // constructor for CharacterVector() 
+    // constructor for CharacterVector()
     Vector( const std::string& st ){
         RCPP_DEBUG_2( "Vector<%d>( const std::string& = %s )", RTYPE, st.c_str() )
         Storage::set__( internal::vector_from_string<RTYPE>(st) ) ;
     }
 
-    // constructor for CharacterVector() 
+    // constructor for CharacterVector()
     Vector( const char* st ) {
         RCPP_DEBUG_2( "Vector<%d>( const char* = %s )", RTYPE, st )
         Storage::set__(internal::vector_from_string<RTYPE>(st) ) ;
@@ -119,8 +119,9 @@ public:
         }
     }
 
-    template <typename T = typename Rcpp::traits::if_<RTYPE == LGLSXP, bool, void>::type>
-    Vector(bool value) {
+    // Enable construction from bool for LogicalVectors
+    template <int T = RTYPE>
+    Vector(bool value, typename Rcpp::traits::enable_if<T == LGLSXP, void>::type* = 0) {
         Storage::set__(Rf_allocVector(RTYPE, 1));
         fill(value);
     }
