@@ -45,7 +45,12 @@
       for \cpkg{pkgKitten}.
       \item The \code{modules=TRUE} case for \code{Rcpp.package.skeleton()} has
       been improved and now runs without complaints from \code{R CMD check} as well.
-    }      
+    }
+    \item Changes in Rcpp unit test functions:
+    \itemize{
+      \item The \code{testRcppModule} and \code{testRcppClass} sample packages
+      now pass \code{R CMD check --as-cran} cleanly with NOTES or WARNINGS
+    }
   }
 }
 
