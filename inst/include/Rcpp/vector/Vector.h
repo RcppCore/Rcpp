@@ -119,6 +119,12 @@ public:
         }
     }
 
+    template <typename T = typename Rcpp::traits::if_<RTYPE == LGLSXP, bool, void>::type>
+    Vector(bool value) {
+        Storage::set__(Rf_allocVector(RTYPE, 1));
+        fill(value);
+    }
+
     template <typename U>
     Vector( const Dimension& dims, const U& u) {
         RCPP_DEBUG_2( "Vector<%d>( const Dimension& (%d), const U& )", RTYPE, dims.size() )
