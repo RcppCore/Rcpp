@@ -22,10 +22,10 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
                                   path = ".", force = FALSE,
                                   code_files = character(), cpp_files = character(),
                                   example_code = TRUE, attributes = TRUE, module = FALSE,
-                                  author = "Who wrote it",
-                                  maintainer = if (missing(author)) "Who to complain to"
+                                  author = "Your Name",
+                                  maintainer = if (missing(author)) "Your Name"
                                                else author,
-                                  email = "yourfault@somewhere.net",
+                                  email = "your@email.com",
                                   license = "GPL (>= 2)") {
   
     havePkgKitten <- require("pkgKitten", quietly=TRUE, character.only=TRUE)
@@ -209,4 +209,3 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
 
 	invisible(NULL)
 }
-

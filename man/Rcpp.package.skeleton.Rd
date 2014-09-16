@@ -15,9 +15,9 @@ Rcpp.package.skeleton(name = "anRpackage", list = character(),
 	environment = .GlobalEnv, path = ".", force = FALSE, 
 	code_files = character(), cpp_files = character(),
 	example_code = TRUE, attributes = TRUE, module = FALSE, 
-	author = "Who wrote it", 
-	maintainer = if(missing( author)) "Who to complain to" else author, 
-	email = "yourfault@somewhere.net", 
+	author = "Your Name", 
+	maintainer = if(missing( author)) "Your Name" else author, 
+	email = "your@email.com", 
 	license = "GPL (>= 2)"
 	)
 }
