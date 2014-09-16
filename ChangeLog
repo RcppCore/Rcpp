@@ -1,3 +1,8 @@
+2014-09-15  Dirk Eddelbuettel  <edd@debian.org>
+
+        * R/Rcpp.package.skeleton.R: Use more neutral default name, email settings
+        * man/Rcpp.package.skeleton.Rd: Document these
+
 2014-09-14  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/unitTests/testRcppClass/man/Rcpp_class_examples.Rd: Similar
