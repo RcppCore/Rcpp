@@ -5,7 +5,7 @@ Date: 2014-09-10
 Author: Dirk Eddelbuettel, Romain Francois, JJ Allaire, Kevin Ushey, 
  Douglas Bates, and John Chambers
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
-Description: The Rcpp package provides R functions as well as a C++ library
+Description: The Rcpp package provides R functions as well as a C++ classes
  which facilitate the integration of R and C++.
  .
  R data types (SEXP) are matched to C++ objects in a class hierarchy.  All R
