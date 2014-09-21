@@ -181,23 +181,19 @@ if (.runThisTest) {
     }
 
     test.environment.global.env <- function(){
-        checkEquals( runit_globenv(), globalenv(), msg = "Environment::global_env" )
+        checkIdentical( runit_globenv(), globalenv(), msg = "Environment::global_env" )
     }
 
     test.environment.empty.env <- function(){
-        checkEquals( runit_emptyenv(), emptyenv(), msg = "Environment::empty_env" )
+        checkIdentical( runit_emptyenv(), emptyenv(), msg = "Environment::empty_env" )
     }
 
     test.environment.base.env <- function(){
-        checkEquals( runit_baseenv(), baseenv(), msg = "Environment::base_env" )
-    }
-
-    test.environment.empty.env <- function(){
-        checkEquals( runit_emptyenv(), .BaseNamespaceEnv, msg = "Environment::base_namespace" )
+        checkIdentical( runit_baseenv(), baseenv(), msg = "Environment::base_env" )
     }
 
     test.environment.namespace.env <- function(){
-        checkEquals( runit_namespace("Rcpp"), asNamespace("Rcpp"), msg = "Environment::base_namespace" )
+        checkIdentical( runit_namespace("Rcpp"), asNamespace("Rcpp"), msg = "Environment::base_namespace" )
 
         can.demangle <- Rcpp:::capabilities()[["demangling"]]
         if( can.demangle ){
@@ -212,28 +208,28 @@ if (.runThisTest) {
     }
 
     test.environment.constructor.SEXP <- function(){
-        checkEquals( runit_env_SEXP( globalenv() ), globalenv(), msg = "Environment( environment ) - 1" )
-        checkEquals( runit_env_SEXP( baseenv() ), baseenv(), msg = "Environment( environment ) - 2" )
-        checkEquals( runit_env_SEXP( asNamespace("Rcpp") ), asNamespace("Rcpp"), msg = "Environment( environment ) - 3" )
+        checkIdentical( runit_env_SEXP( globalenv() ), globalenv(), msg = "Environment( environment ) - 1" )
+        checkIdentical( runit_env_SEXP( baseenv() ), baseenv(), msg = "Environment( environment ) - 2" )
+        checkIdentical( runit_env_SEXP( asNamespace("Rcpp") ), asNamespace("Rcpp"), msg = "Environment( environment ) - 3" )
 
-        checkEquals( runit_env_SEXP( ".GlobalEnv" ), globalenv(), msg = "Environment( character ) - 1" )
-        checkEquals( runit_env_SEXP( "package:base" ), baseenv(), msg = "Environment( character ) - 2" )
-        checkEquals( runit_env_SEXP( "package:Rcpp" ), as.environment("package:Rcpp") , msg = 'Environment( "package:Rcpp") ' )
+        checkIdentical( runit_env_SEXP( ".GlobalEnv" ), globalenv(), msg = "Environment( character ) - 1" )
+        checkIdentical( runit_env_SEXP( "package:base" ), baseenv(), msg = "Environment( character ) - 2" )
+        checkIdentical( runit_env_SEXP( "package:Rcpp" ), as.environment("package:Rcpp") , msg = 'Environment( "package:Rcpp") ' )
 
-        checkEquals( runit_env_SEXP(1L), globalenv(), msg = "Environment( SEXP{integer} )" )
+        checkIdentical( runit_env_SEXP(1L), globalenv(), msg = "Environment( SEXP{integer} )" )
     }
 
     test.environment.constructor.stdstring <- function(){
-        checkEquals( runit_env_string( ".GlobalEnv" ), globalenv(), msg = "Environment( std::string ) - 1" )
-        checkEquals( runit_env_string( "package:base" ), baseenv(), msg = "Environment( std::string ) - 2" )
-        checkEquals( runit_env_string( "package:Rcpp" ), as.environment("package:Rcpp") ,
+        checkIdentical( runit_env_string( ".GlobalEnv" ), globalenv(), msg = "Environment( std::string ) - 1" )
+        checkIdentical( runit_env_string( "package:base" ), baseenv(), msg = "Environment( std::string ) - 2" )
+        checkIdentical( runit_env_string( "package:Rcpp" ), as.environment("package:Rcpp") ,
                     msg = 'Environment( std::string ) - 3' )
 
     }
 
     test.environment.constructor.int <- function(){
         for( i in 1:length(search())){
-            checkEquals( runit_env_int(i), as.environment(i), msg = sprintf("Environment(int) - %d", i) )
+            checkIdentical( runit_env_int(i), as.environment(i), msg = sprintf("Environment(int) - %d", i) )
         }
     }
 
