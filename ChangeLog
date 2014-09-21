@@ -1,3 +1,8 @@
+2014-09-21  Kevin Ushey  <kevinushey@gmail.com>
+
+        * inst/unitTests/runit.environments.R: Use 'checkIdentical' as it's a
+        more appropriate expression of intent
+
 2014-09-15  Dirk Eddelbuettel  <edd@debian.org>
 
         * R/Rcpp.package.skeleton.R: Use more neutral default name, email settings
