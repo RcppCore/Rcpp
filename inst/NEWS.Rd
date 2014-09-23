@@ -32,6 +32,7 @@
     \itemize{
       \item Include LinkingTo in DESCRIPTION fields scanned to confirm that
       C++ dependencies are referenced by package.
+      \item Add \code{dryRun} parameter to \code{sourceCpp}.
     }
     \item Changes in Rcpp Documentation:
     \itemize{
