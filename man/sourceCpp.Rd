@@ -8,9 +8,10 @@ Source C++ Code from a File or String
 and RCPP_MODULE declarations. A shared library is then built and its exported functions and Rcpp modules are made available in the specified environment.
 }
 \usage{
-sourceCpp(file = "", code = NULL, env = globalenv(), 
-          embeddedR = TRUE, rebuild = FALSE, 
-          showOutput = verbose, verbose = getOption("verbose"))
+sourceCpp(file = "", code = NULL, env = globalenv(),
+          embeddedR = TRUE, rebuild = FALSE,
+          showOutput = verbose, verbose = getOption("verbose"),
+          dryRun = FALSE)
 }
 \arguments{
   \item{file}{
@@ -33,6 +34,10 @@ sourceCpp(file = "", code = NULL, env = globalenv(),
 }
   \item{verbose}{
     \code{TRUE} to print detailed information about generated code to the console.
+}
+  \item{dryRun}{
+    \code{TRUE} to do a dry run (showing commands that would be used rather than
+actually executing the commands).
 }
 }
 \details{
