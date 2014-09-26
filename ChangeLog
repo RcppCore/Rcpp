@@ -1,5 +1,9 @@
 2014-09-23  JJ Allaire <jj@rstudio.org>
 
+        * DESCRIPTION: Bump version to enable checking for dryRun.
+
+2014-09-23  JJ Allaire <jj@rstudio.org>
+
         * R/Attributes.R: Add dryRun parameter to sourceCpp.
 
 2014-09-21  Kevin Ushey  <kevinushey@gmail.com>
