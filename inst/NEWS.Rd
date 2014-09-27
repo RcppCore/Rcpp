@@ -7,36 +7,50 @@
     \item Changes in Rcpp API:
     \itemize{
       \item New \code{Rcpp::InternalFunction} interface using
-      \code{std::function}; only enabled on compilers that claim full c++11
-      support.
+        \code{std::function}; only enabled on compilers that claim full c++11
+        support.
       \item The deprecation of \code{RCPP_FUNCTION_*} which was announced with
-      release 0.10.5 last year is proceeding as planned, and the file
-      \code{macros/preprocessor_generated.h} has been removed.
+        release 0.10.5 last year is proceeding as planned, and the file
+        \code{macros/preprocessor_generated.h} has been removed.
       \item \code{Timer} no longer records time between steps, but times from 
-      the origin. It also gains a \code{get_timers(int)} methods that 
-      creates a vector of \code{Timer} that have the same origin. This is modelled
-      on the \code{Rcpp11} implementation and is more useful for situations where
-      we use timers in several threads. \code{Timer} also gains a constructor 
-      taking a \code{nanotime_t} to use as its origin, and a \code{origin} method. 
-      This can be useful for situations where the number of threads is not known
-      in advance but we still want to track what goes on in each thread.
+        the origin. It also gains a \code{get_timers(int)} methods that 
+        creates a vector of \code{Timer} that have the same origin. This is modelled
+        on the \code{Rcpp11} implementation and is more useful for situations where
+        we use timers in several threads. \code{Timer} also gains a constructor 
+        taking a \code{nanotime_t} to use as its origin, and a \code{origin} method. 
+        This can be useful for situations where the number of threads is not known
+        in advance but we still want to track what goes on in each thread.
       \item A cast to \code{bool} was removed in the vector proxy code as
-      inconsistent behaviour between clang and g++ compilations was noticed
+        inconsistent behaviour between clang and g++ compilations was noticed.
+      \item A missing \code{update(SEXP)} method was added thanks to pull
+        request by Omar Andres Zapata Mesa.
+      \item A proxy for \code{DimNames} was added.
+      \item A \code{no_init} option was added for Matrices and Vectors.
+      \item The \code{InternalFunction} class was updated to work with
+        \code{std::function} (provided a suitable C++11 compiler is available)
+        via a pull request by Christian Authmann.
+      \item A \code{new_env()} function was added to \code{Environment.h}
+      \item The return value of range eraser for Vectors was fixed in a pull
+        request by Yixuan Qiu.
     }
     \item Changes in Rcpp Sugar:
     \itemize{
       \item In \code{ifelse()}, the returned \code{NA} type was corrected for
-      \code{operator[]}
+      \code{operator[]}.
     }
     \item Changes in Rcpp Attributes:
     \itemize{
       \item Include LinkingTo in DESCRIPTION fields scanned to confirm that
       C++ dependencies are referenced by package.
       \item Add \code{dryRun} parameter to \code{sourceCpp}.
+      \item Corrected issue with relative path and R chunk use for \code{sourceCpp}.
     }
     \item Changes in Rcpp Documentation:
     \itemize{
       \item The \code{Rcpp-FAQ} vignette was updated with respect to OS X issues.
+      \item A new entry in the \code{Rcpp-FAQ} clarifies the use of licenses. 
+      \item Vignettes build results no longer copied to \code{/tmp} to please CRAN.
+      \item The Description in \code{DESCRIPTION} has been shortened.
     }
     \item Changes in Rcpp support functions:
     \itemize{
@@ -49,6 +63,7 @@
     }
     \item Changes in Rcpp unit test functions:
     \itemize{
+      \item Functions from the \cpkg{RUnit} package are now prefixed with \code{RUnit::}
       \item The \code{testRcppModule} and \code{testRcppClass} sample packages
       now pass \code{R CMD check --as-cran} cleanly with NOTES or WARNINGS
     }
