@@ -6,6 +6,10 @@
 
         * R/Attributes.R: Add dryRun parameter to sourceCpp.
 
+2014-09-21  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Shorten Description: to single paragraph
+
 2014-09-21  Kevin Ushey  <kevinushey@gmail.com>
 
         * inst/unitTests/runit.environments.R: Use 'checkIdentical' as it's a
@@ -28,6 +32,10 @@
         * inst/unitTests/testRcppModule/NAMESPACE: Updated for current Modules use
         * inst/unitTests/testRcppModule/R/zzz.R: Updated for current Modules use
         * inst/unitTests/testRcppModule/man/Rcpp_modules_examples.Rd: Also added here
+
+2014-09-10  Dirk Eddelbuettel  <edd@debian.org>
+
+        * R/R/Rcpp.package.skeleton.R: If available, pkgKitten used for skeleton pkg
 
 2014-09-09  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -53,6 +61,10 @@
 
         * R/Attributes.R: Include LinkingTo in DESCRIPTION fields scanned
         to confirm that C++ dependencies are referenced by package.
+
+2014-09-01  Yixuan Qiu <yixuan.qiu@cos.name>
+
+        * inst/include/Rcpp/vector/Vector.h: fix return value of range eraser
 
 2014-09-01  Kevin Ushey  <kevinushey@gmail.com>
 
@@ -85,6 +97,13 @@
         * inst/include/Rcpp/proxy/TagProxy.h: Idem
         * inst/include/Rcpp/proxy/proxy.h: Idem
 
+2014-08-08  Christian Authmann <authmanc@Mathematik.Uni-Marburg.de>
+
+        * inst/unitTests/cpp/InternalFunction.cpp: New unit test support
+        * inst/unitTests/cpp/InternalFunctionCPP11.cpp: Idem
+        * inst/unitTests/runit.InternalFunction.R: Idem
+        * inst/unitTests/runit.InternalFunctionCPP11.R: Idem
+
 2014-08-06  Christian Authmann <authmanc@Mathematik.Uni-Marburg.de>
 
         * inst/include/Rcpp/InternalFunctionWithStdFunction.h: Extend the
@@ -112,7 +131,7 @@
 2014-07-29  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/vector/proxy.h: Removed operator bool() cast as
-        discusses by Christian Authmann on rcpp-devel
+        discussed by Christian Authmann on rcpp-devel
 
 2014-07-28  Dirk Eddelbuettel  <edd@debian.org>
 
