@@ -1,4 +1,13 @@
-2014-09-23  JJ Allaire <jj@rstudio.org>
+2014-09-27  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.11.3
+        * inst/NEWS.Rd: Release 0.11.3
+        * inst/include/Rcpp/config.h: Release 0.11.3
+
+        * ChangeLog: Added a few more entries based on commit log
+        * inst/NEWS.Rd: Idem
+
+2014-09-26  JJ Allaire <jj@rstudio.org>
 
         * DESCRIPTION: Bump version to enable checking for dryRun.
 
