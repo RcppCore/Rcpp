@@ -10,3 +10,10 @@ std::string comments_test( /// // "\""" some '"// more / // ///garbge"
 ) { // """
     return msg;
 }
+
+std::string parse_declaration_test(std::string msg) {
+    return msg;
+}
+
+// [[Rcpp::export]]
+std::string parse_declaration_test(std::string msg = "Parse function declaration");
