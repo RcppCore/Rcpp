@@ -1162,12 +1162,12 @@ namespace attributes {
         for (int i = lineNumber; i<lines_.size(); i++) {
             std::string line;
             line = lines_[i];
-            std::string::size_type bracePos = line.find('{');
-            if (bracePos == std::string::npos) {
+            std::string::size_type end = line.find_first_of("{;");
+            if (end == std::string::npos) {
                 signature.append(line);
                 signature.push_back(' ');
             } else {
-                signature.append(line.substr(0, bracePos));
+                signature.append(line.substr(0, end));
                 return signature;
             }
         }
