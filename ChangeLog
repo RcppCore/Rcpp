@@ -1,6 +1,8 @@
 2014-09-29  Dirk Eddelbuettel  <edd@debian.org>
 
-        * debian/*: Changes for Debian release of 0.11.3 
+        * debian/*: Changes for Debian release of 0.11.3
+
+        * inst/NEWS.Rd: Removed a double entry
 
 2014-09-27  Dirk Eddelbuettel  <edd@debian.org>
 
