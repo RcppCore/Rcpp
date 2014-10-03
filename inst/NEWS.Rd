@@ -9,6 +9,11 @@
       \item The \code{ListOf<T>} class gains the \code{.attr} and
       \code{.names} methods common to other Rcpp vectors.
     }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Only look for plugins in the package's namespace
+      (rather than entire search path)
+    }
   }
 }
 
