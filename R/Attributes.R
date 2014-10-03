@@ -525,7 +525,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
 
 # Get the inline plugin for the specified package (return NULL if none found)
 .getInlinePlugin <- function(package) {
-    tryCatch(get("inlineCxxPlugin", asNamespace(package)),
+    tryCatch(get("inlineCxxPlugin", asNamespace(package), inherits = FALSE),
              error = function(e) NULL)
 }
 
