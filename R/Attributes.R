@@ -340,7 +340,8 @@ areMacrosDefined <- function(names,
 
 # Scan the source files within a package for attributes and generate code
 # based on the attributes.
-compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
+compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose"),
+                              scanHeaderFiles = FALSE) {
 
     # verify this is a package and read the DESCRIPTION to get it's name
     pkgdir <- normalizePath(pkgdir, winslash = "/")
@@ -366,8 +367,11 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
         dir.create(rDir)
 
     # get a list of all source files
-    cppFiles <- list.files(srcDir, pattern="\\.c(c|pp)$")
-
+    if (scanHeaderFiles)
+      cppFiles <- list.files(srcDir, pattern = "\\.(c(c|pp))|(h(pp)?)$")
+    else
+      cppFiles <- list.files(srcDir, pattern="\\.c(c|pp)$")
+    
     # derive base names (will be used for modules)
     cppFileBasenames <- tools::file_path_sans_ext(cppFiles)
 
