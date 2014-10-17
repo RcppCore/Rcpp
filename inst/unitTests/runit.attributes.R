@@ -28,6 +28,10 @@ if (.runThisTest) {
             comments_test(),
             "Start a C++ line comment with the characters \"//\""
         )
+        checkEquals(
+            parse_declaration_test(),
+            "Parse function declaration"
+        )
     }
 
 }
