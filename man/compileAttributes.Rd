@@ -17,9 +17,6 @@ compileAttributes(pkgdir = ".", verbose = getOption("verbose"))
   \item{verbose}{
     \code{TRUE} to print detailed information about generated code to the console.
 }
-  \item{scanHeaderFiles}{
-    \code{TRUE} to scan both header files and source files.
-}
 }
 \details{
     The source files in the package directory given by \code{pkgdir} are scanned for attributes and code is generated as required based on the attributes. 
