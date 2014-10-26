@@ -60,6 +60,7 @@ struct int2type { enum { value = I }; };
 #include <Rcpp/traits/is_finite.h>
 #include <Rcpp/traits/is_infinite.h>
 #include <Rcpp/traits/is_nan.h>
+#include <Rcpp/traits/is_bool.h>
 #include <Rcpp/traits/if_.h>
 #include <Rcpp/traits/get_na.h>
 #include <Rcpp/traits/is_trivial.h>

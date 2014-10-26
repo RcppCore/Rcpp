@@ -120,8 +120,11 @@ public:
     }
 
     // Enable construction from bool for LogicalVectors
-    template <int T = RTYPE>
-    Vector(bool value, typename Rcpp::traits::enable_if<T == LGLSXP, void>::type* = 0) {
+    // SFINAE only work for template. Add template class T and then restict T to
+    // bool.
+    template <typename T>
+    Vector(T value,
+           typename Rcpp::traits::enable_if<traits::is_bool<T>::value && RTYPE == LGLSXP, void>::type* = 0) {
         Storage::set__(Rf_allocVector(RTYPE, 1));
         fill(value);
     }
