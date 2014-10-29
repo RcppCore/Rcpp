@@ -1,6 +1,7 @@
 2014-10-29  Dirk Eddelbuettel  <edd@debian.org>
 
-        * inst/include/Rcpp/Rmath.h: Correct call to ?nbinom_mu variants
+        * inst/include/Rcpp/Rmath.h: Comment out R::[dpqr]nbinom_mu functions as
+        not declared by R with Rf_* name-mapping prefixes
 
 2014-10-17  Chenliang Xu <luckyrand@gmail.com>
         
