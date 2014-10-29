@@ -1,3 +1,11 @@
+2014-10-29  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/Rmath.h: Correct call to ?nbinom_mu variants
+
+2014-10-17  Chenliang Xu <luckyrand@gmail.com>
+        
+        * R/Attributes: Enable scanning of header files
+        
 2014-10-03  JJ Allaire  <jj@rstudio.org>
 
         * R/Attributes.R: Only look for plugins in the package's namespace
