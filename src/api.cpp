@@ -34,7 +34,7 @@ using namespace Rcpp ;
 #endif
 
 #if defined(__GNUC__)
-    #if defined(WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__CYGWIN__) || defined(__sun) || define(_AIX)
+    #if defined(WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__CYGWIN__) || defined(__sun) || defined(_AIX)
         // do nothing
     #else
         #include <execinfo.h>
