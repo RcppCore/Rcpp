@@ -131,7 +131,7 @@ namespace R {
     inline double qnbinom(double p, double sz, double pb, int lt, int lg)	{ return ::Rf_qnbinom(p, sz, pb, lt, lg); }
     inline double rnbinom(double sz, double pb)					{ return ::Rf_rnbinom(sz, pb); }
 
-#if 0
+#if R_VERSION >= R_Version(3, 1, 2)
     inline double dnbinom_mu(double x, double sz, double mu, int lg)		{ return ::Rf_dnbinom_mu(x, sz, mu, lg); }
     inline double pnbinom_mu(double x, double sz, double mu, int lt, int lg)	{ return ::Rf_pnbinom_mu(x, sz, mu, lt, lg); }
     inline double qnbinom_mu(double x, double sz, double mu, int lt, int lg)	{ return ::Rf_qnbinom_mu(x, sz, mu, lt, lg); }
