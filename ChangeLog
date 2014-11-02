@@ -2,7 +2,7 @@
 
         * inst/include/Rcpp/Rmath.h: As suggested by Kevin, test for R_VERSION
         via #define to conditon on R >= 3.1.2 -- this does not require a hard
-        constraint in DESCRIPTION yet on newer R will get R::[dpqr]nbinom_mu()
+        constraint in DESCRIPTION yet on newer R will get R::[dpq]nbinom_mu()
 
 2014-11-01  Dirk Eddelbuettel  <edd@debian.org>
 
