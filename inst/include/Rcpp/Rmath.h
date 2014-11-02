@@ -135,7 +135,7 @@ namespace R {
     inline double dnbinom_mu(double x, double sz, double mu, int lg)		{ return ::Rf_dnbinom_mu(x, sz, mu, lg); }
     inline double pnbinom_mu(double x, double sz, double mu, int lt, int lg)	{ return ::Rf_pnbinom_mu(x, sz, mu, lt, lg); }
     inline double qnbinom_mu(double x, double sz, double mu, int lt, int lg)	{ return ::Rf_qnbinom_mu(x, sz, mu, lt, lg); }
-    inline double rnbinom_mu(double sz, double mu)				{ return ::Rf_rnbinom_mu(sz, mu); }
+    //inline double rnbinom_mu(double sz, double mu)				{ return ::Rf_rnbinom_mu(sz, mu); }
 #endif
 
     /* Poisson Distribution */
