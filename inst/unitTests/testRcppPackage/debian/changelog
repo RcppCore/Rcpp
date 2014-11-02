@@ -1,0 +1,9 @@
+r-cran-testrcpppackage (0.1.0-1) unstable; urgency=low
+
+  * Initial version
+  
+  * debian/control: Remove (Build-)Depends: on r-cran-rcpp as this package is
+    internal and just used for testing from source when the packaged R binary
+    may not be installed
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Fri, 03 Oct 2014 08:25:46 -0500

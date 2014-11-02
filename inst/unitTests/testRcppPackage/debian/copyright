@@ -1,0 +1,42 @@
+This is the Debian GNU/Linux r-cran-testrcpppackage package of
+testRcppPackage, an internal test package for the Rcpp package.
+
+This package was created by Dirk Eddelbuettel <edd@debian.org>.
+The sources were taken from the main Rcpp source repository, they are also
+on thee main CRAN site
+	http://cran.r-project.org/src/contrib/
+and are also available from all CRAN mirrors as e.g.
+	http://cran.us.r-project.org/src/contrib/
+and GitHub at 
+	http://github.com/RcppCore/Rcpp
+
+The package was renamed from its upstream name 'testRcppPackage' to
+'r-cran-testrcpppackage' to fit the pattern of CRAN (and non-CRAN) packages for
+R.
+
+Files: *
+Copyright: 2010 - 2014  Dirk Eddelbuettel and Romain Francois
+License: GPL-2+
+
+Files: debian/*
+Copyright: 2014  Dirk Eddelbuettel <edd@debian.org>
+License: GPL-2+
+
+
+On a Debian GNU/Linux system, the GPL license (version 2) is included
+in the file /usr/share/common-licenses/GPL-2.
+
+For reference, the upstream DESCRIPTION file is included below:
+
+  Package: testRcppPackage
+  Type: Package
+  Title: Small Test Package for Rcpp and Part of Rcpp Unit Tests
+  Version: 1.0
+  Date: 2010-04-10
+  Author: Dirk Eddelbuettel and Romain Francois
+  Maintainer: Dirk Eddelbuettel <edd@debian.org>
+  Description: Small test package uses as part of Rcpp unit tests
+  License: GPL (>= 2)
+  LazyLoad: yes
+  Depends: Rcpp
+  LinkingTo: Rcpp
