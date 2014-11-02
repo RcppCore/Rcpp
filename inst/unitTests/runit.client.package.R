@@ -33,7 +33,7 @@
     cmd <- paste(R, "CMD build", pkg)
     system(cmd)
     dir.create("templib")
-    install.packages(paste0(pkg, "_1.0.tar.gz"), "templib", repos = NULL, type = "source")
+    install.packages(paste0(pkg, "_0.1.0.tar.gz"), "templib", repos = NULL, type = "source")
     require(pkg, lib.loc = "templib", character.only = TRUE)
     hello_world <- get("rcpp_hello_world", asNamespace(pkg))
     checkEquals(hello_world(), list(c("foo", "bar"), c(0.0, 1.0)),
