@@ -1,3 +1,5 @@
 inst/doc/Makefile
 inst/doc/jss.bst
 inst/doc/RJournal.sty
+inst/unitTests/bin
+inst/unitTests/src
