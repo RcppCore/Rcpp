@@ -1,6 +1,6 @@
 #!/usr/bin/r -t
 #
-# Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2014  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -22,28 +22,28 @@
 
 .runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
 
-.client.package <- function( pkg = "RcppTestA" ){
+.client.package <- function(pkg = "testRcppPackage") {
     td <- tempfile()
     cwd <- getwd()
-    dir.create( td )
-    file.copy( system.file( "unitTests", pkg, package = "Rcpp" ) , td, recursive = TRUE)
-    setwd( td )
-    on.exit( { setwd( cwd) ; unlink( td, recursive = TRUE ) } )
-    R <- shQuote( file.path( R.home( component = "bin" ), "R" ))
-    cmd <- paste( R , "CMD build", pkg )
-    system( cmd )
-    dir.create( "templib" )
-    install.packages( paste( pkg, "_1.0.tar.gz", sep = "" ), "templib", repos = NULL, type = "source" )
-    require( pkg, "templib", character.only = TRUE )
+    dir.create(td)
+    file.copy(system.file("unitTests", pkg, package = "Rcpp"), td, recursive = TRUE)
+    setwd(td)
+    on.exit( { setwd(cwd); unlink(td, recursive = TRUE) } )
+    R <- shQuote(file.path( R.home(component = "bin"), "R"))
+    cmd <- paste(R, "CMD build", pkg)
+    system(cmd)
+    dir.create("templib")
+    install.packages(paste0(pkg, "_0.1.0.tar.gz"), "templib", repos = NULL, type = "source")
+    require(pkg, lib.loc = "templib", character.only = TRUE)
+    hello_world <- get("rcpp_hello_world", asNamespace(pkg))
+    checkEquals(hello_world(), list(c("foo", "bar"), c(0.0, 1.0)),
+                msg = "code from client package")
 
-    hello_world <- get( "rcpp_hello_world", asNamespace( pkg ) )
-    checkEquals( hello_world(), list( c("foo", "bar"), c(0.0, 1.0) ), msg = "code from client package" )
-
-    checkException( .Call("hello_world_ex", PACKAGE = pkg ), msg = "exception in client package" )
+    checkException(.Call("hello_world_ex", PACKAGE = pkg), msg = "exception in client package")
 }
 
-if ( .runThisTest && ! .onWindows ) {
-    test.client.packageA <- function(){
-        .client.package( "RcppTestA" )
+if (.runThisTest && ! .onWindows) {
+    test.client.testRcppPackage <- function() {
+        .client.package("testRcppPackage")
     }
 }
