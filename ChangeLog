@@ -1,3 +1,8 @@
+2014-11-02  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/unitTests/RcppTestA: Rename to inst/unitTests/testRcppPackage
+        * inst/unitTests/testRcppPackage: Updated throughout
+
 2014-11-01  Dirk Eddelbuettel  <edd@debian.org>
 
         * src/api.cpp: Do not include execinfo.h on AIX, per r-devel discussion

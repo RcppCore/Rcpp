@@ -1,8 +1,8 @@
 Package: testRcppPackage
 Type: Package
 Title: Small Test Package for Rcpp and Part of Rcpp Unit Tests
-Version: 1.0
-Date: 2010-04-10
+Version: 0.1.0
+Date: 2014-11-02
 Author: Dirk Eddelbuettel and Romain Francois
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
 Description: Small test package uses as part of Rcpp unit tests
