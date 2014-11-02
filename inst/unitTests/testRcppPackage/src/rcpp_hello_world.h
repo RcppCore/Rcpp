@@ -1,5 +1,5 @@
-#ifndef _RcppTestA_RCPP_HELLO_WORLD_H
-#define _RcppTestA_RCPP_HELLO_WORLD_H
+#ifndef _testRcppPackage_RCPP_HELLO_WORLD_H
+#define _testRcppPackage_RCPP_HELLO_WORLD_H
 
 #include <Rcpp.h>
 
