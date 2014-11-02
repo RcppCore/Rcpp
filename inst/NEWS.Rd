@@ -8,6 +8,8 @@
     \itemize{
       \item The \code{ListOf<T>} class gains the \code{.attr} and
       \code{.names} methods common to other Rcpp vectors.
+      \item The \code{[dpq]nbinom_mu()} scalar functions are now available via 
+      the \code{R::} namespace when R 3.1.2 or newer is used.
     }
     \item Changes in Rcpp Attributes:
     \itemize{

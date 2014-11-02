@@ -1,3 +1,9 @@
+2014-11-02  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/Rmath.h: As suggested by Kevin, test for R_VERSION
+        via #define to conditon on R >= 3.1.2 -- this does not require a hard
+        constraint in DESCRIPTION yet on newer R will get R::[dpq]nbinom_mu()
+
 2014-11-01  Dirk Eddelbuettel  <edd@debian.org>
 
         * src/api.cpp: Do not include execinfo.h on AIX, per r-devel discussion
