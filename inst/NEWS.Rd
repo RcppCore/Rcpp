@@ -26,6 +26,7 @@
       ensure that the Application Binary Interface (ABI) did not change; this
       test will (mostly or) only run at Travis where we have reasonable control
       over the platform running the test and can provide a binary.
+    }
   }
 }
 
