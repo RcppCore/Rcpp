@@ -10,12 +10,22 @@
       \code{.names} methods common to other Rcpp vectors.
       \item The \code{[dpq]nbinom_mu()} scalar functions are now available via 
       the \code{R::} namespace when R 3.1.2 or newer is used.
+      \item Add an additional test for AIX before attempting to include \code{execinfo.h}.
     }
     \item Changes in Rcpp Attributes:
     \itemize{
       \item Only look for plugins in the package's namespace
-      (rather than entire search path)
+      (rather than entire search path).
+      \item Also scan header files for definitions of functions to be considerd
+      by Attributes.
+      \item Correct the regular expression for source files which are scanned.
     }
+    \item Changes in Rcpp unit tests
+    \itemize{
+      \item Added a new binary test which will load a pre-built package to
+      ensure that the Application Binary Interface (ABI) did not change; this
+      test will (mostly or) only run at Travis where we have reasonable control
+      over the platform running the test and can provide a binary.
   }
 }
 
