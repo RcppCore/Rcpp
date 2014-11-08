@@ -1,3 +1,8 @@
+2014-11-08  Kevin Ushey  <kevinushey@gmail.com>
+
+        * R/Attributes.R: Fix regular expression used to find source files for
+        compileAttributes
+
 2014-11-02  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/unitTests/RcppTestA: Rename to inst/unitTests/testRcppPackage
