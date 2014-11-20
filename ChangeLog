@@ -1,5 +1,8 @@
 2014-11-19  Dirk Eddelbuettel  <edd@debian.org>
 
+        * .travis.yml: Temporary stop-gap measure of setting CRAN to something
+        other than the RStudio CDN which currently has DNS issue
+
         * inst/include/Rcpp/internal/NAComparator.h: Support sorting of complex
         numbers, thanks to patch by Yixuan Qiu (in PR #202)
 
