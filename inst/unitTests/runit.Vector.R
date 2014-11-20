@@ -665,6 +665,14 @@ if (.runThisTest) {
         other <- list_sexp_assign(l)
         checkIdentical(l, other)
     }
+
+    test.logical.vector.from.bool <- function() {
+        checkIdentical(logical_vector_from_bool(), TRUE)
+    }
+
+    test.logical.vector.from.bool.assign <- function() {
+        checkIdentical(logical_vector_from_bool_assign(), TRUE)
+    }
     
 }
 

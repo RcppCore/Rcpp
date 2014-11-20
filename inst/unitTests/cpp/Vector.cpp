@@ -750,3 +750,14 @@ List list_sexp_assign(SEXP x) {
     L = x;
     return L;
 }
+
+// [[Rcpp::export]]
+bool logical_vector_from_bool() {
+    return true;
+}
+
+// [[Rcpp::export]]
+LogicalVector logical_vector_from_bool_assign() {
+    LogicalVector result = true;
+    return result;
+}
