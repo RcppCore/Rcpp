@@ -1,3 +1,8 @@
+2014-11-19  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/internal/NAComparator.h: Support sorting of complex
+        numbers, thanks to patch by Yixuan Qiu (in PR #202)
+
 2014-11-08  Kevin Ushey  <kevinushey@gmail.com>
 
         * R/Attributes.R: Fix regular expression used to find source files for
