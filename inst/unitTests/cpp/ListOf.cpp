@@ -98,3 +98,13 @@ NumericVector test_nested_listof(ListOf< ListOf<NumericVector> > x) {
 ListOf<IntegerVector> test_return_IVList(List x) {
     return x;
 }
+
+// [[Rcpp::export]]
+CharacterVector listof_names(ListOf<NumericVector> x) {
+    return x.names();
+}
+
+// [[Rcpp::export]]
+SEXP listof_attr_foo(ListOf<NumericVector> x) {
+    return x.attr("foo");
+}

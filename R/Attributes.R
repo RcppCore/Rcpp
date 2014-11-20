@@ -23,7 +23,8 @@ sourceCpp <- function(file = "",
                       embeddedR = TRUE,
                       rebuild = FALSE,
                       showOutput = verbose,
-                      verbose = getOption("verbose")) {
+                      verbose = getOption("verbose"),
+                      dryRun = FALSE) {
 
     # resolve code into a file if necessary. also track the working
     # directory to source the R embedded code chunk within
@@ -112,6 +113,7 @@ sourceCpp <- function(file = "",
                      "CMD SHLIB ",
                      "-o ", shQuote(context$dynlibFilename), " ",
                      ifelse(rebuild, "--preclean ", ""),
+                     ifelse(dryRun, "--dry-run ", ""),
                      shQuote(context$cppSourceFilename), sep="")
         if (showOutput)
             cat(cmd, "\n")
@@ -151,6 +153,10 @@ sourceCpp <- function(file = "",
             cat("\nNo rebuild required (use rebuild = TRUE to ",
                 "force a rebuild)\n\n", sep="")
     }
+
+    # return immediately if this was a dry run
+    if (dryRun)
+        return(invisible(NULL))
 
     # load the module if we have exported symbols
     if (length(context$exportedFunctions) > 0 || length(context$modules) > 0) {
@@ -360,7 +366,7 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
         dir.create(rDir)
 
     # get a list of all source files
-    cppFiles <- list.files(srcDir, pattern="\\.c(c|pp)$")
+    cppFiles <- list.files(srcDir, pattern = "\\.((c(c|pp))|(h(pp)?))$")
 
     # derive base names (will be used for modules)
     cppFileBasenames <- tools::file_path_sans_ext(cppFiles)
@@ -519,7 +525,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
 
 # Get the inline plugin for the specified package (return NULL if none found)
 .getInlinePlugin <- function(package) {
-    tryCatch(get("inlineCxxPlugin", asNamespace(package)),
+    tryCatch(get("inlineCxxPlugin", asNamespace(package), inherits = FALSE),
              error = function(e) NULL)
 }
 

@@ -2,40 +2,80 @@
 \title{News for Package 'Rcpp'}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
-\section{Changes in Rcpp version 0.11.3 (2014-xx-yy)}{
+\section{Changes in Rcpp version 0.11.4 [UNRELEASED]}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
-      \item New \code{Rcpp::InternalFunction} interface using
-      \code{std::function}; only enabled on compilers that claim full c++11
-      support.
+      \item The \code{ListOf<T>} class gains the \code{.attr} and
+      \code{.names} methods common to other Rcpp vectors.
+      \item The \code{[dpq]nbinom_mu()} scalar functions are now available via 
+      the \code{R::} namespace when R 3.1.2 or newer is used.
+      \item Add an additional test for AIX before attempting to include \code{execinfo.h}.
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Only look for plugins in the package's namespace
+      (rather than entire search path).
+      \item Also scan header files for definitions of functions to be considerd
+      by Attributes.
+      \item Correct the regular expression for source files which are scanned.
+    }
+    \item Changes in Rcpp unit tests
+    \itemize{
+      \item Added a new binary test which will load a pre-built package to
+      ensure that the Application Binary Interface (ABI) did not change; this
+      test will (mostly or) only run at Travis where we have reasonable control
+      over the platform running the test and can provide a binary.
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.11.3 (2014-09-27)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
       \item The deprecation of \code{RCPP_FUNCTION_*} which was announced with
-      release 0.10.5 last year is proceeding as planned, and the file
-      \code{macros/preprocessor_generated.h} has been removed.
+        release 0.10.5 last year is proceeding as planned, and the file
+        \code{macros/preprocessor_generated.h} has been removed.
       \item \code{Timer} no longer records time between steps, but times from 
-      the origin. It also gains a \code{get_timers(int)} methods that 
-      creates a vector of \code{Timer} that have the same origin. This is modelled
-      on the \code{Rcpp11} implementation and is more useful for situations where
-      we use timers in several threads. \code{Timer} also gains a constructor 
-      taking a \code{nanotime_t} to use as its origin, and a \code{origin} method. 
-      This can be useful for situations where the number of threads is not known
-      in advance but we still want to track what goes on in each thread.
+        the origin. It also gains a \code{get_timers(int)} methods that 
+        creates a vector of \code{Timer} that have the same origin. This is modelled
+        on the \code{Rcpp11} implementation and is more useful for situations where
+        we use timers in several threads. \code{Timer} also gains a constructor 
+        taking a \code{nanotime_t} to use as its origin, and a \code{origin} method. 
+        This can be useful for situations where the number of threads is not known
+        in advance but we still want to track what goes on in each thread.
       \item A cast to \code{bool} was removed in the vector proxy code as
-      inconsistent behaviour between clang and g++ compilations was noticed
+        inconsistent behaviour between clang and g++ compilations was noticed.
+      \item A missing \code{update(SEXP)} method was added thanks to pull
+        request by Omar Andres Zapata Mesa.
+      \item A proxy for \code{DimNames} was added.
+      \item A \code{no_init} option was added for Matrices and Vectors.
+      \item The \code{InternalFunction} class was updated to work with
+        \code{std::function} (provided a suitable C++11 compiler is available)
+        via a pull request by Christian Authmann.
+      \item A \code{new_env()} function was added to \code{Environment.h}
+      \item The return value of range eraser for Vectors was fixed in a pull
+        request by Yixuan Qiu.
     }
     \item Changes in Rcpp Sugar:
     \itemize{
       \item In \code{ifelse()}, the returned \code{NA} type was corrected for
-      \code{operator[]}
+      \code{operator[]}.
     }
     \item Changes in Rcpp Attributes:
     \itemize{
       \item Include LinkingTo in DESCRIPTION fields scanned to confirm that
       C++ dependencies are referenced by package.
+      \item Add \code{dryRun} parameter to \code{sourceCpp}.
+      \item Corrected issue with relative path and R chunk use for \code{sourceCpp}.
     }
     \item Changes in Rcpp Documentation:
     \itemize{
       \item The \code{Rcpp-FAQ} vignette was updated with respect to OS X issues.
+      \item A new entry in the \code{Rcpp-FAQ} clarifies the use of licenses. 
+      \item Vignettes build results no longer copied to \code{/tmp} to please CRAN.
+      \item The Description in \code{DESCRIPTION} has been shortened.
     }
     \item Changes in Rcpp support functions:
     \itemize{
@@ -45,7 +85,13 @@
       for \cpkg{pkgKitten}.
       \item The \code{modules=TRUE} case for \code{Rcpp.package.skeleton()} has
       been improved and now runs without complaints from \code{R CMD check} as well.
-    }      
+    }
+    \item Changes in Rcpp unit test functions:
+    \itemize{
+      \item Functions from the \cpkg{RUnit} package are now prefixed with \code{RUnit::}
+      \item The \code{testRcppModule} and \code{testRcppClass} sample packages
+      now pass \code{R CMD check --as-cran} cleanly with NOTES or WARNINGS
+    }
   }
 }
 

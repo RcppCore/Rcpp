@@ -1,3 +1,5 @@
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
+
 #include "rcpp_hello_world.h"
 
 // convenience typedef
@@ -9,16 +11,16 @@ void vec_assign( vec* obj, Rcpp::NumericVector data ){
 }
 
 void vec_insert( vec* obj, int position, Rcpp::NumericVector data){
-	vec::iterator it = obj->begin() + position ;
-	obj->insert( it, data.begin(), data.end() ) ;
+    vec::iterator it = obj->begin() + position ;
+    obj->insert( it, data.begin(), data.end() ) ;
 }
 
 Rcpp::NumericVector vec_asR( vec* obj ){
-	return Rcpp::wrap( *obj ) ;
+    return Rcpp::wrap( *obj ) ;
 }
 
 void vec_set( vec* obj, int i, double value ){
-	obj->at( i ) = value ;
+    obj->at( i ) = value ;
 }
 
 void vec_resize( vec* obj, int n){ obj->resize( n ) ; }

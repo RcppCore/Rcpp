@@ -87,4 +87,15 @@ if (.runThisTest) {
         )
     }
 
+    test.ListOf.names <- function() {
+        l <- list(a = 1L, b = 2L, c = 3L)
+        checkEquals(listof_names(l), c("a", "b", "c"))
+    }
+
+    test.ListOf.attr.foo <- function() {
+        l <- list(a = 1L)
+        attr(l, "foo") <- "bar"
+        checkEquals(listof_attr_foo(l), "bar")
+    }
+
 }
