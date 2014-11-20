@@ -131,10 +131,12 @@ namespace R {
     inline double qnbinom(double p, double sz, double pb, int lt, int lg)	{ return ::Rf_qnbinom(p, sz, pb, lt, lg); }
     inline double rnbinom(double sz, double pb)					{ return ::Rf_rnbinom(sz, pb); }
 
-    inline double dnbinom_mu(double x, double sz, double mu, int lg)		{ return ::Rf_dnbinom(x, sz, mu, lg); }
-    inline double pnbinom_mu(double x, double sz, double mu, int lt, int lg)	{ return ::Rf_pnbinom(x, sz, mu, lt, lg); }
-    inline double qnbinom_mu(double x, double sz, double mu, int lt, int lg)	{ return ::Rf_qnbinom(x, sz, mu, lt, lg); }
-    inline double rnbinom_mu(double sz, double mu)				{ return ::Rf_rnbinom(sz, mu); }
+#if R_VERSION >= R_Version(3, 1, 2)
+    inline double dnbinom_mu(double x, double sz, double mu, int lg)		{ return ::Rf_dnbinom_mu(x, sz, mu, lg); }
+    inline double pnbinom_mu(double x, double sz, double mu, int lt, int lg)	{ return ::Rf_pnbinom_mu(x, sz, mu, lt, lg); }
+    inline double qnbinom_mu(double x, double sz, double mu, int lt, int lg)	{ return ::Rf_qnbinom_mu(x, sz, mu, lt, lg); }
+    //inline double rnbinom_mu(double sz, double mu)				{ return ::Rf_rnbinom_mu(sz, mu); }
+#endif
 
     /* Poisson Distribution */
     inline double dpois(double x, double lb, int lg)		{ return ::Rf_dpois(x, lb, lg); }

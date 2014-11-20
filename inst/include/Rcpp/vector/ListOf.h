@@ -23,7 +23,11 @@
 namespace Rcpp {
 
 template <typename T>
-class ListOf {
+class ListOf
+    : public NamesProxyPolicy<T>
+    , public AttributeProxyPolicy<T>
+    , public RObjectMethods<T>
+{
 
 public:
     typedef typename traits::r_vector_iterator<VECSXP>::type iterator;

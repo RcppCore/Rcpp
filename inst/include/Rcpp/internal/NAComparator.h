@@ -73,6 +73,31 @@ struct NAComparator<double> {
 };
 
 template <>
+struct NAComparator<Rcomplex> {
+    inline bool operator()(Rcomplex left, Rcomplex right) const {
+        // sort() in R says that complex numbers are first sorted by
+        // the real parts, and then the imaginary parts.
+
+        // When only one of the two numbers contains NA or NaN, move
+        // it to the right hand side.
+
+        // When both left and right contain NA or NaN, return true.
+
+        bool leftNaN = (left.r != left.r) || (left.i != left.i);
+        bool rightNaN = (right.r != right.r) || (right.i != right.i);
+
+        if (!(leftNaN || rightNaN))  // if both are nice numbers
+        {
+            if (left.r == right.r)   // if real parts are the same
+                return left.i < right.i;
+            else
+                return left.r < right.r;
+        } else
+            return leftNaN <= rightNaN;
+    }
+};
+
+template <>
 struct NAComparator<SEXP> {
     inline bool operator()(SEXP left, SEXP right) const {
         return StrCmp(left, right) < 0;

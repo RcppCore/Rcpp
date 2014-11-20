@@ -3,7 +3,7 @@
 //
 // api.cpp: Rcpp R/C++ interface class library -- Rcpp api
 //
-// Copyright (C) 2012 - 2013  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2014  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -34,7 +34,8 @@ using namespace Rcpp ;
 #endif
 
 #if defined(__GNUC__)
-    #if defined(WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__CYGWIN__) || defined(__sun)
+    #if defined(WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__CYGWIN__) || defined(__sun) || defined(_AIX)
+        // do nothing
     #else
         #include <execinfo.h>
 
@@ -256,16 +257,14 @@ SEXP rcpp_can_use_cxx11(){
 // [[Rcpp::register]]
 SEXP stack_trace( const char* file, int line ){
     #if defined(__GNUC__)
-        #if defined(WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__CYGWIN__) || defined(__sun)
+        #if defined(WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__CYGWIN__) || defined(__sun) || defined(_AIX)
             // Simpler version for Windows and *BSD
-            List trace = List::create(
-                _[ "file"  ] = file,
-                _[ "line"  ] = line,
-                _[ "stack" ] = "C++ stack not available on this system"
-            ) ;
+            List trace = List::create(_["file"] = file,
+                                      _[ "line"  ] = line,
+                                      _[ "stack" ] = "C++ stack not available on this system");
             trace.attr("class") = "Rcpp_stack_trace" ;
             return trace ;
-        #else // ! (defined(WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__CYGWIN__) || defined(__sun)
+        #else // ! (defined(WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__CYGWIN__) || defined(__sun) || defined(_AIX)
 
             /* inspired from http://tombarta.wordpress.com/2008/08/01/c-stack-traces-with-gcc/  */
             const size_t max_depth = 100;

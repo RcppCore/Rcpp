@@ -1,3 +1,92 @@
+2014-11-19  Dirk Eddelbuettel  <edd@debian.org>
+
+        * .travis.yml: Temporary stop-gap measure of setting CRAN to something
+        other than the RStudio CDN which currently has DNS issue
+
+        * inst/include/Rcpp/internal/NAComparator.h: Support sorting of complex
+        numbers, thanks to patch by Yixuan Qiu (in PR #202)
+
+2014-11-08  Kevin Ushey  <kevinushey@gmail.com>
+
+        * R/Attributes.R: Fix regular expression used to find source files for
+        compileAttributes
+
+2014-11-02  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/unitTests/RcppTestA: Rename to inst/unitTests/testRcppPackage
+        * inst/unitTests/testRcppPackage: Updated throughout
+
+        * inst/include/Rcpp/Rmath.h: As suggested by Kevin, test for R_VERSION
+        via #define to conditon on R >= 3.1.2 -- this does not require a hard
+        constraint in DESCRIPTION yet on newer R will get R::[dpq]nbinom_mu()
+
+2014-11-01  Dirk Eddelbuettel  <edd@debian.org>
+
+        * src/api.cpp: Do not include execinfo.h on AIX, per r-devel discussion
+        with Mike Beddo, and http://sf.net/p/predef/wiki/OperatingSystems/
+
+2014-10-29  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/Rmath.h: Comment out R::[dpqr]nbinom_mu functions as
+        not declared by R with Rf_* name-mapping prefixes
+
+2014-10-17  Chenliang Xu <luckyrand@gmail.com>
+
+        * R/Attributes: Enable scanning of header files
+
+2014-10-03  JJ Allaire  <jj@rstudio.org>
+
+        * R/Attributes.R: Only look for plugins in the package's namespace
+        (rather than entire search path)
+
+2014-10-01  Kevin Ushey  <kevinushey@gmail.com>
+
+        * inst/include/Rcpp/vector/ListOf.h ListOf<T> inherits relevant proxies
+        * inst/unitTests/cpp/ListOf.cpp: Idem
+        * inst/unitTests/runit.ListOf.R: Idem
+
+2014-09-29  Dirk Eddelbuettel  <edd@debian.org>
+
+        * debian/*: Changes for Debian release of 0.11.3
+
+        * inst/NEWS.Rd: Removed a double entry
+
+2014-09-27  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.11.3
+        * inst/NEWS.Rd: Release 0.11.3
+        * inst/include/Rcpp/config.h: Release 0.11.3
+
+        * ChangeLog: Added a few more entries based on commit log
+        * inst/NEWS.Rd: Idem
+
+2014-09-26  JJ Allaire <jj@rstudio.org>
+
+        * DESCRIPTION: Bump version to enable checking for dryRun.
+
+2014-09-23  JJ Allaire <jj@rstudio.org>
+
+        * R/Attributes.R: Add dryRun parameter to sourceCpp.
+
+2014-09-21  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Shorten Description: to single paragraph
+
+2014-09-21  Kevin Ushey  <kevinushey@gmail.com>
+
+        * inst/unitTests/runit.environments.R: Use 'checkIdentical' as it's a
+        more appropriate expression of intent
+
+2014-09-15  Dirk Eddelbuettel  <edd@debian.org>
+
+        * R/Rcpp.package.skeleton.R: Use more neutral default name, email settings
+        * man/Rcpp.package.skeleton.Rd: Document these
+
+2014-09-14  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/unitTests/testRcppClass/man/Rcpp_class_examples.Rd: Similar
+        update to yesterday's update for testRcppModule
+
 2014-09-14  Kevin Ushey  <kevinushey@gmail.com>
 
         * inst/include/Rcpp/vector/Vector.h: Alternate strategy using SFINAE
@@ -17,6 +106,11 @@
 
         * inst/unitTests/testRcppModule/NAMESPACE: Updated for current Modules use
         * inst/unitTests/testRcppModule/R/zzz.R: Updated for current Modules use
+        * inst/unitTests/testRcppModule/man/Rcpp_modules_examples.Rd: Also added here
+
+2014-09-10  Dirk Eddelbuettel  <edd@debian.org>
+
+        * R/R/Rcpp.package.skeleton.R: If available, pkgKitten used for skeleton pkg
 
 2014-09-09  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -43,6 +137,10 @@
         * R/Attributes.R: Include LinkingTo in DESCRIPTION fields scanned
         to confirm that C++ dependencies are referenced by package.
 
+2014-09-01  Yixuan Qiu <yixuan.qiu@cos.name>
+
+        * inst/include/Rcpp/vector/Vector.h: fix return value of range eraser
+
 2014-09-01  Kevin Ushey  <kevinushey@gmail.com>
 
         * inst/include/Rcpp/vector/ListOf.h: `size()` member function should
@@ -55,7 +153,7 @@
 2014-08-30  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/vector/Vector.h: Mark two 'from string' ctors as
-        deprecated following a suggestion by Yixuan Qiu
+        deprecated following a suggestion by Yixuan Qiu [reversed on 2014-09-02]
 
 2014-08-18  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -73,6 +171,13 @@
         * inst/include/Rcpp/proxy/SlotProxy.h: Idem
         * inst/include/Rcpp/proxy/TagProxy.h: Idem
         * inst/include/Rcpp/proxy/proxy.h: Idem
+
+2014-08-08  Christian Authmann <authmanc@Mathematik.Uni-Marburg.de>
+
+        * inst/unitTests/cpp/InternalFunction.cpp: New unit test support
+        * inst/unitTests/cpp/InternalFunctionCPP11.cpp: Idem
+        * inst/unitTests/runit.InternalFunction.R: Idem
+        * inst/unitTests/runit.InternalFunctionCPP11.R: Idem
 
 2014-08-06  Christian Authmann <authmanc@Mathematik.Uni-Marburg.de>
 
@@ -101,7 +206,7 @@
 2014-07-29  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/vector/proxy.h: Removed operator bool() cast as
-        discusses by Christian Authmann on rcpp-devel
+        discussed by Christian Authmann on rcpp-devel
 
 2014-07-28  Dirk Eddelbuettel  <edd@debian.org>
 
