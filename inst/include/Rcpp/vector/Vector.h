@@ -89,13 +89,13 @@ public:
         fill( u ) ;
     }
 
-    // constructor for CharacterVector() 
+    // constructor for CharacterVector()
     Vector( const std::string& st ){
         RCPP_DEBUG_2( "Vector<%d>( const std::string& = %s )", RTYPE, st.c_str() )
         Storage::set__( internal::vector_from_string<RTYPE>(st) ) ;
     }
 
-    // constructor for CharacterVector() 
+    // constructor for CharacterVector()
     Vector( const char* st ) {
         RCPP_DEBUG_2( "Vector<%d>( const char* = %s )", RTYPE, st )
         Storage::set__(internal::vector_from_string<RTYPE>(st) ) ;
@@ -117,6 +117,16 @@ public:
         if( dims.size() > 1 ){
             AttributeProxyPolicy<Vector>::attr( "dim" ) = dims;
         }
+    }
+
+    // Enable construction from bool for LogicalVectors
+    // SFINAE only work for template. Add template class T and then restict T to
+    // bool.
+    template <typename T>
+    Vector(T value,
+           typename Rcpp::traits::enable_if<traits::is_bool<T>::value && RTYPE == LGLSXP, void>::type* = 0) {
+        Storage::set__(Rf_allocVector(RTYPE, 1));
+        fill(value);
     }
 
     template <typename U>
