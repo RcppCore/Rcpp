@@ -151,3 +151,8 @@ StretchyList named_stretchy_list(){
     return out;
 }
 
+// [[Rcpp::export]]
+void test_stop_variadic(){
+    stop( "%s %d", "foo", 3 ) ;    
+}
+
