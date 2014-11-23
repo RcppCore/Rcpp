@@ -139,5 +139,12 @@ if (.runThisTest) {
             pairlist( a = "foo", b = 1L, c = 3.2 )
             )
     }
+    
+    test.stop.variadic <- function(){
+        m <- tryCatch( test_stop_variadic(), error = function(e){
+            conditionMessage(e)  
+        })
+        checkEquals( m, "foo 3" ) 
+    }
 
 }
