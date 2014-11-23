@@ -77,6 +77,7 @@ namespace Rcpp{
 #include <typeinfo>
 #include <Rcpp/sprintf.h>
 #include <R_ext/Callbacks.h>
+#include <Rcpp/utils/tinyformat.h>
 
 #include <Rmath.h>
 #include <Rcpp/sugar/undoRmath.h>
