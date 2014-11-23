@@ -1,3 +1,10 @@
+2014-07-25  Romain Francois  <romain@r-enthusiasts.com>
+
+        * inst/include/Rcpp/exceptions.h: Richer formatting for Rcpp::stop
+        * inst/include/Rcpp/utils/tinyformat.h: Backend for formattinh
+        * inst/unitTests/runit.misc.R: Added new unit test
+        * inst/unitTests/cpp/misc.cpp: C++ backend for test
+
 2014-11-19  Dirk Eddelbuettel  <edd@debian.org>
 
         * .travis.yml: Temporary stop-gap measure of setting CRAN to something
