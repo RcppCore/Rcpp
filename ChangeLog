@@ -1,3 +1,16 @@
+2014-11-23  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/config.h: New macro RcppDevVersion to account for
+        four-part development versions such as the current 0.11.3.2
+        * DESCRIPTION: Version incremented to 0.11.3.2
+
+2014-11-23  Romain Francois  <romain@r-enthusiasts.com>
+
+        * inst/include/Rcpp/exceptions.h: Richer formatting for Rcpp::stop
+        * inst/include/Rcpp/utils/tinyformat.h: Backend for formattinh
+        * inst/unitTests/runit.misc.R: Added new unit test
+        * inst/unitTests/cpp/misc.cpp: C++ backend for test
+
 2014-11-19  Dirk Eddelbuettel  <edd@debian.org>
 
         * .travis.yml: Temporary stop-gap measure of setting CRAN to something
