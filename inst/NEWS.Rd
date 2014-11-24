@@ -11,8 +11,9 @@
       \item The \code{[dpq]nbinom_mu()} scalar functions are now available via 
       the \code{R::} namespace when R 3.1.2 or newer is used.
       \item Add an additional test for AIX before attempting to include \code{execinfo.h}.
-      \item Rcpp::stop gains a printf like syntax, inspired from the implementation in
-      Rcpp11, using tinyformat
+      \item \code{Rcpp::stop} now supports improved \code{printf}-like syntax
+      using the small tinyformat header-only library (following a similar
+      implementation in Rcpp11)
     }
     \item Changes in Rcpp Attributes:
     \itemize{
