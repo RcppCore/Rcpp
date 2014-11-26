@@ -61,11 +61,13 @@ namespace Rcpp {
      */
     template <typename T>
     SEXP grow(const T& head, SEXP tail) {
-        return internal::grow__dispatch( typename traits::is_named<T>::type(), head, tail );
+        Shield<SEXP> y(tail);
+        return internal::grow__dispatch(typename traits::is_named<T>::type(), head, y);
     }
 
     inline SEXP grow( const char* head, SEXP tail ) {
-        return grow( Rf_mkString(head), tail ) ;
+        Shield<SEXP> y(tail);
+        return grow(Rf_mkString(head), y);
     }
 
     #include <Rcpp/generated/grow__pairlist.h>
