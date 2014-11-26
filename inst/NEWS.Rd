@@ -14,6 +14,8 @@
       \item \code{Rcpp::stop} now supports improved \code{printf}-like syntax
       using the small tinyformat header-only library (following a similar
       implementation in Rcpp11)
+      \item Pairlist objects are now protected via an additional \code{Shield<>}
+      as suggested by Martin Morgan on the rcpp-devel list.
     }
     \item Changes in Rcpp Attributes:
     \itemize{
