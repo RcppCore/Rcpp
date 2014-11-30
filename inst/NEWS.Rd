@@ -16,6 +16,8 @@
       implementation in Rcpp11)
       \item Pairlist objects are now protected via an additional \code{Shield<>}
       as suggested by Martin Morgan on the rcpp-devel list.
+      \item Fixed \code{const} correctness of \code{Vector::const\_iterator}. Problem
+      raised by Martyn Plummer on \code{Rcpp-devel}. 
     }
     \item Changes in Rcpp Attributes:
     \itemize{
