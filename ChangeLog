@@ -1,3 +1,8 @@
+2014-11-30  Romain Francois  <romain@r-enthusiasts.com>
+
+        * inst/include/Rcpp/vector/proxy.h: Const iteration correction
+        * inst/include/Rcpp/sugar: Ditto in three files
+
 2014-11-25  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/grow.h: Apply additional Shield<> use around tail

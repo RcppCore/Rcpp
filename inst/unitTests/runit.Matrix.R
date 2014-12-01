@@ -165,5 +165,10 @@ if (.runThisTest) {
       checkEquals(m, matrix(c(0, 1, 2, 3), nrow = 2))
     }
 
+    test.NumericMatrix.const.Column <- function(){
+      m <- matrix(as.numeric(1:9), nrow = 3)
+      res <- runit_const_Matrix_column(m)
+      checkEquals( m[,1], m[,2] )
+    }
 
 }
