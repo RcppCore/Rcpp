@@ -1,3 +1,9 @@
+2014-12-10  Yixuan Qiu <yixuan.qiu@cos.name>
+
+        * inst/include/Rcpp/vector/Vector.h: Emit compiler error when trying
+        to sort List, RawVector or ExpressionVector. This feature requires the
+        compiler to enable C++11 standard.
+
 2014-11-25  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/grow.h: Apply additional Shield<> use around tail
