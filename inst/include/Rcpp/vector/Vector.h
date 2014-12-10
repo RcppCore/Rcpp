@@ -349,6 +349,18 @@ public:
     }
 
     Vector& sort(){
+        // sort() does not apply to List, RawVector or ExpressionVector,
+        // with corresponding RTYPEs VECSXP, RAWSXP and EXPRSXP
+        //
+        // The static assertion is only effective when the compiler is in C++11 mode,
+        // e.g., g++ -std=c++11
+        #ifdef HAS_STATIC_ASSERT
+        static_assert(
+            (RTYPE != VECSXP) && (RTYPE != RAWSXP) && (RTYPE != EXPRSXP),
+            "sort() does not apply to List, RawVector or ExpressionVector"
+        );
+        #endif
+
         typename traits::storage_type<RTYPE>::type* start = internal::r_vector_start<RTYPE>( Storage::get__() ) ;
         std::sort(
             start,
