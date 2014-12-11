@@ -16,6 +16,8 @@
       implementation in Rcpp11)
       \item Pairlist objects are now protected via an additional \code{Shield<>}
       as suggested by Martin Morgan on the rcpp-devel list.
+      \item Sorting is now prohibited at compile time for objects of type
+      \code{List}, \code{RawVector} and \code{ExpressionVector}.
     }
     \item Changes in Rcpp Attributes:
     \itemize{
