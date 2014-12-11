@@ -1,3 +1,12 @@
+2014-12-11  Yixuan Qiu <yixuan.qiu@cos.name>
+
+        * inst/include/Rcpp/internal/r_vector.h: Internal functions to
+        help detect unqualified vector types for sorting, with the help
+        of Romain Francois
+        * inst/include/Rcpp/vector/Vector.h: Disallow sorting on List,
+        RawVector and ExpressionVector, from the discussion with
+        Dirk Eddelbuettel and Kevin Ushey
+
 2014-11-25  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/grow.h: Apply additional Shield<> use around tail
