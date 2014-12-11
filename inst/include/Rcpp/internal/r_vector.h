@@ -84,6 +84,61 @@ inline void r_init_vector<EXPRSXP>(SEXP x){}
 template<>
 inline void r_init_vector<STRSXP>(SEXP x){}
 
+
+
+/**
+ * We do not allow List(RTYPE=VECSXP), RawVector(RTYPE=RAWSXP)
+ * or ExpressionVector(RTYPE=EXPRSXP) to be sorted, so it is
+ * desirable to issue a compiler error if user attempts to sort
+ * these types of Vectors.
+ *
+ * We declare a template class without defining the generic
+ * class body, but complete the definition in specialization
+ * of qualified Vector types. Hence when using this class
+ * on unqualified Vectors, the compiler will emit errors.
+ */
+template<int RTYPE>
+class Sort_is_not_allowed_for_this_type;
+
+/**
+ * Specialization for CPLXSXP, INTSXP, LGLSXP, REALSXP, and STRSXP
+ */
+template<>
+class Sort_is_not_allowed_for_this_type<CPLXSXP>
+{
+public:
+    static void do_nothing() {}
+};
+
+template<>
+class Sort_is_not_allowed_for_this_type<INTSXP>
+{
+public:
+    static void do_nothing() {}
+};
+
+template<>
+class Sort_is_not_allowed_for_this_type<LGLSXP>
+{
+public:
+    static void do_nothing() {}
+};
+
+template<>
+class Sort_is_not_allowed_for_this_type<REALSXP>
+{
+public:
+    static void do_nothing() {}
+};
+
+template<>
+class Sort_is_not_allowed_for_this_type<STRSXP>
+{
+public:
+    static void do_nothing() {}
+};
+
+
 } // internal
 } // Rcpp
 
