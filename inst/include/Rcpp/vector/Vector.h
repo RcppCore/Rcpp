@@ -349,6 +349,13 @@ public:
     }
 
     Vector& sort(){
+        // sort() does not apply to List, RawVector or ExpressionVector.
+        //
+        // The function below does nothing for qualified Vector types,
+        // and is undefined for other types. Hence there will be a
+        // compiler error when sorting List, RawVector or ExpressionVector.
+        internal::Sort_is_not_allowed_for_this_type<RTYPE>::do_nothing();
+        
         typename traits::storage_type<RTYPE>::type* start = internal::r_vector_start<RTYPE>( Storage::get__() ) ;
         std::sort(
             start,
