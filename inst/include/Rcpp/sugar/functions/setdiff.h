@@ -2,7 +2,7 @@
 //
 // setdiff.h: Rcpp R/C++ interface class library -- setdiff
 //
-// Copyright (C) 2012   Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2014  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -55,7 +55,7 @@ namespace sugar{
         Vector<RTYPE> get() const {
             int n = lhs_set.size() ;
             Vector<RTYPE> out = no_init(n) ;
-            std::copy( lhs_set.begin(), lhs_set.end(), get_const_begin(out) ) ;
+            std::copy( lhs_set.begin(), lhs_set.end(), out.begin() ) ;
             return out ;
         }
 
@@ -120,7 +120,7 @@ namespace sugar{
         Vector<RTYPE> get() const {
             int n = intersect.size() ;
             Vector<RTYPE> out = no_init(n) ;
-            std::copy( intersect.begin(), intersect.end(), get_const_begin(out) ) ;
+            std::copy( intersect.begin(), intersect.end(), out.begin() ) ;
             return out ;
         }
 
@@ -145,7 +145,7 @@ namespace sugar{
         Vector<RTYPE> get() const {
             int n = result.size() ;
             Vector<RTYPE> out = no_init(n) ;
-            std::copy( result.begin(), result.end(), get_const_begin(out) ) ;
+            std::copy( result.begin(), result.end(), out.begin() ) ;
             return out ;
         }
 

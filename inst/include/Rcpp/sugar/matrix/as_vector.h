@@ -2,7 +2,7 @@
 //
 // as_vector.h: Rcpp R/C++ interface class library -- as_vector( sugar matrix expression )
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2014 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -44,7 +44,7 @@ inline Rcpp::Vector<RTYPE>
 as_vector__impl( MatrixBase<RTYPE,NA,T>& t, Rcpp::traits::true_type ){
     Matrix<RTYPE>& ref = t.get_ref() ;
     int size = ref.ncol()*ref.nrow() ;
-    typename Rcpp::Vector<RTYPE>::iterator first(static_cast<const Rcpp::Vector<RTYPE>&>(ref).begin())  ;
+    typename Rcpp::Vector<RTYPE>::const_iterator first(static_cast<const Rcpp::Vector<RTYPE>&>(ref).begin())  ;
     return Vector<RTYPE>(first, first+size );
 }
 
