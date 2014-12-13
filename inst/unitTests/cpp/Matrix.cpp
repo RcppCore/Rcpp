@@ -225,3 +225,16 @@ NumericMatrix runit_no_init_matrix() {
     }
     return x;
 }
+
+void runit_const_Matrix_column_set( NumericMatrix::Column& col1, const NumericMatrix::Column& col2 ){
+    col1 = col2 ;    
+}
+
+// [[Rcpp::export]]
+NumericVector runit_const_Matrix_column( const NumericMatrix& m ){
+   NumericMatrix::Column col1( m, 0 ) ;
+   NumericMatrix::Column col2( m, 1 ) ;
+   runit_const_Matrix_column_set(col1, col2) ;
+   return col1 ;
+}
+
