@@ -59,7 +59,7 @@ struct NAComparator<double> {
 
         // this branch inspired by data.table: see
         // https://github.com/arunsrinivasan/datatable/commit/1a3e476d3f746e18261662f484d2afa84ac7a146#commitcomment-4885242
-        if (Rcpp_IsNaN(right) and Rcpp_IsNA(left))
+        if (Rcpp_IsNaN(right) && Rcpp_IsNA(left))
             return true;
 
         if (leftNaN != rightNaN) {

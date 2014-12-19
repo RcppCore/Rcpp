@@ -38,6 +38,9 @@
 #ifdef __INTEL_COMPILER
 #define GOOD_COMPILER_FOR_RCPP
 #endif
+#ifdef _MSC_VER
+#define GOOD_COMPILER_FOR_RCPP
+#endif
 
 #ifndef GOOD_COMPILER_FOR_RCPP
 # error "This compiler is not supported"
@@ -69,6 +72,9 @@
             #define HAS_STATIC_ASSERT
         #endif
     #endif
+#elif defined(_MSC_VER)
+	#define HAS_CXX0X_FLAG
+	#define HAS_STATIC_ASSERT
 #elif defined(__clang__)
     #if __cplusplus >= 201103L
         #define RCPP_USING_CXX11
@@ -101,6 +107,9 @@
             #define HAS_CXX0X_INITIALIZER_LIST
         #endif
     #endif
+#elif defined(_MSC_VER)
+	#define HAS_CXX0X_UNORDERED_MAP
+    #define HAS_CXX0X_UNORDERED_SET
 #elif defined(__clang__)
     #if __cplusplus >= 201103L
         #if __has_include(<unordered_map>)

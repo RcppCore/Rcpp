@@ -175,7 +175,7 @@ DottedPairProxyPolicy<CLASS>::const_DottedPairProxy::operator T() const {
 // FieldProxy
 template <typename CLASS>
 typename FieldProxyPolicy<CLASS>::FieldProxy&
-FieldProxyPolicy<CLASS>::FieldProxy::operator=(const FieldProxyPolicy<CLASS>::FieldProxy& rhs) {
+FieldProxyPolicy<CLASS>::FieldProxy::operator=(const typename FieldProxyPolicy<CLASS>::FieldProxy& rhs) {
     if (this != &rhs) set(rhs.get());
     return *this;
 }

@@ -21,6 +21,9 @@
 
 #ifndef RCPP_SUGAR_MATH_H
 #define RCPP_SUGAR_MATH_H
+#ifdef _MSC_VER
+#include "extra_math_functions.h"
+#endif
 
 VECTORIZED_MATH_1(exp,::exp)
 VECTORIZED_MATH_1(acos,::acos)
