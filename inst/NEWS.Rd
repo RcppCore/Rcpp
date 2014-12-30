@@ -20,6 +20,7 @@
       \code{List}, \code{RawVector} and \code{ExpressionVector}.
       \item Vectors now have a \code{Vector::const\_iterator} that is 'const correct'
       thanks to fix by Romain following bug report in rcpp-devel by Martyn Plummer 
+      \item The \code{mean()} sugar function now uses a more robust two-pass method.
     }
     \item Changes in Rcpp Attributes:
     \itemize{
