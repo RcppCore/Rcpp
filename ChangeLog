@@ -1,3 +1,7 @@
+2014-12-30  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/sugar/functions/mean.h: Use two-pass method
+
 2014-12-29  Kevin Ushey  <kevinushey@gmail.com>
 
         * inst/include/Rcpp/macros/macros.h: reformat for legibility
