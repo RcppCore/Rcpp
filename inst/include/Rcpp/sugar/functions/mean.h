@@ -2,7 +2,7 @@
 //
 // mean.h: Rcpp R/C++ interface class library -- mean
 //
-// Copyright (C) 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2011 - 2014  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -28,23 +28,36 @@ namespace sugar{
 template <int RTYPE, bool NA, typename T>
 class Mean : public Lazy< typename Rcpp::traits::storage_type<RTYPE>::type , Mean<RTYPE,NA,T> > {
 public:
-	typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
-	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
+    typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
+    typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 
-	Mean( const VEC_TYPE& object_ ) : object(object_){}
+    Mean( const VEC_TYPE& object_ ) : object(object_){}
 
-	STORAGE get() const {
-		return sum(object).get() / object.size() ;
-	}
+    STORAGE get() const {
+        //return sum(object).get() / object.size() ;
+        NumericVector input = object;
+                
+        int n = input.size();           // double pass (as in summary.c)
+        long double s = std::accumulate(input.begin(), input.end(), 0.0L);
+        s /= n;
+        if (R_FINITE((double)s)) {  
+            long double t = 0.0;
+            for (int i = 0; i < n; i++) {
+                t += input[i] - s;
+            }
+            s += t/n;
+        }
+        return (double)s ;
+    }
 private:
-	const VEC_TYPE& object ;
+    const VEC_TYPE& object ;
 } ;
 
 } // sugar
 
 template <bool NA, typename T>
 inline sugar::Mean<REALSXP,NA,T> mean( const VectorBase<REALSXP,NA,T>& t){
-	return sugar::Mean<REALSXP,NA,T>( t ) ;
+    return sugar::Mean<REALSXP,NA,T>( t ) ;
 }
 
 
