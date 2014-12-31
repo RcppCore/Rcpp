@@ -26,21 +26,20 @@ namespace Rcpp{
 namespace sugar{
 
 template <int RTYPE, bool NA, typename T>
-class Mean : public Lazy< typename Rcpp::traits::storage_type<RTYPE>::type , Mean<RTYPE,NA,T> > {
+class Mean : public Lazy<typename Rcpp::traits::storage_type<RTYPE>::type, Mean<RTYPE,NA,T> > {
 public:
-    typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
-    typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
+    typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE;
+    typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE;
+    typedef Rcpp::Vector<RTYPE> VECTOR;
 
-    Mean( const VEC_TYPE& object_ ) : object(object_){}
+    Mean(const VEC_TYPE& object_) : object(object_) {}
 
     STORAGE get() const {
-        //return sum(object).get() / object.size() ;
-        NumericVector input = object;
-                
+        VECTOR input = object;
         int n = input.size();           // double pass (as in summary.c)
         long double s = std::accumulate(input.begin(), input.end(), 0.0L);
         s /= n;
-        if (R_FINITE((double)s)) {  
+        if (R_FINITE((double)s)) {
             long double t = 0.0;
             for (int i = 0; i < n; i++) {
                 t += input[i] - s;
@@ -51,16 +50,63 @@ public:
     }
 private:
     const VEC_TYPE& object ;
-} ;
+};
+
+template <bool NA, typename T>
+class Mean<CPLXSXP,NA,T> : public Lazy<Rcomplex, Mean<CPLXSXP,NA,T> > {
+public:
+    typedef typename Rcpp::VectorBase<CPLXSXP,NA,T> VEC_TYPE;
+
+    Mean(const VEC_TYPE& object_) : object(object_) {}
+
+    Rcomplex get() const {
+        ComplexVector input = object;
+        int n = input.size();           // double pass (as in summary.c)
+        long double s = 0.0, si = 0.0;
+        for (int i=0; i<n; i++) {
+            Rcomplex z = input[i];
+            s += z.r;
+            si += z.i;
+        }
+        s /= n;
+        si /= n;
+        if (R_FINITE((double)s) && R_FINITE((double)si)) {
+            long double t = 0.0, ti = 0.0;
+            for (int i = 0; i < n; i++) {
+                Rcomplex z = input[i];
+                t += z.r - s;
+                ti += z.i - si;
+            }
+            s += t/n;
+            si += ti/n;
+        }
+        Rcomplex z;
+        z.r = s;
+        z.i = si;
+        return z;
+    }
+private:
+    const VEC_TYPE& object ;
+};
 
 } // sugar
 
 template <bool NA, typename T>
-inline sugar::Mean<REALSXP,NA,T> mean( const VectorBase<REALSXP,NA,T>& t){
-    return sugar::Mean<REALSXP,NA,T>( t ) ;
+inline sugar::Mean<REALSXP,NA,T> mean(const VectorBase<REALSXP,NA,T>& t) {
+    return sugar::Mean<REALSXP,NA,T>(t);
 }
 
+template <bool NA, typename T>
+inline sugar::Mean<INTSXP,NA,T> mean(const VectorBase<INTSXP,NA,T>& t) {
+    return sugar::Mean<INTSXP,NA,T>(t);
+}
+
+template <bool NA, typename T>
+inline sugar::Mean<CPLXSXP,NA,T> mean(const VectorBase<CPLXSXP,NA,T>& t) {
+    return sugar::Mean<CPLXSXP,NA,T>(t);
+}
 
 } // Rcpp
 #endif
+
 
