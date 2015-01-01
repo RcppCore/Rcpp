@@ -1,10 +1,7 @@
-Rcpp: Seamless R and C++ Integration
-====================================
+## Rcpp: Seamless R and C++ Integration [![Build Status](https://travis-ci.org/RcppCore/Rcpp.png)](https://travis-ci.org/RcppCore/Rcpp)
 
-[![Build Status](https://travis-ci.org/RcppCore/Rcpp.png)](https://travis-ci.org/RcppCore/Rcpp)
-
-The [Rcpp package](http://cran.r-project.org/package=Rcpp) provides R functions as well as a C++ library
-which facilitate the integration of R and C++
+The [Rcpp package](http://cran.r-project.org/package=Rcpp) provides R functions as and a C++ library
+facilitating the integration of R and C++
 
 R data types (`SEXP`) are matched to C++ objects in a class hierarchy.  All R
 types are supported (vectors, functions, environment, etc ...)  and each
@@ -42,7 +39,7 @@ package development. Attributes are built on top of Rcpp modules and
 their implementation is based on previous work in the inline package.
 See the [Rcpp-atttributes](http://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-attributes.pdf) vignettes for more details. 
 
-## Documentation 
+### Documentation 
 
 The package ships with nine pdf vignettes. 
 
@@ -52,16 +49,17 @@ Francois (2011, JSS) paper (corresponding to the 'intro' vignette)
 and the [book](http://www.rcpp.org/book) by Eddelbuettel (2013, Springer); 
 see 'citation("Rcpp")' for details.
 
-## Examples
+### Examples
 
-The [Rcpp Gallery](http://gallery.rcpp.org) showcases over 70 fully documented 
+The [Rcpp Gallery](http://gallery.rcpp.org) showcases over 80 fully documented 
 and working examples. 
 
 A number of examples are included as are over 800 unit tests in over 400 unit
 test functions provide additional usage examples.  
 
 The [CRAN](http://cran.r-project.org) network contains 
-(as over early 2014) over 160 packages which also provide usage examples.  
+(as over early 2015) well over 300 packages which also provide usage
+examples, with another 40+ as part of [BioConductor](http://www.bioconductor.org).
 
 An earlier version of Rcpp, containing what we now call the 'classic Rcpp
 API' was written during 2005 and 2006 by Dominick Samperi.  This code has
@@ -69,7 +67,7 @@ been factored out of Rcpp into the package RcppClassic, and it is still
 available for code relying on the older interface. New development should 
 always use this Rcpp package instead.
 
-## Installation
+### Installation
 
 Released and tested versions of Rcpp are available via the
 [CRAN](http://cran.r-project.org) network, and can be installed from within R via 
@@ -82,10 +80,10 @@ To install from source, ensure you have a
 [complete package development environment](http://www.rstudio.com/ide/docs/packages/prerequisites). 
 Also see questions 1.2 and 1.3 in the [Rcpp-FAQ](http://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-FAQ.pdf).
 
-## Authors
+### Authors
 
 Dirk Eddelbuettel, Romain Francois, JJ Allaire, Kevin Ushey, Doug Bates, and John Chambers
 
-## License
+### License
 
 GPL (>= 2)
