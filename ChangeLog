@@ -1,7 +1,7 @@
 2015-01-01  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/sugar/functions/mean.h: Return type is double, not
-        storage type; also added logical vector case [in progress]
+        storage type; also added logical vector case 
 
 2014-12-31  Dirk Eddelbuettel  <edd@debian.org>
 

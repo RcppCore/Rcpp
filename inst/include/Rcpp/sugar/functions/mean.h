@@ -97,11 +97,11 @@ public:
 
     double get() const {
         LogicalVector input = object;
-        int n = input.size();           // double pass (as in summary.c)
+        int n = input.size();       
         long double s = 0.0;
         for (int i=0; i<n; i++) {
-            if (input[i] == NA) return NA;
-            s += (input[i] == TRUE);
+            if (input[i] == NA_INTEGER) return NA_REAL;
+            s += input[i];
         }
         s /= n;                 // no overflow correction needed for logical vectors
         return (double)s;
