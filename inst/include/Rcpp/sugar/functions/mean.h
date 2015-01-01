@@ -26,15 +26,14 @@ namespace Rcpp{
 namespace sugar{
 
 template <int RTYPE, bool NA, typename T>
-class Mean : public Lazy<typename Rcpp::traits::storage_type<RTYPE>::type, Mean<RTYPE,NA,T> > {
+class Mean : public Lazy<double, Mean<RTYPE,NA,T> > {
 public:
     typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE;
-    typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE;
     typedef Rcpp::Vector<RTYPE> VECTOR;
 
     Mean(const VEC_TYPE& object_) : object(object_) {}
 
-    STORAGE get() const {
+    double get() const {
         VECTOR input = object;
         int n = input.size();           // double pass (as in summary.c)
         long double s = std::accumulate(input.begin(), input.end(), 0.0L);
@@ -89,6 +88,28 @@ private:
     const VEC_TYPE& object ;
 };
 
+template <bool NA, typename T>
+class Mean<LGLSXP,NA,T> : public Lazy<double, Mean<LGLSXP,NA,T> > {
+public:
+    typedef typename Rcpp::VectorBase<LGLSXP,NA,T> VEC_TYPE;
+
+    Mean(const VEC_TYPE& object_) : object(object_) {}
+
+    double get() const {
+        LogicalVector input = object;
+        int n = input.size();           // double pass (as in summary.c)
+        long double s = 0.0;
+        for (int i=0; i<n; i++) {
+            if (input[i] == NA) return NA;
+            s += (input[i] == TRUE);
+        }
+        s /= n;                 // no overflow correction needed for logical vectors
+        return (double)s;
+    }
+private:
+    const VEC_TYPE& object ;
+};
+
 } // sugar
 
 template <bool NA, typename T>
@@ -104,6 +125,11 @@ inline sugar::Mean<INTSXP,NA,T> mean(const VectorBase<INTSXP,NA,T>& t) {
 template <bool NA, typename T>
 inline sugar::Mean<CPLXSXP,NA,T> mean(const VectorBase<CPLXSXP,NA,T>& t) {
     return sugar::Mean<CPLXSXP,NA,T>(t);
+}
+
+template <bool NA, typename T>
+inline sugar::Mean<LGLSXP,NA,T> mean(const VectorBase<LGLSXP,NA,T>& t) {
+    return sugar::Mean<LGLSXP,NA,T>(t);
 }
 
 } // Rcpp
