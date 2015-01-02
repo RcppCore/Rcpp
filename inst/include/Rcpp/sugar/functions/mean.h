@@ -110,6 +110,30 @@ private:
     const VEC_TYPE& object ;
 };
 
+template <bool NA, typename T>
+class Mean<INTSXP,NA,T> : public Lazy<double, Mean<INTSXP,NA,T> > {
+public:
+    typedef typename Rcpp::VectorBase<INTSXP,NA,T> VEC_TYPE;
+
+    Mean(const VEC_TYPE& object_) : object(object_) {}
+
+    double get() const {
+        IntegerVector input = object;
+        int n = input.size();           // double pass (as in summary.c)
+        long double s = std::accumulate(input.begin(), input.end(), 0.0L);
+        s /= n;
+        long double t = 0.0;
+        for (int i = 0; i < n; i++) {
+            if (input[i] == NA_INTEGER) return NA_REAL;
+            t += input[i] - s;
+        }
+        s += t/n;
+        return (double)s ;
+    }
+private:
+    const VEC_TYPE& object ;
+};
+
 } // sugar
 
 template <bool NA, typename T>
