@@ -1,7 +1,7 @@
 #!/usr/bin/r -t
 #                     -*- mode: R; ess-indent-level: 4; indent-tabs-mode: nil; -*-
 #
-# Copyright (C) 2010 - 2014  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2015  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -66,7 +66,6 @@ if (.runThisTest) {
 	checkTrue( is.na( fx( c(NA, 6) ) ) )
     }
 
-
     test.sugar.all.one.equal <- function( ){
 	fx <- runit_all_one_equal
 	checkTrue( ! fx( 1 ) )
@@ -74,7 +73,6 @@ if (.runThisTest) {
 	checkTrue( fx( rep(5,4) ) )
 	checkTrue( is.na( fx( c(5,NA) ) ) )
 	checkTrue(! fx( c(NA, 1) ) )
-
     }
 
     test.sugar.all.one.not.equal <- function( ){
@@ -85,7 +83,6 @@ if (.runThisTest) {
 	checkTrue( is.na( fx( c(NA, 1) ) ) )
 	checkTrue( ! fx( c(NA, 5) ) )
     }
-
 
     test.sugar.all.less <- function( ){
 	fx <- runit_all_less
@@ -175,7 +172,6 @@ if (.runThisTest) {
 	checkTrue( is.na( fx( NA, 1 ) ) )
     }
 
-
     test.sugar.any.equal <- function( ){
 	fx <- runit_any_equal
 	checkTrue( fx( 1, 1 ) )
@@ -248,19 +244,17 @@ if (.runThisTest) {
 	checkEquals( fx(x,y) , list( x^3L , y^2.3 ) )
     }
 
-
     test.sugar.ifelse <- function( ){
 	fx <- runit_ifelse
 	x <- 1:10
 	y <- 10:1
-	checkEquals( fx( x, y), list(
-            "vec_vec"   = ifelse( x<y, x*x, -(y*y) ) ,
-            "vec_prim"  = ifelse( x<y, 1.0, -(y*y) ),
-            "prim_vec"  = ifelse( x<y, x*x, 1.0    ),
-            "prim_prim" = ifelse( x<y, 1.0, 2.0    )
-            ) )
+	checkEquals(fx( x, y),
+                    list("vec_vec"   = ifelse( x<y, x*x, -(y*y) ) ,
+                         "vec_prim"  = ifelse( x<y, 1.0, -(y*y) ),
+                         "prim_vec"  = ifelse( x<y, x*x, 1.0    ),
+                         "prim_prim" = ifelse( x<y, 1.0, 2.0    )
+                         ))
     }
-
 
     test.sugar.isna <- function( ){
 	fx <- runit_isna
@@ -268,28 +262,22 @@ if (.runThisTest) {
     }
 
     test.sugar.isfinite <- function( ){
-	checkEquals(
-	    runit_isfinite( c(1, NA, Inf, -Inf, NaN) ) ,
-	    c(TRUE, FALSE, FALSE, FALSE, FALSE),
-	    msg = "is_finite"
-            )
+	checkEquals(runit_isfinite( c(1, NA, Inf, -Inf, NaN) ) ,
+                    c(TRUE, FALSE, FALSE, FALSE, FALSE),
+                    msg = "is_finite")
     }
 
     test.sugar.isinfinite <- function( ){
-	checkEquals(
-	    runit_isinfinite( c(1, NA, Inf, -Inf, NaN) ) ,
-	    c(FALSE, FALSE, TRUE, TRUE, FALSE),
-	    msg = "is_infinite"
-            )
+	checkEquals(runit_isinfinite( c(1, NA, Inf, -Inf, NaN) ) ,
+                    c(FALSE, FALSE, TRUE, TRUE, FALSE),
+                    msg = "is_infinite")
     }
 
 
     test.sugar.isnan <- function( ){
-	checkEquals(
-	    runit_isnan( c(1, NA, Inf, -Inf, NaN) ) ,
-	    c(FALSE, FALSE, FALSE, FALSE, TRUE),
-	    msg = "is_nan"
-            )
+	checkEquals(runit_isnan( c(1, NA, Inf, -Inf, NaN) ) ,
+                    c(FALSE, FALSE, FALSE, FALSE, TRUE),
+                    msg = "is_nan")
     }
 
     test.sugar.isna.isna <- function( ){
@@ -309,10 +297,8 @@ if (.runThisTest) {
 
     test.sugar.minus <- function( ){
 	fx <- runit_minus
-	checkEquals(
-	    fx(1:10) ,
-	    list( (1:10)-10L, 10L-(1:10), rep(0L,10), (1:10)-10L, 10L-(1:10)  )
-	    )
+	checkEquals(fx(1:10) ,
+                    list( (1:10)-10L, 10L-(1:10), rep(0L,10), (1:10)-10L, 10L-(1:10)  ))
     }
 
     test.sugar.any.equal.not <- function( ){
@@ -323,7 +309,6 @@ if (.runThisTest) {
 	checkTrue( fx( 1, 0 ) )
 	checkTrue( is.na( fx( NA, 1 ) ) )
     }
-
 
     test.sugar.plus <- function( ){
 	fx <- runit_plus
@@ -347,12 +332,7 @@ if (.runThisTest) {
 
     test.sugar.pmin.one <- function( ){
 	fx <- runit_pmin_one
-	checkEquals( fx(1:10) ,
-                    list(
-			c(1:5,rep(5,5)),
-			c(1:5,rep(5,5))
-                        )
-                    )
+	checkEquals(fx(1:10), list(c(1:5,rep(5,5)), c(1:5,rep(5,5))))
     }
 
     test.sugar.pmax <- function( ){
@@ -362,19 +342,13 @@ if (.runThisTest) {
 
     test.sugar.pmax.one <- function( ){
 	fx <- runit_pmax_one
-	checkEquals( fx(1:10) ,
-                    list(
-			c(rep(5,5), 6:10),
-			c(rep(5,5), 6:10)
-                        )
-                    )
+	checkEquals(fx(1:10), list(c(rep(5,5), 6:10), c(rep(5,5), 6:10)))
     }
 
     test.sugar.Range <- function( ){
 	fx <- runit_Range
-	checkEquals( fx() , c( exp(seq_len(4)), exp(-seq_len(4))  ) )
+	checkEquals(fx(), c( exp(seq_len(4)), exp(-seq_len(4))))
     }
-
 
     test.sugar.sapply <- function( ){
 	fx <- runit_sapply
@@ -408,50 +382,29 @@ if (.runThisTest) {
 
     test.sugar.sign <- function( ){
 	fx <- runit_sign
-	checkEquals(
-            fx( seq(-10, 10, length.out = 51), -25:25 ),
-            list(
-                c( rep(-1L, 25), 0L, rep(1L, 25) ),
-                c( rep(-1L, 25), 0L, rep(1L, 25) )
-		)
-            )
+	checkEquals(fx( seq(-10, 10, length.out = 51), -25:25 ),
+                    list(c( rep(-1L, 25), 0L, rep(1L, 25) ), c( rep(-1L, 25), 0L, rep(1L, 25) )))
     }
 
 
     test.sugar.times <- function( ){
 	fx <- runit_times
-	checkEquals( fx(1:10) ,
-                    list(
-			10L*(1:10),
-			10L*(1:10),
-			(1:10)*(1:10),
-			(1:10)*(1:10)*(1:10),
-			c(NA,(2:10)*(2:10)),
-			c(NA,10L*(2:10)),
-			c(NA,10L*(2:10)),
-			rep( NA_integer_, 10L )
-                        )
-                    )
+	checkEquals(fx(1:10) ,
+                    list(10L*(1:10), 10L*(1:10), (1:10)*(1:10), (1:10)*(1:10)*(1:10),
+                         c(NA,(2:10)*(2:10)), c(NA,10L*(2:10)), c(NA,10L*(2:10)), rep( NA_integer_, 10L )))
     }
 
     test.sugar.divides <- function( ){
 	fx <- runit_divides
-	checkEquals( fx(1:10) ,
-                    list(
-			1:10/10,
-			10/1:10,
-			rep(1,10)
-                        )
-                    )
+	checkEquals(fx(1:10) ,
+                    list(1:10/10, 10/1:10, rep(1,10)))
     }
-
 
     test.sugar.unary.minus <- function( ){
 	fx <- runit_unary_minus
 	checkEquals( fx( seq(0,5,by=10) ), - seq(0,5,by=10) )
 	checkTrue( identical( fx( c(0,NA,2) ), c(0,NA,-2) ) )
     }
-
 
     test.sugar.wrap <- function( ){
 	fx <- runit_wrap
@@ -460,45 +413,38 @@ if (.runThisTest) {
 	checkEquals( e[["foo"]], rep(TRUE, 10 ) )
     }
 
-
     test.sugar.complex <- function( ){
 	x <- c( rnorm(10), NA ) + 1i*c( rnorm(10), NA )
 	fx <- runit_complex
-	checkEquals( fx(x), list(
-            Re    = Re(x),
-            Im    = Im(x),
-            Conj  = Conj(x),
-            Mod   = Mod(x),
-            exp   = exp(x),
-            log   = log(x),
-            sqrt  = sqrt(x),
-            cos   = cos(x),
-            sin   = sin(x),
-            tan   = tan(x),
-            acos  = acos(x),
-            asin  = asin(x),
-            atan  = atan(x),
-                                        # acosh = acosh(x),
-            asinh = asinh(x),
-            atanh = atanh(x),
-            cosh  = cosh(x),
-            sinh = sinh(x),
-            tanh = tanh(x)
-
-            )
-                    )
+	checkEquals( fx(x),
+                    list(Re    = Re(x),
+                         Im    = Im(x),
+                         Conj  = Conj(x),
+                         Mod   = Mod(x),
+                         exp   = exp(x),
+                         log   = log(x),
+                         sqrt  = sqrt(x),
+                         cos   = cos(x),
+                         sin   = sin(x),
+                         tan   = tan(x),
+                         acos  = acos(x),
+                         asin  = asin(x),
+                         atan  = atan(x),
+                         ## acosh = acosh(x),
+                         asinh = asinh(x),
+                         atanh = atanh(x),
+                         cosh  = cosh(x),
+                         sinh = sinh(x),
+                         tanh = tanh(x)))
     }
 
     test.sugar.rep <- function(){
 	fx <- runit_rep
-	checkEquals( fx(1:10),
-                    list(
-			"rep" = rep( 1:10, 3 ),
-			"rep_each" = rep( 1:10, each = 3 ),
-			"rep_len" = rep( 1:10, length.out = 12 ),
-			"rep_prim_double" = rep( 0.0, 10 )
-                        )
-                    )
+	checkEquals(fx(1:10),
+                    list("rep" = rep( 1:10, 3 ),
+                         "rep_each" = rep( 1:10, each = 3 ),
+                         "rep_len" = rep( 1:10, length.out = 12 ),
+                         "rep_prim_double" = rep( 0.0, 10 )))
     }
 
     test.sugar.rev <- function(){
@@ -508,10 +454,7 @@ if (.runThisTest) {
 
     test.sugar.head <- function(){
 	fx <- runit_head
-	checkEquals(
-            fx(1:100),
-            list( pos = 1:5, neg = 1:95 )
-            )
+	checkEquals(fx(1:100), list( pos = 1:5, neg = 1:95 ))
     }
 
     test.sugar.tail <- function(){
@@ -522,13 +465,7 @@ if (.runThisTest) {
             )
     }
 
-
-
-
-
-                                        # matrix
-
-
+    ## matrix
 
     test.sugar.matrix.outer <- function( ){
 	fx <- runit_outer
@@ -551,32 +488,25 @@ if (.runThisTest) {
 	x <- 1:4
 	m <- matrix( 1:16, nc = 4 )
 	res <- fx(x, m)
-	target <- list(
-            diag(x),
-            diag(m),
-            diag( outer( x, x, "+" ) )
-            )
+	target <- list(diag(x), diag(m), diag( outer( x, x, "+" ) ))
 	checkEquals( res, target )
     }
 
 
-                                        # autogenerated sugar blocks
+    ## autogenerated sugar blocks
 
     test.sugar.gamma <- function(){
 	fx <- runit_gamma
 	x <- seq( 1, 5, by = .5 )
-	checkEquals( fx(x),
-                    list(
-	  		"gamma"      = gamma(x),
-	  		"lgamma"     = lgamma(x),
-	  		"digamma"    = digamma(x),
-	  		"trigamma"   = trigamma(x),
-	  		"tetragamma" = psigamma(x, 2),
-	  		"pentagamma" = psigamma(x, 3),
-	  		"factorial"  = factorial(x),
-	  		"lfactorial" = lfactorial(x)
-                        )
-                    )
+	checkEquals(fx(x),
+                    list("gamma"      = gamma(x),
+                         "lgamma"     = lgamma(x),
+                         "digamma"    = digamma(x),
+                         "trigamma"   = trigamma(x),
+                         "tetragamma" = psigamma(x, 2),
+                         "pentagamma" = psigamma(x, 3),
+                         "factorial"  = factorial(x),
+                         "lfactorial" = lfactorial(x)))
     }
 
     test.sugar.log1p <- function(){
@@ -588,52 +518,42 @@ if (.runThisTest) {
 
     test.sugar.choose <- function(){
 	fx <- runit_choose
-	checkEquals( fx(10:6,5:1),
-                    list(
-			VV = choose( 10:6, 5:1),
-			PV = choose( 10, 5:1 ),
-			VP = choose( 10:6, 5 )
-                        ) )
+	checkEquals(fx(10:6,5:1),
+                    list(VV = choose( 10:6, 5:1),
+                         PV = choose( 10, 5:1 ),
+                         VP = choose( 10:6, 5 )))
     }
 
     test.sugar.lchoose <- function(){
 	fx <- runit_lchoose
 	checkEquals( fx(10:6,5:1),
-                    list(
-			VV = lchoose( 10:6, 5:1),
-			PV = lchoose( 10, 5:1 ),
-			VP = lchoose( 10:6, 5 )
-                        ) )
+                    list(VV = lchoose( 10:6, 5:1),
+                         PV = lchoose( 10, 5:1 ),
+                         VP = lchoose( 10:6, 5 )) )
     }
 
     test.sugar.beta <- function(){
 	fx <- runit_beta
 	checkEquals( fx(10:6,5:1),
-                    list(
-			VV = beta( 10:6, 5:1),
-			PV = beta( 10, 5:1 ),
-			VP = beta( 10:6, 5 )
-                        ) )
+                    list(VV = beta( 10:6, 5:1),
+                         PV = beta( 10, 5:1 ),
+                         VP = beta( 10:6, 5 )))
     }
 
     test.sugar.lbeta <- function(){
 	fx <- runit_lbeta
-	checkEquals( fx(10:6,5:1),
-                    list(
-			VV = lbeta( 10:6, 5:1),
-			PV = lbeta( 10, 5:1 ),
-			VP = lbeta( 10:6, 5 )
-                        ) )
+	checkEquals(fx(10:6,5:1),
+                    list(VV = lbeta( 10:6, 5:1),
+                         PV = lbeta( 10, 5:1 ),
+                         VP = lbeta( 10:6, 5 )))
     }
 
     test.sugar.psigamma <- function(){
 	fx <- runit_psigamma
-	checkEquals( fx(10:6,5:1),
-                    list(
-			VV = psigamma( 10:6, 5:1),
-			PV = psigamma( 10, 5:1 ),
-			VP = psigamma( 10:6, 5 )
-                        ) )
+	checkEquals(fx(10:6,5:1),
+                    list(VV = psigamma( 10:6, 5:1),
+                         PV = psigamma( 10, 5:1 ),
+                         VP = psigamma( 10:6, 5 )))
     }
 
     test.sugar.sum <- function(){
@@ -711,17 +631,11 @@ if (.runThisTest) {
     }
 
     test.setdiff <- function(){
-        checkEquals( 
-            sort(runit_setdiff( 1:10, 1:5 )), 
-            sort(setdiff( 1:10, 1:5))
-            )
+        checkEquals(sort(runit_setdiff( 1:10, 1:5 )), sort(setdiff( 1:10, 1:5)))
     }
 
     test.union <- function(){
-        checkEquals( 
-            sort(runit_union( 1:10, 1:5 )), 
-            sort(union( 1:10, 1:5 )) 
-            )
+        checkEquals(sort(runit_union( 1:10, 1:5 )), sort(union( 1:10, 1:5 )))
     }
 
     test.intersect <- function(){
@@ -730,10 +644,8 @@ if (.runThisTest) {
 
     test.clamp <- function(){
         r_clamp <- function(a, x, b) pmax(a, pmin(x, b) )
-        checkEquals(
-            runit_clamp( -1, seq(-3,3, length=100), 1 ),
-            r_clamp( -1, seq(-3,3, length=100), 1 )
-            )
+        checkEquals(runit_clamp( -1, seq(-3,3, length=100), 1 ),
+                    r_clamp( -1, seq(-3,3, length=100), 1 ))
     }
 
     test.vector.scalar.ops <- function( ){
@@ -743,19 +655,24 @@ if (.runThisTest) {
 
     test.vector.scalar.logical <- function( ){
         x <- rnorm(10) + 2
-        checkEquals(vector_scalar_logical(x), list(x < 2, 2 > x, x <= 2, 2 != x), "sugar vector scalar logical operations")
+        checkEquals(vector_scalar_logical(x), list(x < 2, 2 > x, x <= 2, 2 != x),
+                    "sugar vector scalar logical operations")
     }
 
     test.vector.vector.ops <- function( ){
         x <- rnorm(10)
         y <- runif(10)
-        checkEquals(vector_vector_ops(x,y), list(x + y, y - x, x * y, y / x), "sugar vector vector operations")
+        checkEquals(vector_vector_ops(x,y),
+                    list(x + y, y - x, x * y, y / x),
+                    "sugar vector vector operations")
     }
 
     test.vector.vector.logical <- function( ){
         x <- rnorm(10)
         y <- runif(10)
-        checkEquals(vector_vector_logical(x,y), list(x < y, x > y, x <= y, x >= y, x == y, x != y), "sugar vector vector operations")
+        checkEquals(vector_vector_logical(x,y),
+                    list(x < y, x > y, x <= y, x >= y, x == y, x != y),
+                    "sugar vector vector operations")
     }
 
 }
