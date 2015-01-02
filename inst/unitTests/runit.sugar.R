@@ -675,4 +675,38 @@ if (.runThisTest) {
                     "sugar vector vector operations")
     }
 
+    ## Additions made 1 Jan 2015
+    
+    test.mean.integer <- function() {
+        v1 <- seq(-100L, 100L)
+        v2 <- c(v1, NA)
+        checkEquals(mean(v1), meanInteger(v1), "mean of integer vector")
+        checkEquals(mean(v2), meanInteger(v2), "mean of integer vector with NA")
+    }
+    
+    test.mean.numeric <- function() {
+        v1 <- seq(-100, 100)
+        v2 <- c(v1, NA)
+        v3 <- c(v1, Inf)
+        checkEquals(mean(v1), meanNumeric(v1), "mean of numeric vector")
+        checkEquals(mean(v2), meanNumeric(v2), "mean of numeric vector with NA")
+        checkEquals(mean(v3), meanNumeric(v3), "mean of numeric vector with Inf")
+    }    
+
+    test.mean.complex <- function() {
+        v1 <- seq(-100, 100)  + 1.0i
+        v2 <- c(v1, NA)
+        v3 <- c(v1, Inf)
+        checkEquals(mean(v1), meanComplex(v1), "mean of complex vector")
+        checkEquals(mean(v2), meanComplex(v2), "mean of complex vector with NA")
+        checkEquals(mean(v3), meanComplex(v3), "mean of complex vector with Inf")
+    }
+
+    test.mean.logical <- function() {
+        v1 <- c(rep(TRUE, 50), rep(FALSE, 25))
+        v2 <- c(v1, NA)
+        checkEquals(mean(v1), meanLogical(v1), "mean of logical vector")
+        checkEquals(mean(v2), meanLogical(v2), "mean of logical vector with NA")
+    }
+    
 }
