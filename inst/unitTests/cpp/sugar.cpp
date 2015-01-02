@@ -2,7 +2,7 @@
 //
 // sugar.cpp: Rcpp R/C++ interface class library -- sugar unit tests
 //
-// Copyright (C) 2012 - 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2015  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -643,3 +643,18 @@ List vector_vector_logical( NumericVector xx, NumericVector yy){
 			LogicalVector y6 = xx != yy;
 			return List::create(y1, y2, y3, y4, y5, y6);
 }
+
+// Additions made 1 Jan 2015
+
+// [[Rcpp::export]]
+double meanInteger(Rcpp::IntegerVector x) { return Rcpp::mean(x); }
+
+// [[Rcpp::export]]
+double meanNumeric(Rcpp::NumericVector x) { return(Rcpp::mean(x)); }
+
+// [[Rcpp::export]]
+double meanLogical(Rcpp::LogicalVector x) { return(Rcpp::mean(x)); }
+
+// [[Rcpp::export]]
+Rcomplex meanComplex(Rcpp::ComplexVector x) { return(Rcpp::mean(x)); }
+
