@@ -76,8 +76,6 @@ namespace sugar{
             lhs_set( get_const_begin(lhs), get_const_end(lhs) ),
             rhs_set( get_const_begin(rhs), get_const_end(rhs) )
         {
-
-            std::for_each( rhs_set.begin(), rhs_set.end(), RemoveFromSet<SET>(lhs_set) ) ;
         }
 
         bool get() const {

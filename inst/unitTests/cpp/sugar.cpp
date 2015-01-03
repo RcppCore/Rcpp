@@ -592,10 +592,22 @@ LogicalVector runit_duplicated( CharacterVector x){
 IntegerVector runit_union( IntegerVector x, IntegerVector y){
     return union_( x, y) ;
 }
+
 // [[Rcpp::export]]
 IntegerVector runit_setdiff( IntegerVector x, IntegerVector y){
     return setdiff( x, y) ;
 }
+
+// [[Rcpp::export]]
+bool runit_setequal_integer(IntegerVector x, IntegerVector y) {
+    return setequal(x, y);
+}
+
+// [[Rcpp::export]]
+bool runit_setequal_character(CharacterVector x, CharacterVector y) {
+    return setequal(x, y);
+}
+
 // [[Rcpp::export]]
 IntegerVector runit_intersect( IntegerVector x, IntegerVector y){
     return intersect( x, y ) ;
