@@ -1,3 +1,9 @@
+2015-01-02  Kevin Ushey  <kevinushey@gmail.com>
+
+        * inst/include/Rcpp/sugar/functions/setdiff.h: fix for setequals
+        * inst/unitTests/cpp/sugar.cpp: unit tests
+        * inst/unitTests/runit.sugar.R: unit tests
+
 2015-01-01  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/sugar/functions/mean.h: Return type is double, not
