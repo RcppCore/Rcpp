@@ -634,6 +634,12 @@ if (.runThisTest) {
         checkEquals(sort(runit_setdiff( 1:10, 1:5 )), sort(setdiff( 1:10, 1:5)))
     }
 
+    test.setequal <- function() {
+        checkTrue(runit_setequal_integer(1:10, 10:1))
+        checkTrue(runit_setequal_character(c("a", "b", "c"), c("c", "b", "a")))
+        checkTrue(!runit_setequal_character(c("a", "b"), c("c")))
+    }
+
     test.union <- function(){
         checkEquals(sort(runit_union( 1:10, 1:5 )), sort(union( 1:10, 1:5 )))
     }
@@ -676,14 +682,14 @@ if (.runThisTest) {
     }
 
     ## Additions made 1 Jan 2015
-    
+
     test.mean.integer <- function() {
         v1 <- seq(-100L, 100L)
         v2 <- c(v1, NA)
         checkEquals(mean(v1), meanInteger(v1), "mean of integer vector")
         checkEquals(mean(v2), meanInteger(v2), "mean of integer vector with NA")
     }
-    
+
     test.mean.numeric <- function() {
         v1 <- seq(-100, 100)
         v2 <- c(v1, NA)
@@ -691,7 +697,7 @@ if (.runThisTest) {
         checkEquals(mean(v1), meanNumeric(v1), "mean of numeric vector")
         checkEquals(mean(v2), meanNumeric(v2), "mean of numeric vector with NA")
         checkEquals(mean(v3), meanNumeric(v3), "mean of numeric vector with Inf")
-    }    
+    }
 
     test.mean.complex <- function() {
         v1 <- seq(-100, 100)  + 1.0i
@@ -708,5 +714,5 @@ if (.runThisTest) {
         checkEquals(mean(v1), meanLogical(v1), "mean of logical vector")
         checkEquals(mean(v2), meanLogical(v2), "mean of logical vector with NA")
     }
-    
+
 }
