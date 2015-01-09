@@ -42,6 +42,12 @@
       \item New unit tests for sugar function \code{mean} and \code{setequal}
       were added as noted above. 
     }
+    \item Changes in Rcpp Examples:
+    \itemize{
+      \item For the (old) examples \code{ConvolveBenchmarks} and \code{OpenMP},
+      the respective \code{Makefile} was renamed to \code{GNUmakefile} to please
+      \code{R CMD check} as well as the CRAN Maintainers.
+    }
   }
 }
 
