@@ -22,7 +22,7 @@
 
 if (.runThisTest) {
     
-.setUp <- Rcpp:::unitTestSetup("memory.cpp")
+.setUp <- Rcpp:::unitTestSetup("exception.cpp")
 
 test.memory <- function() {
   checkEquals(capture.output(testMemory1()), "deleting DeleteNotifier(1)") 
