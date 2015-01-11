@@ -245,6 +245,20 @@ namespace Rcpp{
     inline void stop(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5, const T6& arg6, const T7& arg7, const T8& arg8, const T9& arg9, const T10& arg10) {
         throw Rcpp::exception( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10).c_str() );
     }
+
+    inline void enable_is_stop() {
+    }
+
+    inline void set_stop_message(const char* msg) {
+    }
+
+    inline bool is_stop() {
+        return false;
+    }
+
+    inline const char* stop_message() {
+        return "";
+    }
 }
 
 inline void forward_exception_to_r( const std::exception& ex){
@@ -254,5 +268,9 @@ inline void forward_exception_to_r( const std::exception& ex){
     Rf_eval( expr, R_GlobalEnv ) ;
 }
 
+inline void clone_exception_to_r( const std::exception& ex) {
+    Rcpp::enable_is_stop();
+    Rcpp::set_stop_message(ex.what());
+}
 
 #endif

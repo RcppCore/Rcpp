@@ -37,11 +37,14 @@
     Rf_onintr();                                                               \
   }                                                                            \
   catch (std::exception &__ex__) {                                             \
-    forward_exception_to_r(__ex__);                                            \
+    clone_exception_to_r(__ex__);                                            \
   }                                                                            \
   catch (...) {                                                                \
     ::Rf_error("c++ exception (unknown reason)");                              \
-  }
+  }                                                                            \
+  if (Rcpp::is_stop()) {                                                       \
+    ::Rf_error(Rcpp::stop_message());                                          \
+  }                                                                            
 #endif
 
 #ifndef END_RCPP
