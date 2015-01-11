@@ -2,7 +2,7 @@
 //
 // macros.h: Rcpp R/C++ interface class library -- Rcpp macros
 //
-// Copyright (C) 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2015 Dirk Eddelbuettel, Romain Francois and Wush Wu
 //
 // This file is part of Rcpp.
 //
@@ -43,8 +43,8 @@
     ::Rf_error("c++ exception (unknown reason)");                              \
   }                                                                            \
   if (Rcpp::is_stop()) {                                                       \
-    ::Rf_error(Rcpp::stop_message());                                          \
-  }                                                                            
+    Rcpp::get_stop();                                          \
+  }
 #endif
 
 #ifndef END_RCPP

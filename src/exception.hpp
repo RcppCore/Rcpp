@@ -1,7 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-// jedit: :folding=explicit:
 //
-// exception.cpp: Rcpp R/C++ interface class library -- exception to stop
+// exception.hpp: Rcpp R/C++ interface class library -- exception to stop
 //
 // Copyright (C) 2015 Wush Wu
 //
@@ -20,28 +19,15 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#include <memory>
-#include <Rcpp.h>
-#include "exception.hpp"
+#ifndef Rcpp_exception_hpp
+#define Rcpp_exception_hpp
 
-static bool is_stop(false);
-static std::auto_ptr< Rcpp::Shield<SEXP> > expr(NULL);
+#include <stdexcept>
 
-void rcpp_core_set_stop(const std::exception& e) {
-    ::is_stop = true;
-    SEXP stop_sym  = Rf_install( "stop" ) ;
-    Rcpp::Shield<SEXP> condition( exception_to_r_condition(e) );
-    expr.reset(new Rcpp::Shield<SEXP>( Rf_lang2( stop_sym , condition ) ) );
-}
+void rcpp_core_set_stop(const std::exception&);
 
-bool rcpp_core_is_stop() {
-    if (::is_stop) {
-        ::is_stop = false;
-        return true;
-    }
-    return false;
-}
+bool rcpp_core_is_stop();
 
-void rcpp_core_get_stop() {
-    Rf_eval( *expr, R_GlobalEnv ) ;
-}
+void rcpp_core_get_stop();
+
+#endif //Rcpp_exception_hpp

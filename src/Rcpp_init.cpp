@@ -2,7 +2,7 @@
 //
 // Rcpp_init.cpp : Rcpp R/C++ interface class library -- Initialize and register
 //
-// Copyright (C) 2010 - 2013 John Chambers, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2015 John Chambers, Dirk Eddelbuettel, Romain Francois and Wush Wu
 //
 // This file is part of Rcpp.
 //
@@ -23,6 +23,7 @@
 
 #include <Rcpp.h>
 #include "internal.h"
+#include "exception.hpp"
 
 // borrowed from Matrix
 #define CALLDEF(name, n)  {#name, (DL_FUNC) &name, n}
@@ -57,6 +58,11 @@ static R_CallMethodDef callEntries[]  = {
     CALLDEF(rcpp_capabilities,0),
     CALLDEF(rcpp_can_use_cxx0x,0),
     CALLDEF(rcpp_can_use_cxx11,0),
+
+    CALLDEF(rcpp_core_set_stop,1),
+    CALLDEF(rcpp_core_is_stop,0),
+    CALLDEF(rcpp_core_get_stop,0),
+
     {NULL, NULL, 0}
 };
 
@@ -82,6 +88,8 @@ void init_Rcpp_routines(DllInfo *info){
       extEntries /*.External*/
   );
 }
+
+
 
 void registerFunctions(){
     using namespace Rcpp ;
@@ -116,6 +124,9 @@ void registerFunctions(){
     RCPP_REGISTER(reset_current_error)
     RCPP_REGISTER(error_occured)
     RCPP_REGISTER(rcpp_get_current_error)
+    RCPP_REGISTER(rcpp_core_set_stop)
+    RCPP_REGISTER(rcpp_core_is_stop)
+    RCPP_REGISTER(rcpp_core_get_stop)
     #undef RCPP_REGISTER
 }
 

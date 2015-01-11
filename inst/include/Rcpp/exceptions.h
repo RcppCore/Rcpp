@@ -2,7 +2,7 @@
 //
 // exceptions.h: Rcpp R/C++ interface class library -- exceptions
 //
-// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2015 Dirk Eddelbuettel, Romain Francois and Wush Wu
 //
 // This file is part of Rcpp.
 //
@@ -195,69 +195,79 @@ namespace Rcpp{
     inline void stop(const std::string& message) {
         throw Rcpp::exception(message.c_str());
     }
-    
+
     template <typename T1>
     inline void stop(const char* fmt, const T1& arg1) {
         throw Rcpp::exception( tfm::format(fmt, arg1 ).c_str() );
     }
-    
+
     template <typename T1, typename T2>
     inline void stop(const char* fmt, const T1& arg1, const T2& arg2) {
         throw Rcpp::exception( tfm::format(fmt, arg1, arg2 ).c_str() );
     }
-    
+
     template <typename T1, typename T2, typename T3>
     inline void stop(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3) {
         throw Rcpp::exception( tfm::format(fmt, arg1, arg2, arg3).c_str() );
     }
-    
+
     template <typename T1, typename T2, typename T3, typename T4>
     inline void stop(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4) {
         throw Rcpp::exception( tfm::format(fmt, arg1, arg2, arg3, arg4).c_str() );
     }
-    
+
     template <typename T1, typename T2, typename T3, typename T4, typename T5>
     inline void stop(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5) {
         throw Rcpp::exception( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5).c_str() );
     }
-    
+
     template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
     inline void stop(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5, const T6& arg6) {
         throw Rcpp::exception( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5, arg6).c_str() );
     }
-    
+
     template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
     inline void stop(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5, const T6& arg6, const T7& arg7) {
         throw Rcpp::exception( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5, arg6, arg7).c_str() );
     }
-    
+
     template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
     inline void stop(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5, const T6& arg6, const T7& arg7, const T8& arg8) {
         throw Rcpp::exception( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8).c_str() );
     }
-    
+
     template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9>
     inline void stop(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5, const T6& arg6, const T7& arg7, const T8& arg8, const T9& arg9) {
         throw Rcpp::exception( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9).c_str() );
     }
-    
+
     template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10>
     inline void stop(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5, const T6& arg6, const T7& arg7, const T8& arg8, const T9& arg9, const T10& arg10) {
         throw Rcpp::exception( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10).c_str() );
     }
 
-    inline void enable_is_stop() {
-    }
-
-    inline void set_stop_message(const char* msg) {
+    inline void set_stop(const std::exception& ex) {
+        static void (*f)(const std::exception&) = NULL;
+        if (!f) {
+            f = (void(*)(const std::exception&)) R_GetCCallable("Rcpp", "rcpp_core_set_stop");
+        }
+        f(ex);
     }
 
     inline bool is_stop() {
-        return false;
+        static bool (*f)() = NULL;
+        if (!f) {
+            f = (bool(*)()) R_GetCCallable("Rcpp", "rcpp_core_is_stop");
+        }
+        return f();
     }
 
-    inline const char* stop_message() {
-        return "";
+    inline void get_stop() {
+        static void (*f)() = NULL;
+        if (!f) {
+            f = (void (*)()) R_GetCCallable("Rcpp", "rcpp_core_get_stop");
+        }
+        f();
     }
 }
 
@@ -269,8 +279,7 @@ inline void forward_exception_to_r( const std::exception& ex){
 }
 
 inline void clone_exception_to_r( const std::exception& ex) {
-    Rcpp::enable_is_stop();
-    Rcpp::set_stop_message(ex.what());
+    Rcpp::set_stop(ex);
 }
 
 #endif
