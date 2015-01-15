@@ -1,14 +1,16 @@
 2015-01-15  Kevin Ushey  <kevinushey@gmail.com>
 
-        * inst/include/RcppCommon.h: remove leaked macros
-        'major', 'minor' and 'makedev' from sys/sysmacros.h
+        * inst/include/Rcpp/platform/sysmacros.h: remove leaked macros
+        'major', 'minor', 'makedev' from <sys/sysmacros.h>
+        * inst/include/RcppCommon.h: ditto
+        * inst/unitTests/cpp/Vector.cpp: simple test
 
 2015-01-08  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/examples/OpenMP/GNUmakefile: Renamed from Makefile because it
         contains GNU make extentions (which we happen to like)
         * inst/examples/ConvolveBenchmarks: Ditto
-        
+
 2015-01-02  Kevin Ushey  <kevinushey@gmail.com>
 
         * inst/include/Rcpp/sugar/functions/setdiff.h: fix for setequals
