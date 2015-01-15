@@ -30,6 +30,8 @@
 #include <Rcpp/config.h>
 #include <Rcpp/macros/macros.h>
 
+#include <Rcpp/platform/sysmacros.h>
+
 // include <sys/sysmacros.h>, and then remove stupid
 // 'major', 'minor' and 'makedev' defines. this works
 // around Rinternals.h eventually including this header
