@@ -1,3 +1,8 @@
+2015-01-15  Kevin Ushey  <kevinushey@gmail.com>
+
+        * inst/include/RcppCommon.h: remove leaked macros
+        'major', 'minor' and 'makedev' from sys/sysmacros.h
+
 2015-01-08  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/examples/OpenMP/GNUmakefile: Renamed from Makefile because it
