@@ -32,32 +32,6 @@
 
 #include <Rcpp/platform/sysmacros.h>
 
-// include <sys/sysmacros.h>, and then remove stupid
-// 'major', 'minor' and 'makedev' defines. this works
-// around Rinternals.h eventually including this header
-// and letting the macros leak through
-#if defined(__GNUC__) && !defined(__clang__)
-
-# ifdef major
-#  warning Macro 'major' will be undefined! See https://bugzilla.redhat.com/show_bug.cgi?id=130601.
-# endif
-
-# ifdef minor
-#  warning Macro 'minor' will be undefined! See https://bugzilla.redhat.com/show_bug.cgi?id=130601.
-# endif
-
-# ifdef makedev
-#  warning Macro 'makedev' will be undefined! See https://bugzilla.redhat.com/show_bug.cgi?id=130601.
-# endif
-
-# include <sys/sysmacros.h>
-
-# undef major
-# undef minor
-# undef makedev
-
-#endif
-
 // include R headers, but set R_NO_REMAP and access everything via Rf_ prefixes
 #define MAXELTSIZE 8192
 #define R_NO_REMAP
