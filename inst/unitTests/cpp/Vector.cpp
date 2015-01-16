@@ -761,3 +761,8 @@ LogicalVector logical_vector_from_bool_assign() {
     LogicalVector result = true;
     return result;
 }
+
+// [[Rcpp::export]]
+void no_op(int major) {
+    int minor = 1;
+}
