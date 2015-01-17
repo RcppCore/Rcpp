@@ -27,9 +27,9 @@ if (.runThisTest) {
         f2 <- Rcpp::cppFunction('double myVar(IntegerVector x) { return(var(x)); }')
         f3 <- Rcpp::cppFunction('double myVar(ComplexVector x) { return(var(x)); }')
         f4 <- Rcpp::cppFunction('double myVar(LogicalVector x) { return(var(x)); }')
-        checkEquals(f1(1:10), var(1:10))
+        checkEquals(f1((1:10) * 1.1), var((1:10) * 1.1))
         checkEquals(f2(1:10), var(1:10))
-        checkEquals(f3(1:10 + (1 + 1i)), var(1:10))
+        checkEquals(f3(1:10 + (1 + 1i)), var(1:10 + (1 + 1i)))
         checkEquals(f4(c(T, F, T, F, T)), var(c(T, F, T, F, T)))
     }
 
