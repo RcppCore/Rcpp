@@ -56,3 +56,8 @@ List test_compare_Strings( String aa, String bb ){
         ) ;
 }
 
+// [[Rcpp::export]]
+String test_push_front(String x) {
+    x.push_front("abc");
+    return x;
+}

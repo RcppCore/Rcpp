@@ -292,7 +292,7 @@ namespace Rcpp {
 
         inline String& push_front( const char* s){
             if( is_na() ) return *this ;
-            setBuffer() ; valid = false ; buffer += s ;
+            setBuffer() ; valid = false ; buffer = s + buffer;
             return *this ;
         }
         inline String& push_front( const std::string& s){
