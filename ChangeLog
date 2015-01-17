@@ -1,3 +1,9 @@
+2015-01-16  Kevin Ushey  <kevinushey@gmail.com>
+
+        * inst/include/Rcpp/String.h: fix push_front()
+        * inst/unitTests/runit.String.R: test
+        * inst/unitTests/cpp/String.cpp: test
+
 2015-01-15  Kevin Ushey  <kevinushey@gmail.com>
 
         * inst/include/Rcpp/platform/sysmacros.h: remove leaked macros

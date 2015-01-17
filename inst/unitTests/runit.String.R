@@ -49,5 +49,9 @@ if (.runThisTest) {
             )
         checkEquals( res, target )
     }
-    
+
+    test.push.front <- function() {
+        res <- test_push_front("def")
+        checkIdentical(res, "abcdef")
+    }
 }
