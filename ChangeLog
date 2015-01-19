@@ -1,3 +1,10 @@
+2015-01-19  Dirk Eddelbuettel  <edd@debian.org>
+
+        * vignettes/Rcpp.bib: Updated to current package versions
+
+        * vignettes/getCurrentVersionsOfCitedPackages.R: New helper function
+        * .Rbuildignore: Added vignettes/getCurrentVersionsOfCitedPackages.R
+
 2015-01-16  Kevin Ushey  <kevinushey@gmail.com>
 
         * inst/include/Rcpp/String.h: fix push_front()
