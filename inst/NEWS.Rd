@@ -21,7 +21,9 @@
       \item Vectors now have a \code{Vector::const\_iterator} that is 'const correct'
       thanks to fix by Romain following bug report in rcpp-devel by Martyn Plummer.
       \item The \code{mean()} sugar function now uses a more robust two-pass
-      method, and new unit tests for added at the same time.
+      method, and new unit tests for \code{mean()} were added at the same time.
+      \item The \code{mean()} and \code{var()} functions now support all core
+      vector types.
       \item The \code{setequal()} sugar function has been corrected via
       suggestion by Qiang Kou following a bug report by Søren Højsgaard.
       \item The macros \code{major}, \code{minor}, and \code{makedev} no longer leak
@@ -42,8 +44,8 @@
       ensure that the Application Binary Interface (ABI) did not change; this
       test will (mostly or) only run at Travis where we have reasonable control
       over the platform running the test and can provide a binary.
-      \item New unit tests for sugar function \code{mean} and \code{setequal}
-      were added as noted above. 
+      \item New unit tests for sugar functions \code{mean}, \code{setequal} and
+      \code{var} were added as noted above. 
     }
     \item Changes in Rcpp Examples:
     \itemize{
