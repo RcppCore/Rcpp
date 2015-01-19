@@ -24,6 +24,9 @@
       method, and new unit tests for added at the same time.
       \item The \code{setequal()} sugar function has been corrected via
       suggestion by Qiang Kou following a bug report by Søren Højsgaard.
+      \item The macros \code{major}, \code{minor}, and \code{makedev} no longer leak
+      in from the (Linux) system header \code{sys/sysmacros.h}.
+      \item The \code{push_front()} string function was corrected..
     }
     \item Changes in Rcpp Attributes:
     \itemize{
