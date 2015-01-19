@@ -2,7 +2,7 @@
 //
 // compiler.h: Rcpp R/C++ interface class library -- check compiler
 //
-// Copyright (C) 2012 - 2013  Dirk Eddelbuettel, Romain Francois, and Kevin Ushey
+// Copyright (C) 2012 - 2015  Dirk Eddelbuettel, Romain Francois, and Kevin Ushey
 //
 // This file is part of Rcpp.
 //
@@ -29,9 +29,9 @@
 #ifdef __GNUC__
 #define GOOD_COMPILER_FOR_RCPP
 #endif
-#ifdef __SUNPRO_CC
-#define GOOD_COMPILER_FOR_RCPP
-#endif
+// #ifdef __SUNPRO_CC
+// #define GOOD_COMPILER_FOR_RCPP
+// #endif
 #ifdef __clang__
 #define GOOD_COMPILER_FOR_RCPP
 #endif
