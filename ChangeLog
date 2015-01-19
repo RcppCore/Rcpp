@@ -1,5 +1,8 @@
 2015-01-19  Dirk Eddelbuettel  <edd@debian.org>
 
+        * inst/include/Rcpp/platform/compiler.h: SunPro, now known as Oracle
+        Solaris Studio, is no longer supported.
+
         * vignettes/Rcpp.bib: Updated to current package versions
 
         * vignettes/getCurrentVersionsOfCitedPackages.R: New helper function
