@@ -29,19 +29,19 @@ namespace sugar{
 template <int RTYPE, bool NA, typename T>
 class Var : public Lazy< double , Var<RTYPE,NA,T> > {
 public:
-	typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
+    typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 
-	Var( const VEC_TYPE& object_ ) : object(object_){}
+    Var( const VEC_TYPE& object_ ) : object(object_){}
 
-	double get() const{
+    double get() const{
         double
             m = mean(object).get(),
             ssq = sum( pow(object, 2.0) ).get();
-	    return (ssq - m * m * object.size()) / (object.size() - 1);
-	}
+        return (ssq - m * m * object.size()) / (object.size() - 1);
+    }
 
 private:
-	const VEC_TYPE& object ;
+    const VEC_TYPE& object ;
 } ;
 
 template <bool NA, typename T>
@@ -49,27 +49,27 @@ class Var<CPLXSXP,NA,T> : public Lazy< double , Var<CPLXSXP,NA,T> > {
 public:
     typedef typename Rcpp::VectorBase<CPLXSXP,NA,T> VEC_TYPE ;
 
-	Var( const VEC_TYPE& object_ ) : object(object_){}
+    Var( const VEC_TYPE& object_ ) : object(object_){}
 
-	double get() const{
+    double get() const{
         double sq = 0, ssq = 0;
         for(int i = 0;i < object.size();i++) {
             Rcomplex z = object[i];
             sq += z.r;
             ssq += z.r * z.r;
         }
-	    return (ssq - sq * sq / object.size()) / (object.size() - 1);
-	}
+        return (ssq - sq * sq / object.size()) / (object.size() - 1);
+    }
 
 private:
-	const VEC_TYPE& object ;
+    const VEC_TYPE& object ;
 } ;
 
 } // sugar
 
 template <bool NA, typename T>
 inline sugar::Var<REALSXP,NA,T> var( const VectorBase<REALSXP,NA,T>& t){
-	return sugar::Var<REALSXP,NA,T>( t ) ;
+    return sugar::Var<REALSXP,NA,T>( t ) ;
 }
 
 template <bool NA, typename T>
