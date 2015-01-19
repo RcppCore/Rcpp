@@ -5,7 +5,10 @@
         * vignettes/getCurrentVersionsOfCitedPackages.R: New helper function
         * .Rbuildignore: Added vignettes/getCurrentVersionsOfCitedPackages.R
 
-2015-01-05  Wush Wu <wush978@gmail.com>
+        * R/unit.tests.R (test): Use requireNamespace() instead of require()
+        * R/unit.tests.R (test): Ditto
+
+2015-01-19  Wush Wu <wush978@gmail.com>
 
         * inst/include/Rcpp/sugar/functions/var.h: Support four vector types
         * inst/unitTests/runit.sugar.var.R: Added corresponding tests

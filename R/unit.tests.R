@@ -1,4 +1,4 @@
-# Copyright (C) 2010 - 2014  Dirk Eddelbuettel, Romain Francois and Kevin Ushey
+# Copyright (C) 2010 - 2015  Dirk Eddelbuettel, Romain Francois and Kevin Ushey
 #
 # This file is part of Rcpp.
 #
@@ -19,7 +19,7 @@ test <- function(output=if(file.exists("/tmp")) "/tmp" else getwd(),
                  gctorture=FALSE,
                  gctorture.exclude="runit.Module.client.package.R") {
     
-    if (require(RUnit)) {
+    if (requireNamespace("RUnit")) {
         
         if (gctorture) {
             
