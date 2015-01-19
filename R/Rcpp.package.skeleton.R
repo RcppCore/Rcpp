@@ -1,6 +1,6 @@
 # -*- tab-width: 4; -*-
 
-# Copyright (C) 2009 - 2014  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2009 - 2015  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -28,7 +28,7 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
                                   email = "your@email.com",
                                   license = "GPL (>= 2)") {
   
-    havePkgKitten <- require("pkgKitten", quietly=TRUE, character.only=TRUE)
+    havePkgKitten <- requireNamespace("pkgKitten", quietly=TRUE, character.only=TRUE)
 
     call <- match.call()
     call[[1]] <- as.name("package.skeleton")
