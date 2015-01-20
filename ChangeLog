@@ -1,3 +1,11 @@
+2015-01-20  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.11.4
+        * inst/NEWS.Rd: Release 0.11.4
+        * inst/include/Rcpp/config.h: Release 0.11.4
+
+        * debian/*: Changes for Debian release of 0.11.3
+
 2015-01-19  Kevin Ushey  <kevinushey@gmail.com>
 
         * inst/include/Rcpp/r/headers.h: move R headers inclusion to own file;

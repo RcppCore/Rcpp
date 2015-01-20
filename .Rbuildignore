@@ -13,3 +13,5 @@ doxyfile
 .travis.yml
 .dir-locals.el
 vignettes/getCurrentVersionsOfCitedPackages.R
+NotesForCRAN.md
+local
