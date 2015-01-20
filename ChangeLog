@@ -1,3 +1,10 @@
+2015-01-19  Kevin Ushey  <kevinushey@gmail.com>
+
+        * inst/include/Rcpp/r/headers.h: move R headers inclusion to own file;
+        move sysmacros.h workarounds to here
+        * inst/include/RcppCommon.h: idem
+        * inst/include/Rcpp/platform/sysmacros.h: idem
+
 2015-01-19  Dirk Eddelbuettel  <edd@debian.org>
 
         * vignettes/Rcpp.bib: Updated to current package versions
