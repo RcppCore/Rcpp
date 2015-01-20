@@ -24,7 +24,7 @@
 // 'major', 'minor' and 'makedev' defines. this works
 // around Rinternals.h eventually including this header
 // and letting the macros leak through
-#if defined(__GNUC__) && !defined(__APPLE__)
+#if defined(__GNUC__) && !defined(__APPLE__) && !defined(WIN32)
 
 # ifdef major
 #  define RCPP_HAS_MAJOR_MACRO
