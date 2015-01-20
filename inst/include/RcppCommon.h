@@ -30,17 +30,8 @@
 #include <Rcpp/config.h>
 #include <Rcpp/macros/macros.h>
 
-#include <Rcpp/platform/sysmacros.h>
 
-// include R headers, but set R_NO_REMAP and access everything via Rf_ prefixes
-#define MAXELTSIZE 8192
-#define R_NO_REMAP
-#include <R.h>
-#include <Rinternals.h>
-#include <R_ext/Complex.h>
-#include <R_ext/Parse.h>
-#include <R_ext/Rdynload.h>
-#include <Rversion.h>
+#include <Rcpp/r/headers.h>
 
 /**
  * \brief Rcpp API
