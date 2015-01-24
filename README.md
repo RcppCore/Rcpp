@@ -1,4 +1,4 @@
-## Rcpp: Seamless R and C++ Integration [![Build Status](https://travis-ci.org/RcppCore/Rcpp.png)](https://travis-ci.org/RcppCore/Rcpp)
+## Rcpp: Seamless R and C++ Integration [![Build Status](https://travis-ci.org/RcppCore/Rcpp.png)](https://travis-ci.org/RcppCore/Rcpp) [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
 
 The [Rcpp package](http://cran.r-project.org/package=Rcpp) provides R functions as and a C++ library
 facilitating the integration of R and C++
@@ -54,7 +54,7 @@ see 'citation("Rcpp")' for details.
 The [Rcpp Gallery](http://gallery.rcpp.org) showcases over 80 fully documented 
 and working examples. 
 
-A number of examples are included as are over 800 unit tests in over 400 unit
+A number of examples are included as are over 900 unit tests in over 460 unit
 test functions provide additional usage examples.  
 
 The [CRAN](http://cran.r-project.org) network contains 
