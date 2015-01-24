@@ -1,4 +1,6 @@
-## Rcpp: Seamless R and C++ Integration [![Build Status](https://travis-ci.org/RcppCore/Rcpp.png)](https://travis-ci.org/RcppCore/Rcpp) [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
+## Rcpp [![Build Status](https://travis-ci.org/RcppCore/Rcpp.png)](https://travis-ci.org/RcppCore/Rcpp) [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
+
+### Seamless R and C++ Integration
 
 The [Rcpp package](http://cran.r-project.org/package=Rcpp) provides R functions as and a C++ library
 facilitating the integration of R and C++
