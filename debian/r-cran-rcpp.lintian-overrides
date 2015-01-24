@@ -80,3 +80,5 @@ r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.t
 r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.attributes.R
 r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.InternalFunction.R
 r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.InternalFunctionCPP11.R
+r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.binary.package.R
+r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.sugar.var.R
