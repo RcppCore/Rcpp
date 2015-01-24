@@ -354,7 +354,7 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
                  .readPkgDescField(pkgDesc, "LinkingTo", character()))
     depends <- unique(.splitDepends(depends))
     depends <- depends[depends != "R"]
-                 
+
     # determine source directory
     srcDir <- file.path(pkgdir, "src")
     if (!file.exists(srcDir))
@@ -381,12 +381,14 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     includes <- .linkingToIncludes(linkingTo, TRUE)
 
     # if a master include file is defined for the package then include it
-    pkgHeader <- paste(pkgname, ".h", sep="")
-    pkgHeaderPath <- file.path(pkgdir, "inst", "include",  pkgHeader)
-    if (file.exists(pkgHeaderPath)) {
-        pkgInclude <- paste("#include \"../inst/include/",
-                            pkgHeader, "\"", sep="")
-        includes <- c(pkgInclude, includes)
+    # preferring '.h' to '.hpp' when both are present.
+    pkgHeaderPath <- file.path(pkgdir, "inst", "include")
+    pkgHeader <- list.files(pkgHeaderPath, paste0(pkgname,"\\.(h(pp)?)$"))
+    pkgHeader <- head(pkgHeader,1)
+    if (length(pkgHeader)) {
+      pkgInclude <- paste("#include \"../inst/include/",
+                          basename(pkgHeader), "\"", sep="")
+      includes <- c(pkgInclude, includes)
     }
 
     # generate exports
