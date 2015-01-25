@@ -123,7 +123,10 @@ namespace tinyformat {}
 namespace tfm = tinyformat;
 
 // Error handling; calls assert() by default.
-// #define TINYFORMAT_ERROR(reasonString) your_error_handler(reasonString)
+namespace Rcpp {
+    void stop(const std::string& message);
+}
+#define TINYFORMAT_ERROR(REASON) ::Rcpp::stop(REASON)
 
 // Define for C++11 variadic templates which make the code shorter & more
 // general.  If you don't define this, C++11 support is autodetected below.
