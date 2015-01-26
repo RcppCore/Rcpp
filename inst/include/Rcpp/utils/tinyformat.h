@@ -136,13 +136,13 @@ namespace Rcpp {
 //------------------------------------------------------------------------------
 // Implementation details.
 #include <algorithm>
-#include <cassert>
+// #include <cassert>
 #include <iostream>
 #include <sstream>
 
-#ifndef TINYFORMAT_ERROR
-#   define TINYFORMAT_ERROR(reason) assert(0 && reason)
-#endif
+// #ifndef TINYFORMAT_ERROR
+// #   define TINYFORMAT_ERROR(reason) assert(0 && reason)
+// #endif
 
 #if !defined(TINYFORMAT_USE_VARIADIC_TEMPLATES) && !defined(TINYFORMAT_NO_VARIADIC_TEMPLATES)
 #   ifdef __GXX_EXPERIMENTAL_CXX0X__
@@ -205,7 +205,7 @@ template<int n> struct is_wchar<wchar_t[n]> {};
 template<typename T, typename fmtT, bool convertible = is_convertible<T, fmtT>::value>
 struct formatValueAsType
 {
-    static void invoke(std::ostream& /*out*/, const T& /*value*/) { assert(0); }
+    static void invoke(std::ostream& /*out*/, const T& /*value*/) {}
 };
 // Specialized version for types that can actually be converted to fmtT, as
 // indicated by the "convertible" template parameter.
