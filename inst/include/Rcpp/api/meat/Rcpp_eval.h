@@ -18,7 +18,7 @@
 #ifndef Rcpp_api_meat_Rcpp_eval_h
 #define Rcpp_api_meat_Rcpp_eval_h
 
-#include <R_ext/GraphicsEngine.h>
+#include <Rcpp/Interrupt.h>
 
 namespace Rcpp{
 
@@ -71,11 +71,14 @@ namespace Rcpp{
         EvalCall call;
         call.expr_ = expr_;
         call.env = env;
-        R_ToplevelExec(Rcpp_eval, (void*)&call);
-        if (!call.error_message.empty())
-            throw eval_error(call.error_message);
-        else
-            return call.result;
+        if (R_ToplevelExec(Rcpp_eval, (void*)&call)) {
+            if (!call.error_message.empty())
+                throw eval_error(call.error_message);
+            else
+                return call.result;
+        } else {
+            throw internal::InterruptedException();
+        }
     }
 
 }
