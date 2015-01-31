@@ -18,9 +18,25 @@
 #ifndef Rcpp_api_meat_Rcpp_eval_h
 #define Rcpp_api_meat_Rcpp_eval_h
 
+#include <R_ext/GraphicsEngine.h>
+
 namespace Rcpp{
 
-    inline SEXP Rcpp_eval(SEXP expr_, SEXP env) {
+    namespace {
+        struct EvalCall {
+            SEXP expr_;
+            SEXP env;
+            SEXP result;
+            std::string error_message;
+        };
+    } // anonymous namespace
+
+    inline void Rcpp_eval(void* data) {
+
+        EvalCall* evalCall = (EvalCall*)data;
+        SEXP expr_ = evalCall->expr_;
+        SEXP env = evalCall->env;
+
         Shield<SEXP> expr( expr_) ;
 
         reset_current_error() ;
@@ -45,11 +61,21 @@ namespace Rcpp{
             Shield<SEXP> current_error        ( rcpp_get_current_error() ) ;
             Shield<SEXP> conditionMessageCall (::Rf_lang2(conditionMessageSym, current_error)) ;
             Shield<SEXP> condition_message    (::Rf_eval(conditionMessageCall, R_GlobalEnv)) ;
-            std::string message(CHAR(::Rf_asChar(condition_message)));
-            throw eval_error(message) ;
+            evalCall->error_message = std::string(CHAR(::Rf_asChar(condition_message)));
+        } else {
+            evalCall->result = res;
         }
+    }
 
-        return res ;
+    inline SEXP Rcpp_eval(SEXP expr_, SEXP env) {
+        EvalCall call;
+        call.expr_ = expr_;
+        call.env = env;
+        R_ToplevelExec(Rcpp_eval, (void*)&call);
+        if (!call.error_message.empty())
+            throw eval_error(call.error_message);
+        else
+            return call.result;
     }
 
 }
