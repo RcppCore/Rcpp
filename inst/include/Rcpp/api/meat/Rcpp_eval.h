@@ -22,14 +22,12 @@
 
 namespace Rcpp{
 
-    namespace {
-        struct EvalCall {
-            SEXP expr_;
-            SEXP env;
-            SEXP result;
-            std::string error_message;
-        };
-    } // anonymous namespace
+    struct EvalCall {
+        SEXP expr_;
+        SEXP env;
+        SEXP result;
+        std::string error_message;
+    };
 
     inline void Rcpp_eval(void* data) {
 
