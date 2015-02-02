@@ -8,6 +8,7 @@
     \itemize{
       \item Defining an error handler for tinyformat prevents \code{assert()}
       from spilling.
+      \item Add Rcpp::warning function as wrapper for Rf_warning.
     }
   }
 }
