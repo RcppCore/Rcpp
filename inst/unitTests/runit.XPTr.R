@@ -30,6 +30,14 @@ if (.runThisTest) {
         
         front <- xptr_2(xp)
         checkEquals( front, 1L, msg = "check usage of external pointer" )
+
+        checkTrue(xptr_release(xp), msg = "check release of external pointer")
+
+        checkTrue(xptr_access_released(xp), msg = "check access of released external pointer")
+
+        checkException(xptr_use_released(xp),
+                       msg = "check exception on use of released external pointer",
+                       silent = TRUE)
     }
 
 }
