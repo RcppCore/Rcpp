@@ -1,3 +1,8 @@
+2015-02-02  JJ Allaire  <jj@rstudio.org>
+
+        * inst/include/Rcpp/exceptions.h: Add Rcpp::warning function as
+        wrapper for Rf_warning
+
 2015-01-25  Kevin Ushey  <kevinushey@gmail.com>
 
         * inst/include/Rcpp/utils/tinyformat.h: define an error handler for
