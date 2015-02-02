@@ -70,7 +70,9 @@ namespace Rcpp{
         Shield<SEXP> res(::Rf_eval( call, RCPP ) );
 
         // collect warnings
-        Shield<SEXP> warnings(::Rf_eval(Rf_lang1(collectWarningsSym), RCPP));
+        Shield<SEXP> warningCall(Rf_lang1(collectWarningsSym));
+        Shield<SEXP> warnings(::Rf_eval(warningCall, RCPP));
+        
         evalCall->warnings = Rcpp::as<std::vector<std::string> >(warnings);
 
         // check for error
