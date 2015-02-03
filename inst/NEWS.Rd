@@ -9,6 +9,17 @@
       \item Defining an error handler for tinyformat prevents \code{assert()}
       from spilling.
       \item Add Rcpp::warning function as wrapper for Rf_warning.
+      \item Improvements to XPtr including new \code{checked_get} and
+      \code{release} functions as well as improved behavior (throw an
+      exception rather than crash) when a NULL external pointer is
+      dereferenced.
+      \item Evaluate R code within an \code{R_toplevelExec} block to prevent
+      user interrupts from bypassing C++ destructors on the stack.
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Include pkg_types.h file in RcppExports.cpp if it's present in
+      inst/include or src.
     }
   }
 }
@@ -19,7 +30,7 @@
     \itemize{
       \item The \code{ListOf<T>} class gains the \code{.attr} and
       \code{.names} methods common to other Rcpp vectors.
-      \item The \code{[dpq]nbinom_mu()} scalar functions are now available via 
+      \item The \code{[dpq]nbinom_mu()} scalar functions are now available via
       the \code{R::} namespace when R 3.1.2 or newer is used.
       \item Add an additional test for AIX before attempting to include \code{execinfo.h}.
       \item \code{Rcpp::stop} now supports improved \code{printf}-like syntax
@@ -56,7 +67,7 @@
       test will (mostly or) only run at Travis where we have reasonable control
       over the platform running the test and can provide a binary.
       \item New unit tests for sugar functions \code{mean}, \code{setequal} and
-      \code{var} were added as noted above. 
+      \code{var} were added as noted above.
     }
     \item Changes in Rcpp Examples:
     \itemize{
@@ -74,12 +85,12 @@
       \item The deprecation of \code{RCPP_FUNCTION_*} which was announced with
         release 0.10.5 last year is proceeding as planned, and the file
         \code{macros/preprocessor_generated.h} has been removed.
-      \item \code{Timer} no longer records time between steps, but times from 
-        the origin. It also gains a \code{get_timers(int)} methods that 
+      \item \code{Timer} no longer records time between steps, but times from
+        the origin. It also gains a \code{get_timers(int)} methods that
         creates a vector of \code{Timer} that have the same origin. This is modelled
         on the \code{Rcpp11} implementation and is more useful for situations where
-        we use timers in several threads. \code{Timer} also gains a constructor 
-        taking a \code{nanotime_t} to use as its origin, and a \code{origin} method. 
+        we use timers in several threads. \code{Timer} also gains a constructor
+        taking a \code{nanotime_t} to use as its origin, and a \code{origin} method.
         This can be useful for situations where the number of threads is not known
         in advance but we still want to track what goes on in each thread.
       \item A cast to \code{bool} was removed in the vector proxy code as
@@ -110,7 +121,7 @@
     \item Changes in Rcpp Documentation:
     \itemize{
       \item The \code{Rcpp-FAQ} vignette was updated with respect to OS X issues.
-      \item A new entry in the \code{Rcpp-FAQ} clarifies the use of licenses. 
+      \item A new entry in the \code{Rcpp-FAQ} clarifies the use of licenses.
       \item Vignettes build results no longer copied to \code{/tmp} to please CRAN.
       \item The Description in \code{DESCRIPTION} has been shortened.
     }
@@ -140,9 +151,9 @@
       \code{IntegerVector}, will now give warnings if you use
       \code{\#define RCPP_WARN_ON_COERCE} before including the Rcpp
       headers.
-      \item Templated \code{List} containers, \code{ListOf<T>}, have been 
-      introduced. When subsetting such containers, the return is assumed 
-      to be of type T, allowing code such as 
+      \item Templated \code{List} containers, \code{ListOf<T>}, have been
+      introduced. When subsetting such containers, the return is assumed
+      to be of type T, allowing code such as
       \code{ListOf<NumericVector> x; NumericVector y = x[0] + x[1] + x[2]}.
       \item In a number of instances, returned results are protected and/or cast
       more carefully.
@@ -152,12 +163,12 @@
       \item Trailing line comments are now stripped by the attributes
       parser. This allows the parser to handle C++ source files
       containing comments inline with function arguments.
-      \item The \code{USE_CXX1X} environment variable is now defined by 
+      \item The \code{USE_CXX1X} environment variable is now defined by
       the cpp11 plugin when R >= 3.1. Two additional plugins have been
       added for use with C++0x (eg when using g++ 4.6.* as on Windows)
       as well as C++1y for compilers beginning to support the next
       revision of the standard; additional fallback is provided for
-      Windows. 
+      Windows.
       \item \code{compileAttributes()} now also considers Imports: which
       may suppress a warning when running \code{Rcpp.package.skeleton()}.
     }
@@ -181,19 +192,19 @@
       values for numeric vectors.
       \item \code{DataFrame::nrows} now more accurately mimics R's
       internal behavior (checks the row.names attribute)
-      \item Numerous changes to permit compilation on the Solaris OS 
+      \item Numerous changes to permit compilation on the Solaris OS
       \item Rcpp vectors gain a subsetting method -- it is now possible
       to subset an Rcpp vector using \code{CharacterVector}s (subset
       by name), \code{LogicalVector}s (logical subsetting), and
       \code{IntegerVector}s (0-based index subsetting). Such subsetting
       will also work with Rcpp sugar expressions, enabling expressions
       such as \code{x[ x > 0]}.
-      \item Comma initialization (e.g. 
+      \item Comma initialization (e.g.
       \code{CharacterVector x = "a", "b", "c";}, has been disabled, as
       it causes problems with the behavior of the \code{=} operator with
-      \code{Rcpp::List}s. Users who want to re-enable this functionality 
+      \code{Rcpp::List}s. Users who want to re-enable this functionality
       can use \code{#define RCPP_COMMA_INITIALIZATION}, but be aware of
-      the above caveat. The more verbose 
+      the above caveat. The more verbose
       \code{CharacterVector x = CharacterVector::create("a", "b", "c")}
       is preferred.
     }
@@ -210,11 +221,11 @@
     }
     \item Changes in Rcpp modules
     \itemize{
-      \item Corrected the \code{un_pointer} implementation for \code{object} 
+      \item Corrected the \code{un_pointer} implementation for \code{object}
     }
   }
 }
-      
+
 \section{Changes in Rcpp version 0.11.0 (2014-02-02)}{
   \itemize{
     \item Changes in Rcpp API:
@@ -226,8 +237,8 @@
       \item Updated the \code{Rcpp.package.skeleton()} function accordingly.
       \item New class \code{StretchyList} for pair lists with fast addition of
       elements at the front and back. This abstracts the 3 functions
-      \code{NewList}, \code{GrowList} and \code{Insert} used in various 
-      packages and in parsers in R. 
+      \code{NewList}, \code{GrowList} and \code{Insert} used in various
+      packages and in parsers in R.
       \item The function \code{dnt}, \code{pnt}, \code{qnt} sugar
       functions were incorrectly expanding to the no-degree-of-freedoms
       variant.
@@ -239,7 +250,7 @@
       and \code{NaN}.)
       \item Applied two bug fixes to Vector \code{sort()} and \code{RObject}
       definition spotted and corrected by Kevin Ushey
-      \item New \code{checkUserInterrupt()} function that provides a C++ friendly 
+      \item New \code{checkUserInterrupt()} function that provides a C++ friendly
       implementation of \code{R_CheckUserInterrupt}.
     }
     \item Changes in Rcpp attributes:
@@ -260,7 +271,7 @@
       \item The file \code{tests/doRUnit.R} was rewritten following the
       pattern deployed in \cpkg{RProtoBuf} which is due to Murray Stokely
       \item The function \code{test()} was rewritten; it provides an
-      easy entry point to running unit tests of the installed package 
+      easy entry point to running unit tests of the installed package
     }
   }
 }
@@ -277,7 +288,7 @@
       \item Two missing \code{is<>()} templates for
         \code{CharacterVector} and \code{CharacterMatrix} have been added,
         and some tests for \code{is_na()} and \code{is_finite()} have been
-        corrected thanks to Thomas Tse.   
+        corrected thanks to Thomas Tse.
     }
     \item Changes in R code:
     \itemize{
@@ -291,7 +302,7 @@
       \item Raise requirement for R itself to be version 3.0.0 or later
       as needed by the vignette processing
     }
-    \item Changes in Rcpp attributes: 
+    \item Changes in Rcpp attributes:
     \itemize{
       \item \code{sourceCpp} now correctly binds to Rtools 3.0 and 3.1
     }
@@ -302,10 +313,10 @@
   \itemize{
     \item Changes in R code:
     \itemize{
-      \item New R function \code{demangle} that calls the \code{DEMANGLE} macro.  
+      \item New R function \code{demangle} that calls the \code{DEMANGLE} macro.
       \item New R function \code{sizeof} to query the byte size of a type. This
       returns an object of S3 class \code{bytes} that has a \code{print} method
-      showing bytes and bits. 
+      showing bytes and bits.
     }
     \item Changes in Rcpp API:
     \itemize{
@@ -313,20 +324,20 @@
       test for when checking for lack of \code{backtrace()} needed for
       stack traces.
       \item \code{as<T*>}, \code{as<const T*>}, \code{as<T&>} and
-      \code{as<const T&>} are now supported, when 
+      \code{as<const T&>} are now supported, when
       T is a class exposed by modules, i.e. with \code{RCPP_EXPOSED_CLASS}
-      \item \code{DoubleVector} as been added as an alias to 
+      \item \code{DoubleVector} as been added as an alias to
       \code{NumericVector}
-      \item New template function \code{is<T>} to identify if an R object 
-      can be seen as a \code{T}. For example \code{is<DataFrame>(x)}. 
+      \item New template function \code{is<T>} to identify if an R object
+      can be seen as a \code{T}. For example \code{is<DataFrame>(x)}.
       This is a building block for more expressive dispatch in various places
-      (modules and attributes functions). 
-      \item \code{wrap} can now handle more types, i.e. types that iterate over 
-      \code{std::pair<const KEY, VALUE>} where KEY can be converted to a 
+      (modules and attributes functions).
+      \item \code{wrap} can now handle more types, i.e. types that iterate over
+      \code{std::pair<const KEY, VALUE>} where KEY can be converted to a
       \code{String} and \code{VALUE} is either a primitive type (int, double)
       or a type that wraps. Examples :
       \itemize{
-        \item \code{std::map<int, double>} : we can make a String from an int, 
+        \item \code{std::map<int, double>} : we can make a String from an int,
         and double is primitive
         \item \code{boost::unordered_map<double, std::vector<double> >}: we can make
         a String from a double and \code{std::vector<double>} can wrap itself
@@ -334,7 +345,7 @@
       Other examples of this are included at the end of the \code{wrap} unit test
       file (\code{runit.wrap.R} and \code{wrap.cpp}).
       \item \code{wrap} now handles containers of classes handled by modules. e.g.
-      if you expose a class \code{Foo} via modules, then you can wrap 
+      if you expose a class \code{Foo} via modules, then you can wrap
       \code{vector<Foo>}, ... An example is included in the \code{wrap} unit test
       file
       \item \code{RcppLdFlags()}, often used in \code{Makevars} files of
@@ -343,15 +354,15 @@
     \item Changes in Attributes:
     \itemize{
       \item Objects exported by a module (i.e. by a \code{RCPP_MODULE} call
-      in a file that is processed by \code{sourceCpp}) are now directly 
+      in a file that is processed by \code{sourceCpp}) are now directly
       available in the environment. We used to make the module object
       available, which was less useful.
       \item A plugin for \code{openmp} has been added to support use of OpenMP.
-      \item \code{Rcpp::export} now takes advantage of the more flexible 
-      \code{as<>}, handling constness and referenceness of the input types. 
-      For users, it means that for the parameters of function exported by modules, 
+      \item \code{Rcpp::export} now takes advantage of the more flexible
+      \code{as<>}, handling constness and referenceness of the input types.
+      For users, it means that for the parameters of function exported by modules,
       we can now use references, pointers and const versions of them.
-      The file \code{Module.cpp} file has an example. 
+      The file \code{Module.cpp} file has an example.
       \item{No longer call non-exported functions from the tools package}
       \item{No longer search the inline package as a fallback when loading
       plugins for the the \code{Rcpp::plugins} attribute}.
@@ -360,11 +371,11 @@
     \itemize{
       \item We can now expose functions and methods that take
       \code{T&} or \code{const T&} as arguments. In these situations
-      objects are no longer copied as they used to be. 
+      objects are no longer copied as they used to be.
     }
     \item Changes in sugar:
     \itemize{
-      \item \code{is_na} supports classes \code{DatetimeVector} and 
+      \item \code{is_na} supports classes \code{DatetimeVector} and
       \code{DateVector}
     }
     \item Changes in Rcpp documentation:
@@ -379,10 +390,10 @@
       \item The macros from the \code{preprocessor_generated.h} file
       have been deprecated. They are still available, but they print a
       message in addition to their expected behavior.
-      \item The macros will be permanently removed in the first \pkg{Rcpp} 
-      release after July 2014. 
+      \item The macros will be permanently removed in the first \pkg{Rcpp}
+      release after July 2014.
       \item Users of these macros should start replacing them with more
-      up-to-date code, such as using 'Rcpp attributes' or 'Rcpp modules'.  
+      up-to-date code, such as using 'Rcpp attributes' or 'Rcpp modules'.
     }
   }
 }
@@ -392,13 +403,13 @@
     \item Changes in R code: None beyond those detailed for Rcpp Attributes
     \item Changes in Rcpp attributes:
     \itemize{
-      \item Fixed problem whereby the interaction between the gc and the 
+      \item Fixed problem whereby the interaction between the gc and the
       RNGScope destructor could cause a crash.
       \item Don't include package header file in generated C++ interface
       header files.
       \item Lookup plugins in \pkg{inline} package if they aren't found
       within the \pkg{Rcpp} package.
-      \item Disallow compilation for files that don't have extensions 
+      \item Disallow compilation for files that don't have extensions
       supported by R CMD SHLIB
     }
     \item Changes in Rcpp API:
@@ -415,7 +426,7 @@
       done on stl types and what was intended initially). Reported on
       Rcpp-devel by Toni Giorgino.
       \item Added equality operator between elements of
-      \code{CharacterVector}s.  
+      \code{CharacterVector}s.
     }
     \item Changes in Rcpp sugar:
     \itemize{
@@ -423,12 +434,12 @@
       \url{http://stackoverflow.com/questions/15953768/}
       \item New function \code{is_finite} and \code{is_infinite} that
       reproduces the behavior of R's \code{is.finite} and
-      \code{is.infinite} functions 
+      \code{is.infinite} functions
     }
     \item Changes in Rcpp build tools:
     \itemize{
       \item Fix by Martyn Plummer for Solaris in handling of
-      \code{SingleLogicalResult}.      
+      \code{SingleLogicalResult}.
       \item The \code{src/Makevars} file can now optionally override the
       path for \code{/usr/bin/install_name_tool} which is used on OS X.
       \item Vignettes are trying harder not to be built in parallel.
@@ -441,15 +452,15 @@
     }
     \item Planned Deprecation of \code{RCPP_FUNCTION_*}:
     \itemize{
-      \item The set of macros \code{RCPP_FUNCTION_} etc ... from the 
+      \item The set of macros \code{RCPP_FUNCTION_} etc ... from the
       \code{preprocessor_generated.h} file will be deprecated in the next version
       of \pkg{Rcpp}, i.e they will still be available but will generate some
-      warning in addition to their expected behavior. 
+      warning in addition to their expected behavior.
       \item In the first release that is at least 12 months after this announcement, the
-      macros will be removed from \pkg{Rcpp}. 
-      \item Users of these macros (if there are any) should start replacing them 
+      macros will be removed from \pkg{Rcpp}.
+      \item Users of these macros (if there are any) should start replacing them
       with more up to date code, such as using Rcpp attributes or Rcpp
-      modules.  
+      modules.
     }
   }
 }
@@ -458,25 +469,25 @@
   \itemize{
     \item Changes in R code:
     \itemize{
-      \item Prevent build failures on Windowsn when Rcpp is installed 
+      \item Prevent build failures on Windowsn when Rcpp is installed
       in a library path with spaces (transform paths in the same manner
       that R does before passing them to the build system).
     }
-    \item Changes in Rcpp attributes: 
+    \item Changes in Rcpp attributes:
     \itemize{
         \item Rcpp modules can now be used with \code{sourceCpp}
         \item Standalone roxygen chunks (e.g. to document a class) are now
         transposed into RcppExports.R
-        \item Added \code{Rcpp::plugins} attribute for binding 
+        \item Added \code{Rcpp::plugins} attribute for binding
         directly to inline plugins. Plugins can be registered using
         the new \code{registerPlugin} function.
         \item Added built-in \code{cpp11} plugin for specifying
         the use of C++11 in a translation unit
-        \item Merge existing values of build related environment 
+        \item Merge existing values of build related environment
         variables for sourceCpp
         \item Add global package include file to RcppExports.cpp
         if it exists
-        \item Stop with an error if the file name passed to 
+        \item Stop with an error if the file name passed to
         \code{sourceCpp} has spaces in it
         \item Return invisibly from void functions
         \item Ensure that line comments invalidate block comments when
@@ -486,18 +497,18 @@
     }
     \item Changes in Rcpp API:
     \itemize{
-      \item The very central use of R API R_PreserveObject and 
-      R_ReleaseObject has been replaced by a new system based on the 
+      \item The very central use of R API R_PreserveObject and
+      R_ReleaseObject has been replaced by a new system based on the
       functions Rcpp_PreserveObject, Rcpp_ReleaseObject and Rcpp_ReplaceObject
       which shows better performance and is implemented using a generic vector
       treated as a stack instead of a pairlist in the R
       implementation. However, as this preserve / release code is still
       a little rough at the edges, a new #define is used (in config.h)
-      to disable it for now. 
+      to disable it for now.
       \item Platform-dependent code in Timer.cpp now recognises a few
       more BSD variants thanks to contributed defined() test suggestions
-      \item Support for wide character strings has been added throughout the 
-      API. In particular String, CharacterVector, wrap and as are aware of 
+      \item Support for wide character strings has been added throughout the
+      API. In particular String, CharacterVector, wrap and as are aware of
       wide character strings
     }
   }
@@ -508,7 +519,7 @@
     \item Changes in Rcpp API:
     \itemize{
       \item Source and header files were reorganized and consolidated so
-      that compile time are now significantly lower 
+      that compile time are now significantly lower
       \item Added additional check in \code{Rstreambuf} deletetion
       \item Added support for \code{clang++} when using \code{libc++},
       and for anc \code{icpc} in \code{std=c++11} mode, thanks to a
@@ -531,22 +542,22 @@
         \item More efficient version of \code{self_match} base on \code{IndexHash}
         \item New function \code{collapse} that implements paste(., collapse= "" )
     }
-    \item Changes in Rcpp attributes: 
+    \item Changes in Rcpp attributes:
     \itemize{
         \item Use code generation rather than modules to implement
-        \code{sourceCpp} and \code{compileAttributes} (eliminates 
+        \code{sourceCpp} and \code{compileAttributes} (eliminates
         problem with exceptions not being able to cross shared library
         boundaries on Windows)
         \item Exported functions now automatically establish an \code{RNGScope}
         \item Functions exported by \code{sourceCpp} now directly
-        reference the external function pointer rather than rely on 
+        reference the external function pointer rather than rely on
         dynlib lookup
         \item On Windows, Rtools is automatically added to the PATH
         during \code{sourceCpp} compilations
         \item Diagnostics are printed to the console if \code{sourceCpp}
         fails and C++ development tools are not installed
         \item A warning is printed if when \code{compileAttributes} detects
-        \code{Rcpp::depends} attributes in source files that are not 
+        \code{Rcpp::depends} attributes in source files that are not
         matched by Depends/LinkingTo entries in the package DESCRIPTION
     }
   }
@@ -554,48 +565,48 @@
 
 \section{Changes in Rcpp version 0.10.1 (2012-11-26)}{
     \itemize{
-        \item Changes in Rcpp sugar: 
+        \item Changes in Rcpp sugar:
         \itemize{
           \item New functions: \code{setdiff}, \code{union_}, \code{intersect}
-            \code{setequal}, \code{in}, \code{min}, \code{max}, \code{range}, 
+            \code{setequal}, \code{in}, \code{min}, \code{max}, \code{range},
             \code{match}, \code{table}, \code{duplicated}
-          \item New function: \code{clamp} which combines pmin and pmax, e.g. 
+          \item New function: \code{clamp} which combines pmin and pmax, e.g.
           clamp( a, x, b) is the same as pmax( b, pmin(x, a) )
-          \item New function: \code{self_match} which implements something 
+          \item New function: \code{self_match} which implements something
           similar to \code{match( x, unique( x ) )}
         }
         \item Changes in Rcpp API:
         \itemize{
             \item The \code{Vector} template class (hence \code{NumericVector}
             ...) get the \code{is_na} and the \code{get_na} static methods.
-            \item New helper class \code{no_init} that can be used to 
-            create a vector without initializing its data, e.g. : 
+            \item New helper class \code{no_init} that can be used to
+            create a vector without initializing its data, e.g. :
             \code{ IntegerVector out = no_init(n) ; }
             \item New exception constructor requiring only a message; \code{stop}
             function to throw an exception
-            \item \code{DataFrame} gains a \code{nrows} method  
+            \item \code{DataFrame} gains a \code{nrows} method
         }
-        \item Changes in Rcpp attributes: 
+        \item Changes in Rcpp attributes:
         \itemize{
             \item Ability to embed R code chunks (via specially formatted
             block comments) in C++ source files.
-            \item Allow specification of argument defaults for exported functions. 
+            \item Allow specification of argument defaults for exported functions.
             \item New scheme for more flexible mixing of generated and user composed
             C++ headers.
             \item Print warning if no export attributes are found in source file.
             \item Updated vignette with additional documentation on exposing
             C++ interfaces from packages and signaling errors.
         }
-        \item Changes in Rcpp modules: 
+        \item Changes in Rcpp modules:
         \itemize{
             \item Enclose .External invocations in \code{BEGIN_RCPP}/\code{END_RCPP}
         }
         \item Changes in R code :
         \itemize{
-            \item New function \code{areMacrosDefined}    
+            \item New function \code{areMacrosDefined}
              \item Additions to \code{Rcpp.package.skeleton}:
              \itemize{
-                \item \code{attributes} parameter to generate a version of 
+                \item \code{attributes} parameter to generate a version of
             	\code{rcpp_hello_world} that uses \code{Rcpp::export}.
             	\item \code{cpp_files} parameter to provide a list of C++
             	files to include the in the \code{src} directory of the package.
@@ -615,50 +626,50 @@
     \itemize{
         \item Rcpp::export attribute to export a C++ function to R
         \item \code{sourceCpp()} function to source exported functions from a file
-        \item \code{cppFunction()} and \code{evalCpp()} functions for inline declarations 
+        \item \code{cppFunction()} and \code{evalCpp()} functions for inline declarations
         and execution
-        \item \code{compileAttribtes()} function to generate Rcpp modules from 
+        \item \code{compileAttribtes()} function to generate Rcpp modules from
         exported functions within a package
-        \item Rcpp::depends attribute for specifying additional build 
+        \item Rcpp::depends attribute for specifying additional build
         dependencies for \code{sourceCpp()}
         \item Rcpp::interfaces attribute to specify the external bindings
-        \code{compileAttributes()} should generate (defaults to R-only but a  
+        \code{compileAttributes()} should generate (defaults to R-only but a
         C++ include file using R_GetCCallable can also be generated)
-	\item New vignette "Rcpp-attribute" 
+	\item New vignette "Rcpp-attribute"
     }
     \item Rcpp modules feature set has been expanded:
     \itemize{
-        \item Functions and methods can now return objects from classes that 
+        \item Functions and methods can now return objects from classes that
         are exposed through modules. This uses the make_new_object template
         internally. This feature requires that some class traits are declared
-        to indicate Rcpp's \code{wrap}/\code{as} system that these classes are covered 
+        to indicate Rcpp's \code{wrap}/\code{as} system that these classes are covered
         by modules. The macro RCPP_EXPOSED_CLASS and RCPP_EXPOSED_CLASS_NODECL
-        can be used to declared these type traits. 
+        can be used to declared these type traits.
         \item Classes exposed through modules can also be used as parameters
-        of exposed functions or methods. 
-        \item Exposed classes can declare factories with ".factory". A factory 
-        is a c++ function that returns a pointer to the target class. It is 
-        assumed that these objects are allocated with new on the factory. On the 
-        R side, factories are called just like other constructors, with the 
+        of exposed functions or methods.
+        \item Exposed classes can declare factories with ".factory". A factory
+        is a c++ function that returns a pointer to the target class. It is
+        assumed that these objects are allocated with new on the factory. On the
+        R side, factories are called just like other constructors, with the
         "new" function. This feature allows an alternative way to construct
-        objects. 
+        objects.
         \item "converter" can be used to declare a way to convert an object
         of a type to another type. This gets translated to the appropriate
-        "as" method on the R side. 
-        \item Inheritance. A class can now declare that it inherits from 
+        "as" method on the R side.
+        \item Inheritance. A class can now declare that it inherits from
         another class with the .derives<Parent>( "Parent" ) notation. As a result
         the exposed class gains methods and properties (fields) from its
-        parent class. 
+        parent class.
     }
-    \item New sugar functions: 
+    \item New sugar functions:
     \itemize{
         \item \code{which_min} implements which.min. Traversing the sugar expression
-        and returning the index of the first time the minimum value is found. 
+        and returning the index of the first time the minimum value is found.
         \item \code{which_max} idem
-        \item \code{unique} uses unordered_set to find unique values. In particular, 
-        the version for CharacterVector is found to be more efficient than 
+        \item \code{unique} uses unordered_set to find unique values. In particular,
+        the version for CharacterVector is found to be more efficient than
         R's version
-        \item \code{sort_unique} calculates unique values and then sorts them. 
+        \item \code{sort_unique} calculates unique values and then sorts them.
     }
     \item Improvements to output facilities:
     \itemize{
@@ -667,7 +678,7 @@
       \code{REprintf})
     }
     \item Provide a namespace 'R' for the standalone Rmath library so
-    that Rcpp users can access those functions too; also added unit tests 
+    that Rcpp users can access those functions too; also added unit tests
     \item Development releases sets variable RunAllRcppTests to yes to
     run all tests (unless it was alredy set to 'no'); CRAN releases do
     not and still require setting -- which helps with the desired CRAN
@@ -726,24 +737,24 @@
              the right thing to do, but CRAN maintainers insist on faster tests.
     \item Unit test wrapper script runTests.R has new option --allTests to set
              the environment variable
-    \item The cleanup script now also considers inst/unitTests/testRcppClass/src 
+    \item The cleanup script now also considers inst/unitTests/testRcppClass/src
   }
 }
 \section{Changes in Rcpp version 0.9.11 (2012-06-22)}{
   \itemize{
-    \item New member function for vectors (and lists etc) containsElementNamed() 
+    \item New member function for vectors (and lists etc) containsElementNamed()
              which returns a boolean indicating if the given element name is present
     \item Updated the Rcpp.package.skeleton() support for Rcpp modules by
              carrying functions already present from the corresponding unit test
-      which was also slightly expanded; and added more comments to the code 
+      which was also slightly expanded; and added more comments to the code
     \item Rcpp modules can now be loaded via loadRcppModules() from .onLoad(),
-             or via loadModule("moduleName") from any R file 
+             or via loadModule("moduleName") from any R file
     \item Extended functionality to let R modify C++ clases imported via modules
              documented in help(setRcppClass)
     \item Support compilation in Cygwin thanks to a patch by Dario Buttari
     \item Extensions to the Rcpp-FAQ and the Rcpp-modules vignettes
     \item The minium version of R is now 2.15.1 which is required for some of
-             the Rcpp modules support 
+             the Rcpp modules support
   }
 }
 \section{Changes in Rcpp version 0.9.10 (2012-02-16)}{
@@ -762,7 +773,7 @@
 \section{Changes in Rcpp version 0.9.9 (2012-12-25)}{
   \itemize{
     \item Reverting the 'int64' changes from release 0.9.8 which adversely
-         	affect packages using Rcpp: We will re-apply the 'int64' changes in a 
+         	affect packages using Rcpp: We will re-apply the 'int64' changes in a
       way which should cooperate more easily with 'long' and 'unsigned long'.
     \item Unit test output directory fallback changed to use Rcpp.Rcheck
     \item Conditioned two unit tests to not run on Windows where they now break
@@ -771,11 +782,11 @@
 }
 \section{Changes in Rcpp version 0.9.8 (2011-12-21)}{
   \itemize{
-    \item wrap now handles 64 bit integers (int64_t, uint64_t) and containers 
+    \item wrap now handles 64 bit integers (int64_t, uint64_t) and containers
              of them, and Rcpp now depends on the int64 package (also on CRAN).
              This work has been sponsored by the Google Open Source Programs
              Office.
-    \item Added setRcppClass() function to create extended reference classes 
+    \item Added setRcppClass() function to create extended reference classes
              with an interface to a C++ class (typically via Rcpp Module) which
       can have R-based fields and methods in addition to those from the C++.
     \item Applied patch by Jelmer Ypma which adds an output stream class
@@ -784,7 +795,7 @@
     \item New unit tests for pf(), pnf(), pchisq(), pnchisq() and pcauchy()
     \item XPtr constructor now checks for corresponding type in SEXP
     \item Updated vignettes for use with updated highlight package
-    \item Update linking command for older fastLm() example using external 
+    \item Update linking command for older fastLm() example using external
              Armadillo
   }
 }
@@ -793,7 +804,7 @@
     \item Applied two patches kindly provided by Martyn Plummer which provide
          	support for compilation on Solaris using the SunPro compiler
     \item Minor code reorganisation in which exception specifiers are removed;
-             this effectively only implements a run-time (rather than compile-time) 
+             this effectively only implements a run-time (rather than compile-time)
              check and is generally seen as a somewhat depreated C++ idiom. Thanks
              to Darren Cook for alerting us to this issue.
     \item New example 'OpenMPandInline.r' in the OpenMP/ directory, showing how
@@ -850,13 +861,13 @@
              to disambiguate some symbols the newer compilers did not like
     \item Coercing of vectors of factors is now done with an explicit callback
              to R's "as.character()" as Rf_coerceVector no longer plays along
-    \item A CITATION file for the published JSS paper has been added, and 
+    \item A CITATION file for the published JSS paper has been added, and
              references were added to Rcpp-package.Rd and the different vignettes
   }
 }
 \section{Changes in Rcpp version 0.9.3 (2011-04-05)}{
   \itemize{
-    \item Fixed a bug in which modules code was not behaving when compiled 
+    \item Fixed a bug in which modules code was not behaving when compiled
              twice as can easily happen with inline'ed version
     \item Exceptions code includes exception_defines.h only when g++ is 4.5 or
              younger as the file no longer exists with g++-4.6
@@ -876,7 +887,7 @@
              X releases as it triggers a bug with g++ 4.2.1 or older; OS X 10.6 is
              fine but as it no longer support ppc we try to accomodate 10.5 too
              Thanks to Simon Urbanek for pinning this down and Baptiste Auguie
-             and Ken Williams for additonal testing 
+             and Ken Williams for additonal testing
     \item RcppCommon.h now recognises the Intel Compiler thanks to a short
              patch by Alexey Stukalov; this turns off Cxx0x and TR1 features too
     \item Three more setup questions were added to the Rcpp-FAQ vignette
@@ -915,7 +926,7 @@
     \item The (still incomplete) QuickRef vignette has grown thanks to a patch
              by Christian Gunning.
     \item Added a sprintf template intended for logging and error messages.
-    \item Date::getYear() corrected (where addition of 1900 was not called for); 
+    \item Date::getYear() corrected (where addition of 1900 was not called for);
              corresponding change in constructor from three ints made as well.
     \item Date() and Datetime() constructors from string received a missing
              conversion to int and double following strptime. The default format
@@ -928,26 +939,26 @@
     \item Many improvements were made in 'Rcpp modules':
              - exposing multiple constructors
              - overloaded methods
-             - self-documentation of classes, methods, constructors, fields and 
+             - self-documentation of classes, methods, constructors, fields and
                functions.
-             - new R function "populate" to facilitate working with modules in 
-               packages. 
+             - new R function "populate" to facilitate working with modules in
+               packages.
              - formal argument specification of functions.
              - updated support for Rcpp.package.skeleton.
              - constructors can now take many more arguments.
     \item The 'Rcpp-modules' vignette was updated as well and describe many
              of the new features
     \item New template class Rcpp::SubMatrix<RTYPE> and support syntax in Matrix
-             to extract a submatrix: 
+             to extract a submatrix:
                 NumericMatrix x = ... ;
                 // extract the first three columns
-                SubMatrix<REALSXP> y = x( _ , Range(0,2) ) ; 
+                SubMatrix<REALSXP> y = x( _ , Range(0,2) ) ;
                 // extract the first three rows
-                SubMatrix<REALSXP> y = x( Range(0,2), _ ) ; 
+                SubMatrix<REALSXP> y = x( Range(0,2), _ ) ;
                 // extract the top 3x3 sub matrix
-                SubMatrix<REALSXP> y = x( Range(0,2), Range(0,2) ) ; 
+                SubMatrix<REALSXP> y = x( Range(0,2), Range(0,2) ) ;
     \item Reference Classes no longer require a default constructor for
-             subclasses of C++ classes    
+             subclasses of C++ classes
     \item Consistently revert to using backticks rather than shell expansion
              to compute library file location when building packages against Rcpp
       on the default platforms; this has been applied to internal test
@@ -956,8 +967,8 @@
 }
 \section{Changes in Rcpp version 0.8.8 (2010-11-01)}{
   \itemize{
-    \item New syntactic shortcut to extract rows and columns of a Matrix. 
-             x(i,_) extracts the i-th row and x(_,i) extracts the i-th column. 
+    \item New syntactic shortcut to extract rows and columns of a Matrix.
+             x(i,_) extracts the i-th row and x(_,i) extracts the i-th column.
     \item Matrix indexing is more efficient. However, faster indexing is
              disabled if g++ 4.5.0 or later is used.
     \item A few new Rcpp operators such as cumsum, operator=(sugar)
@@ -965,7 +976,7 @@
              - column indexing was incorrect in some cases
              - compilation using clang/llvm (thanks to Karl Millar for the patch)
       - instantation order of Module corrected
-             - POSIXct, POSIXt now correctly ordered for R 2.12.0 
+             - POSIXct, POSIXt now correctly ordered for R 2.12.0
   }
 }
 \section{Changes in Rcpp version 0.8.7 (2010-10-15)}{
@@ -1002,7 +1013,7 @@
     \item new ctor for Vector taking size and function pointer so that for example
          	   NumericVector( 10, norm_rand )
       generates a N(0,1) vector of size 10
-    \item added binary operators for complex numbers, as well as sugar support 
+    \item added binary operators for complex numbers, as well as sugar support
     \item more sugar math functions: sqrt, log, log10, exp, sin, cos, ...
     \item started new vignette Rcpp-quickref : quick reference guide of Rcpp API
              (still work in progress)
@@ -1016,7 +1027,7 @@
   \itemize{
     \item speed improvements. Vector::names, RObject::slot have been improved
              to take advantage of R API functions instead of callbacks to R
-    \item Some small updates to the Rd-based documentation which now points to 
+    \item Some small updates to the Rd-based documentation which now points to
              content in the vignettes.  Also a small formatting change to suppress
       a warning from the development version of R.
     \item Minor changes to Date() code which may reenable SunStudio builds
@@ -1026,8 +1037,8 @@
   \itemize{
     \item new sugar vector functions: rep, rep_len, rep_each, rev, head, tail,
       diag
-    \item sugar has been extended to matrices: The Matrix class now extends the 
-         	Matrix_Base template that implements CRTP. Currently sugar functions 
+    \item sugar has been extended to matrices: The Matrix class now extends the
+         	Matrix_Base template that implements CRTP. Currently sugar functions
          	for matrices are: outer, col, row, lower_tri, upper_tri, diag
     \item The unit tests have been reorganised into fewer files with one call
       	each to cxxfunction() (covering multiple tests) resulting in a
@@ -1044,11 +1055,11 @@
 \section{Changes in Rcpp version 0.8.3 (2010-06-27)}{
   \itemize{
     \item This release adds Rcpp sugar which brings (a subset of) the R syntax
-             into C++. This supports : 
+             into C++. This supports :
               - binary operators : <,>,<=,>=,==,!= between R vectors
               - arithmetic operators: +,-,*,/ between compatible R vectors
               - several functions that are similar to the R function of the same name:
-             abs, all, any, ceiling, diff, exp, ifelse, is_na, lapply, pmin, pmax, 
+             abs, all, any, ceiling, diff, exp, ifelse, is_na, lapply, pmin, pmax,
              pow, sapply, seq_along, seq_len, sign
              Simple examples :
                // two numeric vector of the same size
@@ -1058,13 +1069,13 @@
                // sapply'ing a C++ function
                double square( double x )\{ return x*x ; \}
                NumericVector res = sapply( x, square ) ;
-             Rcpp sugar uses the technique of expression templates, pioneered by the 
-             Blitz++ library and used in many libraries (Boost::uBlas, Armadillo). 
-             Expression templates allow lazy evaluation of expressions, which 
-             coupled with inlining generates very efficient code, very closely 
+             Rcpp sugar uses the technique of expression templates, pioneered by the
+             Blitz++ library and used in many libraries (Boost::uBlas, Armadillo).
+             Expression templates allow lazy evaluation of expressions, which
+             coupled with inlining generates very efficient code, very closely
              approaching the performance of hand written loop code, and often
              much more efficient than the equivalent (vectorized) R code.
-             Rcpp sugar is curently limited to vectors, future releases will 
+             Rcpp sugar is curently limited to vectors, future releases will
              include support for matrices with sugar functions such as outer, etc ...
              Rcpp sugar is documented in the Rcpp-sugar vignette, which contains
              implementation details.
@@ -1079,7 +1090,7 @@
     \item RcppDateVector and RcppDatetimeVector get constructors from int
              and both const / non-const operator(int i) functions
     \item New API class Rcpp::InternalFunction that can expose C++ functions
-         	to R without modules. The function is exposed as an S4 object of 
+         	to R without modules. The function is exposed as an S4 object of
          	class C++Function
   }
 }
@@ -1095,9 +1106,9 @@
              internal (C++) functions and classes that are exposed to R. This
              functionality has been inspired by Boost.Python.
              Modules are created internally using the RCPP_MODULE macro and
-             retrieved in the R side with the Module function. This is a preview 
+             retrieved in the R side with the Module function. This is a preview
              release of the module functionality, which will keep improving until
-             the Rcpp 0.9.0 release. 
+             the Rcpp 0.9.0 release.
              The new vignette "Rcpp-modules" documents the current feature set of
              Rcpp modules.
     \item The new vignette "Rcpp-package" details the steps involved in making a
@@ -1107,20 +1118,20 @@
     \item The new vignette "Rcpp-extending" documents how to extend Rcpp
              with user defined types or types from third party libraries. Based on
              our experience with RcppArmadillo
-    \item Rcpp.package.skeleton has been improved to generate a package using 
+    \item Rcpp.package.skeleton has been improved to generate a package using
              an Rcpp module, controlled by the "module" argument
     \item Evaluating a call inside an environment did not work properly
     \item cppfunction has been withdrawn since the introduction of the more
              flexible cxxfunction in the inline package (0.3.5). Rcpp no longer
              depends on inline since many uses of Rcpp do not require inline at
              all. We still use inline for unit tests but this is now handled
-             locally in the unit tests loader runTests.R. 
+             locally in the unit tests loader runTests.R.
              Users of the now-withdrawn function cppfunction can redefine it as:
                 cppfunction <- function(...) cxxfunction( ..., plugin = "Rcpp" )
     \item Support for std::complex was incomplete and has been enhanced.
-    \item The methods XPtr<T>::getTag and XPtr<T>::getProtected are deprecated, 
+    \item The methods XPtr<T>::getTag and XPtr<T>::getProtected are deprecated,
              and will be removed in Rcpp 0.8.2. The methods tag() and prot() should
-             be used instead. tag() and prot() support both LHS and RHS use. 
+             be used instead. tag() and prot() support both LHS and RHS use.
     \item END_RCPP now returns the R Nil values; new macro VOID_END_RCPP
              replicates prior behabiour
   }
@@ -1136,16 +1147,16 @@
              code of the form:
                try \{
                  // user code
-               \} catch( std::exception& __ex__)\{ 
+               \} catch( std::exception& __ex__)\{
                  forward_exception_to_r( __ex___ ) ;
              Alternatively, the macro BEGIN_RCPP and END_RCPP can use used to enclose
-             code so that it captures exceptions and forward them to R. 
+             code so that it captures exceptions and forward them to R.
                BEGIN_RCPP
                // user code
                END_RCPP
-    \item new __experimental__ macros 
+    \item new __experimental__ macros
              The macros RCPP_FUNCTION_0, ..., RCPP_FUNCTION_65 to help creating C++
-             functions hiding some code repetition: 
+             functions hiding some code repetition:
                RCPP_FUNCTION_2( int, foobar, int x, int y)\{
                 return x + y ;
              The first argument is the output type, the second argument is the
@@ -1153,32 +1164,32 @@
              C++ function. Behind the scenes, the RCPP_FUNCTION_2 macro creates an
              intermediate function compatible with the .Call interface and handles
              exceptions
-             Similarly, the macros RCPP_FUNCTION_VOID_0, ..., RCPP_FUNCTION_VOID_65 
+             Similarly, the macros RCPP_FUNCTION_VOID_0, ..., RCPP_FUNCTION_VOID_65
              can be used when the C++ function to create returns void. The generated
              R function will return R_NilValue in this case.
                RCPP_FUNCTION_VOID_2( foobar, std::string foo )\{
                 // do something with foo
              The macro RCPP_XP_FIELD_GET generates a .Call compatible function that
-             can be used to access the value of a field of a class handled by an 
-             external pointer. For example with a class like this: 
+             can be used to access the value of a field of a class handled by an
+             external pointer. For example with a class like this:
                class Foo\{
                  public:
                    int bar ;
                RCPP_XP_FIELD_GET( Foo_bar_get, Foo, bar ) ;
              RCPP_XP_FIELD_GET will generate the .Call compatible function called
              Foo_bar_get that can be used to retrieved the value of bar.
-             The macro RCPP_FIELD_SET generates a .Call compatible function that 
+             The macro RCPP_FIELD_SET generates a .Call compatible function that
              can be used to set the value of a field. For example:
                RCPP_XP_FIELD_SET( Foo_bar_set, Foo, bar ) ;
-             generates the .Call compatible function called "Foo_bar_set" that 
+             generates the .Call compatible function called "Foo_bar_set" that
              can be used to set the value of bar
              The macro RCPP_XP_FIELD generates both getter and setter. For example
                RCPP_XP_FIELD( Foo_bar, Foo, bar )
-             generates the .Call compatible Foo_bar_get and Foo_bar_set using the 
+             generates the .Call compatible Foo_bar_get and Foo_bar_set using the
              macros RCPP_XP_FIELD_GET and RCPP_XP_FIELD_SET previously described
-             The macros RCPP_XP_METHOD_0, ..., RCPP_XP_METHOD_65 faciliate 
-             calling a method of an object that is stored in an external pointer. For 
-             example: 
+             The macros RCPP_XP_METHOD_0, ..., RCPP_XP_METHOD_65 faciliate
+             calling a method of an object that is stored in an external pointer. For
+             example:
                RCPP_XP_METHOD_0( foobar, std::vector<int> , size )
              creates the .Call compatible function called foobar that calls the
              size method of the std::vector<int> class. This uses the Rcpp::XPtr<
@@ -1189,7 +1200,7 @@
                RCPP_XP_METHOD_CAST_0( foobar, std::vector<int> , size, double )
              The macros RCPP_XP_METHOD_VOID_0, ... are used when calling the
              method is only used for its side effect.
-              RCPP_XP_METHOD_VOID_1( foobar, std::vector<int>, push_back ) 
+              RCPP_XP_METHOD_VOID_1( foobar, std::vector<int>, push_back )
              Assuming xp is an external pointer to a std::vector<int>, this could
              be called like this :
                .Call( "foobar", xp, 2L )
@@ -1222,7 +1233,7 @@
   \itemize{
     \item Vector<> gains a set of templated factory methods "create" which
              takes up to 20 arguments and can create named or unnamed vectors.
-             This greatly facilitates creating objects that are returned to R. 
+             This greatly facilitates creating objects that are returned to R.
     \item Matrix now has a diag() method to create diagonal matrices, and
              a new constructor using a single int to create square matrices
     \item Vector now has a new fill() method to propagate a single value
@@ -1260,54 +1271,54 @@
   \itemize{
     \item All vector classes are now generated from the same template class
              Rcpp::Vector<int RTYPE> where RTYPE is one of LGLSXP, RAWSXP, STRSXP,
-             INTSXP, REALSXP, CPLXSXP, VECSXP and EXPRSXP. typedef are still 
-             available : IntegerVector, ... All vector classes gain methods 
-             inspired from the std::vector template : push_back, push_front, 
+             INTSXP, REALSXP, CPLXSXP, VECSXP and EXPRSXP. typedef are still
+             available : IntegerVector, ... All vector classes gain methods
+             inspired from the std::vector template : push_back, push_front,
              erase, insert
-    \item New template class Rcpp::Matrix<RTYPE> deriving from 
+    \item New template class Rcpp::Matrix<RTYPE> deriving from
              Rcpp::Vector<RTYPE>. These classes have the same functionality
              as Vector but have a different set of constructors which checks
              that the input SEXP is a matrix. Matrix<> however does/can not
-             guarantee that the object will allways be a matrix. typedef 
+             guarantee that the object will allways be a matrix. typedef
              are defined for convenience: Matrix<INTSXP> is IntegerMatrix, etc...
     \item New class Rcpp::Row<int RTYPE> that represents a row of a matrix
-             of the same type. Row contains a reference to the underlying 
-             Vector and exposes a nested iterator type that allows use of 
+             of the same type. Row contains a reference to the underlying
+             Vector and exposes a nested iterator type that allows use of
              STL algorithms on each element of a matrix row. The Vector class
-             gains a row(int) method that returns a Row instance. Usage 
+             gains a row(int) method that returns a Row instance. Usage
              examples are available in the runit.Row.R unit test file
-    \item New class Rcpp::Column<int RTYPE> that represents a column of a 
-             matrix. (similar to Rcpp::Row<int RTYPE>). Usage examples are 
+    \item New class Rcpp::Column<int RTYPE> that represents a column of a
+             matrix. (similar to Rcpp::Row<int RTYPE>). Usage examples are
              available in the runit.Column.R unit test file
-    \item The Rcpp::as template function has been reworked to be more 
-             generic. It now handles more STL containers, such as deque and 
+    \item The Rcpp::as template function has been reworked to be more
+             generic. It now handles more STL containers, such as deque and
              list, and the genericity can be used to implement as for more
              types. The package RcppArmadillo has examples of this
     \item new template class Rcpp::fixed_call that can be used in STL algorithms
              such as std::generate.
     \item RcppExample et al have been moved to a new package RcppExamples;
              src/Makevars and src/Makevars.win simplified accordingly
-    \item New class Rcpp::StringTransformer and helper function 
+    \item New class Rcpp::StringTransformer and helper function
              Rcpp::make_string_transformer that can be used to create a function
              that transforms a string character by character. For example
              Rcpp::make_string_transformer(tolower) transforms each character
              using tolower. The RcppExamples package has an example of this.
     \item Improved src/Makevars.win thanks to Brian Ripley
-    \item New examples for 'fast lm' using compiled code: 
+    \item New examples for 'fast lm' using compiled code:
              - using GNU GSL and a C interface
              - using Armadillo (http://arma.sf.net) and a C++ interface
              Armadillo is seen as faster for lack of extra copying
-    \item A new package RcppArmadillo (to be released shortly) now serves 
-             as a concrete example on how to extend Rcpp to work with a modern 
+    \item A new package RcppArmadillo (to be released shortly) now serves
+             as a concrete example on how to extend Rcpp to work with a modern
              C++ library such as the heavily-templated Armadillo library
-    \item Added a new vignette 'Rcpp-introduction' based on a just-submitted 
+    \item Added a new vignette 'Rcpp-introduction' based on a just-submitted
              overview article on Rcpp
   }
 }
 \section{Changes in Rcpp version 0.7.7 (2010-02-14)}{
   \itemize{
     \item new template classes Rcpp::unary_call and Rcpp::binary_call
-             that facilitates using R language calls together 
+             that facilitates using R language calls together
              with STL algorithms.
     \item fixed a bug in Language constructors taking a string as their
              first argument. The created call was wrong.
@@ -1335,14 +1346,14 @@
              - primitive types : int, double, Rbyte, Rcomplex, float, bool
              - std::string
              - STL containers which have iterators over wrappable types:
-               (e.g. std::vector<T>, std::deque<T>, std::list<T>, etc ...). 
+               (e.g. std::vector<T>, std::deque<T>, std::list<T>, etc ...).
              - STL maps keyed by std::string, e.g std::map<std::string,T>
              - classes that have implicit conversion to SEXP
              - classes for which the wrap template if fully or partly specialized
-             This allows composition, so for example this class is wrappable: 
+             This allows composition, so for example this class is wrappable:
              std::vector< std::map<std::string,T> > (if T is wrappable)
     \item The range based version of wrap is now exposed at the Rcpp::
-             level with the following interface : 
+             level with the following interface :
              Rcpp::wrap( InputIterator first, InputIterator last )
              This is dispatched internally to the most appropriate implementation
              using traits
@@ -1353,67 +1364,67 @@
     \item The RcppSexp has been removed from the library.
     \item The methods RObject::asFoo are deprecated and will be removed
              in the next version. The alternative is to use as<Foo>.
-    \item The method RObject::slot can now be used to get or set the 
+    \item The method RObject::slot can now be used to get or set the
              associated slot. This is one more example of the proxy pattern
     \item Rcpp::VectorBase gains a names() method that allows getting/setting
-             the names of a vector. This is yet another example of the 
+             the names of a vector. This is yet another example of the
              proxy pattern.
-    \item Rcpp::DottedPair gains templated operator<< and operator>> that 
+    \item Rcpp::DottedPair gains templated operator<< and operator>> that
              allow wrap and push_back or wrap and push_front of an object
     \item Rcpp::DottedPair, Rcpp::Language, Rcpp::Pairlist are less
              dependent on C++0x features. They gain constructors with up
-             to 5 templated arguments. 5 was choosed arbitrarily and might 
+             to 5 templated arguments. 5 was choosed arbitrarily and might
              be updated upon request.
     \item function calls by the Rcpp::Function class is less dependent
-             on C++0x. It is now possible to call a function with up to 
+             on C++0x. It is now possible to call a function with up to
              5 templated arguments (candidate for implicit wrap)
     \item added support for 64-bit Windows (thanks to Brian Ripley and Uwe Ligges)
   }
 }
 \section{Changes in Rcpp version 0.7.4 (2010-01-30)}{
   \itemize{
-    \item matrix-like indexing using operator() for all vector 
+    \item matrix-like indexing using operator() for all vector
              types : IntegerVector, NumericVector, RawVector, CharacterVector
-             LogicalVector, GenericVector and ExpressionVector. 
-    \item new class Rcpp::Dimension to support creation of vectors with 
-             dimensions. All vector classes gain a constructor taking a 
+             LogicalVector, GenericVector and ExpressionVector.
+    \item new class Rcpp::Dimension to support creation of vectors with
+             dimensions. All vector classes gain a constructor taking a
              Dimension reference.
     \item an intermediate template class "SimpleVector" has been added. All
-             simple vector classes are now generated from the SimpleVector 
+             simple vector classes are now generated from the SimpleVector
              template : IntegerVector, NumericVector, RawVector, CharacterVector
              LogicalVector.
-    \item an intermediate template class "SEXP_Vector" has been added to 
+    \item an intermediate template class "SEXP_Vector" has been added to
              generate GenericVector and ExpressionVector.
     \item the clone template function was introduced to explicitely
              clone an RObject by duplicating the SEXP it encapsulates.
     \item even smarter wrap programming using traits and template
              meta-programming using a private header to be include only
              RcppCommon.h
-    \item the as template is now smarter. The template now attempts to 
+    \item the as template is now smarter. The template now attempts to
              build an object of the requested template parameter T by using the
              constructor for the type taking a SEXP. This allows third party code
-             to create a class Foo with a constructor Foo(SEXP) to have 
+             to create a class Foo with a constructor Foo(SEXP) to have
              as<Foo> for free.
     \item wrap becomes a template. For an object of type T, wrap<T> uses
              implicit conversion to SEXP to first convert the object to a SEXP
-             and then uses the wrap(SEXP) function. This allows third party 
-             code creating a class Bar with an operator SEXP() to have 
+             and then uses the wrap(SEXP) function. This allows third party
+             code creating a class Bar with an operator SEXP() to have
              wrap for free.
     \item all specializations of wrap :  wrap<double>, wrap< vector<double> >
              use coercion to deal with missing values (NA) appropriately.
     \item configure has been withdrawn. C++0x features can now be activated
              by setting the RCPP_CXX0X environment variable to "yes".
     \item new template r_cast<int> to facilitate conversion of one SEXP
-             type to another. This is mostly intended for internal use and 
+             type to another. This is mostly intended for internal use and
              is used on all vector classes
     \item Environment now takes advantage of the augmented smartness
-             of as and wrap templates. If as<Foo> makes sense, one can 
+             of as and wrap templates. If as<Foo> makes sense, one can
              directly extract a Foo from the environment. If wrap<Bar> makes
-             sense then one can insert a Bar directly into the environment. 
+             sense then one can insert a Bar directly into the environment.
                Foo foo = env["x"] ;  /* as<Foo> is used */
                Bar bar ;
-               env["y"] = bar ;      /* wrap<Bar> is used */     
-    \item Environment::assign becomes a template and also uses wrap to 
+               env["y"] = bar ;      /* wrap<Bar> is used */
+    \item Environment::assign becomes a template and also uses wrap to
              create a suitable SEXP
     \item Many more unit tests for the new features; also added unit tests
              for older API
@@ -1421,30 +1432,30 @@
 }
 \section{Changes in Rcpp version 0.7.3 (2010-01-21)}{
   \itemize{
-    \item New R function Rcpp.package.skeleton, modelled after 
+    \item New R function Rcpp.package.skeleton, modelled after
              utils::package.skeleton to help creating a package with support
              for Rcpp use.
-    \item indexing is now faster for simple vectors due to inlining of 
+    \item indexing is now faster for simple vectors due to inlining of
              the operator[] and caching the array pointer
     \item The class Rcpp::VectorBase was introduced. All vector classes
-             derive from it. The class handles behaviour that is common 
+             derive from it. The class handles behaviour that is common
              to all vector types: length, names, etc ...
     \item exception forwarding is extended to compilers other than GCC
-             but default values are used for the exception class 
+             but default values are used for the exception class
              and the exception message, because we don't know how to do it.
     \item Improved detection of C++0x capabilities
     \item Rcpp::Pairlist gains a default constructor
     \item Rcpp::Environment gains a new_child method to create a new
              environment whose parent is this
-    \item Rcpp::Environment::Binding gains a templated implicit 
+    \item Rcpp::Environment::Binding gains a templated implicit
              conversion operator
     \item Rcpp::ExpressionVector gains an eval method to evaluate itself
     \item Rcpp::ExpressionVector gains a constructor taking a std::string
-             representing some R code to parse. 
+             representing some R code to parse.
     \item Rcpp::GenericVector::Proxy gains an assignment operator to deal
              with Environment::Proxy objects
     \item Rcpp::LdFlags() now defaults to static linking OS X, as it already
-             did on Windows; this default can be overridden. 
+             did on Windows; this default can be overridden.
   }
 }
 \section{Changes in Rcpp version 0.7.2 (2010-01-12)}{
@@ -1457,15 +1468,15 @@
              objects from the environment. operator[] returns an object
              of class Rcpp::Environment::Binding which implements the proxy
              pattern. Inspired from Item 30 of 'More Effective C++'
-    \item Rcpp::Pairlist and Rcpp::Language gain an operator[](int) 
+    \item Rcpp::Pairlist and Rcpp::Language gain an operator[](int)
              also using the proxy pattern
-    \item Rcpp::RObject.attr can now be used on the rhs or the lhs, to get 
+    \item Rcpp::RObject.attr can now be used on the rhs or the lhs, to get
              or set an attribute. This also uses the proxy pattern
     \item Rcpp::Pairlist and Rcpp::Language gain new methods push_back
              replace, length, size, remove, insert
     \item wrap now returns an object of a suitable class, not just RObject
              anymore. For example wrap( bool ) returns a LogicalVector
-    \item Rcpp::RObject gains methods to deal with S4 objects : isS4, 
+    \item Rcpp::RObject gains methods to deal with S4 objects : isS4,
              slot and hasSlot
     \item new class Rcpp::ComplexVector to manage complex vectors (CPLXSXP)
     \item new class Rcpp::Promise to manage promises (PROMSXP)
@@ -1477,7 +1488,7 @@
     \item new class Rcpp::NumericVector to manage numeric vectors (REALSXP)
     \item new class Rcpp::RawVector to manage raw vectors (RAWSXP)
     \item new class Rcpp::CharacterVector to manage character vectors (STRSXP)
-    \item new class Rcpp::Function to manage functions 
+    \item new class Rcpp::Function to manage functions
              (CLOSXP, SPECIALSXP, BUILTINSXP)
     \item new class Rcpp::Pairlist to manage pair lists (LISTSXP)
     \item new class Rcpp::Language to manage calls (LANGSXP)
@@ -1488,12 +1499,12 @@
              initializer lists
     \item new set of functions wrap(T) converting from T to RObject
     \item new template function as<T> that can be used to convert a SEXP
-             to type T. Many specializations implemented to deal with 
+             to type T. Many specializations implemented to deal with
              C++ builtin and stl types. Factored out of RObject
-    \item new class Rcpp::Named to deal with named with named objects 
+    \item new class Rcpp::Named to deal with named with named objects
              in a pairlist, or a call
     \item new class Rcpp::Symbol to manage symbols (SYMSXP)
-    \item The garbage collection has been improved and is now automatic 
+    \item The garbage collection has been improved and is now automatic
              and hidden. The user needs not to worry about it at all.
     \item Rcpp::Environment(SEXP) uses the as.environment R function
     \item Doxygen-generated documentation is no longer included as it is both
@@ -1549,7 +1560,7 @@
     \item Started to split classes into their own header and source files
     \item Added short README file about history and status
     \item Small documentation markup fix thanks to Kurt; updated doxygen docs
-    \item New examples directory functionCallback/ for R function passed to C++ 
+    \item New examples directory functionCallback/ for R function passed to C++
              and being called
   }
 }
@@ -1570,7 +1581,7 @@
     \item Use std:: namespace throughout instead of 'using namespace std'
     \item Define R_NO_REMAP so that R provides Rf_length() etc in lieu of length()
              to minimise clashes with other projects having similar functions
-    \item Include Doxygen documentation, and Doxygen configuration file 
+    \item Include Doxygen documentation, and Doxygen configuration file
     \item Minor Windows build fix (with thanks to Uwe and Simon)
   }
 }
@@ -1581,7 +1592,7 @@
              as well as string vector classses, kindly suggsted / provided by
              David Reiss
     \item Add two shorter helper functions Rcpp:::CxxFlags() and
-             Rcpp:::LdFlags() for compilation and linker flags 
+             Rcpp:::LdFlags() for compilation and linker flags
   }
 }
 \section{Changes in Rcpp version 0.6.2 (2008-12-02)}{
@@ -1610,7 +1621,7 @@
              use by the package which also runs the example, and one for users to
              link against, and removed src/Makevars.in
     \item Files src/Rcpp.\{cpp,h\} moved in from ../RcppSrc
-    \item Added new class RcppDatetime corresponding to POSIXct in with full 
+    \item Added new class RcppDatetime corresponding to POSIXct in with full
              support for microsecond time resolution between R and C++
     \item Several new manual pages added
     \item Removed  configure\{,.in,.win\} as src/Makefile* can handle this more
