@@ -1,3 +1,8 @@
+2015-02-03  JJ Allaire  <jj@rstudio.org>
+
+        * inst/include/Rcpp/exceptions.h: Add Rcpp::warning function as
+        wrapper for Rf_warning
+
 2014-02-03  JJ Allaire  <jj@rstudio.org>
 
         * inst/include/Rcpp/XPtr.h: Improvements to XPtr including new
