@@ -11,6 +11,11 @@
       \item Evaluate R code within an \code{R_toplevelExec} block to prevent
       user interrupts from bypassing C++ destructors on the stack.
     }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Include pkg_types.h file in RcppExports.cpp if it's present in
+      inst/include or src.
+    }
   }
 }
 
