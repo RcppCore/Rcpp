@@ -1,5 +1,14 @@
 2014-02-03  JJ Allaire  <jj@rstudio.org>
 
+        * inst/include/Rcpp/XPtr.h: Improvements to XPtr including new
+        checked_get and release functions and improved behavior (throw
+        an exception rather than crash) when a NULL external pointer is
+        dereferenced.
+        * inst/unitTests/runit.XPTr.R: tests for XPtr improvements.
+        * inst/unitTests/cpp/XPtr.cpp: tests for XPtr improvements.
+
+2014-02-03  JJ Allaire  <jj@rstudio.org>
+
         * R/Attributes.R: Include pkg_types.h file in RcppExports.cpp
         if it's present in inst/include or src
         * src/attributes.cpp: Include pkg_types.h file in generated

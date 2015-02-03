@@ -8,6 +8,10 @@
     \itemize{
       \item Defining an error handler for tinyformat prevents \code{assert()}
       from spilling.
+      \item Improvements to XPtr including new \code{checked_get} and
+      \code{release} functions as well as improved behavior (throw an
+      exception rather than crash) when a NULL external pointer is
+      dereferenced.
       \item Evaluate R code within an \code{R_toplevelExec} block to prevent
       user interrupts from bypassing C++ destructors on the stack.
     }
