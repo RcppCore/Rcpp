@@ -8,6 +8,8 @@
     \itemize{
       \item Defining an error handler for tinyformat prevents \code{assert()}
       from spilling.
+      \item Evaluate R code within an \code{R_toplevelExec} block to prevent
+      user interrupts from bypassing C++ destructors on the stack.
     }
     \item Changes in Rcpp Attributes:
     \itemize{
