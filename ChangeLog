@@ -1,3 +1,9 @@
+2015-02-02  JJ Allaire  <jj@rstudio.org>
+
+        * R/exceptions.R: Evaluate R code within an R_toplevelExec block
+        * include/Rcpp/api/meat/Rcpp_eval.h: Evaluate R code within an
+        R_toplevelExec block
+
 2015-01-25  Kevin Ushey  <kevinushey@gmail.com>
 
         * inst/include/Rcpp/utils/tinyformat.h: define an error handler for
