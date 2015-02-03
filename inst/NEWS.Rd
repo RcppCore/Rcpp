@@ -8,6 +8,7 @@
     \itemize{
       \item Defining an error handler for tinyformat prevents \code{assert()}
       from spilling.
+      \item Add Rcpp::warning function as wrapper for Rf_warning.
       \item Improvements to XPtr including new \code{checked_get} and
       \code{release} functions as well as improved behavior (throw an
       exception rather than crash) when a NULL external pointer is
