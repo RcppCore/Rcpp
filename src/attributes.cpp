@@ -1750,9 +1750,23 @@ namespace attributes {
             if (!includes.empty()) {
                 for (std::size_t i=0;i<includes.size(); i++)
                 {
-                    // don't do inst/include here
-                    if (includes[i].find("#include \"../inst/include/")
-                                                       == std::string::npos)
+                    // some special processing is required here. we exclude
+                    // the package header file (since it includes this file)
+                    // and we transorm _types includes into local includes
+                    std::string preamble = "#include \"../inst/include/";
+                    std::string pkgInclude = preamble + package() + ".h\"";
+                    if (includes[i] == pkgInclude)
+                        continue;
+
+                    // check for _types
+                    std::string typesInclude = preamble + package() + "_types.h";
+                    if (includes[i].find(typesInclude) != std::string::npos)
+                    {
+                        std::string include = "#include \"" +
+                                      includes[i].substr(preamble.length());
+                        ostr << include << std::endl;
+                    }
+                    else
                     {
                         ostr << includes[i] << std::endl;
                     }

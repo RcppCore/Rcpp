@@ -46,3 +46,24 @@ int xptr_2( XPtr< std::vector<int> > p){
     		return p->front() ;
 }
 
+// [[Rcpp::export]]
+bool xptr_release( XPtr< std::vector<int> > p) {
+    p.release();
+    return !p;
+}
+
+// [[Rcpp::export]]
+bool xptr_access_released( XPtr< std::vector<int> > p) {
+
+    // double-release should be a no-op
+    p.release();
+
+    // get should return NULL
+    return p.get() == NULL;
+}
+
+// [[Rcpp::export]]
+int xptr_use_released( XPtr< std::vector<int> > p ) {
+    return p->front();
+}
+

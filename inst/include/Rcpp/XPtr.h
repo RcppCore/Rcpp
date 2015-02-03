@@ -99,11 +99,44 @@ public:
     }
 
     /**
+     * Typesafe accessor for underlying pointer (use checked_get
+     * if you want an exception thrown if the pointer is NULL)
+     */
+    inline T* get() const {
+        return (T*)(R_ExternalPtrAddr( Storage::get__() ));
+    }
+
+    /**
+     * Boolean operator wrapper for get() using the "safe bool idiom", see:
+     * http://www.boost.org/doc/libs/1_57_0/boost/smart_ptr/detail/operator_bool.hpp
+     */
+    typedef void (*unspecified_bool_type)();
+    static void unspecified_bool_true() {}
+    operator unspecified_bool_type() const
+    {
+        return get() == NULL ? 0 : unspecified_bool_true;
+    }
+    bool operator!() const
+    {
+        return get() == NULL;
+    }
+
+    /**
+     * Access underlying pointer throwing an exception if the ptr is NULL
+     */
+    inline T* checked_get() const {
+        T* ptr = get();
+        if (ptr == NULL)
+            throw ::Rcpp::exception("external pointer is not valid" ) ;
+        return ptr;
+    }
+
+    /**
      * Returns a reference to the object wrapped. This allows this
      * object to look and feel like a dumb pointer to T
      */
     T& operator*() const {
-        return *((T*)R_ExternalPtrAddr( Storage::get__() )) ;
+        return *(checked_get()) ;
     }
 
     /**
@@ -111,15 +144,38 @@ public:
      * on this as if it was the dumb pointer
      */
     T* operator->() const {
-         return (T*)(R_ExternalPtrAddr( Storage::get__() ));
+        return checked_get() ;
     }
 
     void setDeleteFinalizer() {
         R_RegisterCFinalizerEx( Storage::get__(), finalizer_wrapper<T,Finalizer> , FALSE) ;
     }
 
+    /**
+     * Release the external pointer (if any) immediately. This will cause
+     * the pointer to be deleted and it's storage to be set to NULL.
+     * After this call the get() method returns NULL and the checked_get()
+     * method throws an exception.
+     *
+     * See the discussion here for the basic logic behind release:
+     * https://stat.ethz.ch/pipermail/r-help/2007-August/137871.html
+     */
+    void release() {
+
+        if (get() != NULL)
+        {
+            // Call the finalizer -- note that this implies that finalizers
+            // need to be ready for a NULL external pointer value (our
+            // default C++ finalizer is since delete NULL is a no-op).
+            finalizer_wrapper<T,Finalizer>( Storage::get__() );
+
+            // Clear the external pointer
+            R_ClearExternalPtr( Storage::get__() );
+        }
+    }
+
     inline operator T*(){
-        return (T*)( R_ExternalPtrAddr( Storage::get__() )) ;
+        return checked_get() ;
     }
 
     void update(SEXP){}
