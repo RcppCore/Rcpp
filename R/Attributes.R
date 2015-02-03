@@ -380,14 +380,23 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     linkingTo <- .readPkgDescField(pkgDesc, "LinkingTo")
     includes <- .linkingToIncludes(linkingTo, TRUE)
 
-    # if a master include file is defined for the package then include it
-    pkgHeader <- paste(pkgname, ".h", sep="")
+    # if a master include file or types file is in inst/include then use it
+    typesHeader <- c(paste0(pkgname, "_types.h"), paste0(pkgname, "_types.hpp"))
+    pkgHeader <- c(paste0(pkgname, ".h"), typesHeader)
     pkgHeaderPath <- file.path(pkgdir, "inst", "include",  pkgHeader)
-    if (file.exists(pkgHeaderPath)) {
+    pkgHeader <- pkgHeader[file.exists(pkgHeaderPath)]
+    if (length(pkgHeader) > 0) {
         pkgInclude <- paste("#include \"../inst/include/",
                             pkgHeader, "\"", sep="")
         includes <- c(pkgInclude, includes)
     }
+
+    # if a _types file is in src then include it
+    pkgHeader <- typesHeader
+    pkgHeaderPath <- file.path(pkgdir, "src", pkgHeader)
+    pkgHeader <- pkgHeader[file.exists(pkgHeaderPath)]
+    if (length(pkgHeader) > 0)
+        includes <- c(paste0("#include \"", pkgHeader ,"\""), includes)
 
     # generate exports
     invisible(.Call("compileAttributes", PACKAGE="Rcpp",
