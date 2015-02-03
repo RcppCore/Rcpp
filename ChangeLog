@@ -1,3 +1,10 @@
+2014-02-03  JJ Allaire  <jj@rstudio.org>
+
+        * R/Attributes.R: Include pkg_types.h file in RcppExports.cpp
+        if it's present in inst/include or src
+        * src/attributes.cpp: Include pkg_types.h file in generated
+        C++ interface file if it's present in inst/include or src
+
 2015-01-25  Kevin Ushey  <kevinushey@gmail.com>
 
         * inst/include/Rcpp/utils/tinyformat.h: define an error handler for
