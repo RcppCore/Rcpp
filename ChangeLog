@@ -1,5 +1,12 @@
 2015-02-03  JJ Allaire  <jj@rstudio.org>
 
+        * src/attributes.cpp: Simplify generated attributes code for
+        RNGScope (use RObject and it's destructor rather than SEXP
+        protect/unprotect).
+        * vignettes/Rcpp-package.Rnw: Update docs on generated code.
+
+2015-02-03  JJ Allaire  <jj@rstudio.org>
+
         * inst/include/Rcpp/exceptions.h: Add Rcpp::warning function as
         wrapper for Rf_warning
 
