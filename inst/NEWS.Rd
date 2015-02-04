@@ -20,6 +20,9 @@
     \itemize{
       \item Include pkg_types.h file in RcppExports.cpp if it's present in
       inst/include or src.
+      \item Simplify generated attributes code for \code{RNGScope} (use
+      \code{RObject} and it's destructor rather than \code{SEXP}
+      protect/unprotect).
     }
   }
 }

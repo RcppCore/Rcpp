@@ -2225,21 +2225,20 @@ namespace attributes {
             ostr << args << ") {" << std::endl;
             ostr << "BEGIN_RCPP" << std::endl;
             if (!function.type().isVoid())
-                ostr << "    SEXP __sexp_result;" << std::endl;
-            ostr << "    {" << std::endl;
+                ostr << "    Rcpp::RObject __result;" << std::endl;
             if (!cppInterface)
-                ostr << "        Rcpp::RNGScope __rngScope;" << std::endl;
+                ostr << "    Rcpp::RNGScope __rngScope;" << std::endl;
             for (size_t i = 0; i<arguments.size(); i++) {
                 const Argument& argument = arguments[i];
 
-                ostr << "        Rcpp::traits::input_parameter< "
+                ostr << "    Rcpp::traits::input_parameter< "
                      << argument.type().full_name() << " >::type " << argument.name()
-                     << "(" << argument.name() << "SEXP );" << std::endl;
+                     << "(" << argument.name() << "SEXP);" << std::endl;
             }
 
-            ostr << "        ";
+            ostr << "    ";
             if (!function.type().isVoid())
-                ostr << function.type() << " __result = ";
+                ostr << "__result = Rcpp::wrap(";
             ostr << function.name() << "(";
             for (size_t i = 0; i<arguments.size(); i++) {
                 const Argument& argument = arguments[i];
@@ -2247,18 +2246,13 @@ namespace attributes {
                 if (i != (arguments.size()-1))
                     ostr << ", ";
             }
+            if (!function.type().isVoid())
+                ostr << ")";
             ostr << ");" << std::endl;
 
             if (!function.type().isVoid())
             {
-                ostr << "        PROTECT(__sexp_result = Rcpp::wrap(__result));"
-                     << std::endl;
-            }
-            ostr << "    }" << std::endl;
-            if (!function.type().isVoid())
-            {
-                ostr << "    UNPROTECT(1);" << std::endl;
-                ostr << "    return __sexp_result;" << std::endl;
+                ostr << "    return __result;" << std::endl;
             }
             else
             {
