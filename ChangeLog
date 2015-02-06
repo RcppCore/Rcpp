@@ -1,3 +1,8 @@
+2015-02-06  Kevin Ushey  <kevinushey@gmail.com>
+
+        * inst/include/Rcpp/vector/Subsetter.h: compare CHARSXP pointers
+        rather than string contents in subsetter
+
 2015-02-03  JJ Allaire  <jj@rstudio.org>
 
         * src/attributes.cpp: Simplify generated attributes code for
