@@ -141,18 +141,15 @@ private:
         indices.reserve(rhs_n);
         SEXP names = Rf_getAttrib(lhs, R_NamesSymbol);
         if (Rf_isNull(names)) stop("names is null");
-        for (int i=0; i < rhs_n; ++i) {
-            indices.push_back( find(names, CHAR( STRING_ELT(rhs, i) )) );
+        SEXP* namesPtr = STRING_PTR(names);
+        SEXP* rhsPtr = STRING_PTR(rhs);
+        for (int i = 0; i < rhs_n; ++i) {
+            SEXP* match = std::find(namesPtr, namesPtr + lhs_n, *(rhsPtr + i));
+            if (match == namesPtr + lhs_n)
+                stop("not found");
+            indices.push_back(match - namesPtr);
         }
         indices_n = indices.size();
-    }
-
-    int find(const RHS_t& names, const char* str) {
-        for (int i=0; i < lhs_n; ++i) {
-            if (strcmp( CHAR( STRING_ELT( names, i) ), str) == 0) return i;
-        }
-        stop("no name found");
-        return -1;
     }
 
     void get_indices( traits::identity< traits::int2type<LGLSXP> > t ) {
