@@ -25,6 +25,8 @@
       protect/unprotect).
       \item Add rng parameter to Rcpp::export to prevent inclusion of
       RNGScope in generated code.
+      \item Allow use of attributes without Rcpp:: prefix when 
+      preceded by 'using namespace Rcpp'
     }
   }
 }

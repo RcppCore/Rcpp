@@ -407,7 +407,8 @@ namespace attributes {
 
         // Parsing helpers
         Attribute parseAttribute(const std::vector<std::string>& match,
-                                 int lineNumber);
+                                 int lineNumber,
+                                 bool usingRcppNamespace);
         std::vector<Param> parseParameters(const std::string& input);
         Function parseFunction(size_t lineNumber);
         std::string parseSignature(size_t lineNumber);
@@ -872,7 +873,7 @@ namespace attributes {
         std::string contents = buffer.str();
 
         // Check for attribute signature
-        if (contents.find("[[Rcpp::") != std::string::npos ||
+        if (contents.find("[[") != std::string::npos ||
             contents.find("RCPP_MODULE") != std::string::npos) {
 
             // Now read into a list of strings (which we can pass to regexec)
@@ -889,10 +890,22 @@ namespace attributes {
             }
             lines_ = Rcpp::wrap(lines);
 
+            // Scan for using namespace Rcpp
+            int usingRcppNamespaceLine = 0;
+            Rcpp::List nsMatches = regexMatches(lines_,
+                "^\\s*using\\s+namespace\\s+Rcpp\\s*;\\s*$");
+            for (int i = 0; i<nsMatches.size(); i++) {
+                const Rcpp::CharacterVector match = nsMatches[i];
+                if (match.size() > 0) {
+                    usingRcppNamespaceLine = i;
+                    break;
+                }
+            }
+           
             // Scan for attributes
             CommentState commentState;
             Rcpp::List matches = regexMatches(lines_,
-                "^\\s*//\\s*\\[\\[Rcpp::(\\w+)(\\(.*?\\))?\\]\\]\\s*$");
+                "^\\s*//\\s*\\[\\[((?:Rcpp::)?\\w+)(\\(.*?\\))?\\]\\]\\s*$");
             for (int i = 0; i<matches.size(); i++) {
 
                 // track whether we are in a comment and bail if we are in one
@@ -912,9 +925,15 @@ namespace attributes {
                     if (match.size() != 3)
                         continue;
 
+                    // are we using the Rcpp namespace here
+                    bool usingRcppNamespace = usingRcppNamespaceLine > 0 &&
+                                              i > usingRcppNamespaceLine;
+                    
                     // add the attribute
                     Attribute attr = parseAttribute(
-                        Rcpp::as<std::vector<std::string> >(match),  i);
+                                            Rcpp::as<std::vector<std::string> >(match),
+                                            i,
+                                            usingRcppNamespace);
                     attributes_.push_back(attr);
 
                     if( attr.isExportedFunction() ){
@@ -968,14 +987,36 @@ namespace attributes {
     // Parse an attribute from the vector returned by regmatches
     Attribute SourceFileAttributesParser::parseAttribute(
                                     const std::vector<std::string>& match,
-                                    int lineNumber) {
+                                    int lineNumber,
+                                    bool usingRcppNamespace) {
 
         // Attribute name
         std::string name = match[1];
+        
+        // if it starts with Rcpp:: then strip that off
+        bool warned = false;
+        std::string rcppNS = "Rcpp::";
+        if (name.find(rcppNS) == 0) {
+            name = name.substr(rcppNS.length());
+        }
+        // otherwise warn if we are not using the Rcpp namespace
+        else if (!usingRcppNamespace) {
+            if (isKnownAttribute(name)) {
+                attributeWarning("Unrecoginzed attribute '" + name  + "'. " +
+                                 "You should either preface it with 'Rcpp::' "
+                                 "or add 'using namespace Rcpp' to the "
+                                 "source file", lineNumber);
+            } else {
+                attributeWarning("Unrecoginzed attribute " + name, lineNumber);
+            }
+            // add "unknown" suffix to mask it out of further processing
+            warned = true;
+            name = name + "_unknown";
+        }
 
         // Warn if this is an unknown attribute
-        if (!isKnownAttribute(name)) {
-            attributeWarning("Unrecognized attribute Rcpp::" + name,
+        if (!isKnownAttribute(name) && !warned) {
+            attributeWarning("Unrecognized attribute '" + name + "'",
                              lineNumber);
         }
 
@@ -1343,7 +1384,7 @@ namespace attributes {
         ostr << message;
         if (!attribute.empty())
             ostr << " for " << attribute << " attribute";
-        ostr << " at " << file << ":" << lineNumber;
+        ostr << " [" << file << ":" << lineNumber << "]";
 
         showWarning(ostr.str());
     }
