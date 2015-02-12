@@ -23,6 +23,8 @@
       \item Simplify generated attributes code for \code{RNGScope} (use
       \code{RObject} and it's destructor rather than \code{SEXP}
       protect/unprotect).
+      \item Add rng parameter to Rcpp::export to prevent inclusion of
+      RNGScope in generated code.
     }
   }
 }

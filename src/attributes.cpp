@@ -103,11 +103,15 @@ namespace attributes {
 
     // Known attribute names & parameters
     const char * const kExportAttribute = "export";
+    const char * const kExportName = "name";
+    const char * const kExportRng = "rng";
     const char * const kDependsAttribute = "depends";
     const char * const kPluginsAttribute = "plugins";
     const char * const kInterfacesAttribute = "interfaces";
     const char * const kInterfaceR = "r";
     const char * const kInterfaceCpp = "cpp";
+    const char * const kParamValueFalse = "false";
+    const char * const kParamValueTrue = "true";
 
     // Type info
     class Type {
@@ -244,10 +248,29 @@ namespace attributes {
         }
 
         std::string exportedName() const {
-            if (!params().empty())
+
+            // check for explicit name parameter
+            if (hasParameter(kExportName))
+            {
+                return paramNamed(kExportName).value();
+            }
+            // otherwise un-named parameter in the first slot
+            else if (!params().empty() && params()[0].value().empty())
+            {
                 return params()[0].name();
-            else
+            }
+            // otherwise the actual function name
+            {
                 return function().name();
+            }
+        }
+
+        bool rng() const {
+            Param rngParam = paramNamed(kExportRng);
+            if (!rngParam.empty())
+                return rngParam.value() != kParamValueFalse;
+            else
+                return true;
         }
 
         const std::vector<std::string>& roxygen() const { return roxygen_; }
@@ -740,6 +763,7 @@ namespace attributes {
         }
         else {
             name_ = paramText;
+            trimWhitespace(&name_);
             stripQuotes(&name_);
         }
     }
@@ -984,6 +1008,34 @@ namespace attributes {
                 function = parseFunction(lineNumber + 1);
             else
                 rcppExportWarning("No function found", lineNumber);
+
+            // validate parameters
+            for (std::size_t i=0; i<params.size(); i++) {
+
+                std::string name = params[i].name();
+                std::string value = params[i].value();
+
+                // un-named parameter that isn't the first parameter
+                if (value.empty() && (i > 0)) {
+                    rcppExportWarning("No value specified for parameter '" +
+                                      name + "'",
+                                      lineNumber);
+                }
+                // parameter that isn't name or rng
+                else if (!value.empty() &&
+                         (name != kExportName) &&
+                         (name != kExportRng)) {
+                    rcppExportWarning("Unrecognized parameter '" + name + "'",
+                                      lineNumber);
+                }
+                // rng that isn't true or false
+                else if (name == kExportRng) {
+                    if (value != kParamValueFalse && value != kParamValueTrue) {
+                        rcppExportWarning("rng value must be true or false",
+                                          lineNumber);
+                    }
+                }
+            }
         }
 
         // validate interfaces parameter
@@ -1014,7 +1066,7 @@ namespace attributes {
     std::vector<Param> SourceFileAttributesParser::parseParameters(
                                                     const std::string& input) {
 
-        const std::string delimiters(" ,");
+        const std::string delimiters(",");
 
         std::vector<Param> params;
         std::string::size_type current;
@@ -1694,7 +1746,8 @@ namespace attributes {
                 ostr() << "        }" << std::endl;
                 ostr() << "        RObject __result;" << std::endl;
                 ostr() << "        {" << std::endl;
-                ostr() << "            RNGScope __rngScope;" << std::endl;
+                if (it->rng())
+                    ostr() << "            RNGScope __rngScope;" << std::endl;
                 ostr() << "            __result = " << ptrName << "(";
 
                 const std::vector<Argument>& args = function.arguments();
@@ -2226,7 +2279,7 @@ namespace attributes {
             ostr << "BEGIN_RCPP" << std::endl;
             if (!function.type().isVoid())
                 ostr << "    Rcpp::RObject __result;" << std::endl;
-            if (!cppInterface)
+            if (!cppInterface && attribute.rng())
                 ostr << "    Rcpp::RNGScope __rngScope;" << std::endl;
             for (size_t i = 0; i<arguments.size(); i++) {
                 const Argument& argument = arguments[i];
@@ -2268,7 +2321,8 @@ namespace attributes {
                      << std::endl;
                 ostr << "    SEXP __result;" << std::endl;
                 ostr << "    {" << std::endl;
-                ostr << "        Rcpp::RNGScope __rngScope;" << std::endl;
+                if (attribute.rng())
+                    ostr << "        Rcpp::RNGScope __rngScope;" << std::endl;
                 ostr << "        __result = PROTECT(" << funcName
                      << kTrySuffix << "(";
                 for (size_t i = 0; i<arguments.size(); i++) {
