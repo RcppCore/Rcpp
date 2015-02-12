@@ -112,6 +112,8 @@ namespace attributes {
     const char * const kInterfaceCpp = "cpp";
     const char * const kParamValueFalse = "false";
     const char * const kParamValueTrue = "true";
+    const char * const kParamValueFALSE = "FALSE";
+    const char * const kParamValueTRUE = "TRUE";
 
     // Type info
     class Type {
@@ -268,7 +270,8 @@ namespace attributes {
         bool rng() const {
             Param rngParam = paramNamed(kExportRng);
             if (!rngParam.empty())
-                return rngParam.value() != kParamValueFalse;
+                return rngParam.value() == kParamValueTrue ||
+                       rngParam.value() == kParamValueTRUE;
             else
                 return true;
         }
@@ -1071,7 +1074,10 @@ namespace attributes {
                 }
                 // rng that isn't true or false
                 else if (name == kExportRng) {
-                    if (value != kParamValueFalse && value != kParamValueTrue) {
+                    if (value != kParamValueFalse && 
+                        value != kParamValueTrue &&
+                        value != kParamValueFALSE &&
+                        value != kParamValueTRUE) {
                         rcppExportWarning("rng value must be true or false",
                                           lineNumber);
                     }
