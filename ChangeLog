@@ -2,7 +2,11 @@
 
         * DESCRIPTION: bump version
         * src/attributes.cpp: Add rng parameter to Rcpp::export to 
-        prevent inclusion of RNGScope in generated code.
+        prevent inclusion of RNGScope in generated code; Allow use
+        of attributes without Rcpp:: prefix when preceded by 
+        'using namespace Rcpp'
+        * inst/unitTests/cpp/na.cpp Use un-namespaced version of
+        export attribute for the NA unit tests
 
 2015-02-06  Kevin Ushey  <kevinushey@gmail.com>
 

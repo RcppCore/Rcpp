@@ -22,22 +22,22 @@
 #include <Rcpp.h>
 using namespace Rcpp ;
 
-// [[Rcpp::export]]
+// [[export]]
 bool Rcpp_IsNA(double x) {
     return internal::Rcpp_IsNA(x);
 }
 
-// [[Rcpp::export]]
+// [[export]]
 bool Rcpp_IsNaN(double x) {
     return internal::Rcpp_IsNaN(x);
 }
 
-// [[Rcpp::export]]
+// [[export]]
 bool R_IsNA_(double x) {
     return ::R_IsNA(x);
 }
 
-// [[Rcpp::export]]
+// [[export]]
 bool R_IsNaN_(double x) {
     return ::R_IsNaN(x);
 }
