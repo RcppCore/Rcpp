@@ -25,6 +25,7 @@
       protect/unprotect).
       \item Add rng parameter to Rcpp::export to prevent inclusion of
       RNGScope in generated code.
+      \item Correctly detect Rtools 3.2
     }
   }
 }
