@@ -84,9 +84,6 @@ Attributes
 
     o   Add unit tests 
 
-    o   Add random = false parameter to Rcpp::export once we support parsing
-        key/value pairs in attribute parameters
-
     o   Detect useDynLib .registration = TRUE and in that case emit .Call
         wrappers as symbols rather than strings w/ PACKAGE =
 
