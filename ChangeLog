@@ -1,3 +1,8 @@
+2015-02-13  Dirk Eddelbuettel  <edd@debian.org>
+
+        * .travis.yml (install): Switch to using ppa:edd/misc to install all the
+        R packages needed for the Travis CI run as r-cran-* binary packages
+
 2015-02-12  JJ Allaire  <jj@rstudio.org>
 
         * DESCRIPTION: bump version
