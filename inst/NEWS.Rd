@@ -6,28 +6,27 @@
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
-      \item Defining an error handler for tinyformat prevents \code{assert()}
-      from spilling.
-      \item Add Rcpp::warning function as wrapper for Rf_warning.
-      \item Improvements to XPtr including new \code{checked_get} and
-      \code{release} functions as well as improved behavior (throw an
-      exception rather than crash) when a NULL external pointer is
-      dereferenced.
-      \item Evaluate R code within an \code{R_toplevelExec} block to prevent
+      \item An error handler for tinyformat was defined to prevent the \code{assert()}
+      macro from spilling.
+      \item The \code{Rcpp::warning} function was added as a wrapper for \code{Rf_warning}.
+      \item The \code{XPtr} class was extended with new \code{checked_get}
+      and \code{release} functions as well as improved behavior (throw an
+      exception rather than crash) when a NULL external pointer is dereferenced.
+      \item R code is evaluated within an \code{R_toplevelExec} block to prevent
       user interrupts from bypassing C++ destructors on the stack.
     }
     \item Changes in Rcpp Attributes:
     \itemize{
-      \item Include pkg_types.h file in RcppExports.cpp if it's present in
-      inst/include or src.
-      \item Simplify generated attributes code for \code{RNGScope} (use
-      \code{RObject} and it's destructor rather than \code{SEXP}
-      protect/unprotect).
-      \item Add rng parameter to Rcpp::export to prevent inclusion of
-      RNGScope in generated code.
-      \item Correctly detect Rtools 3.2
-      \item Allow 'R' to come immediately after '***' for defining 
-      embedded R code chunks in sourceCpp
+      \item The \code{pkg_types.h} file is now included in \code{RcppExports.cpp}
+      if it is present in either the \code{inst/include} or \code{src}. 
+      \item The generated attributes code was simplified with respect to
+      \code{RNGScope} and now uses \code{RObject} and its destructor rather than \code{SEXP}
+      protect/unprotect.
+      \item Support addition of the \code{rng} parameter in \code{Rcpp::export}
+      to suppress the otherwise automatic inclusion of \code{RNGScope} in generated code.
+      \item Version 3.2 of the Rtools is now correctly detected as well.
+      \item Allow 'R' to come immediately after '***' for defining embedded R
+      code chunks in sourceCpp.
     }
   }
 }
