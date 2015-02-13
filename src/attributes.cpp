@@ -697,7 +697,7 @@ namespace attributes {
                                         Rcpp::CharacterVector linesVector,
                                         const std::deque<std::string>& lines) {
             Rcpp::List matches = regexMatches(linesVector,
-                                              "^\\s*/\\*{3,}\\s+[Rr]\\s*$");
+                                              "^\\s*/\\*{3,}\\s*[Rr]\\s*$");
             bool withinRBlock = false;
             CommentState commentState;
             std::vector<std::string> embeddedR;
