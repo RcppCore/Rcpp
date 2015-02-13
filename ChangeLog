@@ -1,7 +1,7 @@
 2015-02-12  JJ Allaire  <jj@rstudio.org>
 
         * DESCRIPTION: bump version
-        * src/attributes.cpp: Add rng parameter to Rcpp::export to 
+        * src/attributes.cpp: Add rng parameter to Rcpp::export to
         prevent inclusion of RNGScope in generated code; recognize
         Rtools 3.2
 
