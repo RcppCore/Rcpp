@@ -25,6 +25,8 @@
       \item Support addition of the \code{rng} parameter in \code{Rcpp::export}
       to suppress the otherwise automatic inclusion of \code{RNGScope} in generated code.
       \item Version 3.2 of the Rtools is now correctly detected as well.
+      \item Allow 'R' to come immediately after '***' for defining embedded R
+      code chunks in sourceCpp.
     }
   }
 }
