@@ -80,11 +80,6 @@ Syntactic sugar
     	
     	rnt : idem
 
-Attributes
-
-    o   Consider allowing local includes in sourceCpp (but compilation cache
-        must pay mind to any local includes)
-
 Testing
 
     o	all r* functions : rnorm, etc ...

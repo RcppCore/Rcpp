@@ -53,6 +53,25 @@ namespace attributes {
         std::string path() const { return path_; }
         bool exists() const { return exists_; }
         time_t lastModified() const { return lastModified_; }
+        
+        bool operator<(const FileInfo& other) const {
+            return path_ < other.path_;
+        };
+        
+        bool operator==(const FileInfo& other) const {
+            return path_ == other.path_ &&
+                   exists_ == other.exists_ &&
+                   lastModified_ == other.lastModified_;
+        };
+        
+        bool operator!=(const FileInfo& other) const {
+            return ! (*this == other);
+        };
+        
+        std::ostream& operator<<(std::ostream& os) const {
+            os << path_;
+            return os;
+        }
 
     private:
         std::string path_;
@@ -355,7 +374,8 @@ namespace attributes {
     // Class used to parse and return attribute information from a source file
     class SourceFileAttributesParser : public SourceFileAttributes {
     public:
-        explicit SourceFileAttributesParser(const std::string& sourceFile);
+        explicit SourceFileAttributesParser(const std::string& sourceFile,
+                                            bool localIncludes);
 
     private:
         // prohibit copying
@@ -405,6 +425,11 @@ namespace attributes {
         const std::vector<std::string>& embeddedR() const {
             return embeddedR_;
         }
+        
+        // Get local includes
+        const std::vector<FileInfo>& localIncludes() const {
+            return localIncludes_;
+        };
 
     private:
 
@@ -437,6 +462,7 @@ namespace attributes {
         FunctionMap functionMap_ ;
         std::vector<std::string> modules_;
         std::vector<std::string> embeddedR_;
+        std::vector<FileInfo> localIncludes_;
         std::vector<std::vector<std::string> > roxygenChunks_;
         std::vector<std::string> roxygenBuffer_;
     };
@@ -690,6 +716,102 @@ namespace attributes {
             return matches;
         }
 
+        template <typename Stream>
+        void readFile(const std::string& file, Stream& os) {
+            std::ifstream ifs(file);
+            if (ifs.fail())
+                throw Rcpp::file_io_error(file);
+            os << ifs.rdbuf();
+            ifs.close();
+        }
+
+        template <typename Collection>
+        void readLines(std::istream& is, Collection* pLines) {
+            pLines->clear();
+            std::string line;
+            while(std::getline(is, line)) {
+                // strip \r (for the case of windows line terminators on posix)
+                if (line.length() > 0 && *line.rbegin() == '\r')
+                    line.erase(line.length()-1, 1);
+                stripTrailingLineComments(&line);
+                pLines->push_back(line);
+            }
+        }
+        
+        // parse the local includes from the passed lines
+        std::vector<FileInfo> parseLocalIncludes(
+                                        const std::string& sourceFile) {
+            
+            // import R functions
+            Rcpp::Environment baseEnv = Rcpp::Environment::base_env();
+            Rcpp::Function dirname = baseEnv["dirname"];
+            Rcpp::Function filepath = baseEnv["file.path"];
+            Rcpp::Function normalizePath = baseEnv["normalizePath"];
+            Rcpp::Function fileExists = baseEnv["file.exists"];
+            
+            // get the path to the source file's directory
+            Rcpp::CharacterVector sourceDir = dirname(sourceFile);
+            
+            // read the source file into a buffer
+            std::stringstream buffer;
+            readFile(sourceFile, buffer);
+           
+            // Now read into a list of strings (which we can pass to regexec)
+            // First read into a std::deque (which will handle lots of append
+            // operations efficiently) then copy into an R chracter vector
+            std::deque<std::string> lines;
+            readLines(buffer, &lines);
+            Rcpp::CharacterVector linesVector = Rcpp::wrap(lines);        
+            
+            // look for local includes
+            Rcpp::List matches = regexMatches(
+                            linesVector, "^\\s*#include\\s*\"([^\"]+)\"\\s*$");
+            
+            // accumulate local includes (skip commented sections)
+            CommentState commentState;
+            std::vector<FileInfo> localIncludes;
+            for (int i = 0; i<matches.size(); i++) {
+                std::string line = lines[i];
+                commentState.submitLine(line);
+                if (!commentState.inComment()) {
+                    // get the match
+                    const Rcpp::CharacterVector match = matches[i];
+                    if (match.size() == 2) {
+                        // compose a full file path for the match
+                        Rcpp::CharacterVector include = 
+                            filepath(sourceDir, std::string(match[1]));
+                        // if it exists then normalize and add to our list
+                        if (fileExists(include)) {
+                            include = normalizePath(include);
+                            localIncludes.push_back(
+                               FileInfo(Rcpp::as<std::string>(include)));
+                        }
+                    }
+                }
+            }
+            
+            // look for local includes recursively (make a copy of the local
+            // includes first so we can mutate it during iteration)
+            std::vector<FileInfo> localIncludesCopy = localIncludes;
+            for (size_t i = 0; i<localIncludesCopy.size(); i++) {
+                FileInfo include = localIncludesCopy[i];
+                std::vector<FileInfo> includes = parseLocalIncludes(
+                                                                include.path());
+                std::copy(includes.begin(),
+                          includes.end(),
+                          std::back_inserter(localIncludes));
+            }
+            
+            // remove duplicates
+            std::sort(localIncludes.begin(), localIncludes.end());
+            std::vector<FileInfo>::const_iterator end = 
+                std::unique(localIncludes.begin(), localIncludes.end());
+            localIncludes.erase(end, localIncludes.end());
+            
+            // return includes
+            return localIncludes;
+        }
+
         // Parse embedded R code chunks from a file (receives the lines of the
         // file as a CharcterVector for using with regexec and as a standard
         // stl vector for traversal/insepection)
@@ -860,18 +982,16 @@ namespace attributes {
     }
 
     // Parse the attributes from a source file
-    SourceFileAttributesParser::SourceFileAttributesParser
-                                            (const std::string& sourceFile)
+    SourceFileAttributesParser::SourceFileAttributesParser(
+                                             const std::string& sourceFile,
+                                             bool localIncludes)
         : sourceFile_(sourceFile)
     {
         // First read the entire file into a std::stringstream so we can check
         // it for attributes (we don't want to do any of our more expensive
         // processing steps if there are no attributes to parse)
-        std::ifstream ifs(sourceFile_.c_str());
-        if (ifs.fail())
-            throw Rcpp::file_io_error(sourceFile_);
         std::stringstream buffer;
-        buffer << ifs.rdbuf();
+        readFile(sourceFile_, buffer);
         std::string contents = buffer.str();
 
         // Check for attribute signature
@@ -881,15 +1001,8 @@ namespace attributes {
             // Now read into a list of strings (which we can pass to regexec)
             // First read into a std::deque (which will handle lots of append
             // operations efficiently) then copy into an R chracter vector
-            std::string line;
             std::deque<std::string> lines;
-            while(std::getline(buffer, line)) {
-                // strip \r (for the case of windows line terminators on posix)
-                if (line.length() > 0 && *line.rbegin() == '\r')
-                    line.erase(line.length()-1, 1);
-                stripTrailingLineComments(&line);
-                lines.push_back(line);
-            }
+            readLines(buffer, &lines);
             lines_ = Rcpp::wrap(lines);
 
             // Scan for attributes
@@ -965,6 +1078,10 @@ namespace attributes {
 
             // Parse embedded R
             embeddedR_ = parseEmbeddedR(lines_, lines);
+            
+            // Recursively parse local includes
+            if (localIncludes)
+                localIncludes_ = parseLocalIncludes(sourceFile);
         }
     }
 
@@ -2587,6 +2704,12 @@ namespace {
             if (!FileInfo(dynlibPath()).exists())
                 return true;
 
+            // variation in local includes means we're dirty
+            std::vector<FileInfo> localIncludes = parseLocalIncludes(
+                                                            cppSourcePath_);
+            if (localIncludes != localIncludes_)
+                return true;
+        
             // not dirty
             return false;
         }
@@ -2602,7 +2725,7 @@ namespace {
             filecopy(cppSourcePath_, generatedCppSourcePath(), true);
 
             // parse attributes
-            SourceFileAttributesParser sourceAttributes(cppSourcePath_);
+            SourceFileAttributesParser sourceAttributes(cppSourcePath_, true);
 
             // generate cpp for attributes and append them
             std::ostringstream ostr;
@@ -2664,6 +2787,9 @@ namespace {
 
             // capture embededded R
             embeddedR_ = sourceAttributes.embeddedR();
+            
+            // capture local includes
+            localIncludes_ = sourceAttributes.localIncludes();
         }
 
         const std::string& contextId() const {
@@ -2793,6 +2919,7 @@ namespace {
         std::vector<std::string> depends_;
         std::vector<std::string> plugins_;
         std::vector<std::string> embeddedR_;
+        std::vector<FileInfo> localIncludes_;
     };
 
     // Dynlib cache that allows lookup by either file path or code contents
@@ -2989,7 +3116,7 @@ BEGIN_RCPP
 
         // parse file (continue if there is no generator output)
         std::string cppFile = cppFiles[i];
-        SourceFileAttributesParser attributes(cppFile);
+        SourceFileAttributesParser attributes(cppFile, false);
         if (!attributes.hasGeneratorOutput())
             continue;
 
