@@ -1,8 +1,11 @@
+% !Rnw driver = highlight::HighlightWeaveLatex()
 \documentclass[10pt]{article}
 %\VignetteIndexEntry{Rcpp-FAQ}
 %\VignetteEngine{highlight::highlight}
 %\VignetteKeywords{Rcpp, FAQ}
 %\VignetteDepends{Rcpp}
+\SweaveOpts{concordance=FALSE}
+
 \usepackage[USletter]{vmargin}
 \setmargrb{0.75in}{0.75in}{0.75in}{0.75in}
 
