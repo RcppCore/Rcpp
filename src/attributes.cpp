@@ -718,7 +718,7 @@ namespace attributes {
 
         template <typename Stream>
         void readFile(const std::string& file, Stream& os) {
-            std::ifstream ifs(file);
+            std::ifstream ifs(file.c_str());
             if (ifs.fail())
                 throw Rcpp::file_io_error(file);
             os << ifs.rdbuf();
@@ -804,7 +804,7 @@ namespace attributes {
             
             // remove duplicates
             std::sort(localIncludes.begin(), localIncludes.end());
-            std::vector<FileInfo>::const_iterator end = 
+            std::vector<FileInfo>::iterator end = 
                 std::unique(localIncludes.begin(), localIncludes.end());
             localIncludes.erase(end, localIncludes.end());
             
