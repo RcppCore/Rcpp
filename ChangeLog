@@ -1,3 +1,8 @@
+2015-02-14  JJ Allaire  <jj@rstudio.org>
+
+        * src/attributes.cpp: Allow includes of local files
+        (e.g. #include "foo.hpp") in sourceCpp
+
 2015-02-13  JJ Allaire  <jj@rstudio.org>
 
         * src/attributes.cpp: Allow 'R' to come immediately after '***'
