@@ -4,6 +4,7 @@
 %\VignetteIndexEntry{Rcpp-introduction}
 %\VignetteKeywords{Rcpp, foreign function interface, .Call, C++, R}
 %\VignetteDepends{Rcpp}
+\SweaveOpts{concordance=FALSE}
 
 \author{Dirk Eddelbuettel\\Debian Project \And Romain Fran\c{c}ois\\\proglang{R} Enthusiasts}
 \Plainauthor{Dirk Eddelbuettel, Romain Fran\c{c}ois}
