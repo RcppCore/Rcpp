@@ -1,3 +1,4 @@
+% !Rnw driver = highlight::HighlightWeaveLatex()
 \documentclass[8pt,twocolumn,a4paper]{article}
 %\VignetteIndexEntry{Rcpp-quickref}
 %\VignetteEngine{highlight::highlight}
