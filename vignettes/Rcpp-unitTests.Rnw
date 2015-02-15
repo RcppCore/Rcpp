@@ -2,6 +2,7 @@
 %\VignetteIndexEntry{Rcpp-unitTests}
 %\VignetteKeywords{R,Rcpp,unit tests}
 %\VignetteDepends{Rcpp}
+\SweaveOpts{concordance=FALSE}
 
 \usepackage{vmargin}
 \setmargrb{0.75in}{0.75in}{0.75in}{0.75in}

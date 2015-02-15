@@ -2,6 +2,10 @@
 
         * src/attributes.cpp: Allow includes of local files
         (e.g. #include "foo.hpp") in sourceCpp
+        * Rcpp.Rproj: Specify Sweave as Rnw handler for RStudio
+        * vignettes/*.Rnw: Add driver magic comment and turn off 
+        Sweave concordance.
+        * vignettes/.gitignore: Ignore artifacts of PDF preview
 
 2015-02-13  Dirk Eddelbuettel  <edd@debian.org>
 
