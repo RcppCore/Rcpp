@@ -1,3 +1,4 @@
+% !Rnw driver = highlight::HighlightWeaveLatex()
 \documentclass[10pt]{article}
 %\VignetteIndexEntry{Rcpp-sugar}
 %\VignetteEngine{highlight::highlight}
