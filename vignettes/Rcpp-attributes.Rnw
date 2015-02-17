@@ -101,7 +101,7 @@ functions include:
 Attributes can also be used for package development via the
 \texttt{compileAttributes} function, which automatically generates
 \texttt{extern "C"} and \texttt{.Call} wrappers for \proglang{C++}
-functions within pacakges.
+functions within packages.
 
 \section{Using Attributes}
 
@@ -156,8 +156,9 @@ and \pkg{Rcpp} wrapper types and then source them just as we would an
 \proglang{R} script.
 
 The \texttt{sourceCpp} function performs caching based on the last
-modified date of the source file so as long as the source file does not
-change the compilation will occur only once per R session.
+modified date of the source file and it's local dependencies so as 
+long as the source does not change the compilation will occur only 
+once per R session.
 
 \subsection{Specifying Argument Defaults}
 
@@ -169,21 +170,21 @@ the following C++ function:
 DataFrame readData(
     CharacterVector file,
     CharacterVector colNames = CharacterVector::create(),
-    std::string commentChar = "#",
+    std::string comment = "#",
     bool header = true)
 @ 
 
 Will be exported to R as:
 
 <<eval=FALSE,lang=r>>=
-function(file, colNames=character(), commentChar="#", header=TRUE)
+function(file, colNames=character(), comment="#", header=TRUE)
 @ 
 
 Note that C++ rules for default arguments still apply: they must occur
 consecutively at the end of the function signature and (unlike R) can't rely
 on the values of other arguments.
 
-Not all \proglang{C++} defualt argument values can be parsed into their
+Not all \proglang{C++} default argument values can be parsed into their
 \proglang{R} equivalents, however the most common cases are supported, including:
 
 \begin{itemize}
@@ -203,9 +204,6 @@ Not all \proglang{C++} defualt argument values can be parsed into their
   \texttt{Matrix} types instantiated using the \texttt{rows},
   \texttt{cols} constructor.
 \end{itemize}
-
-
-\pagebreak
 
 \subsection{Signaling Errors}
 
@@ -233,6 +231,46 @@ In both cases the \proglang{C++} exception will be caught by \pkg{Rcpp}
 prior to returning control to \proglang{R} and converted into the correct
 signal to \proglang{R} that execution should stop with the specified message.
 
+You can similarly also signal warnings with the \texttt{Rcpp::warning}
+function:
+
+<<lang=cpp>>=
+if (unexpectedCondition)
+    Rcpp::warning("Unexpected condition occurred");
+@ 
+
+\subsection{Supporting User Interruption}
+
+If your function may run for an extended period of time, users will appreciate
+the ability to interrupt it's processing and return to the REPL. This is
+handled automatically for R code (as R checks for user interrupts periodically
+during processing) however requires explicit accounting for in C and C++ 
+extensions to R. To make computations interrupt-able, you should periodically
+call the \texttt{Rcpp::checkUserInterrupt} function, for example:
+
+<<lang=cpp>>=
+for (int i=0; i<1000000; i++) {
+    
+    // check for interrupt every 1000 iterations
+    if (i % 1000 == 0)
+        Rcpp::checkUserInterrupt();
+    
+    // ...do some expensive work...
+    
+}
+@ 
+
+A good guideline is to call \texttt{Rcpp::checkUserInterrupt} every 1 or 2
+seconds that your computation is running. In the above code, if the user
+requests an interrupt then an exception is thrown and the attributes wrapper
+code arranges for the user to be returned to the REPL.
+
+Note that R provides a \proglang{C} API for the same purpose 
+(\texttt{R\_CheckUserInterrupt}) however this API is not safe to use in 
+\proglang{C++} code as it uses \texttt{longjmp} to exit the current scope,
+bypassing any C++ destructors on the stack. The \texttt{Rcpp::checkUserInterrupt}
+function is provided as a safe alternative for \proglang{C++} code.
+
 \subsection{Embedding R Code}
 
 Typically \proglang{C++} and \proglang{R} code are kept in their own source
@@ -256,20 +294,20 @@ Multiple \proglang{R} code chunks can be included in a \proglang{C++} file. The
 \texttt{sourceCpp} function will first compile the \proglang{C++} code into a
 shared library and then source the embedded \proglang{R} code.
 
-\pagebreak
-
 \subsection{Modifying Function Names}
 
 You can change the name of an exported function as it appears to \proglang{R} by
 adding a name parameter to \texttt{Rcpp::export}. For example:
 
 <<lang=cpp>>=
-// [[Rcpp::export(".convolveCpp")]]
+// [[Rcpp::export(name = ".convolveCpp")]]
 NumericVector convolveCpp(NumericVector a, NumericVector b)
 @ 
 
-Note that in this case since the specified name is prefaced by a \code{.} the exported R
-function will be hidden.
+Note that in this case since the specified name is prefaced by a \code{.} the
+exported R function will be hidden. You can also use this method to provide
+implementations of S3 methods (which wouldn't otherwise be possible because
+C++ functions can't contain a '.' in their name).
 
 \subsection{Function Requirements}
 
@@ -293,7 +331,7 @@ requirements to be correctly handled:
 \subsection{Random Number Generation}
 
 \proglang{R} functions implemented in \proglang{C} or \proglang{C++} need
-to be careful to surround use of internal random number geneneration routines
+to be careful to surround use of internal random number generation routines
 (e.g. \texttt{unif\_rand}) with calls to \texttt{GetRNGstate} and
 \texttt{PutRNGstate}.
 
@@ -304,7 +342,20 @@ Note that \pkg{Rcpp} implements \texttt{RNGScope} using a counter, so it's
 still safe to execute code that may establish it's own \texttt{RNGScope} (such
 as the \pkg{Rcpp} sugar functions that deal with random number generation).
 
-\pagebreak
+The overhead associated with using \texttt{RNGScope} is negligible (only a 
+couple of milliseconds) and it provides a guarantee that all C++ code
+will inter-operate correctly with R's random number generation. If you are 
+certain that no C++ code will make use of random number generation and the 
+2ms of execution time is meaningful in your context, you can disable the
+automatic injection of \texttt{RNGScope} using the \texttt{rng} parameter
+of the \texttt{Rcpp::export} attribute. For example:
+
+<<lang=cpp>>=
+// [[Rcpp::export(rng = false)]]
+double myFunction(double input) {
+    // ...code that never uses R random number generation... 
+}
+@ 
 
 \subsection{Importing Dependencies}
 
@@ -352,9 +403,60 @@ and by invoking \pkg{inline} plugins if they are available for a package.
 Note that while the \texttt{Rcpp::depends} attribute establishes dependencies
 for \texttt{sourceCpp}, it's important to note that if you include the same
 source file in an \proglang{R} package these dependencies must still be
-listed in the \texttt{Depends} and \texttt{LinkingTo} fields of the package
+listed in the \texttt{Imports} and/or \texttt{LinkingTo} fields of the package
 \texttt{DESCRIPTION} file.
 
+\subsection{Sharing Code}
+
+The core use case for \texttt{sourceCpp} is the compilation of a single
+self-contained source file. Code within this file can import other C++ code
+by using the \texttt{Rcpp::depends} attribute as described above.
+
+The recommended practice for sharing C++ code across many uses of 
+\texttt{sourceCpp} is therefore to create an R package to wrap the C++
+code. This has many benefits not the least of which is easy distribution of
+shared code. More information on creating packages that contain C++ code
+is included in the Package Development section below.
+
+If you need to share a small amount of C++ code between source files 
+compiled with \texttt{sourceCpp} and the option of creating a package
+isn't practical, then you can also share code using local includes of C++
+header files. To do this, create a header file with the definition of 
+shared functions, classes, enums, etc. For example:
+
+<<lang=cpp>>=
+#ifndef __UTILITIES__
+#define __UTILITIES__
+
+double timesTwo(double x) {
+    return x * 2;
+}
+
+#endif // __UTILITIES__
+@ 
+
+Note the use of the \texttt{\#ifndef} include guard, this is import to ensure
+that code is not included more than once in a source file. You should 
+use an include guard and be sure to pick a unique name for the corresponding
+\texttt{\#define}. 
+
+To use this code in a source file you'd just include
+it based on it's relative path (being sure to use \texttt{"} as the 
+delimiter to indicate a local file reference). For example:
+
+<<lang=cpp>>=
+#include "shared/utilities.hpp"
+
+// [[Rcpp::export]]
+double transformValue(double x) {
+    return timesTwo(x) * 10;
+}
+@ 
+
+Note that the processing of Rcpp attributes (e.g. \texttt{export}, 
+\texttt{depends}, etc.) is limited to the main source file so all exported
+functions and dependencies should be defined there rather than in 
+shared header files.
 
 \subsection{Including C++ Inline}
 
@@ -428,24 +530,41 @@ Rcpp.package.skeleton("NewPackage", example_code = FALSE,
 
 \subsection{Specifying Dependencies}
 
-%% TODOD(DE) Rework in terms of Imports:
 Once you've migrated \proglang{C++} code into a package, the dependencies for
-source files are derived from the \texttt{Depends} and \texttt{LinkingTo} fields
+source files are derived from the \texttt{Imports} and \texttt{LinkingTo} fields
 in the package \texttt{DESCRIPTION} file rather than the \texttt{Rcpp::depends}
-attribute. For every package you import C++ code from (including \pkg{Rcpp})
-you need to add these entries.
+attribute. Some packages also require the addition of an entry to the package
+\texttt{NAMESPACE} file to ensure that the package's shared library is loaded
+prior to callers using the package. For every package you import C++ code from
+(including \pkg{Rcpp}) you need to add these entries.
 
-For example, if your package depends on \pkg{Rcpp} and \pkg{RcppArmadillo}
-you would have the following in your \texttt{DESCRIPTION} file:
+Packages that provide only C++ header files (and no shared library) need only
+be referred to using \texttt{LinkingTo}. You should consult the documentation
+for the package you are using for the requirements particular to that package.
+
+For example, if your package depends on \pkg{Rcpp} you'd have the following
+entries in the \texttt{DESCRIPTION} file:
 
 <<lang=bash>>=
-Depends: Rcpp (>= 0.10.0), RcppArmadillo (>= 0.3.4.4)
-LinkingTo: Rcpp, RcppArmadillo
+Imports: Rcpp (>= 0.11.4)
+LinkingTo: Rcpp
 @ 
 
-Using a \texttt{Imports} declaration together with an \texttt{import} or
-\texttt{importFrom} statement in the file \texttt{NAMESPACE} is a more recent
-alternative. 
+And the following entry in your \texttt{NAMESPACE} file:
+
+<<lang=bash>>=
+importFrom(Rcpp, evalCpp)
+@ 
+
+If your package additionally depended on the \pkg{BH} (Boost headers) package
+you'd just add an entry for \pkg{BH} to the \texttt{LinkingTo} field since
+\pkg{BH} is a header-only package:
+
+<<lang=bash>>=
+Imports: Rcpp (>= 0.11.4)
+LinkingTo: Rcpp, BH
+@ 
+
 
 \subsection{Exporting R Functions}
 
@@ -474,7 +593,10 @@ Results in the generation of the following two source files:
 \end{itemize}
 
 You should re-run \texttt{compileAttributes} whenever functions are added,
-removed, or have their signatures changed.
+removed, or have their signatures changed. Note that if you are using either
+RStudio or \pkg{devtools} to build your package then the 
+\texttt{compileAttributes} function is called automatically whenever your
+package is built.
 
 The \texttt{compileAttributes} function deals only with exporting
 \proglang{C++} functions to \proglang{R}. If you want the functions to
@@ -482,6 +604,45 @@ additionally be publicly available from your package's namespace another
 step may be required. Specifically, if your package \texttt{NAMESPACE} file
 does not use a pattern to export functions then you should add an explicit
 entry to \texttt{NAMESPACE} for each R function you want publicly available.
+
+\subsection{Types in Generated Code}
+
+In some cases the signatures of the C++ functions that are generated within
+\texttt{RcppExports.cpp} may have additional type requirements beyond the core 
+standard library and \pkg{Rcpp} types (e.g. \texttt{CharacterVector},
+\texttt{NumericVector}, etc.). Examples might include convenience typedefs,
+as/wrap handlers for marshaling between custom types and SEXP, or types 
+wrapped by the Rcpp \texttt{XPtr} template.
+
+In this case, you can create a header file that contains these type definitions
+(either defined inline or by including other headers) and have this header
+file automatically included in \texttt{RcppExports.cpp}. Headers named with
+the convention \texttt{pkgname\_types} are automatically included along with
+the generated C++ code. For example, if your package is named \pkg{fastcode}
+then any of the following header files would be automatically included in
+\texttt{RcppExports.cpp}:
+
+<<lang=cpp>>=
+src/fastcode_types.h
+src/fastcode_types.hpp
+inst/include/fastcode_types.h
+inst/include/fastcode_types.hpp
+@
+
+There is one other mechanism for type visibility in \texttt{RcppExports.cpp}.
+If your package provides a master include file for consumption by C++ clients
+then this file will also be automatically included. For example, if the 
+\pkg{fastcode} package had a C++ API and the following header file:
+
+<<lang=cpp>>=
+inst/include/fastcode.h
+@
+
+This header file will also automatically be included in 
+\texttt{RcppExports.cpp}. Note that the convention of using \texttt{.h} for
+header files containing C++ code may seem unnatural, but this comes from the
+recommended practices described in `\textsl{Writing R Extensions}' 
+\citep{R:Extensions}.
 
 \subsection{Roxygen Comments}
 
