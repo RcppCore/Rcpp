@@ -1,4 +1,5 @@
 Rcpp-*.bbl
+Rcpp-*.blg
 Rcpp-*.log
 Rcpp-*.tex
 Rcpp-*.pdf
