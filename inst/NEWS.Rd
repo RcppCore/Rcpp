@@ -29,6 +29,8 @@
       \item Version 3.2 of the Rtools is now correctly detected as well.
       \item Allow 'R' to come immediately after '***' for defining embedded R
       code chunks in sourceCpp.
+       \item The attributes vignette has been updated with documentation
+      on new features added over the past several releases.
     }
   }
 }
