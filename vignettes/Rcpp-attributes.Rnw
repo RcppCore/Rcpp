@@ -440,7 +440,11 @@ that code is not included more than once in a source file. You should
 use an include guard and be sure to pick a unique name for the corresponding
 \texttt{\#define}. 
 
-Also note the use of the \code{inline} keyword preceding the function. This isn't necessary for \code{sourceCpp} however if you are working on an R package then it's important to ensure that there are not multiple definitions of functions included from header files. Classes fully defined in header files automatically have inline semantics so don't require this treatment.
+Also note the use of the \code{inline} keyword preceding the function. This
+isn't necessary for \code{sourceCpp} however if you are working on an R package
+then it's important to ensure that there are not multiple definitions of
+functions included from header files. Classes fully defined in header files
+automatically have inline semantics so don't require this treatment.
 
 To use this code in a source file you'd just include
 it based on it's relative path (being sure to use \texttt{"} as the 
