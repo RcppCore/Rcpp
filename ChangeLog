@@ -1,7 +1,12 @@
+2015-02-19  JJ Allaire  <jj@rstudio.org>
+
+        * vignettes/Rcpp-attributes.Rnw: Add note on using inline
+        keyword from shared header files.
+
 2015-02-17  JJ Allaire  <jj@rstudio.org>
 
         * vignettes/Rcpp-attributes.Rnw: Update attributes vignette
-        with docs on new features,
+        with docs on new features.
 
 2015-02-14  JJ Allaire  <jj@rstudio.org>
 
