@@ -19,6 +19,8 @@
     \itemize{
       \item The \code{pkg_types.h} file is now included in \code{RcppExports.cpp}
       if it is present in either the \code{inst/include} or \code{src}. 
+      \item \code{sourceCpp} was modified to allow includes of local files 
+      (e.g. #include "foo.hpp").
       \item The generated attributes code was simplified with respect to
       \code{RNGScope} and now uses \code{RObject} and its destructor rather than \code{SEXP}
       protect/unprotect.
