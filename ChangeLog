@@ -1,3 +1,7 @@
+2015-02-19  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Bump Version: and Date:
+
 2015-02-19  Lionel Henry  <lionel.hry@gmail.com>
 
         * inst/include/Rcpp/Environment.h Allow new_env() to create an
