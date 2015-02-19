@@ -150,4 +150,12 @@ Environment runit_child(){
     return global_env.new_child(false) ;
 }
 
+// [[Rcpp::export]]
+Environment runit_new_env_default() {
+    return Rcpp::new_env();
+}
 
+// [[Rcpp::export]]
+Environment runit_new_env_parent(SEXP env) {
+    return Rcpp::new_env(env);
+}

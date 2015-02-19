@@ -1,3 +1,8 @@
+2015-02-19  Lionel Henry  <lionel.hry@gmail.com>
+
+        * inst/include/Rcpp/Environment.h Allow new_env() to create an
+        environment with a specified parent
+
 2015-02-19  JJ Allaire  <jj@rstudio.org>
 
         * vignettes/Rcpp-attributes.Rnw: Add note on using inline
@@ -13,7 +18,7 @@
         * src/attributes.cpp: Allow includes of local files
         (e.g. #include "foo.hpp") in sourceCpp
         * Rcpp.Rproj: Specify Sweave as Rnw handler for RStudio
-        * vignettes/*.Rnw: Add driver magic comment and turn off 
+        * vignettes/*.Rnw: Add driver magic comment and turn off
         Sweave concordance.
         * vignettes/.gitignore: Ignore artifacts of PDF preview
 

@@ -361,6 +361,15 @@ inline Environment new_env(int size = 29) {
     return R_NewHashedEnv(R_EmptyEnv, sizeSEXP);
 }
 
+inline Environment new_env(SEXP parent, int size = 29) {
+    Shield<SEXP> sizeSEXP(Rf_ScalarInteger(size));
+    Shield<SEXP> parentSEXP(parent);
+    if (!Rf_isEnvironment(parentSEXP)) {
+        stop("parent is not an environment");
+    }
+    return R_NewHashedEnv(parentSEXP, sizeSEXP);
+}
+
 
 } // namespace Rcpp
 

@@ -268,5 +268,10 @@ if (.runThisTest) {
         checkEquals( parent.env(runit_child()), globalenv(), msg = "child environment" )
     }
 
+    test.environment.new_env <- function() {
+        env <- new.env()
+        checkIdentical(parent.env(runit_new_env_default()), emptyenv(), msg = "new environment with default parent")
+        checkIdentical(parent.env(runit_new_env_parent(env)), env, msg = "new environment with specified parent")
+    }
 
 }
