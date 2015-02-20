@@ -26,6 +26,16 @@ using namespace Rcpp ;
 Function function_(SEXP x){ return Function(x) ; }
 
 // [[Rcpp::export]]
+Function function_cons_env(std::string x, SEXP env) {
+    return Function(x, env);
+}
+
+// [[Rcpp::export]]
+Function function_cons_ns(std::string x, std::string ns) {
+    return Function(x, ns);
+}
+
+// [[Rcpp::export]]
 NumericVector function_variadic(Function sort, NumericVector y){
     return sort( y, Named("decreasing", true) ) ;
 }
@@ -66,4 +76,3 @@ Function function_namespace_env(){
     Function fun = ns[".asSparse"] ;  // accesses a non-exported function
     return fun;
 }
-
