@@ -49,14 +49,29 @@ namespace Rcpp{
         }
 
         /**
-         * Finds a function, searching from the global environment
+         * Finds a function. By default, searches from the global environment
          *
          * @param name name of the function
+         * @param env an environment where to search the function
+         * @param ns name of the namespace in which to search the function
          */
         Function_Impl(const std::string& name) {
-            SEXP nameSym = Rf_install( name.c_str() );	// cannot be gc()'ed  once in symbol table
-            Shield<SEXP> x( Rf_findFun( nameSym, R_GlobalEnv ) ) ;
-            Storage::set__(x) ;
+            get_function(name, R_GlobalEnv);
+        }
+
+        Function_Impl(const std::string& name, const SEXP env) {
+            if (!Rf_isEnvironment(env)) {
+                stop("env is not an environment");
+            }
+            get_function(name, env);
+        }
+
+        Function_Impl(const std::string& name, const std::string& ns) {
+            Shield<SEXP> env(Rf_findVarInFrame(R_NamespaceRegistry, Rf_install(ns.c_str())));
+            if (env == R_UnboundValue) {
+                stop("there is no namespace called \"%s\"", ns);
+            }
+            get_function(name, env);
         }
 
         SEXP operator()() const {
@@ -84,6 +99,14 @@ namespace Rcpp{
         }
 
         void update(SEXP){}
+
+
+    private:
+        void get_function(const std::string& name, const SEXP env) {
+            SEXP nameSym = Rf_install( name.c_str() );	// cannot be gc()'ed  once in symbol table
+            Shield<SEXP> x( Rf_findFun( nameSym, env ) ) ;
+            Storage::set__(x) ;
+        }
     };
 
     typedef Function_Impl<PreserveStorage> Function ;
