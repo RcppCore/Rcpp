@@ -27,7 +27,7 @@ if (.runThisTest) {
     test.Function <- function(){
         checkEquals( function_( rnorm ), rnorm, msg = "Function( CLOSXP )" )
         checkEquals( function_( is.function ), is.function, msg = "Pairlist( BUILTINSXP )" )
-        
+
         checkException( function_(1:10), msg = "Function( INTSXP) " )
         checkException( function_(TRUE), msg = "Function( LGLSXP )" )
         checkException( function_(1.3), msg = "Function( REALSXP) " )
@@ -67,5 +67,24 @@ if (.runThisTest) {
         exportedfunc <- function_namespace_env()
         checkEquals( stats:::.asSparse, exportedfunc, msg = "namespace_env(Function)" )
     }
+
+    test.Function.cons.env <- function() {
+        parent_env <- new.env()
+        parent_env$fun_parent <- rbinom
+        child_env <- new.env(parent = parent_env)
+        child_env$fun_child <- rnorm
+
+        checkEquals(rnorm, function_cons_env("fun_child", child_env), msg = "env-lookup constructor")
+        checkEquals(rbinom, function_cons_env("fun_parent", child_env), msg = "env-lookup constructor: search function in parent environments")
+        checkException(function_cons_env("fun_child", parent_env), msg = "env-lookup constructor: fail when function not found")
+    }
+
+    test.Function.cons.ns <- function() {
+        checkEquals(Rcpp::sourceCpp, function_cons_ns("sourceCpp", "Rcpp"), msg = "namespace-lookup constructor")
+        checkException(function_cons_ns("sourceCpp", "Rcppp"), msg = "namespace-lookup constructor: fail when ns does not exist")
+        checkException(function_cons_ns("sourceCppp", "Rcpp"), msg = "namespace-lookup constructor: fail when function not found")
+    }
+
+    # also check function is found in parent env
 
 }
