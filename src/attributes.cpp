@@ -738,9 +738,23 @@ namespace attributes {
             }
         }
         
-        // parse the local includes from the passed lines
-        std::vector<FileInfo> parseLocalIncludes(
-                                        const std::string& sourceFile) {
+        bool addUniqueInclude(Rcpp::CharacterVector include, 
+                              std::vector<FileInfo>* pLocalIncludes) {
+            
+            // return false if we already have this include
+            std::string path = Rcpp::as<std::string>(include);
+            for (size_t i = 0; i<pLocalIncludes->size(); ++i) {
+                if (pLocalIncludes->at(i).path() == path)
+                    return false;
+            }
+            
+            // add it and return true
+            pLocalIncludes->push_back(FileInfo(path));
+            return true;
+        }
+        
+        void parseLocalIncludes(const std::string& sourceFile,
+                                std::vector<FileInfo>* pLocalIncludes) {
             
             // import R functions
             Rcpp::Environment baseEnv = Rcpp::Environment::base_env();
@@ -769,7 +783,7 @@ namespace attributes {
             
             // accumulate local includes (skip commented sections)
             CommentState commentState;
-            std::vector<FileInfo> localIncludes;
+            std::vector<FileInfo> newIncludes;
             for (int i = 0; i<matches.size(); i++) {
                 std::string line = lines[i];
                 commentState.submitLine(line);
@@ -781,34 +795,30 @@ namespace attributes {
                         Rcpp::CharacterVector include = 
                             filepath(sourceDir, std::string(match[1]));
                         // if it exists then normalize and add to our list
-                        if (fileExists(include)) {
+                        LogicalVector exists = fileExists(include);
+                        if (exists[0]) {
                             include = normalizePath(include);
-                            localIncludes.push_back(
-                               FileInfo(Rcpp::as<std::string>(include)));
+                            if (addUniqueInclude(include, pLocalIncludes)) {
+                                newIncludes.push_back(
+                                    FileInfo(Rcpp::as<std::string>(include)));
+                            }
                         }
                     }
                 }
             }
             
-            // look for local includes recursively (make a copy of the local
-            // includes first so we can mutate it during iteration)
-            std::vector<FileInfo> localIncludesCopy = localIncludes;
-            for (size_t i = 0; i<localIncludesCopy.size(); i++) {
-                FileInfo include = localIncludesCopy[i];
-                std::vector<FileInfo> includes = parseLocalIncludes(
-                                                                include.path());
-                std::copy(includes.begin(),
-                          includes.end(),
-                          std::back_inserter(localIncludes));
+            // look for includes recursively
+            for (size_t i = 0; i<newIncludes.size(); i++) {
+                FileInfo include = newIncludes[i];
+                parseLocalIncludes(include.path(), pLocalIncludes);
             }
-            
-            // remove duplicates
-            std::sort(localIncludes.begin(), localIncludes.end());
-            std::vector<FileInfo>::iterator end = 
-                std::unique(localIncludes.begin(), localIncludes.end());
-            localIncludes.erase(end, localIncludes.end());
-            
-            // return includes
+        }
+        
+        // parse the local includes from the passed lines
+        std::vector<FileInfo> parseLocalIncludes(
+                                        const std::string& sourceFile) {
+            std::vector<FileInfo> localIncludes;
+            parseLocalIncludes(sourceFile, &localIncludes);
             return localIncludes;
         }
 
