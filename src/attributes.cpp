@@ -459,7 +459,6 @@ namespace attributes {
         std::string sourceFile_;
         CharacterVector lines_;
         std::vector<Attribute> attributes_;
-        FunctionMap functionMap_ ;
         std::vector<std::string> modules_;
         std::vector<std::string> embeddedR_;
         std::vector<FileInfo> localIncludes_;
@@ -1042,10 +1041,6 @@ namespace attributes {
                     Attribute attr = parseAttribute(
                         Rcpp::as<std::vector<std::string> >(match),  i);
                     attributes_.push_back(attr);
-
-                    if( attr.isExportedFunction() ){
-                        functionMap_.insert(attr.function());
-                    }
                 }
 
                 // if it's not an attribute line then it could still be a
