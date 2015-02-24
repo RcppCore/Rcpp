@@ -418,6 +418,8 @@ code. This has many benefits not the least of which is easy distribution of
 shared code. More information on creating packages that contain C++ code
 is included in the Package Development section below.
 
+\subsubsection{Shared Code in Header Files}
+
 If you need to share a small amount of C++ code between source files 
 compiled with \texttt{sourceCpp} and the option of creating a package
 isn't practical, then you can also share code using local includes of C++
@@ -441,8 +443,7 @@ use an include guard and be sure to pick a unique name for the corresponding
 \texttt{\#define}. 
 
 Also note the use of the \code{inline} keyword preceding the function. This
-isn't necessary for \code{sourceCpp} however if you are working on an R package
-then it's important to ensure that there are not multiple definitions of
+is important to ensure that there are not multiple definitions of
 functions included from header files. Classes fully defined in header files
 automatically have inline semantics so don't require this treatment.
 
@@ -459,10 +460,49 @@ double transformValue(double x) {
 }
 @ 
 
-Note that the processing of Rcpp attributes (e.g. \texttt{export}, 
-\texttt{depends}, etc.) is limited to the main source file so all exported
-functions and dependencies should be defined there rather than in 
-shared header files.
+\subsubsection{Shared Code in C++ Files}
+
+When scanning for locally included header files \code{sourceCpp} also checks
+for a corresponding implementation file and automatically includes it in the
+compilation if it exists.
+
+This enables you to break the shared code entirely into it's own source file.
+In terms of the above example, this would mean having only a function 
+declaration in the header:
+
+<<lang=cpp>>=
+#ifndef __UTILITIES__
+#define __UTILITIES__
+
+double timesTwo(double x);
+
+#endif // __UTILITIES__
+@ 
+
+Then actually defining the function in a separate source file with the 
+same base name as the header file but with a .cpp extension (in the above
+example this would be \code{utilities.cpp}):
+
+<<lang=cpp>>=
+#include "utilities.hpp"
+
+double timesTwo(double x) {
+    return x * 2;
+}
+@ 
+
+It's also possible to use attributes to declare dependencies and exported 
+functions within shared header and source files. This enables you to take
+a source file that is typically used standalone and include it when compiling
+another source file. 
+
+Note that since additional source files are processed as separate translation
+units the total compilation time will increase proportional to the number of
+files processed. From this standpoint it's often preferable to use shared 
+header files with definitions fully inlined as demonstrated above.
+
+Note also that embedded R code is only executed for the main source file not
+those referenced by local includes.
 
 \subsection{Including C++ Inline}
 
