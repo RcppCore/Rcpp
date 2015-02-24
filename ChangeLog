@@ -1,3 +1,8 @@
+2015-02-24  JJ Allaire  <jj@rstudio.org>
+
+        * src/attributes.cpp: Guard against includes referencing themselves
+        (and thus creating an endless loop of include processing).
+        
 2015-02-20  Lionel Henry  <lionel.hry@gmail.com>
 
         * inst/include/Rcpp/Function.h New Function constructors that will
