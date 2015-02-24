@@ -1084,9 +1084,30 @@ namespace attributes {
             // Parse embedded R
             embeddedR_ = parseEmbeddedR(lines_, lines);
             
-            // Recursively parse local includes
-            if (localIncludes)
+            // Recursively parse local includes if requested
+            if (localIncludes) {
+                
+                // get local includes
                 localIncludes_ = parseLocalIncludes(sourceFile);
+                
+                // parse attributes and modules from each local include
+                for (size_t i = 0; i<localIncludes_.size(); i++) {
+                    
+                    // perform parse
+                    std::string include = localIncludes_[i].path();
+                    SourceFileAttributesParser parser(include, false);
+                    
+                    // copy to base attributes
+                    std::copy(parser.begin(), 
+                              parser.end(),
+                              std::back_inserter(attributes_));
+                    
+                    // copy to base modules
+                    std::copy(parser.modules().begin(),
+                              parser.modules().end(),
+                              std::back_inserter(modules_));
+                }
+            }
         }
     }
 
