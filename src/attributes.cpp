@@ -1001,22 +1001,32 @@ namespace attributes {
         return os;
     }
 
-    // Argument operator <<
-    std::ostream& operator<<(std::ostream& os, const Argument& argument) {
+    // Print argument
+    void printArgument(std::ostream& os, 
+                       const Argument& argument, 
+                       bool printDefault = true) {
         if (!argument.empty()) {
             os << argument.type();
             if (!argument.name().empty()) {
                 os << " ";
                 os << argument.name();
-                if (!argument.defaultValue().empty())
+                if (printDefault && !argument.defaultValue().empty())
                     os << " = " << argument.defaultValue();
             }
         }
+    }
+
+    // Argument operator <<
+    std::ostream& operator<<(std::ostream& os, const Argument& argument) {
+        printArgument(os, argument);
         return os;
     }
 
-    // Function operator <<
-    std::ostream& operator<<(std::ostream& os, const Function& function) {
+    // Print function
+    void printFunction(std::ostream& os, 
+                       const Function& function, 
+                       bool printArgDefaults = true) {    
+        
         if (!function.empty()) {
             if (!function.type().empty()) {
                 os << function.type();
@@ -1026,12 +1036,17 @@ namespace attributes {
             os << "(";
             const std::vector<Argument>& arguments = function.arguments();
             for (std::size_t i = 0; i<arguments.size(); i++) {
-                os << arguments[i];
+                printArgument(os, arguments[i], printArgDefaults);
                 if (i != (arguments.size()-1))
                     os << ", ";
             }
             os << ")";
         }
+    }
+
+    // Function operator <<
+    std::ostream& operator<<(std::ostream& os, const Function& function) {
+        printFunction(os, function);
         return os;
     }
 
@@ -2484,7 +2499,8 @@ namespace attributes {
             // include prototype if requested
             if (includePrototype) {
                 ostr << "// " << function.name() << std::endl;
-                ostr << function << ";";
+                printFunction(ostr, function, false);
+                ostr << ";";
             }
 
             // write the C++ callable SEXP-based function (this version
