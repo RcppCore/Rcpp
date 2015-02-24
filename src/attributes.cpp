@@ -375,7 +375,7 @@ namespace attributes {
     class SourceFileAttributesParser : public SourceFileAttributes {
     public:
         explicit SourceFileAttributesParser(const std::string& sourceFile,
-                                            bool localIncludes);
+                                            bool parseDependencies);
 
     private:
         // prohibit copying
@@ -426,9 +426,9 @@ namespace attributes {
             return embeddedR_;
         }
         
-        // Get local includes
-        const std::vector<FileInfo>& localIncludes() const {
-            return localIncludes_;
+        // Get source dependencies
+        const std::vector<FileInfo>& sourceDependencies() const {
+            return sourceDependencies_;
         };
 
     private:
@@ -461,7 +461,7 @@ namespace attributes {
         std::vector<Attribute> attributes_;
         std::vector<std::string> modules_;
         std::vector<std::string> embeddedR_;
-        std::vector<FileInfo> localIncludes_;
+        std::vector<FileInfo> sourceDependencies_;
         std::vector<std::vector<std::string> > roxygenChunks_;
         std::vector<std::string> roxygenBuffer_;
     };
@@ -737,23 +737,23 @@ namespace attributes {
             }
         }
         
-        bool addUniqueInclude(Rcpp::CharacterVector include, 
-                              std::vector<FileInfo>* pLocalIncludes) {
+        bool addUniqueDependency(Rcpp::CharacterVector include, 
+                                 std::vector<FileInfo>* pDependencies) {
             
             // return false if we already have this include
             std::string path = Rcpp::as<std::string>(include);
-            for (size_t i = 0; i<pLocalIncludes->size(); ++i) {
-                if (pLocalIncludes->at(i).path() == path)
+            for (size_t i = 0; i<pDependencies->size(); ++i) {
+                if (pDependencies->at(i).path() == path)
                     return false;
             }
             
             // add it and return true
-            pLocalIncludes->push_back(FileInfo(path));
+            pDependencies->push_back(FileInfo(path));
             return true;
         }
         
-        void parseLocalIncludes(const std::string& sourceFile,
-                                std::vector<FileInfo>* pLocalIncludes) {
+        void parseSourceDependencies(const std::string& sourceFile,
+                                     std::vector<FileInfo>* pDependencies) {
             
             // import R functions
             Rcpp::Environment baseEnv = Rcpp::Environment::base_env();
@@ -782,7 +782,7 @@ namespace attributes {
             
             // accumulate local includes (skip commented sections)
             CommentState commentState;
-            std::vector<FileInfo> newIncludes;
+            std::vector<FileInfo> newDependencies;
             for (int i = 0; i<matches.size(); i++) {
                 std::string line = lines[i];
                 commentState.submitLine(line);
@@ -797,8 +797,8 @@ namespace attributes {
                         LogicalVector exists = fileExists(include);
                         if (exists[0]) {
                             include = normalizePath(include);
-                            if (addUniqueInclude(include, pLocalIncludes)) {
-                                newIncludes.push_back(
+                            if (addUniqueDependency(include, pDependencies)) {
+                                newDependencies.push_back(
                                     FileInfo(Rcpp::as<std::string>(include)));
                             }
                         }
@@ -806,19 +806,19 @@ namespace attributes {
                 }
             }
             
-            // look for includes recursively
-            for (size_t i = 0; i<newIncludes.size(); i++) {
-                FileInfo include = newIncludes[i];
-                parseLocalIncludes(include.path(), pLocalIncludes);
+            // look for dependencies recursively
+            for (size_t i = 0; i<newDependencies.size(); i++) {
+                FileInfo dependency = newDependencies[i];
+                parseSourceDependencies(dependency.path(), pDependencies);
             }
         }
         
-        // parse the local includes from the passed lines
-        std::vector<FileInfo> parseLocalIncludes(
+        // parse the source dependencies from the passed lines
+        std::vector<FileInfo> parseSourceDependencies(
                                         const std::string& sourceFile) {
-            std::vector<FileInfo> localIncludes;
-            parseLocalIncludes(sourceFile, &localIncludes);
-            return localIncludes;
+            std::vector<FileInfo> dependencies;
+            parseSourceDependencies(sourceFile, &dependencies);
+            return dependencies;
         }
 
         // Parse embedded R code chunks from a file (receives the lines of the
@@ -993,7 +993,7 @@ namespace attributes {
     // Parse the attributes from a source file
     SourceFileAttributesParser::SourceFileAttributesParser(
                                              const std::string& sourceFile,
-                                             bool localIncludes)
+                                             bool parseDependencies)
         : sourceFile_(sourceFile)
     {
         // First read the entire file into a std::stringstream so we can check
@@ -1084,18 +1084,18 @@ namespace attributes {
             // Parse embedded R
             embeddedR_ = parseEmbeddedR(lines_, lines);
             
-            // Recursively parse local includes if requested
-            if (localIncludes) {
+            // Recursively parse dependencies if requested
+            if (parseDependencies) {
                 
                 // get local includes
-                localIncludes_ = parseLocalIncludes(sourceFile);
+                sourceDependencies_ = parseSourceDependencies(sourceFile);
                 
                 // parse attributes and modules from each local include
-                for (size_t i = 0; i<localIncludes_.size(); i++) {
+                for (size_t i = 0; i<sourceDependencies_.size(); i++) {
                     
                     // perform parse
-                    std::string include = localIncludes_[i].path();
-                    SourceFileAttributesParser parser(include, false);
+                    std::string dependency = sourceDependencies_[i].path();
+                    SourceFileAttributesParser parser(dependency, false);
                     
                     // copy to base attributes
                     std::copy(parser.begin(), 
@@ -2730,10 +2730,10 @@ namespace {
             if (!FileInfo(dynlibPath()).exists())
                 return true;
 
-            // variation in local includes means we're dirty
-            std::vector<FileInfo> localIncludes = parseLocalIncludes(
+            // variation in source dependencies means we're dirty
+            std::vector<FileInfo> sourceDependencies = parseSourceDependencies(
                                                             cppSourcePath_);
-            if (localIncludes != localIncludes_)
+            if (sourceDependencies != sourceDependencies_)
                 return true;
         
             // not dirty
@@ -2814,8 +2814,8 @@ namespace {
             // capture embededded R
             embeddedR_ = sourceAttributes.embeddedR();
             
-            // capture local includes
-            localIncludes_ = sourceAttributes.localIncludes();
+            // capture source dependencies
+            sourceDependencies_ = sourceAttributes.sourceDependencies();
         }
 
         const std::string& contextId() const {
@@ -2945,7 +2945,7 @@ namespace {
         std::vector<std::string> depends_;
         std::vector<std::string> plugins_;
         std::vector<std::string> embeddedR_;
-        std::vector<FileInfo> localIncludes_;
+        std::vector<FileInfo> sourceDependencies_;
     };
 
     // Dynlib cache that allows lookup by either file path or code contents
