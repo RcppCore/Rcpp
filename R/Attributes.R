@@ -114,7 +114,10 @@ sourceCpp <- function(file = "",
                      "-o ", shQuote(context$dynlibFilename), " ",
                      ifelse(rebuild, "--preclean ", ""),
                      ifelse(dryRun, "--dry-run ", ""),
-                     shQuote(context$cppSourceFilename), sep="")
+                     paste(shQuote(context$cppDependencySourcePaths), 
+                           collapse = " "), " ",
+                     shQuote(context$cppSourceFilename), " ", 
+                     sep="")
         if (showOutput)
             cat(cmd, "\n")
 
