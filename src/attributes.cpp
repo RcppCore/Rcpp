@@ -304,18 +304,6 @@ namespace attributes {
         std::vector<std::string> roxygen_;
     };
 
-    class FunctionMap {
-        std::map< std::string, std::vector<Function> > map_ ;
-
-    public:
-        FunctionMap(){};
-        ~FunctionMap(){} ;
-
-        void insert( const Function& fun ){
-            map_[ fun.name() ].push_back( fun ) ;
-        }
-    } ;
-
     // Operator << for parsed types
     std::ostream& operator<<(std::ostream& os, const Type& type);
     std::ostream& operator<<(std::ostream& os, const Argument& argument);
