@@ -4,7 +4,7 @@
         (and thus creating an endless loop of include processing); Process
         attributes in included files; Automatically build implementation files
         (*.cc; *.cpp) corresponding to local header files if they exist.
-        
+
 2015-02-20  Lionel Henry  <lionel.hry@gmail.com>
 
         * inst/include/Rcpp/Function.h New Function constructors that will
