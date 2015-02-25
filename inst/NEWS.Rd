@@ -20,7 +20,8 @@
       \item The \code{pkg_types.h} file is now included in \code{RcppExports.cpp}
       if it is present in either the \code{inst/include} or \code{src}. 
       \item \code{sourceCpp} was modified to allow includes of local files 
-      (e.g. #include "foo.hpp").
+      (e.g. #include "foo.hpp"). Implementation files (*.cc; *.cpp) corresponding
+      to local includes are also automatically built if they exist.
       \item The generated attributes code was simplified with respect to
       \code{RNGScope} and now uses \code{RObject} and its destructor rather than \code{SEXP}
       protect/unprotect.
