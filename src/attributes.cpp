@@ -54,6 +54,14 @@ namespace attributes {
         bool exists() const { return exists_; }
         time_t lastModified() const { return lastModified_; }
         
+        std::string extension() const {
+            std::string::size_type pos = path_.find_last_of('.');
+            if (pos != std::string::npos)
+                return path_.substr(pos);
+            else
+                return "";
+        }
+        
         bool operator<(const FileInfo& other) const {
             return path_ < other.path_;
         };
@@ -143,7 +151,17 @@ namespace attributes {
         {
         }
         bool empty() const { return name().empty(); }
-
+        
+        bool operator==(const Type& other) const {
+            return name_ == other.name_ &&
+                   isConst_ == other.isConst_ &&
+                   isReference_ == other.isReference_;
+        };
+        
+        bool operator!=(const Type& other) const {
+            return !(*this == other);
+        };
+        
         const std::string& name() const { return name_; }
         std::string full_name() const {
             std::string res ;
@@ -175,6 +193,17 @@ namespace attributes {
         }
 
         bool empty() const { return type().empty(); }
+        
+        bool operator==(const Argument& other) const {
+            return name_ == other.name_ &&
+                   type_ == other.type_ &&
+                   defaultValue_ == other.defaultValue_;
+        };
+        
+        bool operator!=(const Argument& other) const {
+            return !(*this == other);
+        };
+        
 
         const std::string& name() const { return name_; }
         const Type& type() const { return type_; }
@@ -192,14 +221,13 @@ namespace attributes {
         Function() {}
         Function(const Type& type,
                  const std::string& name,
-                 const std::vector<Argument>& arguments,
-                 const std::string& source)
-            : type_(type), name_(name), arguments_(arguments), source_(source)
+                 const std::vector<Argument>& arguments)
+            : type_(type), name_(name), arguments_(arguments)
         {
         }
 
         Function renamedTo(const std::string& name) const {
-            return Function(type(), name, arguments(), source());
+            return Function(type(), name, arguments());
         }
 
         std::string signature() const { return signature(name()); }
@@ -210,17 +238,25 @@ namespace attributes {
         }
 
         bool empty() const { return name().empty(); }
+        
+        bool operator==(const Function& other) const {
+            return type_ == other.type_ &&
+                   name_ == other.name_ &&
+                   arguments_ == other.arguments_;
+        };
+        
+        bool operator!=(const Function& other) const {
+            return !(*this == other);
+        };
 
         const Type& type() const { return type_; }
         const std::string& name() const { return name_; }
         const std::vector<Argument>& arguments() const { return arguments_; }
-        const std::string& source() const { return source_; }
-
+      
     private:
         Type type_;
         std::string name_;
         std::vector<Argument> arguments_;
-        std::string source_;
     };
 
     // Attribute parameter (with optional value)
@@ -229,6 +265,16 @@ namespace attributes {
         Param() {}
         explicit Param(const std::string& paramText);
         bool empty() const { return name().empty(); }
+        
+        bool operator==(const Param& other) const {
+            return name_ == other.name_ &&
+                   value_ == other.value_;
+        };
+        
+        bool operator!=(const Param& other) const {
+            return !(*this == other);
+        };
+        
 
         const std::string& name() const { return name_; }
         const std::string& value() const { return value_; }
@@ -251,6 +297,18 @@ namespace attributes {
         }
 
         bool empty() const { return name().empty(); }
+        
+        bool operator==(const Attribute& other) const {
+            return name_ == other.name_ &&
+                   params_ == other.params_ &&
+                   function_ == other.function_ &&
+                   roxygen_ == other.roxygen_;
+        };
+        
+        bool operator!=(const Attribute& other) const {
+            return !(*this == other);
+        };
+        
 
         const std::string& name() const { return name_; }
 
@@ -749,6 +807,9 @@ namespace attributes {
             Rcpp::Function filepath = baseEnv["file.path"];
             Rcpp::Function normalizePath = baseEnv["normalizePath"];
             Rcpp::Function fileExists = baseEnv["file.exists"];
+            Rcpp::Environment toolsEnv = Rcpp::Environment::namespace_env(
+                                                                    "tools");
+            Rcpp::Function filePathSansExt = toolsEnv["file_path_sans_ext"];
             
             // get the path to the source file's directory
             Rcpp::CharacterVector sourceDir = dirname(sourceFile);
@@ -789,6 +850,25 @@ namespace attributes {
                                 newDependencies.push_back(
                                     FileInfo(Rcpp::as<std::string>(include)));
                             }
+                            
+                            std::vector<std::string> exts;
+                            exts.push_back(".cc");
+                            exts.push_back(".cpp");
+                            for (size_t i = 0; i<exts.size(); ++i) {
+                                
+                                // look for corresponding cpp file and add it
+                                std::string file = Rcpp::as<std::string>(
+                                    filePathSansExt(include)) + exts[i];
+                                
+                                exists = fileExists(file);
+                                if (exists[0]) {
+                                    if (addUniqueDependency(file, 
+                                                            pDependencies)) {
+                                        FileInfo fileInfo(file);
+                                        newDependencies.push_back(fileInfo);
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -804,8 +884,17 @@ namespace attributes {
         // parse the source dependencies from the passed lines
         std::vector<FileInfo> parseSourceDependencies(
                                         const std::string& sourceFile) {
+            
+            // parse dependencies
             std::vector<FileInfo> dependencies;
             parseSourceDependencies(sourceFile, &dependencies);
+            
+            // remove main source file
+            dependencies.erase(std::remove(dependencies.begin(), 
+                                           dependencies.end(), 
+                                           FileInfo(sourceFile)), 
+                               dependencies.end()); 
+            
             return dependencies;
         }
 
@@ -912,22 +1001,32 @@ namespace attributes {
         return os;
     }
 
-    // Argument operator <<
-    std::ostream& operator<<(std::ostream& os, const Argument& argument) {
+    // Print argument
+    void printArgument(std::ostream& os, 
+                       const Argument& argument, 
+                       bool printDefault = true) {
         if (!argument.empty()) {
             os << argument.type();
             if (!argument.name().empty()) {
                 os << " ";
                 os << argument.name();
-                if (!argument.defaultValue().empty())
+                if (printDefault && !argument.defaultValue().empty())
                     os << " = " << argument.defaultValue();
             }
         }
+    }
+
+    // Argument operator <<
+    std::ostream& operator<<(std::ostream& os, const Argument& argument) {
+        printArgument(os, argument);
         return os;
     }
 
-    // Function operator <<
-    std::ostream& operator<<(std::ostream& os, const Function& function) {
+    // Print function
+    void printFunction(std::ostream& os, 
+                       const Function& function, 
+                       bool printArgDefaults = true) {    
+        
         if (!function.empty()) {
             if (!function.type().empty()) {
                 os << function.type();
@@ -937,12 +1036,17 @@ namespace attributes {
             os << "(";
             const std::vector<Argument>& arguments = function.arguments();
             for (std::size_t i = 0; i<arguments.size(); i++) {
-                os << arguments[i];
+                printArgument(os, arguments[i], printArgDefaults);
                 if (i != (arguments.size()-1))
                     os << ", ";
             }
             os << ")";
         }
+    }
+
+    // Function operator <<
+    std::ostream& operator<<(std::ostream& os, const Function& function) {
+        printFunction(os, function);
         return os;
     }
 
@@ -1075,21 +1179,26 @@ namespace attributes {
             // Recursively parse dependencies if requested
             if (parseDependencies) {
                 
-                // get local includes
+                // get source dependencies
                 sourceDependencies_ = parseSourceDependencies(sourceFile);
                 
-                // parse attributes and modules from each local include
+                // parse attributes and modules from each dependent file
                 for (size_t i = 0; i<sourceDependencies_.size(); i++) {
                     
                     // perform parse
                     std::string dependency = sourceDependencies_[i].path();
                     SourceFileAttributesParser parser(dependency, false);
                     
-                    // copy to base attributes
-                    std::copy(parser.begin(), 
-                              parser.end(),
-                              std::back_inserter(attributes_));
-                    
+                    // copy to base attributes (if it's a new attribute)
+                    for (SourceFileAttributesParser::const_iterator 
+                            it = parser.begin(); it != parser.end(); ++it) {
+                        if (std::find(attributes_.begin(),
+                                      attributes_.end(),
+                                      *it) == attributes_.end()) {
+                            attributes_.push_back(*it);
+                        }
+                    }
+                   
                     // copy to base modules
                     std::copy(parser.modules().begin(),
                               parser.modules().end(),
@@ -1339,7 +1448,7 @@ namespace attributes {
             arguments.push_back(Argument(name, type, defaultValue));
         }
 
-        return Function(type, name, arguments, signature);
+        return Function(type, name, arguments);
     }
 
 
@@ -2390,7 +2499,8 @@ namespace attributes {
             // include prototype if requested
             if (includePrototype) {
                 ostr << "// " << function.name() << std::endl;
-                ostr << function << ";";
+                printFunction(ostr, function, false);
+                ostr << ";";
             }
 
             // write the C++ callable SEXP-based function (this version
@@ -2746,7 +2856,7 @@ namespace {
             // always include Rcpp.h in case the user didn't
             ostr << std::endl << std::endl;
             ostr << "#include <Rcpp.h>" << std::endl;
-            generateCpp(ostr, sourceAttributes, false, false, contextId_);
+            generateCpp(ostr, sourceAttributes, true, false, contextId_);
             generatedCpp_ = ostr.str();
             std::ofstream cppOfs(generatedCppSourcePath().c_str(),
                                  std::ofstream::out | std::ofstream::app);
@@ -2812,6 +2922,17 @@ namespace {
 
         const std::string& cppSourcePath() const {
             return cppSourcePath_;
+        }
+        
+        const std::vector<std::string> cppDependencySourcePaths() {
+            std::vector<std::string> dependencies;
+            for (size_t i = 0; i<sourceDependencies_.size(); ++i) {
+                FileInfo dep = sourceDependencies_[i];
+                if (dep.extension() == ".cc" || dep.extension() == ".cpp") {
+                    dependencies.push_back(dep.path());
+                }
+            }
+            return dependencies;
         }
 
         std::string buildDirectory() const {
@@ -3044,6 +3165,7 @@ BEGIN_RCPP
     return List::create(
         _["contextId"] = pDynlib->contextId(),
         _["cppSourcePath"] = pDynlib->cppSourcePath(),
+        _["cppDependencySourcePaths"] = pDynlib->cppDependencySourcePaths(),
         _["buildRequired"] = buildRequired,
         _["buildDirectory"] = pDynlib->buildDirectory(),
         _["generatedCpp"] = pDynlib->generatedCpp(),
