@@ -1,3 +1,10 @@
+2015-02-25  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/routines.h: Use the 'attribute_hidden' define from
+        the R header R_ext/Visibility.h to protect symbols (cf #264)
+
+        * inst/include/RcppCommon.h: Also include R_ext/Visibility.h
+
 2015-02-24  JJ Allaire  <jj@rstudio.org>
 
         * src/attributes.cpp: Guard against includes referencing themselves
