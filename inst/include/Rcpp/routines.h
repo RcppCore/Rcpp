@@ -1,4 +1,7 @@
-// Copyright (C) 2013 Romain Francois
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
+//
+// Copyright (C) 2013  Romain Francois
+// Copyright (C) 2015  Dirk Eddelbuettel
 //
 // This file is part of Rcpp.
 //
@@ -23,39 +26,39 @@
 // the idea is that this file should be generated automatically by Rcpp::register
 
 namespace Rcpp{
-    const char* type2name(SEXP x) ;
+    const char* type2name(SEXP x);
 
     namespace internal{
         unsigned long enterRNGScope();
-        unsigned long exitRNGScope() ;
-        char* get_string_buffer() ;
-        SEXP get_Rcpp_namespace() ;
+        unsigned long exitRNGScope();
+        char* get_string_buffer();
+        SEXP get_Rcpp_namespace();
     }
-    double mktime00(struct tm &) ;
-    struct tm * gmtime_(const time_t * const) ;
+    double mktime00(struct tm &);
+    struct tm * gmtime_(const time_t * const);
 }
 
-SEXP rcpp_get_stack_trace() ;
-SEXP rcpp_set_stack_trace(SEXP) ;
-std::string demangle( const std::string& name) ;
-const char* short_file_name(const char* ) ;
-int* get_cache( int n ) ;
-SEXP stack_trace( const char *file, int line) ;
+SEXP rcpp_get_stack_trace();
+SEXP rcpp_set_stack_trace(SEXP);
+std::string demangle( const std::string& name);
+const char* short_file_name(const char* );
+int* get_cache( int n );
+SEXP stack_trace( const char *file, int line);
 SEXP get_string_elt(SEXP s, int i);
-const char* char_get_string_elt(SEXP s, int i) ;
+const char* char_get_string_elt(SEXP s, int i);
 void set_string_elt(SEXP s, int i, SEXP v);
 void char_set_string_elt(SEXP s, int i, const char* v);
-SEXP* get_string_ptr(SEXP s) ;
-SEXP get_vector_elt(SEXP v, int i) ;
+SEXP* get_string_ptr(SEXP s);
+SEXP get_vector_elt(SEXP v, int i);
 void set_vector_elt(SEXP v, int i, SEXP x);
 SEXP* get_vector_ptr(SEXP v);
-const char* char_nocheck( SEXP x) ;
-void* dataptr(SEXP x) ;
-Rcpp::Module* getCurrentScope() ;
-void setCurrentScope( Rcpp::Module* mod ) ;
-SEXP reset_current_error() ;
-int error_occured() ;
-SEXP rcpp_get_current_error() ;
+const char* char_nocheck( SEXP x);
+void* dataptr(SEXP x);
+Rcpp::Module* getCurrentScope();
+void setCurrentScope( Rcpp::Module* mod );
+SEXP reset_current_error();
+int error_occured();
+SEXP rcpp_get_current_error();
 
 #else
 namespace Rcpp {
@@ -63,33 +66,33 @@ namespace Rcpp {
     #define GET_CALLABLE(__FUN__) (Fun) R_GetCCallable( "Rcpp", __FUN__ )
 
     inline const char* type2name(SEXP x){
-        typedef const char* (*Fun)(SEXP) ;
-        static Fun fun = GET_CALLABLE("type2name") ;
-        return fun(x) ;
+        typedef const char* (*Fun)(SEXP);
+        static Fun fun = GET_CALLABLE("type2name");
+        return fun(x);
     }
 
     namespace internal{
         inline unsigned long enterRNGScope(){
-            typedef unsigned long (*Fun)(void) ;
-            static Fun fun = GET_CALLABLE("enterRNGScope") ;
-            return fun() ;
+            typedef unsigned long (*Fun)(void);
+            static Fun fun = GET_CALLABLE("enterRNGScope");
+            return fun();
         }
 
         inline unsigned long exitRNGScope(){
-            typedef unsigned long (*Fun)(void) ;
-            static Fun fun = GET_CALLABLE("exitRNGScope") ;
-            return fun() ;
+            typedef unsigned long (*Fun)(void);
+            static Fun fun = GET_CALLABLE("exitRNGScope");
+            return fun();
         }
 
         inline char* get_string_buffer(){
-            typedef char* (*Fun)(void) ;
-            static Fun fun = GET_CALLABLE("get_string_buffer") ;
+            typedef char* (*Fun)(void);
+            static Fun fun = GET_CALLABLE("get_string_buffer");
             return fun();
         }
 
         inline SEXP get_Rcpp_namespace() {
-            typedef SEXP (*Fun)(void) ;
-            static Fun fun = GET_CALLABLE("get_Rcpp_namespace") ;
+            typedef SEXP (*Fun)(void);
+            static Fun fun = GET_CALLABLE("get_Rcpp_namespace");
             return fun();
         }
 
@@ -97,15 +100,15 @@ namespace Rcpp {
 
 
     inline double mktime00(struct tm &tm){
-        typedef double (*Fun)(struct tm&) ;
-        static Fun fun = GET_CALLABLE("mktime00") ;
+        typedef double (*Fun)(struct tm&);
+        static Fun fun = GET_CALLABLE("mktime00");
         return fun(tm);
     }
 
     inline struct tm * gmtime_(const time_t * const x){
         typedef struct tm* (*Fun)(const time_t* const);
-        static Fun fun =  GET_CALLABLE("gmtime_") ;
-        return fun(x) ;
+        static Fun fun =  GET_CALLABLE("gmtime_");
+        return fun(x);
     }
 
 }
@@ -115,127 +118,127 @@ namespace Rcpp {
 // by the compiler and otherwise '__attribute__ ((visibility ("hidden")))'
 
 inline attribute_hidden SEXP rcpp_get_stack_trace(){
-    typedef SEXP (*Fun)(void) ;
-    static Fun fun = GET_CALLABLE("rcpp_get_stack_trace") ;
-    return fun() ;
+    typedef SEXP (*Fun)(void);
+    static Fun fun = GET_CALLABLE("rcpp_get_stack_trace");
+    return fun();
 }
 
 inline attribute_hidden SEXP rcpp_set_stack_trace(SEXP e){
-    typedef SEXP (*Fun)(SEXP) ;
-    static Fun fun =  GET_CALLABLE("rcpp_set_stack_trace") ;
-    return fun(e) ;
+    typedef SEXP (*Fun)(SEXP);
+    static Fun fun =  GET_CALLABLE("rcpp_set_stack_trace");
+    return fun(e);
 }
 
 inline attribute_hidden std::string demangle( const std::string& name){
-    typedef std::string (*Fun)( const std::string& ) ;
-    static Fun fun = GET_CALLABLE("demangle") ;
-    return fun(name) ;
+    typedef std::string (*Fun)( const std::string& );
+    static Fun fun = GET_CALLABLE("demangle");
+    return fun(name);
 }
 
 inline attribute_hidden const char* short_file_name(const char* file) {
-    typedef const char* (*Fun)(const char*) ;
-    static Fun fun = GET_CALLABLE("short_file_name") ;
-    return fun(file) ;
+    typedef const char* (*Fun)(const char*);
+    static Fun fun = GET_CALLABLE("short_file_name");
+    return fun(file);
 }
 inline attribute_hidden SEXP stack_trace( const char *file, int line){
-    typedef SEXP (*Fun)(const char*, int) ;
-    static Fun fun = GET_CALLABLE("stack_trace") ;
-    return fun(file, line) ;
+    typedef SEXP (*Fun)(const char*, int);
+    static Fun fun = GET_CALLABLE("stack_trace");
+    return fun(file, line);
 }
 
 inline attribute_hidden SEXP get_string_elt(SEXP s, int i){
-    typedef SEXP (*Fun)(SEXP, int) ;
-    static Fun fun = GET_CALLABLE("get_string_elt") ;
-    return fun(s, i) ;
+    typedef SEXP (*Fun)(SEXP, int);
+    static Fun fun = GET_CALLABLE("get_string_elt");
+    return fun(s, i);
 }
 
 inline attribute_hidden const char* char_get_string_elt(SEXP s, int i){
-    typedef const char* (*Fun)(SEXP, int) ;
-    static Fun fun = GET_CALLABLE("char_get_string_elt") ;
+    typedef const char* (*Fun)(SEXP, int);
+    static Fun fun = GET_CALLABLE("char_get_string_elt");
     return fun(s, i);
 }
 
 inline attribute_hidden void set_string_elt(SEXP s, int i, SEXP v){
-    typedef void (*Fun)(SEXP,int,SEXP) ;
-    static Fun fun = GET_CALLABLE("set_string_elt") ;
-    fun(s, i, v) ;
+    typedef void (*Fun)(SEXP,int,SEXP);
+    static Fun fun = GET_CALLABLE("set_string_elt");
+    fun(s, i, v);
 }
 
 inline attribute_hidden void char_set_string_elt(SEXP s, int i, const char* v){
-    typedef void (*Fun)(SEXP,int, const char*) ;
-    static Fun fun = GET_CALLABLE("char_set_string_elt") ;
-    fun(s, i, v ) ;
+    typedef void (*Fun)(SEXP,int, const char*);
+    static Fun fun = GET_CALLABLE("char_set_string_elt");
+    fun(s, i, v );
 }
 
 inline attribute_hidden SEXP* get_string_ptr(SEXP s){
-    typedef SEXP* (*Fun)(SEXP) ;
-    static Fun fun = GET_CALLABLE("get_string_ptr") ;
-    return fun(s) ;
+    typedef SEXP* (*Fun)(SEXP);
+    static Fun fun = GET_CALLABLE("get_string_ptr");
+    return fun(s);
 }
 
 inline attribute_hidden SEXP get_vector_elt(SEXP v, int i){
     typedef SEXP (*Fun)(SEXP, int );
-    static Fun fun = GET_CALLABLE("get_vector_elt") ;
-    return fun(v, i) ;
+    static Fun fun = GET_CALLABLE("get_vector_elt");
+    return fun(v, i);
 }
 
 inline attribute_hidden void set_vector_elt(SEXP v, int i, SEXP x){
-    typedef void (*Fun)(SEXP, int, SEXP) ;
-    static Fun fun = GET_CALLABLE("set_vector_elt") ;
-    fun(v, i, x) ;
+    typedef void (*Fun)(SEXP, int, SEXP);
+    static Fun fun = GET_CALLABLE("set_vector_elt");
+    fun(v, i, x);
 }
 
 inline attribute_hidden SEXP* get_vector_ptr(SEXP v){
-    typedef SEXP* (*Fun)(SEXP) ;
-    static Fun fun = GET_CALLABLE("get_vector_ptr") ;
-    return fun(v) ;
+    typedef SEXP* (*Fun)(SEXP);
+    static Fun fun = GET_CALLABLE("get_vector_ptr");
+    return fun(v);
 }
 
 inline attribute_hidden const char* char_nocheck( SEXP x){
-    typedef const char* (*Fun)(SEXP) ;
-    static Fun fun = GET_CALLABLE("char_nocheck") ;
-    return fun(x) ;
+    typedef const char* (*Fun)(SEXP);
+    static Fun fun = GET_CALLABLE("char_nocheck");
+    return fun(x);
 }
 
 inline attribute_hidden void* dataptr(SEXP x){
-    typedef void* (*Fun)(SEXP) ;
-    static Fun fun = GET_CALLABLE("dataptr") ;
-    return fun(x) ;
+    typedef void* (*Fun)(SEXP);
+    static Fun fun = GET_CALLABLE("dataptr");
+    return fun(x);
 }
 
 inline attribute_hidden Rcpp::Module* getCurrentScope(){
-    typedef Rcpp::Module* (*Fun)(void) ;
-    static Fun fun = GET_CALLABLE("getCurrentScope") ;
+    typedef Rcpp::Module* (*Fun)(void);
+    static Fun fun = GET_CALLABLE("getCurrentScope");
     return fun();
 }
 
 inline attribute_hidden void setCurrentScope( Rcpp::Module* mod ){
-    typedef void (*Fun)(Rcpp::Module*) ;
-    static Fun fun = GET_CALLABLE("setCurrentScope") ;
-    fun(mod) ;
+    typedef void (*Fun)(Rcpp::Module*);
+    static Fun fun = GET_CALLABLE("setCurrentScope");
+    fun(mod);
 }
 
 inline attribute_hidden int* get_cache( int n ){
-    typedef int* (*Fun)(int) ;
-    static Fun fun = GET_CALLABLE("get_cache") ;
-    return fun(n) ;
+    typedef int* (*Fun)(int);
+    static Fun fun = GET_CALLABLE("get_cache");
+    return fun(n);
 }
 
 inline attribute_hidden SEXP reset_current_error(){
-    typedef SEXP (*Fun)(void) ;
-    static Fun fun = GET_CALLABLE("reset_current_error") ;
-    return fun() ;
+    typedef SEXP (*Fun)(void);
+    static Fun fun = GET_CALLABLE("reset_current_error");
+    return fun();
 }
 
 inline attribute_hidden int error_occured(){
-    typedef int (*Fun)(void) ;
-    static Fun fun = GET_CALLABLE("error_occured") ;
-    return fun() ;
+    typedef int (*Fun)(void);
+    static Fun fun = GET_CALLABLE("error_occured");
+    return fun();
 }
 inline attribute_hidden SEXP rcpp_get_current_error(){
-    typedef SEXP (*Fun)(void) ;
-    static Fun fun = GET_CALLABLE("rcpp_get_current_error") ;
-    return fun() ;
+    typedef SEXP (*Fun)(void);
+    static Fun fun = GET_CALLABLE("rcpp_get_current_error");
+    return fun();
 }
 #endif
 
