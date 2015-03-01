@@ -1,3 +1,9 @@
+2015-03-01  Dirk Eddelbuettel  <edd@debian.org>
+
+        * src/api.cpp: New function print() as a wrapper around Rf_PrintValue()
+        * src/Rcpp_init.cpp: Corresponding registration for print()
+        * inst/include/Rcpp/routines.h: Corresponding initialization
+
 2015-02-25  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/routines.h: Use the 'attribute_hidden' define from
