@@ -3,7 +3,7 @@
 //
 // api.cpp: Rcpp R/C++ interface class library -- Rcpp api
 //
-// Copyright (C) 2012 - 2014  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2015  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -56,7 +56,7 @@ using namespace Rcpp ;
 
 namespace Rcpp {
 
-    namespace internal{
+    namespace internal {
         namespace {
             unsigned long RNGScopeCounter = 0;
         }
@@ -294,8 +294,14 @@ SEXP stack_trace( const char* file, int line ){
             return trace ;
         #endif
     #else /* !defined( __GNUC__ ) */
-	    return R_NilValue ;
-	#endif
+        return R_NilValue ;
+    #endif
 }
+
+// [[Rcpp::register]]
+void print(SEXP s) {
+    Rf_PrintValue(s);           // defined in Rinternals.h
+}
+
 // }}}
 

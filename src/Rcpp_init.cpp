@@ -1,8 +1,8 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // Rcpp_init.cpp : Rcpp R/C++ interface class library -- Initialize and register
 //
-// Copyright (C) 2010 - 2013 John Chambers, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2015  John Chambers, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -116,6 +116,7 @@ void registerFunctions(){
     RCPP_REGISTER(reset_current_error)
     RCPP_REGISTER(error_occured)
     RCPP_REGISTER(rcpp_get_current_error)
+    RCPP_REGISTER(print)
     #undef RCPP_REGISTER
 }
 
