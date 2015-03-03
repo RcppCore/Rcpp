@@ -116,7 +116,7 @@ void registerFunctions(){
     RCPP_REGISTER(reset_current_error)
     RCPP_REGISTER(error_occured)
     RCPP_REGISTER(rcpp_get_current_error)
-    RCPP_REGISTER(print)
+    // RCPP_REGISTER(print)
     #undef RCPP_REGISTER
 }
 

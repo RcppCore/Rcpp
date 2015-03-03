@@ -298,10 +298,10 @@ SEXP stack_trace( const char* file, int line ){
     #endif
 }
 
-// [[Rcpp::register]]
-void print(SEXP s) {
-    Rf_PrintValue(s);           // defined in Rinternals.h
-}
+// // [ [ Rcpp::register ] ]
+// void print(SEXP s) {
+//     Rf_PrintValue(s);           // defined in Rinternals.h
+// }
 
 // }}}
 
