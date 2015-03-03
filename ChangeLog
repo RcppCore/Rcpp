@@ -1,5 +1,8 @@
 2015-03-02  Dirk Eddelbuettel  <edd@debian.org>
 
+        * inst/include/Rcpp/print.h (Rcpp): New inline function Rcpp::print()
+        * inst/include/RcppCommon.h: Include new header
+
         * src/api.cpp: Commented-out print() in global namespace
         * src/Rcpp_init.cpp: Commented-out registration of print()
         * inst/include/Rcpp/routines.h: Commented-out initialization
