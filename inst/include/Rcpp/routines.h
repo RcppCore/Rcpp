@@ -59,7 +59,7 @@ void          setCurrentScope( Rcpp::Module* mod );
 SEXP          reset_current_error();
 int           error_occured();
 SEXP          rcpp_get_current_error();
-void          print(SEXP s);
+// void          print(SEXP s);
 
 #else
 
@@ -245,11 +245,11 @@ inline attribute_hidden SEXP rcpp_get_current_error(){
     return fun();
 }
 
-inline attribute_hidden void print(SEXP s) {
-    typedef void (*Fun)(SEXP);
-    static Fun fun = GET_CALLABLE("print");
-    fun(s);
-}
+// inline attribute_hidden void print(SEXP s) {
+//     typedef void (*Fun)(SEXP);
+//     static Fun fun = GET_CALLABLE("print");
+//     fun(s);
+// }
 
 #endif
 
