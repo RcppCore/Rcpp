@@ -14,26 +14,38 @@
       exception rather than crash) when a NULL external pointer is dereferenced.
       \item R code is evaluated within an \code{R_toplevelExec} block to prevent
       user interrupts from bypassing C++ destructors on the stack.
-      \item A new inline header function \code{print} function was added as a
-      wrapper around \code{Rf_PrintValue}. 
+      \item The \code{Rcpp::Environment} constructor can now use a supplied
+      parent environment.
+      \item The \code{Rcpp::Function} constructor can now use a supplied
+      environment or namespace. 
+      \item The \code{attributes_hidden} macro from R is used to shield internal
+      functions; the \code{R_ext/Visibility.h} header is now included as well.
+      \item A \code{Rcpp::print} function was added as a wrapper around \code{Rf_PrintValue}. 
     }
     \item Changes in Rcpp Attributes:
     \itemize{
       \item The \code{pkg_types.h} file is now included in \code{RcppExports.cpp}
       if it is present in either the \code{inst/include} or \code{src}. 
       \item \code{sourceCpp} was modified to allow includes of local files 
-      (e.g. #include "foo.hpp"). Implementation files (*.cc; *.cpp) corresponding
+      (e.g. \code{#include "foo.hpp"}). Implementation files (*.cc; *.cpp) corresponding
       to local includes are also automatically built if they exist.
       \item The generated attributes code was simplified with respect to
       \code{RNGScope} and now uses \code{RObject} and its destructor rather than \code{SEXP}
       protect/unprotect.
       \item Support addition of the \code{rng} parameter in \code{Rcpp::export}
-      to suppress the otherwise automatic inclusion of \code{RNGScope} in generated code.
+      to suppress the otherwise automatic inclusion of \code{RNGScope} in
+      generated code.
+      \item Attributes code was made more robust and can e.g. no longer recurse.
       \item Version 3.2 of the Rtools is now correctly detected as well.
       \item Allow 'R' to come immediately after '***' for defining embedded R
       code chunks in sourceCpp.
-       \item The attributes vignette has been updated with documentation
+      \item The attributes vignette has been updated with documentation
       on new features added over the past several releases.
+    }
+    \item Changes in Rcpp tests:
+    \itemize{
+      \item On Travis CI, all build dependencies are installed as binary
+      \code{.deb} packages resulting in faster tests.
     }
   }
 }
