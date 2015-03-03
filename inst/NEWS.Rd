@@ -14,8 +14,8 @@
       exception rather than crash) when a NULL external pointer is dereferenced.
       \item R code is evaluated within an \code{R_toplevelExec} block to prevent
       user interrupts from bypassing C++ destructors on the stack.
-      \item A new function \code{print} function was added as a wrapper around
-      \code{Rf_PrintValue}. 
+      \item A new inline header function \code{print} function was added as a
+      wrapper around \code{Rf_PrintValue}. 
     }
     \item Changes in Rcpp Attributes:
     \itemize{
