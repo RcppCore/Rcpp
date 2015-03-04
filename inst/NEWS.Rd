@@ -2,7 +2,7 @@
 \title{News for Package 'Rcpp'}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
-\section{Changes in Rcpp version 0.11.5 (2015-xx-yy)}{
+\section{Changes in Rcpp version 0.11.5 (2015-03-03)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
