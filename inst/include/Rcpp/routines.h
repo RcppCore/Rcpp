@@ -67,32 +67,32 @@ namespace Rcpp {
 
     #define GET_CALLABLE(__FUN__) (Fun) R_GetCCallable( "Rcpp", __FUN__ )
 
-    inline const char* type2name(SEXP x){
+    inline attribute_hidden const char* type2name(SEXP x){
         typedef const char* (*Fun)(SEXP);
         static Fun fun = GET_CALLABLE("type2name");
         return fun(x);
     }
 
     namespace internal{
-        inline unsigned long enterRNGScope(){
+        inline attribute_hidden unsigned long enterRNGScope(){
             typedef unsigned long (*Fun)(void);
             static Fun fun = GET_CALLABLE("enterRNGScope");
             return fun();
         }
 
-        inline unsigned long exitRNGScope(){
+        inline attribute_hidden unsigned long exitRNGScope(){
             typedef unsigned long (*Fun)(void);
             static Fun fun = GET_CALLABLE("exitRNGScope");
             return fun();
         }
 
-        inline char* get_string_buffer(){
+        inline attribute_hidden char* get_string_buffer(){
             typedef char* (*Fun)(void);
             static Fun fun = GET_CALLABLE("get_string_buffer");
             return fun();
         }
 
-        inline SEXP get_Rcpp_namespace() {
+        inline attribute_hidden SEXP get_Rcpp_namespace() {
             typedef SEXP (*Fun)(void);
             static Fun fun = GET_CALLABLE("get_Rcpp_namespace");
             return fun();
@@ -101,13 +101,13 @@ namespace Rcpp {
     }
 
 
-    inline double mktime00(struct tm &tm){
+    inline attribute_hidden double mktime00(struct tm &tm){
         typedef double (*Fun)(struct tm&);
         static Fun fun = GET_CALLABLE("mktime00");
         return fun(tm);
     }
 
-    inline struct tm * gmtime_(const time_t * const x){
+    inline attribute_hidden struct tm * gmtime_(const time_t * const x){
         typedef struct tm* (*Fun)(const time_t* const);
         static Fun fun =  GET_CALLABLE("gmtime_");
         return fun(x);
