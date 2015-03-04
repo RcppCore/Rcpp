@@ -2,7 +2,7 @@ rcpp (0.11.5-1) unstable; urgency=low
 
   * New upstream release
 
- -- Dirk Eddelbuettel <edd@debian.org>  Tue, 03 Mar 2015 19:13:47 -0600
+ -- Dirk Eddelbuettel <edd@debian.org>  Wed, 04 Mar 2015 14:30:22 -0600
 
 rcpp (0.11.4-1) unstable; urgency=low
 
