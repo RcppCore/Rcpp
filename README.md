@@ -78,9 +78,9 @@ Released and tested versions of Rcpp are available via the
 install.packages("Rcpp")
 ```
 
-To install from source, ensure you have a
-[complete package development environment](https://support.rstudio.com/hc/en-us/articles/200486498-Package-Development-Prerequisites).
-Also see questions 1.2 and 1.3 in the
+To install from source, ensure you have a complete package development
+environment for R as discussed in the relevant documentation; also see
+questions 1.2 and 1.3 in the
 [Rcpp-FAQ](http://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-FAQ.pdf).
 
 ### Authors
