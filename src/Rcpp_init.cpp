@@ -70,22 +70,22 @@ static R_ExternalMethodDef extEntries[]  = {
     EXTDEF(class__dummyInstance),
 
     {NULL, NULL, 0}
-} ;
+};
 
 // this is called by R_init_Rcpp that is in Module.cpp
 void init_Rcpp_routines(DllInfo *info){
-  /* Register routines, allocate resources. */
-  R_registerRoutines(info,
-      NULL /* .C*/,
-      callEntries /*.Call*/,
-      NULL /* .Fortran */,
-      extEntries /*.External*/
-  );
+    // Register routines, allocate resources.
+    R_registerRoutines(info,
+                       NULL,            // .C
+                       callEntries,     // .Call
+                       NULL,            // .Fortran
+                       extEntries       // .External
+                       );
 }
 
 void registerFunctions(){
-    using namespace Rcpp ;
-    using namespace Rcpp::internal ;
+    using namespace Rcpp;
+    using namespace Rcpp::internal;
 
     #define RCPP_REGISTER(__FUN__) R_RegisterCCallable( "Rcpp", #__FUN__ , (DL_FUNC)__FUN__ );
     RCPP_REGISTER(rcpp_get_stack_trace)
@@ -122,18 +122,15 @@ void registerFunctions(){
 
 
 extern "C" void R_unload_Rcpp(DllInfo *info) {
-  /* Release resources. */
+    // Release resources
 }
 
-extern "C" void R_init_Rcpp( DllInfo* info){
-	setCurrentScope(0) ;
+extern "C" void R_init_Rcpp(DllInfo* info) {
+    setCurrentScope(0);
 
-	registerFunctions() ;
+    registerFunctions();
 
-	// init the cache
-	init_Rcpp_cache() ;
+    init_Rcpp_cache();          // init the cache
 
-	// init routines
-	init_Rcpp_routines(info) ;
+    init_Rcpp_routines(info);   // init routines
 }
-
