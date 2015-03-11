@@ -2,8 +2,8 @@
 
 ### Seamless R and C++ Integration
 
-The [Rcpp package](http://cran.r-project.org/package=Rcpp) provides R functions as and a C++ library
-facilitating the integration of R and C++
+The [Rcpp package](http://cran.r-project.org/package=Rcpp) provides R functions and a C++ library
+facilitating the integration of R and C++.
 
 R data types (`SEXP`) are matched to C++ objects in a class hierarchy.  All R
 types are supported (vectors, functions, environment, etc ...)  and each
