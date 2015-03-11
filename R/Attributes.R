@@ -656,9 +656,9 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
     # (don't do this for RStudio since it has it's own handling)
     if (identical(Sys.info()[['sysname']], "Windows") &&
         !nzchar(Sys.getenv("RSTUDIO"))) {
-        path <- .pathWithRtools()
-        if (!is.null(path))
-            buildEnv$PATH <- path
+        env <- .environmentWithRtools()
+        for (var in names(env))
+            buildEnv[[var]] <- env[[var]]
     }
 
     # create restore list
@@ -676,7 +676,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
 
 # If we don't have the GNU toolchain already on the path then see if
 # we can find Rtools and add it to the path
-.pathWithRtools <- function() {
+.environmentWithRtools <- function() {
 
     # Only proceed if we don't have the required tools on the path
     hasRtools <- nzchar(Sys.which("ls.exe")) && nzchar(Sys.which("gcc.exe"))
@@ -691,30 +691,45 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
         # If we found the key examine it
         if (!is.null(key)) {
 
-            # Check version -- we only support 2.15 and 2.16 right now
+            # Check version
             ver <- key$`Current Version`
-            if (identical("2.15", ver) || identical("2.16", ver) ||
-                identical("3.0", ver) || identical("3.1", ver) ||
-                identical("3.2", ver)) {
-
+            if (ver %in% (c("2.15", "2.16", "3.0", "3.1", "3.2", "3.3"))) {
                 # See if the InstallPath leads to the expected directories
+                isGcc49 <- ver %in% c("3.3")
                 rToolsPath <- key$`InstallPath`
                 if (!is.null(rToolsPath)) {
-
-                    # Return modified PATH if execpted directories exist
-                    binPath <- file.path(rToolsPath, "bin", fsep="\\")
-                    gccPath <- file.path(rToolsPath, "gcc-4.6.3", "bin", fsep="\\")
-                    if (file.exists(binPath) && file.exists(gccPath))
-                        return(paste(binPath,
-                                     gccPath,
-                                     Sys.getenv("PATH"),
-                                     sep=.Platform$path.sep))
+                    # add appropriate path entries
+                    path <- file.path(rToolsPath, "bin", fsep="\\")
+                    if (!isGcc49)
+                        path <- c(path, file.path(rToolsPath, "gcc-4.6.3", "bin", fsep="\\"))
+                    
+                    # if they all exist then return a list with modified
+                    # environment variables for the compilation
+                    if (all(file.exists(path))) {
+                        env <- list()
+                        path <- paste(path, collapse = .Platform$path.sep)
+                        env$PATH <- paste(path, Sys.getenv("PATH"), sep=.Platform$path.sep)
+                        if (isGcc49)
+                            env$RTOOLS <- .rtoolsPath(rToolsPath)
+                        return(env)
+                    }
                 }
             }
         }
     }
 
     return(NULL)
+}
+
+
+# Ensure that the path is suitable for passing as an RTOOLS 
+# environment variable
+.rtoolsPath <- function(path) {
+    path <- gsub("\\\\", "/", path)
+    path <- trimws(path)
+    if (substring(path, nchar(path)) != "/")
+        path <- paste(path, "/", sep="")
+    path
 }
 
 

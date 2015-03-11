@@ -1,3 +1,7 @@
+2015-03-11  JJ Allaire  <jj@rstudio.org>
+
+        * R/Attributes.R:  Rtools 3.3 is now located and used for compilation under R 3.2.
+
 2015-03-04  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.11.5

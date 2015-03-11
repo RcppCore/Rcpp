@@ -2,6 +2,16 @@
 \title{News for Package 'Rcpp'}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in Rcpp version 0.11.6 (Unreleased)}{
+  \itemize{
+    \item Changes in Rcpp Attributes:
+    \itemize{
+        \item Rtools 3.3 is now located and used for compilation under
+        R 3.2.
+    }
+  }
+}
+
 \section{Changes in Rcpp version 0.11.5 (2015-03-04)}{
   \itemize{
     \item Changes in Rcpp API:
