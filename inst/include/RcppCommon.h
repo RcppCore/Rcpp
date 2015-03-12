@@ -26,11 +26,6 @@
 // #define RCPP_DEBUG_LEVEL 1
 // #define RCPP_DEBUG_MODULE_LEVEL 1
 
-#include <Rcpp/platform/compiler.h>
-#include <Rcpp/config.h>
-#include <Rcpp/macros/macros.h>
-
-
 #include <Rcpp/r/headers.h>
 
 /**
