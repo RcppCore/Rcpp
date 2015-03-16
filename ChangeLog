@@ -1,3 +1,8 @@
+2015-03-16  JJ Allaire  <jj@rstudio.org>
+
+        * src/attributes.cpp: Fix failing local include test (normalize path of
+base source file so comparisons work on Windows).
+
 2015-03-15  Dirk Eddelbuettel  <edd@debian.org>
 
         * R/Attributes.R (.rtoolsPath): Replace trimws() use with a local variant
