@@ -26,20 +26,20 @@ namespace Rcpp {
 
     class Date {
     public:
-        Date(){
+        Date() {
             m_d = 0;
             update_tm();
         }
         Date(SEXP s);
 
         // from integer (with negative dates before Jan 1, 1970)
-        Date(const int &dt){
+        Date(const int &dt) {
             m_d = dt;
             update_tm();
         }
 
         // from fractional integer since epoch, just like R
-        Date(const double &dt){
+        Date(const double &dt) {
             m_d = dt;
             update_tm();
         }
@@ -65,9 +65,9 @@ namespace Rcpp {
 
         ~Date() {};
 
-            double getDate(void) const {
-               return m_d;
-            }
+        double getDate(void) const {
+            return m_d;
+        }
 
         // intra-day useless for date class
         //int getSeconds() const { return m_tm.tm_sec; }
@@ -85,17 +85,17 @@ namespace Rcpp {
         }
 
         // Minimal set of date operations.
-        friend Date   operator+(const Date &date, int offset);
-        friend double operator-(const Date& date1, const Date& date2);
-        friend bool   operator<(const Date &date1, const Date& date2);
-        friend bool   operator>(const Date &date1, const Date& date2);
+        friend Date   operator+( const Date &date, int offset);
+        friend double operator-( const Date &date1, const Date& date2);
+        friend bool   operator<( const Date &date1, const Date& date2);
+        friend bool   operator>( const Date &date1, const Date& date2);
         friend bool   operator==(const Date &date1, const Date& date2);
         friend bool   operator>=(const Date &date1, const Date& date2);
         friend bool   operator<=(const Date &date1, const Date& date2);
         friend bool   operator!=(const Date &date1, const Date& date2);
 
         inline int is_na() const {
-           return traits::is_na<REALSXP>( m_d ) ;
+           return traits::is_na<REALSXP>(m_d);
         }
 
     private:
@@ -103,7 +103,7 @@ namespace Rcpp {
         struct tm m_tm;             // standard time representation
 
         // update m_tm based on m_d
-        void update_tm(){
+        void update_tm() {
             if (R_FINITE(m_d)) {
                 time_t t = 24*60*60 * m_d;      // (fractional) days since epoch to seconds since epoch
                 m_tm = *gmtime_(&t);
@@ -120,16 +120,16 @@ namespace Rcpp {
 
     // needed to wrap containers of Date such as vector<Date> or map<string,Date>
     namespace internal {
-        template<> inline double caster<Rcpp::Date,double>( Rcpp::Date from){
+        template<> inline double caster<Rcpp::Date,double>(Rcpp::Date from) {
             return static_cast<double>( from.getDate() ) ;
         }
-        template<> inline Rcpp::Date caster<double,Rcpp::Date>( double from){
-            return Rcpp::Date( static_cast<int>( from ) ) ;
+        template<> inline Rcpp::Date caster<double,Rcpp::Date>(double from) {
+            return Rcpp::Date(static_cast<int>(from));
         }
     }
 
-    template<> inline SEXP wrap_extra_steps<Rcpp::Date>( SEXP x ){
-        Rf_setAttrib( x, R_ClassSymbol, Rf_mkString( "Date" ) ) ;
+    template<> inline SEXP wrap_extra_steps<Rcpp::Date>(SEXP x) {
+        Rf_setAttrib( x, R_ClassSymbol, Rf_mkString("Date"));
         return x ;
     }
 
@@ -141,31 +141,31 @@ namespace Rcpp {
         return newdate;
     }
 
-    inline double operator-(const Date& d1, const Date& d2) { return d1.m_d - d2.m_d; }
-    inline bool  operator<(const Date &d1, const Date& d2) { return d1.m_d < d2.m_d; }
-    inline bool  operator>(const Date &d1, const Date& d2) { return d1.m_d > d2.m_d; }
-    inline bool  operator==(const Date &d1, const Date& d2) { return d1.m_d == d2.m_d; }
-    inline bool  operator>=(const Date &d1, const Date& d2) { return d1.m_d >= d2.m_d; }
-    inline bool  operator<=(const Date &d1, const Date& d2) { return d1.m_d <= d2.m_d; }
-    inline bool  operator!=(const Date &d1, const Date& d2) { return d1.m_d != d2.m_d; }
+    inline double operator-( const Date& d1, const Date& d2) { return d1.m_d -  d2.m_d; }
+    inline bool   operator<( const Date &d1, const Date& d2) { return d1.m_d <  d2.m_d; }
+    inline bool   operator>( const Date &d1, const Date& d2) { return d1.m_d >  d2.m_d; }
+    inline bool   operator==(const Date &d1, const Date& d2) { return d1.m_d == d2.m_d; }
+    inline bool   operator>=(const Date &d1, const Date& d2) { return d1.m_d >= d2.m_d; }
+    inline bool   operator<=(const Date &d1, const Date& d2) { return d1.m_d <= d2.m_d; }
+    inline bool   operator!=(const Date &d1, const Date& d2) { return d1.m_d != d2.m_d; }
 
-    namespace internal{
+    namespace internal {
 
-        inline SEXP getPosixClasses(){
+        inline SEXP getPosixClasses() {
             Shield<SEXP> datetimeclass(Rf_allocVector(STRSXP,2));
             SET_STRING_ELT(datetimeclass, 0, Rf_mkChar("POSIXct"));
             SET_STRING_ELT(datetimeclass, 1, Rf_mkChar("POSIXt"));
             return datetimeclass ;
         }
 
-        inline SEXP new_posixt_object( double d){
-            Shield<SEXP> x( Rf_ScalarReal( d ) ) ;
-            Rf_setAttrib(x, R_ClassSymbol, getPosixClasses() );
+        inline SEXP new_posixt_object( double d) {
+            Shield<SEXP> x(Rf_ScalarReal(d));
+            Rf_setAttrib(x, R_ClassSymbol, getPosixClasses());
             return x ;
         }
 
-        inline SEXP new_date_object( double d){
-            Shield<SEXP> x(Rf_ScalarReal( d ) ) ;
+        inline SEXP new_date_object(double d) {
+            Shield<SEXP> x(Rf_ScalarReal(d)) ;
             Rf_setAttrib(x, R_ClassSymbol, Rf_mkString("Date"));
             return x;
         }
