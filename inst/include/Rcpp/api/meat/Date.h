@@ -1,4 +1,6 @@
-// Copyright (C) 2013 Dirk Eddelbuettel and Romain Francois
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
+//
+// Copyright (C) 2013 - 2015  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -34,9 +36,8 @@ namespace Rcpp{
 
     template <>
     inline SEXP wrap(const Date &date) {
-        return internal::new_date_object( date.getDate() ) ;
+        return internal::new_date_object(date.getDate());
     }
-
 
 }
 
