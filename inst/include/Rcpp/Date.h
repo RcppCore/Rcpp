@@ -1,8 +1,8 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // Date.h: Rcpp R/C++ interface class library -- dates
 //
-// Copyright (C) 2010 - 2013  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2015  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -55,28 +55,28 @@ namespace Rcpp {
                 m_tm.tm_mday = year;
             } else {
                 m_tm.tm_mday  = day;
-                m_tm.tm_mon   = mon - 1;	// range 0 to 11
+                m_tm.tm_mon   = mon - 1;    // range 0 to 11
                 m_tm.tm_year  = year - baseYear();
             }
-            double tmp = mktime00(m_tm); 	// use mktime() replacement borrowed from R
-            m_tm.tm_year += baseYear() ;	// we'd rather keep it as a normal year
+            double tmp = mktime00(m_tm);    // use mktime() replacement borrowed from R
+            m_tm.tm_year += baseYear() ;    // we'd rather keep it as a normal year
             m_d = tmp/(24*60*60);
         }
 
         ~Date() {};
 
-        	double getDate(void) const {
-        	   return m_d;
-        	}
+            double getDate(void) const {
+               return m_d;
+            }
 
         // intra-day useless for date class
         //int getSeconds() const { return m_tm.tm_sec; }
         //int getMinutes() const { return m_tm.tm_min; }
         //int getHours()   const { return m_tm.tm_hour; }
         int getDay()     const { return m_tm.tm_mday; }
-        int getMonth()   const { return m_tm.tm_mon + 1; } 		// makes it 1 .. 12
-        int getYear()    const { return m_tm.tm_year; }			// does include 1900 (see Date.cpp)
-        int getWeekday() const { return m_tm.tm_wday + 1; } 	// makes it 1 .. 7
+        int getMonth()   const { return m_tm.tm_mon + 1; }      // makes it 1 .. 12
+        int getYear()    const { return m_tm.tm_year; }         // does include 1900 (see Date.cpp)
+        int getWeekday() const { return m_tm.tm_wday + 1; }     // makes it 1 .. 7
         int getYearday() const { return m_tm.tm_yday + 1; }     // makes it 1 .. 366
 
         // 1900 as per POSIX mktime() et al
@@ -99,13 +99,13 @@ namespace Rcpp {
         }
 
     private:
-        double m_d;					// (fractional) day number, relative to epoch of Jan 1, 1970
-        struct tm m_tm;				// standard time representation
+        double m_d;                 // (fractional) day number, relative to epoch of Jan 1, 1970
+        struct tm m_tm;             // standard time representation
 
         // update m_tm based on m_d
         void update_tm(){
             if (R_FINITE(m_d)) {
-                time_t t = 24*60*60 * m_d;		// (fractional) days since epoch to seconds since epoch
+                time_t t = 24*60*60 * m_d;      // (fractional) days since epoch to seconds since epoch
                 m_tm = *gmtime_(&t);
             } else {
                 m_tm.tm_sec = m_tm.tm_min = m_tm.tm_hour = m_tm.tm_isdst = NA_INTEGER;
@@ -120,12 +120,12 @@ namespace Rcpp {
 
     // needed to wrap containers of Date such as vector<Date> or map<string,Date>
     namespace internal {
-		template<> inline double caster<Rcpp::Date,double>( Rcpp::Date from){
-			return static_cast<double>( from.getDate() ) ;
-		}
-		template<> inline Rcpp::Date caster<double,Rcpp::Date>( double from){
-			return Rcpp::Date( static_cast<int>( from ) ) ;
-		}
+        template<> inline double caster<Rcpp::Date,double>( Rcpp::Date from){
+            return static_cast<double>( from.getDate() ) ;
+        }
+        template<> inline Rcpp::Date caster<double,Rcpp::Date>( double from){
+            return Rcpp::Date( static_cast<int>( from ) ) ;
+        }
     }
 
     template<> inline SEXP wrap_extra_steps<Rcpp::Date>( SEXP x ){
@@ -136,7 +136,7 @@ namespace Rcpp {
     inline Date operator+(const Date &date, int offset) {
         Date newdate(date.m_d);
         newdate.m_d += offset;
-        time_t t = 24*60*60 * newdate.m_d;	// days since epoch to seconds since epo
+        time_t t = 24*60*60 * newdate.m_d;  // days since epoch to seconds since epo
         newdate.m_tm = *gmtime_(&t);
         return newdate;
     }
