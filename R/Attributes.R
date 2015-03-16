@@ -1,4 +1,5 @@
-# Copyright (C) 2012 JJ Allaire, Dirk Eddelbuettel and Romain Francois
+
+# Copyright (C) 2012 - 2015  JJ Allaire, Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -726,7 +727,9 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
 # environment variable
 .rtoolsPath <- function(path) {
     path <- gsub("\\\\", "/", path)
-    path <- trimws(path)
+    ## R 3.2.0 or later only:  path <- trimws(path) 
+    .localsub <- function(re, x) sub(re, "", x, perl = TRUE)
+    path <- .localsub("[ \t\r\n]+$", .localsub("^[ \t\r\n]+", path))
     if (substring(path, nchar(path)) != "/")
         path <- paste(path, "/", sep="")
     path

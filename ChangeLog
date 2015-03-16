@@ -1,3 +1,7 @@
+2015-03-15  Dirk Eddelbuettel  <edd@debian.org>
+
+        * R/Attributes.R (.rtoolsPath): Replace trimws() use with a local variant
+
 2015-03-11  JJ Allaire  <jj@rstudio.org>
 
         * R/Attributes.R:  Rtools 3.3 is now located and used for compilation under R 3.2.
