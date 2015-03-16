@@ -59,7 +59,7 @@ namespace Rcpp {
                 m_tm.tm_year  = year - baseYear();
             }
             double tmp = mktime00(m_tm);    // use mktime() replacement borrowed from R
-            m_tm.tm_year += baseYear() ;    // we'd rather keep it as a normal year
+            m_tm.tm_year += baseYear();    // we'd rather keep it as a normal year
             m_d = tmp/(24*60*60);
         }
 
@@ -121,7 +121,7 @@ namespace Rcpp {
     // needed to wrap containers of Date such as vector<Date> or map<string,Date>
     namespace internal {
         template<> inline double caster<Rcpp::Date,double>(Rcpp::Date from) {
-            return static_cast<double>( from.getDate() ) ;
+            return static_cast<double>(from.getDate());
         }
         template<> inline Rcpp::Date caster<double,Rcpp::Date>(double from) {
             return Rcpp::Date(static_cast<int>(from));
@@ -129,8 +129,8 @@ namespace Rcpp {
     }
 
     template<> inline SEXP wrap_extra_steps<Rcpp::Date>(SEXP x) {
-        Rf_setAttrib( x, R_ClassSymbol, Rf_mkString("Date"));
-        return x ;
+        Rf_setAttrib(x, R_ClassSymbol, Rf_mkString("Date"));
+        return x;
     }
 
     inline Date operator+(const Date &date, int offset) {
@@ -155,17 +155,17 @@ namespace Rcpp {
             Shield<SEXP> datetimeclass(Rf_allocVector(STRSXP,2));
             SET_STRING_ELT(datetimeclass, 0, Rf_mkChar("POSIXct"));
             SET_STRING_ELT(datetimeclass, 1, Rf_mkChar("POSIXt"));
-            return datetimeclass ;
+            return datetimeclass;
         }
 
         inline SEXP new_posixt_object( double d) {
             Shield<SEXP> x(Rf_ScalarReal(d));
             Rf_setAttrib(x, R_ClassSymbol, getPosixClasses());
-            return x ;
+            return x;
         }
 
         inline SEXP new_date_object(double d) {
-            Shield<SEXP> x(Rf_ScalarReal(d)) ;
+            Shield<SEXP> x(Rf_ScalarReal(d));
             Rf_setAttrib(x, R_ClassSymbol, Rf_mkString("Date"));
             return x;
         }
