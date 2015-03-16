@@ -2,7 +2,7 @@
 //
 // DateVector.h: Rcpp R/C++ interface class library -- Date vector support
 //
-// Copyright (C) 2010 - 2013    Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2015  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -29,10 +29,10 @@ namespace Rcpp {
 
     class DateVector : public GreedyVector<Date, DateVector> {
     public:
-        DateVector(SEXP vec) : GreedyVector<Date, DateVector>(vec){}
-        DateVector(int n) : GreedyVector<Date, DateVector>(n){}
+        DateVector(SEXP vec) : GreedyVector<Date, DateVector>(vec) {}
+        DateVector(int n) : GreedyVector<Date, DateVector>(n) {}
 
-        inline std::vector<Date> getDates() const{
+        inline std::vector<Date> getDates() const {
             return v ;
         }
 

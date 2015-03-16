@@ -2,7 +2,7 @@
 //
 // DatetimeVector.h: Rcpp R/C++ interface class library -- Datetime vector
 //
-// Copyright (C) 2010 - 2013    Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2015  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -30,11 +30,11 @@ namespace Rcpp {
 
     class DatetimeVector : public GreedyVector<Datetime, DatetimeVector> {
     public:
-        DatetimeVector(SEXP vec) : GreedyVector<Datetime, DatetimeVector>(vec){}
-        DatetimeVector(int n) : GreedyVector<Datetime, DatetimeVector>(n){}
+        DatetimeVector(SEXP vec) : GreedyVector<Datetime, DatetimeVector>(vec) {}
+        DatetimeVector(int n) : GreedyVector<Datetime, DatetimeVector>(n) {}
 
-        std::vector<Datetime> getDatetimes() const{
-            return v ;
+        std::vector<Datetime> getDatetimes() const {
+            return v;
         }
 
     };
