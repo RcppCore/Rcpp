@@ -1,4 +1,6 @@
-// Copyright (C) 2013 Dirk Eddelbuettel and Romain Francois
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
+//
+// Copyright (C) 2013 - 2015  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -18,31 +20,30 @@
 #ifndef Rcpp_api_meat_Datetime_h
 #define Rcpp_api_meat_Datetime_h
 
-namespace Rcpp{
+namespace Rcpp {
 
     inline Datetime::Datetime(SEXP d) {
-		m_dt = Rcpp::as<double>(d);
-		update_tm();
+        m_dt = Rcpp::as<double>(d);
+        update_tm();
     }
 
     inline Datetime::Datetime(const std::string &s, const std::string &fmt) {
-		Rcpp::Function strptime("strptime");	// we cheat and call strptime() from R
-		Rcpp::Function asPOSIXct("as.POSIXct");	// and we need to convert to POSIXct
-		m_dt = Rcpp::as<double>(asPOSIXct(strptime(s, fmt)));
-		update_tm();
+        Rcpp::Function strptime("strptime");    // we cheat and call strptime() from R
+        Rcpp::Function asPOSIXct("as.POSIXct"); // and we need to convert to POSIXct
+        m_dt = Rcpp::as<double>(asPOSIXct(strptime(s, fmt)));
+        update_tm();
     }
 
     template<>
-    inline SEXP wrap_extra_steps<Rcpp::Datetime>( SEXP x ){
-		Rf_setAttrib(x, R_ClassSymbol, internal::getPosixClasses() );
-		return x ;
+    inline SEXP wrap_extra_steps<Rcpp::Datetime>(SEXP x) {
+        Rf_setAttrib(x, R_ClassSymbol, internal::getPosixClasses());
+        return x ;
     }
 
     template <>
     inline SEXP wrap<Datetime>(const Datetime &date) {
-		return internal::new_posixt_object( date.getFractionalTimestamp() ) ;
+        return internal::new_posixt_object(date.getFractionalTimestamp());
     }
-
 
 }
 
