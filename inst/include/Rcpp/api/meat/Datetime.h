@@ -37,7 +37,7 @@ namespace Rcpp {
     template<>
     inline SEXP wrap_extra_steps<Rcpp::Datetime>(SEXP x) {
         Rf_setAttrib(x, R_ClassSymbol, internal::getPosixClasses());
-        return x ;
+        return x;
     }
 
     template <>
