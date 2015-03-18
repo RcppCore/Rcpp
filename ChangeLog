@@ -1,3 +1,7 @@
+2015-03-18  JJ Allaire  <jj@rstudio.org>
+
+        * R/Attributes.R:  Revert to use of gcc 4.6.3 with Rtools 3.3
+
 2015-03-16  JJ Allaire  <jj@rstudio.org>
 
         * src/attributes.cpp: Fix failing local include test (normalize path of

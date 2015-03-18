@@ -6,8 +6,7 @@
   \itemize{
     \item Changes in Rcpp Attributes:
     \itemize{
-        \item Rtools 3.3 is now located and used for compilation under
-        R 3.2.
+        \item Rtools 3.3 is now supported.
     }
   }
 }

@@ -696,7 +696,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
             ver <- key$`Current Version`
             if (ver %in% (c("2.15", "2.16", "3.0", "3.1", "3.2", "3.3"))) {
                 # See if the InstallPath leads to the expected directories
-                isGcc49 <- ver %in% c("3.3")
+                isGcc49 <- FALSE
                 rToolsPath <- key$`InstallPath`
                 if (!is.null(rToolsPath)) {
                     # add appropriate path entries
