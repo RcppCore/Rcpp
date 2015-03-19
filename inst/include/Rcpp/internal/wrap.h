@@ -58,7 +58,8 @@ namespace internal{
 		return Rf_mkCharCE( data, CE_UTF8 ) ;
 	}
 	inline SEXP make_charsexp__impl__cstring( char data ){
-		return Rf_mkCharLen( &data, 1 ) ;
+		char x[2]; x[0] = data ; x[1] = '\0' ;
+		return Rf_mkCharCE( x, CE_UTF8 ) ;
 	}
 
 	inline SEXP make_charsexp__impl__cstring( const std::string& st ){
