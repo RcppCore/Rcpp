@@ -63,7 +63,8 @@ namespace Rcpp {
         }
 
         /** construct a string from a single CHARSXP SEXP */
-        String(SEXP charsxp) : data(charsxp), valid(true), buffer_ready(false) {
+        String(SEXP charsxp) : valid(true), buffer_ready(false) {
+            data = Rf_mkCharCE(Rf_translateCharUTF8(charsxp), CE_UTF8) ;
             RCPP_STRING_DEBUG( "String(SEXP)" ) ;
         }
 

@@ -61,3 +61,8 @@ String test_push_front(String x) {
     x.push_front("abc");
     return x;
 }
+
+// [[Rcpp::export]]
+bool test_String_encoding_equality(String a, String b){
+    return a == b ;    
+}
