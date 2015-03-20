@@ -1,7 +1,7 @@
 #!/usr/bin/r -t
 #       hey emacs, please make this use  -*- tab-width: 4 -*-
 #
-# Copyright (C) 2010 - 2014  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2015  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -672,6 +672,13 @@ if (.runThisTest) {
 
     test.logical.vector.from.bool.assign <- function() {
         checkIdentical(logical_vector_from_bool_assign(), TRUE)
+    }
+
+    test.bare.ctors <- function(){
+        v <- test_bare_vector_ctor()
+        checkEquals( length(v), 5L )
+        m <- test_bare_matrix_ctor()
+        checkEquals( dim(m), c(4L,7L) )
     }
     
 }
