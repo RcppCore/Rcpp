@@ -2,7 +2,7 @@
 //
 // Vector.h: Rcpp R/C++ interface class library -- vectors
 //
-// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2015 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -87,6 +87,16 @@ public:
         RCPP_DEBUG_2( "Vector<%d>( const int& size = %d, const stored_type& u )", RTYPE, size)
         Storage::set__( Rf_allocVector( RTYPE, size) ) ;
         fill( u ) ;
+    }
+    
+    /**
+     * Constructor that does not initialize values
+     *
+     * @param size size of the vector
+     * @return A vector of the given size, with uninitialized values
+     */
+    Vector( int size, internal::NamedPlaceHolder ){
+        Storage::set__( Rf_allocVector( RTYPE, size) ) ;
     }
 
     // constructor for CharacterVector()

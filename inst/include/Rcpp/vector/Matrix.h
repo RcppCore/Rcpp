@@ -2,7 +2,7 @@
 //
 // Matrix.h: Rcpp R/C++ interface class library -- matrices
 //
-// Copyright (C) 2010 - 2014 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2015 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -55,6 +55,15 @@ public:
     Matrix( const int& nrows_, const int& ncols) : VECTOR( Dimension( nrows_, ncols ) ),
         nrows(nrows_)
     {}
+    
+    /**
+     * bare constructor that does not initialize values
+     * 
+     * @param nrows number of rows
+     * @param ncols number of columns
+     * @return uninitialized matrix of the given dimensions
+     */
+    Matrix( int nrows, int ncols, internal::NamedPlaceHolder ) : VECTOR( Rf_allocMatrix( RTYPE, nrows, ncols ) ){}
 
     template <typename Iterator>
     Matrix( const int& nrows_, const int& ncols, Iterator start ) :
