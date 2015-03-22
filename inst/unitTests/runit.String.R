@@ -54,4 +54,12 @@ if (.runThisTest) {
         res <- test_push_front("def")
         checkIdentical(res, "abcdef")
     }
+    
+    test.string.encoding.equal <- function() {
+        a <- b <- "å"
+        Encoding(a) <- "unknown"
+        Encoding(b) <- "UTF-8"
+        checkTrue(test_String_encoding_equality(a,b))
+    }
+
 }
