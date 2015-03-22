@@ -44,7 +44,7 @@ public:
     typedef typename VECTOR::Proxy Proxy ;
     typedef typename VECTOR::const_Proxy const_Proxy ;
 
-    Matrix() : VECTOR() {}
+    Matrix() : VECTOR(Dimension(0, 0)), nrows(0) {}
 
     Matrix(SEXP x) : VECTOR( r_cast<RTYPE>( x ) ), nrows( VECTOR::dims()[0] ) {}
 
@@ -53,7 +53,7 @@ public:
         VECTOR::init() ;
     }
     Matrix( const int& nrows_, const int& ncols) : VECTOR( Dimension( nrows_, ncols ) ),
-        nrows(nrows_)
+      nrows(nrows_)
     {}
 
     template <typename Iterator>
