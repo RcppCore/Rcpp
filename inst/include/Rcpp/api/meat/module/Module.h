@@ -1,6 +1,6 @@
 // Module.h: Rcpp R/C++ interface class library -- Rcpp modules
 //
-// Copyright (C) 2013 Romain Francois
+// Copyright (C) 2013 - 2015 Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -37,12 +37,10 @@ namespace Rcpp {
 	}
 
     inline CppClass Module::get_class( const std::string& cl ){
-        BEGIN_RCPP
             CLASS_MAP::iterator it = classes.find(cl) ;
             if( it == classes.end() ) throw std::range_error( "no such class" ) ;
             std::string buffer ;
             return CppClass( this, it->second, buffer ) ;
-        END_RCPP
     }
 
 }

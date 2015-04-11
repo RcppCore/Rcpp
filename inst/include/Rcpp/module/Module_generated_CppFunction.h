@@ -3,7 +3,7 @@
 // Module_generated_CppFunction.h: -- generated helper code for Modules
 //                                    see rcpp-scripts repo for generator script
 //
-// Copyright (C) 2010 - 2014  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2015  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -30,9 +30,7 @@ class CppFunction0 : public CppFunction {
     public:
         CppFunction0(RESULT_TYPE (*fun)(void), const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
         SEXP operator()(SEXP*) {
-            BEGIN_RCPP
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun());
-            END_RCPP
         }
 
         inline int nargs() { return 0; }
@@ -50,9 +48,8 @@ class CppFunction0<void> : public CppFunction {
         CppFunction0(void (*fun)(void), const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {};
 
         SEXP operator()(SEXP*) {
-            BEGIN_RCPP
             ptr_fun();
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 0; }
@@ -70,9 +67,7 @@ class CppFunction_WithFormals0 : public CppFunction {
     public:
         CppFunction_WithFormals0(RESULT_TYPE (*fun)(void), Rcpp::List,  const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
         SEXP operator()(SEXP*) {
-            BEGIN_RCPP
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun());
-            END_RCPP
         }
 
         inline int nargs() { return 0; }
@@ -90,9 +85,8 @@ class CppFunction_WithFormals0<void> : public CppFunction {
         CppFunction_WithFormals0(void (*fun)(void), Rcpp::List, const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {} ;
 
         SEXP operator()(SEXP*) {
-            BEGIN_RCPP
             ptr_fun() ;
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 0; }
@@ -111,10 +105,8 @@ template <typename RESULT_TYPE, typename U0> class CppFunction1 : public CppFunc
         CppFunction1(RESULT_TYPE (*fun)(U0) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0));
-            END_RCPP
         }
 
         inline int nargs() { return 1; }
@@ -131,10 +123,9 @@ class CppFunction1<void,U0> : public CppFunction {
         CppFunction1(void (*fun)(U0) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             ptr_fun(x0);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 1; }
@@ -156,10 +147,8 @@ class CppFunction_WithFormals1 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0));
-            END_RCPP
         }
 
         inline int nargs() { return 1; }
@@ -179,10 +168,9 @@ class CppFunction_WithFormals1<void,U0> : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             ptr_fun(x0);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 1; }
@@ -203,11 +191,9 @@ template <typename RESULT_TYPE, typename U0,typename U1> class CppFunction2 : pu
         CppFunction2(RESULT_TYPE (*fun)(U0,U1) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1));
-            END_RCPP
         }
 
         inline int nargs() { return 2; }
@@ -224,11 +210,10 @@ class CppFunction2<void,U0,U1> : public CppFunction {
         CppFunction2(void (*fun)(U0,U1) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             ptr_fun(x0,x1);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 2; }
@@ -250,11 +235,9 @@ class CppFunction_WithFormals2 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1));
-            END_RCPP
         }
 
         inline int nargs() { return 2; }
@@ -274,11 +257,10 @@ class CppFunction_WithFormals2<void,U0,U1> : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             ptr_fun(x0,x1);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 2; }
@@ -299,12 +281,10 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2> class CppFu
         CppFunction3(RESULT_TYPE (*fun)(U0,U1,U2) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2));
-            END_RCPP
         }
 
         inline int nargs() { return 3; }
@@ -321,12 +301,11 @@ class CppFunction3<void,U0,U1,U2> : public CppFunction {
         CppFunction3(void (*fun)(U0,U1,U2) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
             ptr_fun(x0,x1,x2);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 3; }
@@ -348,12 +327,10 @@ class CppFunction_WithFormals3 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2));
-            END_RCPP
         }
 
         inline int nargs() { return 3; }
@@ -373,12 +350,11 @@ class CppFunction_WithFormals3<void,U0,U1,U2> : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
             ptr_fun(x0,x1,x2);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 3; }
@@ -399,13 +375,11 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3>
         CppFunction4(RESULT_TYPE (*fun)(U0,U1,U2,U3) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
             typename traits::input_parameter< U3 >::type x3(args[3]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3));
-            END_RCPP
         }
 
         inline int nargs() { return 4; }
@@ -422,13 +396,12 @@ class CppFunction4<void,U0,U1,U2,U3> : public CppFunction {
         CppFunction4(void (*fun)(U0,U1,U2,U3) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
             typename traits::input_parameter< U3 >::type x3(args[3]);
             ptr_fun(x0,x1,x2,x3);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 4; }
@@ -450,13 +423,11 @@ class CppFunction_WithFormals4 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
             typename traits::input_parameter< U3 >::type x3(args[3]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3));
-            END_RCPP
         }
 
         inline int nargs() { return 4; }
@@ -476,13 +447,12 @@ class CppFunction_WithFormals4<void,U0,U1,U2,U3> : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
             typename traits::input_parameter< U3 >::type x3(args[3]);
             ptr_fun(x0,x1,x2,x3);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 4; }
@@ -503,14 +473,12 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction5(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
             typename traits::input_parameter< U3 >::type x3(args[3]);
             typename traits::input_parameter< U4 >::type x4(args[4]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4));
-            END_RCPP
         }
 
         inline int nargs() { return 5; }
@@ -527,14 +495,13 @@ class CppFunction5<void,U0,U1,U2,U3,U4> : public CppFunction {
         CppFunction5(void (*fun)(U0,U1,U2,U3,U4) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
             typename traits::input_parameter< U3 >::type x3(args[3]);
             typename traits::input_parameter< U4 >::type x4(args[4]);
             ptr_fun(x0,x1,x2,x3,x4);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 5; }
@@ -556,14 +523,12 @@ class CppFunction_WithFormals5 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
             typename traits::input_parameter< U3 >::type x3(args[3]);
             typename traits::input_parameter< U4 >::type x4(args[4]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4));
-            END_RCPP
         }
 
         inline int nargs() { return 5; }
@@ -583,14 +548,13 @@ class CppFunction_WithFormals5<void,U0,U1,U2,U3,U4> : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
             typename traits::input_parameter< U3 >::type x3(args[3]);
             typename traits::input_parameter< U4 >::type x4(args[4]);
             ptr_fun(x0,x1,x2,x3,x4);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 5; }
@@ -611,7 +575,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction6(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -619,7 +582,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U4 >::type x4(args[4]);
             typename traits::input_parameter< U5 >::type x5(args[5]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5));
-            END_RCPP
         }
 
         inline int nargs() { return 6; }
@@ -636,7 +598,6 @@ class CppFunction6<void,U0,U1,U2,U3,U4,U5> : public CppFunction {
         CppFunction6(void (*fun)(U0,U1,U2,U3,U4,U5) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -644,7 +605,6 @@ class CppFunction6<void,U0,U1,U2,U3,U4,U5> : public CppFunction {
             typename traits::input_parameter< U4 >::type x4(args[4]);
             typename traits::input_parameter< U5 >::type x5(args[5]);
             ptr_fun(x0,x1,x2,x3,x4,x5);
-            END_RCPP
         }
 
         inline int nargs() { return 6; }
@@ -666,7 +626,6 @@ class CppFunction_WithFormals6 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -674,7 +633,6 @@ class CppFunction_WithFormals6 : public CppFunction {
             typename traits::input_parameter< U4 >::type x4(args[4]);
             typename traits::input_parameter< U5 >::type x5(args[5]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5));
-            END_RCPP
         }
 
         inline int nargs() { return 6; }
@@ -694,7 +652,6 @@ class CppFunction_WithFormals6<void,U0,U1,U2,U3,U4,U5> : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -702,7 +659,7 @@ class CppFunction_WithFormals6<void,U0,U1,U2,U3,U4,U5> : public CppFunction {
             typename traits::input_parameter< U4 >::type x4(args[4]);
             typename traits::input_parameter< U5 >::type x5(args[5]);
             ptr_fun(x0,x1,x2,x3,x4,x5);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 6; }
@@ -723,7 +680,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction7(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -732,7 +688,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U5 >::type x5(args[5]);
             typename traits::input_parameter< U6 >::type x6(args[6]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6));
-            END_RCPP
         }
 
         inline int nargs() { return 7; }
@@ -749,7 +704,6 @@ class CppFunction7<void,U0,U1,U2,U3,U4,U5,U6> : public CppFunction {
         CppFunction7(void (*fun)(U0,U1,U2,U3,U4,U5,U6) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -758,7 +712,7 @@ class CppFunction7<void,U0,U1,U2,U3,U4,U5,U6> : public CppFunction {
             typename traits::input_parameter< U5 >::type x5(args[5]);
             typename traits::input_parameter< U6 >::type x6(args[6]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 7; }
@@ -780,7 +734,6 @@ class CppFunction_WithFormals7 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -789,7 +742,6 @@ class CppFunction_WithFormals7 : public CppFunction {
             typename traits::input_parameter< U5 >::type x5(args[5]);
             typename traits::input_parameter< U6 >::type x6(args[6]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6));
-            END_RCPP
         }
 
         inline int nargs() { return 7; }
@@ -809,7 +761,6 @@ class CppFunction_WithFormals7<void,U0,U1,U2,U3,U4,U5,U6> : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -818,7 +769,7 @@ class CppFunction_WithFormals7<void,U0,U1,U2,U3,U4,U5,U6> : public CppFunction {
             typename traits::input_parameter< U5 >::type x5(args[5]);
             typename traits::input_parameter< U6 >::type x6(args[6]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 7; }
@@ -839,7 +790,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction8(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -849,7 +799,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U6 >::type x6(args[6]);
             typename traits::input_parameter< U7 >::type x7(args[7]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7));
-            END_RCPP
         }
 
         inline int nargs() { return 8; }
@@ -866,7 +815,6 @@ class CppFunction8<void,U0,U1,U2,U3,U4,U5,U6,U7> : public CppFunction {
         CppFunction8(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -876,7 +824,7 @@ class CppFunction8<void,U0,U1,U2,U3,U4,U5,U6,U7> : public CppFunction {
             typename traits::input_parameter< U6 >::type x6(args[6]);
             typename traits::input_parameter< U7 >::type x7(args[7]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 8; }
@@ -898,7 +846,6 @@ class CppFunction_WithFormals8 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -908,7 +855,6 @@ class CppFunction_WithFormals8 : public CppFunction {
             typename traits::input_parameter< U6 >::type x6(args[6]);
             typename traits::input_parameter< U7 >::type x7(args[7]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7));
-            END_RCPP
         }
 
         inline int nargs() { return 8; }
@@ -928,7 +874,6 @@ class CppFunction_WithFormals8<void,U0,U1,U2,U3,U4,U5,U6,U7> : public CppFunctio
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -938,7 +883,7 @@ class CppFunction_WithFormals8<void,U0,U1,U2,U3,U4,U5,U6,U7> : public CppFunctio
             typename traits::input_parameter< U6 >::type x6(args[6]);
             typename traits::input_parameter< U7 >::type x7(args[7]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 8; }
@@ -959,7 +904,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction9(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -970,7 +914,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U7 >::type x7(args[7]);
             typename traits::input_parameter< U8 >::type x8(args[8]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8));
-            END_RCPP
         }
 
         inline int nargs() { return 9; }
@@ -987,7 +930,6 @@ class CppFunction9<void,U0,U1,U2,U3,U4,U5,U6,U7,U8> : public CppFunction {
         CppFunction9(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -998,7 +940,7 @@ class CppFunction9<void,U0,U1,U2,U3,U4,U5,U6,U7,U8> : public CppFunction {
             typename traits::input_parameter< U7 >::type x7(args[7]);
             typename traits::input_parameter< U8 >::type x8(args[8]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 9; }
@@ -1020,7 +962,6 @@ class CppFunction_WithFormals9 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -1031,7 +972,6 @@ class CppFunction_WithFormals9 : public CppFunction {
             typename traits::input_parameter< U7 >::type x7(args[7]);
             typename traits::input_parameter< U8 >::type x8(args[8]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8));
-            END_RCPP
         }
 
         inline int nargs() { return 9; }
@@ -1051,7 +991,6 @@ class CppFunction_WithFormals9<void,U0,U1,U2,U3,U4,U5,U6,U7,U8> : public CppFunc
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -1062,7 +1001,7 @@ class CppFunction_WithFormals9<void,U0,U1,U2,U3,U4,U5,U6,U7,U8> : public CppFunc
             typename traits::input_parameter< U7 >::type x7(args[7]);
             typename traits::input_parameter< U8 >::type x8(args[8]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 9; }
@@ -1083,7 +1022,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction10(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -1095,7 +1033,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U8 >::type x8(args[8]);
             typename traits::input_parameter< U9 >::type x9(args[9]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9));
-            END_RCPP
         }
 
         inline int nargs() { return 10; }
@@ -1112,7 +1049,6 @@ class CppFunction10<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9> : public CppFunction {
         CppFunction10(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -1124,7 +1060,7 @@ class CppFunction10<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9> : public CppFunction {
             typename traits::input_parameter< U8 >::type x8(args[8]);
             typename traits::input_parameter< U9 >::type x9(args[9]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 10; }
@@ -1146,7 +1082,6 @@ class CppFunction_WithFormals10 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -1158,7 +1093,6 @@ class CppFunction_WithFormals10 : public CppFunction {
             typename traits::input_parameter< U8 >::type x8(args[8]);
             typename traits::input_parameter< U9 >::type x9(args[9]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9));
-            END_RCPP
         }
 
         inline int nargs() { return 10; }
@@ -1178,7 +1112,6 @@ class CppFunction_WithFormals10<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9> : public Cpp
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -1190,7 +1123,7 @@ class CppFunction_WithFormals10<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9> : public Cpp
             typename traits::input_parameter< U8 >::type x8(args[8]);
             typename traits::input_parameter< U9 >::type x9(args[9]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 10; }
@@ -1211,7 +1144,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction11(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -1224,7 +1156,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U9 >::type x9(args[9]);
             typename traits::input_parameter< U10 >::type x10(args[10]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10));
-            END_RCPP
         }
 
         inline int nargs() { return 11; }
@@ -1241,7 +1172,6 @@ class CppFunction11<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10> : public CppFunction
         CppFunction11(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -1254,7 +1184,7 @@ class CppFunction11<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10> : public CppFunction
             typename traits::input_parameter< U9 >::type x9(args[9]);
             typename traits::input_parameter< U10 >::type x10(args[10]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 11; }
@@ -1276,7 +1206,6 @@ class CppFunction_WithFormals11 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -1289,7 +1218,6 @@ class CppFunction_WithFormals11 : public CppFunction {
             typename traits::input_parameter< U9 >::type x9(args[9]);
             typename traits::input_parameter< U10 >::type x10(args[10]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10));
-            END_RCPP
         }
 
         inline int nargs() { return 11; }
@@ -1309,7 +1237,6 @@ class CppFunction_WithFormals11<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10> : public
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -1322,7 +1249,7 @@ class CppFunction_WithFormals11<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10> : public
             typename traits::input_parameter< U9 >::type x9(args[9]);
             typename traits::input_parameter< U10 >::type x10(args[10]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 11; }
@@ -1343,7 +1270,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction12(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -1357,7 +1283,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U10 >::type x10(args[10]);
             typename traits::input_parameter< U11 >::type x11(args[11]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11));
-            END_RCPP
         }
 
         inline int nargs() { return 12; }
@@ -1374,7 +1299,6 @@ class CppFunction12<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11> : public CppFunc
         CppFunction12(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -1388,7 +1312,7 @@ class CppFunction12<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11> : public CppFunc
             typename traits::input_parameter< U10 >::type x10(args[10]);
             typename traits::input_parameter< U11 >::type x11(args[11]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 12; }
@@ -1410,7 +1334,6 @@ class CppFunction_WithFormals12 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -1424,7 +1347,6 @@ class CppFunction_WithFormals12 : public CppFunction {
             typename traits::input_parameter< U10 >::type x10(args[10]);
             typename traits::input_parameter< U11 >::type x11(args[11]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11));
-            END_RCPP
         }
 
         inline int nargs() { return 12; }
@@ -1444,7 +1366,6 @@ class CppFunction_WithFormals12<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11> : pu
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -1458,7 +1379,7 @@ class CppFunction_WithFormals12<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11> : pu
             typename traits::input_parameter< U10 >::type x10(args[10]);
             typename traits::input_parameter< U11 >::type x11(args[11]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 12; }
@@ -1479,7 +1400,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction13(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -1494,7 +1414,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U11 >::type x11(args[11]);
             typename traits::input_parameter< U12 >::type x12(args[12]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12));
-            END_RCPP
         }
 
         inline int nargs() { return 13; }
@@ -1511,7 +1430,6 @@ class CppFunction13<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12> : public Cpp
         CppFunction13(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -1526,7 +1444,7 @@ class CppFunction13<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12> : public Cpp
             typename traits::input_parameter< U11 >::type x11(args[11]);
             typename traits::input_parameter< U12 >::type x12(args[12]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 13; }
@@ -1548,7 +1466,6 @@ class CppFunction_WithFormals13 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -1563,7 +1480,6 @@ class CppFunction_WithFormals13 : public CppFunction {
             typename traits::input_parameter< U11 >::type x11(args[11]);
             typename traits::input_parameter< U12 >::type x12(args[12]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12));
-            END_RCPP
         }
 
         inline int nargs() { return 13; }
@@ -1583,7 +1499,6 @@ class CppFunction_WithFormals13<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12> 
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -1598,7 +1513,7 @@ class CppFunction_WithFormals13<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12> 
             typename traits::input_parameter< U11 >::type x11(args[11]);
             typename traits::input_parameter< U12 >::type x12(args[12]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 13; }
@@ -1619,7 +1534,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction14(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -1635,7 +1549,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U12 >::type x12(args[12]);
             typename traits::input_parameter< U13 >::type x13(args[13]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13));
-            END_RCPP
         }
 
         inline int nargs() { return 14; }
@@ -1652,7 +1565,6 @@ class CppFunction14<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13> : public
         CppFunction14(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -1668,7 +1580,7 @@ class CppFunction14<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13> : public
             typename traits::input_parameter< U12 >::type x12(args[12]);
             typename traits::input_parameter< U13 >::type x13(args[13]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 14; }
@@ -1690,7 +1602,6 @@ class CppFunction_WithFormals14 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -1706,7 +1617,6 @@ class CppFunction_WithFormals14 : public CppFunction {
             typename traits::input_parameter< U12 >::type x12(args[12]);
             typename traits::input_parameter< U13 >::type x13(args[13]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13));
-            END_RCPP
         }
 
         inline int nargs() { return 14; }
@@ -1726,7 +1636,6 @@ class CppFunction_WithFormals14<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -1742,7 +1651,7 @@ class CppFunction_WithFormals14<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U12 >::type x12(args[12]);
             typename traits::input_parameter< U13 >::type x13(args[13]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 14; }
@@ -1763,7 +1672,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction15(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -1780,7 +1688,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U13 >::type x13(args[13]);
             typename traits::input_parameter< U14 >::type x14(args[14]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14));
-            END_RCPP
         }
 
         inline int nargs() { return 15; }
@@ -1797,7 +1704,6 @@ class CppFunction15<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14> : pu
         CppFunction15(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -1814,7 +1720,7 @@ class CppFunction15<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14> : pu
             typename traits::input_parameter< U13 >::type x13(args[13]);
             typename traits::input_parameter< U14 >::type x14(args[14]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 15; }
@@ -1836,7 +1742,6 @@ class CppFunction_WithFormals15 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -1853,7 +1758,6 @@ class CppFunction_WithFormals15 : public CppFunction {
             typename traits::input_parameter< U13 >::type x13(args[13]);
             typename traits::input_parameter< U14 >::type x14(args[14]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14));
-            END_RCPP
         }
 
         inline int nargs() { return 15; }
@@ -1873,7 +1777,6 @@ class CppFunction_WithFormals15<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -1890,7 +1793,7 @@ class CppFunction_WithFormals15<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U13 >::type x13(args[13]);
             typename traits::input_parameter< U14 >::type x14(args[14]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 15; }
@@ -1911,7 +1814,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction16(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -1929,7 +1831,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U14 >::type x14(args[14]);
             typename traits::input_parameter< U15 >::type x15(args[15]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15));
-            END_RCPP
         }
 
         inline int nargs() { return 16; }
@@ -1946,7 +1847,6 @@ class CppFunction16<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15> 
         CppFunction16(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -1964,7 +1864,7 @@ class CppFunction16<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15> 
             typename traits::input_parameter< U14 >::type x14(args[14]);
             typename traits::input_parameter< U15 >::type x15(args[15]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 16; }
@@ -1986,7 +1886,6 @@ class CppFunction_WithFormals16 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -2004,7 +1903,6 @@ class CppFunction_WithFormals16 : public CppFunction {
             typename traits::input_parameter< U14 >::type x14(args[14]);
             typename traits::input_parameter< U15 >::type x15(args[15]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15));
-            END_RCPP
         }
 
         inline int nargs() { return 16; }
@@ -2024,7 +1922,6 @@ class CppFunction_WithFormals16<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -2042,7 +1939,7 @@ class CppFunction_WithFormals16<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U14 >::type x14(args[14]);
             typename traits::input_parameter< U15 >::type x15(args[15]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 16; }
@@ -2063,7 +1960,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction17(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -2082,7 +1978,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U15 >::type x15(args[15]);
             typename traits::input_parameter< U16 >::type x16(args[16]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16));
-            END_RCPP
         }
 
         inline int nargs() { return 17; }
@@ -2099,7 +1994,6 @@ class CppFunction17<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction17(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -2118,7 +2012,7 @@ class CppFunction17<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U15 >::type x15(args[15]);
             typename traits::input_parameter< U16 >::type x16(args[16]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 17; }
@@ -2140,7 +2034,6 @@ class CppFunction_WithFormals17 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -2159,7 +2052,6 @@ class CppFunction_WithFormals17 : public CppFunction {
             typename traits::input_parameter< U15 >::type x15(args[15]);
             typename traits::input_parameter< U16 >::type x16(args[16]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16));
-            END_RCPP
         }
 
         inline int nargs() { return 17; }
@@ -2179,7 +2071,6 @@ class CppFunction_WithFormals17<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -2198,7 +2089,7 @@ class CppFunction_WithFormals17<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U15 >::type x15(args[15]);
             typename traits::input_parameter< U16 >::type x16(args[16]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 17; }
@@ -2219,7 +2110,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction18(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -2239,7 +2129,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U16 >::type x16(args[16]);
             typename traits::input_parameter< U17 >::type x17(args[17]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17));
-            END_RCPP
         }
 
         inline int nargs() { return 18; }
@@ -2256,7 +2145,6 @@ class CppFunction18<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction18(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -2276,7 +2164,7 @@ class CppFunction18<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U16 >::type x16(args[16]);
             typename traits::input_parameter< U17 >::type x17(args[17]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 18; }
@@ -2298,7 +2186,6 @@ class CppFunction_WithFormals18 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -2318,7 +2205,6 @@ class CppFunction_WithFormals18 : public CppFunction {
             typename traits::input_parameter< U16 >::type x16(args[16]);
             typename traits::input_parameter< U17 >::type x17(args[17]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17));
-            END_RCPP
         }
 
         inline int nargs() { return 18; }
@@ -2338,7 +2224,6 @@ class CppFunction_WithFormals18<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -2358,7 +2243,7 @@ class CppFunction_WithFormals18<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U16 >::type x16(args[16]);
             typename traits::input_parameter< U17 >::type x17(args[17]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 18; }
@@ -2379,7 +2264,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction19(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -2400,7 +2284,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U17 >::type x17(args[17]);
             typename traits::input_parameter< U18 >::type x18(args[18]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18));
-            END_RCPP
         }
 
         inline int nargs() { return 19; }
@@ -2417,7 +2300,6 @@ class CppFunction19<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction19(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -2438,7 +2320,7 @@ class CppFunction19<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U17 >::type x17(args[17]);
             typename traits::input_parameter< U18 >::type x18(args[18]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 19; }
@@ -2460,7 +2342,6 @@ class CppFunction_WithFormals19 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -2481,7 +2362,6 @@ class CppFunction_WithFormals19 : public CppFunction {
             typename traits::input_parameter< U17 >::type x17(args[17]);
             typename traits::input_parameter< U18 >::type x18(args[18]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18));
-            END_RCPP
         }
 
         inline int nargs() { return 19; }
@@ -2501,7 +2381,6 @@ class CppFunction_WithFormals19<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -2522,7 +2401,7 @@ class CppFunction_WithFormals19<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U17 >::type x17(args[17]);
             typename traits::input_parameter< U18 >::type x18(args[18]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 19; }
@@ -2543,7 +2422,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction20(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -2565,7 +2443,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U18 >::type x18(args[18]);
             typename traits::input_parameter< U19 >::type x19(args[19]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19));
-            END_RCPP
         }
 
         inline int nargs() { return 20; }
@@ -2582,7 +2459,6 @@ class CppFunction20<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction20(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -2604,7 +2480,7 @@ class CppFunction20<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U18 >::type x18(args[18]);
             typename traits::input_parameter< U19 >::type x19(args[19]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 20; }
@@ -2626,7 +2502,6 @@ class CppFunction_WithFormals20 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -2648,7 +2523,6 @@ class CppFunction_WithFormals20 : public CppFunction {
             typename traits::input_parameter< U18 >::type x18(args[18]);
             typename traits::input_parameter< U19 >::type x19(args[19]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19));
-            END_RCPP
         }
 
         inline int nargs() { return 20; }
@@ -2668,7 +2542,6 @@ class CppFunction_WithFormals20<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -2690,7 +2563,7 @@ class CppFunction_WithFormals20<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U18 >::type x18(args[18]);
             typename traits::input_parameter< U19 >::type x19(args[19]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 20; }
@@ -2711,7 +2584,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction21(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -2734,7 +2606,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U19 >::type x19(args[19]);
             typename traits::input_parameter< U20 >::type x20(args[20]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20));
-            END_RCPP
         }
 
         inline int nargs() { return 21; }
@@ -2751,7 +2622,6 @@ class CppFunction21<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction21(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -2774,7 +2644,7 @@ class CppFunction21<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U19 >::type x19(args[19]);
             typename traits::input_parameter< U20 >::type x20(args[20]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 21; }
@@ -2796,7 +2666,6 @@ class CppFunction_WithFormals21 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -2819,7 +2688,6 @@ class CppFunction_WithFormals21 : public CppFunction {
             typename traits::input_parameter< U19 >::type x19(args[19]);
             typename traits::input_parameter< U20 >::type x20(args[20]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20));
-            END_RCPP
         }
 
         inline int nargs() { return 21; }
@@ -2839,7 +2707,6 @@ class CppFunction_WithFormals21<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -2862,7 +2729,7 @@ class CppFunction_WithFormals21<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U19 >::type x19(args[19]);
             typename traits::input_parameter< U20 >::type x20(args[20]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 21; }
@@ -2883,7 +2750,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction22(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -2907,7 +2773,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U20 >::type x20(args[20]);
             typename traits::input_parameter< U21 >::type x21(args[21]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21));
-            END_RCPP
         }
 
         inline int nargs() { return 22; }
@@ -2924,7 +2789,6 @@ class CppFunction22<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction22(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -2948,7 +2812,7 @@ class CppFunction22<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U20 >::type x20(args[20]);
             typename traits::input_parameter< U21 >::type x21(args[21]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 22; }
@@ -2970,7 +2834,6 @@ class CppFunction_WithFormals22 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -2994,7 +2857,6 @@ class CppFunction_WithFormals22 : public CppFunction {
             typename traits::input_parameter< U20 >::type x20(args[20]);
             typename traits::input_parameter< U21 >::type x21(args[21]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21));
-            END_RCPP
         }
 
         inline int nargs() { return 22; }
@@ -3014,7 +2876,6 @@ class CppFunction_WithFormals22<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -3038,7 +2899,7 @@ class CppFunction_WithFormals22<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U20 >::type x20(args[20]);
             typename traits::input_parameter< U21 >::type x21(args[21]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 22; }
@@ -3059,7 +2920,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction23(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -3084,7 +2944,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U21 >::type x21(args[21]);
             typename traits::input_parameter< U22 >::type x22(args[22]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22));
-            END_RCPP
         }
 
         inline int nargs() { return 23; }
@@ -3101,7 +2960,6 @@ class CppFunction23<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction23(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -3126,7 +2984,7 @@ class CppFunction23<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U21 >::type x21(args[21]);
             typename traits::input_parameter< U22 >::type x22(args[22]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 23; }
@@ -3148,7 +3006,6 @@ class CppFunction_WithFormals23 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -3173,7 +3030,6 @@ class CppFunction_WithFormals23 : public CppFunction {
             typename traits::input_parameter< U21 >::type x21(args[21]);
             typename traits::input_parameter< U22 >::type x22(args[22]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22));
-            END_RCPP
         }
 
         inline int nargs() { return 23; }
@@ -3193,7 +3049,6 @@ class CppFunction_WithFormals23<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -3218,7 +3073,7 @@ class CppFunction_WithFormals23<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U21 >::type x21(args[21]);
             typename traits::input_parameter< U22 >::type x22(args[22]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 23; }
@@ -3239,7 +3094,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction24(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -3265,7 +3119,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U22 >::type x22(args[22]);
             typename traits::input_parameter< U23 >::type x23(args[23]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23));
-            END_RCPP
         }
 
         inline int nargs() { return 24; }
@@ -3282,7 +3135,6 @@ class CppFunction24<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction24(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -3308,7 +3160,7 @@ class CppFunction24<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U22 >::type x22(args[22]);
             typename traits::input_parameter< U23 >::type x23(args[23]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 24; }
@@ -3330,7 +3182,6 @@ class CppFunction_WithFormals24 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -3356,7 +3207,6 @@ class CppFunction_WithFormals24 : public CppFunction {
             typename traits::input_parameter< U22 >::type x22(args[22]);
             typename traits::input_parameter< U23 >::type x23(args[23]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23));
-            END_RCPP
         }
 
         inline int nargs() { return 24; }
@@ -3376,7 +3226,6 @@ class CppFunction_WithFormals24<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -3402,7 +3251,7 @@ class CppFunction_WithFormals24<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U22 >::type x22(args[22]);
             typename traits::input_parameter< U23 >::type x23(args[23]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 24; }
@@ -3423,7 +3272,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction25(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -3450,7 +3298,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U23 >::type x23(args[23]);
             typename traits::input_parameter< U24 >::type x24(args[24]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24));
-            END_RCPP
         }
 
         inline int nargs() { return 25; }
@@ -3467,7 +3314,6 @@ class CppFunction25<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction25(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -3494,7 +3340,7 @@ class CppFunction25<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U23 >::type x23(args[23]);
             typename traits::input_parameter< U24 >::type x24(args[24]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 25; }
@@ -3516,7 +3362,6 @@ class CppFunction_WithFormals25 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -3543,7 +3388,6 @@ class CppFunction_WithFormals25 : public CppFunction {
             typename traits::input_parameter< U23 >::type x23(args[23]);
             typename traits::input_parameter< U24 >::type x24(args[24]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24));
-            END_RCPP
         }
 
         inline int nargs() { return 25; }
@@ -3563,7 +3407,6 @@ class CppFunction_WithFormals25<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -3590,7 +3433,7 @@ class CppFunction_WithFormals25<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U23 >::type x23(args[23]);
             typename traits::input_parameter< U24 >::type x24(args[24]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 25; }
@@ -3611,7 +3454,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction26(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -3639,7 +3481,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U24 >::type x24(args[24]);
             typename traits::input_parameter< U25 >::type x25(args[25]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25));
-            END_RCPP
         }
 
         inline int nargs() { return 26; }
@@ -3656,7 +3497,6 @@ class CppFunction26<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction26(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -3684,7 +3524,7 @@ class CppFunction26<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U24 >::type x24(args[24]);
             typename traits::input_parameter< U25 >::type x25(args[25]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 26; }
@@ -3706,7 +3546,6 @@ class CppFunction_WithFormals26 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -3734,7 +3573,6 @@ class CppFunction_WithFormals26 : public CppFunction {
             typename traits::input_parameter< U24 >::type x24(args[24]);
             typename traits::input_parameter< U25 >::type x25(args[25]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25));
-            END_RCPP
         }
 
         inline int nargs() { return 26; }
@@ -3754,7 +3592,6 @@ class CppFunction_WithFormals26<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -3782,7 +3619,7 @@ class CppFunction_WithFormals26<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U24 >::type x24(args[24]);
             typename traits::input_parameter< U25 >::type x25(args[25]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 26; }
@@ -3803,7 +3640,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction27(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -3832,7 +3668,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U25 >::type x25(args[25]);
             typename traits::input_parameter< U26 >::type x26(args[26]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26));
-            END_RCPP
         }
 
         inline int nargs() { return 27; }
@@ -3849,7 +3684,6 @@ class CppFunction27<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction27(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -3878,7 +3712,7 @@ class CppFunction27<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U25 >::type x25(args[25]);
             typename traits::input_parameter< U26 >::type x26(args[26]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 27; }
@@ -3900,7 +3734,6 @@ class CppFunction_WithFormals27 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -3929,7 +3762,6 @@ class CppFunction_WithFormals27 : public CppFunction {
             typename traits::input_parameter< U25 >::type x25(args[25]);
             typename traits::input_parameter< U26 >::type x26(args[26]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26));
-            END_RCPP
         }
 
         inline int nargs() { return 27; }
@@ -3949,7 +3781,6 @@ class CppFunction_WithFormals27<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -3978,7 +3809,7 @@ class CppFunction_WithFormals27<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U25 >::type x25(args[25]);
             typename traits::input_parameter< U26 >::type x26(args[26]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 27; }
@@ -3999,7 +3830,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction28(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -4029,7 +3859,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U26 >::type x26(args[26]);
             typename traits::input_parameter< U27 >::type x27(args[27]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27));
-            END_RCPP
         }
 
         inline int nargs() { return 28; }
@@ -4046,7 +3875,6 @@ class CppFunction28<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction28(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -4076,7 +3904,7 @@ class CppFunction28<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U26 >::type x26(args[26]);
             typename traits::input_parameter< U27 >::type x27(args[27]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 28; }
@@ -4098,7 +3926,6 @@ class CppFunction_WithFormals28 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -4128,7 +3955,6 @@ class CppFunction_WithFormals28 : public CppFunction {
             typename traits::input_parameter< U26 >::type x26(args[26]);
             typename traits::input_parameter< U27 >::type x27(args[27]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27));
-            END_RCPP
         }
 
         inline int nargs() { return 28; }
@@ -4148,7 +3974,6 @@ class CppFunction_WithFormals28<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -4178,7 +4003,7 @@ class CppFunction_WithFormals28<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U26 >::type x26(args[26]);
             typename traits::input_parameter< U27 >::type x27(args[27]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 28; }
@@ -4199,7 +4024,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction29(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -4230,7 +4054,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U27 >::type x27(args[27]);
             typename traits::input_parameter< U28 >::type x28(args[28]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28));
-            END_RCPP
         }
 
         inline int nargs() { return 29; }
@@ -4247,7 +4070,6 @@ class CppFunction29<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction29(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -4278,7 +4100,7 @@ class CppFunction29<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U27 >::type x27(args[27]);
             typename traits::input_parameter< U28 >::type x28(args[28]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 29; }
@@ -4300,7 +4122,6 @@ class CppFunction_WithFormals29 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -4331,7 +4152,6 @@ class CppFunction_WithFormals29 : public CppFunction {
             typename traits::input_parameter< U27 >::type x27(args[27]);
             typename traits::input_parameter< U28 >::type x28(args[28]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28));
-            END_RCPP
         }
 
         inline int nargs() { return 29; }
@@ -4351,7 +4171,6 @@ class CppFunction_WithFormals29<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -4382,7 +4201,7 @@ class CppFunction_WithFormals29<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U27 >::type x27(args[27]);
             typename traits::input_parameter< U28 >::type x28(args[28]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 29; }
@@ -4403,7 +4222,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction30(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -4435,7 +4253,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U28 >::type x28(args[28]);
             typename traits::input_parameter< U29 >::type x29(args[29]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29));
-            END_RCPP
         }
 
         inline int nargs() { return 30; }
@@ -4452,7 +4269,6 @@ class CppFunction30<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction30(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -4484,7 +4300,7 @@ class CppFunction30<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U28 >::type x28(args[28]);
             typename traits::input_parameter< U29 >::type x29(args[29]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 30; }
@@ -4506,7 +4322,6 @@ class CppFunction_WithFormals30 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -4538,7 +4353,6 @@ class CppFunction_WithFormals30 : public CppFunction {
             typename traits::input_parameter< U28 >::type x28(args[28]);
             typename traits::input_parameter< U29 >::type x29(args[29]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29));
-            END_RCPP
         }
 
         inline int nargs() { return 30; }
@@ -4558,7 +4372,6 @@ class CppFunction_WithFormals30<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -4590,7 +4403,7 @@ class CppFunction_WithFormals30<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U28 >::type x28(args[28]);
             typename traits::input_parameter< U29 >::type x29(args[29]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 30; }
@@ -4611,7 +4424,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction31(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -4644,7 +4456,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U29 >::type x29(args[29]);
             typename traits::input_parameter< U30 >::type x30(args[30]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30));
-            END_RCPP
         }
 
         inline int nargs() { return 31; }
@@ -4661,7 +4472,6 @@ class CppFunction31<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction31(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -4694,7 +4504,7 @@ class CppFunction31<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U29 >::type x29(args[29]);
             typename traits::input_parameter< U30 >::type x30(args[30]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 31; }
@@ -4716,7 +4526,6 @@ class CppFunction_WithFormals31 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -4749,7 +4558,6 @@ class CppFunction_WithFormals31 : public CppFunction {
             typename traits::input_parameter< U29 >::type x29(args[29]);
             typename traits::input_parameter< U30 >::type x30(args[30]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30));
-            END_RCPP
         }
 
         inline int nargs() { return 31; }
@@ -4769,7 +4577,6 @@ class CppFunction_WithFormals31<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -4802,7 +4609,7 @@ class CppFunction_WithFormals31<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U29 >::type x29(args[29]);
             typename traits::input_parameter< U30 >::type x30(args[30]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 31; }
@@ -4823,7 +4630,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction32(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -4857,7 +4663,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U30 >::type x30(args[30]);
             typename traits::input_parameter< U31 >::type x31(args[31]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31));
-            END_RCPP
         }
 
         inline int nargs() { return 32; }
@@ -4874,7 +4679,6 @@ class CppFunction32<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction32(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -4908,7 +4712,7 @@ class CppFunction32<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U30 >::type x30(args[30]);
             typename traits::input_parameter< U31 >::type x31(args[31]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 32; }
@@ -4930,7 +4734,6 @@ class CppFunction_WithFormals32 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -4964,7 +4767,6 @@ class CppFunction_WithFormals32 : public CppFunction {
             typename traits::input_parameter< U30 >::type x30(args[30]);
             typename traits::input_parameter< U31 >::type x31(args[31]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31));
-            END_RCPP
         }
 
         inline int nargs() { return 32; }
@@ -4984,7 +4786,6 @@ class CppFunction_WithFormals32<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -5018,7 +4819,7 @@ class CppFunction_WithFormals32<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U30 >::type x30(args[30]);
             typename traits::input_parameter< U31 >::type x31(args[31]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 32; }
@@ -5039,7 +4840,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction33(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -5074,7 +4874,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U31 >::type x31(args[31]);
             typename traits::input_parameter< U32 >::type x32(args[32]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32));
-            END_RCPP
         }
 
         inline int nargs() { return 33; }
@@ -5091,7 +4890,6 @@ class CppFunction33<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction33(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -5126,7 +4924,7 @@ class CppFunction33<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U31 >::type x31(args[31]);
             typename traits::input_parameter< U32 >::type x32(args[32]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 33; }
@@ -5148,7 +4946,6 @@ class CppFunction_WithFormals33 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -5183,7 +4980,6 @@ class CppFunction_WithFormals33 : public CppFunction {
             typename traits::input_parameter< U31 >::type x31(args[31]);
             typename traits::input_parameter< U32 >::type x32(args[32]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32));
-            END_RCPP
         }
 
         inline int nargs() { return 33; }
@@ -5203,7 +4999,6 @@ class CppFunction_WithFormals33<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -5238,7 +5033,7 @@ class CppFunction_WithFormals33<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U31 >::type x31(args[31]);
             typename traits::input_parameter< U32 >::type x32(args[32]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 33; }
@@ -5259,7 +5054,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction34(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -5295,7 +5089,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U32 >::type x32(args[32]);
             typename traits::input_parameter< U33 >::type x33(args[33]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33));
-            END_RCPP
         }
 
         inline int nargs() { return 34; }
@@ -5312,7 +5105,6 @@ class CppFunction34<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction34(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -5348,7 +5140,7 @@ class CppFunction34<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U32 >::type x32(args[32]);
             typename traits::input_parameter< U33 >::type x33(args[33]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 34; }
@@ -5370,7 +5162,6 @@ class CppFunction_WithFormals34 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -5406,7 +5197,6 @@ class CppFunction_WithFormals34 : public CppFunction {
             typename traits::input_parameter< U32 >::type x32(args[32]);
             typename traits::input_parameter< U33 >::type x33(args[33]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33));
-            END_RCPP
         }
 
         inline int nargs() { return 34; }
@@ -5426,7 +5216,6 @@ class CppFunction_WithFormals34<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -5462,7 +5251,7 @@ class CppFunction_WithFormals34<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U32 >::type x32(args[32]);
             typename traits::input_parameter< U33 >::type x33(args[33]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 34; }
@@ -5483,7 +5272,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction35(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -5520,7 +5308,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U33 >::type x33(args[33]);
             typename traits::input_parameter< U34 >::type x34(args[34]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34));
-            END_RCPP
         }
 
         inline int nargs() { return 35; }
@@ -5537,7 +5324,6 @@ class CppFunction35<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction35(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -5574,7 +5360,7 @@ class CppFunction35<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U33 >::type x33(args[33]);
             typename traits::input_parameter< U34 >::type x34(args[34]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 35; }
@@ -5596,7 +5382,6 @@ class CppFunction_WithFormals35 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -5633,7 +5418,6 @@ class CppFunction_WithFormals35 : public CppFunction {
             typename traits::input_parameter< U33 >::type x33(args[33]);
             typename traits::input_parameter< U34 >::type x34(args[34]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34));
-            END_RCPP
         }
 
         inline int nargs() { return 35; }
@@ -5653,7 +5437,6 @@ class CppFunction_WithFormals35<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -5690,7 +5473,7 @@ class CppFunction_WithFormals35<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U33 >::type x33(args[33]);
             typename traits::input_parameter< U34 >::type x34(args[34]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 35; }
@@ -5711,7 +5494,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction36(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -5749,7 +5531,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U34 >::type x34(args[34]);
             typename traits::input_parameter< U35 >::type x35(args[35]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35));
-            END_RCPP
         }
 
         inline int nargs() { return 36; }
@@ -5766,7 +5547,6 @@ class CppFunction36<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction36(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -5804,7 +5584,7 @@ class CppFunction36<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U34 >::type x34(args[34]);
             typename traits::input_parameter< U35 >::type x35(args[35]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 36; }
@@ -5826,7 +5606,6 @@ class CppFunction_WithFormals36 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -5864,7 +5643,6 @@ class CppFunction_WithFormals36 : public CppFunction {
             typename traits::input_parameter< U34 >::type x34(args[34]);
             typename traits::input_parameter< U35 >::type x35(args[35]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35));
-            END_RCPP
         }
 
         inline int nargs() { return 36; }
@@ -5884,7 +5662,6 @@ class CppFunction_WithFormals36<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -5922,7 +5699,7 @@ class CppFunction_WithFormals36<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U34 >::type x34(args[34]);
             typename traits::input_parameter< U35 >::type x35(args[35]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 36; }
@@ -5943,7 +5720,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction37(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -5982,7 +5758,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U35 >::type x35(args[35]);
             typename traits::input_parameter< U36 >::type x36(args[36]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36));
-            END_RCPP
         }
 
         inline int nargs() { return 37; }
@@ -5999,7 +5774,6 @@ class CppFunction37<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction37(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -6038,7 +5812,7 @@ class CppFunction37<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U35 >::type x35(args[35]);
             typename traits::input_parameter< U36 >::type x36(args[36]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 37; }
@@ -6060,7 +5834,6 @@ class CppFunction_WithFormals37 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -6099,7 +5872,6 @@ class CppFunction_WithFormals37 : public CppFunction {
             typename traits::input_parameter< U35 >::type x35(args[35]);
             typename traits::input_parameter< U36 >::type x36(args[36]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36));
-            END_RCPP
         }
 
         inline int nargs() { return 37; }
@@ -6119,7 +5891,6 @@ class CppFunction_WithFormals37<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -6158,7 +5929,7 @@ class CppFunction_WithFormals37<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U35 >::type x35(args[35]);
             typename traits::input_parameter< U36 >::type x36(args[36]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 37; }
@@ -6179,7 +5950,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction38(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -6219,7 +5989,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U36 >::type x36(args[36]);
             typename traits::input_parameter< U37 >::type x37(args[37]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37));
-            END_RCPP
         }
 
         inline int nargs() { return 38; }
@@ -6236,7 +6005,6 @@ class CppFunction38<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction38(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -6276,7 +6044,7 @@ class CppFunction38<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U36 >::type x36(args[36]);
             typename traits::input_parameter< U37 >::type x37(args[37]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 38; }
@@ -6298,7 +6066,6 @@ class CppFunction_WithFormals38 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -6338,7 +6105,6 @@ class CppFunction_WithFormals38 : public CppFunction {
             typename traits::input_parameter< U36 >::type x36(args[36]);
             typename traits::input_parameter< U37 >::type x37(args[37]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37));
-            END_RCPP
         }
 
         inline int nargs() { return 38; }
@@ -6358,7 +6124,6 @@ class CppFunction_WithFormals38<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -6398,7 +6163,7 @@ class CppFunction_WithFormals38<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U36 >::type x36(args[36]);
             typename traits::input_parameter< U37 >::type x37(args[37]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 38; }
@@ -6419,7 +6184,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction39(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -6460,7 +6224,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U37 >::type x37(args[37]);
             typename traits::input_parameter< U38 >::type x38(args[38]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38));
-            END_RCPP
         }
 
         inline int nargs() { return 39; }
@@ -6477,7 +6240,6 @@ class CppFunction39<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction39(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -6518,7 +6280,7 @@ class CppFunction39<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U37 >::type x37(args[37]);
             typename traits::input_parameter< U38 >::type x38(args[38]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 39; }
@@ -6540,7 +6302,6 @@ class CppFunction_WithFormals39 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -6581,7 +6342,6 @@ class CppFunction_WithFormals39 : public CppFunction {
             typename traits::input_parameter< U37 >::type x37(args[37]);
             typename traits::input_parameter< U38 >::type x38(args[38]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38));
-            END_RCPP
         }
 
         inline int nargs() { return 39; }
@@ -6601,7 +6361,6 @@ class CppFunction_WithFormals39<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -6642,7 +6401,7 @@ class CppFunction_WithFormals39<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U37 >::type x37(args[37]);
             typename traits::input_parameter< U38 >::type x38(args[38]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 39; }
@@ -6663,7 +6422,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction40(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -6705,7 +6463,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U38 >::type x38(args[38]);
             typename traits::input_parameter< U39 >::type x39(args[39]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39));
-            END_RCPP
         }
 
         inline int nargs() { return 40; }
@@ -6722,7 +6479,6 @@ class CppFunction40<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction40(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -6764,7 +6520,7 @@ class CppFunction40<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U38 >::type x38(args[38]);
             typename traits::input_parameter< U39 >::type x39(args[39]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 40; }
@@ -6786,7 +6542,6 @@ class CppFunction_WithFormals40 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -6828,7 +6583,6 @@ class CppFunction_WithFormals40 : public CppFunction {
             typename traits::input_parameter< U38 >::type x38(args[38]);
             typename traits::input_parameter< U39 >::type x39(args[39]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39));
-            END_RCPP
         }
 
         inline int nargs() { return 40; }
@@ -6848,7 +6602,6 @@ class CppFunction_WithFormals40<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -6890,7 +6643,7 @@ class CppFunction_WithFormals40<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U38 >::type x38(args[38]);
             typename traits::input_parameter< U39 >::type x39(args[39]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 40; }
@@ -6911,7 +6664,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction41(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -6954,7 +6706,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U39 >::type x39(args[39]);
             typename traits::input_parameter< U40 >::type x40(args[40]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40));
-            END_RCPP
         }
 
         inline int nargs() { return 41; }
@@ -6971,7 +6722,6 @@ class CppFunction41<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction41(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -7014,7 +6764,7 @@ class CppFunction41<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U39 >::type x39(args[39]);
             typename traits::input_parameter< U40 >::type x40(args[40]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 41; }
@@ -7036,7 +6786,6 @@ class CppFunction_WithFormals41 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -7079,7 +6828,6 @@ class CppFunction_WithFormals41 : public CppFunction {
             typename traits::input_parameter< U39 >::type x39(args[39]);
             typename traits::input_parameter< U40 >::type x40(args[40]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40));
-            END_RCPP
         }
 
         inline int nargs() { return 41; }
@@ -7099,7 +6847,6 @@ class CppFunction_WithFormals41<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -7142,7 +6889,7 @@ class CppFunction_WithFormals41<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U39 >::type x39(args[39]);
             typename traits::input_parameter< U40 >::type x40(args[40]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 41; }
@@ -7163,7 +6910,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction42(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -7207,7 +6953,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U40 >::type x40(args[40]);
             typename traits::input_parameter< U41 >::type x41(args[41]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41));
-            END_RCPP
         }
 
         inline int nargs() { return 42; }
@@ -7224,7 +6969,6 @@ class CppFunction42<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction42(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -7268,7 +7012,7 @@ class CppFunction42<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U40 >::type x40(args[40]);
             typename traits::input_parameter< U41 >::type x41(args[41]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 42; }
@@ -7290,7 +7034,6 @@ class CppFunction_WithFormals42 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -7334,7 +7077,6 @@ class CppFunction_WithFormals42 : public CppFunction {
             typename traits::input_parameter< U40 >::type x40(args[40]);
             typename traits::input_parameter< U41 >::type x41(args[41]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41));
-            END_RCPP
         }
 
         inline int nargs() { return 42; }
@@ -7354,7 +7096,6 @@ class CppFunction_WithFormals42<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -7398,7 +7139,7 @@ class CppFunction_WithFormals42<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U40 >::type x40(args[40]);
             typename traits::input_parameter< U41 >::type x41(args[41]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 42; }
@@ -7419,7 +7160,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction43(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -7464,7 +7204,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U41 >::type x41(args[41]);
             typename traits::input_parameter< U42 >::type x42(args[42]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42));
-            END_RCPP
         }
 
         inline int nargs() { return 43; }
@@ -7481,7 +7220,6 @@ class CppFunction43<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction43(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -7526,7 +7264,7 @@ class CppFunction43<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U41 >::type x41(args[41]);
             typename traits::input_parameter< U42 >::type x42(args[42]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 43; }
@@ -7548,7 +7286,6 @@ class CppFunction_WithFormals43 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -7593,7 +7330,6 @@ class CppFunction_WithFormals43 : public CppFunction {
             typename traits::input_parameter< U41 >::type x41(args[41]);
             typename traits::input_parameter< U42 >::type x42(args[42]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42));
-            END_RCPP
         }
 
         inline int nargs() { return 43; }
@@ -7613,7 +7349,6 @@ class CppFunction_WithFormals43<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -7658,7 +7393,7 @@ class CppFunction_WithFormals43<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U41 >::type x41(args[41]);
             typename traits::input_parameter< U42 >::type x42(args[42]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 43; }
@@ -7679,7 +7414,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction44(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -7725,7 +7459,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U42 >::type x42(args[42]);
             typename traits::input_parameter< U43 >::type x43(args[43]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43));
-            END_RCPP
         }
 
         inline int nargs() { return 44; }
@@ -7742,7 +7475,6 @@ class CppFunction44<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction44(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -7788,7 +7520,7 @@ class CppFunction44<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U42 >::type x42(args[42]);
             typename traits::input_parameter< U43 >::type x43(args[43]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 44; }
@@ -7810,7 +7542,6 @@ class CppFunction_WithFormals44 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -7856,7 +7587,6 @@ class CppFunction_WithFormals44 : public CppFunction {
             typename traits::input_parameter< U42 >::type x42(args[42]);
             typename traits::input_parameter< U43 >::type x43(args[43]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43));
-            END_RCPP
         }
 
         inline int nargs() { return 44; }
@@ -7876,7 +7606,6 @@ class CppFunction_WithFormals44<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -7922,7 +7651,7 @@ class CppFunction_WithFormals44<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U42 >::type x42(args[42]);
             typename traits::input_parameter< U43 >::type x43(args[43]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 44; }
@@ -7943,7 +7672,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction45(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -7990,7 +7718,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U43 >::type x43(args[43]);
             typename traits::input_parameter< U44 >::type x44(args[44]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44));
-            END_RCPP
         }
 
         inline int nargs() { return 45; }
@@ -8007,7 +7734,6 @@ class CppFunction45<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction45(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -8054,7 +7780,7 @@ class CppFunction45<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U43 >::type x43(args[43]);
             typename traits::input_parameter< U44 >::type x44(args[44]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 45; }
@@ -8076,7 +7802,6 @@ class CppFunction_WithFormals45 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -8123,7 +7848,6 @@ class CppFunction_WithFormals45 : public CppFunction {
             typename traits::input_parameter< U43 >::type x43(args[43]);
             typename traits::input_parameter< U44 >::type x44(args[44]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44));
-            END_RCPP
         }
 
         inline int nargs() { return 45; }
@@ -8143,7 +7867,6 @@ class CppFunction_WithFormals45<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -8190,7 +7913,7 @@ class CppFunction_WithFormals45<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U43 >::type x43(args[43]);
             typename traits::input_parameter< U44 >::type x44(args[44]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 45; }
@@ -8211,7 +7934,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction46(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -8259,7 +7981,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U44 >::type x44(args[44]);
             typename traits::input_parameter< U45 >::type x45(args[45]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45));
-            END_RCPP
         }
 
         inline int nargs() { return 46; }
@@ -8276,7 +7997,6 @@ class CppFunction46<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction46(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -8324,7 +8044,7 @@ class CppFunction46<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U44 >::type x44(args[44]);
             typename traits::input_parameter< U45 >::type x45(args[45]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 46; }
@@ -8346,7 +8066,6 @@ class CppFunction_WithFormals46 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -8394,7 +8113,6 @@ class CppFunction_WithFormals46 : public CppFunction {
             typename traits::input_parameter< U44 >::type x44(args[44]);
             typename traits::input_parameter< U45 >::type x45(args[45]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45));
-            END_RCPP
         }
 
         inline int nargs() { return 46; }
@@ -8414,7 +8132,6 @@ class CppFunction_WithFormals46<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -8462,7 +8179,7 @@ class CppFunction_WithFormals46<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U44 >::type x44(args[44]);
             typename traits::input_parameter< U45 >::type x45(args[45]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 46; }
@@ -8483,7 +8200,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction47(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -8532,7 +8248,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U45 >::type x45(args[45]);
             typename traits::input_parameter< U46 >::type x46(args[46]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46));
-            END_RCPP
         }
 
         inline int nargs() { return 47; }
@@ -8549,7 +8264,6 @@ class CppFunction47<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction47(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -8598,7 +8312,7 @@ class CppFunction47<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U45 >::type x45(args[45]);
             typename traits::input_parameter< U46 >::type x46(args[46]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 47; }
@@ -8620,7 +8334,6 @@ class CppFunction_WithFormals47 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -8669,7 +8382,6 @@ class CppFunction_WithFormals47 : public CppFunction {
             typename traits::input_parameter< U45 >::type x45(args[45]);
             typename traits::input_parameter< U46 >::type x46(args[46]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46));
-            END_RCPP
         }
 
         inline int nargs() { return 47; }
@@ -8689,7 +8401,6 @@ class CppFunction_WithFormals47<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -8738,7 +8449,7 @@ class CppFunction_WithFormals47<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U45 >::type x45(args[45]);
             typename traits::input_parameter< U46 >::type x46(args[46]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 47; }
@@ -8759,7 +8470,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction48(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -8809,7 +8519,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U46 >::type x46(args[46]);
             typename traits::input_parameter< U47 >::type x47(args[47]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47));
-            END_RCPP
         }
 
         inline int nargs() { return 48; }
@@ -8826,7 +8535,6 @@ class CppFunction48<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction48(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -8876,7 +8584,7 @@ class CppFunction48<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U46 >::type x46(args[46]);
             typename traits::input_parameter< U47 >::type x47(args[47]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 48; }
@@ -8898,7 +8606,6 @@ class CppFunction_WithFormals48 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -8948,7 +8655,6 @@ class CppFunction_WithFormals48 : public CppFunction {
             typename traits::input_parameter< U46 >::type x46(args[46]);
             typename traits::input_parameter< U47 >::type x47(args[47]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47));
-            END_RCPP
         }
 
         inline int nargs() { return 48; }
@@ -8968,7 +8674,6 @@ class CppFunction_WithFormals48<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -9018,7 +8723,7 @@ class CppFunction_WithFormals48<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U46 >::type x46(args[46]);
             typename traits::input_parameter< U47 >::type x47(args[47]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 48; }
@@ -9039,7 +8744,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction49(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -9090,7 +8794,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U47 >::type x47(args[47]);
             typename traits::input_parameter< U48 >::type x48(args[48]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48));
-            END_RCPP
         }
 
         inline int nargs() { return 49; }
@@ -9107,7 +8810,6 @@ class CppFunction49<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction49(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -9158,7 +8860,7 @@ class CppFunction49<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U47 >::type x47(args[47]);
             typename traits::input_parameter< U48 >::type x48(args[48]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 49; }
@@ -9180,7 +8882,6 @@ class CppFunction_WithFormals49 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -9231,7 +8932,6 @@ class CppFunction_WithFormals49 : public CppFunction {
             typename traits::input_parameter< U47 >::type x47(args[47]);
             typename traits::input_parameter< U48 >::type x48(args[48]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48));
-            END_RCPP
         }
 
         inline int nargs() { return 49; }
@@ -9251,7 +8951,6 @@ class CppFunction_WithFormals49<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -9302,7 +9001,7 @@ class CppFunction_WithFormals49<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U47 >::type x47(args[47]);
             typename traits::input_parameter< U48 >::type x48(args[48]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 49; }
@@ -9323,7 +9022,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction50(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -9375,7 +9073,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U48 >::type x48(args[48]);
             typename traits::input_parameter< U49 >::type x49(args[49]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49));
-            END_RCPP
         }
 
         inline int nargs() { return 50; }
@@ -9392,7 +9089,6 @@ class CppFunction50<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction50(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -9444,7 +9140,7 @@ class CppFunction50<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U48 >::type x48(args[48]);
             typename traits::input_parameter< U49 >::type x49(args[49]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 50; }
@@ -9466,7 +9162,6 @@ class CppFunction_WithFormals50 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -9518,7 +9213,6 @@ class CppFunction_WithFormals50 : public CppFunction {
             typename traits::input_parameter< U48 >::type x48(args[48]);
             typename traits::input_parameter< U49 >::type x49(args[49]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49));
-            END_RCPP
         }
 
         inline int nargs() { return 50; }
@@ -9538,7 +9232,6 @@ class CppFunction_WithFormals50<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -9590,7 +9283,7 @@ class CppFunction_WithFormals50<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U48 >::type x48(args[48]);
             typename traits::input_parameter< U49 >::type x49(args[49]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 50; }
@@ -9611,7 +9304,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction51(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -9664,7 +9356,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U49 >::type x49(args[49]);
             typename traits::input_parameter< U50 >::type x50(args[50]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50));
-            END_RCPP
         }
 
         inline int nargs() { return 51; }
@@ -9681,7 +9372,6 @@ class CppFunction51<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction51(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -9734,7 +9424,7 @@ class CppFunction51<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U49 >::type x49(args[49]);
             typename traits::input_parameter< U50 >::type x50(args[50]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 51; }
@@ -9756,7 +9446,6 @@ class CppFunction_WithFormals51 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -9809,7 +9498,6 @@ class CppFunction_WithFormals51 : public CppFunction {
             typename traits::input_parameter< U49 >::type x49(args[49]);
             typename traits::input_parameter< U50 >::type x50(args[50]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50));
-            END_RCPP
         }
 
         inline int nargs() { return 51; }
@@ -9829,7 +9517,6 @@ class CppFunction_WithFormals51<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -9882,7 +9569,7 @@ class CppFunction_WithFormals51<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U49 >::type x49(args[49]);
             typename traits::input_parameter< U50 >::type x50(args[50]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 51; }
@@ -9903,7 +9590,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction52(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -9957,7 +9643,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U50 >::type x50(args[50]);
             typename traits::input_parameter< U51 >::type x51(args[51]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51));
-            END_RCPP
         }
 
         inline int nargs() { return 52; }
@@ -9974,7 +9659,6 @@ class CppFunction52<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction52(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -10028,7 +9712,7 @@ class CppFunction52<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U50 >::type x50(args[50]);
             typename traits::input_parameter< U51 >::type x51(args[51]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 52; }
@@ -10050,7 +9734,6 @@ class CppFunction_WithFormals52 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -10104,7 +9787,6 @@ class CppFunction_WithFormals52 : public CppFunction {
             typename traits::input_parameter< U50 >::type x50(args[50]);
             typename traits::input_parameter< U51 >::type x51(args[51]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51));
-            END_RCPP
         }
 
         inline int nargs() { return 52; }
@@ -10124,7 +9806,6 @@ class CppFunction_WithFormals52<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -10178,7 +9859,7 @@ class CppFunction_WithFormals52<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U50 >::type x50(args[50]);
             typename traits::input_parameter< U51 >::type x51(args[51]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 52; }
@@ -10199,7 +9880,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction53(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -10254,7 +9934,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U51 >::type x51(args[51]);
             typename traits::input_parameter< U52 >::type x52(args[52]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52));
-            END_RCPP
         }
 
         inline int nargs() { return 53; }
@@ -10271,7 +9950,6 @@ class CppFunction53<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction53(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -10326,7 +10004,7 @@ class CppFunction53<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U51 >::type x51(args[51]);
             typename traits::input_parameter< U52 >::type x52(args[52]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 53; }
@@ -10348,7 +10026,6 @@ class CppFunction_WithFormals53 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -10403,7 +10080,6 @@ class CppFunction_WithFormals53 : public CppFunction {
             typename traits::input_parameter< U51 >::type x51(args[51]);
             typename traits::input_parameter< U52 >::type x52(args[52]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52));
-            END_RCPP
         }
 
         inline int nargs() { return 53; }
@@ -10423,7 +10099,6 @@ class CppFunction_WithFormals53<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -10478,7 +10153,7 @@ class CppFunction_WithFormals53<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U51 >::type x51(args[51]);
             typename traits::input_parameter< U52 >::type x52(args[52]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 53; }
@@ -10499,7 +10174,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction54(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -10555,7 +10229,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U52 >::type x52(args[52]);
             typename traits::input_parameter< U53 >::type x53(args[53]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53));
-            END_RCPP
         }
 
         inline int nargs() { return 54; }
@@ -10572,7 +10245,6 @@ class CppFunction54<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction54(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -10628,7 +10300,7 @@ class CppFunction54<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U52 >::type x52(args[52]);
             typename traits::input_parameter< U53 >::type x53(args[53]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 54; }
@@ -10650,7 +10322,6 @@ class CppFunction_WithFormals54 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -10706,7 +10377,6 @@ class CppFunction_WithFormals54 : public CppFunction {
             typename traits::input_parameter< U52 >::type x52(args[52]);
             typename traits::input_parameter< U53 >::type x53(args[53]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53));
-            END_RCPP
         }
 
         inline int nargs() { return 54; }
@@ -10726,7 +10396,6 @@ class CppFunction_WithFormals54<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -10782,7 +10451,7 @@ class CppFunction_WithFormals54<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U52 >::type x52(args[52]);
             typename traits::input_parameter< U53 >::type x53(args[53]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 54; }
@@ -10803,7 +10472,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction55(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -10860,7 +10528,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U53 >::type x53(args[53]);
             typename traits::input_parameter< U54 >::type x54(args[54]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54));
-            END_RCPP
         }
 
         inline int nargs() { return 55; }
@@ -10877,7 +10544,6 @@ class CppFunction55<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction55(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -10934,7 +10600,7 @@ class CppFunction55<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U53 >::type x53(args[53]);
             typename traits::input_parameter< U54 >::type x54(args[54]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 55; }
@@ -10956,7 +10622,6 @@ class CppFunction_WithFormals55 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -11013,7 +10678,6 @@ class CppFunction_WithFormals55 : public CppFunction {
             typename traits::input_parameter< U53 >::type x53(args[53]);
             typename traits::input_parameter< U54 >::type x54(args[54]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54));
-            END_RCPP
         }
 
         inline int nargs() { return 55; }
@@ -11033,7 +10697,6 @@ class CppFunction_WithFormals55<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -11090,7 +10753,7 @@ class CppFunction_WithFormals55<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U53 >::type x53(args[53]);
             typename traits::input_parameter< U54 >::type x54(args[54]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 55; }
@@ -11111,7 +10774,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction56(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -11169,7 +10831,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U54 >::type x54(args[54]);
             typename traits::input_parameter< U55 >::type x55(args[55]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55));
-            END_RCPP
         }
 
         inline int nargs() { return 56; }
@@ -11186,7 +10847,6 @@ class CppFunction56<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction56(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -11244,7 +10904,7 @@ class CppFunction56<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U54 >::type x54(args[54]);
             typename traits::input_parameter< U55 >::type x55(args[55]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 56; }
@@ -11266,7 +10926,6 @@ class CppFunction_WithFormals56 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -11324,7 +10983,6 @@ class CppFunction_WithFormals56 : public CppFunction {
             typename traits::input_parameter< U54 >::type x54(args[54]);
             typename traits::input_parameter< U55 >::type x55(args[55]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55));
-            END_RCPP
         }
 
         inline int nargs() { return 56; }
@@ -11344,7 +11002,6 @@ class CppFunction_WithFormals56<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -11402,7 +11059,7 @@ class CppFunction_WithFormals56<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U54 >::type x54(args[54]);
             typename traits::input_parameter< U55 >::type x55(args[55]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 56; }
@@ -11423,7 +11080,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction57(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -11482,7 +11138,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U55 >::type x55(args[55]);
             typename traits::input_parameter< U56 >::type x56(args[56]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56));
-            END_RCPP
         }
 
         inline int nargs() { return 57; }
@@ -11499,7 +11154,6 @@ class CppFunction57<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction57(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -11558,7 +11212,7 @@ class CppFunction57<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U55 >::type x55(args[55]);
             typename traits::input_parameter< U56 >::type x56(args[56]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 57; }
@@ -11580,7 +11234,6 @@ class CppFunction_WithFormals57 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -11639,7 +11292,6 @@ class CppFunction_WithFormals57 : public CppFunction {
             typename traits::input_parameter< U55 >::type x55(args[55]);
             typename traits::input_parameter< U56 >::type x56(args[56]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56));
-            END_RCPP
         }
 
         inline int nargs() { return 57; }
@@ -11659,7 +11311,6 @@ class CppFunction_WithFormals57<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -11718,7 +11369,7 @@ class CppFunction_WithFormals57<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U55 >::type x55(args[55]);
             typename traits::input_parameter< U56 >::type x56(args[56]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 57; }
@@ -11739,7 +11390,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction58(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -11799,7 +11449,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U56 >::type x56(args[56]);
             typename traits::input_parameter< U57 >::type x57(args[57]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57));
-            END_RCPP
         }
 
         inline int nargs() { return 58; }
@@ -11816,7 +11465,6 @@ class CppFunction58<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction58(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -11876,7 +11524,7 @@ class CppFunction58<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U56 >::type x56(args[56]);
             typename traits::input_parameter< U57 >::type x57(args[57]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 58; }
@@ -11898,7 +11546,6 @@ class CppFunction_WithFormals58 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -11958,7 +11605,6 @@ class CppFunction_WithFormals58 : public CppFunction {
             typename traits::input_parameter< U56 >::type x56(args[56]);
             typename traits::input_parameter< U57 >::type x57(args[57]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57));
-            END_RCPP
         }
 
         inline int nargs() { return 58; }
@@ -11978,7 +11624,6 @@ class CppFunction_WithFormals58<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -12038,7 +11683,7 @@ class CppFunction_WithFormals58<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U56 >::type x56(args[56]);
             typename traits::input_parameter< U57 >::type x57(args[57]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 58; }
@@ -12059,7 +11704,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction59(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -12120,7 +11764,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U57 >::type x57(args[57]);
             typename traits::input_parameter< U58 >::type x58(args[58]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58));
-            END_RCPP
         }
 
         inline int nargs() { return 59; }
@@ -12137,7 +11780,6 @@ class CppFunction59<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction59(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -12198,7 +11840,7 @@ class CppFunction59<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U57 >::type x57(args[57]);
             typename traits::input_parameter< U58 >::type x58(args[58]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 59; }
@@ -12220,7 +11862,6 @@ class CppFunction_WithFormals59 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -12281,7 +11922,6 @@ class CppFunction_WithFormals59 : public CppFunction {
             typename traits::input_parameter< U57 >::type x57(args[57]);
             typename traits::input_parameter< U58 >::type x58(args[58]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58));
-            END_RCPP
         }
 
         inline int nargs() { return 59; }
@@ -12301,7 +11941,6 @@ class CppFunction_WithFormals59<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -12362,7 +12001,7 @@ class CppFunction_WithFormals59<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U57 >::type x57(args[57]);
             typename traits::input_parameter< U58 >::type x58(args[58]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 59; }
@@ -12383,7 +12022,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction60(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -12445,7 +12083,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U58 >::type x58(args[58]);
             typename traits::input_parameter< U59 >::type x59(args[59]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59));
-            END_RCPP
         }
 
         inline int nargs() { return 60; }
@@ -12462,7 +12099,6 @@ class CppFunction60<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction60(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -12524,7 +12160,7 @@ class CppFunction60<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U58 >::type x58(args[58]);
             typename traits::input_parameter< U59 >::type x59(args[59]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 60; }
@@ -12546,7 +12182,6 @@ class CppFunction_WithFormals60 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -12608,7 +12243,6 @@ class CppFunction_WithFormals60 : public CppFunction {
             typename traits::input_parameter< U58 >::type x58(args[58]);
             typename traits::input_parameter< U59 >::type x59(args[59]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59));
-            END_RCPP
         }
 
         inline int nargs() { return 60; }
@@ -12628,7 +12262,6 @@ class CppFunction_WithFormals60<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -12690,7 +12323,7 @@ class CppFunction_WithFormals60<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U58 >::type x58(args[58]);
             typename traits::input_parameter< U59 >::type x59(args[59]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 60; }
@@ -12711,7 +12344,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction61(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -12774,7 +12406,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U59 >::type x59(args[59]);
             typename traits::input_parameter< U60 >::type x60(args[60]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60));
-            END_RCPP
         }
 
         inline int nargs() { return 61; }
@@ -12791,7 +12422,6 @@ class CppFunction61<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction61(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -12854,7 +12484,7 @@ class CppFunction61<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U59 >::type x59(args[59]);
             typename traits::input_parameter< U60 >::type x60(args[60]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 61; }
@@ -12876,7 +12506,6 @@ class CppFunction_WithFormals61 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -12939,7 +12568,6 @@ class CppFunction_WithFormals61 : public CppFunction {
             typename traits::input_parameter< U59 >::type x59(args[59]);
             typename traits::input_parameter< U60 >::type x60(args[60]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60));
-            END_RCPP
         }
 
         inline int nargs() { return 61; }
@@ -12959,7 +12587,6 @@ class CppFunction_WithFormals61<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -13022,7 +12649,7 @@ class CppFunction_WithFormals61<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U59 >::type x59(args[59]);
             typename traits::input_parameter< U60 >::type x60(args[60]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 61; }
@@ -13043,7 +12670,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction62(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -13107,7 +12733,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U60 >::type x60(args[60]);
             typename traits::input_parameter< U61 >::type x61(args[61]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61));
-            END_RCPP
         }
 
         inline int nargs() { return 62; }
@@ -13124,7 +12749,6 @@ class CppFunction62<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction62(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -13188,7 +12812,7 @@ class CppFunction62<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U60 >::type x60(args[60]);
             typename traits::input_parameter< U61 >::type x61(args[61]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 62; }
@@ -13210,7 +12834,6 @@ class CppFunction_WithFormals62 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -13274,7 +12897,6 @@ class CppFunction_WithFormals62 : public CppFunction {
             typename traits::input_parameter< U60 >::type x60(args[60]);
             typename traits::input_parameter< U61 >::type x61(args[61]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61));
-            END_RCPP
         }
 
         inline int nargs() { return 62; }
@@ -13294,7 +12916,6 @@ class CppFunction_WithFormals62<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -13358,7 +12979,7 @@ class CppFunction_WithFormals62<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U60 >::type x60(args[60]);
             typename traits::input_parameter< U61 >::type x61(args[61]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 62; }
@@ -13379,7 +13000,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction63(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -13444,7 +13064,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U61 >::type x61(args[61]);
             typename traits::input_parameter< U62 >::type x62(args[62]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61,x62));
-            END_RCPP
         }
 
         inline int nargs() { return 63; }
@@ -13461,7 +13080,6 @@ class CppFunction63<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction63(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -13526,7 +13144,7 @@ class CppFunction63<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U61 >::type x61(args[61]);
             typename traits::input_parameter< U62 >::type x62(args[62]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61,x62);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 63; }
@@ -13548,7 +13166,6 @@ class CppFunction_WithFormals63 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -13613,7 +13230,6 @@ class CppFunction_WithFormals63 : public CppFunction {
             typename traits::input_parameter< U61 >::type x61(args[61]);
             typename traits::input_parameter< U62 >::type x62(args[62]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61,x62));
-            END_RCPP
         }
 
         inline int nargs() { return 63; }
@@ -13633,7 +13249,6 @@ class CppFunction_WithFormals63<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -13698,7 +13313,7 @@ class CppFunction_WithFormals63<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U61 >::type x61(args[61]);
             typename traits::input_parameter< U62 >::type x62(args[62]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61,x62);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 63; }
@@ -13719,7 +13334,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction64(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62,U63) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -13785,7 +13399,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U62 >::type x62(args[62]);
             typename traits::input_parameter< U63 >::type x63(args[63]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61,x62,x63));
-            END_RCPP
         }
 
         inline int nargs() { return 64; }
@@ -13802,7 +13415,6 @@ class CppFunction64<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction64(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62,U63) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -13868,7 +13480,7 @@ class CppFunction64<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U62 >::type x62(args[62]);
             typename traits::input_parameter< U63 >::type x63(args[63]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61,x62,x63);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 64; }
@@ -13890,7 +13502,6 @@ class CppFunction_WithFormals64 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -13956,7 +13567,6 @@ class CppFunction_WithFormals64 : public CppFunction {
             typename traits::input_parameter< U62 >::type x62(args[62]);
             typename traits::input_parameter< U63 >::type x63(args[63]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61,x62,x63));
-            END_RCPP
         }
 
         inline int nargs() { return 64; }
@@ -13976,7 +13586,6 @@ class CppFunction_WithFormals64<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -14042,7 +13651,7 @@ class CppFunction_WithFormals64<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U62 >::type x62(args[62]);
             typename traits::input_parameter< U63 >::type x63(args[63]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61,x62,x63);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 64; }
@@ -14063,7 +13672,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
         CppFunction65(RESULT_TYPE (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62,U63,U64) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -14130,7 +13738,6 @@ template <typename RESULT_TYPE, typename U0,typename U1,typename U2,typename U3,
             typename traits::input_parameter< U63 >::type x63(args[63]);
             typename traits::input_parameter< U64 >::type x64(args[64]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61,x62,x63,x64));
-            END_RCPP
         }
 
         inline int nargs() { return 65; }
@@ -14147,7 +13754,6 @@ class CppFunction65<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
         CppFunction65(void (*fun)(U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U16,U17,U18,U19,U20,U21,U22,U23,U24,U25,U26,U27,U28,U29,U30,U31,U32,U33,U34,U35,U36,U37,U38,U39,U40,U41,U42,U43,U44,U45,U46,U47,U48,U49,U50,U51,U52,U53,U54,U55,U56,U57,U58,U59,U60,U61,U62,U63,U64) , const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -14214,7 +13820,7 @@ class CppFunction65<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U63 >::type x63(args[63]);
             typename traits::input_parameter< U64 >::type x64(args[64]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61,x62,x63,x64);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 65; }
@@ -14236,7 +13842,6 @@ class CppFunction_WithFormals65 : public CppFunction {
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -14303,7 +13908,6 @@ class CppFunction_WithFormals65 : public CppFunction {
             typename traits::input_parameter< U63 >::type x63(args[63]);
             typename traits::input_parameter< U64 >::type x64(args[64]);
             return Rcpp::module_wrap<RESULT_TYPE>(ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61,x62,x63,x64));
-            END_RCPP
         }
 
         inline int nargs() { return 65; }
@@ -14323,7 +13927,6 @@ class CppFunction_WithFormals65<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
 
         SEXP operator()(SEXP* args) {
-            BEGIN_RCPP
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
@@ -14390,7 +13993,7 @@ class CppFunction_WithFormals65<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U63 >::type x63(args[63]);
             typename traits::input_parameter< U64 >::type x64(args[64]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61,x62,x63,x64);
-            END_RCPP
+            return R_NilValue ;
         }
 
         inline int nargs() { return 65; }
