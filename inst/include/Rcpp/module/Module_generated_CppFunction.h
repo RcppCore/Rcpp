@@ -49,6 +49,7 @@ class CppFunction0<void> : public CppFunction {
 
         SEXP operator()(SEXP*) {
             ptr_fun();
+            return R_NilValue ;
         }
 
         inline int nargs() { return 0; }
@@ -85,6 +86,7 @@ class CppFunction_WithFormals0<void> : public CppFunction {
 
         SEXP operator()(SEXP*) {
             ptr_fun() ;
+            return R_NilValue ;
         }
 
         inline int nargs() { return 0; }
@@ -123,6 +125,7 @@ class CppFunction1<void,U0> : public CppFunction {
         SEXP operator()(SEXP* args) {
             typename traits::input_parameter< U0 >::type x0(args[0]);
             ptr_fun(x0);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 1; }
@@ -167,6 +170,7 @@ class CppFunction_WithFormals1<void,U0> : public CppFunction {
         SEXP operator()(SEXP* args) {
             typename traits::input_parameter< U0 >::type x0(args[0]);
             ptr_fun(x0);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 1; }
@@ -209,6 +213,7 @@ class CppFunction2<void,U0,U1> : public CppFunction {
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             ptr_fun(x0,x1);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 2; }
@@ -255,6 +260,7 @@ class CppFunction_WithFormals2<void,U0,U1> : public CppFunction {
             typename traits::input_parameter< U0 >::type x0(args[0]);
             typename traits::input_parameter< U1 >::type x1(args[1]);
             ptr_fun(x0,x1);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 2; }
@@ -299,6 +305,7 @@ class CppFunction3<void,U0,U1,U2> : public CppFunction {
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
             ptr_fun(x0,x1,x2);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 3; }
@@ -347,6 +354,7 @@ class CppFunction_WithFormals3<void,U0,U1,U2> : public CppFunction {
             typename traits::input_parameter< U1 >::type x1(args[1]);
             typename traits::input_parameter< U2 >::type x2(args[2]);
             ptr_fun(x0,x1,x2);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 3; }
@@ -393,6 +401,7 @@ class CppFunction4<void,U0,U1,U2,U3> : public CppFunction {
             typename traits::input_parameter< U2 >::type x2(args[2]);
             typename traits::input_parameter< U3 >::type x3(args[3]);
             ptr_fun(x0,x1,x2,x3);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 4; }
@@ -443,6 +452,7 @@ class CppFunction_WithFormals4<void,U0,U1,U2,U3> : public CppFunction {
             typename traits::input_parameter< U2 >::type x2(args[2]);
             typename traits::input_parameter< U3 >::type x3(args[3]);
             ptr_fun(x0,x1,x2,x3);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 4; }
@@ -491,6 +501,7 @@ class CppFunction5<void,U0,U1,U2,U3,U4> : public CppFunction {
             typename traits::input_parameter< U3 >::type x3(args[3]);
             typename traits::input_parameter< U4 >::type x4(args[4]);
             ptr_fun(x0,x1,x2,x3,x4);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 5; }
@@ -543,6 +554,7 @@ class CppFunction_WithFormals5<void,U0,U1,U2,U3,U4> : public CppFunction {
             typename traits::input_parameter< U3 >::type x3(args[3]);
             typename traits::input_parameter< U4 >::type x4(args[4]);
             ptr_fun(x0,x1,x2,x3,x4);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 5; }
@@ -647,6 +659,7 @@ class CppFunction_WithFormals6<void,U0,U1,U2,U3,U4,U5> : public CppFunction {
             typename traits::input_parameter< U4 >::type x4(args[4]);
             typename traits::input_parameter< U5 >::type x5(args[5]);
             ptr_fun(x0,x1,x2,x3,x4,x5);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 6; }
@@ -699,6 +712,7 @@ class CppFunction7<void,U0,U1,U2,U3,U4,U5,U6> : public CppFunction {
             typename traits::input_parameter< U5 >::type x5(args[5]);
             typename traits::input_parameter< U6 >::type x6(args[6]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 7; }
@@ -755,6 +769,7 @@ class CppFunction_WithFormals7<void,U0,U1,U2,U3,U4,U5,U6> : public CppFunction {
             typename traits::input_parameter< U5 >::type x5(args[5]);
             typename traits::input_parameter< U6 >::type x6(args[6]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 7; }
@@ -809,6 +824,7 @@ class CppFunction8<void,U0,U1,U2,U3,U4,U5,U6,U7> : public CppFunction {
             typename traits::input_parameter< U6 >::type x6(args[6]);
             typename traits::input_parameter< U7 >::type x7(args[7]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 8; }
@@ -867,6 +883,7 @@ class CppFunction_WithFormals8<void,U0,U1,U2,U3,U4,U5,U6,U7> : public CppFunctio
             typename traits::input_parameter< U6 >::type x6(args[6]);
             typename traits::input_parameter< U7 >::type x7(args[7]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 8; }
@@ -923,6 +940,7 @@ class CppFunction9<void,U0,U1,U2,U3,U4,U5,U6,U7,U8> : public CppFunction {
             typename traits::input_parameter< U7 >::type x7(args[7]);
             typename traits::input_parameter< U8 >::type x8(args[8]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 9; }
@@ -983,6 +1001,7 @@ class CppFunction_WithFormals9<void,U0,U1,U2,U3,U4,U5,U6,U7,U8> : public CppFunc
             typename traits::input_parameter< U7 >::type x7(args[7]);
             typename traits::input_parameter< U8 >::type x8(args[8]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 9; }
@@ -1041,6 +1060,7 @@ class CppFunction10<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9> : public CppFunction {
             typename traits::input_parameter< U8 >::type x8(args[8]);
             typename traits::input_parameter< U9 >::type x9(args[9]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 10; }
@@ -1103,6 +1123,7 @@ class CppFunction_WithFormals10<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9> : public Cpp
             typename traits::input_parameter< U8 >::type x8(args[8]);
             typename traits::input_parameter< U9 >::type x9(args[9]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 10; }
@@ -1163,6 +1184,7 @@ class CppFunction11<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10> : public CppFunction
             typename traits::input_parameter< U9 >::type x9(args[9]);
             typename traits::input_parameter< U10 >::type x10(args[10]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 11; }
@@ -1227,6 +1249,7 @@ class CppFunction_WithFormals11<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10> : public
             typename traits::input_parameter< U9 >::type x9(args[9]);
             typename traits::input_parameter< U10 >::type x10(args[10]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 11; }
@@ -1289,6 +1312,7 @@ class CppFunction12<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11> : public CppFunc
             typename traits::input_parameter< U10 >::type x10(args[10]);
             typename traits::input_parameter< U11 >::type x11(args[11]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 12; }
@@ -1355,6 +1379,7 @@ class CppFunction_WithFormals12<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11> : pu
             typename traits::input_parameter< U10 >::type x10(args[10]);
             typename traits::input_parameter< U11 >::type x11(args[11]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 12; }
@@ -1419,6 +1444,7 @@ class CppFunction13<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12> : public Cpp
             typename traits::input_parameter< U11 >::type x11(args[11]);
             typename traits::input_parameter< U12 >::type x12(args[12]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 13; }
@@ -1487,6 +1513,7 @@ class CppFunction_WithFormals13<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12> 
             typename traits::input_parameter< U11 >::type x11(args[11]);
             typename traits::input_parameter< U12 >::type x12(args[12]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 13; }
@@ -1553,6 +1580,7 @@ class CppFunction14<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13> : public
             typename traits::input_parameter< U12 >::type x12(args[12]);
             typename traits::input_parameter< U13 >::type x13(args[13]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 14; }
@@ -1623,6 +1651,7 @@ class CppFunction_WithFormals14<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U12 >::type x12(args[12]);
             typename traits::input_parameter< U13 >::type x13(args[13]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 14; }
@@ -1691,6 +1720,7 @@ class CppFunction15<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14> : pu
             typename traits::input_parameter< U13 >::type x13(args[13]);
             typename traits::input_parameter< U14 >::type x14(args[14]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 15; }
@@ -1763,6 +1793,7 @@ class CppFunction_WithFormals15<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U13 >::type x13(args[13]);
             typename traits::input_parameter< U14 >::type x14(args[14]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 15; }
@@ -1833,6 +1864,7 @@ class CppFunction16<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15> 
             typename traits::input_parameter< U14 >::type x14(args[14]);
             typename traits::input_parameter< U15 >::type x15(args[15]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 16; }
@@ -1907,6 +1939,7 @@ class CppFunction_WithFormals16<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U14 >::type x14(args[14]);
             typename traits::input_parameter< U15 >::type x15(args[15]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 16; }
@@ -1979,6 +2012,7 @@ class CppFunction17<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U15 >::type x15(args[15]);
             typename traits::input_parameter< U16 >::type x16(args[16]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 17; }
@@ -2055,6 +2089,7 @@ class CppFunction_WithFormals17<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U15 >::type x15(args[15]);
             typename traits::input_parameter< U16 >::type x16(args[16]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 17; }
@@ -2129,6 +2164,7 @@ class CppFunction18<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U16 >::type x16(args[16]);
             typename traits::input_parameter< U17 >::type x17(args[17]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 18; }
@@ -2207,6 +2243,7 @@ class CppFunction_WithFormals18<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U16 >::type x16(args[16]);
             typename traits::input_parameter< U17 >::type x17(args[17]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 18; }
@@ -2283,6 +2320,7 @@ class CppFunction19<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U17 >::type x17(args[17]);
             typename traits::input_parameter< U18 >::type x18(args[18]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 19; }
@@ -2363,6 +2401,7 @@ class CppFunction_WithFormals19<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U17 >::type x17(args[17]);
             typename traits::input_parameter< U18 >::type x18(args[18]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 19; }
@@ -2441,6 +2480,7 @@ class CppFunction20<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U18 >::type x18(args[18]);
             typename traits::input_parameter< U19 >::type x19(args[19]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 20; }
@@ -2523,6 +2563,7 @@ class CppFunction_WithFormals20<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U18 >::type x18(args[18]);
             typename traits::input_parameter< U19 >::type x19(args[19]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 20; }
@@ -2603,6 +2644,7 @@ class CppFunction21<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U19 >::type x19(args[19]);
             typename traits::input_parameter< U20 >::type x20(args[20]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 21; }
@@ -2687,6 +2729,7 @@ class CppFunction_WithFormals21<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U19 >::type x19(args[19]);
             typename traits::input_parameter< U20 >::type x20(args[20]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 21; }
@@ -2769,6 +2812,7 @@ class CppFunction22<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U20 >::type x20(args[20]);
             typename traits::input_parameter< U21 >::type x21(args[21]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 22; }
@@ -2855,6 +2899,7 @@ class CppFunction_WithFormals22<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U20 >::type x20(args[20]);
             typename traits::input_parameter< U21 >::type x21(args[21]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 22; }
@@ -2939,6 +2984,7 @@ class CppFunction23<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U21 >::type x21(args[21]);
             typename traits::input_parameter< U22 >::type x22(args[22]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 23; }
@@ -3027,6 +3073,7 @@ class CppFunction_WithFormals23<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U21 >::type x21(args[21]);
             typename traits::input_parameter< U22 >::type x22(args[22]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 23; }
@@ -3113,6 +3160,7 @@ class CppFunction24<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U22 >::type x22(args[22]);
             typename traits::input_parameter< U23 >::type x23(args[23]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 24; }
@@ -3203,6 +3251,7 @@ class CppFunction_WithFormals24<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U22 >::type x22(args[22]);
             typename traits::input_parameter< U23 >::type x23(args[23]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 24; }
@@ -3291,6 +3340,7 @@ class CppFunction25<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U23 >::type x23(args[23]);
             typename traits::input_parameter< U24 >::type x24(args[24]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 25; }
@@ -3383,6 +3433,7 @@ class CppFunction_WithFormals25<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U23 >::type x23(args[23]);
             typename traits::input_parameter< U24 >::type x24(args[24]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 25; }
@@ -3473,6 +3524,7 @@ class CppFunction26<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U24 >::type x24(args[24]);
             typename traits::input_parameter< U25 >::type x25(args[25]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 26; }
@@ -3567,6 +3619,7 @@ class CppFunction_WithFormals26<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U24 >::type x24(args[24]);
             typename traits::input_parameter< U25 >::type x25(args[25]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 26; }
@@ -3659,6 +3712,7 @@ class CppFunction27<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U25 >::type x25(args[25]);
             typename traits::input_parameter< U26 >::type x26(args[26]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 27; }
@@ -3755,6 +3809,7 @@ class CppFunction_WithFormals27<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U25 >::type x25(args[25]);
             typename traits::input_parameter< U26 >::type x26(args[26]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 27; }
@@ -3849,6 +3904,7 @@ class CppFunction28<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U26 >::type x26(args[26]);
             typename traits::input_parameter< U27 >::type x27(args[27]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 28; }
@@ -3947,6 +4003,7 @@ class CppFunction_WithFormals28<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U26 >::type x26(args[26]);
             typename traits::input_parameter< U27 >::type x27(args[27]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 28; }
@@ -4043,6 +4100,7 @@ class CppFunction29<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U27 >::type x27(args[27]);
             typename traits::input_parameter< U28 >::type x28(args[28]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 29; }
@@ -4143,6 +4201,7 @@ class CppFunction_WithFormals29<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U27 >::type x27(args[27]);
             typename traits::input_parameter< U28 >::type x28(args[28]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 29; }
@@ -4241,6 +4300,7 @@ class CppFunction30<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U28 >::type x28(args[28]);
             typename traits::input_parameter< U29 >::type x29(args[29]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 30; }
@@ -4343,6 +4403,7 @@ class CppFunction_WithFormals30<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U28 >::type x28(args[28]);
             typename traits::input_parameter< U29 >::type x29(args[29]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 30; }
@@ -4443,6 +4504,7 @@ class CppFunction31<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U29 >::type x29(args[29]);
             typename traits::input_parameter< U30 >::type x30(args[30]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 31; }
@@ -4547,6 +4609,7 @@ class CppFunction_WithFormals31<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U29 >::type x29(args[29]);
             typename traits::input_parameter< U30 >::type x30(args[30]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 31; }
@@ -4649,6 +4712,7 @@ class CppFunction32<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U30 >::type x30(args[30]);
             typename traits::input_parameter< U31 >::type x31(args[31]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 32; }
@@ -4755,6 +4819,7 @@ class CppFunction_WithFormals32<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U30 >::type x30(args[30]);
             typename traits::input_parameter< U31 >::type x31(args[31]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 32; }
@@ -4859,6 +4924,7 @@ class CppFunction33<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U31 >::type x31(args[31]);
             typename traits::input_parameter< U32 >::type x32(args[32]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 33; }
@@ -4967,6 +5033,7 @@ class CppFunction_WithFormals33<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U31 >::type x31(args[31]);
             typename traits::input_parameter< U32 >::type x32(args[32]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 33; }
@@ -5073,6 +5140,7 @@ class CppFunction34<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U32 >::type x32(args[32]);
             typename traits::input_parameter< U33 >::type x33(args[33]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 34; }
@@ -5183,6 +5251,7 @@ class CppFunction_WithFormals34<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U32 >::type x32(args[32]);
             typename traits::input_parameter< U33 >::type x33(args[33]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 34; }
@@ -5291,6 +5360,7 @@ class CppFunction35<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U33 >::type x33(args[33]);
             typename traits::input_parameter< U34 >::type x34(args[34]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 35; }
@@ -5403,6 +5473,7 @@ class CppFunction_WithFormals35<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U33 >::type x33(args[33]);
             typename traits::input_parameter< U34 >::type x34(args[34]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 35; }
@@ -5513,6 +5584,7 @@ class CppFunction36<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U34 >::type x34(args[34]);
             typename traits::input_parameter< U35 >::type x35(args[35]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 36; }
@@ -5627,6 +5699,7 @@ class CppFunction_WithFormals36<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U34 >::type x34(args[34]);
             typename traits::input_parameter< U35 >::type x35(args[35]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 36; }
@@ -5739,6 +5812,7 @@ class CppFunction37<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U35 >::type x35(args[35]);
             typename traits::input_parameter< U36 >::type x36(args[36]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 37; }
@@ -5855,6 +5929,7 @@ class CppFunction_WithFormals37<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U35 >::type x35(args[35]);
             typename traits::input_parameter< U36 >::type x36(args[36]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 37; }
@@ -5969,6 +6044,7 @@ class CppFunction38<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U36 >::type x36(args[36]);
             typename traits::input_parameter< U37 >::type x37(args[37]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 38; }
@@ -6087,6 +6163,7 @@ class CppFunction_WithFormals38<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U36 >::type x36(args[36]);
             typename traits::input_parameter< U37 >::type x37(args[37]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 38; }
@@ -6203,6 +6280,7 @@ class CppFunction39<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U37 >::type x37(args[37]);
             typename traits::input_parameter< U38 >::type x38(args[38]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 39; }
@@ -6323,6 +6401,7 @@ class CppFunction_WithFormals39<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U37 >::type x37(args[37]);
             typename traits::input_parameter< U38 >::type x38(args[38]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 39; }
@@ -6441,6 +6520,7 @@ class CppFunction40<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U38 >::type x38(args[38]);
             typename traits::input_parameter< U39 >::type x39(args[39]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 40; }
@@ -6563,6 +6643,7 @@ class CppFunction_WithFormals40<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U38 >::type x38(args[38]);
             typename traits::input_parameter< U39 >::type x39(args[39]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 40; }
@@ -6683,6 +6764,7 @@ class CppFunction41<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U39 >::type x39(args[39]);
             typename traits::input_parameter< U40 >::type x40(args[40]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 41; }
@@ -6807,6 +6889,7 @@ class CppFunction_WithFormals41<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U39 >::type x39(args[39]);
             typename traits::input_parameter< U40 >::type x40(args[40]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 41; }
@@ -6929,6 +7012,7 @@ class CppFunction42<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U40 >::type x40(args[40]);
             typename traits::input_parameter< U41 >::type x41(args[41]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 42; }
@@ -7055,6 +7139,7 @@ class CppFunction_WithFormals42<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U40 >::type x40(args[40]);
             typename traits::input_parameter< U41 >::type x41(args[41]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 42; }
@@ -7179,6 +7264,7 @@ class CppFunction43<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U41 >::type x41(args[41]);
             typename traits::input_parameter< U42 >::type x42(args[42]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 43; }
@@ -7307,6 +7393,7 @@ class CppFunction_WithFormals43<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U41 >::type x41(args[41]);
             typename traits::input_parameter< U42 >::type x42(args[42]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 43; }
@@ -7433,6 +7520,7 @@ class CppFunction44<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U42 >::type x42(args[42]);
             typename traits::input_parameter< U43 >::type x43(args[43]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 44; }
@@ -7563,6 +7651,7 @@ class CppFunction_WithFormals44<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U42 >::type x42(args[42]);
             typename traits::input_parameter< U43 >::type x43(args[43]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 44; }
@@ -7691,6 +7780,7 @@ class CppFunction45<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U43 >::type x43(args[43]);
             typename traits::input_parameter< U44 >::type x44(args[44]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 45; }
@@ -7823,6 +7913,7 @@ class CppFunction_WithFormals45<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U43 >::type x43(args[43]);
             typename traits::input_parameter< U44 >::type x44(args[44]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 45; }
@@ -7953,6 +8044,7 @@ class CppFunction46<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U44 >::type x44(args[44]);
             typename traits::input_parameter< U45 >::type x45(args[45]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 46; }
@@ -8087,6 +8179,7 @@ class CppFunction_WithFormals46<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U44 >::type x44(args[44]);
             typename traits::input_parameter< U45 >::type x45(args[45]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 46; }
@@ -8219,6 +8312,7 @@ class CppFunction47<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U45 >::type x45(args[45]);
             typename traits::input_parameter< U46 >::type x46(args[46]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 47; }
@@ -8355,6 +8449,7 @@ class CppFunction_WithFormals47<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U45 >::type x45(args[45]);
             typename traits::input_parameter< U46 >::type x46(args[46]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 47; }
@@ -8489,6 +8584,7 @@ class CppFunction48<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U46 >::type x46(args[46]);
             typename traits::input_parameter< U47 >::type x47(args[47]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 48; }
@@ -8627,6 +8723,7 @@ class CppFunction_WithFormals48<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U46 >::type x46(args[46]);
             typename traits::input_parameter< U47 >::type x47(args[47]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 48; }
@@ -8763,6 +8860,7 @@ class CppFunction49<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U47 >::type x47(args[47]);
             typename traits::input_parameter< U48 >::type x48(args[48]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 49; }
@@ -8903,6 +9001,7 @@ class CppFunction_WithFormals49<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U47 >::type x47(args[47]);
             typename traits::input_parameter< U48 >::type x48(args[48]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 49; }
@@ -9041,6 +9140,7 @@ class CppFunction50<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U48 >::type x48(args[48]);
             typename traits::input_parameter< U49 >::type x49(args[49]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 50; }
@@ -9183,6 +9283,7 @@ class CppFunction_WithFormals50<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U48 >::type x48(args[48]);
             typename traits::input_parameter< U49 >::type x49(args[49]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 50; }
@@ -9323,6 +9424,7 @@ class CppFunction51<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U49 >::type x49(args[49]);
             typename traits::input_parameter< U50 >::type x50(args[50]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 51; }
@@ -9467,6 +9569,7 @@ class CppFunction_WithFormals51<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U49 >::type x49(args[49]);
             typename traits::input_parameter< U50 >::type x50(args[50]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 51; }
@@ -9609,6 +9712,7 @@ class CppFunction52<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U50 >::type x50(args[50]);
             typename traits::input_parameter< U51 >::type x51(args[51]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 52; }
@@ -9755,6 +9859,7 @@ class CppFunction_WithFormals52<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U50 >::type x50(args[50]);
             typename traits::input_parameter< U51 >::type x51(args[51]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 52; }
@@ -9899,6 +10004,7 @@ class CppFunction53<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U51 >::type x51(args[51]);
             typename traits::input_parameter< U52 >::type x52(args[52]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 53; }
@@ -10047,6 +10153,7 @@ class CppFunction_WithFormals53<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U51 >::type x51(args[51]);
             typename traits::input_parameter< U52 >::type x52(args[52]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 53; }
@@ -10193,6 +10300,7 @@ class CppFunction54<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U52 >::type x52(args[52]);
             typename traits::input_parameter< U53 >::type x53(args[53]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 54; }
@@ -10343,6 +10451,7 @@ class CppFunction_WithFormals54<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U52 >::type x52(args[52]);
             typename traits::input_parameter< U53 >::type x53(args[53]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 54; }
@@ -10491,6 +10600,7 @@ class CppFunction55<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U53 >::type x53(args[53]);
             typename traits::input_parameter< U54 >::type x54(args[54]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 55; }
@@ -10643,6 +10753,7 @@ class CppFunction_WithFormals55<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U53 >::type x53(args[53]);
             typename traits::input_parameter< U54 >::type x54(args[54]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 55; }
@@ -10793,6 +10904,7 @@ class CppFunction56<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U54 >::type x54(args[54]);
             typename traits::input_parameter< U55 >::type x55(args[55]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 56; }
@@ -10947,6 +11059,7 @@ class CppFunction_WithFormals56<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U54 >::type x54(args[54]);
             typename traits::input_parameter< U55 >::type x55(args[55]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 56; }
@@ -11099,6 +11212,7 @@ class CppFunction57<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U55 >::type x55(args[55]);
             typename traits::input_parameter< U56 >::type x56(args[56]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 57; }
@@ -11255,6 +11369,7 @@ class CppFunction_WithFormals57<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U55 >::type x55(args[55]);
             typename traits::input_parameter< U56 >::type x56(args[56]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 57; }
@@ -11409,6 +11524,7 @@ class CppFunction58<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U56 >::type x56(args[56]);
             typename traits::input_parameter< U57 >::type x57(args[57]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 58; }
@@ -11567,6 +11683,7 @@ class CppFunction_WithFormals58<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U56 >::type x56(args[56]);
             typename traits::input_parameter< U57 >::type x57(args[57]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 58; }
@@ -11723,6 +11840,7 @@ class CppFunction59<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U57 >::type x57(args[57]);
             typename traits::input_parameter< U58 >::type x58(args[58]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 59; }
@@ -11883,6 +12001,7 @@ class CppFunction_WithFormals59<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U57 >::type x57(args[57]);
             typename traits::input_parameter< U58 >::type x58(args[58]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 59; }
@@ -12041,6 +12160,7 @@ class CppFunction60<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U58 >::type x58(args[58]);
             typename traits::input_parameter< U59 >::type x59(args[59]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 60; }
@@ -12203,6 +12323,7 @@ class CppFunction_WithFormals60<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U58 >::type x58(args[58]);
             typename traits::input_parameter< U59 >::type x59(args[59]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 60; }
@@ -12363,6 +12484,7 @@ class CppFunction61<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U59 >::type x59(args[59]);
             typename traits::input_parameter< U60 >::type x60(args[60]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 61; }
@@ -12527,6 +12649,7 @@ class CppFunction_WithFormals61<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U59 >::type x59(args[59]);
             typename traits::input_parameter< U60 >::type x60(args[60]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 61; }
@@ -12689,6 +12812,7 @@ class CppFunction62<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U60 >::type x60(args[60]);
             typename traits::input_parameter< U61 >::type x61(args[61]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 62; }
@@ -12855,6 +12979,7 @@ class CppFunction_WithFormals62<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U60 >::type x60(args[60]);
             typename traits::input_parameter< U61 >::type x61(args[61]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 62; }
@@ -13019,6 +13144,7 @@ class CppFunction63<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U61 >::type x61(args[61]);
             typename traits::input_parameter< U62 >::type x62(args[62]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61,x62);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 63; }
@@ -13187,6 +13313,7 @@ class CppFunction_WithFormals63<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U61 >::type x61(args[61]);
             typename traits::input_parameter< U62 >::type x62(args[62]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61,x62);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 63; }
@@ -13353,6 +13480,7 @@ class CppFunction64<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U62 >::type x62(args[62]);
             typename traits::input_parameter< U63 >::type x63(args[63]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61,x62,x63);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 64; }
@@ -13523,6 +13651,7 @@ class CppFunction_WithFormals64<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U62 >::type x62(args[62]);
             typename traits::input_parameter< U63 >::type x63(args[63]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61,x62,x63);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 64; }
@@ -13691,6 +13820,7 @@ class CppFunction65<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U13,U14,U15,U
             typename traits::input_parameter< U63 >::type x63(args[63]);
             typename traits::input_parameter< U64 >::type x64(args[64]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61,x62,x63,x64);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 65; }
@@ -13863,6 +13993,7 @@ class CppFunction_WithFormals65<void,U0,U1,U2,U3,U4,U5,U6,U7,U8,U9,U10,U11,U12,U
             typename traits::input_parameter< U63 >::type x63(args[63]);
             typename traits::input_parameter< U64 >::type x64(args[64]);
             ptr_fun(x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,x61,x62,x63,x64);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 65; }

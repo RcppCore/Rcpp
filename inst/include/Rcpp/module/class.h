@@ -203,6 +203,7 @@
                 throw std::range_error( "could not find valid method" ) ;
             }
             m->operator()( XP(object), args );
+            return R_NilValue ;
         }
 
         SEXP invoke_notvoid( SEXP method_xp, SEXP object, SEXP *args, int nargs ){

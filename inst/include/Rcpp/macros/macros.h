@@ -2,7 +2,7 @@
 //
 // macros.h: Rcpp R/C++ interface class library -- Rcpp macros
 //
-// Copyright (C) 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2015 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -27,21 +27,33 @@
 #define RCPP_GET_CLASS(x) Rf_getAttrib(x, R_ClassSymbol)
 
 #ifndef BEGIN_RCPP
-#define BEGIN_RCPP try {
+#define BEGIN_RCPP                                                                               \
+    int rcpp_output_type = 0 ;                                                                   \
+    SEXP rcpp_output_condition = R_NilValue ;                                                    \
+    try {
 #endif
 
 #ifndef VOID_END_RCPP
-#define VOID_END_RCPP                                                          \
-  }                                                                            \
-  catch (Rcpp::internal::InterruptedException &__ex__) {                       \
-    Rf_onintr();                                                               \
-  }                                                                            \
-  catch (std::exception &__ex__) {                                             \
-    forward_exception_to_r(__ex__);                                            \
-  }                                                                            \
-  catch (...) {                                                                \
-    ::Rf_error("c++ exception (unknown reason)");                              \
-  }
+#define VOID_END_RCPP                                                                            \
+    }                                                                                            \
+    catch( Rcpp::internal::InterruptedException &__ex__) {                                       \
+        rcpp_output_type = 1 ;                                                                   \
+    }                                                                                            \
+    catch( std::exception& __ex__ ){                                                             \
+       rcpp_output_type = 2 ;                                                                    \
+       rcpp_output_condition = PROTECT(exception_to_r_condition(__ex__)) ;                       \
+    } catch( ... ){                                                                              \
+       rcpp_output_type = 2 ;                                                                    \
+       rcpp_output_condition = PROTECT(string_to_try_error("c++ exception (unknown reason)")) ;  \
+    }                                                                                            \
+    if( rcpp_output_type == 1 ){                                                                 \
+       Rf_onintr() ;                                                                             \
+    }                                                                                            \
+    if( rcpp_output_type == 2 ){                                                                 \
+       SEXP stop_sym  = Rf_install( "stop" ) ;                                                   \
+       SEXP expr = PROTECT( Rf_lang2( stop_sym , rcpp_output_condition ) ) ;                     \
+       Rf_eval( expr, R_GlobalEnv ) ;                                                            \
+    }
 #endif
 
 #ifndef END_RCPP
