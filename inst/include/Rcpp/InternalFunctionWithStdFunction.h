@@ -3,6 +3,7 @@
 // InternalFunction_with_std_function.h: Rcpp R/C++ interface class library -- exposing C++ std::function's
 //
 // Copyright (C) 2014 Christian Authmann
+// Copyright (C) 2015 Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -37,10 +38,8 @@ namespace Rcpp{
 				virtual ~CppFunctionBaseFromStdFunction() {}
 
 				SEXP operator()(SEXP* args) {
-					BEGIN_RCPP
 					auto result = call<RESULT_TYPE, Args...>(fun, args);
 					return Rcpp::module_wrap<RESULT_TYPE>(result);
-					END_RCPP
 				}
 
 			private:
@@ -54,9 +53,7 @@ namespace Rcpp{
 				virtual ~CppFunctionBaseFromStdFunction() {}
 
 				SEXP operator()(SEXP* args) {
-					BEGIN_RCPP
 					call<void, Args...>(fun, args);
-					END_RCPP
 				}
 
 			private:
