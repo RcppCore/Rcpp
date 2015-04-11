@@ -605,6 +605,7 @@ class CppFunction6<void,U0,U1,U2,U3,U4,U5> : public CppFunction {
             typename traits::input_parameter< U4 >::type x4(args[4]);
             typename traits::input_parameter< U5 >::type x5(args[5]);
             ptr_fun(x0,x1,x2,x3,x4,x5);
+            return R_NilValue ;
         }
 
         inline int nargs() { return 6; }
