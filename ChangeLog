@@ -1,3 +1,7 @@
+2015-04-12  Dirk Eddelbuettel  <edd@debian.org>
+
+        * vignettes/Rcpp-FAQ.Rnw: Also load Rcpp to make cppFunction visible
+
 2015-03-18  JJ Allaire  <jj@rstudio.org>
 
         * R/Attributes.R:  Revert to use of gcc 4.6.3 with Rtools 3.3

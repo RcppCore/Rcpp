@@ -49,6 +49,7 @@
 <<echo=FALSE,print=FALSE>>=
 prettyVersion <- packageDescription("Rcpp")$Version
 prettyDate <- format(Sys.Date(), "%B %e, %Y")
+require(Rcpp)
 require(inline)
 require(highlight)
 @
