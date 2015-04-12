@@ -54,6 +54,7 @@ namespace Rcpp{
 
 				SEXP operator()(SEXP* args) {
 					call<void, Args...>(fun, args);
+                                        return R_NilValue;
 				}
 
 			private:
