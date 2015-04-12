@@ -1,4 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // InternalFunction.h: Rcpp R/C++ interface class library -- exposing C++ functions
 //
@@ -38,14 +38,14 @@ namespace Rcpp{
         RCPP_GENERATE_CTOR_ASSIGN(InternalFunction_Impl)
 
 #ifdef RCPP_USING_CXX11
-    	template <typename RESULT_TYPE, typename... Args>
+        template <typename RESULT_TYPE, typename... Args>
         InternalFunction_Impl(const std::function<RESULT_TYPE(Args...)> &fun) {
-        	set(
-        		XPtr<Rcpp::InternalFunctionWithStdFunction::CppFunctionBaseFromStdFunction<RESULT_TYPE, Args...> >(
-        			new Rcpp::InternalFunctionWithStdFunction::CppFunctionBaseFromStdFunction<RESULT_TYPE, Args...>(fun),
-        			false
-        		)
-        	);
+            set(
+                XPtr<Rcpp::InternalFunctionWithStdFunction::CppFunctionBaseFromStdFunction<RESULT_TYPE, Args...> >(
+                    new Rcpp::InternalFunctionWithStdFunction::CppFunctionBaseFromStdFunction<RESULT_TYPE, Args...>(fun),
+                    false
+                    )
+                );
         }
 #endif
 

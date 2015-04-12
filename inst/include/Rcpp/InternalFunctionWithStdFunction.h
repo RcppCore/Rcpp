@@ -1,9 +1,9 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // InternalFunction_with_std_function.h: Rcpp R/C++ interface class library -- exposing C++ std::function's
 //
-// Copyright (C) 2014 Christian Authmann
-// Copyright (C) 2015 Romain Francois
+// Copyright (C) 2014  Christian Authmann
+// Copyright (C) 2015  Romain Francois and Dirk Eddelbuettel
 //
 // This file is part of Rcpp.
 //
@@ -25,43 +25,43 @@
 
 #include <functional>
 
-namespace Rcpp{
+namespace Rcpp {
 
-	namespace InternalFunctionWithStdFunction {
+    namespace InternalFunctionWithStdFunction {
 
-		#include <Rcpp/generated/InternalFunctionWithStdFunction_call.h>
+        #include <Rcpp/generated/InternalFunctionWithStdFunction_call.h>
 
-		template <typename RESULT_TYPE, typename... Args>
-		class CppFunctionBaseFromStdFunction : public CppFunctionBase {
-			public:
-				CppFunctionBaseFromStdFunction(const std::function<RESULT_TYPE(Args...)> &fun) : fun(fun) {}
-				virtual ~CppFunctionBaseFromStdFunction() {}
+        template <typename RESULT_TYPE, typename... Args>
+        class CppFunctionBaseFromStdFunction : public CppFunctionBase {
+            public:
+                CppFunctionBaseFromStdFunction(const std::function<RESULT_TYPE(Args...)> &fun) : fun(fun) {}
+                virtual ~CppFunctionBaseFromStdFunction() {}
 
-				SEXP operator()(SEXP* args) {
-					auto result = call<RESULT_TYPE, Args...>(fun, args);
-					return Rcpp::module_wrap<RESULT_TYPE>(result);
-				}
+                SEXP operator()(SEXP* args) {
+                    auto result = call<RESULT_TYPE, Args...>(fun, args);
+                    return Rcpp::module_wrap<RESULT_TYPE>(result);
+                }
 
-			private:
-				const std::function<RESULT_TYPE(Args...)> fun;
-		};
+            private:
+                const std::function<RESULT_TYPE(Args...)> fun;
+        };
 
-		template <typename... Args>
-		class CppFunctionBaseFromStdFunction<void, Args...> : public CppFunctionBase {
-			public:
-				CppFunctionBaseFromStdFunction(const std::function<void(Args...)> &fun) : fun(fun) {}
-				virtual ~CppFunctionBaseFromStdFunction() {}
+        template <typename... Args>
+        class CppFunctionBaseFromStdFunction<void, Args...> : public CppFunctionBase {
+             public:
+                 CppFunctionBaseFromStdFunction(const std::function<void(Args...)> &fun) : fun(fun) {}
+                 virtual ~CppFunctionBaseFromStdFunction() {}
 
-				SEXP operator()(SEXP* args) {
-					call<void, Args...>(fun, args);
-                                        return R_NilValue;
-				}
+                 SEXP operator()(SEXP* args) {
+                     call<void, Args...>(fun, args);
+                     return R_NilValue;
+                 }
 
-			private:
-				const std::function<void(Args...)> fun;
-		};
+            private:
+                 const std::function<void(Args...)> fun;
+        };
 
-	} // namespace InternalFunctionWithStdFunction
+    } // namespace InternalFunctionWithStdFunction
 } // namespace Rcpp
 
 #endif
