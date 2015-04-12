@@ -2,6 +2,16 @@
 
         * vignettes/Rcpp-FAQ.Rnw: Also load Rcpp to make cppFunction visible
 
+2014-04-11  Romain Francois  <romain@r-enthusiasts.com>
+
+        * inst/include/Rcpp/macros/macros.h: Reworked BEGIN_RCPP and END_RCPP
+        * inst/include/Rcpp/*: Removed BEGIN_RCPP and END_RCPP from a few files
+        * src/Module.cpp: But added here
+
+2015-03-18  Dmitrii Meleshko  <Dmitrii@MeleshkoDima.none>
+
+        * inst/include/Rcpp/vector/Matrix.h: Added default ctor for 0x0 matrix
+
 2015-03-18  JJ Allaire  <jj@rstudio.org>
 
         * R/Attributes.R:  Revert to use of gcc 4.6.3 with Rtools 3.3
@@ -19,6 +29,11 @@
 
         * R/Attributes.R:  Rtools 3.3 is now located and used for compilation under R 3.2.
 
+2015-03-11  Kevin Ushey  <kevinushey@gmail.com>
+
+        * inst/include/RcppCommon.h: Move headers into major/minor protection
+        * inst/include/Rcpp/r/headers.h: New file
+ 
 2015-03-04  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.11.5

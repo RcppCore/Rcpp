@@ -4,6 +4,14 @@
 
 \section{Changes in Rcpp version 0.11.6 (Unreleased)}{
   \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Unwinding of exceptions was refined to protect against inadvertent
+      memory leaks.
+      \item Header files try harder not to let macroas leak out.
+      \item Matrices now have a default constructor for zero-by-zero dimension
+      matrices (via pull request by Dmitrii Meleshko).
+    }
     \item Changes in Rcpp Attributes:
     \itemize{
         \item Rtools 3.3 is now supported.
