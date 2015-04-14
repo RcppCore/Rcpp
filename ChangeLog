@@ -1,6 +1,7 @@
 2014-04-14  Romain Francois  <romain@r-enthusiasts.com>
 
         * inst/include/Rcpp/api/meat/is.h: added is__simple<Rcomplex>
+        * inst/include/Rcpp/config.h: not using floating point arithmetic in preprocessor
 
 2015-04-12  Dirk Eddelbuettel  <edd@debian.org>
 
