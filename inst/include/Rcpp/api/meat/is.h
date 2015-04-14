@@ -45,6 +45,9 @@ namespace Rcpp {
     template <> inline bool is__simple<String>(SEXP x) {
         return is_atomic(x) && TYPEOF(x) == STRSXP;
     }
+    template <> inline bool is__simple<Rcomplex>(SEXP x) {
+        return is_atomic(x) && TYPEOF(x) == CPLXSXP;
+    }
     template <> inline bool is__simple<CharacterVector>(SEXP x) {
         return TYPEOF(x) == STRSXP;
     }
