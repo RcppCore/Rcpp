@@ -24,7 +24,7 @@
 
 #define Rcpp_Version(v,p,s) (((v) * 65536) + ((p) * 256) + (s))
 
-#define RcppDevVersion(maj, min, rev, dev)  (((maj)*1e6) + ((min)*1e4) + ((rev)*1e2) + (dev))
+#define RcppDevVersion(maj, min, rev, dev)  (((maj)*1000000) + ((min)*10000) + ((rev)*100) + (dev))
 
 // the currently released version
 #define RCPP_VERSION Rcpp_Version(0,11,5)
