@@ -6,6 +6,8 @@
 
 language: c
 
+sudo: required
+
 env:
   global:
     - R_BUILD_ARGS="--no-build-vignettes --no-manual"

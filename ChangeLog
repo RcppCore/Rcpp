@@ -1,3 +1,7 @@
+2015-04-14  Dirk Eddelbuettel  <edd@debian.org>
+
+        * .travis.yml (sudo): Adding 'sudo: required' to force older Travis backend
+
 2014-04-14  Romain Francois  <romain@r-enthusiasts.com>
 
         * inst/include/Rcpp/api/meat/is.h: added is__simple<Rcomplex>
