@@ -158,6 +158,7 @@ namespace internal{
 		inline iterator begin() const { return CHAR( STRING_ELT( *parent, index ) ) ; }
 		inline iterator end() const { return begin() + size() ; }
 		inline int size() const { return strlen( begin() ) ; }
+		inline bool empty() const { return *begin() == '\0' ; }
 		inline reference operator[]( int n ){ return *( begin() + n ) ; }
 
 		template <typename UnaryOperator>
