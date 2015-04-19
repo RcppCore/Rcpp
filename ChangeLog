@@ -47,7 +47,7 @@
 
         * inst/include/RcppCommon.h: Move headers into major/minor protection
         * inst/include/Rcpp/r/headers.h: New file
- 
+
 2015-03-04  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.11.5
