@@ -17,6 +17,11 @@
         * inst/include/Rcpp/*: Removed BEGIN_RCPP and END_RCPP from a few files
         * src/Module.cpp: But added here
 
+2015-04-19  Jonathan Marshall <jmarshall@xbmc.org>
+
+        * inst/include/Rcpp/vector/string_proxy.h: Adds empty() constructor
+        * inst/include/Rcpp/vector/const_string_proxy.h: Ditto
+
 2015-03-18  Dmitrii Meleshko  <Dmitrii@MeleshkoDima.none>
 
         * inst/include/Rcpp/vector/Matrix.h: Added default ctor for 0x0 matrix
