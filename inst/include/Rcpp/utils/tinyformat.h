@@ -128,10 +128,8 @@ namespace Rcpp {
 }
 #define TINYFORMAT_ERROR(REASON) ::Rcpp::stop(REASON)
 
-// Define for C++11 variadic templates which make the code shorter & more
-// general.  If you don't define this, C++11 support is autodetected below.
-// #define TINYFORMAT_USE_VARIADIC_TEMPLATES
-
+// don't use C++11 features (support older compilers)
+#define TINYFORMAT_NO_VARIADIC_TEMPLATES
 
 //------------------------------------------------------------------------------
 // Implementation details.
