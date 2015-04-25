@@ -11,6 +11,7 @@
       \item Header files try harder not to let macroas leak out.
       \item Matrices now have a default constructor for zero-by-zero dimension
       matrices (via pull request by Dmitrii Meleshko).
+      \item A new \code{empty()} string constructor was added.
     }
     \item Changes in Rcpp Attributes:
     \itemize{
