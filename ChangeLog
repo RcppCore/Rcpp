@@ -1,3 +1,11 @@
+2014-04-25  Romain Francois  <romain@r-enthusiasts.com>
+
+        * inst/include/Rcpp/vector/Vector.h: update the parameterization of Vector cache
+        * inst/include/Rcpp/vector/traits.h: ...
+        * inst/include/Rcpp/vector/00_forward_proxy.h: ...
+        * inst/unitTests/runit.Vector.R: test for above changes
+        * inst/unitTests/cpp/Vector.cpp: ...
+        
 2015-04-22  Kevin Ushey  <kevinushey@gmail.com>
 
         * inst/include/Rcpp/utils/tinyformat.h: don't use C++11 features
