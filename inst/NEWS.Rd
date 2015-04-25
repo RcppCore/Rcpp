@@ -12,6 +12,8 @@
       \item Matrices now have a default constructor for zero-by-zero dimension
       matrices (via pull request by Dmitrii Meleshko).
       \item A new \code{empty()} string constructor was added.
+      \item Better support for vector with storage policy different from the 
+      default, i.e. \code{NoProtectStorage}.
     }
     \item Changes in Rcpp Attributes:
     \itemize{

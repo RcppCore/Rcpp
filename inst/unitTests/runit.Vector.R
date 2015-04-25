@@ -1,7 +1,7 @@
 #!/usr/bin/r -t
 #       hey emacs, please make this use  -*- tab-width: 4 -*-
 #
-# Copyright (C) 2010 - 2014  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2015  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -672,6 +672,16 @@ if (.runThisTest) {
 
     test.logical.vector.from.bool.assign <- function() {
         checkIdentical(logical_vector_from_bool_assign(), TRUE)
+    }
+    
+    test.noprotect_vector <- function(){
+        x <- rnorm(10)
+        checkIdentical( noprotect_vector(x), 10L )
+    }
+    
+    test.noprotect_matrix <- function(){
+        x <- matrix(rnorm(10), nrow=2)
+        checkIdentical( noprotect_matrix(x), 2L )
     }
     
 }

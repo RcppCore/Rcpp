@@ -39,7 +39,7 @@ public:
 
     typedef StoragePolicy<Vector> Storage ;
 
-    typename traits::r_vector_cache_type<RTYPE>::type cache ;
+    typename traits::r_vector_cache_type<RTYPE, StoragePolicy>::type cache ;
     typedef typename traits::r_vector_proxy<RTYPE>::type Proxy ;
     typedef typename traits::r_vector_const_proxy<RTYPE>::type const_Proxy ;
     typedef typename traits::r_vector_name_proxy<RTYPE>::type NameProxy ;

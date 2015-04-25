@@ -2,7 +2,7 @@
 //
 // Vector.cpp: Rcpp R/C++ interface class library -- Vector unit tests
 //
-// Copyright (C) 2012 - 2013    Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2015    Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -765,4 +765,14 @@ LogicalVector logical_vector_from_bool_assign() {
 // [[Rcpp::export]]
 void no_op(int major) {
     int minor = 1;
+}
+
+// [[Rcpp::export]]
+int noprotect_vector( Vector<REALSXP, NoProtectStorage> x){
+  return x.size() ;
+}
+
+// [[Rcpp::export]]
+int noprotect_matrix( Matrix<REALSXP, NoProtectStorage> x){
+  return x.nrow() ;
 }
