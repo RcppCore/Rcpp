@@ -772,3 +772,7 @@ int noprotect_vector( Vector<REALSXP, NoProtectStorage> x){
   return x.size() ;
 }
 
+// [[Rcpp::export]]
+int noprotect_matrix( Matrix<REALSXP, NoProtectStorage> x){
+  return x.nrow() ;
+}

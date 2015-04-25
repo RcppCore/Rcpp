@@ -679,5 +679,10 @@ if (.runThisTest) {
         checkIdentical( noprotect_vector(x), 10L )
     }
     
+    test.noprotect_matrix <- function(){
+        x <- matrix(rnorm(10), nrow=2)
+        checkIdentical( noprotect_matrix(x), 2L )
+    }
+    
 }
 
