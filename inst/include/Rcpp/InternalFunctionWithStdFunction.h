@@ -38,8 +38,10 @@ namespace Rcpp {
                 virtual ~CppFunctionBaseFromStdFunction() {}
 
                 SEXP operator()(SEXP* args) {
+                    BEGIN_RCPP
                     auto result = call<RESULT_TYPE, Args...>(fun, args);
                     return Rcpp::module_wrap<RESULT_TYPE>(result);
+                    END_RCPP
                 }
 
             private:
@@ -53,8 +55,9 @@ namespace Rcpp {
                  virtual ~CppFunctionBaseFromStdFunction() {}
 
                  SEXP operator()(SEXP* args) {
+                     BEGIN_RCPP
                      call<void, Args...>(fun, args);
-                     return R_NilValue;
+                     END_RCPP
                  }
 
             private:

@@ -121,7 +121,8 @@
         }
 
         SEXP newInstance( SEXP* args, int nargs ){
-            signed_constructor_class* p ;
+            BEGIN_RCPP
+                signed_constructor_class* p ;
             int n = constructors.size() ;
             for( int i=0; i<n; i++ ){
                 p = constructors[i];
@@ -131,7 +132,7 @@
                     return XP( ptr, true ) ;
                 }
             }
-            
+
             signed_factory_class* pfact ;
             n = factories.size() ;
             for( int i=0; i<n; i++){
@@ -142,9 +143,10 @@
                 return XP( ptr, true ) ;
               }
             }
-            
+
             throw std::range_error( "no valid constructor available for the argument list" ) ;
-        }
+            END_RCPP
+                }
 
         bool has_default_constructor(){
             int n = constructors.size() ;
@@ -163,7 +165,9 @@
         }
 
         SEXP invoke( SEXP method_xp, SEXP object, SEXP *args, int nargs ){
-            vec_signed_method* mets = reinterpret_cast< vec_signed_method* >( EXTPTR_PTR( method_xp ) ) ;
+            BEGIN_RCPP
+
+                vec_signed_method* mets = reinterpret_cast< vec_signed_method* >( EXTPTR_PTR( method_xp ) ) ;
             typename vec_signed_method::iterator it = mets->begin() ;
             int n = mets->size() ;
             method_class* m = 0 ;
@@ -184,10 +188,13 @@
             } else {
                 return Rcpp::List::create( false, m->operator()( XP(object), args ) ) ;
             }
-        }
+            END_RCPP
+                }
 
         SEXP invoke_void( SEXP method_xp, SEXP object, SEXP *args, int nargs ){
-            vec_signed_method* mets = reinterpret_cast< vec_signed_method* >( EXTPTR_PTR( method_xp ) ) ;
+            BEGIN_RCPP
+
+                vec_signed_method* mets = reinterpret_cast< vec_signed_method* >( EXTPTR_PTR( method_xp ) ) ;
             typename vec_signed_method::iterator it = mets->begin() ;
             int n = mets->size() ;
             method_class* m = 0 ;
@@ -203,11 +210,13 @@
                 throw std::range_error( "could not find valid method" ) ;
             }
             m->operator()( XP(object), args );
-            return R_NilValue ;
-        }
+            END_RCPP
+                }
 
         SEXP invoke_notvoid( SEXP method_xp, SEXP object, SEXP *args, int nargs ){
-            vec_signed_method* mets = reinterpret_cast< vec_signed_method* >( EXTPTR_PTR( method_xp ) ) ;
+            BEGIN_RCPP
+
+                vec_signed_method* mets = reinterpret_cast< vec_signed_method* >( EXTPTR_PTR( method_xp ) ) ;
             typename vec_signed_method::iterator it = mets->begin() ;
             int n = mets->size() ;
             method_class* m = 0 ;
@@ -223,7 +232,8 @@
                 throw std::range_error( "could not find valid method" ) ;
             }
             return m->operator()( XP(object), args ) ;
-        }
+            END_RCPP
+                }
 
 
         self& AddMethod( const char* name_, method_class* m, ValidMethod valid = &yes, const char* docstring = 0){
@@ -382,14 +392,18 @@
         }
 
         SEXP getProperty( SEXP field_xp , SEXP object) {
-            prop_class* prop = reinterpret_cast< prop_class* >( EXTPTR_PTR( field_xp ) ) ;
+            BEGIN_RCPP
+                prop_class* prop = reinterpret_cast< prop_class* >( EXTPTR_PTR( field_xp ) ) ;
             return prop->get( XP(object) );
-        }
+            END_RCPP
+                }
 
         void setProperty( SEXP field_xp, SEXP object, SEXP value)  {
-            prop_class* prop = reinterpret_cast< prop_class* >( EXTPTR_PTR( field_xp ) ) ;
+            BEGIN_RCPP
+                prop_class* prop = reinterpret_cast< prop_class* >( EXTPTR_PTR( field_xp ) ) ;
             return prop->set( XP(object), value );
-        }
+            VOID_END_RCPP
+                }
 
 
         Rcpp::List fields( const XP_Class& class_xp ){
