@@ -1,4 +1,5 @@
-## Rcpp [![Build Status](https://travis-ci.org/RcppCore/Rcpp.png)](https://travis-ci.org/RcppCore/Rcpp) [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
+## Rcpp [![Build Status](https://travis-ci.org/RcppCore/Rcpp.png)](https://travis-ci.org/RcppCore/Rcpp)
+   [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html) [![Downloads](http://cranlogs.r-pkg.org/badges/Rcpp?color=brightgreen)](http://cran.rstudio.com/package=Rcpp)
 
 ### Seamless R and C++ Integration
 
@@ -56,8 +57,8 @@ see 'citation("Rcpp")' for details.
 The [Rcpp Gallery](http://gallery.rcpp.org) showcases over 80 fully documented 
 and working examples. 
 
-A number of examples are included as are over 900 unit tests in over 460 unit
-test functions provide additional usage examples.  
+A number of examples are included as are over 920 unit tests in over 470 unit
+test functions provide additional usage examples.
 
 The [CRAN](http://cran.r-project.org) network contains 
 (as over early 2015) well over 300 packages which also provide usage
