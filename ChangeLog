@@ -1,3 +1,19 @@
+2015-05-01  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.11.6
+        * inst/NEWS.Rd: Release 0.11.6
+        * inst/include/Rcpp/config.h: Release 0.11.6
+
+        * debian/*: Changes for Debian release of 0.11.5
+
+2015-04-27  JJ Allaire  <jj@rstudio.org>
+
+        * src/Module.cpp: Revert parts of PR291 pertaining to Modules and {BEGIN/END}_RCPP
+        * inst/include/Rcpp/api/meat/module/Module.h: Ditto
+        * inst/include/Rcpp/InternalFunctionWithStdFunction.h: Ditto
+        * inst/include/Rcpp/module/Module_generated_CppFunction.h: Ditto
+        * inst/include/Rcpp/module/class.h: Ditto
+
 2014-04-25  Romain Francois  <romain@r-enthusiasts.com>
 
         * inst/include/Rcpp/vector/Vector.h: update the parameterization of Vector cache
@@ -5,7 +21,7 @@
         * inst/include/Rcpp/vector/00_forward_proxy.h: ...
         * inst/unitTests/runit.Vector.R: test for above changes
         * inst/unitTests/cpp/Vector.cpp: ...
-        
+
 2015-04-22  Kevin Ushey  <kevinushey@gmail.com>
 
         * inst/include/Rcpp/utils/tinyformat.h: don't use C++11 features
