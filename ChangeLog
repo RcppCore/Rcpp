@@ -1,3 +1,7 @@
+2015-05-01  Kevin Ushey  <kevinushey@gmail.com>
+
+        * vignettes/Rcpp-FAQ.Rnw: Notes on installing gfortran
+
 2015-05-01  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.11.6

@@ -27,6 +27,7 @@
 \newcommand{\proglang}[1]{\textsf{#1}}
 \newcommand{\pkg}[1]{{\fontseries{b}\selectfont #1}}
 \newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\R}[0]{\proglang{R}}
 
 %% defined as a stop-gap measure til interaction with highlight is sorted out
 \newcommand{\hlboxlessthan}{   \hlnormalsizeboxlessthan}
@@ -515,12 +516,56 @@ should be available.
 \subsection{I am having problems building RcppArmadillo on OS X, any help ?}
 \label{q:OSXArma}
 
-For recent OS X versions Mavericks and beyond, you need to install the additional
-\href{http://r.research.att.com/libs/gfortran-4.8.2-darwin13.tar.bz2}{gfortran 4.8.2 for Darwin 13}
-package from \href{http://r.research.att.com/libs/}{the
-  \texttt{r.research.att.com} site} maintained by Simon.  
-See \href{http://www.thecoatlessprofessor.com/programming/rcpp-rcpparmadillo-and-os-x-mavericks-lgfortran-and-lquadmath-error}{this
-post for details}.
+Odds are your build failures are due to the absense of \texttt{gfortran}
+and its associated libraries. Alternatively, you have them installed,
+but \R simply doesn't know how to locate them.
+
+While \texttt{gfortran} is distributed as part of \texttt{gcc} and hence
+is available by default on most Linux distributions, it is not
+distributed as part of Apple's command line tools. So, unfortunately,
+you're going to need to install \texttt{gfortran} and its associated
+libraries yourself.
+
+Most OS X users have opted into using a custom packaging solution;
+\href{https://www.macports.org/}{\texttt{macports}},
+\href{http://brew.sh/}{\texttt{homebrew}}, and
+\href{http://www.finkproject.org/}{\texttt{fink}} are the usual suspects
+here. In general, we recommend using homebrew, and we provide a short
+set of instructions for installing \texttt{gfortran} below.
+
+After installing \texttt{homebrew} by
+\href{http://brew.sh/}{following the instructions here},
+you can install the latest version of \texttt{gfortran} with:
+
+    \code{brew install gcc}
+
+Note that \texttt{gfortran} is available as part of the \texttt{gcc}
+'formula' by default and cannot be downloaded separately, but one can
+freely use \texttt{gfortran} with Apple (or LLVM) \texttt{clang}
+compilers (as used by default on OS X since Mavericks).
+
+You may need to set the \code{FLIBS} variable in your
+\texttt{~/.R/Makevars} to point to the location of the \texttt{gfortran}
+library paths. A solution is outlined
+\href{http://stackoverflow.com/questions/29992066/rccp-warning-directory-not-found-for-option-l-usr-local-cellar-gfortran-4-8/29993906#29993906}{on
+  StackOverflow}, but the relevant details are copied in brief here.
+
+In short, you want to add this entry to your \texttt{~/.R/Makevars}:
+
+\begin{verbatim}
+FLIBS=`gfortran -print-search-dirs | grep ^libraries: | sed 's|libraries: =||' | sed 's|:| -L|g' | sed 's|^|-L|'`
+\end{verbatim}
+
+This invocation explicitly asks and constructs the library link paths
+from the \texttt{gfortran}'s reported search paths, and produces a set
+of paths suitable to be passed to \code{FLIBS}. \R will then search
+these paths when attempting to locate e.g \code{libgfortran} when
+compiling \pkg{RcppArmadillo} or other FORTRAN-dependent code.
+
+You can also install a pre-compiled \code{gfortran} binary from
+\href{http://r.research.att.com/libs/}{\textt{r.research.att.com/libs/}}
+-- this is a collection of libraries compiled by Simon Urbanek known
+to be compatible with recent releases of \R.
 
 Also see \faq{q:OSX} above, and the links provided in that answer.
 
