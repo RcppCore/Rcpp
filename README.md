@@ -1,4 +1,4 @@
-## Rcpp [![Build Status](https://travis-ci.org/RcppCore/Rcpp.png)](https://travis-ci.org/RcppCore/Rcpp) [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html) [![Downloads](http://cranlogs.r-pkg.org/badges/Rcpp?color=brightgreen)](http://cran.rstudio.com/package=Rcpp)
+## Rcpp [![Build Status](https://travis-ci.org/RcppCore/Rcpp.svg)](https://travis-ci.org/RcppCore/Rcpp) [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html) [![Downloads](http://cranlogs.r-pkg.org/badges/Rcpp?color=brightgreen)](http://cran.rstudio.com/package=Rcpp)
 
 ### Seamless R and C++ Integration
 
@@ -53,15 +53,15 @@ see 'citation("Rcpp")' for details.
 
 ### Examples
 
-The [Rcpp Gallery](http://gallery.rcpp.org) showcases over 80 fully documented 
+The [Rcpp Gallery](http://gallery.rcpp.org) showcases over 90 fully documented 
 and working examples. 
 
 A number of examples are included as are over 920 unit tests in over 470 unit
 test functions provide additional usage examples.
 
 The [CRAN](http://cran.r-project.org) network contains 
-(as over early 2015) well over 300 packages which also provide usage
-examples, with another 40+ as part of [BioConductor](http://www.bioconductor.org).
+(as of May 2015) over 380 packages which also provide usage
+examples, with another 50+ as part of [BioConductor](http://www.bioconductor.org).
 
 An earlier version of Rcpp, containing what we now call the 'classic Rcpp
 API' was written during 2005 and 2006 by Dominick Samperi.  This code has
