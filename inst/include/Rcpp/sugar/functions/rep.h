@@ -60,7 +60,7 @@ public:
 
 private:
 	const T& x ;
-        int R_xlen_t ;
+        R_xlen_t n;
 } ;
 
 } // sugar
