@@ -49,7 +49,7 @@ namespace Rcpp {
     // R_ToplevelExec so it doesn't longjmp
     namespace {
 
-        inline void checkInterruptFn(void *dummy) {
+    inline void checkInterruptFn(void* /*dummy*/) {
             R_CheckUserInterrupt();
         }
 
