@@ -237,14 +237,14 @@ public:
     /**
      * the length of the vector, uses Rf_length
      */
-    inline R_len_t length() const {
+    inline R_xlen_t length() const {
         return ::Rf_length( Storage::get__() ) ;
     }
 
     /**
      * alias of length
      */
-    inline R_len_t size() const {
+    inline R_xlen_t size() const {
         return ::Rf_length( Storage::get__() ) ;
     }
 
@@ -267,15 +267,15 @@ public:
      * it is valid
      */
     size_t offset(const size_t& i) const {
-        if( static_cast<R_len_t>(i) >= ::Rf_length(Storage::get__()) ) throw index_out_of_bounds() ;
+        if( static_cast<R_xlen_t>(i) >= ::Rf_length(Storage::get__()) ) throw index_out_of_bounds() ;
         return i ;
     }
 
-    R_len_t offset(const std::string& name) const {
+    R_xlen_t offset(const std::string& name) const {
         SEXP names = RCPP_GET_NAMES( Storage::get__() ) ;
         if( Rf_isNull(names) ) throw index_out_of_bounds();
-        R_len_t n=size() ;
-        for( R_len_t i=0; i<n; ++i){
+        R_xlen_t n=size() ;
+        for( R_xlen_t i=0; i<n; ++i){
             if( ! name.compare( CHAR(STRING_ELT(names, i)) ) ){
                 return i ;
             }

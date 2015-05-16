@@ -95,7 +95,7 @@ public:
         return list.end();
     }
 
-    inline R_len_t size() const {
+    inline R_xlen_t size() const {
         return list.size() ;
     }
 

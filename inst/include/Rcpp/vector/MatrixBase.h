@@ -43,9 +43,9 @@ namespace Rcpp{
             return static_cast<const MATRIX*>(this)->operator()(i, j) ;
         }
 
-        inline R_len_t size() const { return static_cast<const MATRIX&>(*this).size() ; }
-        inline R_len_t nrow() const { return static_cast<const MATRIX&>(*this).nrow() ; }
-        inline R_len_t ncol() const { return static_cast<const MATRIX&>(*this).ncol() ; }
+        inline R_xlen_t size() const { return static_cast<const MATRIX&>(*this).size() ; }
+        inline R_xlen_t nrow() const { return static_cast<const MATRIX&>(*this).nrow() ; }
+        inline R_xlen_t ncol() const { return static_cast<const MATRIX&>(*this).ncol() ; }
 
         class iterator {
         public:
