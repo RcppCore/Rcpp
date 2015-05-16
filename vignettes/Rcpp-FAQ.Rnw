@@ -563,7 +563,7 @@ these paths when attempting to locate e.g \code{libgfortran} when
 compiling \pkg{RcppArmadillo} or other FORTRAN-dependent code.
 
 You can also install a pre-compiled \code{gfortran} binary from
-\href{http://r.research.att.com/libs/}{\textt{r.research.att.com/libs/}}
+\href{http://r.research.att.com/libs/}{\texttt{r.research.att.com/libs/}}
 -- this is a collection of libraries compiled by Simon Urbanek known
 to be compatible with recent releases of \R.
 
