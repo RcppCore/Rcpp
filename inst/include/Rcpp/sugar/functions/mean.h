@@ -35,12 +35,12 @@ public:
 
     double get() const {
         VECTOR input = object;
-        int n = input.size();           // double pass (as in summary.c)
+        R_xlen_t n = input.size();           // double pass (as in summary.c)
         long double s = std::accumulate(input.begin(), input.end(), 0.0L);
         s /= n;
         if (R_FINITE((double)s)) {
             long double t = 0.0;
-            for (int i = 0; i < n; i++) {
+            for (R_xlen_t i = 0; i < n; i++) {
                 t += input[i] - s;
             }
             s += t/n;
@@ -60,9 +60,9 @@ public:
 
     Rcomplex get() const {
         ComplexVector input = object;
-        int n = input.size();           // double pass (as in summary.c)
+        R_xlen_t n = input.size();           // double pass (as in summary.c)
         long double s = 0.0, si = 0.0;
-        for (int i=0; i<n; i++) {
+        for (R_xlen_t i=0; i<n; i++) {
             Rcomplex z = input[i];
             s += z.r;
             si += z.i;
@@ -71,7 +71,7 @@ public:
         si /= n;
         if (R_FINITE((double)s) && R_FINITE((double)si)) {
             long double t = 0.0, ti = 0.0;
-            for (int i = 0; i < n; i++) {
+            for (R_xlen_t i = 0; i < n; i++) {
                 Rcomplex z = input[i];
                 t += z.r - s;
                 ti += z.i - si;
@@ -97,9 +97,9 @@ public:
 
     double get() const {
         LogicalVector input = object;
-        int n = input.size();       
+        R_xlen_t n = input.size();
         long double s = 0.0;
-        for (int i=0; i<n; i++) {
+        for (R_xlen_t i=0; i<n; i++) {
             if (input[i] == NA_INTEGER) return NA_REAL;
             s += input[i];
         }
@@ -119,11 +119,11 @@ public:
 
     double get() const {
         IntegerVector input = object;
-        int n = input.size();           // double pass (as in summary.c)
+        R_xlen_t n = input.size();           // double pass (as in summary.c)
         long double s = std::accumulate(input.begin(), input.end(), 0.0L);
         s /= n;
         long double t = 0.0;
-        for (int i = 0; i < n; i++) {
+        for (R_xlen_t i = 0; i < n; i++) {
             if (input[i] == NA_INTEGER) return NA_REAL;
             t += input[i] - s;
         }

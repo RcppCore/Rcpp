@@ -34,14 +34,14 @@ public:
 	Rev( const VEC_TYPE& object_ ) :
 		object(object_), n(object_.size() - 1) {}
 
-	inline STORAGE operator[]( int i ) const {
+        inline STORAGE operator[]( R_xlen_t i ) const {
 		return object[n - i] ;
 	}
-	inline int size() const { return n + 1; }
+        inline R_xlen_t size() const { return n + 1; }
 
 private:
 	const VEC_TYPE& object ;
-	int n ;
+        R_xlen_t n ;
 } ;
 
 } // sugar

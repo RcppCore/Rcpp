@@ -65,10 +65,10 @@ public:
 
 	Clamp_Primitive_Vector_Primitive( STORAGE lhs_, const T& vec_, STORAGE rhs_) : vec(vec_), op(lhs_,rhs_) {}
 
-	inline STORAGE operator[]( int i ) const {
+        inline STORAGE operator[]( R_xlen_t i ) const {
 		return op( vec[i] ) ;
 	}
-	inline int size() const { return vec.size() ; }
+        inline R_xlen_t size() const { return vec.size() ; }
 
 private:
 	const T& vec ;

@@ -44,13 +44,13 @@ public:
 
 	SugarComplex( FunPtr ptr_, const VEC_TYPE & vec_) : ptr(ptr_), vec(vec_){}
 
-	inline RESULT_TYPE operator[]( int i) const {
+        inline RESULT_TYPE operator[]( R_xlen_t i) const {
 		Rcomplex x = vec[i] ;
 		if( Rcpp::traits::is_na<CPLXSXP>( x ) )
 			return Rcpp::traits::get_na< Rcpp::traits::r_sexptype_traits<RESULT_TYPE>::rtype >() ;
 		return ptr( x );
 	}
-	inline int size() const { return vec.size() ; }
+        inline R_xlen_t size() const { return vec.size() ; }
 
 private:
 	FunPtr ptr ;

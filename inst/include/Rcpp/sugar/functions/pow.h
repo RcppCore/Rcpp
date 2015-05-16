@@ -32,10 +32,10 @@ public:
 
 	Pow( const T& object_, EXPONENT_TYPE exponent ) : object(object_), op(exponent) {}
 
-	inline double operator[]( int i ) const {
+        inline double operator[]( R_xlen_t i ) const {
 	    return ::pow( object[i], op );
 	}
-	inline int size() const { return object.size() ; }
+        inline R_xlen_t size() const { return object.size() ; }
 
 private:
 	const T& object ;
@@ -47,11 +47,11 @@ class Pow<INTSXP,NA,T,EXPONENT_TYPE> : public Rcpp::VectorBase< REALSXP ,NA, Pow
 public:
 	Pow( const T& object_, EXPONENT_TYPE exponent ) : object(object_), op(exponent) {}
 
-	inline double operator[]( int i ) const {
+        inline double operator[]( R_xlen_t i ) const {
 		int x = object[i] ;
 	    return x == NA_INTEGER ? NA_INTEGER : ::pow( x, op );
 	}
-	inline int size() const { return object.size() ; }
+        inline R_xlen_t size() const { return object.size() ; }
 
 private:
 	const T& object ;
@@ -62,10 +62,10 @@ class Pow<INTSXP,false,T,EXPONENT_TYPE> : public Rcpp::VectorBase< REALSXP ,fals
 public:
 	Pow( const T& object_, EXPONENT_TYPE exponent ) : object(object_), op(exponent) {}
 
-	inline double operator[]( int i ) const {
+        inline double operator[]( R_xlen_t i ) const {
 	    return ::pow( object[i], op );
 	}
-	inline int size() const { return object.size() ; }
+        inline R_xlen_t size() const { return object.size() ; }
 
 private:
 	const T& object ;

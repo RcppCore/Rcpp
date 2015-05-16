@@ -33,10 +33,10 @@ public:
 	All( const VEC_TYPE& t ) : PARENT() , object(t) {}
 
 	void apply(){
-		int n = object.size() ;
+		R_xlen_t n = object.size() ;
 		int current = 0 ;
 		PARENT::reset() ;
-		for( int i=0 ; i<n ; i++){
+		for( R_xlen_t i=0 ; i<n ; i++){
 			current = object[i] ;
 			if( current == FALSE ) {
 				PARENT::set_false() ;
@@ -64,9 +64,9 @@ public:
 	All( const VEC_TYPE& t ) : PARENT() , object(t) {}
 
 	void apply(){
-		int n = object.size() ;
+		R_xlen_t n = object.size() ;
 		PARENT::set_true() ;
-		for( int i=0 ; i<n ; i++){
+		for( R_xlen_t i=0 ; i<n ; i++){
 			if( object[i] == FALSE ) {
 				PARENT::set_false() ;
 				return ;

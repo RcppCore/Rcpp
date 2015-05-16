@@ -53,7 +53,7 @@ public:
 
     double get() const{
         double sq = 0, ssq = 0;
-        for(int i = 0;i < object.size();i++) {
+        for(R_xlen_t i = 0;i < object.size();i++) {
             Rcomplex z = object[i];
             sq += z.r;
             ssq += z.r * z.r;

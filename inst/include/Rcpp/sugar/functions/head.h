@@ -31,16 +31,16 @@ public:
 	typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 
-	Head( const VEC_TYPE& object_, int n_ ) : object(object_), n(n_) {
+	Head( const VEC_TYPE& object_, R_xlen_t n_ ) : object(object_), n(n_) {
 		if( n < 0 ){
 			n = object.size() + n ;
 		}
 	}
 
-	inline STORAGE operator[]( int i ) const {
+	inline STORAGE operator[]( R_xlen_t i ) const {
 		return object[ i ] ;
 	}
-	inline int size() const { return n; }
+	inline R_xlen_t size() const { return n; }
 
 private:
 	const VEC_TYPE& object ;
@@ -52,7 +52,7 @@ private:
 template <int RTYPE,bool NA, typename T>
 inline sugar::Head<RTYPE,NA,T> head(
 	const VectorBase<RTYPE,NA,T>& t,
-	int n
+	R_xlen_t n
 	){
 	return sugar::Head<RTYPE,NA,T>( t, n ) ;
 }
