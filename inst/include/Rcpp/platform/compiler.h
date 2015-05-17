@@ -58,6 +58,11 @@
     #endif
 #endif
 
+// Check for the presence of C++0x (or later) support
+#if defined(__GXX_EXPERIMENTAL_CXX0X__) || (__cplusplus >= 201103L)
+  #define RCPP_USING_CXX0X_OR_LATER
+#endif
+
 // Check C++0x/11 features
 #if defined(__INTEL_COMPILER)
     #if __cplusplus >= 201103L
