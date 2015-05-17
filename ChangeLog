@@ -1,3 +1,8 @@
+2015-05-17  Matt ...  <MattPD@users.noreply.github.com>
+
+        * inst/include/Rcpp/platform/compiler.h: Added RCPP_USING_CXX0X_OR_LATER
+        * inst/include/Rcpp/sugar/functions/sapply.h: Updated to support lamda functions
+
 2015-05-01  Kevin Ushey  <kevinushey@gmail.com>
 
         * vignettes/Rcpp-FAQ.Rnw: Notes on installing gfortran

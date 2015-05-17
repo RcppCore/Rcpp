@@ -2,6 +2,20 @@
 \title{News for Package 'Rcpp'}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in Rcpp version 0.11.7 (2015-xx-yy)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item The sugar function \code{sapply} now supports lambda functions
+    }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item The \code{Rcpp-FAQ} vignette was once again updated with respect to
+      OS X issues and Fortran libraries needed for e.g. \cpkg{RcppArmadillo}.
+    }
+  }
+}
+
 \section{Changes in Rcpp version 0.11.6 (2015-05-01)}{
   \itemize{
     \item Changes in Rcpp API:
