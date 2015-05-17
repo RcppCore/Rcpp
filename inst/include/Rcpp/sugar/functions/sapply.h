@@ -22,14 +22,8 @@
 #ifndef Rcpp__sugar__sapply_h
 #define Rcpp__sugar__sapply_h
 
-#if (__cplusplus >= 201103L) || defined(__GXX_EXPERIMENTAL_CXX0X__)
-	#define RCPP_USE_CXX11 1
-#else
-	#define RCPP_USE_CXX11 0
-#endif 
-
-#if RCPP_USE_CXX11
-	#include <type_traits>
+#if defined(RCPP_USING_CXX0X_OR_LATER)
+	#include <type_traits> // ::std::result_of
 #endif
 
 namespace Rcpp{
@@ -38,7 +32,7 @@ namespace sugar{
 template <typename Function, typename SugarExpression>
 struct sapply_application_result_of
 {
-#if RCPP_USE_CXX11
+#if defined(RCPP_USING_CXX0X_OR_LATER)
 	typedef typename ::std::result_of<Function(typename SugarExpression::stored_type)>::type type;
 #else
 	typedef typename ::Rcpp::traits::result_of<Function>::type type;
