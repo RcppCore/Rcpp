@@ -1,4 +1,4 @@
-2015-05-17  Matt ...  <MattPD@users.noreply.github.com>
+2015-05-17  Matt P. Dziubinski  <matdzb@gmail.com>
 
         * inst/include/Rcpp/platform/compiler.h: Added RCPP_USING_CXX0X_OR_LATER
         * inst/include/Rcpp/sugar/functions/sapply.h: Updated to support lamda functions
