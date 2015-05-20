@@ -294,8 +294,8 @@ public:
 	inline const_iterator begin() const{ return cache.get_const() ; }
     inline const_iterator end() const{ return cache.get_const() + size() ; }
 
-    inline Proxy operator[]( int i ){ return cache.ref(i) ; }
-    inline const_Proxy operator[]( int i ) const { return cache.ref(i) ; }
+    inline Proxy operator[]( R_xlen_t i ){ return cache.ref(i) ; }
+    inline const_Proxy operator[]( R_xlen_t i ) const { return cache.ref(i) ; }
 
     inline Proxy operator()( const size_t& i) {
         return cache.ref( offset(i) ) ;
@@ -491,10 +491,10 @@ public:
     Vector& operator+=( const VectorBase<RTYPE,true,EXPR_VEC>& rhs ) {
           const EXPR_VEC& ref = rhs.get_ref() ;
         iterator start = begin() ;
-        int n = size() ;
+        R_xlen_t n = size() ;
         // TODO: maybe unroll this
         stored_type tmp ;
-        for( int i=0; i<n; i++){
+        for( R_xlen_t i=0; i<n; i++){
             Proxy left = start[i] ;
             if( ! traits::is_na<RTYPE>( left ) ){
                 tmp = ref[i] ;
@@ -508,9 +508,9 @@ public:
     Vector& operator+=( const VectorBase<RTYPE,false,EXPR_VEC>& rhs ) {
           const EXPR_VEC& ref = rhs.get_ref() ;
         iterator start = begin() ;
-        int n = size() ;
+        R_xlen_t n = size() ;
         stored_type tmp ;
-        for( int i=0; i<n; i++){
+        for( R_xlen_t i=0; i<n; i++){
             if( ! traits::is_na<RTYPE>(start[i]) ){
                 start[i] += ref[i] ;
             }
