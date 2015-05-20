@@ -40,11 +40,11 @@ public:
 	inline STORAGE operator[]( int i ) const {
 		return object( i, i ) ;
 	}
-	inline int size() const { return n; }
+	inline R_xlen_t size() const { return n; }
 
 private:
 	const MAT_TYPE& object ;
-	int n ;
+	R_xlen_t n ;
 } ;
 
 
