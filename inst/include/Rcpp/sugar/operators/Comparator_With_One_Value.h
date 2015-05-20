@@ -54,7 +54,7 @@ private:
 	Operator op ;
 
 	inline int rhs_is_na(int i) const { return rhs ; }
-	inline int rhs_is_not_na(R_xlen_t i) const {
+	inline int rhs_is_not_na(int i) const {
 		STORAGE x = lhs[i] ;
 		return Rcpp::traits::is_na<RTYPE>(x) ? x : op( x, rhs ) ;
 	}
