@@ -40,7 +40,7 @@ namespace internal{
 		 * @param v reference to the associated character vector
 		 * @param index index
 		 */
-		const_string_proxy( VECTOR& v, int index_ ) : parent(&v), index(index_){}
+		const_string_proxy( VECTOR& v, R_xlen_t index_ ) : parent(&v), index(index_){}
 
         const_string_proxy(SEXP x): parent(0), index(0) {
             Vector<RTYPE> tmp(x);
@@ -83,8 +83,8 @@ namespace internal{
 		friend std::string operator+( const std::string& x, const const_string_proxy<RT>& proxy);
 
 		const VECTOR* parent;
-		int index ;
-		inline void move( int n ){ index += n ;}
+		R_xlen_t index ;
+		inline void move( R_xlen_t n ){ index += n ;}
 
 		inline SEXP get() const {
 			return STRING_ELT( *parent, index ) ;
@@ -92,9 +92,9 @@ namespace internal{
 
 		inline iterator begin() const { return CHAR( STRING_ELT( *parent, index ) ) ; }
 		inline iterator end() const { return begin() + size() ; }
-		inline int size() const { return strlen( begin() ) ; }
+		inline R_xlen_t size() const { return strlen( begin() ) ; }
 		inline bool empty() const { return *begin() == '\0' ; }
-		inline reference operator[]( int n ){ return *( begin() + n ) ; }
+		inline reference operator[]( R_xlen_t n ){ return *( begin() + n ) ; }
 
 		bool operator==( const char* other){
 			return strcmp( begin(), other ) == 0 ;

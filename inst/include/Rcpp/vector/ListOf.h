@@ -61,11 +61,11 @@ public:
 
     // subsetting operators
 
-    ChildVector<T> operator[](int i) {
+    ChildVector<T> operator[](R_xlen_t i) {
         return ChildVector<T>(list[i], list, i);
     }
 
-    const ChildVector<T> operator[](int i) const {
+    const ChildVector<T> operator[](R_xlen_t i) const {
         return ChildVector<T>(list[i], list, i);
     }
 

@@ -83,8 +83,8 @@ public:
         Storage::set__( Rf_allocVector( RTYPE, obj.get() ) ) ;
     }
 
-    Vector( const int& size, const stored_type& u ) {
-        RCPP_DEBUG_2( "Vector<%d>( const int& size = %d, const stored_type& u )", RTYPE, size)
+    Vector( const R_xlen_t& size, const stored_type& u ) {
+        RCPP_DEBUG_2( "Vector<%d>( const R_xlen_t& size = %d, const stored_type& u )", RTYPE, size)
         Storage::set__( Rf_allocVector( RTYPE, size) ) ;
         fill( u ) ;
     }
@@ -107,10 +107,22 @@ public:
         std::generate( begin(), end(), gen );
     }
 
+    Vector( const R_xlen_t& siz, stored_type (*gen)(void) ) {
+        RCPP_DEBUG_2( "Vector<%d>( const R_xlen_t& siz = %s, stored_type (*gen)(void) )", RTYPE, siz )
+        Storage::set__( Rf_allocVector( RTYPE, siz) ) ;
+        std::generate( begin(), end(), gen );
+    }
+
+    Vector( const R_xlen_t& size ) {
+        Storage::set__( Rf_allocVector( RTYPE, size) ) ;
+        init() ;
+    }
+
     Vector( const int& size ) {
         Storage::set__( Rf_allocVector( RTYPE, size) ) ;
         init() ;
     }
+    
     Vector( const Dimension& dims) {
         Storage::set__( Rf_allocVector( RTYPE, dims.prod() ) ) ;
         init() ;
@@ -145,8 +157,8 @@ public:
         import_sugar_expression( other, typename traits::same_type<Vector,VEC>::type() ) ;
     }
     template <typename U>
-    Vector( const int& size, const U& u) {
-        RCPP_DEBUG_2( "Vector<%d>( const int& size, const U& u )", RTYPE, size )
+    Vector( const R_xlen_t& size, const U& u) {
+        RCPP_DEBUG_2( "Vector<%d>( const R_xlen_t& size, const U& u )", RTYPE, size )
         Storage::set__( Rf_allocVector( RTYPE, size) ) ;
         fill_or_generate( u ) ;
     }
@@ -157,25 +169,25 @@ public:
     }
 
     template <typename U1>
-    Vector( const int& siz, stored_type (*gen)(U1), const U1& u1) {
+    Vector( const R_xlen_t& siz, stored_type (*gen)(U1), const U1& u1) {
         Storage::set__( Rf_allocVector( RTYPE, siz) ) ;
-        RCPP_DEBUG_2( "const int& siz, stored_type (*gen)(U1), const U1& u1 )", RTYPE, siz )
+        RCPP_DEBUG_2( "const R_xlen_t& siz, stored_type (*gen)(U1), const U1& u1 )", RTYPE, siz )
         iterator first = begin(), last = end() ;
         while( first != last ) *first++ = gen(u1) ;
     }
 
     template <typename U1, typename U2>
-    Vector( const int& siz, stored_type (*gen)(U1,U2), const U1& u1, const U2& u2) {
+    Vector( const R_xlen_t& siz, stored_type (*gen)(U1,U2), const U1& u1, const U2& u2) {
         Storage::set__( Rf_allocVector( RTYPE, siz) ) ;
-        RCPP_DEBUG_2( "const int& siz, stored_type (*gen)(U1,U2), const U1& u1, const U2& u2)", RTYPE, siz )
+        RCPP_DEBUG_2( "const R_xlen_t& siz, stored_type (*gen)(U1,U2), const U1& u1, const U2& u2)", RTYPE, siz )
         iterator first = begin(), last = end() ;
         while( first != last ) *first++ = gen(u1,u2) ;
     }
 
     template <typename U1, typename U2, typename U3>
-    Vector( const int& siz, stored_type (*gen)(U1,U2,U3), const U1& u1, const U2& u2, const U3& u3) {
+    Vector( const R_xlen_t& siz, stored_type (*gen)(U1,U2,U3), const U1& u1, const U2& u2, const U3& u3) {
         Storage::set__( Rf_allocVector( RTYPE, siz) ) ;
-        RCPP_DEBUG_2( "const int& siz, stored_type (*gen)(U1,U2,U3), const U1& u1, const U2& u2, const U3& u3)", RTYPE, siz )
+        RCPP_DEBUG_2( "const R_xlen_t& siz, stored_type (*gen)(U1,U2,U3), const U1& u1, const U2& u2, const U3& u3)", RTYPE, siz )
         iterator first = begin(), last = end() ;
         while( first != last ) *first++ = gen(u1,u2,u3) ;
     }
@@ -188,9 +200,9 @@ public:
     }
 
     template <typename InputIterator>
-    Vector( InputIterator first, InputIterator last, int n) {
+    Vector( InputIterator first, InputIterator last, R_xlen_t n) {
         Storage::set__(Rf_allocVector(RTYPE, n)) ;
-        RCPP_DEBUG_2( "Vector<%d>( InputIterator first, InputIterator last, int n = %d)", RTYPE, n )
+        RCPP_DEBUG_2( "Vector<%d>( InputIterator first, InputIterator last, R_xlen_t n = %d)", RTYPE, n )
         std::copy( first, last, begin() ) ;
     }
 
@@ -202,9 +214,9 @@ public:
     }
 
     template <typename InputIterator, typename Func>
-    Vector( InputIterator first, InputIterator last, Func func, int n){
+    Vector( InputIterator first, InputIterator last, Func func, R_xlen_t n){
         Storage::set__( Rf_allocVector( RTYPE, n ) );
-        RCPP_DEBUG_2( "Vector<%d>( InputIterator, InputIterator, Func, int n = %d )", RTYPE, n )
+        RCPP_DEBUG_2( "Vector<%d>( InputIterator, InputIterator, Func, R_xlen_t n = %d )", RTYPE, n )
         std::transform( first, last, begin(), func) ;
     }
 
@@ -450,23 +462,23 @@ public:
     }
 
     template <typename U>
-    static void replace_element( iterator it, SEXP names, int index, const U& u){
+    static void replace_element( iterator it, SEXP names, R_xlen_t index, const U& u){
         replace_element__dispatch( typename traits::is_named<U>::type(),
                                    it, names, index, u ) ;
     }
 
     template <typename U>
-    static void replace_element__dispatch( traits::false_type, iterator it, SEXP names, int index, const U& u){
+    static void replace_element__dispatch( traits::false_type, iterator it, SEXP names, R_xlen_t index, const U& u){
         *it = converter_type::get(u);
     }
 
     template <typename U>
-    static void replace_element__dispatch( traits::true_type, iterator it, SEXP names, int index, const U& u){
+    static void replace_element__dispatch( traits::true_type, iterator it, SEXP names, R_xlen_t index, const U& u){
         replace_element__dispatch__isArgument( typename traits::same_type<U,Argument>(), it, names, index, u ) ;
     }
 
     template <typename U>
-    static void replace_element__dispatch__isArgument( traits::false_type, iterator it, SEXP names, int index, const U& u){
+    static void replace_element__dispatch__isArgument( traits::false_type, iterator it, SEXP names, R_xlen_t index, const U& u){
         RCPP_DEBUG_2( "  Vector::replace_element__dispatch<%s>(true, index= %d) ", DEMANGLE(U), index ) ;
 
         *it = converter_type::get(u.object ) ;
@@ -474,7 +486,7 @@ public:
     }
 
     template <typename U>
-    static void replace_element__dispatch__isArgument( traits::true_type, iterator it, SEXP names, int index, const U& u){
+    static void replace_element__dispatch__isArgument( traits::true_type, iterator it, SEXP names, R_xlen_t index, const U& u){
         RCPP_DEBUG_2( "  Vector::replace_element__dispatch<%s>(true, index= %d) ", DEMANGLE(U), index ) ;
 
         *it = R_MissingArg ;
@@ -525,8 +537,8 @@ public:
     bool containsElementNamed( const char* target ) const {
           SEXP names = RCPP_GET_NAMES(Storage::get__()) ;
         if( Rf_isNull(names) ) return false ;
-        int n = Rf_length(names) ;
-        for( int i=0; i<n; i++){
+        R_xlen_t n = Rf_length(names) ;
+        for( R_xlen_t i=0; i<n; i++){
             if( !strcmp( target, CHAR(STRING_ELT(names, i)) ) )
                 return true ;
         }
@@ -536,8 +548,8 @@ public:
     int findName(const std::string& name) const {
         SEXP names = RCPP_GET_NAMES(Storage::get__());
         if (Rf_isNull(names)) stop("'names' attribute is null");
-        int n = Rf_length(names);
-        for (int i=0; i < n; ++i) {
+        R_xlen_t n = Rf_length(names);
+        for (R_xlen_t i=0; i < n; ++i) {
             if (strcmp(name.c_str(), CHAR(STRING_ELT(names, i))) == 0) {
                 return i;
             }

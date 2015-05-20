@@ -33,7 +33,7 @@ namespace internal{
 			generic_proxy( const generic_proxy& other ) :
 				parent(other.parent), index(other.index){} ;
 
-			generic_proxy( VECTOR& v, int i ) : parent(&v), index(i){} ;
+			generic_proxy( VECTOR& v, R_xlen_t i ) : parent(&v), index(i){} ;
 
 			generic_proxy& operator=(SEXP rhs) {
 				set(rhs) ;
@@ -70,8 +70,8 @@ namespace internal{
 			}
 
 			VECTOR* parent;
-			int index ;
-			inline void move(int n) { index += n ; }
+			R_xlen_t index ;
+			inline void move(R_xlen_t n) { index += n ; }
 
 			void import( const generic_proxy& other){
 				parent = other.parent ;

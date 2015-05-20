@@ -268,7 +268,7 @@ SEXP stack_trace(const char* file, int line) {
 
             /* inspired from http://tombarta.wordpress.com/2008/08/01/c-stack-traces-with-gcc/  */
             const size_t max_depth = 100;
-            size_t stack_depth;
+            int stack_depth;
             void *stack_addrs[max_depth];
             char **stack_strings;
 
