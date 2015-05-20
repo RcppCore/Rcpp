@@ -906,7 +906,7 @@ private:
 
         iterator it = begin() ;
         iterator this_end = end() ;
-        int nremoved = std::distance(first,last) ;
+        R_xlen_t nremoved = std::distance(first,last) ;
         R_xlen_t target_size = size() - nremoved  ;
         Vector target( target_size ) ;
         iterator target_it = target.begin() ;

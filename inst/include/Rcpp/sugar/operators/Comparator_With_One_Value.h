@@ -41,11 +41,11 @@ public:
 
 	}
 
-	inline int operator[]( int i ) const {
+	inline int operator[]( R_xlen_t i ) const {
 		return (this->*m)(i) ;
 	}
 
-	inline int size() const { return lhs.size() ; }
+	inline R_xlen_t size() const { return lhs.size() ; }
 
 private:
 	const VEC_TYPE& lhs ;
@@ -54,7 +54,7 @@ private:
 	Operator op ;
 
 	inline int rhs_is_na(int i) const { return rhs ; }
-	inline int rhs_is_not_na(int i) const {
+	inline int rhs_is_not_na(R_xlen_t i) const {
 		STORAGE x = lhs[i] ;
 		return Rcpp::traits::is_na<RTYPE>(x) ? x : op( x, rhs ) ;
 	}
@@ -80,11 +80,11 @@ public:
 
 	}
 
-	inline int operator[]( int i ) const {
+	inline int operator[]( R_xlen_t i ) const {
 		return (this->*m)(i) ;
 	}
 
-	inline int size() const { return lhs.size() ; }
+	inline R_xlen_t size() const { return lhs.size() ; }
 
 private:
 	const VEC_TYPE& lhs ;
