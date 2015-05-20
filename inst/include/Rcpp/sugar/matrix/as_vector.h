@@ -29,11 +29,11 @@ template <int RTYPE, bool NA, typename T>
 inline Rcpp::Vector<RTYPE>
 as_vector__impl( MatrixBase<RTYPE,NA,T>& t, Rcpp::traits::false_type ){
     T& ref = t.get_ref() ;
-    R_xlen_t nc = ref.ncol(), nr = ref.nrow() ;
+    int nc = ref.ncol(), nr = ref.nrow() ;
     Vector<RTYPE> out (nr*nc) ;
     R_xlen_t k =0;
-    for( R_xlen_t col_index=0; col_index<nc; col_index++)
-        for( R_xlen_t row_index=0; row_index<nr; row_index++, k++)
+    for( int col_index=0; col_index<nc; col_index++)
+        for( int row_index=0; row_index<nr; row_index++, k++)
             out[k] = ref( row_index, col_index ) ;
 
     return out ;
