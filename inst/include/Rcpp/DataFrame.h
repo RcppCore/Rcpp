@@ -103,7 +103,7 @@ namespace Rcpp{
             bool use_default_strings_as_factors = true ;
             bool strings_as_factors = true ;
             int strings_as_factors_index = -1 ;
-            int n = obj.size() ;
+            R_xlen_t n = obj.size() ;
             CharacterVector names = obj.attr( "names" ) ;
             if( !names.isNULL() ){
                 for( int i=0; i<n; i++){

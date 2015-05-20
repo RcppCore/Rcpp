@@ -30,9 +30,9 @@ public:
 
     Fast( const VECTOR& v_) : v(v_), data( v_.begin() ){}
 
-    inline value_type& operator[]( int i){ return data[i] ; }
-    inline const value_type& operator[]( int i) const { return data[i] ; }
-    inline int size() const { return v.size() ; }
+    inline value_type& operator[]( R_xlen_t i){ return data[i] ; }
+    inline const value_type& operator[]( R_xlen_t i) const { return data[i] ; }
+    inline R_xlen_t size() const { return v.size() ; }
 
 private:
     const VECTOR& v ;

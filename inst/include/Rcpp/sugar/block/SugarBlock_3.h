@@ -41,10 +41,10 @@ public:
         ptr(ptr_), x(x_), y(y_), z(z_) {
         // TODO: size checks, recycling, etc ...
     }
-    inline RESULT_TYPE operator[]( int i) const {
+    inline RESULT_TYPE operator[]( R_xlen_t i) const {
         return ptr( x[i], y[i], z[i] ) ;
     }
-    inline int size() const { return x.size() ; }
+    inline R_xlen_t size() const { return x.size() ; }
 
 private:
     FunPtr ptr ;
