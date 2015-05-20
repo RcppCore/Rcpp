@@ -30,7 +30,7 @@ inline Rcpp::Vector<RTYPE>
 as_vector__impl( MatrixBase<RTYPE,NA,T>& t, Rcpp::traits::false_type ){
     T& ref = t.get_ref() ;
     int nc = ref.ncol(), nr = ref.nrow() ;
-    Vector<RTYPE> out (nr*nc) ;
+    Vector<RTYPE> out (((R_xlen_t)nr) * nc) ;
     R_xlen_t k =0;
     for( int col_index=0; col_index<nc; col_index++)
         for( int row_index=0; row_index<nr; row_index++, k++)
@@ -43,7 +43,7 @@ template <int RTYPE, bool NA, typename T>
 inline Rcpp::Vector<RTYPE>
 as_vector__impl( MatrixBase<RTYPE,NA,T>& t, Rcpp::traits::true_type ){
     Matrix<RTYPE>& ref = t.get_ref() ;
-    R_xlen_t size = ref.ncol()*ref.nrow() ;
+    R_xlen_t size = ((R_xlen_t)ref.ncol())*ref.nrow() ;
     typename Rcpp::Vector<RTYPE>::const_iterator first(static_cast<const Rcpp::Vector<RTYPE>&>(ref).begin())  ;
     return Vector<RTYPE>(first, first+size );
 }
