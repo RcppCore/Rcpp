@@ -563,7 +563,7 @@ private:
 
     void push_back__impl(const stored_type& object, traits::true_type ) {
         Shield<SEXP> object_sexp( object ) ;
-        int n = size() ;
+        R_xlen_t n = size() ;
         Vector target( n + 1 ) ;
         SEXP names = RCPP_GET_NAMES(Storage::get__()) ;
         iterator target_it( target.begin() ) ;
@@ -588,7 +588,7 @@ private:
     }
 
     void push_back__impl(const stored_type& object, traits::false_type ) {
-          int n = size() ;
+        R_xlen_t n = size() ;
         Vector target( n + 1 ) ;
         SEXP names = RCPP_GET_NAMES(Storage::get__()) ;
         iterator target_it( target.begin() ) ;
@@ -614,7 +614,7 @@ private:
 
     void push_back_name__impl(const stored_type& object, const std::string& name, traits::true_type ) {
         Shield<SEXP> object_sexp( object ) ;
-        int n = size() ;
+        R_xlen_t n = size() ;
         Vector target( n + 1 ) ;
         iterator target_it( target.begin() ) ;
         iterator it(begin()) ;
@@ -640,7 +640,7 @@ private:
         Storage::set__( target.get__() ) ;
     }
     void push_back_name__impl(const stored_type& object, const std::string& name, traits::false_type ) {
-        int n = size() ;
+        R_xlen_t n = size() ;
         Vector target( n + 1 ) ;
         iterator target_it( target.begin() ) ;
         iterator it(begin()) ;
@@ -669,7 +669,7 @@ private:
 
     void push_front__impl(const stored_type& object, traits::true_type ) {
             Shield<SEXP> object_sexp( object ) ;
-        int n = size() ;
+        R_xlen_t n = size() ;
         Vector target( n+1);
         iterator target_it(target.begin());
         iterator it(begin());
@@ -695,7 +695,7 @@ private:
 
     }
     void push_front__impl(const stored_type& object, traits::false_type ) {
-          int n = size() ;
+        R_xlen_t n = size() ;
         Vector target( n+1);
         iterator target_it(target.begin());
         iterator it(begin());
@@ -723,7 +723,7 @@ private:
 
     void push_front_name__impl(const stored_type& object, const std::string& name, traits::true_type ) {
         Shield<SEXP> object_sexp(object) ;
-        int n = size() ;
+        R_xlen_t n = size() ;
         Vector target( n + 1 ) ;
         iterator target_it( target.begin() ) ;
         iterator it(begin()) ;
@@ -751,7 +751,7 @@ private:
 
     }
     void push_front_name__impl(const stored_type& object, const std::string& name, traits::false_type ) {
-          int n = size() ;
+        R_xlen_t n = size() ;
         Vector target( n + 1 ) ;
         iterator target_it( target.begin() ) ;
         iterator it(begin()) ;
@@ -782,7 +782,7 @@ private:
 
     iterator insert__impl( iterator position, const stored_type& object_, traits::true_type ) {
         Shield<SEXP> object( object_ ) ;
-        int n = size() ;
+        R_xlen_t n = size() ;
         Vector target( n+1 ) ;
         iterator target_it = target.begin();
         iterator it = begin() ;
@@ -822,7 +822,7 @@ private:
     }
 
     iterator insert__impl( iterator position, const stored_type& object, traits::false_type ) {
-            int n = size() ;
+        R_xlen_t n = size() ;
         Vector target( n+1 ) ;
         iterator target_it = target.begin();
         iterator it = begin() ;
@@ -863,7 +863,7 @@ private:
 
     iterator erase_single__impl( iterator position ) {
               if( position < begin() || position > end() ) throw index_out_of_bounds( ) ;
-        int n = size() ;
+        R_xlen_t n = size() ;
         Vector target( n - 1 ) ;
         iterator target_it(target.begin()) ;
         iterator it(begin()) ;
@@ -907,7 +907,7 @@ private:
         iterator it = begin() ;
         iterator this_end = end() ;
         int nremoved = std::distance(first,last) ;
-        int target_size = size() - nremoved  ;
+        R_xlen_t target_size = size() - nremoved  ;
         Vector target( target_size ) ;
         iterator target_it = target.begin() ;
 
@@ -944,7 +944,7 @@ private:
 
     template <typename T>
     inline void assign_sugar_expression( const T& x ) {
-        int n = size() ;
+        R_xlen_t n = size() ;
         if( n == x.size() ){
             // just copy the data
             import_expression<T>(x, n ) ;
@@ -974,7 +974,7 @@ private:
     template <bool NA, typename VEC>
     inline void import_sugar_expression( const Rcpp::VectorBase<RTYPE,NA,VEC>& other, traits::false_type ) {
         RCPP_DEBUG_4( "Vector<%d>::import_sugar_expression( VectorBase<%d,%d,%s>, false_type )", RTYPE, NA, RTYPE, DEMANGLE(VEC) ) ;
-        int n = other.size() ;
+        R_xlen_t n = other.size() ;
         Storage::set__( Rf_allocVector( RTYPE, n ) ) ;
         import_expression<VEC>( other.get_ref() , n ) ;
     }
@@ -1015,7 +1015,7 @@ private:
         // when this is not trivial, this is SEXP
         Shield<SEXP> elem( converter_type::get( u ) );
         iterator it(begin());
-        for( int i=0; i<size() ; i++, ++it){
+        for( R_xlen_t i=0; i<size() ; i++, ++it){
             *it = ::Rf_duplicate( elem ) ;
         }
     }
