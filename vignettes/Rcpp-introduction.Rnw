@@ -85,7 +85,7 @@ background on the development of \pkg{Rcpp}.
 
 The \pkg{Rcpp} package provides a consistent API for seamlessly accessing,
 extending or modifying \proglang{R} objects at the \proglang{C++} level. The API is a rewritten
-and extented version of an earlier API which we refer to as the `classic
+and extended version of an earlier API which we refer to as the `classic
 \pkg{Rcpp} API'. It is still provided in the \pkg{RcppClassic} package \citep{CRAN:RcppClassic}
 to ensure compatibility, but its use is otherwise deprecated.
 All new development should use the richer second API which
