@@ -43,10 +43,10 @@ namespace traits{
 		inline const_iterator get_const() const { return start; }
 
 		inline proxy ref() { return *start ;}
-		inline proxy ref(int i) { return start[i] ; }
+		inline proxy ref(R_xlen_t i) { return start[i] ; }
 
 		inline proxy ref() const { return *start ;}
-		inline proxy ref(int i) const { return start[i] ; }
+		inline proxy ref(R_xlen_t i) const { return start[i] ; }
 
 		private:
 			iterator start ;
@@ -70,10 +70,10 @@ namespace traits{
 		inline const_iterator get_const() const { return get_vector_ptr(*p) ; }
 
 		inline proxy ref() { return proxy(*p,0) ; }
-		inline proxy ref(int i) { return proxy(*p,i);}
+		inline proxy ref(R_xlen_t i) { return proxy(*p,i);}
 
 		inline const_proxy ref() const { return const_proxy(*p,0) ; }
-		inline const_proxy ref(int i) const { return const_proxy(*p,i);}
+		inline const_proxy ref(R_xlen_t i) const { return const_proxy(*p,i);}
 
 		private:
 			VECTOR* p ;
