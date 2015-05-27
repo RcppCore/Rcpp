@@ -52,7 +52,7 @@ namespace Rcpp{
 			typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 			Shield<SEXP> y( ::Rcpp::r_cast<RTYPE>(x) ) ;
 			STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE>(y) ;
-			std::copy( start, start + ::Rf_length(y), first ) ;
+			std::copy( start, start + ::Rf_xlength(y), first ) ;
 		}
 
 		template <typename InputIterator, typename value_type>
@@ -61,7 +61,7 @@ namespace Rcpp{
 			typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 			Shield<SEXP> y( ::Rcpp::r_cast<RTYPE>(x) ) ;
 			STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE>(y) ;
-			std::transform( start, start + ::Rf_length(y) , first, caster<STORAGE,value_type> ) ;
+			std::transform( start, start + ::Rf_xlength(y) , first, caster<STORAGE,value_type> ) ;
         }
 
         // implemented in meat
@@ -80,7 +80,7 @@ namespace Rcpp{
 		template <typename InputIterator, typename value_type>
 		void export_range__dispatch( SEXP x, InputIterator first, ::Rcpp::traits::r_type_string_tag ) {
 			if( ! ::Rf_isString( x) ) throw ::Rcpp::not_compatible( "expecting a string vector" ) ;
-			R_xlen_t n = ::Rf_length(x) ;
+			R_xlen_t n = ::Rf_xlength(x) ;
 			for( R_xlen_t i=0; i<n; i++, ++first ){
 				*first = as_string_elt<typename std::iterator_traits<InputIterator>::value_type> ( x, i ) ;
 			}
@@ -104,7 +104,7 @@ namespace Rcpp{
 			typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 			Shield<SEXP> y( ::Rcpp::r_cast<RTYPE>(x) ) ;
 			STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE>(y) ;
-			R_xlen_t size = ::Rf_length(y)  ;
+			R_xlen_t size = ::Rf_xlength(y)  ;
 			for( R_xlen_t i=0; i<size; i++){
 				res[i] =  start[i] ;
 			}
@@ -116,7 +116,7 @@ namespace Rcpp{
 			typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 			Shield<SEXP> y( ::Rcpp::r_cast<RTYPE>(x) );
 			STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE>(y) ;
-			R_xlen_t size = ::Rf_length(y)  ;
+			R_xlen_t size = ::Rf_xlength(y)  ;
 			for( R_xlen_t i=0; i<size; i++){
 				res[i] = caster<STORAGE,value_type>(start[i]) ;
 			}
@@ -134,7 +134,7 @@ namespace Rcpp{
 		template <typename T, typename value_type>
 		void export_indexing__dispatch( SEXP x, T& res, ::Rcpp::traits::r_type_string_tag ) {
 			if( ! ::Rf_isString( x) ) throw Rcpp::not_compatible( "expecting a string vector" ) ;
-			R_xlen_t n = ::Rf_length(x) ;
+			R_xlen_t n = ::Rf_xlength(x) ;
 			for( R_xlen_t i=0; i<n; i++ ){
 				res[i] = as_string_elt< value_type >( x, i) ;
 			}

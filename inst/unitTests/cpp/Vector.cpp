@@ -19,6 +19,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+#include <climits>
 #include <Rcpp.h>
 using namespace Rcpp ;
 
@@ -644,6 +645,13 @@ CharacterVector factors( CharacterVector s){
 IntegerVector IntegerVector_int_init(){
     IntegerVector x(2,4) ;
     return x ;
+}
+
+// [[Rcpp::export]]
+R_xlen_t Long_IntegerVector_length(){
+	R_xlen_t l = INT_MAX + 100L;
+    IntegerVector x(l,4) ;
+    return x.size() ;
 }
 
 // [[Rcpp::export]]

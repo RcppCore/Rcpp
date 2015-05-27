@@ -259,17 +259,17 @@ public:
     #endif
 
     /**
-     * the length of the vector, uses Rf_length
+     * the length of the vector, uses Rf_xlength
      */
     inline R_xlen_t length() const {
-        return ::Rf_length( Storage::get__() ) ;
+        return ::Rf_xlength( Storage::get__() ) ;
     }
 
     /**
      * alias of length
      */
     inline R_xlen_t size() const {
-        return ::Rf_length( Storage::get__() ) ;
+        return ::Rf_xlength( Storage::get__() ) ;
     }
 
     /**
@@ -291,7 +291,7 @@ public:
      * it is valid
      */
     size_t offset(const size_t& i) const {
-        if( static_cast<R_xlen_t>(i) >= ::Rf_length(Storage::get__()) ) throw index_out_of_bounds() ;
+        if( static_cast<R_xlen_t>(i) >= ::Rf_xlength(Storage::get__()) ) throw index_out_of_bounds() ;
         return i ;
     }
 
@@ -549,7 +549,7 @@ public:
     bool containsElementNamed( const char* target ) const {
           SEXP names = RCPP_GET_NAMES(Storage::get__()) ;
         if( Rf_isNull(names) ) return false ;
-        R_xlen_t n = Rf_length(names) ;
+        R_xlen_t n = Rf_xlength(names) ;
         for( R_xlen_t i=0; i<n; i++){
             if( !strcmp( target, CHAR(STRING_ELT(names, i)) ) )
                 return true ;
@@ -560,7 +560,7 @@ public:
     int findName(const std::string& name) const {
         SEXP names = RCPP_GET_NAMES(Storage::get__());
         if (Rf_isNull(names)) stop("'names' attribute is null");
-        R_xlen_t n = Rf_length(names);
+        R_xlen_t n = Rf_xlength(names);
         for (R_xlen_t i=0; i < n; ++i) {
             if (strcmp(name.c_str(), CHAR(STRING_ELT(names, i))) == 0) {
                 return i;

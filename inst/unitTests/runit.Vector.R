@@ -567,6 +567,11 @@ if (.runThisTest) {
         checkEquals( fun(), c(4L,4L), msg = "IntegerVector int init regression test" )
     }
 
+    test.Long_IntegerVector_length <- function(){
+        fun <-  Long_IntegerVector_length
+        checkTrue( fun() > 0, msg = "Long IntegerVector length test" )
+    }
+
     test.containsElementNamed <- function() {
         fun <- containsElementNamed
 
