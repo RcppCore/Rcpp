@@ -89,7 +89,7 @@ public:
         fill( u ) ;
     }
 
-    explicit Vector( const int& size, const stored_type& u ) {
+    Vector( const int& size, const stored_type& u ) {
         RCPP_DEBUG_2( "Vector<%d>( const R_xlen_t& size = %d, const stored_type& u )", RTYPE, size)
         Storage::set__( Rf_allocVector( RTYPE, size) ) ;
         fill( u ) ;
@@ -107,7 +107,7 @@ public:
         Storage::set__(internal::vector_from_string<RTYPE>(st) ) ;
     }
 
-    explicit Vector( const int& siz, stored_type (*gen)(void) ) {
+    Vector( const int& siz, stored_type (*gen)(void) ) {
         RCPP_DEBUG_2( "Vector<%d>( const int& siz = %s, stored_type (*gen)(void) )", RTYPE, siz )
         Storage::set__( Rf_allocVector( RTYPE, siz) ) ;
         std::generate( begin(), end(), gen );
