@@ -89,6 +89,12 @@ public:
         fill( u ) ;
     }
 
+    explicit Vector( const int& size, const stored_type& u ) {
+        RCPP_DEBUG_2( "Vector<%d>( const R_xlen_t& size = %d, const stored_type& u )", RTYPE, size)
+        Storage::set__( Rf_allocVector( RTYPE, size) ) ;
+        fill( u ) ;
+    }
+
     // constructor for CharacterVector()
     Vector( const std::string& st ){
         RCPP_DEBUG_2( "Vector<%d>( const std::string& = %s )", RTYPE, st.c_str() )
@@ -101,7 +107,7 @@ public:
         Storage::set__(internal::vector_from_string<RTYPE>(st) ) ;
     }
 
-    Vector( const int& siz, stored_type (*gen)(void) ) {
+    explicit Vector( const int& siz, stored_type (*gen)(void) ) {
         RCPP_DEBUG_2( "Vector<%d>( const int& siz = %s, stored_type (*gen)(void) )", RTYPE, siz )
         Storage::set__( Rf_allocVector( RTYPE, siz) ) ;
         std::generate( begin(), end(), gen );
@@ -159,6 +165,12 @@ public:
     template <typename U>
     Vector( const R_xlen_t& size, const U& u) {
         RCPP_DEBUG_2( "Vector<%d>( const R_xlen_t& size, const U& u )", RTYPE, size )
+        Storage::set__( Rf_allocVector( RTYPE, size) ) ;
+        fill_or_generate( u ) ;
+    }
+    template <typename U>
+    Vector( const int& size, const U& u) {
+        RCPP_DEBUG_2( "Vector<%d>( const int& size, const U& u )", RTYPE, size )
         Storage::set__( Rf_allocVector( RTYPE, size) ) ;
         fill_or_generate( u ) ;
     }
