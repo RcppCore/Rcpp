@@ -64,11 +64,11 @@ namespace Rcpp{
         void replace( const int& index, const T& object ) ;
 
         inline R_xlen_t length() const {
-            return ::Rf_length(static_cast<const CLASS&>(*this).get__()) ;
+            return ::Rf_xlength(static_cast<const CLASS&>(*this).get__()) ;
         }
 
         inline R_xlen_t size() const {
-            return ::Rf_length(static_cast<const CLASS&>(*this).get__()) ;
+            return ::Rf_xlength(static_cast<const CLASS&>(*this).get__()) ;
         }
 
         /**
