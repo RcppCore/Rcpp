@@ -648,13 +648,6 @@ IntegerVector IntegerVector_int_init(){
 }
 
 // [[Rcpp::export]]
-R_xlen_t Long_IntegerVector_length(){
-	R_xlen_t l = INT_MAX + 100L;
-    IntegerVector x(l,4) ;
-    return x.size() ;
-}
-
-// [[Rcpp::export]]
 bool containsElementNamed( List l, CharacterVector n){
     return l.containsElementNamed(n[0]);
 }
