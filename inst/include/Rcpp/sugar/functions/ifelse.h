@@ -394,8 +394,8 @@ template<
 inline sugar::IfElse_Primitive_Primitive< INTSXP,COND_NA,COND_T >
 ifelse(
 	const Rcpp::VectorBase<LGLSXP,COND_NA,COND_T>& cond,
-	R_xlen_t lhs,
-	R_xlen_t rhs
+	int lhs,
+	int rhs
 	){
 	return sugar::IfElse_Primitive_Primitive<INTSXP,COND_NA,COND_T>( cond, lhs, rhs ) ;
 }
