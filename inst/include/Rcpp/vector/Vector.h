@@ -124,6 +124,11 @@ public:
         init() ;
     }
 
+    Vector( const size_t& size ) {
+        Storage::set__( Rf_allocVector( RTYPE, size) ) ;
+        init() ;
+    }
+
     Vector( const int& size ) {
         Storage::set__( Rf_allocVector( RTYPE, size) ) ;
         init() ;
