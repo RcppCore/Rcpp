@@ -125,7 +125,12 @@ public:
     }
 
     Vector( const size_t& size ) {
-        Storage::set__( Rf_allocVector( RTYPE, size) ) ;
+        Storage::set__( Rf_allocVector( RTYPE, static_cast<R_xlen_t>(size)) ) ;
+        init() ;
+    }
+
+    Vector( const double& size ) {
+        Storage::set__( Rf_allocVector( RTYPE, static_cast<R_xlen_t>(size)) ) ;
         init() ;
     }
 
