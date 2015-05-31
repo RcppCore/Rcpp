@@ -83,14 +83,10 @@ public:
         Storage::set__( Rf_allocVector( RTYPE, obj.get() ) ) ;
     }
 
-    Vector( const R_xlen_t& size, const stored_type& u ) {
-        RCPP_DEBUG_2( "Vector<%d>( const R_xlen_t& size = %d, const stored_type& u )", RTYPE, size)
-        Storage::set__( Rf_allocVector( RTYPE, size) ) ;
-        fill( u ) ;
-    }
-
-    Vector( const int& size, const stored_type& u ) {
-        RCPP_DEBUG_2( "Vector<%d>( const R_xlen_t& size = %d, const stored_type& u )", RTYPE, size)
+    template<typename T>
+    Vector( const T& size, const stored_type& u,
+        typename Rcpp::traits::enable_if<traits::is_arithmetic<T>::value, void>::type* = 0) {
+        RCPP_DEBUG_2( "Vector<%d>( const T& size = %d, const stored_type& u )", RTYPE, size)
         Storage::set__( Rf_allocVector( RTYPE, size) ) ;
         fill( u ) ;
     }
@@ -107,14 +103,10 @@ public:
         Storage::set__(internal::vector_from_string<RTYPE>(st) ) ;
     }
 
-    Vector( const int& siz, stored_type (*gen)(void) ) {
+    template<typename T>
+    Vector( const T& siz, stored_type (*gen)(void),
+        typename Rcpp::traits::enable_if<traits::is_arithmetic<T>::value, void>::type* = 0) {
         RCPP_DEBUG_2( "Vector<%d>( const int& siz = %s, stored_type (*gen)(void) )", RTYPE, siz )
-        Storage::set__( Rf_allocVector( RTYPE, siz) ) ;
-        std::generate( begin(), end(), gen );
-    }
-
-    Vector( const R_xlen_t& siz, stored_type (*gen)(void) ) {
-        RCPP_DEBUG_2( "Vector<%d>( const R_xlen_t& siz = %s, stored_type (*gen)(void) )", RTYPE, siz )
         Storage::set__( Rf_allocVector( RTYPE, siz) ) ;
         std::generate( begin(), end(), gen );
     }
@@ -160,44 +152,44 @@ public:
         RCPP_DEBUG_2( "Vector<%d>( const VectorBase<RTYPE,NA,VEC>& ) [VEC = %s]", RTYPE, DEMANGLE(VEC) )
         import_sugar_expression( other, typename traits::same_type<Vector,VEC>::type() ) ;
     }
-    template <typename U>
-    Vector( const R_xlen_t& size, const U& u) {
-        RCPP_DEBUG_2( "Vector<%d>( const R_xlen_t& size, const U& u )", RTYPE, size )
+    
+    template <typename T, typename U>
+    Vector( const T& size, const U& u,
+        typename Rcpp::traits::enable_if<traits::is_arithmetic<T>::value, void>::type* = 0) {
+        RCPP_DEBUG_2( "Vector<%d>( const T& size, const U& u )", RTYPE, size )
         Storage::set__( Rf_allocVector( RTYPE, size) ) ;
         fill_or_generate( u ) ;
     }
-    template <typename U>
-    Vector( const int& size, const U& u) {
-        RCPP_DEBUG_2( "Vector<%d>( const int& size, const U& u )", RTYPE, size )
-        Storage::set__( Rf_allocVector( RTYPE, size) ) ;
-        fill_or_generate( u ) ;
-    }
+    
     template <bool NA, typename T>
     Vector( const sugar::SingleLogicalResult<NA,T>& obj ) {
         Storage::set__( r_cast<RTYPE>( const_cast<sugar::SingleLogicalResult<NA,T>&>(obj).get_sexp() ) ) ;
         RCPP_DEBUG_2( "Vector<%d>( const sugar::SingleLogicalResult<NA,T>& ) [T = %s]", RTYPE, DEMANGLE(T) )
     }
 
-    template <typename U1>
-    Vector( const R_xlen_t& siz, stored_type (*gen)(U1), const U1& u1) {
+    template <typename T, typename U1>
+    Vector( const T& siz, stored_type (*gen)(U1), const U1& u1,
+        typename Rcpp::traits::enable_if<traits::is_arithmetic<T>::value, void>::type* = 0) {
         Storage::set__( Rf_allocVector( RTYPE, siz) ) ;
-        RCPP_DEBUG_2( "const R_xlen_t& siz, stored_type (*gen)(U1), const U1& u1 )", RTYPE, siz )
+        RCPP_DEBUG_2( "const T& siz, stored_type (*gen)(U1), const U1& u1 )", RTYPE, siz )
         iterator first = begin(), last = end() ;
         while( first != last ) *first++ = gen(u1) ;
     }
 
-    template <typename U1, typename U2>
-    Vector( const R_xlen_t& siz, stored_type (*gen)(U1,U2), const U1& u1, const U2& u2) {
+    template <typename T, typename U1, typename U2>
+    Vector( const T& siz, stored_type (*gen)(U1,U2), const U1& u1, const U2& u2,
+        typename Rcpp::traits::enable_if<traits::is_arithmetic<T>::value, void>::type* = 0) {
         Storage::set__( Rf_allocVector( RTYPE, siz) ) ;
-        RCPP_DEBUG_2( "const R_xlen_t& siz, stored_type (*gen)(U1,U2), const U1& u1, const U2& u2)", RTYPE, siz )
+        RCPP_DEBUG_2( "const T& siz, stored_type (*gen)(U1,U2), const U1& u1, const U2& u2)", RTYPE, siz )
         iterator first = begin(), last = end() ;
         while( first != last ) *first++ = gen(u1,u2) ;
     }
 
-    template <typename U1, typename U2, typename U3>
-    Vector( const R_xlen_t& siz, stored_type (*gen)(U1,U2,U3), const U1& u1, const U2& u2, const U3& u3) {
+    template <typename T, typename U1, typename U2, typename U3>
+    Vector( const T& siz, stored_type (*gen)(U1,U2,U3), const U1& u1, const U2& u2, const U3& u3,
+        typename Rcpp::traits::enable_if<traits::is_arithmetic<T>::value, void>::type* = 0) {
         Storage::set__( Rf_allocVector( RTYPE, siz) ) ;
-        RCPP_DEBUG_2( "const R_xlen_t& siz, stored_type (*gen)(U1,U2,U3), const U1& u1, const U2& u2, const U3& u3)", RTYPE, siz )
+        RCPP_DEBUG_2( "const T& siz, stored_type (*gen)(U1,U2,U3), const U1& u1, const U2& u2, const U3& u3)", RTYPE, siz )
         iterator first = begin(), last = end() ;
         while( first != last ) *first++ = gen(u1,u2,u3) ;
     }
@@ -209,10 +201,11 @@ public:
         std::copy( first, last, begin() ) ;
     }
 
-    template <typename InputIterator>
-    Vector( InputIterator first, InputIterator last, R_xlen_t n) {
+    template <typename InputIterator, typename T>
+    Vector( InputIterator first, InputIterator last, T n,
+        typename Rcpp::traits::enable_if<traits::is_arithmetic<T>::value, void>::type* = 0) {
         Storage::set__(Rf_allocVector(RTYPE, n)) ;
-        RCPP_DEBUG_2( "Vector<%d>( InputIterator first, InputIterator last, R_xlen_t n = %d)", RTYPE, n )
+        RCPP_DEBUG_2( "Vector<%d>( InputIterator first, InputIterator last, T n = %d)", RTYPE, n )
         std::copy( first, last, begin() ) ;
     }
 
@@ -223,10 +216,11 @@ public:
         std::transform( first, last, begin(), func) ;
     }
 
-    template <typename InputIterator, typename Func>
-    Vector( InputIterator first, InputIterator last, Func func, R_xlen_t n){
+    template <typename InputIterator, typename Func, typename T>
+    Vector( InputIterator first, InputIterator last, Func func, T n,
+        typename Rcpp::traits::enable_if<traits::is_arithmetic<T>::value, void>::type* = 0){
         Storage::set__( Rf_allocVector( RTYPE, n ) );
-        RCPP_DEBUG_2( "Vector<%d>( InputIterator, InputIterator, Func, R_xlen_t n = %d )", RTYPE, n )
+        RCPP_DEBUG_2( "Vector<%d>( InputIterator, InputIterator, Func, T n = %d )", RTYPE, n )
         std::transform( first, last, begin(), func) ;
     }
 
