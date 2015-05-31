@@ -124,6 +124,11 @@ public:
         Storage::set__( Rf_allocVector( RTYPE, size) ) ;
         init() ;
     }
+    
+    Vector( const int& size ) {
+        Storage::set__( Rf_allocVector( RTYPE, size) ) ;
+        init() ;
+    }
 
     Vector( const Dimension& dims) {
         Storage::set__( Rf_allocVector( RTYPE, dims.prod() ) ) ;
