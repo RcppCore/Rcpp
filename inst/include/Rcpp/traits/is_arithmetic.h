@@ -30,6 +30,60 @@ namespace traits{
     struct is_arithmetic : public false_type { };
 
     template<>
+    struct is_arithmetic<bool> : public true_type { };
+
+    template<>
+    struct is_arithmetic<const bool> : public true_type { };
+
+    template<>
+    struct is_arithmetic<char> : public true_type { };
+
+    template<>
+    struct is_arithmetic<const char> : public true_type { };
+
+    template<>
+    struct is_arithmetic<signed char> : public true_type { };
+
+    template<>
+    struct is_arithmetic<const signed char> : public true_type { };
+
+    template<>
+    struct is_arithmetic<unsigned char> : public true_type { };
+
+    template<>
+    struct is_arithmetic<const unsigned char> : public true_type { };
+
+    template<>
+    struct is_arithmetic<wchar_t> : public true_type { };
+
+    template<>
+    struct is_arithmetic<const wchar_t> : public true_type { };
+
+    template<>
+    struct is_arithmetic<char16_t> : public true_type { };
+
+    template<>
+    struct is_arithmetic<const char16_t> : public true_type { };
+
+    template<>
+    struct is_arithmetic<char32_t> : public true_type { };
+
+    template<>
+    struct is_arithmetic<const char32_t> : public true_type { };
+
+    template<>
+    struct is_arithmetic<short> : public true_type { };
+
+    template<>
+    struct is_arithmetic<const short> : public true_type { };
+
+    template<>
+    struct is_arithmetic<unsigned short> : public true_type { };
+
+    template<>
+    struct is_arithmetic<const unsigned short> : public true_type { };
+
+    template<>
     struct is_arithmetic<int> : public true_type { };
 
     template<>
