@@ -118,27 +118,11 @@ public:
         Storage::set__( Rf_allocVector( RTYPE, siz) ) ;
         std::generate( begin(), end(), gen );
     }
-
-    Vector( const R_xlen_t& size ) {
-        Storage::set__( Rf_allocVector( RTYPE, size) ) ;
-        init() ;
-    }
-
-    Vector( const size_t& size ) {
-        Storage::set__( Rf_allocVector( RTYPE, static_cast<R_xlen_t>(size)) ) ;
-        init() ;
-    }
-    Vector( const unsigned int& size ) {
-        Storage::set__( Rf_allocVector( RTYPE, static_cast<R_xlen_t>(size)) ) ;
-        init() ;
-    }
-
-    Vector( const double& size ) {
-        Storage::set__( Rf_allocVector( RTYPE, static_cast<R_xlen_t>(size)) ) ;
-        init() ;
-    }
-
-    Vector( const int& size ) {
+    
+    // Add template class T and then restict T to arithmetic.
+    template <typename T>
+    Vector(T size, 
+        typename Rcpp::traits::enable_if<traits::is_arithmetic<T>::value, void>::type* = 0) {
         Storage::set__( Rf_allocVector( RTYPE, size) ) ;
         init() ;
     }

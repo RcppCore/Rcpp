@@ -39,6 +39,7 @@ struct int2type { enum { value = I }; };
 #include <Rcpp/traits/same_type.h>
 #include <Rcpp/traits/enable_if.h>
 #include <Rcpp/traits/is_wide_string.h>
+#include <Rcpp/traits/is_arithmetic.h>
 #include <Rcpp/traits/char_type.h>
 #include <Rcpp/traits/named_object.h>
 #include <Rcpp/traits/is_convertible.h>
