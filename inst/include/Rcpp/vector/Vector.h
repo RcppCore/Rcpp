@@ -128,6 +128,10 @@ public:
         Storage::set__( Rf_allocVector( RTYPE, static_cast<R_xlen_t>(size)) ) ;
         init() ;
     }
+    Vector( const unsigned int& size ) {
+        Storage::set__( Rf_allocVector( RTYPE, static_cast<R_xlen_t>(size)) ) ;
+        init() ;
+    }
 
     Vector( const double& size ) {
         Storage::set__( Rf_allocVector( RTYPE, static_cast<R_xlen_t>(size)) ) ;
@@ -138,7 +142,7 @@ public:
         Storage::set__( Rf_allocVector( RTYPE, size) ) ;
         init() ;
     }
-    
+
     Vector( const Dimension& dims) {
         Storage::set__( Rf_allocVector( RTYPE, dims.prod() ) ) ;
         init() ;
