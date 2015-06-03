@@ -65,17 +65,21 @@ namespace traits{
     template<>
     struct is_arithmetic<const unsigned long> : public true_type { };
 
-    template<>
-    struct is_arithmetic<long long> : public true_type { };
+#if defined(RCPP_HAS_LONG_LONG_TYPES)
 
     template<>
-    struct is_arithmetic<const long long> : public true_type { };
+    struct is_arithmetic<rcpp_long_long_type> : public true_type { };
 
     template<>
-    struct is_arithmetic<unsigned long long> : public true_type { };
+    struct is_arithmetic<const rcpp_long_long_type> : public true_type { };
 
     template<>
-    struct is_arithmetic<const unsigned long long> : public true_type { };
+    struct is_arithmetic<rcpp_ulong_long_type> : public true_type { };
+
+    template<>
+    struct is_arithmetic<const rcpp_ulong_long_type> : public true_type { };
+
+#endif
 
     template<>
     struct is_arithmetic<float> : public true_type { };
