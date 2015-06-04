@@ -59,7 +59,7 @@ public:
 	inline STORAGE operator()( int i, int j ) const {
 		return (i==j) ? object[i] : 0 ;
 	}
-	inline R_xlen_t size() const { return ((R_xlen_t)n) * n; }
+	inline R_xlen_t size() const { return static_cast<R_xlen_t>(n) * n; }
 	inline int ncol() const { return n; }
 	inline int nrow() const { return n; }
 
