@@ -52,7 +52,7 @@ public:
 private:
     IntegerVector& res ;
     CharacterVector& names ;
-    int index ;
+    R_xlen_t index ;
 } ;
 
 // we define a different Table class depending on whether we are using
@@ -69,7 +69,7 @@ public:
     }
 
     inline operator IntegerVector() const {
-        int n = hash.size() ;
+        R_xlen_t n = hash.size() ;
         IntegerVector result = no_init(n) ;
         CharacterVector names = no_init(n) ;
         std::for_each( hash.begin(), hash.end(), Grabber<HASH, RTYPE>(result, names) ) ;
@@ -100,7 +100,7 @@ public:
 
     inline operator IntegerVector() const {
         // fill the result
-        int n = map.size() ;
+        R_xlen_t n = map.size() ;
         IntegerVector result = no_init(n) ;
         CharacterVector names = no_init(n) ;
         std::for_each( map.begin(), map.end(), Grabber<SORTED_MAP,RTYPE>(result, names) ) ;

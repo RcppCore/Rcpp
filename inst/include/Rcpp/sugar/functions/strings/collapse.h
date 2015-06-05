@@ -25,10 +25,10 @@
 namespace Rcpp{
     namespace sugar {
         template <typename Iterator>
-        inline String collapse__impl( Iterator it, int n ){
+        inline String collapse__impl( Iterator it, R_xlen_t n ){
             static String buffer ;
             buffer = "" ;
-            for( int i=0; i<n; i++ ){
+            for( R_xlen_t i=0; i<n; i++ ){
                 buffer += it[i] ;
             }
             return buffer ;

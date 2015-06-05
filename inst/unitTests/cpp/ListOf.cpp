@@ -84,8 +84,8 @@ NVList test_binary_ops(NVList x) {
 }
 
 // [[Rcpp::export]]
-int test_sub_calls(NVList x) {
-    int sz = x[0].size() + x[1].size() + x[2].size();
+R_xlen_t test_sub_calls(NVList x) {
+    R_xlen_t sz = x[0].size() + x[1].size() + x[2].size();
     return sz;
 }
 

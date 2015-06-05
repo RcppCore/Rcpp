@@ -43,19 +43,19 @@ namespace Rcpp{
             return static_cast<const MATRIX*>(this)->operator()(i, j) ;
         }
 
-        inline R_len_t size() const { return static_cast<const MATRIX&>(*this).size() ; }
-        inline R_len_t nrow() const { return static_cast<const MATRIX&>(*this).nrow() ; }
-        inline R_len_t ncol() const { return static_cast<const MATRIX&>(*this).ncol() ; }
+        inline R_xlen_t size() const { return static_cast<const MATRIX&>(*this).size() ; }
+        inline R_xlen_t nrow() const { return static_cast<const MATRIX&>(*this).nrow() ; }
+        inline R_xlen_t ncol() const { return static_cast<const MATRIX&>(*this).ncol() ; }
 
         class iterator {
         public:
             typedef stored_type reference ;
             typedef stored_type* pointer ;
-            typedef int difference_type ;
+            typedef R_xlen_t difference_type ;
             typedef stored_type value_type;
             typedef std::random_access_iterator_tag iterator_category ;
 
-            iterator( const MatrixBase& object_, int index_ ) :
+            iterator( const MatrixBase& object_, R_xlen_t index_ ) :
                 object(object_), i(0), j(0), nr(object_.nrow()), nc(object_.ncol()) {
 
                 update_index( index_) ;
@@ -149,7 +149,7 @@ namespace Rcpp{
                 j = internal::get_column( index_, nr, i ) ;
             }
 
-            inline int index() const {
+            inline R_xlen_t index() const {
                 return i + nr * j ;
             }
 

@@ -180,7 +180,7 @@ namespace Rcpp{
     class unary_call : public std::unary_function<T,RESULT_TYPE> {
     public:
         unary_call( Language call_ ) : call(call_), proxy(call_,1) {}
-        unary_call( Language call_, int index ) : call(call_), proxy(call_,index){}
+        unary_call( Language call_, R_xlen_t index ) : call(call_), proxy(call_,index){}
         unary_call( Function fun ) : call( fun, R_NilValue), proxy(call,1) {}
 
         RESULT_TYPE operator()( const T& object ){
@@ -197,7 +197,7 @@ namespace Rcpp{
     class binary_call : public std::binary_function<T1,T2,RESULT_TYPE> {
     public:
         binary_call( Language call_ ) : call(call_), proxy1(call_,1), proxy2(call_,2) {}
-        binary_call( Language call_, int index1, int index2 ) : call(call_), proxy1(call_,index1), proxy2(call_,index2){}
+        binary_call( Language call_, R_xlen_t index1, R_xlen_t index2 ) : call(call_), proxy1(call_,index1), proxy2(call_,index2){}
         binary_call( Function fun) : call(fun, R_NilValue, R_NilValue), proxy1(call,1), proxy2(call,2){}
 
         RESULT_TYPE operator()( const T1& o1, const T2& o2 ){

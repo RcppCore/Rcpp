@@ -83,17 +83,17 @@ public:
 		UNROLL_LOOP(/=)
 	}
 
-	inline Proxy operator[]( int i ) const {
+	inline Proxy operator[]( R_xlen_t i ) const {
 	    return start[i] ;
 	}
 
-	inline int size() const {
+	inline R_xlen_t size() const {
 		return size_ ;
 	}
 
 private:
 	iterator start ;
-	int size_ ;
+	R_xlen_t size_ ;
 } ;
 
 }

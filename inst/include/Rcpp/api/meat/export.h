@@ -27,8 +27,8 @@ namespace internal{
 
     template <typename InputIterator, typename value_type>
     void export_range__dispatch( SEXP x, InputIterator first, ::Rcpp::traits::r_type_generic_tag ) {
-        R_len_t n = ::Rf_length(x) ;
-        for( R_len_t i=0; i<n; i++, ++first ){
+        R_xlen_t n = ::Rf_xlength(x) ;
+        for( R_xlen_t i=0; i<n; i++, ++first ){
             *first = ::Rcpp::as<value_type>( VECTOR_ELT(x, i) ) ;
         }
     }
@@ -49,9 +49,9 @@ namespace internal{
             Container get(){
                 if( TYPEOF(object) == RTYPE ){
                    T* start = Rcpp::internal::r_vector_start<RTYPE>(object) ;
-                   return Container( start, start + Rf_length(object) ) ;
+                   return Container( start, start + Rf_xlength(object) ) ;
                 }
-                Container vec( ::Rf_length(object) );
+                Container vec( ::Rf_xlength(object) );
                 ::Rcpp::internal::export_range( object, vec.begin() ) ;
                 return vec ;
             }

@@ -209,12 +209,12 @@ public:
 
     And_LogicalExpression_LogicalExpression( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_), rhs(rhs_){}
 
-    inline int operator[]( int i ) const{
+    inline int operator[]( R_xlen_t i ) const{
         if( lhs[i] == TRUE && rhs[i] == TRUE ) return TRUE ;
         if( lhs[i] == NA_LOGICAL || rhs[i] == NA_LOGICAL ) return NA_LOGICAL ;
         return FALSE ;
     }
-    inline int size() const { return lhs.size(); }
+    inline R_xlen_t size() const { return lhs.size(); }
 
 private:
     const LHS_TYPE& lhs ;
@@ -229,12 +229,12 @@ public:
 
     And_LogicalExpression_LogicalExpression( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_), rhs(rhs_){}
 
-    inline int operator[]( int i ) const{
+    inline int operator[]( R_xlen_t i ) const{
         if( lhs[i] == TRUE && rhs[i] == TRUE ) return TRUE ;
         if( rhs[i] == NA_LOGICAL ) return NA_LOGICAL ;
         return FALSE ;
     }
-    inline int size() const { return lhs.size(); }
+    inline R_xlen_t size() const { return lhs.size(); }
 
 private:
     const LHS_TYPE& lhs ;
@@ -249,12 +249,12 @@ public:
 
     And_LogicalExpression_LogicalExpression( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_), rhs(rhs_){}
 
-    inline int operator[]( int i ) const{
+    inline int operator[]( R_xlen_t i ) const{
         if( lhs[i] == TRUE && rhs[i] == TRUE ) return TRUE ;
         if( lhs[i] == NA_LOGICAL ) return NA_LOGICAL ;
         return FALSE;
     }
-    inline int size() const { return lhs.size(); }
+    inline R_xlen_t size() const { return lhs.size(); }
 
 private:
     const LHS_TYPE& lhs ;
@@ -269,11 +269,11 @@ public:
 
     And_LogicalExpression_LogicalExpression( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_), rhs(rhs_){}
 
-    inline int operator[]( int i ) const{
+    inline int operator[]( R_xlen_t i ) const{
         if( lhs[i] == TRUE && rhs[i] == TRUE ) return TRUE ;
         return FALSE;
     }
-    inline int size() const { return lhs.size(); }
+    inline R_xlen_t size() const { return lhs.size(); }
 
 private:
     const LHS_TYPE& lhs ;

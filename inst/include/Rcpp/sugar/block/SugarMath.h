@@ -37,12 +37,12 @@ public:
 
 	SugarMath_1( FunPtr ptr_, const VEC_TYPE & vec_) : ptr(ptr_), vec(vec_){}
 
-	inline RESULT_TYPE operator[]( int i) const {
+	inline RESULT_TYPE operator[]( R_xlen_t i) const {
 		U1 x = vec[i] ;
 		if( ISNAN(x) ) return x;
 		return ptr( x ) ;
 	}
-	inline int size() const { return vec.size() ; }
+	inline R_xlen_t size() const { return vec.size() ; }
 
 private:
 	FunPtr ptr ;
@@ -60,12 +60,12 @@ public:
 
 	SugarMath_1( FunPtr ptr_, const VEC_TYPE & vec_) : ptr(ptr_), vec(vec_){}
 
-	inline RESULT_TYPE operator[]( int i) const {
+	inline RESULT_TYPE operator[]( R_xlen_t i) const {
 		int x = vec[i] ;
 		if( Rcpp::traits::is_na<INTSXP>(x) ) return Rcpp::traits::get_na<REALSXP>( ) ;
 		return ptr( x ) ;
 	}
-	inline int size() const { return vec.size() ; }
+	inline R_xlen_t size() const { return vec.size() ; }
 
 private:
 	FunPtr ptr ;
@@ -83,10 +83,10 @@ public:
 	typedef Rcpp::VectorBase< INTSXP ,false,T1> VEC_TYPE ;
 	SugarMath_1( FunPtr ptr_, const VEC_TYPE & vec_) : ptr(ptr_), vec(vec_){}
 
-	inline RESULT_TYPE operator[]( int i) const {
+	inline RESULT_TYPE operator[]( R_xlen_t i) const {
 		return ptr( vec[i] ) ;
 	}
-	inline int size() const { return vec.size() ; }
+	inline R_xlen_t size() const { return vec.size() ; }
 
 private:
 	FunPtr ptr ;

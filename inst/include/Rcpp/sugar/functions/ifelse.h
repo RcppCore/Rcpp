@@ -52,14 +52,14 @@ public:
 		RCPP_DEBUG( DEMANGLE(IfElse) ) ;
 	}
 
-	inline STORAGE operator[]( int i ) const {
+	inline STORAGE operator[]( R_xlen_t i ) const {
 		int x = cond[i] ;
 		if( Rcpp::traits::is_na<LGLSXP>(x) ) return Rcpp::traits::get_na<RTYPE>() ;
 		if( x ) return lhs[i] ;
 		return rhs[i] ;
 	}
 
-	inline int size() const { return cond.size() ; }
+	inline R_xlen_t size() const { return cond.size() ; }
 
 private:
 	const COND_TYPE& cond ;
@@ -93,12 +93,12 @@ public:
 			/* FIXME : cond, lhs and rhs must all have the same size */
 	}
 
-	inline STORAGE operator[]( int i ) const {
+	inline STORAGE operator[]( R_xlen_t i ) const {
 		if( cond[i] ) return lhs[i] ;
 		return rhs[i] ;
 	}
 
-	inline int size() const { return cond.size() ; }
+	inline R_xlen_t size() const { return cond.size() ; }
 
 private:
 
@@ -133,14 +133,14 @@ public:
 			/* FIXME : cond, lhs and rhs must all have the sale size */
 	}
 
-	inline STORAGE operator[]( int i ) const {
+	inline STORAGE operator[]( R_xlen_t i ) const {
 		int x = cond[i] ;
 		if( Rcpp::traits::is_na<LGLSXP>(x) ) return x ;
 		if( x ) return lhs ;
 		return rhs[i] ;
 	}
 
-	inline int size() const { return cond.size() ; }
+	inline R_xlen_t size() const { return cond.size() ; }
 
 private:
 	const COND_TYPE& cond ;
@@ -170,12 +170,12 @@ public:
 			/* FIXME : cond, lhs and rhs must all have the same size */
 	}
 
-	inline STORAGE operator[]( int i ) const {
+	inline STORAGE operator[]( R_xlen_t i ) const {
 		if( cond[i] ) return lhs ;
 		return rhs[i] ;
 	}
 
-	inline int size() const { return cond.size() ; }
+	inline R_xlen_t size() const { return cond.size() ; }
 
 private:
 	const COND_TYPE& cond ;
@@ -209,14 +209,14 @@ public:
 			/* FIXME : cond, lhs and rhs must all have the same size */
 	}
 
-	inline STORAGE operator[]( int i ) const {
+	inline STORAGE operator[]( R_xlen_t i ) const {
 		int x = cond[i] ;
 		if( Rcpp::traits::is_na<LGLSXP>(x) ) return Rcpp::traits::get_na<RTYPE>() ;
 		if( x ) return lhs[i] ;
 		return rhs ;
 	}
 
-	inline int size() const { return cond.size() ; }
+	inline R_xlen_t size() const { return cond.size() ; }
 
 private:
 	const COND_TYPE& cond ;
@@ -246,12 +246,12 @@ public:
 			/* FIXME : cond, lhs and rhs must all have the sale size */
 	}
 
-	inline STORAGE operator[]( int i ) const {
+	inline STORAGE operator[]( R_xlen_t i ) const {
 		if( cond[i] ) return lhs[i] ;
 		return rhs ;
 	}
 
-	inline int size() const { return cond.size() ; }
+	inline R_xlen_t size() const { return cond.size() ; }
 
 private:
 	const COND_TYPE& cond ;
@@ -284,13 +284,13 @@ public:
 			/* FIXME : cond, lhs and rhs must all have the same size */
 	}
 
-	inline STORAGE operator[]( int i ) const {
+	inline STORAGE operator[]( R_xlen_t i ) const {
 		int x = cond[i] ;
 		if( Rcpp::traits::is_na<LGLSXP>(x) ) return Rcpp::traits::get_na<RTYPE>() ;
 		return x ? lhs : rhs ;
 	}
 
-	inline int size() const { return cond.size() ; }
+	inline R_xlen_t size() const { return cond.size() ; }
 
 private:
 	const COND_TYPE& cond ;
@@ -317,11 +317,11 @@ public:
 			/* FIXME : cond, lhs and rhs must all have the same size */
 	}
 
-	inline STORAGE operator[]( int i ) const {
+	inline STORAGE operator[]( R_xlen_t i ) const {
 		return cond[i] ? lhs : rhs ;
 	}
 
-	inline int size() const { return cond.size() ; }
+	inline R_xlen_t size() const { return cond.size() ; }
 
 private:
 	const COND_TYPE& cond ;

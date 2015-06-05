@@ -31,17 +31,17 @@ public:
 	typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 
-	Rep( const VEC_TYPE& object_, int times_ ) :
+        Rep( const VEC_TYPE& object_, R_xlen_t times_ ) :
 		object(object_), times(times_), n(object_.size()){}
 
-	inline STORAGE operator[]( int i ) const {
+        inline STORAGE operator[]( R_xlen_t i ) const {
 		return object[ i % n ] ;
 	}
-	inline int size() const { return times * n ; }
+        inline R_xlen_t size() const { return times * n ; }
 
 private:
 	const VEC_TYPE& object ;
-	int times, n ;
+        R_xlen_t times, n ;
 } ;
 
 template <typename T>
@@ -51,38 +51,38 @@ class Rep_Single : public Rcpp::VectorBase<
 	Rep_Single<T>
 > {
 public:
-	Rep_Single( const T& x_, int n_) : x(x_), n(n_){}
+        Rep_Single( const T& x_, R_xlen_t n_) : x(x_), n(n_){}
 
-	inline T operator[]( int i ) const {
+        inline T operator[]( R_xlen_t i ) const {
 		return x;
 	}
-	inline int size() const { return n ; }
+        inline R_xlen_t size() const { return n ; }
 
 private:
 	const T& x ;
-	int n ;
+        R_xlen_t n;
 } ;
 
 } // sugar
 
 template <int RTYPE, bool NA, typename T>
-inline sugar::Rep<RTYPE,NA,T> rep( const VectorBase<RTYPE,NA,T>& t, int n ){
+inline sugar::Rep<RTYPE,NA,T> rep( const VectorBase<RTYPE,NA,T>& t, R_xlen_t n ){
 	return sugar::Rep<RTYPE,NA,T>( t, n ) ;
 }
 
-inline sugar::Rep_Single<double> rep( const double& x, int n ){
+inline sugar::Rep_Single<double> rep( const double& x, R_xlen_t n ){
 	return sugar::Rep_Single<double>( x, n ) ;
 }
-inline sugar::Rep_Single<int> rep( const int& x, int n ){
+inline sugar::Rep_Single<int> rep( const int& x, R_xlen_t n ){
 	return sugar::Rep_Single<int>( x, n ) ;
 }
-inline sugar::Rep_Single<Rbyte> rep( const Rbyte& x, int n ){
+inline sugar::Rep_Single<Rbyte> rep( const Rbyte& x, R_xlen_t n ){
 	return sugar::Rep_Single<Rbyte>( x, n ) ;
 }
-inline sugar::Rep_Single<Rcomplex> rep( const Rcomplex& x, int n ){
+inline sugar::Rep_Single<Rcomplex> rep( const Rcomplex& x, R_xlen_t n ){
 	return sugar::Rep_Single<Rcomplex>( x, n ) ;
 }
-inline sugar::Rep_Single<bool> rep( const bool& x, int n ){
+inline sugar::Rep_Single<bool> rep( const bool& x, R_xlen_t n ){
 	return sugar::Rep_Single<bool>( x, n ) ;
 }
 

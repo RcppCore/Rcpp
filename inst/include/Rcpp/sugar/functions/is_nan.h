@@ -31,11 +31,11 @@ public:
 
 	IsNaN( const VEC_TYPE& obj_) : obj(obj_){}
 
-	inline int operator[]( int i ) const {
+        inline int operator[]( R_xlen_t i ) const {
 		return ::Rcpp::traits::is_nan<RTYPE>( obj[i] ) ;
 	}
 
-	inline int size() const { return obj.size() ; }
+        inline R_xlen_t size() const { return obj.size() ; }
 
 private:
 	const VEC_TYPE& obj ;

@@ -37,7 +37,7 @@ public:
 	Comparator( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_) :
 		lhs(lhs_), rhs(rhs_), op() {}
 
-	inline int operator[]( int i ) const {
+	inline int operator[]( R_xlen_t i ) const {
 		STORAGE x = lhs[i] ;
 		if( Rcpp::traits::is_na<RTYPE>( x ) ) return NA_LOGICAL ;
 		STORAGE y = rhs[i] ;
@@ -45,7 +45,7 @@ public:
 		return op( x, y ) ;
 	}
 
-	inline int size() const { return lhs.size() ; }
+	inline R_xlen_t size() const { return lhs.size() ; }
 
 private:
 	const LHS_TYPE& lhs ;
@@ -68,13 +68,13 @@ public:
 	Comparator( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_) :
 		lhs(lhs_), rhs(rhs_), op() {}
 
-	inline int operator[]( int i ) const {
+	inline int operator[]( R_xlen_t i ) const {
 		STORAGE y = rhs[i] ;
 		if( Rcpp::traits::is_na<RTYPE>( y ) ) return NA_LOGICAL ;
 		return op( lhs[i], y ) ;
 	}
 
-	inline int size() const { return lhs.size() ; }
+	inline R_xlen_t size() const { return lhs.size() ; }
 
 private:
 	const LHS_TYPE& lhs ;
@@ -96,11 +96,11 @@ public:
 	Comparator( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_) :
 		lhs(lhs_), rhs(rhs_), op() {}
 
-	inline int operator[]( int i ) const {
+	inline int operator[]( R_xlen_t i ) const {
 		return op( lhs[i], rhs[i] ) ;
 	}
 
-	inline int size() const { return lhs.size() ; }
+	inline R_xlen_t size() const { return lhs.size() ; }
 
 private:
 	const LHS_TYPE& lhs ;

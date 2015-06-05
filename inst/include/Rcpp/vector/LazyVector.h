@@ -33,7 +33,7 @@ public:
 
     LazyVector( const VECTOR& vec_ ) : vec(vec_), n(vec_.size()), data(n), known(n,false){}
 
-    inline stored_type operator[]( int i) const {
+    inline stored_type operator[]( R_xlen_t i) const {
         stored_type res ;
         if( ! known[i] ) {
             data[i] = res = vec[i] ;
@@ -46,7 +46,7 @@ public:
 
 private:
     const VECTOR& vec ;
-    int n ;
+    R_xlen_t n ;
     mutable std::vector<stored_type> data ;
     mutable std::vector<bool> known ;
 } ;
@@ -58,7 +58,7 @@ public:
     typedef typename VECTOR::Proxy Proxy ;
 
     LazyVector( const VECTOR& vec_) : vec(vec_){}
-    inline Proxy operator[]( int i) const { return vec[i] ; }
+    inline Proxy operator[]( R_xlen_t i) const { return vec[i] ; }
 
 private:
     const VECTOR& vec ;

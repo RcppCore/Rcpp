@@ -83,7 +83,15 @@ public:
         Storage::set__( Rf_allocVector( RTYPE, obj.get() ) ) ;
     }
 
-    Vector( const int& size, const stored_type& u ) {
+    template<typename T>
+    Vector( const T& size, const stored_type& u,
+        typename Rcpp::traits::enable_if<traits::is_arithmetic<T>::value, void>::type* = 0) {
+        RCPP_DEBUG_2( "Vector<%d>( const T& size = %d, const stored_type& u )", RTYPE, size)
+        Storage::set__( Rf_allocVector( RTYPE, size) ) ;
+        fill( u ) ;
+    }
+
+    Vector( const int& size, const stored_type& u) {
         RCPP_DEBUG_2( "Vector<%d>( const int& size = %d, const stored_type& u )", RTYPE, size)
         Storage::set__( Rf_allocVector( RTYPE, size) ) ;
         fill( u ) ;
@@ -101,16 +109,27 @@ public:
         Storage::set__(internal::vector_from_string<RTYPE>(st) ) ;
     }
 
-    Vector( const int& siz, stored_type (*gen)(void) ) {
+    template<typename T>
+    Vector( const T& siz, stored_type (*gen)(void),
+        typename Rcpp::traits::enable_if<traits::is_arithmetic<T>::value, void>::type* = 0) {
         RCPP_DEBUG_2( "Vector<%d>( const int& siz = %s, stored_type (*gen)(void) )", RTYPE, siz )
         Storage::set__( Rf_allocVector( RTYPE, siz) ) ;
         std::generate( begin(), end(), gen );
     }
-
+    
+    // Add template class T and then restict T to arithmetic.
+    template <typename T>
+    Vector(T size, 
+        typename Rcpp::traits::enable_if<traits::is_arithmetic<T>::value, void>::type* = 0) {
+        Storage::set__( Rf_allocVector( RTYPE, size) ) ;
+        init() ;
+    }
+    
     Vector( const int& size ) {
         Storage::set__( Rf_allocVector( RTYPE, size) ) ;
         init() ;
     }
+
     Vector( const Dimension& dims) {
         Storage::set__( Rf_allocVector( RTYPE, dims.prod() ) ) ;
         init() ;
@@ -144,38 +163,44 @@ public:
         RCPP_DEBUG_2( "Vector<%d>( const VectorBase<RTYPE,NA,VEC>& ) [VEC = %s]", RTYPE, DEMANGLE(VEC) )
         import_sugar_expression( other, typename traits::same_type<Vector,VEC>::type() ) ;
     }
-    template <typename U>
-    Vector( const int& size, const U& u) {
-        RCPP_DEBUG_2( "Vector<%d>( const int& size, const U& u )", RTYPE, size )
+    
+    template <typename T, typename U>
+    Vector( const T& size, const U& u,
+        typename Rcpp::traits::enable_if<traits::is_arithmetic<T>::value, void>::type* = 0) {
+        RCPP_DEBUG_2( "Vector<%d>( const T& size, const U& u )", RTYPE, size )
         Storage::set__( Rf_allocVector( RTYPE, size) ) ;
         fill_or_generate( u ) ;
     }
+    
     template <bool NA, typename T>
     Vector( const sugar::SingleLogicalResult<NA,T>& obj ) {
         Storage::set__( r_cast<RTYPE>( const_cast<sugar::SingleLogicalResult<NA,T>&>(obj).get_sexp() ) ) ;
         RCPP_DEBUG_2( "Vector<%d>( const sugar::SingleLogicalResult<NA,T>& ) [T = %s]", RTYPE, DEMANGLE(T) )
     }
 
-    template <typename U1>
-    Vector( const int& siz, stored_type (*gen)(U1), const U1& u1) {
+    template <typename T, typename U1>
+    Vector( const T& siz, stored_type (*gen)(U1), const U1& u1,
+        typename Rcpp::traits::enable_if<traits::is_arithmetic<T>::value, void>::type* = 0) {
         Storage::set__( Rf_allocVector( RTYPE, siz) ) ;
-        RCPP_DEBUG_2( "const int& siz, stored_type (*gen)(U1), const U1& u1 )", RTYPE, siz )
+        RCPP_DEBUG_2( "const T& siz, stored_type (*gen)(U1), const U1& u1 )", RTYPE, siz )
         iterator first = begin(), last = end() ;
         while( first != last ) *first++ = gen(u1) ;
     }
 
-    template <typename U1, typename U2>
-    Vector( const int& siz, stored_type (*gen)(U1,U2), const U1& u1, const U2& u2) {
+    template <typename T, typename U1, typename U2>
+    Vector( const T& siz, stored_type (*gen)(U1,U2), const U1& u1, const U2& u2,
+        typename Rcpp::traits::enable_if<traits::is_arithmetic<T>::value, void>::type* = 0) {
         Storage::set__( Rf_allocVector( RTYPE, siz) ) ;
-        RCPP_DEBUG_2( "const int& siz, stored_type (*gen)(U1,U2), const U1& u1, const U2& u2)", RTYPE, siz )
+        RCPP_DEBUG_2( "const T& siz, stored_type (*gen)(U1,U2), const U1& u1, const U2& u2)", RTYPE, siz )
         iterator first = begin(), last = end() ;
         while( first != last ) *first++ = gen(u1,u2) ;
     }
 
-    template <typename U1, typename U2, typename U3>
-    Vector( const int& siz, stored_type (*gen)(U1,U2,U3), const U1& u1, const U2& u2, const U3& u3) {
+    template <typename T, typename U1, typename U2, typename U3>
+    Vector( const T& siz, stored_type (*gen)(U1,U2,U3), const U1& u1, const U2& u2, const U3& u3,
+        typename Rcpp::traits::enable_if<traits::is_arithmetic<T>::value, void>::type* = 0) {
         Storage::set__( Rf_allocVector( RTYPE, siz) ) ;
-        RCPP_DEBUG_2( "const int& siz, stored_type (*gen)(U1,U2,U3), const U1& u1, const U2& u2, const U3& u3)", RTYPE, siz )
+        RCPP_DEBUG_2( "const T& siz, stored_type (*gen)(U1,U2,U3), const U1& u1, const U2& u2, const U3& u3)", RTYPE, siz )
         iterator first = begin(), last = end() ;
         while( first != last ) *first++ = gen(u1,u2,u3) ;
     }
@@ -187,10 +212,11 @@ public:
         std::copy( first, last, begin() ) ;
     }
 
-    template <typename InputIterator>
-    Vector( InputIterator first, InputIterator last, int n) {
+    template <typename InputIterator, typename T>
+    Vector( InputIterator first, InputIterator last, T n,
+        typename Rcpp::traits::enable_if<traits::is_arithmetic<T>::value, void>::type* = 0) {
         Storage::set__(Rf_allocVector(RTYPE, n)) ;
-        RCPP_DEBUG_2( "Vector<%d>( InputIterator first, InputIterator last, int n = %d)", RTYPE, n )
+        RCPP_DEBUG_2( "Vector<%d>( InputIterator first, InputIterator last, T n = %d)", RTYPE, n )
         std::copy( first, last, begin() ) ;
     }
 
@@ -201,10 +227,11 @@ public:
         std::transform( first, last, begin(), func) ;
     }
 
-    template <typename InputIterator, typename Func>
-    Vector( InputIterator first, InputIterator last, Func func, int n){
+    template <typename InputIterator, typename Func, typename T>
+    Vector( InputIterator first, InputIterator last, Func func, T n,
+        typename Rcpp::traits::enable_if<traits::is_arithmetic<T>::value, void>::type* = 0){
         Storage::set__( Rf_allocVector( RTYPE, n ) );
-        RCPP_DEBUG_2( "Vector<%d>( InputIterator, InputIterator, Func, int n = %d )", RTYPE, n )
+        RCPP_DEBUG_2( "Vector<%d>( InputIterator, InputIterator, Func, T n = %d )", RTYPE, n )
         std::transform( first, last, begin(), func) ;
     }
 
@@ -235,17 +262,17 @@ public:
     #endif
 
     /**
-     * the length of the vector, uses Rf_length
+     * the length of the vector, uses Rf_xlength
      */
-    inline R_len_t length() const {
-        return ::Rf_length( Storage::get__() ) ;
+    inline R_xlen_t length() const {
+        return ::Rf_xlength( Storage::get__() ) ;
     }
 
     /**
      * alias of length
      */
-    inline R_len_t size() const {
-        return ::Rf_length( Storage::get__() ) ;
+    inline R_xlen_t size() const {
+        return ::Rf_xlength( Storage::get__() ) ;
     }
 
     /**
@@ -267,15 +294,15 @@ public:
      * it is valid
      */
     size_t offset(const size_t& i) const {
-        if( static_cast<R_len_t>(i) >= ::Rf_length(Storage::get__()) ) throw index_out_of_bounds() ;
+        if( static_cast<R_xlen_t>(i) >= ::Rf_xlength(Storage::get__()) ) throw index_out_of_bounds() ;
         return i ;
     }
 
-    R_len_t offset(const std::string& name) const {
+    R_xlen_t offset(const std::string& name) const {
         SEXP names = RCPP_GET_NAMES( Storage::get__() ) ;
         if( Rf_isNull(names) ) throw index_out_of_bounds();
-        R_len_t n=size() ;
-        for( R_len_t i=0; i<n; ++i){
+        R_xlen_t n=size() ;
+        for( R_xlen_t i=0; i<n; ++i){
             if( ! name.compare( CHAR(STRING_ELT(names, i)) ) ){
                 return i ;
             }
@@ -294,8 +321,8 @@ public:
 	inline const_iterator begin() const{ return cache.get_const() ; }
     inline const_iterator end() const{ return cache.get_const() + size() ; }
 
-    inline Proxy operator[]( int i ){ return cache.ref(i) ; }
-    inline const_Proxy operator[]( int i ) const { return cache.ref(i) ; }
+    inline Proxy operator[]( R_xlen_t i ){ return cache.ref(i) ; }
+    inline const_Proxy operator[]( R_xlen_t i ) const { return cache.ref(i) ; }
 
     inline Proxy operator()( const size_t& i) {
         return cache.ref( offset(i) ) ;
@@ -450,23 +477,23 @@ public:
     }
 
     template <typename U>
-    static void replace_element( iterator it, SEXP names, int index, const U& u){
+    static void replace_element( iterator it, SEXP names, R_xlen_t index, const U& u){
         replace_element__dispatch( typename traits::is_named<U>::type(),
                                    it, names, index, u ) ;
     }
 
     template <typename U>
-    static void replace_element__dispatch( traits::false_type, iterator it, SEXP names, int index, const U& u){
+    static void replace_element__dispatch( traits::false_type, iterator it, SEXP names, R_xlen_t index, const U& u){
         *it = converter_type::get(u);
     }
 
     template <typename U>
-    static void replace_element__dispatch( traits::true_type, iterator it, SEXP names, int index, const U& u){
+    static void replace_element__dispatch( traits::true_type, iterator it, SEXP names, R_xlen_t index, const U& u){
         replace_element__dispatch__isArgument( typename traits::same_type<U,Argument>(), it, names, index, u ) ;
     }
 
     template <typename U>
-    static void replace_element__dispatch__isArgument( traits::false_type, iterator it, SEXP names, int index, const U& u){
+    static void replace_element__dispatch__isArgument( traits::false_type, iterator it, SEXP names, R_xlen_t index, const U& u){
         RCPP_DEBUG_2( "  Vector::replace_element__dispatch<%s>(true, index= %d) ", DEMANGLE(U), index ) ;
 
         *it = converter_type::get(u.object ) ;
@@ -474,7 +501,7 @@ public:
     }
 
     template <typename U>
-    static void replace_element__dispatch__isArgument( traits::true_type, iterator it, SEXP names, int index, const U& u){
+    static void replace_element__dispatch__isArgument( traits::true_type, iterator it, SEXP names, R_xlen_t index, const U& u){
         RCPP_DEBUG_2( "  Vector::replace_element__dispatch<%s>(true, index= %d) ", DEMANGLE(U), index ) ;
 
         *it = R_MissingArg ;
@@ -491,10 +518,10 @@ public:
     Vector& operator+=( const VectorBase<RTYPE,true,EXPR_VEC>& rhs ) {
           const EXPR_VEC& ref = rhs.get_ref() ;
         iterator start = begin() ;
-        int n = size() ;
+        R_xlen_t n = size() ;
         // TODO: maybe unroll this
         stored_type tmp ;
-        for( int i=0; i<n; i++){
+        for( R_xlen_t i=0; i<n; i++){
             Proxy left = start[i] ;
             if( ! traits::is_na<RTYPE>( left ) ){
                 tmp = ref[i] ;
@@ -508,9 +535,9 @@ public:
     Vector& operator+=( const VectorBase<RTYPE,false,EXPR_VEC>& rhs ) {
           const EXPR_VEC& ref = rhs.get_ref() ;
         iterator start = begin() ;
-        int n = size() ;
+        R_xlen_t n = size() ;
         stored_type tmp ;
-        for( int i=0; i<n; i++){
+        for( R_xlen_t i=0; i<n; i++){
             if( ! traits::is_na<RTYPE>(start[i]) ){
                 start[i] += ref[i] ;
             }
@@ -525,8 +552,8 @@ public:
     bool containsElementNamed( const char* target ) const {
           SEXP names = RCPP_GET_NAMES(Storage::get__()) ;
         if( Rf_isNull(names) ) return false ;
-        int n = Rf_length(names) ;
-        for( int i=0; i<n; i++){
+        R_xlen_t n = Rf_xlength(names) ;
+        for( R_xlen_t i=0; i<n; i++){
             if( !strcmp( target, CHAR(STRING_ELT(names, i)) ) )
                 return true ;
         }
@@ -536,8 +563,8 @@ public:
     int findName(const std::string& name) const {
         SEXP names = RCPP_GET_NAMES(Storage::get__());
         if (Rf_isNull(names)) stop("'names' attribute is null");
-        int n = Rf_length(names);
-        for (int i=0; i < n; ++i) {
+        R_xlen_t n = Rf_xlength(names);
+        for (R_xlen_t i=0; i < n; ++i) {
             if (strcmp(name.c_str(), CHAR(STRING_ELT(names, i))) == 0) {
                 return i;
             }
@@ -563,7 +590,7 @@ private:
 
     void push_back__impl(const stored_type& object, traits::true_type ) {
         Shield<SEXP> object_sexp( object ) ;
-        int n = size() ;
+        R_xlen_t n = size() ;
         Vector target( n + 1 ) ;
         SEXP names = RCPP_GET_NAMES(Storage::get__()) ;
         iterator target_it( target.begin() ) ;
@@ -588,7 +615,7 @@ private:
     }
 
     void push_back__impl(const stored_type& object, traits::false_type ) {
-          int n = size() ;
+        R_xlen_t n = size() ;
         Vector target( n + 1 ) ;
         SEXP names = RCPP_GET_NAMES(Storage::get__()) ;
         iterator target_it( target.begin() ) ;
@@ -614,7 +641,7 @@ private:
 
     void push_back_name__impl(const stored_type& object, const std::string& name, traits::true_type ) {
         Shield<SEXP> object_sexp( object ) ;
-        int n = size() ;
+        R_xlen_t n = size() ;
         Vector target( n + 1 ) ;
         iterator target_it( target.begin() ) ;
         iterator it(begin()) ;
@@ -640,7 +667,7 @@ private:
         Storage::set__( target.get__() ) ;
     }
     void push_back_name__impl(const stored_type& object, const std::string& name, traits::false_type ) {
-        int n = size() ;
+        R_xlen_t n = size() ;
         Vector target( n + 1 ) ;
         iterator target_it( target.begin() ) ;
         iterator it(begin()) ;
@@ -669,7 +696,7 @@ private:
 
     void push_front__impl(const stored_type& object, traits::true_type ) {
             Shield<SEXP> object_sexp( object ) ;
-        int n = size() ;
+        R_xlen_t n = size() ;
         Vector target( n+1);
         iterator target_it(target.begin());
         iterator it(begin());
@@ -695,7 +722,7 @@ private:
 
     }
     void push_front__impl(const stored_type& object, traits::false_type ) {
-          int n = size() ;
+        R_xlen_t n = size() ;
         Vector target( n+1);
         iterator target_it(target.begin());
         iterator it(begin());
@@ -723,7 +750,7 @@ private:
 
     void push_front_name__impl(const stored_type& object, const std::string& name, traits::true_type ) {
         Shield<SEXP> object_sexp(object) ;
-        int n = size() ;
+        R_xlen_t n = size() ;
         Vector target( n + 1 ) ;
         iterator target_it( target.begin() ) ;
         iterator it(begin()) ;
@@ -751,7 +778,7 @@ private:
 
     }
     void push_front_name__impl(const stored_type& object, const std::string& name, traits::false_type ) {
-          int n = size() ;
+        R_xlen_t n = size() ;
         Vector target( n + 1 ) ;
         iterator target_it( target.begin() ) ;
         iterator it(begin()) ;
@@ -782,7 +809,7 @@ private:
 
     iterator insert__impl( iterator position, const stored_type& object_, traits::true_type ) {
         Shield<SEXP> object( object_ ) ;
-        int n = size() ;
+        R_xlen_t n = size() ;
         Vector target( n+1 ) ;
         iterator target_it = target.begin();
         iterator it = begin() ;
@@ -822,7 +849,7 @@ private:
     }
 
     iterator insert__impl( iterator position, const stored_type& object, traits::false_type ) {
-            int n = size() ;
+        R_xlen_t n = size() ;
         Vector target( n+1 ) ;
         iterator target_it = target.begin();
         iterator it = begin() ;
@@ -863,7 +890,7 @@ private:
 
     iterator erase_single__impl( iterator position ) {
               if( position < begin() || position > end() ) throw index_out_of_bounds( ) ;
-        int n = size() ;
+        R_xlen_t n = size() ;
         Vector target( n - 1 ) ;
         iterator target_it(target.begin()) ;
         iterator it(begin()) ;
@@ -906,8 +933,8 @@ private:
 
         iterator it = begin() ;
         iterator this_end = end() ;
-        int nremoved = std::distance(first,last) ;
-        int target_size = size() - nremoved  ;
+        R_xlen_t nremoved = std::distance(first,last) ;
+        R_xlen_t target_size = size() - nremoved  ;
         Vector target( target_size ) ;
         iterator target_it = target.begin() ;
 
@@ -944,7 +971,7 @@ private:
 
     template <typename T>
     inline void assign_sugar_expression( const T& x ) {
-        int n = size() ;
+        R_xlen_t n = size() ;
         if( n == x.size() ){
             // just copy the data
             import_expression<T>(x, n ) ;
@@ -974,7 +1001,7 @@ private:
     template <bool NA, typename VEC>
     inline void import_sugar_expression( const Rcpp::VectorBase<RTYPE,NA,VEC>& other, traits::false_type ) {
         RCPP_DEBUG_4( "Vector<%d>::import_sugar_expression( VectorBase<%d,%d,%s>, false_type )", RTYPE, NA, RTYPE, DEMANGLE(VEC) ) ;
-        int n = other.size() ;
+        R_xlen_t n = other.size() ;
         Storage::set__( Rf_allocVector( RTYPE, n ) ) ;
         import_expression<VEC>( other.get_ref() , n ) ;
     }
@@ -1015,7 +1042,7 @@ private:
         // when this is not trivial, this is SEXP
         Shield<SEXP> elem( converter_type::get( u ) );
         iterator it(begin());
-        for( int i=0; i<size() ; i++, ++it){
+        for( R_xlen_t i=0; i<size() ; i++, ++it){
             *it = ::Rf_duplicate( elem ) ;
         }
     }

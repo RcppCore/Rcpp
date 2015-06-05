@@ -31,10 +31,10 @@ public:
     typedef RESULT_TYPE (*FunPtr)(U1) ;
     SugarBlock_1( FunPtr ptr_, const T1 & vec_) : ptr(ptr_), vec(vec_){}
 
-    inline RESULT_TYPE operator[]( int i) const {
+    inline RESULT_TYPE operator[]( R_xlen_t i) const {
         return ptr( vec[i] ) ;
     }
-    inline int size() const { return vec.size() ; }
+    inline R_xlen_t size() const { return vec.size() ; }
 
 private:
     FunPtr ptr ;

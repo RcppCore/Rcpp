@@ -94,11 +94,11 @@ namespace sugar{
 		UnaryMinus_Vector( const VEC_TYPE& lhs_ ) :
 			lhs(lhs_), op() {}
 
-		inline RESULT operator[]( int i ) const {
+		inline RESULT operator[]( R_xlen_t i ) const {
 			return op.apply( lhs[i] ) ;
 		}
 
-		inline int size() const { return lhs.size() ; }
+		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
 		const VEC_TYPE& lhs ;
