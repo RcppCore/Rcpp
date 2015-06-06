@@ -1,3 +1,9 @@
+2015-06-05  Dirk Eddelbuettel  <edd@debian.org>
+
+        * R/Rcpp.package.skeleton.R (Rcpp.package.skeleton): Remove
+        `character.only=TRUE` from `requireNamespace()` as it happens to flip
+        the boolean value too
+
 2015-05-17  Matt P. Dziubinski  <matdzb@gmail.com>
 
         * inst/include/Rcpp/platform/compiler.h: Added RCPP_USING_CXX0X_OR_LATER
