@@ -29,9 +29,9 @@ class Matrix;
 
 class no_init_vector {
 public:
-    no_init_vector(int size_): size(size_){}
+    no_init_vector(R_xlen_t size_): size(size_){}
 
-    inline int get() const {
+    inline R_xlen_t get() const {
         return size;
     }
 
@@ -41,7 +41,7 @@ public:
     }
 
 private:
-    int size ;
+    R_xlen_t size ;
 } ;
 
 class no_init_matrix {

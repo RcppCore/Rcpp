@@ -33,8 +33,8 @@ namespace sugar {
 
         Nona( const SUGAR_TYPE& expr) : data(expr.get_ref()){}
 
-        inline int size() const { return data.size() ; }
-        inline STORAGE operator[](int i) const { return data[i] ; }
+        inline R_xlen_t size() const { return data.size() ; }
+        inline STORAGE operator[](R_xlen_t i) const { return data[i] ; }
 
     private:
         const VECTOR& data ;
@@ -50,12 +50,12 @@ namespace sugar {
 
         Nona( const SUGAR_TYPE& expr) : data(expr.get_ref().begin()), n(expr.size()){}
 
-        inline int size() const { return n ; }
-        inline STORAGE operator[](int i) const { return data[i] ; }
+        inline R_xlen_t size() const { return n ; }
+        inline STORAGE operator[](R_xlen_t i) const { return data[i] ; }
 
     private:
         iterator data ;
-        int n ;
+        R_xlen_t n ;
     } ;
 
     template <typename T>

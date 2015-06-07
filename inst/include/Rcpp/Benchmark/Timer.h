@@ -110,7 +110,7 @@ namespace Rcpp{
         }
 
         operator SEXP() const {
-            size_t n = data.size();
+            R_xlen_t n = data.size();
             NumericVector out(n);
             CharacterVector names(n);
             for (size_t i=0; i<n; i++) {

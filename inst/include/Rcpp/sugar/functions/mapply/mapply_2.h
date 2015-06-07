@@ -43,10 +43,10 @@ public:
 	Mapply_2( const T_1& vec_1_, const T_2& vec_2_, Function fun_ ) :
 		vec_1(vec_1_), vec_2(vec_2_), fun(fun_){}
 
-	inline result_type operator[]( int i ) const {
+        inline result_type operator[]( R_xlen_t i ) const {
 		return fun( vec_1[i], vec_2[i] );
 	}
-	inline int size() const { return vec_1.size() ; }
+        inline R_xlen_t size() const { return vec_1.size() ; }
 
 private:
 	const T_1& vec_1 ;
@@ -74,10 +74,10 @@ public:
 	Mapply_2_Vector_Primitive( const T_1& vec_1_, PRIM_2 prim_2_, Function fun_ ) :
 		vec_1(vec_1_), prim_2(prim_2_), fun(fun_){}
 
-	inline result_type operator[]( int i ) const {
+        inline result_type operator[]( R_xlen_t i ) const {
 		return fun( vec_1[i], prim_2 );
 	}
-	inline int size() const { return vec_1.size() ; }
+        inline R_xlen_t size() const { return vec_1.size() ; }
 
 private:
 	const T_1& vec_1 ;
@@ -105,10 +105,10 @@ public:
 	Mapply_2_Primitive_Vector( PRIM_1 prim_1_, const T_2& vec_2_, Function fun_ ) :
 		prim_1(prim_1_), vec_2(vec_2_), fun(fun_){}
 
-	inline result_type operator[]( int i ) const {
+        inline result_type operator[]( R_xlen_t i ) const {
 		return fun( prim_1, vec_2[i] );
 	}
-	inline int size() const { return vec_2.size() ; }
+        inline R_xlen_t size() const { return vec_2.size() ; }
 
 private:
 	PRIM_1 prim_1 ;

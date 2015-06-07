@@ -30,7 +30,7 @@ namespace sugar {
     class SugarIterator {
     public:
 
-        typedef int difference_type ;
+        typedef R_xlen_t difference_type ;
         typedef typename Rcpp::traits::storage_type< Rcpp::traits::r_sexptype_traits<T>::rtype >::type STORAGE_TYPE ;
         typedef STORAGE_TYPE reference ;
         typedef STORAGE_TYPE* pointer ;
@@ -38,7 +38,7 @@ namespace sugar {
         typedef SugarIterator iterator ;
 
         SugarIterator( const T& ref_ ) :ref(ref_), index(0) {}
-        SugarIterator( const T& ref_, int index_) : ref(ref_), index(index_) {}
+        SugarIterator( const T& ref_, R_xlen_t index_) : ref(ref_), index(index_) {}
         SugarIterator( const SugarIterator& other) : ref(other.ref), index(other.index){}
 
         inline iterator& operator++(){ index++; return *this ; }
@@ -67,7 +67,7 @@ namespace sugar {
 			index -= n;
 			return *this ;
 		}
-        inline reference operator[](int i){
+        inline reference operator[](R_xlen_t i){
 		    return ref[index+i] ;
 		}
 
@@ -104,7 +104,7 @@ namespace sugar {
 
     private:
         const T& ref ;
-        int index ;
+        R_xlen_t index ;
     } ;
 
     template <typename T> struct sugar_const_iterator_type {

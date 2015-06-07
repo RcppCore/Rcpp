@@ -53,7 +53,7 @@ namespace sugar{
         }
 
         Vector<RTYPE> get() const {
-            int n = lhs_set.size() ;
+            R_xlen_t n = lhs_set.size() ;
             Vector<RTYPE> out = no_init(n) ;
             std::copy( lhs_set.begin(), lhs_set.end(), out.begin() ) ;
             return out ;
@@ -116,7 +116,7 @@ namespace sugar{
         }
 
         Vector<RTYPE> get() const {
-            int n = intersect.size() ;
+            R_xlen_t n = intersect.size() ;
             Vector<RTYPE> out = no_init(n) ;
             std::copy( intersect.begin(), intersect.end(), out.begin() ) ;
             return out ;
@@ -141,7 +141,7 @@ namespace sugar{
         }
 
         Vector<RTYPE> get() const {
-            int n = result.size() ;
+            R_xlen_t n = result.size() ;
             Vector<RTYPE> out = no_init(n) ;
             std::copy( result.begin(), result.end(), out.begin() ) ;
             return out ;

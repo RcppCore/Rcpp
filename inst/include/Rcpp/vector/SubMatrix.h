@@ -39,7 +39,7 @@ public:
         nr( row_range_.size() )
     {}
 
-    inline int size() const { return ncol() * nrow() ; }
+    inline R_xlen_t size() const { return ((R_xlen_t)ncol()) * nrow() ; }
     inline int ncol() const { return nc ; }
     inline int nrow() const { return nr ; }
 

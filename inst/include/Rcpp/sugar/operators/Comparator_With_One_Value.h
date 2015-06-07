@@ -41,11 +41,11 @@ public:
 
 	}
 
-	inline int operator[]( int i ) const {
+	inline int operator[]( R_xlen_t i ) const {
 		return (this->*m)(i) ;
 	}
 
-	inline int size() const { return lhs.size() ; }
+	inline R_xlen_t size() const { return lhs.size() ; }
 
 private:
 	const VEC_TYPE& lhs ;
@@ -80,11 +80,11 @@ public:
 
 	}
 
-	inline int operator[]( int i ) const {
+	inline int operator[]( R_xlen_t i ) const {
 		return (this->*m)(i) ;
 	}
 
-	inline int size() const { return lhs.size() ; }
+	inline R_xlen_t size() const { return lhs.size() ; }
 
 private:
 	const VEC_TYPE& lhs ;

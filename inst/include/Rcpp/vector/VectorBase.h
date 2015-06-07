@@ -42,21 +42,21 @@ public:
 		return static_cast<const VECTOR&>(*this) ;
 	}
 
-	inline stored_type operator[]( int i) const {
+	inline stored_type operator[]( R_xlen_t i) const {
 	    return static_cast<const VECTOR*>(this)->operator[](i) ;
 	}
 
-	inline int size() const { return static_cast<const VECTOR*>(this)->size() ; }
+	inline R_xlen_t size() const { return static_cast<const VECTOR*>(this)->size() ; }
 
 	class iterator {
 	public:
 		typedef stored_type reference ;
 		typedef stored_type* pointer ;
-		typedef int difference_type ;
+		typedef R_xlen_t difference_type ;
 		typedef stored_type value_type;
 		typedef std::random_access_iterator_tag iterator_category ;
 
-		iterator( const VectorBase& object_, int index_ ) : object(object_.get_ref()), index(index_){}
+		iterator( const VectorBase& object_, R_xlen_t index_ ) : object(object_.get_ref()), index(index_){}
 		iterator( const iterator& other) : object(other.object), index(other.index){};
 
 		inline iterator& operator++(){
@@ -95,7 +95,7 @@ public:
 			return *this ;
 		}
 
-		inline reference operator[](int i){
+		inline reference operator[](R_xlen_t i){
 		    return object[index+i] ;
 		}
 
@@ -132,7 +132,7 @@ public:
 
 	private:
 		const VECTOR& object ;
-		int index;
+		R_xlen_t index;
 	} ;
 
 	inline iterator begin() const { return iterator(*this, 0) ; }

@@ -35,13 +35,13 @@ public:
 	Cumsum( const VEC_TYPE& object_ ) : object(object_){}
 
 	VECTOR get() const {
-	    int n = object.size() ;
+	    R_xlen_t n = object.size() ;
 		VECTOR result( n, Rcpp::traits::get_na<RTYPE>() ) ;
 		STORAGE current = object[0] ;
 		if( Rcpp::traits::is_na<RTYPE>(current) )
 		    return result ;
 		result[0] = current ;
-		for( int i=1; i<n; i++){
+		for( R_xlen_t i=1; i<n; i++){
 		    current = object[i] ;
 		    if( Rcpp::traits::is_na<RTYPE>(current) )
 		        return result ;

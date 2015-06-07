@@ -36,9 +36,9 @@ public:
 
 	STORAGE get() const {
 		STORAGE result = 0 ;
-		int n = object.size() ;
+		R_xlen_t n = object.size() ;
 		STORAGE current ;
-		for( int i=0; i<n; i++){
+		for( R_xlen_t i=0; i<n; i++){
 		    current = object[i] ;
 		    if( Rcpp::traits::is_na<RTYPE>(current) )
 		        return Rcpp::traits::get_na<RTYPE>() ;
@@ -60,8 +60,8 @@ public:
 
 	double get() const {
 		double result = 0 ;
-		int n = object.size() ;
-		for( int i=0; i<n; i++){
+		R_xlen_t n = object.size() ;
+		for( R_xlen_t i=0; i<n; i++){
 		   result += object[i] ;
 		}
 		return result ;
@@ -82,8 +82,8 @@ public:
 
 	STORAGE get() const {
 		STORAGE result = 0 ;
-		int n = object.size() ;
-		for( int i=0; i<n; i++){
+		R_xlen_t n = object.size() ;
+		for( R_xlen_t i=0; i<n; i++){
 		    result += object[i] ;
 		}
 		return result ;

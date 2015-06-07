@@ -38,14 +38,14 @@ namespace sugar{
 		Minus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
 			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
 
-		inline STORAGE operator[]( int i ) const {
+		inline STORAGE operator[]( R_xlen_t i ) const {
 			STORAGE x = lhs[i] ;
 			if( Rcpp::traits::is_na<RTYPE>( x ) ) return x ;
 			STORAGE y = rhs[i] ;
 			return Rcpp::traits::is_na<RTYPE>( y ) ? y : ( x - y ) ;
 		}
 
-		inline int size() const { return lhs.size() ; }
+		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
 		const LHS_EXT& lhs ;
@@ -64,11 +64,11 @@ namespace sugar{
 		Minus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
 			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
 
-		inline double operator[]( int i ) const {
+		inline double operator[]( R_xlen_t i ) const {
 		    return lhs[i] - rhs[i] ;
 		}
 
-		inline int size() const { return lhs.size() ; }
+		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
 		const LHS_EXT& lhs ;
@@ -88,13 +88,13 @@ namespace sugar{
 		Minus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
 			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
 
-		inline STORAGE operator[]( int i ) const {
+		inline STORAGE operator[]( R_xlen_t i ) const {
 			STORAGE y = rhs[i] ;
 			if( Rcpp::traits::is_na<RTYPE>( y ) ) return y ;
 			return lhs[i] - y ;
 		}
 
-		inline int size() const { return lhs.size() ; }
+		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
 		const LHS_EXT& lhs ;
@@ -113,11 +113,11 @@ namespace sugar{
 		Minus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
 			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
 
-		inline double operator[]( int i ) const {
+		inline double operator[]( R_xlen_t i ) const {
 			return lhs[i] - rhs[i] ;
 		}
 
-		inline int size() const { return lhs.size() ; }
+		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
 		const LHS_EXT& lhs ;
@@ -137,13 +137,13 @@ namespace sugar{
 		Minus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
 			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
 
-		inline STORAGE operator[]( int i ) const {
+		inline STORAGE operator[]( R_xlen_t i ) const {
 			STORAGE x = lhs[i] ;
 			if( Rcpp::traits::is_na<RTYPE>( x ) ) return x ;
 			return x - rhs[i] ;
 		}
 
-		inline int size() const { return lhs.size() ; }
+		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
 		const LHS_EXT& lhs ;
@@ -162,11 +162,11 @@ namespace sugar{
 		Minus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
 			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
 
-		inline double operator[]( int i ) const {
+		inline double operator[]( R_xlen_t i ) const {
 			return lhs[i] - rhs[i] ;
 		}
 
-		inline int size() const { return lhs.size() ; }
+		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
 		const LHS_EXT& lhs ;
@@ -187,11 +187,11 @@ namespace sugar{
 		Minus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
 			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
 
-		inline STORAGE operator[]( int i ) const {
+		inline STORAGE operator[]( R_xlen_t i ) const {
 			return lhs[i] - rhs[i] ;
 		}
 
-		inline int size() const { return lhs.size() ; }
+		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
 		const LHS_EXT& lhs ;
@@ -209,11 +209,11 @@ namespace sugar{
 		Minus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
 			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
 
-		inline double operator[]( int i ) const {
+		inline double operator[]( R_xlen_t i ) const {
 			return lhs[i] - rhs[i] ;
 		}
 
-		inline int size() const { return lhs.size() ; }
+		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
 		const LHS_EXT& lhs ;
@@ -235,13 +235,13 @@ namespace sugar{
 		Minus_Vector_Primitive( const VEC_TYPE& lhs_, STORAGE rhs_ ) :
 			lhs(lhs_.get_ref()), rhs(rhs_), rhs_na( Rcpp::traits::is_na<RTYPE>(rhs_) ) {}
 
-		inline STORAGE operator[]( int i ) const {
+		inline STORAGE operator[]( R_xlen_t i ) const {
 			if( rhs_na ) return rhs ;
 			STORAGE x = lhs[i] ;
 			return Rcpp::traits::is_na<RTYPE>(x) ? x : (x - rhs) ;
 		}
 
-		inline int size() const { return lhs.size() ; }
+		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
 		const VEC_EXT& lhs ;
@@ -258,11 +258,11 @@ namespace sugar{
 		Minus_Vector_Primitive( const VEC_TYPE& lhs_, double rhs_ ) :
 			lhs(lhs_.get_ref()), rhs(rhs_){}
 
-		inline double operator[]( int i ) const {
+		inline double operator[]( R_xlen_t i ) const {
 			return lhs[i] - rhs ;
 		}
 
-		inline int size() const { return lhs.size() ; }
+		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
 		const VEC_EXT& lhs ;
@@ -281,13 +281,13 @@ namespace sugar{
 		Minus_Vector_Primitive( const VEC_TYPE& lhs_, STORAGE rhs_ ) :
 			lhs(lhs_.get_ref()), rhs(rhs_), rhs_na( Rcpp::traits::is_na<RTYPE>(rhs_) ) {}
 
-		inline STORAGE operator[]( int i ) const {
+		inline STORAGE operator[]( R_xlen_t i ) const {
 			if( rhs_na ) return rhs ;
 			STORAGE x = lhs[i] ;
 			return Rcpp::traits::is_na<RTYPE>(x) ? x : (x - rhs) ;
 		}
 
-		inline int size() const { return lhs.size() ; }
+		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
 		const VEC_EXT& lhs ;
@@ -304,11 +304,11 @@ namespace sugar{
 		Minus_Vector_Primitive( const VEC_TYPE& lhs_, double rhs_ ) :
 			lhs(lhs_.get_ref()), rhs(rhs_){}
 
-		inline double operator[]( int i ) const {
+		inline double operator[]( R_xlen_t i ) const {
 			return lhs[i] - rhs ;
 		}
 
-		inline int size() const { return lhs.size() ; }
+		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
 		const VEC_EXT& lhs ;
@@ -331,11 +331,11 @@ namespace sugar{
 		Minus_Primitive_Vector( STORAGE lhs_, const VEC_TYPE& rhs_ ) :
 			lhs(lhs_), rhs(rhs_.get_ref()), lhs_na( Rcpp::traits::is_na<RTYPE>(lhs_) ) {}
 
-		inline STORAGE operator[]( int i ) const {
+		inline STORAGE operator[]( R_xlen_t i ) const {
 			if( lhs_na ) return lhs ;
 			return lhs - rhs[i] ;
 		}
-		inline int size() const { return rhs.size() ; }
+		inline R_xlen_t size() const { return rhs.size() ; }
 
 	private:
 		STORAGE lhs ;
@@ -352,10 +352,10 @@ namespace sugar{
 		Minus_Primitive_Vector( double lhs_, const VEC_TYPE& rhs_ ) :
 			lhs(lhs_), rhs(rhs_.get_ref()){}
 
-		inline double operator[]( int i ) const {
+		inline double operator[]( R_xlen_t i ) const {
 			return lhs - rhs[i] ;
 		}
-		inline int size() const { return rhs.size() ; }
+		inline R_xlen_t size() const { return rhs.size() ; }
 
 	private:
 		double lhs ;
@@ -375,12 +375,12 @@ namespace sugar{
 		Minus_Primitive_Vector( STORAGE lhs_, const VEC_TYPE& rhs_ ) :
 			lhs(lhs_), rhs(rhs_.get_ref()), lhs_na( Rcpp::traits::is_na<RTYPE>(lhs_) ) {}
 
-		inline STORAGE operator[]( int i ) const {
+		inline STORAGE operator[]( R_xlen_t i ) const {
 			if( lhs_na ) return lhs ;
 		    return lhs - rhs[i] ;
 		}
 
-		inline int size() const { return rhs.size() ; }
+		inline R_xlen_t size() const { return rhs.size() ; }
 
 	private:
 		STORAGE lhs ;
@@ -398,11 +398,11 @@ namespace sugar{
 		Minus_Primitive_Vector( double lhs_, const VEC_TYPE& rhs_ ) :
 			lhs(lhs_), rhs(rhs_.get_ref()){}
 
-		inline double operator[]( int i ) const {
+		inline double operator[]( R_xlen_t i ) const {
 			return lhs - rhs[i] ;
 		}
 
-		inline int size() const { return rhs.size() ; }
+		inline R_xlen_t size() const { return rhs.size() ; }
 
 	private:
 		double lhs ;

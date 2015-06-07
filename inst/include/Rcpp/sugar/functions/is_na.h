@@ -33,11 +33,11 @@ public:
 
 	IsNa( const BASE& obj_) : obj(obj_){}
 
-	inline int operator[]( int i ) const {
+        inline int operator[]( R_xlen_t i ) const {
 		return ::Rcpp::traits::is_na<RTYPE>( obj[i] ) ;
 	}
 
-	inline int size() const { return obj.size() ; }
+        inline R_xlen_t size() const { return obj.size() ; }
 
 private:
 	const BASE& obj ;
@@ -55,11 +55,11 @@ public:
 
 	IsNa( const BASE& obj_) : obj(obj_){}
 
-	inline int operator[]( int i ) const {
+        inline int operator[]( R_xlen_t i ) const {
 		return FALSE ;
 	}
 
-	inline int size() const { return obj.size() ; }
+        inline R_xlen_t size() const { return obj.size() ; }
 
 private:
 	const BASE& obj ;
@@ -71,11 +71,11 @@ class IsNa_Vector_is_na : public Rcpp::VectorBase<LGLSXP, false, IsNa_Vector_is_
    public:
        IsNa_Vector_is_na( const T& x) : ref(x){}
 
-       inline int operator[]( int i) const {
+       inline int operator[]( R_xlen_t i) const {
            return ref[i].is_na() ;
        }
 
-       inline int size() const { return ref.size() ; }
+       inline R_xlen_t size() const { return ref.size() ; }
 
    private:
         const T& ref ;

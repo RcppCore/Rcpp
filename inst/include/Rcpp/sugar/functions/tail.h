@@ -31,7 +31,7 @@ public:
 	typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 
-	Tail( const VEC_TYPE& object_, int n_ ) : object(object_), start(0), n(n_) {
+        Tail( const VEC_TYPE& object_, R_xlen_t n_ ) : object(object_), start(0), n(n_) {
 		if( n > 0 ){
 			start = object.size() - n ;
 		} else {
@@ -40,14 +40,14 @@ public:
 		}
 	}
 
-	inline STORAGE operator[]( int i ) const {
+        inline STORAGE operator[]( R_xlen_t i ) const {
 		return object[ start + i ] ;
 	}
-	inline int size() const { return n; }
+        inline R_xlen_t size() const { return n; }
 
 private:
 	const VEC_TYPE& object ;
-	int start, n ;
+        R_xlen_t start, n ;
 } ;
 
 } // sugar
@@ -55,7 +55,7 @@ private:
 template <int RTYPE,bool NA, typename T>
 inline sugar::Tail<RTYPE,NA,T> tail(
 	const VectorBase<RTYPE,NA,T>& t,
-	int n
+	R_xlen_t n
 	){
 	return sugar::Tail<RTYPE,NA,T>( t, n ) ;
 }

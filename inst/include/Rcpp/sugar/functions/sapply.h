@@ -66,11 +66,11 @@ public:
 	    RCPP_DEBUG_1( "Sapply Converter = %s", DEMANGLE(converter_type) )
 	}
 
-	inline STORAGE operator[]( int i ) const {
+	inline STORAGE operator[]( R_xlen_t i ) const {
 		STORAGE res = converter_type::get( fun( vec[i] ) );
 		return res ;
 	}
-	inline int size() const { return vec.size() ; }
+	inline R_xlen_t size() const { return vec.size() ; }
 
 private:
 	const EXT& vec ;
@@ -101,10 +101,10 @@ public:
 	    RCPP_DEBUG_1( "Sapply  = %s", DEMANGLE(Sapply) )
 	}
 
-	inline STORAGE operator[]( int i ) const {
+	inline STORAGE operator[]( R_xlen_t i ) const {
 		return fun( vec[i] ) ;
 	}
-	inline int size() const { return vec.size() ; }
+	inline R_xlen_t size() const { return vec.size() ; }
 
 private:
 	const EXT& vec ;

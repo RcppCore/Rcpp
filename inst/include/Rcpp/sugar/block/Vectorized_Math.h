@@ -34,10 +34,10 @@ public:
     typedef typename Rcpp::traits::Extractor<REALSXP,NA,VEC>::type VEC_EXT ;
 
     Vectorized( const VEC_TYPE& object_) : object( object_.get_ref() ){}
-    inline double operator[]( int i) const {
+    inline double operator[]( R_xlen_t i) const {
         return Func( object[i] ) ;
     }
-    inline int size() const { return object.size(); }
+    inline R_xlen_t size() const { return object.size(); }
 
 private:
     const VEC_EXT& object ;
@@ -50,12 +50,12 @@ public:
     typedef typename Rcpp::traits::Extractor<INTSXP,NA,VEC>::type VEC_EXT ;
 
     Vectorized_INTSXP( const VEC_TYPE& object_) : object( object_.get_ref() ){}
-    inline double operator[]( int i) const {
+    inline double operator[]( R_xlen_t i) const {
         int x = object[i] ;
         if( x == NA_INTEGER ) return NA_REAL ;
         return Func( x ) ;
     }
-    inline int size() const { return object.size(); }
+    inline R_xlen_t size() const { return object.size(); }
 
 private:
     const VEC_EXT& object ;
@@ -68,10 +68,10 @@ public:
     typedef typename Rcpp::traits::Extractor<INTSXP,false,VEC>::type VEC_EXT ;
 
     Vectorized_INTSXP( const VEC_TYPE& object_) : object( object_.get_ref() ){}
-    inline double operator[]( int i) const {
+    inline double operator[]( R_xlen_t i) const {
         return Func( object[i] ) ;
     }
-    inline int size() const { return object.size(); }
+    inline R_xlen_t size() const { return object.size(); }
 
 private:
     const VEC_EXT& object ;

@@ -30,7 +30,7 @@ class SelfInserter {
 public:
     SelfInserter( HASH& hash_ ) : hash(hash_), index(0) {}
 
-    inline int operator()( STORAGE value ){
+    inline R_xlen_t operator()( STORAGE value ){
         typename HASH::iterator it = hash.find( value ) ;
         if( it == hash.end() ){
             hash.insert( std::make_pair(value, ++index) ) ;
@@ -42,7 +42,7 @@ public:
 
 private:
     HASH& hash ;
-    int index;
+    R_xlen_t index;
 } ;
 
 template <int RTYPE, typename TABLE_T>

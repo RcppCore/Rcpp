@@ -27,7 +27,7 @@ class ChildVector : public T {
 
     public:
 
-    ChildVector(SEXP data_, SEXP parent_, int i_):
+    ChildVector(SEXP data_, SEXP parent_, R_xlen_t i_):
         T(data_),
         parent(parent_),
         i(i_) {}
@@ -68,7 +68,7 @@ class ChildVector : public T {
 
     private:
         SEXP parent;
-        int i;
+        R_xlen_t i;
 };
 
 } // namespace Rcpp

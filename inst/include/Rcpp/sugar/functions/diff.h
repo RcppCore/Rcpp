@@ -41,7 +41,7 @@ public:
 	    was_na(traits::is_na<RTYPE>(previous))
 	{}
 
-	inline STORAGE operator[]( int i ) const {
+	inline STORAGE operator[]( R_xlen_t i ) const {
         STORAGE y = lhs[i+1] ;
         if( previous_index != i ){
             // we don't know the previous value, we need to get it.
@@ -56,18 +56,18 @@ public:
         return res ;
 	}
 
-	inline void set_previous(int i, STORAGE value) const {
+	inline void set_previous(R_xlen_t i, STORAGE value) const {
 	    previous = value ;
 	    was_na = traits::is_na<RTYPE>(previous) ;
 	    previous_index = i ;
 	}
 
-	inline int size() const { return lhs.size() - 1 ; }
+	inline R_xlen_t size() const { return lhs.size() - 1 ; }
 
 private:
 	const LHS_TYPE& lhs ;
 	mutable STORAGE previous ;
-	mutable int previous_index ;
+	mutable R_xlen_t previous_index ;
 	mutable bool was_na ;
 } ;
 
@@ -78,7 +78,7 @@ public:
 
 	Diff( const LHS_TYPE& lhs_ ) : lhs(lhs_), previous(lhs_[0]), previous_index(0) {}
 
-	inline double operator[]( int i ) const {
+	inline double operator[]( R_xlen_t i ) const {
 		double y = lhs[i+1] ;
 		if( previous_index != i ) previous = lhs[i] ;
 		double res = y - previous ;
@@ -86,12 +86,12 @@ public:
 		previous_index = i+1 ;
 		return res ;
 	}
-	inline int size() const { return lhs.size() - 1 ; }
+	inline R_xlen_t size() const { return lhs.size() - 1 ; }
 
 private:
 	const LHS_TYPE& lhs ;
 	mutable double previous ;
-	mutable int previous_index ;
+	mutable R_xlen_t previous_index ;
 } ;
 
 template <int RTYPE, typename LHS_T>
@@ -102,7 +102,7 @@ public:
 
 	Diff( const LHS_TYPE& lhs_ ) : lhs(lhs_), previous(lhs[0]), previous_index(0) {}
 
-	inline STORAGE operator[]( int i ) const {
+	inline STORAGE operator[]( R_xlen_t i ) const {
 		STORAGE y = lhs[i+1] ;
 		if( previous_index != i ) previous = lhs[i] ;
 		STORAGE diff = y - previous ;
@@ -110,12 +110,12 @@ public:
 		previous_index = i+1 ;
 		return y - previous ;
 	}
-	inline int size() const { return lhs.size() - 1 ; }
+	inline R_xlen_t size() const { return lhs.size() - 1 ; }
 
 private:
 	const LHS_TYPE& lhs ;
 	mutable STORAGE previous ;
-	mutable int previous_index ;
+	mutable R_xlen_t previous_index ;
 } ;
 
 } // sugar

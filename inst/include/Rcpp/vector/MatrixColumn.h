@@ -92,12 +92,12 @@ public:
         return const_start + n ;
     }
 
-    inline R_len_t size() const {
+    inline int size() const {
         return n ;
     }
 
 private:
-    const R_len_t n ;
+    const int n ;
     iterator start ;
     const_iterator const_start ;
 

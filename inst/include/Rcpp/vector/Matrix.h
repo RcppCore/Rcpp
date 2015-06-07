@@ -121,10 +121,10 @@ public:
         return res ;
     }
 
-    inline Proxy operator[]( int i ) {
+    inline Proxy operator[]( R_xlen_t i ) {
       return static_cast< Vector<RTYPE>* >( this )->operator[]( i ) ;
     }
-    inline const_Proxy operator[]( int i ) const {
+    inline const_Proxy operator[]( R_xlen_t i ) const {
       return static_cast< const Vector<RTYPE>* >( this )->operator[]( i ) ;
     }
 
@@ -157,7 +157,7 @@ public:
 
 private:
 
-    inline int offset( int i, int j) const { return i + nrows * j ; }
+    inline R_xlen_t offset( int i, int j) const { return i + nrows * j ; }
 
     template <typename U>
     void fill_diag__dispatch( traits::false_type, const U& u) {

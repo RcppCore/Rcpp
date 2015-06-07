@@ -34,10 +34,10 @@ public:
         // TODO: check that x and y have same size
     }
 
-    inline RESULT_TYPE operator[]( int i) const {
+    inline RESULT_TYPE operator[]( R_xlen_t i) const {
         return ptr( x[i], y[i] ) ;
     }
-    inline int size() const { return x.size() ; }
+    inline R_xlen_t size() const { return x.size() ; }
 
 private:
     FunPtr ptr ;
@@ -53,10 +53,10 @@ public:
     SugarBlock_2__VP( FunPtr ptr_, const T1 & x_, U2 u2 ) :
         ptr(ptr_), x(x_), y(u2){}
 
-    inline RESULT_TYPE operator[]( int i) const {
+    inline RESULT_TYPE operator[]( R_xlen_t i) const {
         return ptr( x[i], y ) ;
     }
-    inline int size() const { return x.size() ; }
+    inline R_xlen_t size() const { return x.size() ; }
 
 private:
     FunPtr ptr ;
@@ -71,10 +71,10 @@ public:
     SugarBlock_2__PV( FunPtr ptr_, U1 u1, const T2& y_ ) :
         ptr(ptr_), x(u1), y(y_){}
 
-    inline RESULT_TYPE operator[]( int i) const {
+    inline RESULT_TYPE operator[]( R_xlen_t i) const {
         return ptr( x, y[i] ) ;
     }
-    inline int size() const { return y.size() ; }
+    inline R_xlen_t size() const { return y.size() ; }
 
 private:
     FunPtr ptr ;

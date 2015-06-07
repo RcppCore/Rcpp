@@ -27,11 +27,11 @@ namespace sugar{
 
     template <int RTYPE, bool NA, typename T>
     Vector<RTYPE> na_omit_impl(const T& x, Rcpp::traits::false_type ) {
-        int n = x.size() ;
-        int n_out = n - sum( is_na(x) ) ;
+        R_xlen_t n = x.size() ;
+        R_xlen_t n_out = n - sum( is_na(x) ) ;
 
         Vector<RTYPE> out(n_out) ;
-        for( int i=0, j=0; i<n; i++){
+        for( R_xlen_t i=0, j=0; i<n; i++){
             if( Vector<RTYPE>::is_na( x[i] ) ) continue ;
             out[j++] = x[i];
         }
@@ -40,8 +40,8 @@ namespace sugar{
 
     template <int RTYPE, bool NA, typename T>
     Vector<RTYPE> na_omit_impl(const T& x, Rcpp::traits::true_type ) {
-        int n = x.size() ;
-        int n_out = n - sum( is_na(x) ) ;
+        R_xlen_t n = x.size() ;
+        R_xlen_t n_out = n - sum( is_na(x) ) ;
 
         Vector<RTYPE> out(n_out) ;
         bool has_name = x.attr("names") != R_NilValue ;
@@ -49,14 +49,14 @@ namespace sugar{
             CharacterVector names = x.attr("names") ;
             CharacterVector onames( n_out ) ;
 
-            for( int i=0, j=0; i<n; i++){
+            for( R_xlen_t i=0, j=0; i<n; i++){
                 if( Vector<RTYPE>::is_na( x[i] ) ) continue ;
                 onames[j] = names[i] ;
                 out[j++] = x[i];
             }
             out.attr("names") = onames ;
         } else {
-            for( int i=0, j=0; i<n; i++){
+            for( R_xlen_t i=0, j=0; i<n; i++){
                 if( Vector<RTYPE>::is_na( x[i] ) ) continue ;
                 out[j++] = x[i];
             }
