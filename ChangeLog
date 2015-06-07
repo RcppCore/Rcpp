@@ -1,3 +1,8 @@
+2015-06-07  JJ Allaire <jj@rstudio.org>
+
+        * src/attributes.cpp: Don't load sourceCpp dynamic library if it's
+        already been loaded
+
 2015-06-05  Dirk Eddelbuettel  <edd@debian.org>
 
         * R/Rcpp.package.skeleton.R (Rcpp.package.skeleton): Remove

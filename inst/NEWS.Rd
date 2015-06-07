@@ -8,6 +8,11 @@
     \itemize{
       \item The sugar function \code{sapply} now supports lambda functions
     }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Don't load \code{sourceCpp} dynamic library if it's already 
+      been loaded.
+    }
     \item Changes in Rcpp Documentation:
     \itemize{
       \item The \code{Rcpp-FAQ} vignette was once again updated with respect to

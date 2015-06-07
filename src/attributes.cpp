@@ -2877,16 +2877,14 @@ namespace {
                 throw Rcpp::file_io_error(generatedRSourcePath());
 
             // DLLInfo - hide using . and ensure uniqueness using contextId
-            std::string dllInfo = "`." + contextId_ + "_DLLInfo`";
-            rOfs << dllInfo << " <- dyn.load('" << dynlibPath() << "')"
+            std::string dllInfoName = "." + contextId_ + "_DLLInfo";
+            std::string dllInfo = "`" + dllInfoName + "`";
+            rOfs << "if (!exists('" << dllInfoName << "', inherits = FALSE))" << std::endl;
+            rOfs << "   " << dllInfo << " <- dyn.load('" << dynlibPath() << "')"
                  << std::endl << std::endl;
 
             // Generate R functions
             generateR(rOfs, sourceAttributes, dllInfo);
-
-            // remove the DLLInfo
-            rOfs << std::endl << "rm(" << dllInfo << ")"
-                 << std::endl;
 
             rOfs.close();
 
