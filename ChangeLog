@@ -9,6 +9,16 @@
         `character.only=TRUE` from `requireNamespace()` as it happens to flip
         the boolean value too
 
+2015-06-03  Qiang Kou <qkou@umaikl.iu.edu>
+
+        * inst/include/Rcpp/*: Finish changing R_len_t to R_xlen_t
+        * src/*: Ditto
+
+2015-05-16  Qiang Kou <qkou@umaikl.iu.edu>
+
+        * inst/include/Rcpp/*: Begin changing R_len_t to R_xlen_t
+        * src/*: Ditto
+
 2015-05-17  Matt P. Dziubinski  <matdzb@gmail.com>
 
         * inst/include/Rcpp/platform/compiler.h: Added RCPP_USING_CXX0X_OR_LATER

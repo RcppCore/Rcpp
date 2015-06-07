@@ -6,6 +6,9 @@
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
+      \item All internal length variables have been changed from \code{R_len_t}
+      to \code{R_xlen_t} to support vectors longer than 2^31-1 elements (via a
+      pull request by Qiang Kou)
       \item The sugar function \code{sapply} now supports lambda functions
     }
     \item Changes in Rcpp Attributes:
