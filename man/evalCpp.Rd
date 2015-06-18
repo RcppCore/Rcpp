@@ -9,8 +9,8 @@ Evaluates a C++ expression. This creates a C++ function using
 \code{\link{cppFunction}} and calls it to get the result. 
 }
 \usage{
-evalCpp(code, depends = character(), includes = character(), 
-        rebuild = FALSE, showOutput = verbose, 
+evalCpp(code, depends = character(), plugins = character(),
+        includes = character(), rebuild = FALSE, showOutput = verbose, 
         verbose = getOption("verbose"))
 areMacrosDefined(names, depends = character(), includes = character(), 
         rebuild = FALSE, showOutput = verbose, 
@@ -22,6 +22,9 @@ C++ expression to evaluate
 }
   \item{names}{
 names of the macros we want to test
+}
+  \item{plugins}{
+see \code{\link{cppFunction}}
 }
   \item{depends}{
 see \code{\link{cppFunction}}
