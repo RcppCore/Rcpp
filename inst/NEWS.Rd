@@ -15,6 +15,8 @@
     \itemize{
       \item Don't load \code{sourceCpp} dynamic library if it's already 
       been loaded.
+      \item The \code{evalCpp} function now also supports the \code{plugins}
+      argument.
     }
     \item Changes in Rcpp Documentation:
     \itemize{
