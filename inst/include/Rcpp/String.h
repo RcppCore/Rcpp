@@ -373,9 +373,11 @@ namespace Rcpp {
         }
 		
         inline void set_encoding( cetype_t encoding ) {
-            enc = encoding;
-            if (data != NULL)
-                data = Rf_mkCharCE(Rf_translateCharUTF8(data), enc);
+            if (enc != encoding) {
+			    enc = encoding;
+                if (data != NULL)
+                    data = Rf_mkCharCE(Rf_translateCharUTF8(data), enc);	
+			}
         }
 
         inline void set_encoding(const char* encoding) {

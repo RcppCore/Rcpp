@@ -61,3 +61,21 @@ String test_push_front(String x) {
     x.push_front("abc");
     return x;
 }
+
+// [[Rcpp::export]]
+String test_String_encoding(String x) {
+    return x.get_encoding();
+}
+
+// [[Rcpp::export]]
+String test_String_set_encoding(String x) {
+    String y(x);
+    y.set_encoding("UTF-8");
+    return y;
+}
+
+// [[Rcpp::export]]
+String test_String_ctor_encoding(String x) {
+    String y(x, "UTF-8");
+    return y;
+}
