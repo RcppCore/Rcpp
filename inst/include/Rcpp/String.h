@@ -354,12 +354,11 @@ namespace Rcpp {
             return std::wstring( s, s + strlen(s) );
         }
 
-
         inline const char* get_cstring() const {
             return buffer_ready ? buffer.c_str() : CHAR(data) ;
         }
         
-        inline const char* get_encoding() const {
+        inline const std::string get_encoding() const {
             switch (enc) {
                 case CE_BYTES:
                     return "bytes";
@@ -373,14 +372,12 @@ namespace Rcpp {
         }
 		
         inline void set_encoding( cetype_t encoding ) {
-            if (enc != encoding) {
-			    enc = encoding;
-                if (data != NULL)
-                    data = Rf_mkCharCE(Rf_translateCharUTF8(data), enc);	
-			}
+            enc = encoding;
+            if (data != NULL)
+                data = Rf_mkCharCE(Rf_translateCharUTF8(data), enc);	
         }
 
-        inline void set_encoding(const char* encoding) {
+        inline void set_encoding(const std::string & encoding) {
             if ( encoding == "bytes" ) {
                 enc = CE_BYTES;
             } else if ( encoding == "latin1" ) {
