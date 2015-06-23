@@ -360,37 +360,37 @@ namespace Rcpp {
         }
         
         inline const char* get_encoding() const {
-			switch (enc) {
-				case CE_BYTES:
-					return "bytes";
-				case CE_LATIN1:
-					return "latin1";
-				case CE_UTF8:
-					return "UTF-8";
-				default:
-					return "unknown";
-			}
-		}
+            switch (enc) {
+                case CE_BYTES:
+                    return "bytes";
+                case CE_LATIN1:
+                    return "latin1";
+                case CE_UTF8:
+                    return "UTF-8";
+                default:
+                    return "unknown";
+            }
+        }
 		
-		inline void set_encoding( cetype_t encoding ) {
-			enc = encoding;
-			if (data != NULL)
-			    data = Rf_mkCharCE(Rf_translateCharUTF8(data), enc);
-		}
+        inline void set_encoding( cetype_t encoding ) {
+            enc = encoding;
+            if (data != NULL)
+                data = Rf_mkCharCE(Rf_translateCharUTF8(data), enc);
+        }
 
         inline void set_encoding(const char* encoding) {
-			if ( encoding == "bytes" ) {
-				enc = CE_BYTES;
-			} else if ( encoding == "latin1" ) {
-				enc = CE_LATIN1;
-			} else if ( encoding == "UTF-8" ) {
-				enc = CE_UTF8;
-			} else {
-				enc = CE_ANY;
-				Rcout << "Unknown encoding" << std::endl;
-			}
+            if ( encoding == "bytes" ) {
+                enc = CE_BYTES;
+            } else if ( encoding == "latin1" ) {
+                enc = CE_LATIN1;
+            } else if ( encoding == "UTF-8" ) {
+                enc = CE_UTF8;
+            } else {
+                enc = CE_ANY;
+                Rcout << "Unknown encoding" << std::endl;
+            }
 			set_encoding(enc);
-		}
+        }
 
         bool operator<( const Rcpp::String& other ) const {
             return strcmp( get_cstring(), other.get_cstring() ) < 0;
