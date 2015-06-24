@@ -58,8 +58,7 @@ namespace Rcpp {
         }
 
         /** copy constructor */
-        String( const String& other) : data( other.get_sexp()), valid(true), buffer_ready(false), 
-                                       enc(Rf_getCharCE(other.get_sexp())) {
+        String( const String& other) : data( other.get_sexp()), valid(true), buffer_ready(false), enc(Rf_getCharCE(other.get_sexp())) {
             RCPP_STRING_DEBUG( "String(const String&)" ) ;
         }
 
@@ -69,46 +68,41 @@ namespace Rcpp {
         }
 
         /** construct a string from a single CHARSXP SEXP */
-        String(SEXP charsxp) : data(charsxp), valid(true), buffer_ready(false), 
-                               enc(Rf_getCharCE(charsxp)) {
+        String(SEXP charsxp) : data(charsxp), valid(true), buffer_ready(false), enc(Rf_getCharCE(charsxp)) {
             RCPP_STRING_DEBUG( "String(SEXP)" ) ;
         }
 
         String(SEXP charsxp, const char * enc) : data(charsxp), valid(true), buffer_ready(false) {
-		    set_encoding(enc);
+            set_encoding(enc);
             RCPP_STRING_DEBUG( "String(SEXP)" ) ;
         }
 
         /** from string proxy */
-        String( const StringProxy& proxy ): data( proxy.get() ), valid(true), buffer_ready(false), 
-                                            enc(Rf_getCharCE(proxy.get())){
+        String( const StringProxy& proxy ): data( proxy.get() ), valid(true), buffer_ready(false), enc(Rf_getCharCE(proxy.get())){
             RCPP_STRING_DEBUG( "String( const StringProxy&)" ) ;
         }
 
         String( const StringProxy& proxy, const char * enc ): data( proxy.get() ), valid(true), buffer_ready(false) {
-		    set_encoding(enc);
+            set_encoding(enc);
             RCPP_STRING_DEBUG( "String( const StringProxy&)" ) ;
         }
 
         /** from string proxy */
-        String( const const_StringProxy& proxy ): data( proxy.get() ), valid(true), buffer_ready(false), 
-                                                  enc(Rf_getCharCE(proxy.get())){
+        String( const const_StringProxy& proxy ): data( proxy.get() ), valid(true), buffer_ready(false), enc(Rf_getCharCE(proxy.get())){
             RCPP_STRING_DEBUG( "String( const const_StringProxy&)" ) ;
         }
 
         String( const const_StringProxy& proxy, const char * enc ): data( proxy.get() ), valid(true), buffer_ready(false) {
-			set_encoding(enc);
+            set_encoding(enc);
             RCPP_STRING_DEBUG( "String( const const_StringProxy&)" ) ;
         }
 
         /** from a std::string */
-        String( const std::string& s) : buffer(s), valid(false), buffer_ready(true), 
-                                        enc(CE_NATIVE) {
+        String( const std::string& s) : buffer(s), valid(false), buffer_ready(true), enc(CE_NATIVE) {
             RCPP_STRING_DEBUG( "String(const std::string& )" ) ;
         }
 
-        String( const std::wstring& s) : data(internal::make_charsexp(s)), valid(true), buffer_ready(false), 
-                                         enc(CE_NATIVE) {
+        String( const std::wstring& s) : data(internal::make_charsexp(s)), valid(true), buffer_ready(false), enc(CE_NATIVE) {
             RCPP_STRING_DEBUG( "String(const std::wstring& )" ) ;
         }
 
@@ -117,8 +111,7 @@ namespace Rcpp {
             RCPP_STRING_DEBUG( "String(const char*)" ) ;
         }
 
-        String( const wchar_t* s) : data(internal::make_charsexp(s)), valid(true), buffer_ready(false),
-                                    enc(CE_NATIVE) {
+        String( const wchar_t* s) : data(internal::make_charsexp(s)), valid(true), buffer_ready(false), enc(CE_NATIVE) {
             RCPP_STRING_DEBUG( "String(const wchar_t* s)" ) ;
         }
 
@@ -160,7 +153,7 @@ namespace Rcpp {
             setBuffer() ; buffer += s ; valid = false ;
             return *this ;
         }
-        
+
         inline String& operator+=( const char* s){
             RCPP_STRING_DEBUG( "String::operator+=( const char*)" ) ;
             if( is_na() ) return *this ;
@@ -357,7 +350,7 @@ namespace Rcpp {
         inline const char* get_cstring() const {
             return buffer_ready ? buffer.c_str() : CHAR(data) ;
         }
-        
+
         inline const std::string get_encoding() const {
             switch (enc) {
                 case CE_BYTES:
@@ -370,7 +363,7 @@ namespace Rcpp {
                     return "unknown";
             }
         }
-		
+
         inline void set_encoding( cetype_t encoding ) {
             enc = encoding;
             if (data != NULL)
@@ -386,9 +379,8 @@ namespace Rcpp {
                 enc = CE_UTF8;
             } else {
                 enc = CE_ANY;
-                Rcout << "Unknown encoding" << std::endl;
             }
-			set_encoding(enc);
+            set_encoding(enc);
         }
 
         bool operator<( const Rcpp::String& other ) const {
@@ -410,7 +402,7 @@ namespace Rcpp {
 
         /** the CHARSXP this String encapsulates */
         SEXP data ;
-        
+
         /** the encoding of encapsulated CHARSXP */
         cetype_t enc;
 

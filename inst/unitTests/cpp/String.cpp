@@ -69,13 +69,13 @@ String test_String_encoding(String x) {
 
 // [[Rcpp::export]]
 String test_String_set_encoding(String x) {
-    String y(x);
-    y.set_encoding("UTF-8");
-    return y;
+    x.set_encoding("UTF-8");
+    return x;
 }
 
 // [[Rcpp::export]]
 String test_String_ctor_encoding(String x) {
-    String y(x, "UTF-8");
+    String y(x);
+    y.set_encoding("UTF-8");
     return y;
 }
