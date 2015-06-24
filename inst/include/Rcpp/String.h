@@ -62,7 +62,7 @@ namespace Rcpp {
             RCPP_STRING_DEBUG( "String(const String&)" ) ;
         }
 
-        String( const String& other, const char * enc) : data( other.get_sexp()), valid(true), buffer_ready(false) {
+        String( const String& other, const std::string& enc) : data( other.get_sexp()), valid(true), buffer_ready(false) {
             set_encoding(enc);
             RCPP_STRING_DEBUG( "String(const String&)" ) ;
         }
@@ -72,7 +72,7 @@ namespace Rcpp {
             RCPP_STRING_DEBUG( "String(SEXP)" ) ;
         }
 
-        String(SEXP charsxp, const char * enc) : data(charsxp), valid(true), buffer_ready(false) {
+        String(SEXP charsxp, const std::string& enc) : data(charsxp), valid(true), buffer_ready(false) {
             set_encoding(enc);
             RCPP_STRING_DEBUG( "String(SEXP)" ) ;
         }
@@ -82,7 +82,7 @@ namespace Rcpp {
             RCPP_STRING_DEBUG( "String( const StringProxy&)" ) ;
         }
 
-        String( const StringProxy& proxy, const char * enc ): data( proxy.get() ), valid(true), buffer_ready(false) {
+        String( const StringProxy& proxy, const std::string& enc ): data( proxy.get() ), valid(true), buffer_ready(false) {
             set_encoding(enc);
             RCPP_STRING_DEBUG( "String( const StringProxy&)" ) ;
         }
@@ -92,7 +92,7 @@ namespace Rcpp {
             RCPP_STRING_DEBUG( "String( const const_StringProxy&)" ) ;
         }
 
-        String( const const_StringProxy& proxy, const char * enc ): data( proxy.get() ), valid(true), buffer_ready(false) {
+        String( const const_StringProxy& proxy, const std::string& enc ): data( proxy.get() ), valid(true), buffer_ready(false) {
             set_encoding(enc);
             RCPP_STRING_DEBUG( "String( const const_StringProxy&)" ) ;
         }
@@ -177,8 +177,8 @@ namespace Rcpp {
 
      public:
 
-         inline String& operator+=( const std::wstring& s){ return append_wide_string( s ); }
-         inline String& operator+=( const wchar_t* s){ return append_wide_string( s ); }
+        inline String& operator+=( const std::wstring& s){ return append_wide_string( s ); }
+        inline String& operator+=( const wchar_t* s){ return append_wide_string( s ); }
 
         inline String& operator+=( const String& other ){
             RCPP_STRING_DEBUG( "String::operator+=( const char*)" ) ;
@@ -366,21 +366,25 @@ namespace Rcpp {
 
         inline void set_encoding( cetype_t encoding ) {
             enc = encoding;
-            if (data != NULL)
-                data = Rf_mkCharCE(Rf_translateCharUTF8(data), enc);	
+
+            if (valid) {
+                data = Rf_mkCharCE(Rf_translateCharUTF8(data), encoding);
+            } else {
+                data = Rf_mkCharCE(buffer.c_str(), encoding) ;
+                valid = true ;
+            }
         }
 
         inline void set_encoding(const std::string & encoding) {
             if ( encoding == "bytes" ) {
-                enc = CE_BYTES;
+                set_encoding( CE_BYTES );
             } else if ( encoding == "latin1" ) {
-                enc = CE_LATIN1;
+                set_encoding( CE_LATIN1 );
             } else if ( encoding == "UTF-8" ) {
-                enc = CE_UTF8;
+                set_encoding( CE_UTF8 );
             } else {
-                enc = CE_ANY;
+                set_encoding( CE_ANY );
             }
-            set_encoding(enc);
         }
 
         bool operator<( const Rcpp::String& other ) const {
@@ -455,8 +459,8 @@ namespace Rcpp {
             return s.get_sexp() ;
         }
 
-	    template <int RTYPE>
-	    template <typename T>
+        template <int RTYPE>
+        template <typename T>
         string_proxy<RTYPE>& string_proxy<RTYPE>::operator+=(const T& rhs) {
             String tmp = get() ;
             tmp += rhs ;
@@ -467,7 +471,7 @@ namespace Rcpp {
 	}
 
 
-	template <>
+    template <>
     inline SEXP wrap<Rcpp::String>( const Rcpp::String& object) {
         RCPP_STRING_DEBUG( "wrap<String>()" ) ;
         Shield<SEXP> res( Rf_allocVector( STRSXP, 1 ) ) ;

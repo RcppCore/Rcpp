@@ -79,3 +79,11 @@ String test_String_ctor_encoding(String x) {
     y.set_encoding("UTF-8");
     return y;
 }
+
+
+// [[Rcpp::export]]
+String test_String_ctor_encoding2() {
+    String y("å");
+    y.set_encoding("UTF-8");
+    return y;
+}
