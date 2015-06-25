@@ -27,6 +27,7 @@ namespace Rcpp{
         SEXP env;
         SEXP result;
         std::vector<std::string> warnings;
+        bool error_occurred;
         std::string error_message;
     };
 
@@ -80,8 +81,10 @@ namespace Rcpp{
             Shield<SEXP> current_error        ( rcpp_get_current_error() ) ;
             Shield<SEXP> conditionMessageCall (::Rf_lang2(conditionMessageSym, current_error)) ;
             Shield<SEXP> condition_message    (::Rf_eval(conditionMessageCall, R_GlobalEnv)) ;
+            evalCall->error_occurred = true;
             evalCall->error_message = std::string(CHAR(::Rf_asChar(condition_message)));
         } else {
+            evalCall->error_occurred = false;
             evalCall->result = res;
         }
     }
@@ -102,7 +105,7 @@ namespace Rcpp{
 
         // handle error or result if it completed, else throw interrupt
         if (completed) {
-            if (!call.error_message.empty())
+            if (call.error_occurred)
                 throw eval_error(call.error_message);
             else
                 return call.result;

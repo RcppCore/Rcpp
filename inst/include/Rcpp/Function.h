@@ -75,7 +75,8 @@ namespace Rcpp{
         }
 
         SEXP operator()() const {
-            return Rcpp_eval( Rf_lang1( Storage::get__()  ) ) ;
+            Shield<SEXP> call(Rf_lang1(Storage::get__()));
+            return Rcpp_eval(call);
         }
 
         #include <Rcpp/generated/Function__operator.h>
