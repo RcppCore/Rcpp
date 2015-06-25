@@ -1,5 +1,6 @@
 2015-06-25  Kevin Ushey  <kevinushey@gmail.com>
 
+	* inst/include/Rcpp/api/meat/Rcpp_eval.h: reset error after Rcpp_eval
         * inst/include/Rcpp/Function.h: catch empty error messages
         * inst/include/Rcpp/api/meat/Rcpp_eval.h: protect call
 

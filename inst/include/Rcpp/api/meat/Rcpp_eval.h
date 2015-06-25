@@ -38,8 +38,6 @@ namespace Rcpp{
 
         Shield<SEXP> expr(evalCall->expr) ;
 
-        reset_current_error() ;
-
         Environment RCPP = Environment::Rcpp_namespace();
         SEXP withCallingHandlersSym    = ::Rf_install("withCallingHandlers");
         SEXP tryCatchSym               = ::Rf_install("tryCatch");
@@ -87,6 +85,9 @@ namespace Rcpp{
             evalCall->error_occurred = false;
             evalCall->result = res;
         }
+        
+        reset_current_error() ;
+
     }
 
     inline SEXP Rcpp_eval(SEXP expr_, SEXP env) {
