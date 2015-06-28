@@ -407,9 +407,6 @@ namespace Rcpp {
         /** the CHARSXP this String encapsulates */
         SEXP data ;
 
-        /** the encoding of encapsulated CHARSXP */
-        cetype_t enc;
-
         /** a buffer used to do string operations withough going back to the SEXP */
         std::string buffer ;
 
@@ -418,6 +415,9 @@ namespace Rcpp {
 
         /** is the buffer initialized */
         bool buffer_ready ;
+
+        /** the encoding of encapsulated CHARSXP */
+        cetype_t enc;
 
         inline bool is_na() const { return data == NA_STRING ; }
         inline void setBuffer(){
