@@ -76,3 +76,7 @@ Function function_namespace_env(){
     Function fun = ns[".asSparse"] ;  // accesses a non-exported function
     return fun;
 }
+
+// [[Rcpp::export]]
+void exec(Function f) { f(); }
+

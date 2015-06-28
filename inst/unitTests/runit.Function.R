@@ -84,6 +84,12 @@ if (.runThisTest) {
         checkException(function_cons_ns("sourceCpp", "Rcppp"), msg = "namespace-lookup constructor: fail when ns does not exist")
         checkException(function_cons_ns("sourceCppp", "Rcpp"), msg = "namespace-lookup constructor: fail when function not found")
     }
+    
+    test.Function.eval <- function() {
+        checkException(exec(stop))
+        # should not throw exception
+        exec(function() try(silent = TRUE, exec(stop)))
+    }
 
     # also check function is found in parent env
 
