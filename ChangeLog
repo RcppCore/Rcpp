@@ -6,6 +6,12 @@
         * inst/include/Rcpp/Function.h: catch empty error messages
         * inst/include/Rcpp/api/meat/Rcpp_eval.h: protect call
 
+2015-06-24  Qiang Kou <qkou@umaikl.iu.edu>
+
+        * inst/include/Rcpp/String.h: Support encodings
+        * src/String.cpp: Ditto
+        * inst/unitTests/runit.String.R: Add unit tests
+
 2015-06-18  Dirk Eddelbuettel  <edd@debian.org>
 
         * R/Attributes.R (evalCpp): Add support for plugings argument
