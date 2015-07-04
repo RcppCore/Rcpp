@@ -24,6 +24,8 @@
     \itemize{
       \item The \code{Rcpp-FAQ} vignette was once again updated with respect to
       OS X issues and Fortran libraries needed for e.g. \cpkg{RcppArmadillo}.
+      \item The included \code{Rcpp.bib} bibtex file (which is also used by
+      other Rcpp* packages) was updated with respect to its CRAN references.
     }
   }
 }

@@ -13,3 +13,4 @@ res <- as.data.frame(do.call(rbind, lapply(pkgs, function(p) {
     ind <- which(AP[,"Package"] == p)
     AP[ind, c("Package", "Version")]
 })))
+print(res)
