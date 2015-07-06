@@ -23,14 +23,21 @@
 if (.runThisTest) {
 
     test.Sugar.var <- function() {
-        f1 <- Rcpp::cppFunction('double myVar(NumericVector x) { return(var(x)); }')
-        f2 <- Rcpp::cppFunction('double myVar(IntegerVector x) { return(var(x)); }')
-        f3 <- Rcpp::cppFunction('double myVar(ComplexVector x) { return(var(x)); }')
-        f4 <- Rcpp::cppFunction('double myVar(LogicalVector x) { return(var(x)); }')
-        checkEquals(f1((1:10) * 1.1), var((1:10) * 1.1))
-        checkEquals(f2(1:10), var(1:10))
-        checkEquals(f3(1:10 + (1 + 1i)), var(1:10 + (1 + 1i)))
-        checkEquals(f4(c(T, F, T, F, T)), var(c(T, F, T, F, T)))
+        fNumeric <- Rcpp::cppFunction('double myVar(NumericVector x) { return(var(x)); }')
+        fInteger <- Rcpp::cppFunction('double myVar(IntegerVector x) { return(var(x)); }')
+        fComplex <- Rcpp::cppFunction('double myVar(ComplexVector x) { return(var(x)); }')
+        fLogical <- Rcpp::cppFunction('double myVar(LogicalVector x) { return(var(x)); }')
+        test_data_real <- 1:10
+        checkEquals(fNumeric(test_data_real * 1.1), var(test_data_real * 1.1))
+        checkEquals(fInteger(test_data_real), var(test_data_real))
+        test_data_complex_1 <- complex(real = 5:1, imag = 2:6)
+        test_data_complex_2 <- complex(real = 1:5, imag = 6:10)
+        test_data_complex_1_known_var <- 5
+        test_data_complex_2_known_var <- 5
+        checkEquals(fComplex(test_data_complex_1), test_data_complex_1_known_var)
+        checkEquals(fComplex(test_data_complex_2), test_data_complex_2_known_var)
+        test_data_logical <- c(TRUE, FALSE, TRUE, FALSE, TRUE)
+        checkEquals(fLogical(test_data_logical), var(test_data_logical))
     }
 
 }
