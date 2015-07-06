@@ -34,10 +34,10 @@ public:
     Var( const VEC_TYPE& object_ ) : object(object_){}
 
     double get() const{
-        double
-            m = mean(object).get(),
-            ssq = sum( pow(object, 2.0) ).get();
-        return (ssq - m * m * object.size()) / (object.size() - 1);
+        const double
+            average = mean(object).get(),
+            sum_squared_deviations = sum( pow(object - average, 2.0) ).get();
+        return sum_squared_deviations / (object.size() - 1);
     }
 
 private:
