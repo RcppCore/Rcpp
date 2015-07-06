@@ -54,13 +54,14 @@ public:
     Var( const VEC_TYPE& object_ ) : object(object_){}
 
     double get() const{
-        double sq = 0, ssq = 0;
-        for(R_xlen_t i = 0;i < object.size();i++) {
-            Rcomplex z = object[i];
-            sq += z.r;
-            ssq += z.r * z.r;
+        const Rcomplex average = mean(object).get();
+        const R_xlen_t sample_size = object.size();
+        double sum_squared_deviations_magnitudes = 0.0;
+        for (R_xlen_t i = 0; i != sample_size; ++i) {
+            const Rcomplex deviation = object[i] - average;
+            sum_squared_deviations_magnitudes += deviation.r * deviation.r + deviation.i * deviation.i;
         }
-        return (ssq - sq * sq / object.size()) / (object.size() - 1);
+        return sum_squared_deviations_magnitudes / (sample_size - 1);
     }
 
 private:
