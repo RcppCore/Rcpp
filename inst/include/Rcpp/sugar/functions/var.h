@@ -34,10 +34,12 @@ public:
     Var( const VEC_TYPE& object_ ) : object(object_){}
 
     double get() const{
-        const double
-            average = mean(object).get(),
-            sum_squared_deviations = sum( pow(object - average, 2.0) ).get();
-        return sum_squared_deviations / (object.size() - 1);
+        const double average = mean(object).get();
+        const R_xlen_t sample_size = object.size();
+        double sum_squared_deviations = 0.0;
+        for (R_xlen_t i = 0; i != sample_size; ++i)
+            sum_squared_deviations += std::pow(object[i] - average, 2.0);
+        return sum_squared_deviations / (sample_size - 1);
     }
 
 private:
