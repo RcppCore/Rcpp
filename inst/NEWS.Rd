@@ -8,10 +8,12 @@
     \itemize{
       \item All internal length variables have been changed from \code{R_len_t}
       to \code{R_xlen_t} to support vectors longer than 2^31-1 elements (via 
-      pull request 303 by Qiang Kou)
-      \item The sugar function \code{sapply} now supports lambda functions
+      pull request 303 by Qiang Kou).
+      \item The sugar function \code{sapply} now supports lambda functions.
+      \item The \code{var} sugar function now uses a more robust two-pass
+      method, supports complex numbers, with new unit tests added.
       \item \code{String} constructors now allow encodings (via pull request 310
-      by Qiang Kou)
+      by Qiang Kou).
     }
     \item Changes in Rcpp Attributes:
     \itemize{
