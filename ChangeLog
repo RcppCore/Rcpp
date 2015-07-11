@@ -2,7 +2,11 @@
 
         * vignettes/Rcpp.bib: Updated reference to several CRAN packages
 
-2015-06-25 Kevin Ushey  <kevinushey@gmail.com>
+2015-07-11  Kevin Ushey  <kevinushey@gmail.com>
+
+        * .clang_format: Added
+
+2015-06-25  Kevin Ushey  <kevinushey@gmail.com>
 
 	* inst/include/Rcpp/api/meat/Rcpp_eval.h: reset error after Rcpp_eval
 	* inst/unitTests/cpp/Function.cpp: unit tests
