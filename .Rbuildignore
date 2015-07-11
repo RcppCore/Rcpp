@@ -12,4 +12,5 @@ vignettes/notyet
 doxyfile
 .travis.yml
 .dir-locals.el
+.clang_format
 vignettes/getCurrentVersionsOfCitedPackages.R
