@@ -34,10 +34,12 @@ public:
     Var( const VEC_TYPE& object_ ) : object(object_){}
 
     double get() const{
-        double
-            m = mean(object).get(),
-            ssq = sum( pow(object, 2.0) ).get();
-        return (ssq - m * m * object.size()) / (object.size() - 1);
+        const double average = mean(object).get();
+        const R_xlen_t sample_size = object.size();
+        double sum_squared_deviations = 0.0;
+        for (R_xlen_t i = 0; i != sample_size; ++i)
+            sum_squared_deviations += std::pow(object[i] - average, 2.0);
+        return sum_squared_deviations / (sample_size - 1);
     }
 
 private:
@@ -52,13 +54,14 @@ public:
     Var( const VEC_TYPE& object_ ) : object(object_){}
 
     double get() const{
-        double sq = 0, ssq = 0;
-        for(R_xlen_t i = 0;i < object.size();i++) {
-            Rcomplex z = object[i];
-            sq += z.r;
-            ssq += z.r * z.r;
+        const Rcomplex average = mean(object).get();
+        const R_xlen_t sample_size = object.size();
+        double sum_squared_deviations_magnitudes = 0.0;
+        for (R_xlen_t i = 0; i != sample_size; ++i) {
+            const Rcomplex deviation = object[i] - average;
+            sum_squared_deviations_magnitudes += deviation.r * deviation.r + deviation.i * deviation.i;
         }
-        return (ssq - sq * sq / object.size()) / (object.size() - 1);
+        return sum_squared_deviations_magnitudes / (sample_size - 1);
     }
 
 private:
