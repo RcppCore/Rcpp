@@ -20,101 +20,102 @@
 
 #include <Rcpp/Interrupt.h>
 
-namespace Rcpp{
+namespace Rcpp {
 
-    struct EvalCall {
-        SEXP expr;
-        SEXP env;
-        SEXP result;
-        std::vector<std::string> warnings;
-        bool error_occurred;
-        std::string error_message;
-    };
+struct EvalCall {
+    
+    // Related to call object
+    SEXP expr;
+    SEXP env;
+    SEXP result;
+    
+    // Related to error recording / forwarding
+    bool error_occurred;
+    std::string error_message;
+};
 
-    inline void Rcpp_eval(void* data) {
+inline void Rcpp_eval(void* data) {
 
-        EvalCall* evalCall = (EvalCall*)data;
-        SEXP env = evalCall->env;
+    EvalCall* evalCall = (EvalCall*) data;
 
-        Shield<SEXP> expr(evalCall->expr) ;
-
-        Environment RCPP = Environment::Rcpp_namespace();
-        SEXP withCallingHandlersSym    = ::Rf_install("withCallingHandlers");
-        SEXP tryCatchSym               = ::Rf_install("tryCatch");
-        SEXP evalqSym                  = ::Rf_install("evalq");
-        SEXP conditionMessageSym       = ::Rf_install("conditionMessage");
-        SEXP errorRecorderSym          = ::Rf_install(".rcpp_error_recorder");
-        SEXP warningRecorderSym        = ::Rf_install(".rcpp_warning_recorder");
-        SEXP collectWarningsSym        = ::Rf_install(".rcpp_collect_warnings");
-        SEXP errorSym                  = ::Rf_install("error");
-        SEXP warningSym                = ::Rf_install("warning");
-
-        // define the tryCatchCall
-        Shield<SEXP> tryCatchCall( Rf_lang3(
-            tryCatchSym,
-            Rf_lang3( evalqSym, expr, env ),
-            errorRecorderSym
-        ) ) ;
-        SET_TAG( CDDR(tryCatchCall), errorSym ) ;
-
-        // encose it in withCallingHandlers
-        Shield<SEXP> call( Rf_lang3(
-            withCallingHandlersSym,
-            tryCatchCall,
-            warningRecorderSym
-        ) ) ;
-        SET_TAG( CDDR(call), warningSym ) ;
-
-        // execute the call
-        Shield<SEXP> res(::Rf_eval( call, RCPP ) );
-
-        // collect warnings
-        Shield<SEXP> warningCall(Rf_lang1(collectWarningsSym));
-        Shield<SEXP> warnings(::Rf_eval(warningCall, RCPP));
-        
-        evalCall->warnings = Rcpp::as<std::vector<std::string> >(warnings);
-
-        // check for error
-        if( error_occured() ) {
-            Shield<SEXP> current_error        ( rcpp_get_current_error() ) ;
-            Shield<SEXP> conditionMessageCall (::Rf_lang2(conditionMessageSym, current_error)) ;
-            Shield<SEXP> condition_message    (::Rf_eval(conditionMessageCall, R_GlobalEnv)) ;
-            evalCall->error_occurred = true;
-            evalCall->error_message = std::string(CHAR(::Rf_asChar(condition_message)));
-        } else {
-            evalCall->error_occurred = false;
-            evalCall->result = res;
-        }
-        
-        reset_current_error() ;
-
+    SEXP tryCatchSym               = ::Rf_install("tryCatch");
+    SEXP evalqSym                  = ::Rf_install("evalq");
+    SEXP conditionMessageSym       = ::Rf_install("conditionMessage");
+    SEXP errorSym                  = ::Rf_install("error");
+    
+    // get the Rcpp error recorder
+    SEXP errorRecorder = Rf_findFun(
+        Rf_install(".rcpp_error_recorder"),
+        Environment::Rcpp_namespace()
+    );
+    
+    if (errorRecorder == R_UnboundValue) {
+        evalCall->error_occurred = true;
+        evalCall->error_message =
+            "Failed to find Rcpp error recorder: please ensure\n"
+            "you have the latest version of Rcpp installed.";
+        return;
     }
 
-    inline SEXP Rcpp_eval(SEXP expr_, SEXP env) {
+    // define the evalq call -- the actual R evaluation we
+    // want to execute
+    Shield<SEXP> evalqCall(Rf_lang3(
+        evalqSym,
+        evalCall->expr,
+        evalCall->env
+    ));
+    
+    // define the call -- enclose with `tryCatch` so we can record
+    // and later forward error messages
+    Shield<SEXP> call(Rf_lang3(
+        tryCatchSym,
+        evalqCall,
+        errorRecorder
+    ));
+    SET_TAG(CDDR(call), errorSym);
 
-        // create the call object
-        EvalCall call;
-        call.expr = expr_;
-        call.env = env;
+    // execute the call
+    Shield<SEXP> res(::Rf_eval(call, R_GlobalEnv));
 
-        // execute it
-        Rboolean completed = R_ToplevelExec(Rcpp_eval, (void*)&call);
-
-        // print warnings
-        for (size_t i = 0; i<call.warnings.size(); i++)
-            Rf_warning(call.warnings[i].c_str());
-
-        // handle error or result if it completed, else throw interrupt
-        if (completed) {
-            if (call.error_occurred)
-                throw eval_error(call.error_message);
-            else
-                return call.result;
-        } else {
-            throw internal::InterruptedException();
-        }
+    // check for error
+    if (error_occured()) {
+        Shield<SEXP> current_error        (rcpp_get_current_error());
+        Shield<SEXP> conditionMessageCall (::Rf_lang2(conditionMessageSym, current_error));
+        Shield<SEXP> condition_message    (::Rf_eval(conditionMessageCall, R_GlobalEnv));
+        evalCall->error_occurred = true;
+        evalCall->error_message = std::string(CHAR(::Rf_asChar(condition_message)));
+    } else {
+        evalCall->error_occurred = false;
+        evalCall->result = res;
     }
+    
+    // Reset the current error for the next evaluation
+    reset_current_error();
 
 }
+
+inline SEXP Rcpp_eval(SEXP expr, SEXP env) {
+
+    // create the call object
+    EvalCall call;
+    call.expr = expr;
+    call.env = env;
+
+    // execute it
+    Rboolean completed = R_ToplevelExec(Rcpp_eval, (void*) &call);
+
+    // handle error or result if it completed, else throw interrupt
+    if (completed) {
+        if (call.error_occurred) {
+            throw eval_error(call.error_message);
+        } else {
+            return call.result;
+        }
+    } else {
+        throw internal::InterruptedException();
+    }
+}
+
+} // namespace Rcpp
 
 #endif
