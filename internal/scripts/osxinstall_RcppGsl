@@ -1,0 +1,11 @@
+#!/bin/bash
+
+cd RcppGSL
+./cleanup
+cd ..
+R --arch=i386 CMD INSTALL RcppGSL
+cd RcppGSL
+./cleanup
+cd ..
+R --arch=x86_64 CMD INSTALL --libs-only RcppGSL
+
