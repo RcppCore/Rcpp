@@ -1,3 +1,8 @@
+2015-07-02  Kevin Ushey  <kevinushey@gmail.com>
+
+        * internal/scripts: Import Rcpp scripts to repository
+        * .Rbuildignore: ignore 'internal' directory
+
 2015-07-07  Matt P. Dziubinski  <matdzb@gmail.com>
 
         * inst/include/Rcpp/sugar/functions/var.h: Variance -- changed from
