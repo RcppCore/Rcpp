@@ -1,3 +1,7 @@
+2015-07-14  JJ Allaire <jj@rstudio.org>
+
+        * src/attributes.cpp: fix crash on second call to sourceCpp
+
 2015-07-07  Matt P. Dziubinski  <matdzb@gmail.com>
 
         * inst/include/Rcpp/sugar/functions/var.h: Variance -- changed from

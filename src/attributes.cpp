@@ -2813,7 +2813,7 @@ namespace {
             dircreate(buildDirectory_);
 
             // generate a random context id
-            contextId_ = "sourceCpp_" + createRandomizer();
+            contextId_ = "sourceCpp_" + uniqueToken();
 
             // regenerate the source code
             regenerateSource();
@@ -2847,7 +2847,7 @@ namespace {
 
             // create new dynlib filename
             previousDynlibFilename_ = dynlibFilename_;
-            dynlibFilename_ = "sourceCpp_" + createRandomizer() + dynlibExt_;
+            dynlibFilename_ = "sourceCpp_" + uniqueToken() + dynlibExt_;
 
             // copy the source file to the build dir
             Rcpp::Function filecopy = Rcpp::Environment::base_env()["file.copy"];
@@ -2877,14 +2877,16 @@ namespace {
                 throw Rcpp::file_io_error(generatedRSourcePath());
 
             // DLLInfo - hide using . and ensure uniqueness using contextId
-            std::string dllInfoName = "." + contextId_ + "_DLLInfo";
-            std::string dllInfo = "`" + dllInfoName + "`";
-            rOfs << "if (!exists('" << dllInfoName << "', inherits = FALSE))" << std::endl;
-            rOfs << "   " << dllInfo << " <- dyn.load('" << dynlibPath() << "')"
+            std::string dllInfo = "`." + contextId_ + "_DLLInfo`";
+            rOfs << dllInfo << " <- dyn.load('" << dynlibPath() << "')"
                  << std::endl << std::endl;
 
             // Generate R functions
             generateR(rOfs, sourceAttributes, dllInfo);
+
+            // remove the DLLInfo
+            rOfs << std::endl << "rm(" << dllInfo << ")"
+                 << std::endl;
 
             rOfs.close();
 
@@ -3035,10 +3037,9 @@ namespace {
 
         }
 
-        std::string createRandomizer() {
-            Rcpp::Function sample = Rcpp::Environment::base_env()["sample"];
+        std::string uniqueToken() {
             std::ostringstream ostr;
-            ostr << Rcpp::as<int>(sample(100000, 1));
+            ostr << s_nextUniqueToken++;
             return ostr.str();
         }
 
@@ -3058,7 +3059,11 @@ namespace {
         std::vector<std::string> plugins_;
         std::vector<std::string> embeddedR_;
         std::vector<FileInfo> sourceDependencies_;
+        static int s_nextUniqueToken;
     };
+
+    // initialize next unique token
+    int SourceCppDynlib::s_nextUniqueToken = 0;
 
     // Dynlib cache that allows lookup by either file path or code contents
     class SourceCppDynlibCache {

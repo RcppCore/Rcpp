@@ -17,8 +17,8 @@
     }
     \item Changes in Rcpp Attributes:
     \itemize{
-      \item Don't load \code{sourceCpp} dynamic library if it's already 
-      been loaded.
+      \item Use more robust method of ensuring unique paths for generated shared
+      libraries.
       \item The \code{evalCpp} function now also supports the \code{plugins}
       argument.
     }
