@@ -56,21 +56,25 @@ inline SEXP Rcpp_eval(SEXP expr, SEXP env) {
     // execute the call
     Shield<SEXP> res(::Rf_eval(call, R_GlobalEnv));
 
-    // check for error
-    if (Rf_inherits(res, "error")) {
+    // check for condition results (errors, interrupts)
+    if (Rf_inherits(res, "condition")) {
         
-        Shield<SEXP> conditionMessageCall(::Rf_lang2(
-           ::Rf_install("conditionMessage"),
-           res
-        ));
+        if (Rf_inherits(res, "error")) {
+            
+            Shield<SEXP> conditionMessageCall(::Rf_lang2(
+                    ::Rf_install("conditionMessage"),
+                    res
+            ));
+            
+            Shield<SEXP> conditionMessage(::Rf_eval(conditionMessageCall, R_GlobalEnv));
+            throw eval_error(CHAR(STRING_ELT(conditionMessage, 0)));
+        }
         
-        Shield<SEXP> conditionMessage(::Rf_eval(conditionMessageCall, R_GlobalEnv));
-        throw eval_error(CHAR(STRING_ELT(conditionMessage, 0)));
-    }
-    
-    // check for interrupt
-    if (Rf_inherits(res, "interrupt")) {
-        throw internal::InterruptedException();
+        // check for interrupt
+        if (Rf_inherits(res, "interrupt")) {
+            throw internal::InterruptedException();
+        }
+        
     }
     
     return res;
