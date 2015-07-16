@@ -1,6 +1,22 @@
+2015-07-14  JJ Allaire <jj@rstudio.org>
+
+        * src/attributes.cpp: fix crash on second call to sourceCpp
+
+2015-07-07  Matt P. Dziubinski  <matdzb@gmail.com>
+
+        * inst/include/Rcpp/sugar/functions/var.h: Variance -- changed from
+        the unstable formula back to the stable (two-pass) formula, fixed
+        support for complex numbers (formula correction).
+        * inst/unitTests/runit.sugar.var.R: Added tests for complex variance
+        computation, applied simple code refactoring.
+
 2015-07-04  Dirk Eddelbuettel  <edd@debian.org>
 
         * vignettes/Rcpp.bib: Updated reference to several CRAN packages
+
+2015-07-02  Kevin Ushey  <kevinushey@gmail.com>
+
+        * .clang_format: Added
 
 2015-06-25 Kevin Ushey  <kevinushey@gmail.com>
 
