@@ -1,3 +1,10 @@
+2015-07-16  Kevin Ushey  <kevinushey@gmail.com>
+
+        * inst/include/Rcpp/api/meat/Rcpp_eval.h: Don't use 'R_ToplevelExec';
+        ensure Rcpp_eval respects previously established handlers. Capture
+        errors + interrupts with R-level 'tryCatch'.
+        * inst/NEWS.Rd: Add news entry
+
 2015-07-14  JJ Allaire <jj@rstudio.org>
 
         * src/attributes.cpp: fix crash on second call to sourceCpp

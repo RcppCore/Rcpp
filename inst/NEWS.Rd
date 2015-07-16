@@ -6,6 +6,9 @@
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
+      \item \code{Rcpp_eval()} no longer uses \code{R_ToplevelExec} when evaluating
+      R expressions; this should resolve errors where calling handlers (e.g.
+      through \code{suppressMessages()}) were not properly respected.
       \item All internal length variables have been changed from \code{R_len_t}
       to \code{R_xlen_t} to support vectors longer than 2^31-1 elements (via 
       pull request 303 by Qiang Kou).
