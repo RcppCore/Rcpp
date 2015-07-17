@@ -1,3 +1,8 @@
+2015-07-17  JJ Allaire <jj@rstudio.org>
+
+        * Rcpp.Rproj: don't use devtools mode in RStudio (enables the
+        Test Package command to invoke the RUnit based test-suite)
+
 2015-07-16  Kevin Ushey  <kevinushey@gmail.com>
 
         * inst/include/Rcpp/api/meat/Rcpp_eval.h: Don't use 'R_ToplevelExec';

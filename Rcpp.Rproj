@@ -15,5 +15,4 @@ LaTeX: pdfLaTeX
 AutoAppendNewline: Yes
 
 BuildType: Package
-PackageUseDevtools: Yes
 PackageInstallArgs: --no-multiarch --with-keep.source
