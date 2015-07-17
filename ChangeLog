@@ -2,6 +2,8 @@
 
         * Rcpp.Rproj: don't use devtools mode in RStudio (enables the
         Test Package command to invoke the RUnit based test-suite)
+        * src/attributes.cpp: Correctly handle signature termination 
+        characters ('{' or ';') contained in quotes
 
 2015-07-16  Kevin Ushey  <kevinushey@gmail.com>
 

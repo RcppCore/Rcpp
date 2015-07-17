@@ -24,6 +24,8 @@
       libraries.
       \item The \code{evalCpp} function now also supports the \code{plugins}
       argument.
+      \item Correctly handle signature termination characters ('\{' or ';') contained
+      in quotes.
     }
     \item Changes in Rcpp Documentation:
     \itemize{
