@@ -54,45 +54,54 @@ namespace Rcpp {
 
         /** default constructor */
         String( ): data( Rf_mkChar("") ), buffer(), valid(true), buffer_ready(true), enc(CE_NATIVE) {
+            Rcpp_PreserveObject( data );
             RCPP_STRING_DEBUG( "String()" ) ;
         }
 
         /** copy constructor */
         String( const String& other) : data( other.get_sexp()), valid(true), buffer_ready(false), enc(Rf_getCharCE(other.get_sexp())) {
+            Rcpp_PreserveObject( data );
             RCPP_STRING_DEBUG( "String(const String&)" ) ;
         }
 
         String( const String& other, const std::string& enc) : data( other.get_sexp()), valid(true), buffer_ready(false) {
+            Rcpp_PreserveObject( data );
             set_encoding(enc);
             RCPP_STRING_DEBUG( "String(const String&)" ) ;
         }
 
         /** construct a string from a single CHARSXP SEXP */
         String(SEXP charsxp) : data(charsxp), valid(true), buffer_ready(false), enc(Rf_getCharCE(charsxp)) {
+            Rcpp_PreserveObject( data );
             RCPP_STRING_DEBUG( "String(SEXP)" ) ;
         }
 
         String(SEXP charsxp, const std::string& enc) : data(charsxp), valid(true), buffer_ready(false) {
+            Rcpp_PreserveObject( data );
             set_encoding(enc);
             RCPP_STRING_DEBUG( "String(SEXP)" ) ;
         }
 
         /** from string proxy */
         String( const StringProxy& proxy ): data( proxy.get() ), valid(true), buffer_ready(false), enc(Rf_getCharCE(proxy.get())){
+            Rcpp_PreserveObject( data );
             RCPP_STRING_DEBUG( "String( const StringProxy&)" ) ;
         }
 
         String( const StringProxy& proxy, const std::string& enc ): data( proxy.get() ), valid(true), buffer_ready(false) {
+            Rcpp_PreserveObject( data );
             set_encoding(enc);
             RCPP_STRING_DEBUG( "String( const StringProxy&)" ) ;
         }
 
         /** from string proxy */
         String( const const_StringProxy& proxy ): data( proxy.get() ), valid(true), buffer_ready(false), enc(Rf_getCharCE(proxy.get())){
+            Rcpp_PreserveObject( data );
             RCPP_STRING_DEBUG( "String( const const_StringProxy&)" ) ;
         }
 
         String( const const_StringProxy& proxy, const std::string& enc ): data( proxy.get() ), valid(true), buffer_ready(false) {
+            Rcpp_PreserveObject( data );
             set_encoding(enc);
             RCPP_STRING_DEBUG( "String( const const_StringProxy&)" ) ;
         }
@@ -103,6 +112,7 @@ namespace Rcpp {
         }
 
         String( const std::wstring& s) : data(internal::make_charsexp(s)), valid(true), buffer_ready(false), enc(CE_NATIVE) {
+            Rcpp_PreserveObject( data );
             RCPP_STRING_DEBUG( "String(const std::wstring& )" ) ;
         }
 
@@ -112,32 +122,38 @@ namespace Rcpp {
         }
 
         String( const wchar_t* s) : data(internal::make_charsexp(s)), valid(true), buffer_ready(false), enc(CE_NATIVE) {
+            Rcpp_PreserveObject( data );
             RCPP_STRING_DEBUG( "String(const wchar_t* s)" ) ;
         }
 
         /** constructors from R primitives */
-        String( int x ) : data( internal::r_coerce<INTSXP,STRSXP>(x) ), valid(true), buffer_ready(false), enc(CE_NATIVE){}
-        String( double x ) : data( internal::r_coerce<REALSXP,STRSXP>(x) ), valid(true), buffer_ready(false), enc(CE_NATIVE){}
-        String( bool x ) : data( internal::r_coerce<LGLSXP,STRSXP>(x) ), valid( true ) , buffer_ready(false), enc(CE_NATIVE){}
-        String( Rcomplex x ) : data( internal::r_coerce<CPLXSXP,STRSXP>(x) ), valid( true ), buffer_ready(false), enc(CE_NATIVE){}
-        String( Rbyte x ) : data( internal::r_coerce<RAWSXP,STRSXP>(x) ), valid(true), buffer_ready(false), enc(CE_NATIVE){}
+        String( int x ) : data( internal::r_coerce<INTSXP,STRSXP>(x) ), valid(true), buffer_ready(false), enc(CE_NATIVE){Rcpp_PreserveObject( data );}
+        String( double x ) : data( internal::r_coerce<REALSXP,STRSXP>(x) ), valid(true), buffer_ready(false), enc(CE_NATIVE){Rcpp_PreserveObject( data );}
+        String( bool x ) : data( internal::r_coerce<LGLSXP,STRSXP>(x) ), valid( true ) , buffer_ready(false), enc(CE_NATIVE){Rcpp_PreserveObject( data );}
+        String( Rcomplex x ) : data( internal::r_coerce<CPLXSXP,STRSXP>(x) ), valid( true ), buffer_ready(false), enc(CE_NATIVE){Rcpp_PreserveObject( data );}
+        String( Rbyte x ) : data( internal::r_coerce<RAWSXP,STRSXP>(x) ), valid(true), buffer_ready(false), enc(CE_NATIVE){Rcpp_PreserveObject( data );}
+
+        ~String() {
+            Rcpp_ReleaseObject( data );
+            data = R_NilValue ;
+        }
 
 
-        inline String& operator=( int x     ){ data = internal::r_coerce<INTSXP ,STRSXP>( x ) ; valid = true ; buffer_ready = false ; return *this ; }
-        inline String& operator=( double x  ){ data = internal::r_coerce<REALSXP,STRSXP>( x ) ; valid = true ; buffer_ready = false ; return *this ; }
-        inline String& operator=( Rbyte x   ){ data = internal::r_coerce<RAWSXP ,STRSXP>( x ) ; valid = true ; buffer_ready = false ; return *this ; }
-        inline String& operator=( bool x    ){ data = internal::r_coerce<LGLSXP ,STRSXP>( x ) ; valid = true ; buffer_ready = false ; return *this ; }
-        inline String& operator=( Rcomplex x){ data = internal::r_coerce<CPLXSXP,STRSXP>( x ) ; valid = true ; buffer_ready = false ; return *this ; }
-        inline String& operator=( SEXP x){ data = x ; valid = true ; buffer_ready = false ; return *this ; }
-        inline String& operator=( const StringProxy& proxy){ data = proxy.get() ; valid = true ; buffer_ready=false ; return *this ; }
-        inline String& operator=( const String& other ){ data = other.get_sexp() ; valid = true ; buffer_ready = false ; return *this ; }
+        inline String& operator=( int x     ){ data = Rcpp_ReplaceObject( data, internal::r_coerce<INTSXP ,STRSXP>( x )) ; valid = true ; buffer_ready = false ; return *this ; }
+        inline String& operator=( double x  ){ data = Rcpp_ReplaceObject( data, internal::r_coerce<REALSXP,STRSXP>( x )) ; valid = true ; buffer_ready = false ; return *this ; }
+        inline String& operator=( Rbyte x   ){ data = Rcpp_ReplaceObject( data, internal::r_coerce<RAWSXP ,STRSXP>( x )) ; valid = true ; buffer_ready = false ; return *this ; }
+        inline String& operator=( bool x    ){ data = Rcpp_ReplaceObject( data, internal::r_coerce<LGLSXP ,STRSXP>( x )) ; valid = true ; buffer_ready = false ; return *this ; }
+        inline String& operator=( Rcomplex x){ data = Rcpp_ReplaceObject( data, internal::r_coerce<CPLXSXP,STRSXP>( x )) ; valid = true ; buffer_ready = false ; return *this ; }
+        inline String& operator=( SEXP x){ data = Rcpp_ReplaceObject( data, x ) ; valid = true ; buffer_ready = false ; return *this ; }
+        inline String& operator=( const StringProxy& proxy){ data = Rcpp_ReplaceObject( data, proxy.get() ) ; valid = true ; buffer_ready=false ; return *this ; }
+        inline String& operator=( const String& other ){ data = Rcpp_ReplaceObject( data, other.get_sexp() ) ; valid = true ; buffer_ready = false ; return *this ; }
         inline String& operator=( const std::string& s){  buffer = s ; valid = false ; buffer_ready = true ; return *this ; }
         inline String& operator=( const char* s){ buffer = s ; valid = false ; buffer_ready = true ; return *this ; }
 
     private:
         template <typename T>
         inline String& assign_wide_string( const T& s){
-            data = internal::make_charsexp( s ) ;
+            data = Rcpp_ReplaceObject( data, internal::make_charsexp( s )) ;
             valid = true ;
             buffer_ready = false ;
             return *this ;
@@ -169,7 +185,7 @@ namespace Rcpp {
             const char* buf = CHAR( data );
             std::wstring tmp( buf, buf + strlen(buf ) ) ;
             tmp += s ;
-            data = internal::make_charsexp( tmp ) ;
+            data = Rcpp_ReplaceObject( data, internal::make_charsexp( tmp ) ) ;
             valid = true ;
             buffer_ready = false ;
             return *this ;
@@ -183,7 +199,7 @@ namespace Rcpp {
         inline String& operator+=( const String& other ){
             RCPP_STRING_DEBUG( "String::operator+=( const char*)" ) ;
             if( is_na() ) return *this ;
-            if( other.is_na() ){ data = NA_STRING ; valid = true ; buffer_ready = false ; return *this ; }
+            if( other.is_na() ){ data = Rcpp_ReplaceObject( data, NA_STRING) ; valid = true ; buffer_ready = false ; return *this ; }
             setBuffer() ; buffer += other ; valid = false ;
             return *this ;
         }
@@ -191,14 +207,14 @@ namespace Rcpp {
             RCPP_STRING_DEBUG( "String::operator+=( const StringProxy& )" ) ;
             if( is_na() ) return *this ;
             SEXP proxy_sexp = proxy ;
-            if( proxy_sexp == NA_STRING ) { data = NA_STRING ; valid = true; buffer_ready = false ; return *this ;}
+            if( proxy_sexp == NA_STRING ) { data = Rcpp_ReplaceObject( data, NA_STRING) ; valid = true; buffer_ready = false ; return *this ;}
             setBuffer() ; buffer += CHAR(proxy_sexp) ; valid = false ;
             return *this ;
         }
         inline String& operator+=( SEXP x){
             RCPP_STRING_DEBUG( "String::operator+=( SEXP )" ) ;
             if( is_na() ) return *this ;
-            if( x == NA_STRING ) { data = NA_STRING ; valid = true; buffer_ready = false ; return *this ;}
+            if( x == NA_STRING ) { data = Rcpp_ReplaceObject( data, NA_STRING ) ; valid = true; buffer_ready = false ; return *this ;}
             setBuffer() ; buffer += CHAR(x) ; valid = false ;
             return *this ;
         }
@@ -324,7 +340,8 @@ namespace Rcpp {
 
 
         inline void set_na(){
-            data = NA_STRING ; valid = true; buffer_ready = false ;
+            data = Rcpp_ReplaceObject(data, NA_STRING) ;
+            valid = true; buffer_ready = false ;
         }
 
 
@@ -368,9 +385,10 @@ namespace Rcpp {
             enc = encoding;
 
             if (valid) {
-                data = Rf_mkCharCE(Rf_translateCharUTF8(data), encoding);
+                data = Rcpp_ReplaceObject(data, Rf_mkCharCE(Rf_translateCharUTF8(data), encoding) );
             } else {
                 data = Rf_mkCharCE(buffer.c_str(), encoding) ;
+                Rcpp_PreserveObject( data );
                 valid = true ;
             }
         }
@@ -430,6 +448,7 @@ namespace Rcpp {
             RCPP_STRING_DEBUG( "setData" ) ;
             if(!valid) {
                 data = Rf_mkCharCE(buffer.c_str(), enc) ;
+                Rcpp_PreserveObject( data );
                 valid = true ;
             }
         }
@@ -476,6 +495,7 @@ namespace Rcpp {
         RCPP_STRING_DEBUG( "wrap<String>()" ) ;
         Shield<SEXP> res( Rf_allocVector( STRSXP, 1 ) ) ;
         SEXP data = object.get_sexp();
+        Rcpp_PreserveObject( data );
         SET_STRING_ELT( res, 0, data ) ;
         return res ;
     }
