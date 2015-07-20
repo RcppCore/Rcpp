@@ -14,9 +14,12 @@
       pull request 303 by Qiang Kou).
       \item The sugar function \code{sapply} now supports lambda functions.
       \item The \code{var} sugar function now uses a more robust two-pass
-      method, supports complex numbers, with new unit tests added.
+      method, supports complex numbers, with new unit tests added (via pull
+      request 320 by Matt Dziubinski) 
       \item \code{String} constructors now allow encodings (via pull request 310
       by Qiang Kou).
+      \item \code{String} objects are preserving the underlying \code{SEXP}
+      objects better (via pull request 322 by Qiang Kou)
     }
     \item Changes in Rcpp Attributes:
     \itemize{

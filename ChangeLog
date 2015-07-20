@@ -1,8 +1,16 @@
+2015-07-20  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Rolled minor Date and Version
+
+        * R/Attributes.R: Use explicit 'utils::assignInMyNamespace'
+
+        * R/Rcpp.package.skeleton.R: Use explicit 'utils::package.skeleton'
+
 2015-07-17  JJ Allaire <jj@rstudio.org>
 
         * Rcpp.Rproj: don't use devtools mode in RStudio (enables the
         Test Package command to invoke the RUnit based test-suite)
-        * src/attributes.cpp: Correctly handle signature termination 
+        * src/attributes.cpp: Correctly handle signature termination
         characters ('{' or ';') contained in quotes
 
 2015-07-16  Kevin Ushey  <kevinushey@gmail.com>
@@ -15,6 +23,11 @@
 2015-07-14  JJ Allaire <jj@rstudio.org>
 
         * src/attributes.cpp: fix crash on second call to sourceCpp
+
+2015-07-07  Qiang Kou <qkou@umaikl.iu.edu>
+
+        * src/include/Rcpp/String.h: Use Rcpp_PreserveObject and
+        Rcpp_ReplaceObject to protect underlying SEXP inside String objects
 
 2015-07-07  Matt P. Dziubinski  <matdzb@gmail.com>
 
@@ -32,7 +45,7 @@
 
         * .clang_format: Added
 
-2015-06-25 Kevin Ushey  <kevinushey@gmail.com>
+2015-06-25  Kevin Ushey  <kevinushey@gmail.com>
 
 	* inst/include/Rcpp/api/meat/Rcpp_eval.h: reset error after Rcpp_eval
 	* inst/unitTests/cpp/Function.cpp: unit tests
