@@ -31,7 +31,7 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
     havePkgKitten <- requireNamespace("pkgKitten", quietly=TRUE)
 
     call <- match.call()
-    call[[1]] <- as.name("utils::package.skeleton")
+    call[[1]] <- as.name("package.skeleton")
     env <- parent.frame(1)
 
 	if (!is.character(cpp_files))
@@ -63,7 +63,7 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
     ## first let the traditional version do its business
 	## remove Rcpp specific arguments
 
-	call <- call[ c(1L, which(names(call) %in% names(formals(utils::package.skeleton)))) ]
+	call <- call[ c(1L, which(names(call) %in% names(formals(package.skeleton)))) ]
 
 	if (fake) {
 		call[["list"]] <- c(if(isTRUE(example_code)

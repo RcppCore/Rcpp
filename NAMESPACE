@@ -1,7 +1,7 @@
 useDynLib(Rcpp, .registration = TRUE)
 
 import(methods)
-importFrom(utils, capture.output, assignInNamespace, .DollarNames, prompt, packageDescription)
+importFrom(utils, capture.output, assignInNamespace, .DollarNames, prompt, packageDescription, package.skeleton)
 
 exportClasses(Module, "C++Field",
               "C++OverloadedMethods",
