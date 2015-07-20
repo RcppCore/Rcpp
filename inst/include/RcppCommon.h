@@ -28,9 +28,6 @@
 
 #include <Rcpp/r/headers.h>
 
-// Override 'Rf_error' so that we can catch errors
-#define Rf_error Rcpp::stop
-
 /**
  * \brief Rcpp API
  */
