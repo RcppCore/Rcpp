@@ -965,7 +965,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
         result <- suppressWarnings(system(cmd,
                                           ignore.stderr = TRUE,
                                           intern = TRUE))
-        assignInMyNamespace(".hasDevelTools", is.null(attr(result, "status")))
+        utils::assignInMyNamespace(".hasDevelTools", is.null(attr(result, "status")))
 
         # if we build successfully then remove the shared library
         if (.hasDevelTools) {
