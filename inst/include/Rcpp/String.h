@@ -108,6 +108,7 @@ namespace Rcpp {
 
         /** from a std::string */
         String( const std::string& s) : buffer(s), valid(false), buffer_ready(true), enc(CE_NATIVE) {
+            data = R_NilValue ;
             RCPP_STRING_DEBUG( "String(const std::string& )" ) ;
         }
 
@@ -118,6 +119,7 @@ namespace Rcpp {
 
         /** from a const char* */
         String( const char* s) : buffer(s), valid(false), buffer_ready(true), enc(CE_NATIVE){
+            data = R_NilValue ;
             RCPP_STRING_DEBUG( "String(const char*)" ) ;
         }
 

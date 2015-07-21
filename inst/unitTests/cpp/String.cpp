@@ -47,6 +47,13 @@ CharacterVector test_sapply_string( CharacterVector text, CharacterVector old , 
 }
 
 // [[Rcpp::export]]
+String test_ctor(String x) {
+    String test = "test";
+    test = x;
+    return test;
+}
+
+// [[Rcpp::export]]
 List test_compare_Strings( String aa, String bb ){
     return List::create(
         _["a  < b" ] = aa < bb,

@@ -19,7 +19,6 @@
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 .runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
-
 if (.runThisTest) {
 
     .setUp <- Rcpp:::unitTestSetup("String.cpp")
@@ -48,6 +47,11 @@ if (.runThisTest) {
             "a == a" = TRUE
             )
         checkEquals( res, target )
+    }
+
+    test.String.ctor <- function() {
+        res <- test_ctor("abc")
+        checkIdentical(res, "abc")
     }
 
     test.push.front <- function() {
