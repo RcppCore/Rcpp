@@ -51,7 +51,7 @@ inline SEXP Rcpp_eval(SEXP expr, SEXP env) {
         identity
     ));
     SET_TAG(CDDR(call), ::Rf_install("error"));
-    SET_TAG(CDDDR(call), ::Rf_install("interrupt"));
+    SET_TAG(CDDR(CDR(call)), ::Rf_install("interrupt"));
 
     // execute the call
     Shield<SEXP> res(::Rf_eval(call, R_GlobalEnv));

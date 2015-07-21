@@ -1,3 +1,7 @@
+2015-07-21  Kevin Ushey  <kevinushey@gmail.com>
+
+        * inst/include/Rcpp/api/meat/Rcpp_eval.h: don't use 'CDDDR'
+
 2015-07-20  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Rolled minor Date and Version
