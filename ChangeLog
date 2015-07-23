@@ -1,3 +1,10 @@
+2015-07-07  Qiang Kou <qkou@umaikl.iu.edu>
+
+        * src/include/Rcpp/String.h: Ensure proper initialization of String
+        objects from two constructors
+        * inst/unitTests/cpp/String.cpp: New unit test
+        * inst/unitTests/runit.String.R: Ditto
+
 2015-07-21  Kevin Ushey  <kevinushey@gmail.com>
 
         * inst/include/Rcpp/api/meat/Rcpp_eval.h: don't use 'CDDDR'
@@ -83,6 +90,10 @@
 
         * inst/include/Rcpp/*: Finish changing R_len_t to R_xlen_t
         * src/*: Ditto
+
+2014-05-27  Romain Francois  <romain@r-enthusiasts.com>
+
+        * inst/include/Rcpp/DataFrame.h: Safe DataFram constructor
 
 2015-05-16  Qiang Kou <qkou@umaikl.iu.edu>
 

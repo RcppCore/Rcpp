@@ -12,14 +12,18 @@
       \item All internal length variables have been changed from \code{R_len_t}
       to \code{R_xlen_t} to support vectors longer than 2^31-1 elements (via 
       pull request 303 by Qiang Kou).
-      \item The sugar function \code{sapply} now supports lambda functions.
+      \item The sugar function \code{sapply} now supports lambda functions
+      (addressing issue 213 thanks to Matt Dziubinski)
       \item The \code{var} sugar function now uses a more robust two-pass
       method, supports complex numbers, with new unit tests added (via pull
       request 320 by Matt Dziubinski) 
       \item \code{String} constructors now allow encodings (via pull request 310
-      by Qiang Kou).
+      by Qiang Kou)
       \item \code{String} objects are preserving the underlying \code{SEXP}
-      objects better (via pull request 322 by Qiang Kou)
+      objects better, and are more careful about initializations (via pull
+      request 322 and 329 by Qiang Kou)
+      \item DataFrame constructors are now a little more careful (via pull
+      request 301 by Romain Francois)
     }
     \item Changes in Rcpp Attributes:
     \itemize{
