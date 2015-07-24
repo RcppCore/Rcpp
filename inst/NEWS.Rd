@@ -21,11 +21,11 @@
       by Qiang Kou)
       \item \code{String} objects are preserving the underlying \code{SEXP}
       objects better, and are more careful about initializations (via pull
-      request 322 and 329 by Qiang Kou)
+      requests 322 and 329 by Qiang Kou)
       \item DataFrame constructors are now a little more careful (via pull
       request 301 by Romain Francois)
       \item For R 3.2.0 or newer, \code{Rf_installChar()} is used instead of
-  \code{Rf_install(CHAR())}. 
+      \code{Rf_install(CHAR())} (via pull request 332). 
     }
     \item Changes in Rcpp Attributes:
     \itemize{
