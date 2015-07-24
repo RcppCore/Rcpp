@@ -2,7 +2,7 @@
 //
 // Symbol.h: Rcpp R/C++ interface class library -- access R environments
 //
-// Copyright (C) 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2013 - 2015  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -43,13 +43,21 @@ namespace Rcpp{
                 Storage::set__( x ) ;
                 break; /* nothing to do */
             case CHARSXP: {
+		#if R_VERSION >= R_Version(3,2,0)
+                SEXP charSym = Rf_installChar(x);       // R 3.2.0 or later have Rf_installChar
+                #else
                 SEXP charSym = Rf_install(CHAR(x));     // cannot be gc()'ed  once in symbol table
+                #endif
                 Storage::set__( charSym ) ;
                 break ;
             }
             case STRSXP: {
                 /* FIXME: check that there is at least one element */
+		#if R_VERSION >= R_Version(3,2,0)
+                SEXP charSym = Rf_installChar(STRING_ELT(x, 0 ));     // R 3.2.0 or later have Rf_installChar
+                #else
                 SEXP charSym = Rf_install( CHAR(STRING_ELT(x, 0 )) ); // cannot be gc()'ed  once in symbol table
+                #endif
                 Storage::set__( charSym );
                 break ;
             }
