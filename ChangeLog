@@ -1,3 +1,8 @@
+2015-07-23  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/Symbol.h: Use Rf_installChar(x) instead of
+        Rf_install(CHAR(X)) if R 3.2.0 or later is used
+
 2015-07-07  Qiang Kou <qkou@umaikl.iu.edu>
 
         * src/include/Rcpp/String.h: Ensure proper initialization of String
