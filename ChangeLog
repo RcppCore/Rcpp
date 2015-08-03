@@ -1,3 +1,8 @@
+2015-08-02  Dirk Eddelbuettel  <edd@debian.org>
+
+        * R/Attributes.R (sourceCpp): In no-rebuild-needed case, also set a
+        default directory restoration via on.exit()
+
 2015-07-24  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.12.0
