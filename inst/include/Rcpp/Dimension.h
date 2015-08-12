@@ -56,8 +56,8 @@ namespace Rcpp{
 	    inline int size() const {
 	        return (int) dims.size() ;
 	    }
-	    inline int prod() const {
-	        return std::accumulate( dims.begin(), dims.end(), 1, std::multiplies<int>() ) ;
+	    inline size_t prod() const {
+	        return std::accumulate( dims.begin(), dims.end(), static_cast<size_t>(1), std::multiplies<size_t>() ) ;
 	    }
 
 	    inline reference operator[](int i){

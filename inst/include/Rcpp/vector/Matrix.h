@@ -52,12 +52,12 @@ public:
         if( dims.size() != 2 ) throw not_compatible("not a matrix") ;
         VECTOR::init() ;
     }
-    Matrix( const int& nrows_, const int& ncols) : VECTOR( Dimension( nrows_, ncols ) ),
+    Matrix( const size_t& nrows_, const size_t& ncols) : VECTOR( Dimension( nrows_, ncols ) ),
       nrows(nrows_)
     {}
 
     template <typename Iterator>
-    Matrix( const int& nrows_, const int& ncols, Iterator start ) :
+    Matrix( const size_t& nrows_, const size_t& ncols, Iterator start ) :
         VECTOR( start, start + (nrows_*ncols) ),
         nrows(nrows_)
     {
