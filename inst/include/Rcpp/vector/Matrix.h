@@ -157,7 +157,7 @@ public:
 
 private:
 
-    inline R_xlen_t offset( int i, int j) const { return i + nrows * j ; }
+    inline R_xlen_t offset(const size_t i, const size_t j) const { return i + nrows * j ; }
 
     template <typename U>
     void fill_diag__dispatch( traits::false_type, const U& u) {
