@@ -58,7 +58,7 @@ public:
 
     template <typename Iterator>
     Matrix( const int& nrows_, const int& ncols, Iterator start ) :
-        VECTOR( start, start + (static_cast<R_xlen_t>(nrows)_*ncols) ),
+        VECTOR( start, start + (static_cast<R_xlen_t>(nrows_)*ncols) ),
         nrows(nrows_)
     {
         VECTOR::attr( "dim" ) = Dimension( nrows, ncols ) ;
