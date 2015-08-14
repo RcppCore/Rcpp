@@ -278,23 +278,23 @@ public:
     /**
      * offset based on the dimensions of this vector
      */
-    size_t offset(const size_t& i, const size_t& j) const {
+    R_xlen_t offset(const int& i, const int& j) const {
         if( !::Rf_isMatrix(Storage::get__()) ) throw not_a_matrix() ;
 
         /* we need to extract the dimensions */
-        int *dim = dims() ;
-        size_t nrow = static_cast<size_t>(dim[0]) ;
-        size_t ncol = static_cast<size_t>(dim[1]) ;
-        if( i >= nrow || j >= ncol ) throw index_out_of_bounds() ;
-        return i + nrow*j ;
+        const int* dim = dims() ;
+        const int nrow = dim[0] ;
+        const int ncol = dim[1] ;
+        if(i < 0|| i >= nrow || j < 0 || j >= ncol ) throw index_out_of_bounds() ;
+        return i + static_cast<R_xlen_t>(nrow)*j ;
     }
 
     /**
      * one dimensional offset doing bounds checking to ensure
      * it is valid
      */
-    size_t offset(const size_t& i) const {
-        if( static_cast<R_xlen_t>(i) >= ::Rf_xlength(Storage::get__()) ) throw index_out_of_bounds() ;
+    R_xlen_t offset(const R_xlen_t& i) const {
+        if(i < 0 || i >= ::Rf_xlength(Storage::get__()) ) throw index_out_of_bounds() ;
         return i ;
     }
 
@@ -324,17 +324,17 @@ public:
     inline Proxy operator[]( R_xlen_t i ){ return cache.ref(i) ; }
     inline const_Proxy operator[]( R_xlen_t i ) const { return cache.ref(i) ; }
 
-    inline Proxy operator()( const size_t& i) {
+    inline Proxy operator()( const R_xlen_t& i) {
         return cache.ref( offset(i) ) ;
     }
-    inline const_Proxy operator()( const size_t& i) const {
+    inline const_Proxy operator()( const R_xlen_t& i) const {
         return cache.ref( offset(i) ) ;
     }
 
-    inline Proxy operator()( const size_t& i, const size_t& j) {
+    inline Proxy operator()( const R_xlen_t& i, const R_xlen_t& j) {
         return cache.ref( offset(i,j) ) ;
     }
-    inline const_Proxy operator()( const size_t& i, const size_t& j) const {
+    inline const_Proxy operator()( const R_xlen_t& i, const R_xlen_t& j) const {
         return cache.ref( offset(i,j) ) ;
     }
 
