@@ -32,8 +32,8 @@ namespace internal{
         DimNameProxy(SEXP data, int dim): data_(data), dim_(dim) {}
         DimNameProxy(DimNameProxy const& other):
             data_(other.data_), dim_(other.dim_) {}
-
-        inline DimNameProxy& operator=(SEXP other) {
+			
+        inline DimNameProxy& assign(SEXP other) {
             SEXP dims = Rf_getAttrib(data_, R_DimSymbol);
             if (INTEGER(dims)[dim_] != Rf_length(other)) {
                 stop("dimension extent is '%d' while length of names is '%d'", INTEGER(dims)[dim_], Rf_length(other));
@@ -47,27 +47,16 @@ namespace internal{
                 SET_VECTOR_ELT(dimnames, dim_, other);
             }
             return *this;
+        }		
+
+        inline DimNameProxy& operator=(SEXP other) {
+            return assign(other);
         }
 		
         inline DimNameProxy& operator=(const DimNameProxy& other) {
-            SEXP dims = Rf_getAttrib(data_, R_DimSymbol);
-            if (INTEGER(dims)[dim_] != INTEGER(dims)[other.dim_]) {
-                stop("dimension extent is '%d' while length of names is '%d'", INTEGER(dims)[dim_], INTEGER(dims)[other.dim_]);
-            }
-            SEXP dimnames = Rf_getAttrib(data_, R_DimNamesSymbol);
-            SEXP other_dimnames = SEXP(other);
-            if (Rf_isNull(dimnames)) {
-                Shield<SEXP> new_dimnames(Rf_allocVector(VECSXP, Rf_length(dims)));
-                SET_VECTOR_ELT(new_dimnames, dim_, other_dimnames);
-                Rf_setAttrib(data_, R_DimNamesSymbol, new_dimnames);
-            } else {
-                SET_VECTOR_ELT(dimnames, dim_, other_dimnames);
-            }
-            return *this;
+            return assign(SEXP(other));
         }
 
-		
-		
         inline operator SEXP() const {
             SEXP dimnames = Rf_getAttrib(data_, R_DimNamesSymbol);
             return Rf_isNull(dimnames) ? (R_NilValue) : (VECTOR_ELT(dimnames, dim_));
