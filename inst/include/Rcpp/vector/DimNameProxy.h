@@ -34,18 +34,17 @@ namespace internal{
             data_(other.data_), dim_(other.dim_) {}
 
         inline DimNameProxy& operator=(SEXP other) {
-            SEXP dim = Rf_getAttrib(data_, R_DimSymbol);
-            if (INTEGER(dim)[dim_] != Rf_length(other)) {
+            SEXP dims = Rf_getAttrib(data_, R_DimSymbol);
+            if (INTEGER(dims)[dim_] != Rf_length(other)) {
                 std::stringstream s;
                 s << "dimension extent is '"
-                  << INTEGER(dim)[dim_]
+                  << INTEGER(dims)[dim_]
                   << "' while length of names is '"
                   << Rf_length(other)
                   << "'";
                 stop(s.str());
             }
             SEXP dimnames = Rf_getAttrib(data_, R_DimNamesSymbol);
-            SEXP dims = Rf_getAttrib(data_, R_DimSymbol);
             if (Rf_isNull(dimnames)) {
                 Shield<SEXP> new_dimnames(Rf_allocVector(VECSXP, Rf_length(dims)));
                 SET_VECTOR_ELT(new_dimnames, dim_, other);
@@ -55,20 +54,20 @@ namespace internal{
             }
             return *this;
         }
+		
 
-        inline DimNameProxy& operator=(const DimNameProxy& other) {
-            SEXP dim = Rf_getAttrib(data_, R_DimSymbol);
-            if (INTEGER(dim)[dim_] != INTEGER(dim)[other.dim_]) {
+		inline DimNameProxy& operator=(const DimNameProxy& other) {
+            SEXP dims = Rf_getAttrib(data_, R_DimSymbol);
+            if (INTEGER(dims)[dim_] != INTEGER(dims)[other.dim_]) {
                 std::stringstream s;
                 s << "dimension extent is '"
-                  << INTEGER(dim)[dim_]
+                  << INTEGER(dims)[dim_]
                   << "' while length of names is '"
-                  << INTEGER(dim)[other.dim_]
+                  << INTEGER(dims)[other.dim_]
                   << "'";
                 stop(s.str());
             }
             SEXP dimnames = Rf_getAttrib(data_, R_DimNamesSymbol);
-            SEXP dims = Rf_getAttrib(data_, R_DimSymbol);
             SEXP other_dimnames = SEXP(other);
             if (Rf_isNull(dimnames)) {
                 Shield<SEXP> new_dimnames(Rf_allocVector(VECSXP, Rf_length(dims)));
@@ -79,6 +78,7 @@ namespace internal{
             }
             return *this;
         }
+
 		
 		
         inline operator SEXP() const {
