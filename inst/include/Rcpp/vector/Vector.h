@@ -331,10 +331,10 @@ public:
         return cache.ref( offset(i) ) ;
     }
 
-    inline Proxy operator()( const R_xlen_t& i, const R_xlen_t& j) {
+    inline Proxy operator()( const int& i, const int& j) {
         return cache.ref( offset(i,j) ) ;
     }
-    inline const_Proxy operator()( const R_xlen_t& i, const R_xlen_t& j) const {
+    inline const_Proxy operator()( const int& i, const int& j) const {
         return cache.ref( offset(i,j) ) ;
     }
 
