@@ -56,6 +56,31 @@ namespace internal{
             return *this;
         }
 
+        inline DimNameProxy& operator=(const DimNameProxy& other) {
+            SEXP dim = Rf_getAttrib(data_, R_DimSymbol);
+            if (INTEGER(dim)[dim_] != INTEGER(dim)[other.dim_]) {
+                std::stringstream s;
+                s << "dimension extent is '"
+                  << INTEGER(dim)[dim_]
+                  << "' while length of names is '"
+                  << INTEGER(dim)[other.dim_]
+                  << "'";
+                stop(s.str());
+            }
+            SEXP dimnames = Rf_getAttrib(data_, R_DimNamesSymbol);
+            SEXP dims = Rf_getAttrib(data_, R_DimSymbol);
+            SEXP other_dimnames = SEXP(other);
+            if (Rf_isNull(dimnames)) {
+                Shield<SEXP> new_dimnames(Rf_allocVector(VECSXP, Rf_length(dims)));
+                SET_VECTOR_ELT(new_dimnames, dim_, other_dimnames);
+                Rf_setAttrib(data_, R_DimNamesSymbol, new_dimnames);
+            } else {
+                SET_VECTOR_ELT(dimnames, dim_, other_dimnames);
+            }
+            return *this;
+        }
+		
+		
         inline operator SEXP() const {
             SEXP dimnames = Rf_getAttrib(data_, R_DimNamesSymbol);
             return Rf_isNull(dimnames) ? (R_NilValue) : (VECTOR_ELT(dimnames, dim_));
