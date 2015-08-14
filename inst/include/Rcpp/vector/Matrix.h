@@ -58,7 +58,7 @@ public:
 
     template <typename Iterator>
     Matrix( const int& nrows_, const int& ncols, Iterator start ) :
-        VECTOR( start, start + (nrows_*ncols) ),
+        VECTOR( start, start + (static_cast<R_xlen_t>(nrows_)*ncols) ),
         nrows(nrows_)
     {
         VECTOR::attr( "dim" ) = Dimension( nrows, ncols ) ;
@@ -128,10 +128,10 @@ public:
       return static_cast< const Vector<RTYPE>* >( this )->operator[]( i ) ;
     }
 
-    inline Proxy operator()( const size_t& i, const size_t& j) {
+    inline Proxy operator()( const int& i, const int& j) {
       return static_cast< Vector<RTYPE>* >( this )->operator[]( offset( i, j ) ) ;
     }
-    inline const_Proxy operator()( const size_t& i, const size_t& j) const {
+    inline const_Proxy operator()( const int& i, const int& j) const {
        return static_cast< const Vector<RTYPE>* >( this )->operator[]( offset( i, j ) ) ;
     }
 
@@ -157,7 +157,7 @@ public:
 
 private:
 
-    inline R_xlen_t offset( int i, int j) const { return i + nrows * j ; }
+    inline R_xlen_t offset(const int i, const int j) const { return i + static_cast<R_xlen_t>(nrows) * j ; }
 
     template <typename U>
     void fill_diag__dispatch( traits::false_type, const U& u) {
