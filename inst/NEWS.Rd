@@ -2,6 +2,21 @@
 \title{News for Package 'Rcpp'}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in Rcpp version 0.12.1 (2015-xx-yy)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Correct use of WIN32 instead of _WIN32 to please Windows 10
+      \item Add an assignment operator to DimNameProxy (PR #339)
+      \item Correct character vector conversion from single char (PR #344, issue #343)
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Correctly reset directory in case of no-rebuilding but Windows code
+    }
+  }
+}
+
 \section{Changes in Rcpp version 0.12.0 (2015-07-24)}{
   \itemize{
     \item Changes in Rcpp API:

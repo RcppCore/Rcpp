@@ -1,3 +1,13 @@
+2015-08-15  Florian Plaza Oñate <florian.plaza@jouy.inra.fr>
+
+        * inst/include/Rcpp/vector/converter.h: Correct conversion from const
+        char argument (pull request #344, fixes issue #343)
+
+2015-08-14  Florian Plaza Oñate <florian.plaza@jouy.inra.fr>
+
+        * inst/include/Rcpp/vector/DimNameProxy.h: Add assignment operator,
+        refactor code, update error message formatting (pull request #339)
+
 2015-08-05  Kevin Ushey  <kevinushey@gmail.com>
 
         * src/api.cpp: use `_WIN32` instead of `WIN32`
