@@ -60,7 +60,7 @@ namespace internal {
 
 		static SEXP get(const char& input){
 		    RCPP_DEBUG( "string_element_converter::get< char >()" )
-			return Rf_mkChar( &input ) ;
+			return Rf_mkCharLen( &input, 1 ) ;
 		}
 
 		// assuming a CHARSXP
