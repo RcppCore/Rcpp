@@ -7,6 +7,7 @@
 language: c
 
 sudo: required
+cache: false
 
 env:
   global:
