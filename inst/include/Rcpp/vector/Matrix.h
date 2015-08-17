@@ -134,7 +134,14 @@ public:
     inline const_Proxy operator()( const size_t& i, const size_t& j) const {
        return static_cast< const Vector<RTYPE>* >( this )->operator[]( offset( i, j ) ) ;
     }
-
+    /*
+    inline Proxy at( const size_t& i, const size_t& j) {
+        return static_cast< Vector<RTYPE>* >( this )->operator()( i, j ) ;
+    }
+    inline const_Proxy at( const size_t& i, const size_t& j) const {
+        return static_cast< const Vector<RTYPE>* >( this )->operator()( i, j ) ;
+    }
+    */
     inline Row operator()( int i, internal::NamedPlaceHolder ) {
       return Row( *this, i ) ;
     }

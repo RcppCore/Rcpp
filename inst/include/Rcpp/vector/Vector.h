@@ -330,7 +330,14 @@ public:
     inline const_Proxy operator()( const size_t& i) const {
         return cache.ref( offset(i) ) ;
     }
-
+    /*
+    inline Proxy at( const size_t& i) {
+       return cache.ref( offset(i) ) ;
+    }
+    inline const_Proxy at( const size_t& i) const {
+       return cache.ref( offset(i) ) ;
+    }
+    */
     inline Proxy operator()( const size_t& i, const size_t& j) {
         return cache.ref( offset(i,j) ) ;
     }
