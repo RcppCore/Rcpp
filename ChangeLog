@@ -2,6 +2,7 @@
 
         * inst/unitTests/runit.Module.client.package.R: Disabled for bad
         interaction of Rcpp Modules and R 3.2.2
+        * inst/unitTests/runit.Module.R: Ditto
 
 2015-08-15  Florian Plaza Oñate <florian.plaza@jouy.inra.fr>
 
