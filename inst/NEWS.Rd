@@ -2,7 +2,22 @@
 \title{News for Package 'Rcpp'}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
-\section{Changes in Rcpp version 0.11.7 (2015-xx-yy)}{
+\section{Changes in Rcpp version 0.12.1 (2015-xx-yy)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Correct use of WIN32 instead of _WIN32 to please Windows 10
+      \item Add an assignment operator to DimNameProxy (PR #339)
+      \item Correct character vector conversion from single char (PR #344, issue #343)
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Correctly reset directory in case of no-rebuilding but Windows code
+    }
+  }
+}
+
+\section{Changes in Rcpp version 0.12.0 (2015-07-24)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
@@ -12,14 +27,20 @@
       \item All internal length variables have been changed from \code{R_len_t}
       to \code{R_xlen_t} to support vectors longer than 2^31-1 elements (via 
       pull request 303 by Qiang Kou).
-      \item The sugar function \code{sapply} now supports lambda functions.
+      \item The sugar function \code{sapply} now supports lambda functions
+      (addressing issue 213 thanks to Matt Dziubinski)
       \item The \code{var} sugar function now uses a more robust two-pass
       method, supports complex numbers, with new unit tests added (via pull
       request 320 by Matt Dziubinski) 
       \item \code{String} constructors now allow encodings (via pull request 310
-      by Qiang Kou).
+      by Qiang Kou)
       \item \code{String} objects are preserving the underlying \code{SEXP}
-      objects better (via pull request 322 by Qiang Kou)
+      objects better, and are more careful about initializations (via pull
+      requests 322 and 329 by Qiang Kou)
+      \item DataFrame constructors are now a little more careful (via pull
+      request 301 by Romain Francois)
+      \item For R 3.2.0 or newer, \code{Rf_installChar()} is used instead of
+      \code{Rf_install(CHAR())} (via pull request 332). 
     }
     \item Changes in Rcpp Attributes:
     \itemize{

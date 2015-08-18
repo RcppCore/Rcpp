@@ -32,28 +32,35 @@ namespace internal{
         DimNameProxy(SEXP data, int dim): data_(data), dim_(dim) {}
         DimNameProxy(DimNameProxy const& other):
             data_(other.data_), dim_(other.dim_) {}
-
-        inline DimNameProxy& operator=(SEXP other) {
-            SEXP dim = Rf_getAttrib(data_, R_DimSymbol);
-            if (INTEGER(dim)[dim_] != Rf_length(other)) {
-                std::stringstream s;
-                s << "dimension extent is '"
-                  << INTEGER(dim)[dim_]
-                  << "' while length of names is '"
-                  << Rf_length(other)
-                  << "'";
-                stop(s.str());
-            }
-            SEXP dimnames = Rf_getAttrib(data_, R_DimNamesSymbol);
-            SEXP dims = Rf_getAttrib(data_, R_DimSymbol);
-            if (Rf_isNull(dimnames)) {
-                Shield<SEXP> new_dimnames(Rf_allocVector(VECSXP, Rf_length(dims)));
-                SET_VECTOR_ELT(new_dimnames, dim_, other);
-                Rf_setAttrib(data_, R_DimNamesSymbol, new_dimnames);
+            
+        inline DimNameProxy& assign(SEXP other) {
+            if (Rf_length(other) == 0)
+            {
+                Rf_setAttrib(data_, R_DimNamesSymbol, R_NilValue);
             } else {
-                SET_VECTOR_ELT(dimnames, dim_, other);
+                SEXP dims = Rf_getAttrib(data_, R_DimSymbol);
+                if (INTEGER(dims)[dim_] != Rf_length(other)) {
+                    stop("dimension extent is '%d' while length of names is '%d'", INTEGER(dims)[dim_], Rf_length(other));
+                }
+
+                SEXP dimnames = Rf_getAttrib(data_, R_DimNamesSymbol);
+                if (Rf_isNull(dimnames)) {
+                    Shield<SEXP> new_dimnames(Rf_allocVector(VECSXP, Rf_length(dims)));
+                    SET_VECTOR_ELT(new_dimnames, dim_, other);
+                    Rf_setAttrib(data_, R_DimNamesSymbol, new_dimnames);
+                } else {
+                    SET_VECTOR_ELT(dimnames, dim_, other);
+                }
             }
             return *this;
+        }
+
+        inline DimNameProxy& operator=(SEXP other) {
+            return assign(other);
+        }
+        
+        inline DimNameProxy& operator=(const DimNameProxy& other) {
+            return assign(SEXP(other));
         }
 
         inline operator SEXP() const {

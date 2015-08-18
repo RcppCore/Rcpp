@@ -153,6 +153,10 @@ sourceCpp <- function(file = "",
         }
     }
     else {
+        cwd <- getwd()
+        on.exit({
+            setwd(cwd)
+        })
         if (verbose)
             cat("\nNo rebuild required (use rebuild = TRUE to ",
                 "force a rebuild)\n\n", sep="")

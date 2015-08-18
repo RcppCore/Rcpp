@@ -69,9 +69,10 @@ been factored out of Rcpp into the package RcppClassic, and it is still
 available for code relying on the older interface. New development should 
 always use this Rcpp package instead.
 
-Other usage examples are provided by packages using Rcpp. As of June 2015, there
-are 400 CRAN packages using Rcpp, a further 57 BioConductor packages as well as
-an unknown number of GitHub, Bitbucket, R-Forge, ... repositories.
+Other usage examples are provided by packages using Rcpp. As of July 2015, there
+are about 423 CRAN packages using Rcpp, a further 57 BioConductor packages as
+well as an unknown number of GitHub, Bitbucket, R-Forge, ... repositories using
+Rcpp.
 
 ### Installation
 
@@ -89,7 +90,8 @@ questions 1.2 and 1.3 in the
 
 ### Authors
 
-Dirk Eddelbuettel, Romain Francois, JJ Allaire, Kevin Ushey, Doug Bates, and John Chambers
+Dirk Eddelbuettel, Romain Francois, JJ Allaire, Kevin Ushey, Qiang Kou, Doug
+Bates, and John Chambers 
 
 ### License
 

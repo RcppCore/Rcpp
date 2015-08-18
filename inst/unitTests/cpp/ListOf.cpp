@@ -83,9 +83,14 @@ NVList test_binary_ops(NVList x) {
     );
 }
 
+#if defined(_WIN32)
+typedef int retval;
+#else
+typedef R_xlen_t retval;
+#endif
 // [[Rcpp::export]]
-R_xlen_t test_sub_calls(NVList x) {
-    R_xlen_t sz = x[0].size() + x[1].size() + x[2].size();
+retval test_sub_calls(NVList x) {
+    retval sz = x[0].size() + x[1].size() + x[2].size();
     return sz;
 }
 
