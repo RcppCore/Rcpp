@@ -1,3 +1,8 @@
+2015-08-18  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/unitTests/runit.Module.client.package.R: Disabled for bad
+        interaction of Rcpp Modules and R 3.2.2
+
 2015-08-15  Florian Plaza Oñate <florian.plaza@jouy.inra.fr>
 
         * inst/include/Rcpp/vector/converter.h: Correct conversion from const
