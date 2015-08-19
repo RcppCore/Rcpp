@@ -1,4 +1,4 @@
-2015-08-15  Florian Plaza Oñate <florian.plaza@jouy.inra.fr>
+2015-08-19  Florian Plaza Oñate <florian.plaza@jouy.inra.fr>
         * inst/include/Rcpp/vector/Vector.h: Add 'at' methods which implement 
         accessors with bounds cheking (pull request #342, fixes issue #341)
         * inst/include/Rcpp/vector/Matrix.h: Ditto
