@@ -239,6 +239,6 @@ NumericVector runit_const_Matrix_column( const NumericMatrix& m ){
 }
 
 // [[Rcpp::export]]
-int access_with_bounds_checking(const IntegerMatrix m, int i, int j) {
+int mat_access_with_bounds_checking(const IntegerMatrix m, int i, int j) {
     return m.at(i, j);
 }

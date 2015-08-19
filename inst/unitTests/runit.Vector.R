@@ -686,9 +686,9 @@ if (.runThisTest) {
 
     test.IntegerVector.accessor.with.bounds.checking <- function() {
         x <- seq(1L, 5L, by=1L)
-        checkEquals(access_with_bounds_checking(x, 3), 4)
-        checkException(access_with_bounds_checking(x, 5) , msg = "index out of bounds not detected" )
-        checkException(access_with_bounds_checking(x, -1) , msg = "index out of bounds not detected" )
+        checkEquals(vec_access_with_bounds_checking(x, 3), 4)
+        checkException(vec_access_with_bounds_checking(x, 5) , msg = "index out of bounds not detected" )
+        checkException(vec_access_with_bounds_checking(x, -1) , msg = "index out of bounds not detected" )
     }
 }
 

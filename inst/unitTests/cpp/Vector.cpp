@@ -778,6 +778,6 @@ int noprotect_matrix( Matrix<REALSXP, NoProtectStorage> x){
   return x.nrow() ;
 }
 
-int access_with_bounds_checking(const IntegerVector x, int index) {
+int vec_access_with_bounds_checking(const IntegerVector x, int index) {
     return x.at(index);
 }
