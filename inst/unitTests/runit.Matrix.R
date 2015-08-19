@@ -171,4 +171,16 @@ if (.runThisTest) {
       checkEquals( m[,1], m[,2] )
     }
 
+    test.IntegerMatrix.accessor.with.bounds.checking <- function() {
+        m <- matrix(seq(1L, 12, by=1L), nrow=4L, ncol=3L)
+        checkEquals(access_with_bounds_checking(m, 0, 0), 1)
+        checkEquals(access_with_bounds_checking(m, 1, 2), 10)
+        checkEquals(access_with_bounds_checking(m, 3, 2), 12)
+        checkException(access_with_bounds_checking(m, 4, 2) , msg = "index out of bounds not detected" )
+        checkException(access_with_bounds_checking(m, 3, 3) , msg = "index out of bounds not detected" )
+        checkException(access_with_bounds_checking(m, 3, -1) , msg = "index out of bounds not detected" )
+        checkException(access_with_bounds_checking(m, -1, 2) , msg = "index out of bounds not detected" )
+        checkException(access_with_bounds_checking(m, -1, -1) , msg = "index out of bounds not detected" )
+    }
+
 }
