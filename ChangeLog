@@ -1,3 +1,7 @@
+2015-08-24  Dirk Eddelbuettel  <edd@debian.org>
+
+        * vignettes/Rcpp.bib: Updated R / R Core references
+
 2015-08-18  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/unitTests/runit.Module.client.package.R: Disabled for bad
