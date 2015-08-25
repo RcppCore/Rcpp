@@ -7,12 +7,17 @@
     \item Changes in Rcpp API:
     \itemize{
       \item Correct use of WIN32 instead of _WIN32 to please Windows 10
-      \item Add an assignment operator to DimNameProxy (PR #339)
-      \item Correct character vector conversion from single char (PR #344, issue #343)
+      \item Add an assignment operator to \code{DimNameProxy} (PR #339 by Florian)
+      \item Add vector and matrix accessors \code{.at()} with bounds checking
+      (PR #342 by Florian) 
+      \item Correct character vector conversion from single char (PR #344 by
+      Florian fixing issue #343)
+      \item Correct on use of \code{R_xlen_t} back to \code{size_t} (PR #348 by Romain)
     }
     \item Changes in Rcpp Attributes:
     \itemize{
       \item Correctly reset directory in case of no-rebuilding but Windows code
+      (PR #335)
     }
   }
 }
