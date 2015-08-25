@@ -278,26 +278,26 @@ public:
     /**
      * offset based on the dimensions of this vector
      */
-    size_t offset(const size_t& i, const size_t& j) const {
+    R_xlen_t offset(const int& i, const int& j) const {
         if( !::Rf_isMatrix(Storage::get__()) ) throw not_a_matrix() ;
 
         /* we need to extract the dimensions */
-        int *dim = dims() ;
-        size_t nrow = static_cast<size_t>(dim[0]) ;
-        size_t ncol = static_cast<size_t>(dim[1]) ;
-        if( i >= nrow || j >= ncol ) throw index_out_of_bounds() ;
-        return i + nrow*j ;
+        const int* dim = dims() ;
+        const int nrow = dim[0] ;
+        const int ncol = dim[1] ;
+        if(i < 0|| i >= nrow || j < 0 || j >= ncol ) throw index_out_of_bounds() ;
+        return i + static_cast<R_xlen_t>(nrow)*j ;
     }
 
     /**
      * one dimensional offset doing bounds checking to ensure
      * it is valid
      */
-    size_t offset(const size_t& i) const {
-        if( static_cast<R_xlen_t>(i) >= ::Rf_xlength(Storage::get__()) ) throw index_out_of_bounds() ;
+    R_xlen_t offset(const R_xlen_t& i) const {
+        if(i < 0 || i >= ::Rf_xlength(Storage::get__()) ) throw index_out_of_bounds() ;
         return i ;
     }
-
+    
     R_xlen_t offset(const std::string& name) const {
         SEXP names = RCPP_GET_NAMES( Storage::get__() ) ;
         if( Rf_isNull(names) ) throw index_out_of_bounds();
@@ -318,7 +318,7 @@ public:
 
     inline iterator begin() { return cache.get() ; }
     inline iterator end() { return cache.get() + size() ; }
-	inline const_iterator begin() const{ return cache.get_const() ; }
+    inline const_iterator begin() const{ return cache.get_const() ; }
     inline const_iterator end() const{ return cache.get_const() + size() ; }
 
     inline Proxy operator[]( R_xlen_t i ){ return cache.ref(i) ; }
@@ -329,6 +329,13 @@ public:
     }
     inline const_Proxy operator()( const size_t& i) const {
         return cache.ref( offset(i) ) ;
+    }
+
+    inline Proxy at( const size_t& i) {
+       return cache.ref( offset(i) ) ;
+    }
+    inline const_Proxy at( const size_t& i) const {
+       return cache.ref( offset(i) ) ;
     }
 
     inline Proxy operator()( const size_t& i, const size_t& j) {

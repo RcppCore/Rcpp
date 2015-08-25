@@ -777,3 +777,8 @@ int noprotect_vector( Vector<REALSXP, NoProtectStorage> x){
 int noprotect_matrix( Matrix<REALSXP, NoProtectStorage> x){
   return x.nrow() ;
 }
+
+// [[Rcpp::export]]
+int vec_access_with_bounds_checking(const IntegerVector x, int index) {
+    return x.at(index);
+}
