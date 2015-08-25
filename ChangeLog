@@ -1,5 +1,9 @@
+2015-08-24  Dirk Eddelbuettel  <edd@debian.org>
+
+        * vignettes/Rcpp.bib: Updated R / R Core references
+
 2015-08-19  Florian Plaza Oñate <florian.plaza@jouy.inra.fr>
-        * inst/include/Rcpp/vector/Vector.h: Add 'at' methods which implement 
+        * inst/include/Rcpp/vector/Vector.h: Add 'at' methods which implement
         accessors with bounds cheking (pull request #342, fixes issue #341)
         * inst/include/Rcpp/vector/Matrix.h: Ditto
         * inst/unitTests/cpp/Vector.cpp: Add unit tests for at acessors
