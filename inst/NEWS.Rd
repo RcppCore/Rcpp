@@ -19,6 +19,11 @@
       \item Correctly reset directory in case of no-rebuilding but Windows code
       (PR #335)
     }
+    \item Changes in Rcpp Modules:
+    \itemize{
+      \item We no longer define multiple Modules objects named \code{World} in
+      the unit tests with was seen to have a bad effect with R 3.2.2 or later.
+    }
   }
 }
 

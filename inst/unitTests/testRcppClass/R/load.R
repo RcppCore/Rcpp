@@ -1,4 +1,4 @@
-setRcppClass("World", module = "yada", fields = list(more = "character"),
+setRcppClass("RcppClassWorld", module = "RcppClassModule", fields = list(more = "character"),
              methods = list(test = function(what) message("Testing: ", what, "; ", more)),
              saveAs = "genWorld"
              )
@@ -47,5 +47,7 @@ evalqOnLoad({
 ## For R 2.15.1 and later this also works. Note that calling loadModule() triggers
 ## a load action, so this does not have to be placed in .onLoad() or evalqOnLoad().
 loadModule("NumEx", TRUE)
-loadModule("yada", TRUE)
+loadModule("RcppClassModule", TRUE)
 loadModule("stdVector", TRUE)
+
+loadModule("RcppClassModule", c("bar", baz = "bla", baz1 = "bla1", "foo"))

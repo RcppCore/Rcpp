@@ -33,7 +33,7 @@ if( .runThisTest && Rcpp:::capabilities()[["Rcpp modules"]] ) {
         checkEquals( foo( 2L, 10.0 ), 20.0 )
         checkEquals( hello(), "hello" )
         
-        w <- new( World )
+        w <- new( ModuleWorld )
         checkEquals( w$greet(), "hello" )
         w$set( "hello world" )
         checkEquals( w$greet(), "hello world" )
