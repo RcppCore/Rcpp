@@ -1,3 +1,21 @@
+2015-08-26  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/unitTests/testRcppClass/src/rcpp_module.cpp: Renamed Module
+        'World' to 'RcppClassWorld' to avoid multiple modules with same name
+        * inst/unitTests/testRcppClass/man/Rcpp_class_examples.Rd: Ditto
+        * inst/unitTests/testRcppClass/R/load.R: Ditto
+        * inst/unitTests/testRcppClass/NAMESPACE: Ditto
+        * inst/unitTests/runit.Module.client.package.R: Re-enable test
+
+        * inst/unitTests/testRcppModule/src/rcpp_module.cpp: Renamed Module
+        'World' to 'RcppModuleWorld' to avoid multiple modules with same name
+
+        * inst/unitTests/cpp/modref.cpp: Rename 'World' to 'ModRefWorld'
+        * inst/unitTests/runit.modref.R (test.modRef): Ditto
+
+        * inst/unitTests/cpp/Module.cpp: Rename 'World' to 'ModuleWorld'
+        * inst/unitTests/runit.Module.R (test.Module): Ditto
+
 2015-08-24  Dirk Eddelbuettel  <edd@debian.org>
 
         * vignettes/Rcpp.bib: Updated R / R Core references

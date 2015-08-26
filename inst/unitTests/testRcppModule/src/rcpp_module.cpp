@@ -2,7 +2,7 @@
 //
 // rcpp_module.cpp: Rcpp R/C++ interface class library -- Rcpp Module examples
 //
-// Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2015  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -35,17 +35,17 @@ void bla( ) {                   // no input or return but output side effect
 }
 
 void bla1(int x) {              // output reflecting a single input
-    Rprintf( "hello (x = %d)\n", x);
+    Rprintf("hello (x = %d)\n", x);
 }
 
 void bla2(int x, double y) {    // output reflecting two inputs
-    Rprintf( "hello (x = %d, y = %5.2f)\n", x, y);
+    Rprintf("hello (x = %d, y = %5.2f)\n", x, y);
 }
 
 
-class World {                   // a simple class with a setter and getter
+class RcppModuleWorld {                   // a simple class with a setter and getter
 public:
-    World() : msg("hello"){}
+    RcppModuleWorld() : msg("hello"){}
     void set(std::string msg) { this->msg = msg; }
     std::string greet() { return msg; }
 
@@ -55,19 +55,19 @@ private:
 
 
 
-RCPP_MODULE(yada){
+RCPP_MODULE(RcppModuleWorld) {
     using namespace Rcpp;
 
-    function( "bar"   , &bar   );
-    function( "foo"   , &foo   );
-    function( "bla"   , &bla   );
-    function( "bla1"  , &bla1   );
-    function( "bla2"  , &bla2   );
+    function("bar"   , &bar );
+    function("foo"   , &foo );
+    function("bla"   , &bla );
+    function("bla1"  , &bla1);
+    function("bla2"  , &bla2);
 
-    class_<World>( "World" )
+    class_<RcppModuleWorld>( "RcppModuleWorld")
         .default_constructor()
-        .method( "greet", &World::greet )
-        .method( "set", &World::set )
+        .method("greet", &RcppModuleWorld::greet)
+        .method("set", &RcppModuleWorld::set)
 	;
 }
 

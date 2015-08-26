@@ -1,6 +1,6 @@
 #!/usr/bin/r -t
 #
-# Copyright (C) 2010 - 2014  John Chambers, Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2015  John Chambers, Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -24,8 +24,8 @@ if (.runThisTest) {
     .setUp <- Rcpp:::unitTestSetup("modref.cpp")     
     
     test.modRef <- function() {
-        ww = new(World)
-        wg = World$new()
+        ww <- new(ModRefWorld)
+        wg <- ModRefWorld$new()
         
         checkEquals(ww$greet(), wg$greet())
         wgg <- wg$greet()
@@ -36,7 +36,7 @@ if (.runThisTest) {
         checkEquals(ww$greet(), "Other")
         checkEquals(wg$greet(), wgg)
         
-        World$methods(twice = function() paste(greet(), greet()))
+        ModRefWorld$methods(twice = function() paste(greet(), greet()))
         
         checkEquals(ww$twice(), paste(ww$greet(), ww$greet()))
 

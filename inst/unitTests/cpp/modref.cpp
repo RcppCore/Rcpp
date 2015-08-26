@@ -2,7 +2,7 @@
 //
 // modref.cpp: Rcpp R/C++ interface class library -- module unit tests
 //
-// Copyright (C) 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2013 - 2015  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,9 +22,9 @@
 #include <Rcpp.h>
 using namespace Rcpp ;
 
-class World {
+class ModRefWorld {
 public:
-    World() : foo(1), msg("hello") {}
+    ModRefWorld() : foo(1), msg("hello") {}
     void set(std::string msg_) { this->msg = msg_; }
     std::string greet() { return msg; }
 
@@ -35,21 +35,21 @@ private:
     std::string msg;
 };
 
-void clearWorld( World* w ){
+void clearWorld( ModRefWorld* w ){
     w->set( "" );
 }
 
-RCPP_MODULE(yada){
-	class_<World>( "World" )
+RCPP_MODULE(modrefmodule){
+    class_<ModRefWorld>( "ModRefWorld" )
         .default_constructor()
 
-        .method( "greet", &World::greet )
-        .method( "set", &World::set )
+        .method( "greet", &ModRefWorld::greet )
+        .method( "set", &ModRefWorld::set )
         .method( "clear", &clearWorld )
 
-        .field( "foo", &World::foo )
-        .field_readonly( "bar", &World::bar )
-	;
+        .field( "foo", &ModRefWorld::foo )
+        .field_readonly( "bar", &ModRefWorld::bar )
+        ;
 
 }
 
