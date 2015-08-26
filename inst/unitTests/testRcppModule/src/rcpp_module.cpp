@@ -35,11 +35,11 @@ void bla( ) {                   // no input or return but output side effect
 }
 
 void bla1(int x) {              // output reflecting a single input
-    Rprintf( "hello (x = %d)\n", x);
+    Rprintf("hello (x = %d)\n", x);
 }
 
 void bla2(int x, double y) {    // output reflecting two inputs
-    Rprintf( "hello (x = %d, y = %5.2f)\n", x, y);
+    Rprintf("hello (x = %d, y = %5.2f)\n", x, y);
 }
 
 

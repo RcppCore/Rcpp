@@ -46,7 +46,7 @@ if( .runThisTest && Rcpp:::capabilities()[["Rcpp modules"]] ) {
     }
 
     test.Module.exposed.class <- function(){
-        test <- new( Test, 3.0 )
+        test <- new( ModuleTest, 3.0 )
         checkEquals( Test_get_x_const_ref(test), 3.0 )
         checkEquals( Test_get_x_const_pointer(test), 3.0 )
         checkEquals( Test_get_x_ref(test), 3.0 )
@@ -59,7 +59,7 @@ if( .runThisTest && Rcpp:::capabilities()[["Rcpp modules"]] ) {
     }
 
     test.Module.property <- function(){
-        w <- new( Num )
+        w <- new( ModuleNum )
         checkEquals( w$x, 0.0 )
         checkEquals( w$y, 0L )
 
@@ -70,7 +70,7 @@ if( .runThisTest && Rcpp:::capabilities()[["Rcpp modules"]] ) {
     }
 
     test.Module.member <- function(){
-        w <- new( Number )
+        w <- new( ModuleNumber )
         checkEquals( w$x, 0.0 )
         checkEquals( w$y, 0L )
 
@@ -81,7 +81,7 @@ if( .runThisTest && Rcpp:::capabilities()[["Rcpp modules"]] ) {
     }
 
     test.Module.Constructor <- function() {
-        r <- new( Randomizer, 10.0, 20.0 )
+        r <- new( ModuleRandomizer, 10.0, 20.0 )
         set.seed(123)
         x10 <- runif(10, 10.0, 20.0)
         set.seed(123)

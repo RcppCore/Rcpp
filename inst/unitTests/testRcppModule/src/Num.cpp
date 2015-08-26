@@ -2,7 +2,7 @@
 //
 // Num.cpp: Rcpp R/C++ interface class library -- Rcpp Module example
 //
-// Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2015  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -21,9 +21,9 @@
 
 #include <Rcpp.h>
 
-class Num {                     // simple class with two private variables
+class RcppModuleNum {           // simple class with two private variables
 public:                         // which have a getter/setter and getter
-    Num() : x(0.0), y(0){} ;
+    RcppModuleNum() : x(0.0), y(0){} ;
 
     double getX() { return x ; }
     void setX(double value){ x = value ; }
@@ -35,17 +35,17 @@ private:
     int y ;
 };
 
-RCPP_MODULE(NumEx){
+RCPP_MODULE(RcppModuleNumEx){
     using namespace Rcpp ;
 
-    class_<Num>( "Num" )
+    class_<RcppModuleNum>( "RcppModuleNum" )
 
         .default_constructor()
 
         // read and write property
-        .property( "x", &Num::getX, &Num::setX )
+        .property( "x", &RcppModuleNum::getX, &RcppModuleNum::setX )
 
         // read-only property
-        .property( "y", &Num::getY )
+        .property( "y", &RcppModuleNum::getY )
 	;
 }
