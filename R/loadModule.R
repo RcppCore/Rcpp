@@ -67,7 +67,9 @@ loadModule <- function( module, what = character(), loadNow,
         loadNow <- !is(loadM, "error")
     }
     if(loadNow) {
-        .botched <- isBotchedSession()
+        ## .botched <- isBotchedSession()
+        .botched <- FALSE
+
         if(is.null(loadM))
             loadM <- tryCatch(Module( module, mustStart = TRUE, where = env ),
                               error = function(e)e)
