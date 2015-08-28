@@ -97,6 +97,14 @@ public:
         return *this;
     }
 
+    template <int RTYPE_OTHER, template <class> class StoragePolicyOther,int RHS_RTYPE_OTHER, bool RHS_NA_OTHER, typename RHS_T_OTHER>
+    SubsetProxy& operator=(const SubsetProxy<RTYPE_OTHER, StoragePolicyOther, RHS_RTYPE_OTHER, RHS_NA_OTHER, RHS_T_OTHER>& other) {
+
+        Vector<RTYPE, StoragePolicyOther> other_vec = other;
+        *this = other_vec;
+        return *this;
+    }
+
     operator Vector<RTYPE, StoragePolicy>() const {
         return get_vec();
     }
