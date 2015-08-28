@@ -16,6 +16,12 @@
         * inst/unitTests/cpp/Module.cpp: Rename 'World' to 'ModuleWorld'
         * inst/unitTests/runit.Module.R (test.Module): Ditto
 
+2015-08-25  Kurt Hornik  <Kurt.Hornik@wu.ac.at>
+
+        * R/loadModule.R: For now=TRUE, always set .botched to FALSE which
+        corresponds to the case of the methods package being in the search path
+        * inst/include/Rcpp/Reference.h: Call call with the internal Namespace
+ 
 2015-08-24  Dirk Eddelbuettel  <edd@debian.org>
 
         * vignettes/Rcpp.bib: Updated R / R Core references
