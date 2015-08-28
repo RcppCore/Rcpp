@@ -100,8 +100,24 @@ public:
     template <int RTYPE_OTHER, template <class> class StoragePolicyOther,int RHS_RTYPE_OTHER, bool RHS_NA_OTHER, typename RHS_T_OTHER>
     SubsetProxy& operator=(const SubsetProxy<RTYPE_OTHER, StoragePolicyOther, RHS_RTYPE_OTHER, RHS_NA_OTHER, RHS_T_OTHER>& other) {
 
-        Vector<RTYPE, StoragePolicyOther> other_vec = other;
+        Vector<RTYPE_OTHER, StoragePolicyOther> other_vec = other;
         *this = other_vec;
+        return *this;
+    }
+
+    SubsetProxy& operator=(const SubsetProxy& other) {
+        if (other.indices_n == 1) {
+            for (int i=0; i < indices_n; ++i) {
+                lhs[ indices[i] ] = other.lhs[other.indices[0]];
+            }
+        }
+        else if (indices_n == other.indices_n) {
+            for (int i=0; i < indices_n; ++i)
+                lhs[ indices[i] ] = other.lhs[other.indices[i]];
+            }
+        else {
+            stop("index error");
+        }
         return *this;
     }
 

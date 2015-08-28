@@ -56,3 +56,17 @@ NumericVector subset_test_assign(NumericVector x) {
 NumericVector subset_test_constref(NumericVector const& x, IntegerVector const& y) {
     return x[y];
 }
+
+// [[Rcpp::export]]
+NumericVector subset_assign_subset(NumericVector x) {
+    NumericVector y(x.size());
+    y[x > 3] = x[x > 3];
+    return y;
+}
+
+// [[Rcpp::export]]
+NumericVector subset_assign_subset2(NumericVector x) {
+    NumericVector y(x.size());
+    y[x <= 3] = x[x > 3];
+    return y;
+}

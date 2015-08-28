@@ -75,6 +75,10 @@ if (.runThisTest) {
         y <- subset_test_int(x, 0L)
         checkIdentical( attr(y, "foo"), "bar" )
         
+        checkIdentical(subset_assign_subset(1:6), c(0,0,0,4,5,6))
+        
+        checkIdentical(subset_assign_subset2(1:6), c(4,5,6,0,0,0))
+        
     }
 
 }
