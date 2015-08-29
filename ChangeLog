@@ -1,3 +1,7 @@
+2015-08-29  Dirk Eddelbuettel  <edd@debian.org>
+
+        * vignettes/Rcpp.bib: Add RcppZiggurat
+
 2015-08-26  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/unitTests/testRcppClass/src/rcpp_module.cpp: Renamed Module
