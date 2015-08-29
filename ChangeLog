@@ -24,7 +24,7 @@
 
         * vignettes/Rcpp.bib: Updated R / R Core references
 
-2015-08-19  Florian Plaza Oñate <florian.plaza@jouy.inra.fr>
+2015-08-19  Florian Plaza Onate <florian.plaza@jouy.inra.fr>
         * inst/include/Rcpp/vector/Vector.h: Add 'at' methods which implement
         accessors with bounds cheking (pull request #342, fixes issue #341)
         * inst/include/Rcpp/vector/Matrix.h: Ditto
@@ -38,12 +38,12 @@
         * inst/unitTests/runit.Module.client.package.R: Disabled for bad
         interaction of Rcpp Modules and R 3.2.2
 
-2015-08-15  Florian Plaza Oñate <florian.plaza@jouy.inra.fr>
+2015-08-15  Florian Plaza Onate <florian.plaza@jouy.inra.fr>
 
         * inst/include/Rcpp/vector/converter.h: Correct conversion from const
         char argument (pull request #344, fixes issue #343)
 
-2015-08-14  Florian Plaza Oñate <florian.plaza@jouy.inra.fr>
+2015-08-14  Florian Plaza Onate <florian.plaza@jouy.inra.fr>
 
         * inst/include/Rcpp/vector/DimNameProxy.h: Add assignment operator,
         refactor code, update error message formatting (pull request #339)
