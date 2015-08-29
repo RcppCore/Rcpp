@@ -70,3 +70,25 @@ NumericVector subset_assign_subset2(NumericVector x) {
     y[x <= 3] = x[x > 3];
     return y;
 }
+
+// [[Rcpp::export]]
+NumericVector subset_assign_subset3(NumericVector x) {
+    NumericVector y(x.size());
+    y[x <= 3] = x[3];
+    return y;
+}
+
+// [[Rcpp::export]]
+IntegerVector subset_assign_subset4(NumericVector x) {
+    IntegerVector y(x.size());
+    y[x <= 3] = x[x <= 3];
+    return y;
+}
+
+// [[Rcpp::export]]
+NumericVector subset_assign_subset5(NumericVector x) {
+    NumericVector y(x.size());
+    y[x < 3] = x[x >= 4];
+    return y;
+}
+
