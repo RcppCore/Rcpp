@@ -1,3 +1,7 @@
+2015-08-31  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version, Date): Roll Version and Date
+
 2015-08-30  Dirk Eddelbuettel  <edd@debian.org>
 
         * vignettes/Rcpp.bib: Updated RcppGSL entry
