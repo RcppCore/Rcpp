@@ -92,3 +92,13 @@ NumericVector subset_assign_subset5(NumericVector x) {
     return y;
 }
 
+// [[Rcpp::export]]
+NumericVector subset_assign_vector_size_1(NumericVector x, int i) {
+    NumericVector y(1);
+    y[0]=i;
+
+    x[x < 4] = y;
+
+    return x;
+}
+

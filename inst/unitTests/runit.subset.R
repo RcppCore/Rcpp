@@ -84,6 +84,8 @@ if (.runThisTest) {
         checkIdentical(subset_assign_subset4(seq(2, 4, 0.2)), c(2L,2L,2L,2L,2L,3L,0L,0L,0L,0L,0L))
         
         checkException(subset_assign_subset5(1:6), msg = "index error")
+
+        checkIdentical(subset_assign_vector_size_1(1:6,7), c(7,7,7,4,5,6))
     }
 
 }
