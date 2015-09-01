@@ -2,7 +2,7 @@
 //
 // Reference.h: Rcpp R/C++ interface class library -- Reference class objects
 //
-// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2015  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -59,15 +59,15 @@ namespace Rcpp{
         Reference_Impl( const std::string& klass ) {
             SEXP newSym = Rf_install("new");
             Shield<SEXP> call( Rf_lang2( newSym, Rf_mkString( klass.c_str() ) ) );
-            Storage::set__( Rcpp_eval( call ) ) ;
+            Storage::set__( Rcpp_eval( call , Rcpp::internal::get_Rcpp_namespace()) );
         }
 
         void update( SEXP x){
-            if( ! ::Rf_isS4(x) ) throw not_reference() ;
+            if( ! ::Rf_isS4(x) ) throw not_reference();
         }
     } ;
 
-    typedef Reference_Impl<PreserveStorage> Reference ;
+    typedef Reference_Impl<PreserveStorage> Reference;
 
 } // namespace Rcpp
 

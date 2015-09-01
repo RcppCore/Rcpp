@@ -23,6 +23,7 @@
     \itemize{
       \item We no longer define multiple Modules objects named \code{World} in
       the unit tests with was seen to have a bad effect with R 3.2.2 or later.
+      \item Applied patch by Kurt Hornik which improves how Rcpp loads Modules
     }
   }
 }

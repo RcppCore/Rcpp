@@ -1,4 +1,4 @@
-# Copyright (C) 2010 - 2012 John Chambers, Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2015  John Chambers, Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -67,7 +67,9 @@ loadModule <- function( module, what = character(), loadNow,
         loadNow <- !is(loadM, "error")
     }
     if(loadNow) {
-        .botched <- isBotchedSession()
+        ## .botched <- isBotchedSession()
+        .botched <- FALSE
+
         if(is.null(loadM))
             loadM <- tryCatch(Module( module, mustStart = TRUE, where = env ),
                               error = function(e)e)
