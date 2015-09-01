@@ -32,7 +32,6 @@
 .onWindows <- .Platform$OS.type == "windows"
 
 .runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
-.runThisTest <- FALSE  ## FIXME
 
 if (.runThisTest && ! .badOSX && ! .onWindows) {
 

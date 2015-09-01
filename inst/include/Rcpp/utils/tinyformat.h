@@ -128,6 +128,10 @@ namespace Rcpp {
 }
 #define TINYFORMAT_ERROR(REASON) ::Rcpp::stop(REASON)
 
+// Define for C++11 variadic templates which make the code shorter & more
+// general.  If you don't define this, C++11 support is autodetected below.
+// #define TINYFORMAT_USE_VARIADIC_TEMPLATES
+
 // don't use C++11 features (support older compilers)
 #define TINYFORMAT_NO_VARIADIC_TEMPLATES
 
@@ -148,10 +152,27 @@ namespace Rcpp {
 #   endif
 #endif
 
+#ifdef TINYFORMAT_USE_VARIADIC_TEMPLATES
+#   include <array>
+#   if defined(_MSC_VER) && _MSC_VER <= 1800 // VS2013
+#       define TINYFORMAT_BRACED_INIT_WORKAROUND(x) (x)
+#   else
+#       define TINYFORMAT_BRACED_INIT_WORKAROUND(x) {x}
+#   endif
+#endif
+
 #if defined(__GLIBCXX__) && __GLIBCXX__ < 20080201
 //  std::showpos is broken on old libstdc++ as provided with OSX.  See
 //  http://gcc.gnu.org/ml/libstdc++/2007-11/msg00075.html
 #   define TINYFORMAT_OLD_LIBSTDCPLUSPLUS_WORKAROUND
+#endif
+
+#ifdef __APPLE__
+// Workaround OSX linker warning: xcode uses different default symbol
+// visibilities for static libs vs executables (see issue #25)
+#   define TINYFORMAT_HIDDEN __attribute__((visibility("hidden")))
+#else
+#   define TINYFORMAT_HIDDEN
 #endif
 
 namespace tinyformat {
@@ -203,7 +224,7 @@ template<int n> struct is_wchar<wchar_t[n]> {};
 template<typename T, typename fmtT, bool convertible = is_convertible<T, fmtT>::value>
 struct formatValueAsType
 {
-    static void invoke(std::ostream& /*out*/, const T& /*value*/) {}
+    static void invoke(std::ostream& /*out*/, const T& /*value*/) { /*assert(0);*/ }
 };
 // Specialized version for types that can actually be converted to fmtT, as
 // indicated by the "convertible" template parameter.
@@ -311,8 +332,8 @@ inline void formatValue(std::ostream& out, const char* /*fmtBegin*/,
     // void* respectively and format that instead of the value itself.  For the
     // %p conversion it's important to avoid dereferencing the pointer, which
     // could otherwise lead to a crash when printing a dangling (const char*).
-    const bool canConvertToChar = detail::is_convertible<T,char>::value;
-    const bool canConvertToVoidPtr = detail::is_convertible<T, const void*>::value;
+    bool canConvertToChar = detail::is_convertible<T,char>::value;
+    bool canConvertToVoidPtr = detail::is_convertible<T, const void*>::value;
     if(canConvertToChar && *(fmtEnd-1) == 'c')
         detail::formatValueAsType<T, char>::invoke(out, value);
     else if(canConvertToVoidPtr && *(fmtEnd-1) == 'p')
@@ -502,14 +523,14 @@ class FormatArg
 
     private:
         template<typename T>
-        static void formatImpl(std::ostream& out, const char* fmtBegin,
+        TINYFORMAT_HIDDEN static void formatImpl(std::ostream& out, const char* fmtBegin,
                         const char* fmtEnd, int ntrunc, const void* value)
         {
             formatValue(out, fmtBegin, fmtEnd, ntrunc, *static_cast<const T*>(value));
         }
 
         template<typename T>
-        static int toIntImpl(const void* value)
+        TINYFORMAT_HIDDEN static int toIntImpl(const void* value)
         {
             return convertToInt<T>::invoke(*static_cast<const T*>(value));
         }
@@ -540,7 +561,7 @@ inline int parseIntAndAdvance(const char*& c)
 inline const char* printFormatStringLiteral(std::ostream& out, const char* fmt)
 {
     const char* c = fmt;
-    for(; true; ++c)
+    for(;; ++c)
     {
         switch(*c)
         {
@@ -848,7 +869,7 @@ class FormatListN : public FormatList
         template<typename... Args>
         FormatListN(const Args&... args)
             : FormatList(&m_formatterStore[0], N),
-            m_formatterStore{FormatArg(args)...}
+            m_formatterStore TINYFORMAT_BRACED_INIT_WORKAROUND({ FormatArg(args)... })
         { static_assert(sizeof...(args) == N, "Number of args must be N"); }
 #else // C++98 version
         void init(int) {}
@@ -857,7 +878,7 @@ class FormatListN : public FormatList
         template<TINYFORMAT_ARGTYPES(n)>                       \
         FormatListN(TINYFORMAT_VARARGS(n))                     \
             : FormatList(&m_formatterStore[0], n)              \
-        { init(0, TINYFORMAT_PASSARGS(n)); }                   \
+        {/*assert*n == N);*/init(0, TINYFORMAT_PASSARGS(n)); } \
                                                                \
         template<TINYFORMAT_ARGTYPES(n)>                       \
         void init(int i, TINYFORMAT_VARARGS(n))                \
@@ -871,7 +892,11 @@ class FormatListN : public FormatList
 #endif
 
     private:
+#ifdef TINYFORMAT_USE_VARIADIC_TEMPLATES
+        std::array<FormatArg, N> m_formatterStore;
+#else // C++98 version
         FormatArg m_formatterStore[N];
+#endif
 };
 
 // Special 0-arg version - MSVC says zero-sized C array in struct is nonstandard

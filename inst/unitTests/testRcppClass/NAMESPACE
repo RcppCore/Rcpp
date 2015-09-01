@@ -4,4 +4,4 @@ import(Rcpp,methods)
 export(genWorld, stdNumeric, rcpp_hello_world,
        bar, foo, baz, baz1)
 
-exportClass(World, stdNumeric)#, NumEx)
+exportClass(RcppClassWorld, stdNumeric)#, NumEx)

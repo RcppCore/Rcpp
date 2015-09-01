@@ -1,8 +1,62 @@
+2015-08-31  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version, Date): Roll Version and Date
+
+2015-08-30  Dirk Eddelbuettel  <edd@debian.org>
+
+        * vignettes/Rcpp.bib: Updated RcppGSL entry
+
+2015-08-29  Dirk Eddelbuettel  <edd@debian.org>
+
+        * vignettes/Rcpp.bib: Add RcppZiggurat entry
+
+        * inst/include/Rcpp/utils/tinyformat.h: Updated to current upstream
+        version keeping our local modifications / adaptations (PR #357)
+
+2015-08-29  Qiang Kou <qkou@umail.iu.edu>
+
+        * inst/include/Rcpp/vector/Subsetter.h: Enable logical subsetting on
+        both LHS and RHS, eg 'a[b > 3] = b[b > 3]' (pull request #352 addressing
+        issue #345)
+        * inst/unitTests/cpp/Subset.cpp: Ditto
+        * inst/unitTests/runit.subset.R: Unit tests for above
+
+2015-08-26  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/unitTests/testRcppClass/src/rcpp_module.cpp: Renamed Module
+        'World' to 'RcppClassWorld' to avoid multiple modules with same name
+        (pull request #351, fixed issue #350)
+
+        * inst/unitTests/testRcppClass/man/Rcpp_class_examples.Rd: Ditto
+        * inst/unitTests/testRcppClass/R/load.R: Ditto
+        * inst/unitTests/testRcppClass/NAMESPACE: Ditto
+        * inst/unitTests/runit.Module.client.package.R: Re-enable test
+
+        * inst/unitTests/testRcppModule/src/rcpp_module.cpp: Renamed Module
+        'World' to 'RcppModuleWorld' to avoid multiple modules with same name
+
+        * inst/unitTests/cpp/modref.cpp: Rename 'World' to 'ModRefWorld'
+        * inst/unitTests/runit.modref.R (test.modRef): Ditto
+
+        * inst/unitTests/cpp/Module.cpp: Rename 'World' to 'ModuleWorld'
+        * inst/unitTests/runit.Module.R (test.Module): Ditto
+
+2015-08-25  Kurt Hornik  <Kurt.Hornik@wu.ac.at>
+
+        * R/loadModule.R: For now=TRUE, always set .botched to FALSE which
+        corresponds to the case of the methods package being in the search path
+        * inst/include/Rcpp/Reference.h: Call call with the internal Namespace
+
 2015-08-24  Dirk Eddelbuettel  <edd@debian.org>
 
         * vignettes/Rcpp.bib: Updated R / R Core references
 
-2015-08-19  Florian Plaza Oñate <florian.plaza@jouy.inra.fr>
+2015-08-23  Romain Francois <romain@r-enthusiasts.com>
+
+        * inst/include/Rcpp/Benchmark/Timer.h: Silence 'g++ -pedantic' by
+        replaceing one R_xlen_t by size_t (pull request #348)
+
+2015-08-19  Florian Plaza Onate <florian.plaza@jouy.inra.fr>
         * inst/include/Rcpp/vector/Vector.h: Add 'at' methods which implement
         accessors with bounds cheking (pull request #342, fixes issue #341)
         * inst/include/Rcpp/vector/Matrix.h: Ditto
@@ -16,12 +70,12 @@
         * inst/unitTests/runit.Module.client.package.R: Disabled for bad
         interaction of Rcpp Modules and R 3.2.2
 
-2015-08-15  Florian Plaza Oñate <florian.plaza@jouy.inra.fr>
+2015-08-15  Florian Plaza Onate <florian.plaza@jouy.inra.fr>
 
         * inst/include/Rcpp/vector/converter.h: Correct conversion from const
         char argument (pull request #344, fixes issue #343)
 
-2015-08-14  Florian Plaza Oñate <florian.plaza@jouy.inra.fr>
+2015-08-14  Florian Plaza Onate <florian.plaza@jouy.inra.fr>
 
         * inst/include/Rcpp/vector/DimNameProxy.h: Add assignment operator,
         refactor code, update error message formatting (pull request #339)
@@ -33,7 +87,8 @@
 2015-08-02  Dirk Eddelbuettel  <edd@debian.org>
 
         * R/Attributes.R (sourceCpp): In no-rebuild-needed case, also set a
-        default directory restoration via on.exit()
+        default directory restoration via on.exit() (pull request #335,
+        addressing issue #309)
 
 2015-07-24  Dirk Eddelbuettel  <edd@debian.org>
 
