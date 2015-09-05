@@ -697,33 +697,15 @@ if (.runThisTest) {
         checkEquals(s, "1.1 2.2 3.3 4.4")
     }
 
-    test.NumericVector.print.member <- function() {
-        v <- c(1.1, 2.2, 3.3, 4.4)
-        s <- vec_print_numeric_member(v)
-        checkEquals(s, "1.1 2.2 3.3 4.4")
-    }
-
     test.IntegerVector.print <- function() {
         v <- c(1, 2, 3, 4)
         s <-vec_print_integer(v)
         checkEquals(s, "1 2 3 4")
     }
 
-    test.IntegerVector.print.member <- function() {
-        v <- c(1, 2, 3, 4)
-        s <- vec_print_integer_member(v)
-        checkEquals(s, "1 2 3 4")
-    }
-
     test.CharacterVector.print <- function() {
         v <- c("a", "b", "c", "d")
         s <- vec_print_character(v)
-        checkEquals(s, '"a" "b" "c" "d"')
-    }
-
-    test.CharacterVector.print.member <- function() {
-        v <- c("a", "b", "c", "d")
-        s <- vec_print_character_member(v)
         checkEquals(s, '"a" "b" "c" "d"')
     }
 }
