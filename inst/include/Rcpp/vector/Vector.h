@@ -582,15 +582,6 @@ public:
         return -1;
     }
 
-    inline void print(const std::string & comment = "", std::ostream & stream = Rcout) const {
-        if (comment.length() > 0) {
-            stream << comment << std::endl;
-        }
-
-        stream << (*this);
-    }
-
-
 protected:
     inline int* dims() const {
         if( !::Rf_isMatrix(Storage::get__()) ) throw not_a_matrix() ;
