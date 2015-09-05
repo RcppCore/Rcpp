@@ -47,6 +47,8 @@ namespace internal{
 			operator bool() const { return ::Rcpp::as<bool>(get()) ; }
 			operator int() const { return ::Rcpp::as<int>(get()) ; }
 
+			inline void move(R_xlen_t n) { index += n ; }
+			
 			const VECTOR* parent;
 			R_xlen_t index ;
 

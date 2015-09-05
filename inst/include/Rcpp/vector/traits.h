@@ -67,7 +67,7 @@ namespace traits{
 		}
 		inline iterator get() const { return iterator( proxy(*p, 0 ) ) ;}
 		// inline const_iterator get_const() const { return const_iterator( *p ) ;}
-		inline const_iterator get_const() const { return get_vector_ptr(*p) ; }
+		inline const_iterator get_const() const { return const_iterator( const_proxy(*p, 0) ) ; }
 
 		inline proxy ref() { return proxy(*p,0) ; }
 		inline proxy ref(R_xlen_t i) { return proxy(*p,i);}
