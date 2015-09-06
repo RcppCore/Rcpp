@@ -64,6 +64,26 @@ List test_compare_Strings( String aa, String bb ){
 }
 
 // [[Rcpp::export]]
+List test_compare_String_string_proxy( String aa, CharacterVector bb ){
+    return List::create(
+        _["a == b"]  = aa == bb[0],
+        _["a != b"]  = aa != bb[0],
+        _["b == a"]  = bb[0] == aa,
+        _["b != a"]  = bb[0] != aa
+        ) ;
+}
+
+// [[Rcpp::export]]
+List test_compare_String_const_string_proxy( String aa, const CharacterVector bb ){
+    return List::create(
+        _["a == b"]  = aa == bb[0],
+        _["a != b"]  = aa != bb[0],
+        _["b == a"]  = bb[0] == aa,
+        _["b != a"]  = bb[0] != aa
+        ) ;
+}
+
+// [[Rcpp::export]]
 String test_push_front(String x) {
     x.push_front("abc");
     return x;
