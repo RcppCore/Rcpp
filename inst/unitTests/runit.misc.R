@@ -1,6 +1,6 @@
 #!/usr/bin/r -t
 #
-# Copyright (C) 2010 - 2014  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2015  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -147,4 +147,25 @@ if (.runThisTest) {
         checkEquals( m, "foo 3" ) 
     }
 
+    test.NullableForNull <- function() {
+        S <- seq(1, 10)
+        checkTrue(   testNullableForNull(NULL) )
+        checkTrue( ! testNullableForNull(S) )
+    }
+    
+    test.NullableForNotNull <- function() {
+        S <- seq(1, 10)
+        checkTrue( ! testNullableForNotNull(NULL) )
+        checkTrue(   testNullableForNotNull(S) )
+    }
+
+    test.NullableAccessOperator <- function() {
+        S <- seq(1, 10)
+        checkEquals( testNullableOperator(S), S )
+    }
+    
+    test.NullableAccessGet <- function() {
+        S <- seq(1, 10)
+        checkEquals( testNullableGet(S), S )
+    }
 }
