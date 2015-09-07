@@ -1,3 +1,10 @@
+2015-09-01  Florian Plaza Onate <florian.plaza@jouy.inra.fr>
+        * inst/include/Rcpp/vector/Subsetter.h: Allow logical subsets to be
+        assigned to a vector of size 1 
+        (pull request #349, discussed in issue #345)
+        * inst/unitTests/cpp/Subset.cpp: Add unit test for above
+        * inst/unitTests/runit.subset.R: Ditto
+
 2015-08-31  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll Version and Date

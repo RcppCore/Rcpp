@@ -52,9 +52,9 @@ public:
     template <int OtherRTYPE, template <class> class OtherStoragePolicy>
     SubsetProxy& operator=(const Vector<OtherRTYPE, OtherStoragePolicy>& other) {
         int n = other.size();
-        if (indices_n != n) stop("index error");
+
         if (n == 1) {
-            for (int i=0; i < n; ++i) {
+            for (int i=0; i < indices_n; ++i) {
                 lhs[ indices[i] ] = other[0];
             }
         } else if (n == indices_n) {
@@ -65,7 +65,7 @@ public:
             stop("index error");
         }
         return *this;
-    }
+    }  
 
     // Enable e.g. x[y] = 1;
     // TODO: std::enable_if<primitive> with C++11
