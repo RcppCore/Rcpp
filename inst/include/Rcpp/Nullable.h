@@ -68,7 +68,7 @@ namespace Rcpp {
          * @throw 'not initialized' if object has not been set
          */
         inline operator SEXP() {
-            checkIfSet();
+            isSet();
             return m_sexp;
         }
 
@@ -83,7 +83,7 @@ namespace Rcpp {
         }
 
         /**
-         * boolean test for NULL
+         * Boolean test for NULL
          *
          * @throw 'not initialized' if object has not been set
          */
@@ -93,13 +93,19 @@ namespace Rcpp {
         }
 
         /**
-         * boolean test for not NULL
+         * Boolean test for not NULL
          *
          * @throw 'not initialized' if object has not been set
          */
         inline bool isNotNull() {
             return ! isNull();
         }
+
+        /**
+         * Test function to check if object has been initialized
+         *
+         */
+        inline bool isSet(void) { return m_set; }
 
     private:
         SEXP m_sexp;
