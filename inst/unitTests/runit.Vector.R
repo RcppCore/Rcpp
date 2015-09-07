@@ -690,5 +690,23 @@ if (.runThisTest) {
         checkException(vec_access_with_bounds_checking(x, 5) , msg = "index out of bounds not detected" )
         checkException(vec_access_with_bounds_checking(x, -1) , msg = "index out of bounds not detected" )
     }
+
+    test.NumericVector.print <- function() {
+        v <- c(1.1, 2.2, 3.3, 4.4)
+        s <- vec_print_numeric(v)
+        checkEquals(s, "1.1 2.2 3.3 4.4")
+    }
+
+    test.IntegerVector.print <- function() {
+        v <- c(1, 2, 3, 4)
+        s <-vec_print_integer(v)
+        checkEquals(s, "1 2 3 4")
+    }
+
+    test.CharacterVector.print <- function() {
+        v <- c("a", "b", "c", "d")
+        s <- vec_print_character(v)
+        checkEquals(s, '"a" "b" "c" "d"')
+    }
 }
 

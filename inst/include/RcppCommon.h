@@ -49,6 +49,7 @@ namespace Rcpp {
 #include <iterator>
 #include <exception>
 #include <iostream>
+#include <iomanip>
 #include <sstream>
 #include <string>
 #include <list>

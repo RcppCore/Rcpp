@@ -582,7 +582,6 @@ public:
         return -1;
     }
 
-
 protected:
     inline int* dims() const {
         if( !::Rf_isMatrix(Storage::get__()) ) throw not_a_matrix() ;
@@ -1079,6 +1078,44 @@ public:
 
 
 } ; /* Vector */
+
+template <int RTYPE, template <class> class StoragePolicy >
+inline std::ostream &operator<<(std::ostream & s, const Vector<RTYPE, StoragePolicy> & rhs) {
+    typedef Vector<RTYPE, StoragePolicy> VECTOR;
+
+    typename VECTOR::iterator i = const_cast<VECTOR &>(rhs).begin();
+    typename VECTOR::iterator iend = const_cast<VECTOR &>(rhs).end();
+
+    if (i != iend) {
+        s << (*i);
+        ++i;
+
+        for ( ; i != iend; ++i) {
+            s << " " << (*i);
+        }
+    }
+
+    return s;
+}
+
+template<template <class> class StoragePolicy >
+inline std::ostream &operator<<(std::ostream & s, const Vector<STRSXP, StoragePolicy> & rhs) {
+    typedef Vector<STRSXP, StoragePolicy> VECTOR;
+
+    typename VECTOR::iterator i = const_cast<VECTOR &>(rhs).begin();
+    typename VECTOR::iterator iend = const_cast<VECTOR &>(rhs).end();
+
+    if (i != iend) {
+        s << "\"" << (*i) << "\"";
+        ++i;
+
+        for ( ; i != iend; ++i) {
+            s << " \"" << (*i) << "\"";
+        }
+    }
+
+    return s;
+}
 
 }
 

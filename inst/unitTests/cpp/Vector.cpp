@@ -21,6 +21,8 @@
 
 #include <climits>
 #include <Rcpp.h>
+#include <sstream>
+
 using namespace Rcpp ;
 
 inline double square( double x){ return x*x; }
@@ -781,4 +783,25 @@ int noprotect_matrix( Matrix<REALSXP, NoProtectStorage> x){
 // [[Rcpp::export]]
 int vec_access_with_bounds_checking(const IntegerVector x, int index) {
     return x.at(index);
+}
+
+// [[Rcpp::export]]
+String vec_print_numeric(NumericVector v) {
+    std::ostringstream buf;
+    buf << v;
+    return buf.str();
+}
+
+// [[Rcpp::export]]
+String vec_print_character(CharacterVector v) {
+    std::ostringstream buf;
+    buf << v;
+    return buf.str();
+}
+
+// [[Rcpp::export]]
+String vec_print_integer(IntegerVector v) {
+    std::ostringstream buf;
+    buf << v;
+    return buf.str();
 }
