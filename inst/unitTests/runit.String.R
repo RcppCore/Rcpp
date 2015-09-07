@@ -48,6 +48,30 @@ if (.runThisTest) {
             )
         checkEquals( res, target )
     }
+    
+    test.compare.String.string_proxy <- function(){
+        v <- c("aab")
+        res <- test_compare_String_string_proxy( "aaa", v )
+        target <- list( 
+            "a == b" = FALSE, 
+            "a != b" = TRUE,  
+            "b == a" = FALSE,
+            "b != a" = TRUE
+            )
+        checkEquals( res, target )
+    }
+    
+    test.compare.String.const_string_proxy <- function(){
+        v <- c("aab")
+        res <- test_compare_String_const_string_proxy( "aaa", v )
+        target <- list( 
+            "a == b" = FALSE, 
+            "a != b" = TRUE,  
+            "b == a" = FALSE,
+            "b != a" = TRUE
+            )
+        checkEquals( res, target )
+    }
 
     test.String.ctor <- function() {
         res <- test_ctor("abc")
