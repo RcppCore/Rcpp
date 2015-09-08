@@ -2,7 +2,7 @@
 //
 // Nullable.h: Rcpp R/C++ interface class library -- SEXP container which can be NULL
 //
-// Copyright (C) 2015         Dirk Eddelbuettel
+// Copyright (C) 2015         Dirk Eddelbuettel and Daniel C. Dillon
 //
 // This file is part of Rcpp.
 //
@@ -34,22 +34,45 @@
 
 namespace Rcpp {
 
+    template<class T>
     class Nullable {
+    private:
+        template<class U>
+        friend class InputParameter;
+
+        template<class U>
+        friend class traits::Exporter;
+
     public:
 
         /**
          * Empty no-argument constructor of a Nullable object
          *
-         * set validator to FALSE
+         * Assigns (R's) NULL value, and sets validator to FALSE
          */
-        inline Nullable() : m_sexp(NULL), m_set(false) {}
+        inline Nullable() : m_sexp(R_NilValue), m_set(false) {}
+
+        /**
+         * Template constructor of a Nullable object
+         *
+         * Assigns object, and set validator to TRUE
+         */
+
+        inline Nullable(const T &t) : m_sexp(t),  m_set(true) {}
+
+    protected:
 
         /**
          * Standard constructor of a Nullable object
          *
          * @param SEXP is stored
          */
-        inline Nullable(SEXP t) : m_sexp(t), m_set(true) {}
+        inline Nullable(SEXP t) {
+            m_sexp = t;
+            m_set = true;
+        }
+
+    public:
 
         /**
          * Copy constructor for Nullable object
@@ -68,7 +91,7 @@ namespace Rcpp {
          * @throw 'not initialized' if object has not been set
          */
         inline operator SEXP() {
-            checkIfSet();
+            isSet();
             return m_sexp;
         }
 
@@ -87,7 +110,7 @@ namespace Rcpp {
          *
          * @throw 'not initialized' if object has not been set
          */
-        inline bool isNull() {
+        inline bool isNull() const {
             checkIfSet();
             return Rf_isNull(m_sexp);
         }
@@ -97,7 +120,7 @@ namespace Rcpp {
          *
          * @throw 'not initialized' if object has not been set
          */
-        inline bool isNotNull() {
+        inline bool isNotNull() const {
             return ! isNull();
         }
 
@@ -105,13 +128,13 @@ namespace Rcpp {
          * Test function to check if object has been initialized
          *
          */
-        inline bool isSet(void) { return m_set; }
+        inline bool isSet(void) const { return m_set; }
 
     private:
         SEXP m_sexp;
         bool m_set;
 
-        inline void checkIfSet(void) {
+        inline void checkIfSet(void) const {
             if (!m_set) {
                 throw ::Rcpp::exception("Not initialized");
             }

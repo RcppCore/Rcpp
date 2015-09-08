@@ -148,24 +148,24 @@ if (.runThisTest) {
     }
 
     test.NullableForNull <- function() {
-        S <- seq(1, 10)
+        M <- matrix(1:4, 2, 2)
         checkTrue(   testNullableForNull(NULL) )
-        checkTrue( ! testNullableForNull(S) )
+        checkTrue( ! testNullableForNull(M) )
     }
     
     test.NullableForNotNull <- function() {
-        S <- seq(1, 10)
+        M <- matrix(1:4, 2, 2)
         checkTrue( ! testNullableForNotNull(NULL) )
-        checkTrue(   testNullableForNotNull(S) )
+        checkTrue(   testNullableForNotNull(M) )
     }
 
     test.NullableAccessOperator <- function() {
-        S <- seq(1, 10)
-        checkEquals( testNullableOperator(S), S )
+        M <- matrix(1:4, 2, 2)
+        checkEquals( testNullableOperator(M), M )
     }
     
     test.NullableAccessGet <- function() {
-        S <- seq(1, 10)
-        checkEquals( testNullableGet(S), S )
+        M <- matrix(1:4, 2, 2)
+        checkEquals( testNullableGet(M), M )
     }
 }
