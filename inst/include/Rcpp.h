@@ -64,6 +64,8 @@
 #include <Rcpp/Module.h>
 #include <Rcpp/InternalFunction.h>
 
+#include <Rcpp/Nullable.h>
+
 #ifndef RCPP_NO_SUGAR
 #include <Rcpp/sugar/sugar.h>
 #include <Rcpp/stats/stats.h>
