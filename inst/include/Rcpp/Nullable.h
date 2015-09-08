@@ -22,11 +22,6 @@
 #ifndef Rcpp_Nullable_h
 #define Rcpp_Nullable_h
 
-// This class could possibly be written in a templated manner too, and we looked
-// into this.  However, as an exception is thrown as soon as an actual proxy
-// object is accessed _when it was initialized with NULL_ we found no
-// satisfactory solution.
-//
 // We looked into the safe_bool_idiom [1] but found that more trouble than is
 // warranted here.  We first and foremost want an operator SEXP() which got in
 // the way of redefining operator bool.
