@@ -1,6 +1,31 @@
+2015-09-08  Florian Plaza Onate <florian.plaza@jouy.inra.fr>
+
+        * inst/include/Rcpp/Dimension.h: Correct creation and access of large
+        matrices
+        * inst/include/Rcpp/vector/Matrix.h: Ditto
+
+2015-09-07  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/Nullable.h: New class for objects which may be NULL
+        * inst/unitTests/cpp/Vector.cpp: Unit tests for Nullable
+        * inst/unitTests/runit.Vector.R: Ditto
+
+2015-09-06  Daniel C. Dillon  <dcdillon@gmail.com>
+
+        * inst/include/Rcpp/String.h: Make strings and string_proxies comparable
+        * inst/unitTests/cpp/String.cpp: Unit tests for above
+        * inst/unitTests/runit.String.R: Ditto
+
+2015-09-05  Daniel C. Dillon  <dcdillon@gmail.com>
+
+        * inst/include/Rcpp/vector/Matrix.h: Matrix now has appropriate operator<<
+        * inst/include/Rcpp/vector/Vector.h: Vector now has appropriate operator<<
+        * inst/unitTests/cpp/Vector.cpp: Unit tests for above
+
 2015-09-01  Florian Plaza Onate <florian.plaza@jouy.inra.fr>
+
         * inst/include/Rcpp/vector/Subsetter.h: Allow logical subsets to be
-        assigned to a vector of size 1 
+        assigned to a vector of size 1
         (pull request #349, discussed in issue #345)
         * inst/unitTests/cpp/Subset.cpp: Add unit test for above
         * inst/unitTests/runit.subset.R: Ditto

@@ -6,24 +6,45 @@
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
-      \item Correct use of WIN32 instead of _WIN32 to please Windows 10
+      \item Correct use of WIN32 instead of _WIN32 to please Windows 10 
       \item Add an assignment operator to \code{DimNameProxy} (PR #339 by Florian)
       \item Add vector and matrix accessors \code{.at()} with bounds checking
       (PR #342 by Florian) 
       \item Correct character vector conversion from single char (PR #344 by
       Florian fixing issue #343)
-      \item Correct on use of \code{R_xlen_t} back to \code{size_t} (PR #348 by Romain)
+      \item Correct on use of \code{R_xlen_t} back to \code{size_t} (PR #348 by
+      Romain)
+      \item Correct subsetting code to allow for single assignment (PR #349 by
+      Florian)
+      \item Enable subset assignment on left and righ-hand side (PR #353 by
+      Qiang, fixing issue #345)
+      \item Refreshed to included \code{tinyformat} template library (PR #357 by
+      Dirk, issue #356)
+      \item Add \code{operator<<()} for vectors and matrices (PR #361 by Dan
+      fixing issue #239)
+      \item Make \code{String} and \code{String_Proxy} objects comparable (PR #366 by Dan
+      fixing issue #191)
+      \item Add a new class \code{Nullable} for objects which may be \code{NULL}
+      (PR #368 by Dirk and Dan, fixing issue #363)
+      \item Correct creation and access of large matrices (PR #370 by Florian,
+      fixing issue #369)
     }
     \item Changes in Rcpp Attributes:
     \itemize{
       \item Correctly reset directory in case of no-rebuilding but Windows code
-      (PR #335)
+      (PR #335 by Dirk)
     }
     \item Changes in Rcpp Modules:
     \itemize{
       \item We no longer define multiple Modules objects named \code{World} in
-      the unit tests with was seen to have a bad effect with R 3.2.2 or later.
+      the unit tests with was seen to have a bad effect with R 3.2.2 or later
+      (PR #351 by Dirk fixing issue #350).
       \item Applied patch by Kurt Hornik which improves how Rcpp loads Modules
+      (PR #353 by Dirk)
+    }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item The \code{Rcpp.bib} file with bibliographic references was updated.
     }
   }
 }
