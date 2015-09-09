@@ -438,6 +438,14 @@ namespace Rcpp {
             return strcmp( get_cstring(), other.get_cstring() ) > 0;
         }
 
+        bool operator==( SEXP other ) const {
+            return get_sexp() == other;
+        }
+
+        bool operator!=( SEXP other ) const {
+            return get_sexp() != other;
+        }
+
     private:
 
         /** the CHARSXP this String encapsulates */
