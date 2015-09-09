@@ -110,6 +110,13 @@ namespace internal{
 			return strcmp( begin(), other.begin() ) != 0 ;
 		}
 
+                bool operator==( SEXP other ) const {
+                    return get() == other;
+                }
+
+                bool operator!=( SEXP other ) const {
+                    return get() != other;
+                }
 
 		private:
 			static std::string buffer ;
