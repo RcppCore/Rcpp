@@ -22,8 +22,8 @@
       Dirk, issue #356)
       \item Add \code{operator<<()} for vectors and matrices (PR #361 by Dan
       fixing issue #239)
-      \item Make \code{String} and \code{String_Proxy} objects comparable (PR #366 by Dan
-      fixing issue #191)
+      \item Make \code{String} and \code{String_Proxy} objects comparable (PR
+      #366 and PR #372 by Dan, fixing issue #191)
       \item Add a new class \code{Nullable} for objects which may be \code{NULL}
       (PR #368 by Dirk and Dan, fixing issue #363)
       \item Correct creation and access of large matrices (PR #370 by Florian,

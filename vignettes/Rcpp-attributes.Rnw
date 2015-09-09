@@ -33,7 +33,7 @@
 %% This corresponds to setting boxes=TRUE for highlight
 \newsavebox{\hlbox}
 \definecolor{hlBg}{rgb}{0.949019607843137,0.949019607843137,0.949019607843137}
-\definecolor{hlBd}{rgb}{0,0,0}
+\definecolor{hlBd}{rgb}{0.9,0.9,0.9} % border
 \renewenvironment{Hchunk}{\vspace{0.5em}\noindent\begin{lrbox}{\hlbox}\begin{minipage}[b]{.98\linewidth}}%
     {\end{minipage}\end{lrbox}\fcolorbox{hlBd}{hlBg}{\usebox{\hlbox}}\vspace{0.5em}}
 

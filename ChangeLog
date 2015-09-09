@@ -1,3 +1,15 @@
+2015-09-09  Dirk Eddelbuettel  <edd@debian.org>
+
+        * vignettes/Rcpp-attributes.Rnw: Less harsh grey border around code
+        * vignettes/Rcpp-*.Rnw: Ditto
+
+        * inst/include/Rcpp/String.h: More comparison operators
+
+2015-09-08  Daniel C. Dillon  <dcdillon@gmail.com>
+
+        * inst/include/Rcpp/vector/string_proxy.h: More comparison operators
+        * inst/include/Rcpp/vector/const_string_proxy.h: More comparison operators
+
 2015-09-08  Florian Plaza Onate <florian.plaza@jouy.inra.fr>
 
         * inst/include/Rcpp/Dimension.h: Correct creation and access of large
