@@ -1,3 +1,12 @@
+2015-09-10  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.12.1
+        * inst/NEWS.Rd: Release 0.12.1
+	* vignettes/Rcpp.bib: Release 0.12.1
+        * inst/include/Rcpp/config.h: Release 0.12.1
+
+        * debian/*: Changes for Debian release of 0.12.1
+
 2015-09-09  Dirk Eddelbuettel  <edd@debian.org>
 
         * vignettes/Rcpp-attributes.Rnw: Less harsh grey border around code
