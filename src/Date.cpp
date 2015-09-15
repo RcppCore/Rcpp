@@ -559,7 +559,7 @@ struct tzhead {
 	union {
 	    struct tzhead  tzhead;
 	    char  buf[2 * sizeof(struct tzhead) +
-		      2 * sizeof *sp + 4 * TZ_MAX_TIMES];
+		      2 * sizeof(struct state) + 4 * TZ_MAX_TIMES];
 	} u;
 
 	sp->goback = sp->goahead = FALSE;
