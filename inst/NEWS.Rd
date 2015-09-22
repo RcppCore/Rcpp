@@ -2,6 +2,16 @@
 \title{News for Package 'Rcpp'}
 \newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
 
+\section{Changes in Rcpp version 0.12.2 (expected 2015-11-01 or later)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Before creating a single String object from a \code{SEXP}, ensure
+      that it is from a vector of length one (issue #375)
+    }
+  }
+}
+      
 \section{Changes in Rcpp version 0.12.1 (2015-09-10)}{
   \itemize{
     \item Changes in Rcpp API:
