@@ -1,3 +1,8 @@
+2015-09-21  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/String.h: Before assigning ensure we received
+        exactly one string argument
+
 2015-09-10  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.12.1

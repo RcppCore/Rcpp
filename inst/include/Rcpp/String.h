@@ -72,11 +72,15 @@ namespace Rcpp {
 
         /** construct a string from a single CHARSXP SEXP */
         String(SEXP charsxp) : data(charsxp), valid(true), buffer_ready(false), enc(Rf_getCharCE(charsxp)) {
-            Rcpp_PreserveObject( data );
+            if (::Rf_isString(data) && ::Rf_length(data) != 1)
+                throw ::Rcpp::not_compatible("expecting a single value");
+            Rcpp_PreserveObject(data);
             RCPP_STRING_DEBUG( "String(SEXP)" ) ;
         }
 
         String(SEXP charsxp, const std::string& enc) : data(charsxp), valid(true), buffer_ready(false) {
+            if (::Rf_isString(data) && ::Rf_length(data) != 1)
+                throw ::Rcpp::not_compatible("expecting a single value");
             Rcpp_PreserveObject( data );
             set_encoding(enc);
             RCPP_STRING_DEBUG( "String(SEXP)" ) ;
