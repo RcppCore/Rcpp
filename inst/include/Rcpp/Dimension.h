@@ -56,7 +56,7 @@ namespace Rcpp{
 	    inline int size() const {
 	        return (int) dims.size() ;
 	    }
-	    inline int prod() const {
+	    inline R_xlen_t prod() const {
 	        return std::accumulate( dims.begin(), dims.end(), static_cast<R_xlen_t>(1), std::multiplies<R_xlen_t>() );
 	    }
 
