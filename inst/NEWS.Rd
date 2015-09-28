@@ -1,15 +1,17 @@
 \name{NEWS}
 \title{News for Package 'Rcpp'}
-\newcommand{\cpkg}{\href{http://CRAN.R-project.org/package=#1}{\pkg{#1}}}
+\newcommand{\cpkg}{\href{https://CRAN.R-project.org/package=#1}{\pkg{#1}}}
+\newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{\textsl{#1}}}
+\newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issue/#1}{\textsl{#1}}}
 
 \section{Changes in Rcpp version 0.12.2 (expected 2015-11-01 or later)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
       \item Before creating a single String object from a \code{SEXP}, ensure
-      that it is from a vector of length one (issue #375).
+      that it is from a vector of length one (pull request #376; issue #375).
       \item No longer use \code{STRING_ELT} as left-hand side, thanks to a
-      heads-up by Luke Tierney (issue #377).
+      heads-up by Luke Tierney (pull request #378; issue #377).
     }
   }
 }
