@@ -1,17 +1,21 @@
 \name{NEWS}
 \title{News for Package 'Rcpp'}
-\newcommand{\cpkg}{\href{https://CRAN.R-project.org/package=#1}{\pkg{#1}}}
-\newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{\textsl{#1}}}
-\newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issue/#1}{\textsl{#1}}}
+\newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
+\newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issue/#1}{##1}}
 
 \section{Changes in Rcpp version 0.12.2 (expected 2015-11-01 or later)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
       \item Before creating a single String object from a \code{SEXP}, ensure
-      that it is from a vector of length one (pull request #376; issue #375).
+      that it is from a vector of length one (PR \ghpr{376} fixing \ghit{375}).
       \item No longer use \code{STRING_ELT} as left-hand side, thanks to a
-      heads-up by Luke Tierney (pull request #378; issue #377).
+      heads-up by Luke Tierney (PR \ghpr{378} fixing \ghit{377}).
+    }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item The \code{NEWS} file now links to GitHub issue tickets and pull
+      requests. 
     }
   }
 }
@@ -21,40 +25,40 @@
     \item Changes in Rcpp API:
     \itemize{
       \item Correct use of WIN32 instead of _WIN32 to please Windows 10 
-      \item Add an assignment operator to \code{DimNameProxy} (PR #339 by Florian)
+      \item Add an assignment operator to \code{DimNameProxy} (PR \ghpr{339} by Florian)
       \item Add vector and matrix accessors \code{.at()} with bounds checking
-      (PR #342 by Florian) 
-      \item Correct character vector conversion from single char (PR #344 by
-      Florian fixing issue #343)
-      \item Correct on use of \code{R_xlen_t} back to \code{size_t} (PR #348 by
+      (PR \ghpr{342} by Florian) 
+      \item Correct character vector conversion from single char (PR \ghpr{344} by
+      Florian fixing issue \ghit{343})
+      \item Correct on use of \code{R_xlen_t} back to \code{size_t} (PR \ghpr{348} by
       Romain)
-      \item Correct subsetting code to allow for single assignment (PR #349 by
+      \item Correct subsetting code to allow for single assignment (PR \ghpr{349} by
       Florian)
-      \item Enable subset assignment on left and righ-hand side (PR #353 by
-      Qiang, fixing issue #345)
-      \item Refreshed to included \code{tinyformat} template library (PR #357 by
-      Dirk, issue #356)
-      \item Add \code{operator<<()} for vectors and matrices (PR #361 by Dan
-      fixing issue #239)
+      \item Enable subset assignment on left and righ-hand side (PR \ghpr{353} by
+      Qiang, fixing issue \ghit{345})
+      \item Refreshed to included \code{tinyformat} template library (PR \ghpr{357} by
+      Dirk, issue \ghit{356})
+      \item Add \code{operator<<()} for vectors and matrices (PR \ghpr{361} by Dan
+      fixing issue \ghit{239})
       \item Make \code{String} and \code{String_Proxy} objects comparable (PR
-      #366 and PR #372 by Dan, fixing issue #191)
+      \ghpr{366} and PR \ghpr{372} by Dan, fixing issue \ghit{191})
       \item Add a new class \code{Nullable} for objects which may be \code{NULL}
-      (PR #368 by Dirk and Dan, fixing issue #363)
-      \item Correct creation and access of large matrices (PR #370 by Florian,
-      fixing issue #369)
+      (PR \ghpr{368} by Dirk and Dan, fixing issue \ghit{363})
+      \item Correct creation and access of large matrices (PR \ghpr{370} by Florian,
+      fixing issue \ghit{369})
     }
     \item Changes in Rcpp Attributes:
     \itemize{
       \item Correctly reset directory in case of no-rebuilding but Windows code
-      (PR #335 by Dirk)
+      (PR \ghpr{335} by Dirk)
     }
     \item Changes in Rcpp Modules:
     \itemize{
       \item We no longer define multiple Modules objects named \code{World} in
       the unit tests with was seen to have a bad effect with R 3.2.2 or later
-      (PR #351 by Dirk fixing issue #350).
+      (PR \ghpr{351} by Dirk fixing issue \ghit{350}).
       \item Applied patch by Kurt Hornik which improves how Rcpp loads Modules
-      (PR #353 by Dirk)
+      (PR \ghpr{353} by Dirk)
     }
     \item Changes in Rcpp Documentation:
     \itemize{
@@ -72,21 +76,21 @@
       through \code{suppressMessages()}) were not properly respected.
       \item All internal length variables have been changed from \code{R_len_t}
       to \code{R_xlen_t} to support vectors longer than 2^31-1 elements (via 
-      pull request 303 by Qiang Kou).
+      PR \ghpr{303} by Qiang Kou).
       \item The sugar function \code{sapply} now supports lambda functions
-      (addressing issue 213 thanks to Matt Dziubinski)
+      (addressing \ghit{213} thanks to Matt Dziubinski)
       \item The \code{var} sugar function now uses a more robust two-pass
-      method, supports complex numbers, with new unit tests added (via pull
-      request 320 by Matt Dziubinski) 
-      \item \code{String} constructors now allow encodings (via pull request 310
+      method, supports complex numbers, with new unit tests added (via PR
+      \ghpr{320} by Matt Dziubinski) 
+      \item \code{String} constructors now allow encodings (via PR \ghpr{310}
       by Qiang Kou)
       \item \code{String} objects are preserving the underlying \code{SEXP}
-      objects better, and are more careful about initializations (via pull
-      requests 322 and 329 by Qiang Kou)
-      \item DataFrame constructors are now a little more careful (via pull
-      request 301 by Romain Francois)
+      objects better, and are more careful about initializations (via PRs
+      \ghpr{322} and \ghpr{329} by Qiang Kou)
+      \item DataFrame constructors are now a little more careful (via PR
+      \ghpr{301} by Romain Francois)
       \item For R 3.2.0 or newer, \code{Rf_installChar()} is used instead of
-      \code{Rf_install(CHAR())} (via pull request 332). 
+      \code{Rf_install(CHAR())} (via PR \ghpr{332}). 
     }
     \item Changes in Rcpp Attributes:
     \itemize{
@@ -100,7 +104,7 @@
     \item Changes in Rcpp Documentation:
     \itemize{
       \item The \code{Rcpp-FAQ} vignette was once again updated with respect to
-      OS X issues and Fortran libraries needed for e.g. \cpkg{RcppArmadillo}.
+      OS X issues and Fortran libraries needed for e.g. \CRANpkg{RcppArmadillo}.
       \item The included \code{Rcpp.bib} bibtex file (which is also used by
       other Rcpp* packages) was updated with respect to its CRAN references.
     }
@@ -280,15 +284,15 @@
     \item Changes in Rcpp support functions:
     \itemize{
       \item The \code{Rcpp.package.skeleton()} function will now use
-      \cpkg{pkgKitten} package, if available, to create a package which passes
+      \CRANpkg{pkgKitten} package, if available, to create a package which passes
       \code{R CMD check} without warnings. A new \code{Suggests:} has been added
-      for \cpkg{pkgKitten}.
+      for \CRANpkg{pkgKitten}.
       \item The \code{modules=TRUE} case for \code{Rcpp.package.skeleton()} has
       been improved and now runs without complaints from \code{R CMD check} as well.
     }
     \item Changes in Rcpp unit test functions:
     \itemize{
-      \item Functions from the \cpkg{RUnit} package are now prefixed with \code{RUnit::}
+      \item Functions from the \CRANpkg{RUnit} package are now prefixed with \code{RUnit::}
       \item The \code{testRcppModule} and \code{testRcppClass} sample packages
       now pass \code{R CMD check --as-cran} cleanly with NOTES or WARNINGS
     }
@@ -331,7 +335,7 @@
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
-      \item Preserve backwards compatibility with \cpkg{Rcpp} 0.10.* by
+      \item Preserve backwards compatibility with \CRANpkg{Rcpp} 0.10.* by
       allowing \code{RObject} extraction from vectors (or lists) of Rcpp
       objects
       \item Add missing default constructor to Reference class that was
@@ -382,7 +386,7 @@
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
-      \item Functions provided/used by \cpkg{Rcpp} are now registered
+      \item Functions provided/used by \CRANpkg{Rcpp} are now registered
       with R and instantiated by client package alleviating the new for
       explicit linking against \code{libRcpp} which is therefore no
       longer created.
@@ -421,7 +425,7 @@
     \item Changes in Rcpp unit tests:
     \itemize{
       \item The file \code{tests/doRUnit.R} was rewritten following the
-      pattern deployed in \cpkg{RProtoBuf} which is due to Murray Stokely
+      pattern deployed in \CRANpkg{RProtoBuf} which is due to Murray Stokely
       \item The function \code{test()} was rewritten; it provides an
       easy entry point to running unit tests of the installed package
     }

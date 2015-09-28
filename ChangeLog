@@ -1,5 +1,7 @@
 2015-09-28  Dirk Eddelbuettel  <edd@debian.org>
 
+        * inst/NEWS.Rd: GitHub pull requests and issues are now linked
+
         * src/barrier.cpp: Use SET_STRING_ELT() on LHS (with thanks to Luke)
 
 2015-09-21  Dirk Eddelbuettel  <edd@debian.org>
