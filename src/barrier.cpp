@@ -40,12 +40,12 @@ const char* char_get_string_elt(SEXP x, int i) {
 
 // [[Rcpp::register]]
 void set_string_elt(SEXP x, int i, SEXP value) {
-    STRING_ELT(x, i) = value;
+    SET_STRING_ELT(x, i, value);
 }
 
 // [[Rcpp::register]]
 void char_set_string_elt(SEXP x, int i, const char* value) {
-    STRING_ELT(x, i) = Rf_mkChar(value);
+    SET_STRING_ELT(x, i, Rf_mkChar(value));
 }
 
 // [[Rcpp::register]]

@@ -7,7 +7,9 @@
     \item Changes in Rcpp API:
     \itemize{
       \item Before creating a single String object from a \code{SEXP}, ensure
-      that it is from a vector of length one (issue #375)
+      that it is from a vector of length one (issue #375).
+      \item No longer use \code{STRING_ELT} as left-hand side, thanks to a
+      heads-up by Luke Tierney (issue #377).
     }
   }
 }
