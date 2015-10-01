@@ -12,6 +12,10 @@
       \item No longer use \code{STRING_ELT} as left-hand side, thanks to a
       heads-up by Luke Tierney (PR \ghpr{378} fixing \ghit{377}).
     }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Enable export of C++ interface for functions that return void.
+    }
     \item Changes in Rcpp Documentation:
     \itemize{
       \item The \code{NEWS} file now links to GitHub issue tickets and pull

@@ -2035,9 +2035,11 @@ namespace attributes {
                        << "            throw Rcpp::exception(as<std::string>("
                        << "__result).c_str());"
                        << std::endl;
-                ostr() << "        return Rcpp::as<" << function.type() << " >"
-                       << "(__result);" << std::endl;
-
+                if (!function.type().isVoid()) {
+                    ostr() << "        return Rcpp::as<" << function.type() << " >"
+                           << "(__result);" << std::endl;
+                }
+                
                 ostr() << "    }" << std::endl << std::endl;
             }
         }

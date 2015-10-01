@@ -1,3 +1,8 @@
+2015-10-01  JJ Allaire <jj@rstudio.org>
+
+        * src/attributes.cpp: Enable export of C++ interface for 
+        functions that return void
+
 2015-09-28  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/NEWS.Rd: GitHub pull requests and issues are now linked
