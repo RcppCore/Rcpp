@@ -150,10 +150,13 @@ namespace Rcpp {
 
     inline bool is_module_object_internal(SEXP obj, const char* clazz){
         Environment env(obj);
-        XPtr<class_Base> xp( env.get(".cppclass"));
+        SEXP sexp = env.get(".cppclass");
+        if (TYPEOF(sexp) != EXTPTRSXP) return false;
+        XPtr<class_Base> xp(sexp);
         return xp->has_typeinfo_name(clazz);
     }
     template <typename T> bool is__module__object(SEXP x) {
+        if (!is__simple<S4>(x)) return false;
         typedef typename Rcpp::traits::un_pointer<T>::type CLASS;
         return is_module_object_internal(x, typeid(CLASS).name());
     }
