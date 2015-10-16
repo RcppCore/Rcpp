@@ -1,7 +1,12 @@
+2015-10-08  Tianqi Chen <tianqi.tchen@gmail.com>
+
+        * inst/include/Rcpp/api/meat/is.h: Enhance the check for Rcpp Module
+        objects (PR #381 fixing #380)
+
 2015-10-01  JJ Allaire <jj@rstudio.org>
 
-        * src/attributes.cpp: Enable export of C++ interface for 
-        functions that return void
+        * src/attributes.cpp: Enable export of C++ interface for functions that
+        return void
 
 2015-09-28  Dirk Eddelbuettel  <edd@debian.org>
 

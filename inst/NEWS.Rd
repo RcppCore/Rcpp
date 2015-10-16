@@ -1,7 +1,7 @@
 \name{NEWS}
 \title{News for Package 'Rcpp'}
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
-\newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issue/#1}{##1}}
+\newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
 \section{Changes in Rcpp version 0.12.2 (expected 2015-11-01 or later)}{
   \itemize{
@@ -11,6 +11,8 @@
       that it is from a vector of length one (PR \ghpr{376} fixing \ghit{375}).
       \item No longer use \code{STRING_ELT} as left-hand side, thanks to a
       heads-up by Luke Tierney (PR \ghpr{378} fixing \ghit{377}).
+      \item Rcpp Module objects are now checked more carefully (PR \ghpr{381}
+      by Tianqi, fixing \ghit{380})
     }
     \item Changes in Rcpp Attributes:
     \itemize{
