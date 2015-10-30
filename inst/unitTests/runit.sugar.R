@@ -714,5 +714,67 @@ if (.runThisTest) {
         checkEquals(mean(v1), meanLogical(v1), "mean of logical vector")
         checkEquals(mean(v2), meanLogical(v2), "mean of logical vector with NA")
     }
+    
+    
+    ## 30 Oct 2015: cumprod, cummin, cummax
+    # base::cumprod defined for numeric, integer, and complex vectors
+    test.sugar.cumprod_nv <- function() {
+        fx <- runit_cumprod_nv
+        x <- rnorm(10)
+        checkEquals(fx(x), cumprod(x))
+        x[4] <- NA
+        checkEquals(fx(x), cumprod(x))
+    }
+    
+    test.sugar.cumprod_iv <- function() {
+        fx <- runit_cumprod_iv
+        x <- as.integer(rpois(10, 5))
+        checkEquals(fx(x), cumprod(x))
+        x[4] <- NA
+        checkEquals(fx(x), cumprod(x))
+    }
+    
+    test.sugar.cumprod_cv <- function() {
+        fx <- runit_cumprod_cv
+        x <- rnorm(10) + 2i
+        checkEquals(fx(x), cumprod(x))
+        x[4] <- NA
+        checkEquals(fx(x), cumprod(x))
+    }
+    
+    # base::cummin defined for numeric and integer vectors
+    test.sugar.cummin_nv <- function() {
+        fx <- runit_cummin_nv
+        x <- rnorm(10)
+        checkEquals(fx(x), cummin(x))
+        x[4] <- NA
+        checkEquals(fx(x), cummin(x))
+    }
+    
+    test.sugar.cummin_iv <- function() {
+        fx <- runit_cummin_iv
+        x <- as.integer(rpois(10, 5))
+        checkEquals(fx(x), cummin(x))
+        x[4] <- NA
+        checkEquals(fx(x), cummin(x))
+    }
+    
+    # base::cummax defined for numeric and integer vectors
+    test.sugar.cummax_nv <- function() {
+        fx <- runit_cummax_nv
+        x <- rnorm(10)
+        checkEquals(fx(x), cummax(x))
+        x[4] <- NA
+        checkEquals(fx(x), cummax(x))
+    }
+    
+    test.sugar.cummax_iv <- function() {
+        fx <- runit_cummax_iv
+        x <- as.integer(rpois(10, 5))
+        checkEquals(fx(x), cummax(x))
+        x[4] <- NA
+        checkEquals(fx(x), cummax(x))
+    }
 
 }
+
