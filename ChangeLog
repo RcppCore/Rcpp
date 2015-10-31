@@ -1,3 +1,11 @@
+2015-10-30  Nathan Russell <russell.nr2012@gmail.com>
+
+        * inst/include/Rcpp/sugar/functions/cummax.h: New sugar function
+        * inst/include/Rcpp/sugar/functions/cummin.h: New sugar function
+        * inst/include/Rcpp/sugar/functions/cumprod.h: New sugar function
+        * inst/unitTests/cpp/sugar.cpp: Unit test support for new functions
+        * inst/unitTests/runit.sugar.R: Ditto
+
 2015-10-08  Tianqi Chen <tianqi.tchen@gmail.com>
 
         * inst/include/Rcpp/api/meat/is.h: Enhance the check for Rcpp Module

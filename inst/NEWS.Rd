@@ -18,6 +18,11 @@
     \itemize{
       \item Enable export of C++ interface for functions that return void.
     }
+    \item Changes in Rcpp Sugar:
+    \itemize{
+      \item Added new Sugar function \code{cummin()}, \code{cummax()},
+      \code{cumprod()} (PR \ghpr{389} by Nathan Russell fixing \ghit{388})
+    }
     \item Changes in Rcpp Documentation:
     \itemize{
       \item The \code{NEWS} file now links to GitHub issue tickets and pull
