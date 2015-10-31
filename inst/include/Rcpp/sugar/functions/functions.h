@@ -76,4 +76,9 @@
 
 #include <Rcpp/sugar/functions/strings/strings.h>
 
+#include <Rcpp/sugar/functions/cumprod.h>
+#include <Rcpp/sugar/functions/cummin.h>
+#include <Rcpp/sugar/functions/cummax.h>
+
 #endif
+

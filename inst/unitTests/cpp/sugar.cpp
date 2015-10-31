@@ -670,3 +670,49 @@ double meanLogical(Rcpp::LogicalVector x) { return(Rcpp::mean(x)); }
 // [[Rcpp::export]]
 Rcomplex meanComplex(Rcpp::ComplexVector x) { return(Rcpp::mean(x)); }
 
+
+// 30 Oct 2015: cumprod, cummin, cummax
+
+// [[Rcpp::export]]
+NumericVector runit_cumprod_nv(NumericVector xx){
+    NumericVector res = cumprod(xx) ;
+    return res ;
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_cumprod_iv(IntegerVector xx){
+    IntegerVector res = cumprod(xx) ;
+    return res ;
+}
+
+// [[Rcpp::export]]
+ComplexVector runit_cumprod_cv(ComplexVector xx){
+    ComplexVector res = cumprod(xx) ;
+    return res ;
+}
+
+// [[Rcpp::export]]
+NumericVector runit_cummin_nv(NumericVector xx){
+    NumericVector res = cummin(xx) ;
+    return res ;
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_cummin_iv(IntegerVector xx){
+    IntegerVector res = cummin(xx) ;
+    return res ;
+}
+
+// [[Rcpp::export]]
+NumericVector runit_cummax_nv(NumericVector xx){
+    NumericVector res = cummax(xx) ;
+    return res ;
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_cummax_iv(IntegerVector xx){
+    IntegerVector res = cummax(xx) ;
+    return res ;
+}
+
+
