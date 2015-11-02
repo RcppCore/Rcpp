@@ -36,16 +36,16 @@ public:
 
     MatrixColumn( MATRIX& parent, int i ) :
         n(parent.nrow()),
-        start(parent.begin() + i * n ),
-        const_start(const_cast<const MATRIX&>(parent).begin() + i *n)
+        start(parent.begin() + static_cast<R_xlen_t>(i) * n ),
+        const_start(const_cast<const MATRIX&>(parent).begin() + static_cast<R_xlen_t>(i) * n)
     {
         if( i < 0 || i >= parent.ncol() ) throw index_out_of_bounds() ;
     }
 
     MatrixColumn( const MATRIX& parent, int i ) :
         n(parent.nrow()),
-        start( const_cast<MATRIX&>(parent).begin() + i * n ),
-        const_start(parent.begin() + i *n)
+        start( const_cast<MATRIX&>(parent).begin() + static_cast<R_xlen_t>(i) * n ),
+        const_start(parent.begin() + static_cast<R_xlen_t>(i) * n)
     {
         if( i < 0 || i >= parent.ncol() ) throw index_out_of_bounds() ;
     }
