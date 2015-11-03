@@ -1,3 +1,7 @@
+2015-11-01  Qiang Kou <qkou@umail.iu.edu>
+
+        * inst/include/Rcpp/vector/MatrixColumn.h: Fix overflow
+
 2015-11-01  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Roll Version: to 0.12.1.4

@@ -13,6 +13,8 @@
       heads-up by Luke Tierney (PR \ghpr{378} fixing \ghit{377}).
       \item Rcpp Module objects are now checked more carefully (PR \ghpr{381}
       by Tianqi, fixing \ghit{380})
+      \item An overflow in Matrix column indexing was corrected (PR \ghpr{390}
+      by Qiang, fixing a bug reported by Allessandro on the list)
     }
     \item Changes in Rcpp Attributes:
     \itemize{
