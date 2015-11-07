@@ -24,6 +24,8 @@
     \itemize{
       \item Added new Sugar function \code{cummin()}, \code{cummax()},
       \code{cumprod()} (PR \ghpr{389} by Nathan Russell fixing \ghit{388})
+      \item Enabled sugar math operations for subsets; e.g. x[y] + x[z].
+      (PR \ghpr{393}, implementing \ghit{392})
     }
     \item Changes in Rcpp Documentation:
     \itemize{

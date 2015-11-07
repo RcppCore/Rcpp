@@ -102,3 +102,10 @@ NumericVector subset_assign_vector_size_1(NumericVector x, int i) {
     return x;
 }
 
+// [[Rcpp::export]]
+NumericVector subset_sugar_add(NumericVector x, IntegerVector y)
+{
+    NumericVector result = x[y] + x[y];
+    return result;
+}
+
