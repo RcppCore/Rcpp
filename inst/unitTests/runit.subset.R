@@ -86,6 +86,10 @@ if (.runThisTest) {
         checkException(subset_assign_subset5(1:6), msg = "index error")
 
         checkIdentical(subset_assign_vector_size_1(1:6,7), c(7,7,7,4,5,6))
+
+        x <- rnorm(10)
+        y <- sample(10, 5)
+        checkIdentical(subset_sugar_add(x, y - 1L), x[y] + x[y])
     }
 
 }

@@ -226,6 +226,34 @@ private:
     // because of the above, we keep track of the size
     int indices_n;
 
+public:
+
+#define RCPP_GENERATE_SUBSET_PROXY_OPERATOR(__OPERATOR__)                             \
+    template <int RTYPE_OTHER, template <class> class StoragePolicyOther,             \
+              int RHS_RTYPE_OTHER, bool RHS_NA_OTHER, typename RHS_T_OTHER>           \
+    Vector<RTYPE, StoragePolicy> operator __OPERATOR__ (                              \
+        const SubsetProxy<RTYPE_OTHER, StoragePolicyOther, RHS_RTYPE_OTHER,           \
+                          RHS_NA_OTHER, RHS_T_OTHER>& other) {                        \
+        Vector<RTYPE, StoragePolicy> result(indices_n);                               \
+        if (other.indices_n == 1) {                                                   \
+            for (int i = 0; i < indices_n; ++i)                                       \
+                result[i] = lhs[indices[i]] __OPERATOR__ other.lhs[other.indices[0]]; \
+        } else if (indices_n == other.indices_n) {                                    \
+            for (int i = 0; i < indices_n; ++i)                                       \
+                result[i] = lhs[indices[i]] __OPERATOR__ other.lhs[other.indices[i]]; \
+        } else {                                                                      \
+            stop("index error");                                                      \
+        }                                                                             \
+        return result;                                                                \
+    }
+
+RCPP_GENERATE_SUBSET_PROXY_OPERATOR(+)
+RCPP_GENERATE_SUBSET_PROXY_OPERATOR(-)
+RCPP_GENERATE_SUBSET_PROXY_OPERATOR(*)
+RCPP_GENERATE_SUBSET_PROXY_OPERATOR(/)
+
+#undef RCPP_GENERATE_SUBSET_PROXY_OPERATOR
+
 };
 
 }

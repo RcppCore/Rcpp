@@ -4,6 +4,7 @@ src/*.o
 src/*.so
 src/*.dll
 .Rhistory
+.RData
 
 ## QtCreator
 Rcpp.pro

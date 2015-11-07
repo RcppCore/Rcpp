@@ -1,3 +1,10 @@
+2015-11-06  Kevin Ushey <kevinushey@gmailcom>
+
+        * inst/include/Rcpp/vector/Subsetter.h: Add sugar math operators
+        * inst/unitTests/runit.subset.R: Unit tests
+        * inst/unitTests/cpp/Subset.cpp: Unit tests
+        * inst/NEWS.Rd: NEWS entry
+
 2015-11-01  Qiang Kou <qkou@umail.iu.edu>
 
         * inst/include/Rcpp/vector/MatrixColumn.h: Fix overflow
