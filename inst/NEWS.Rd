@@ -17,6 +17,8 @@
       by Qiang, fixing a bug reported by Allessandro on the list)
       \item Matrix classes now have a \code{transpose()} function (fixing
       \ghit{383}) 
+      \item \code{Nullable} types can now be assigned \code{R_NilValue} in
+      function signatures. (PR \ghpr{395} by Dan, fixing issue \ghit{394})
     }
     \item Changes in Rcpp Attributes:
     \itemize{

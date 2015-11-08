@@ -1,3 +1,8 @@
+2015-11-08  Daniel C. Dillon  <dcdillon@gmail.com>
+
+        * inst/include/Rcpp/Nullable.h: No longer prevent assignment of
+        R_NilValue to Nullable<> in function signatures
+
 2015-11-07  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/vector/Matrix.h (Rcpp): Beginnings of a Matrix
