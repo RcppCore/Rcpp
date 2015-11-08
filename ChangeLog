@@ -1,3 +1,8 @@
+2015-11-08  Daniel C. Dillon  <dcdillon@gmail.com>
+
+        * inst/include/Rcpp/Nullable.h: No longer prevent assignment of
+        R_NilValue to Nullable<> in function signatures
+
 2015-11-06  Kevin Ushey <kevinushey@gmailcom>
 
         * inst/include/Rcpp/vector/Subsetter.h: Add sugar math operators
