@@ -226,11 +226,11 @@ inline std::ostream &operator<<(std::ostream & s, const Matrix<REALSXP, StorageP
         typename MATRIX::Row::iterator jend = row.end();
 
         if (j != jend) {
-            s << std::setw(precision + 1) << (*j);
+            s << std::showpoint << std::setw(precision + 1) << (*j);
             j++;
 
             for ( ; j != jend; j++) {
-                s << " " << std::setw(precision + 1) << (*j);
+                s << " " << std::showpoint << std::setw(precision + 1) << (*j);
             }
         }
 
