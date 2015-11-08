@@ -161,37 +161,6 @@ public:
       return Sub( const_cast<Matrix&>(*this), row_range, Range(0,ncol()-1) ) ;
     }
 
-    Matrix transpose() {
-        typedef Vector<CHARSXP, StoragePolicy> CHARVECTOR;
-        int nrow = VECTOR::dims()[0], ncol = VECTOR::dims()[1];
-        R_xlen_t len = XLENGTH(*this);
-
-        Matrix r(Dimension(ncol, nrow));
-        R_xlen_t i, j, l_1 = len-1;
-
-        // similar approach as in R: fill by in column, "accessing row-wise"
-        VECTOR s = VECTOR(r.get__());
-        for (i = 0, j = 0; i < len; i++, j += nrow) {
-            if (j > l_1) j -= l_1;
-            s[i] = (*this)[j];
-        }
-
-        Rf_copyMostAttrib((*this), r);
-
-        // there must be a simpler, more C++-ish way for this ...
-        SEXP rnames = internal::DimNameProxy((*this), 0);
-        SEXP cnames = internal::DimNameProxy((*this), 1);
-        SEXP dimnames;
-        PROTECT(dimnames = Rf_allocVector(VECSXP, 2));
-        SET_VECTOR_ELT(dimnames, 0, cnames);
-        SET_VECTOR_ELT(dimnames, 1, rnames);
-        // do we need dimnamesnames ?
-        Rf_setAttrib(r, R_DimNamesSymbol, dimnames);
-        UNPROTECT(1); /* dimnames */
-
-        return r;
-    }
-
 private:
     inline R_xlen_t offset(const int i, const int j) const { return i + static_cast<R_xlen_t>(nrows) * j ; }
 
@@ -390,6 +359,73 @@ inline std::ostream &operator<<(std::ostream & s, const Matrix<RTYPE, StoragePol
 
     return s;
 }
+
+template<template <class> class StoragePolicy>
+Matrix<REALSXP, StoragePolicy> transpose(const Matrix<REALSXP, StoragePolicy> & x) {
+    typedef Matrix<REALSXP, StoragePolicy> MATRIX;
+    typedef Vector<REALSXP, StoragePolicy> VECTOR;
+
+    Vector<INTSXP, StoragePolicy> dims = ::Rf_getAttrib(x, R_DimSymbol);
+    int nrow = dims[0], ncol = dims[1];
+    MATRIX r(Dimension(ncol, nrow)); 	// new Matrix with reversed dimension
+    R_xlen_t len = XLENGTH(x), l_1 = XLENGTH(x)-1;
+
+    // similar approach as in R: fill by in column, "accessing row-wise"
+    VECTOR s = VECTOR(r.get__());
+    for (R_xlen_t i = 0, j = 0; i < len; i++, j += nrow) {
+        if (j > l_1) j -= l_1;
+        s[i] = x[j];
+    }
+    //Rf_copyMostAttrib((*this), r);
+
+    // there must be a simpler, more C++-ish way for this ...
+    SEXP rnames = internal::DimNameProxy(x, 0);
+    SEXP cnames = internal::DimNameProxy(x, 1);
+    if (!Rf_isNull(rnames) || !Rf_isNull(cnames)) {
+        SEXP dimnames;
+        PROTECT(dimnames = Rf_allocVector(VECSXP, 2));
+        SET_VECTOR_ELT(dimnames, 0, cnames);
+        SET_VECTOR_ELT(dimnames, 1, rnames);
+        // do we need dimnamesnames ?
+        Rf_setAttrib(r, R_DimNamesSymbol, dimnames);
+        UNPROTECT(1); /* dimnames */
+    }
+    return r;
+}
+
+template<template <class> class StoragePolicy>
+Matrix<INTSXP, StoragePolicy> transpose(const Matrix<INTSXP, StoragePolicy> & x) {
+    typedef Matrix<INTSXP, StoragePolicy> MATRIX;
+    typedef Vector<INTSXP, StoragePolicy> VECTOR;
+
+    Vector<INTSXP, StoragePolicy> dims = ::Rf_getAttrib(x, R_DimSymbol);
+    int nrow = dims[0], ncol = dims[1];
+    MATRIX r(Dimension(ncol, nrow)); 	// new Matrix with reversed dimension
+    R_xlen_t len = XLENGTH(x), l_1 = XLENGTH(x)-1;
+
+    // similar approach as in R: fill by in column, "accessing row-wise"
+    VECTOR s = VECTOR(r.get__());
+    for (R_xlen_t i = 0, j = 0; i < len; i++, j += nrow) {
+        if (j > l_1) j -= l_1;
+        s[i] = x[j];
+    }
+    //Rf_copyMostAttrib((*this), r);
+
+    // there must be a simpler, more C++-ish way for this ...
+    SEXP rnames = internal::DimNameProxy(x, 0);
+    SEXP cnames = internal::DimNameProxy(x, 1);
+    if (!Rf_isNull(rnames) || !Rf_isNull(cnames)) {
+        SEXP dimnames;
+        PROTECT(dimnames = Rf_allocVector(VECSXP, 2));
+        SET_VECTOR_ELT(dimnames, 0, cnames);
+        SET_VECTOR_ELT(dimnames, 1, rnames);
+        // do we need dimnamesnames ?
+        Rf_setAttrib(r, R_DimNamesSymbol, dimnames);
+        UNPROTECT(1); /* dimnames */
+    }
+    return r;
+}
+
 
 }
 

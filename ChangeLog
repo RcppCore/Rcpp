@@ -1,3 +1,8 @@
+2015-11-08  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/vector/Matrix.h (Rcpp): Matrix transpose is now a
+        free function for both INTSXP and REALSXP
+
 2015-11-08  Daniel C. Dillon  <dcdillon@gmail.com>
 
         * inst/include/Rcpp/Nullable.h: No longer prevent assignment of
