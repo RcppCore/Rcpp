@@ -1,3 +1,8 @@
+2015-11-07  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/vector/Matrix.h (Rcpp): Beginnings of a Matrix
+        transpose operator
+
 2015-11-06  Kevin Ushey <kevinushey@gmailcom>
 
         * inst/include/Rcpp/vector/Subsetter.h: Add sugar math operators

@@ -15,6 +15,8 @@
       by Tianqi, fixing \ghit{380})
       \item An overflow in Matrix column indexing was corrected (PR \ghpr{390}
       by Qiang, fixing a bug reported by Allessandro on the list)
+      \item Matrix classes now have a \code{transpose()} function (fixing
+      \ghit{383}) 
     }
     \item Changes in Rcpp Attributes:
     \itemize{
