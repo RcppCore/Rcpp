@@ -31,13 +31,6 @@ namespace Rcpp {
 
     template<class T>
     class Nullable {
-    private:
-        template<class U>
-        friend class InputParameter;
-
-        template<class U>
-        friend class traits::Exporter;
-
     public:
 
         /**
@@ -54,8 +47,6 @@ namespace Rcpp {
          */
 
         inline Nullable(const T &t) : m_sexp(t),  m_set(true) {}
-
-    protected:
 
         /**
          * Standard constructor of a Nullable object
