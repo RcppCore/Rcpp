@@ -19,6 +19,8 @@
       \ghit{383}) 
       \item \code{Nullable} types can now be assigned \code{R_NilValue} in
       function signatures. (PR \ghpr{395} by Dan, fixing issue \ghit{394})
+      \item \code{operator<<()} now always shows decimal points (PR \ghpr{396}
+      by Dan) 
     }
     \item Changes in Rcpp Attributes:
     \itemize{

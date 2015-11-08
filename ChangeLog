@@ -1,7 +1,7 @@
 2015-11-08  Dirk Eddelbuettel  <edd@debian.org>
 
-        * inst/include/Rcpp/vector/Matrix.h (Rcpp): Matrix transpose is now a
-        free function for both INTSXP and REALSXP
+        * inst/include/Rcpp/vector/Matrix.h: Matrix transpose is now a free
+        function for both INTSXP and REALSXP
 
         * inst/unitTests/runit.Matrix.R: New unit tests
         * inst/unitTests/cpp/Matrix.cpp: Ditto
@@ -11,10 +11,11 @@
         * inst/include/Rcpp/Nullable.h: No longer prevent assignment of
         R_NilValue to Nullable<> in function signatures
 
+        * inst/include/Rcpp/vector/Matrix.h: Use showpoint in operator<<()
+
 2015-11-07  Dirk Eddelbuettel  <edd@debian.org>
 
-        * inst/include/Rcpp/vector/Matrix.h (Rcpp): Beginnings of a Matrix
-        transpose operator
+        * inst/include/Rcpp/vector/Matrix.h: Beginnings of a Matrix transpose
 
 2015-11-06  Kevin Ushey <kevinushey@gmailcom>
 
