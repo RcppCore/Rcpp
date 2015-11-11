@@ -1,3 +1,7 @@
+2015-11-11  Qiang Kou <qkou@umail.iu.edu>
+
+        * include/Rcpp/complex.h: operator<< for Rcomplex
+
 2015-11-10  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/vector/Matrix.h: Added transpose for character

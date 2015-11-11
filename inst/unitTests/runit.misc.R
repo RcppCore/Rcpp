@@ -118,6 +118,23 @@ if (.runThisTest) {
         checkEquals( readLines(rcppfile), readLines(rfile), msg="Rcout output")    
     }
 
+    test.rcout.complex <- function(){
+
+        rcppfile <- tempfile()
+        rfile <- tempfile()
+        
+        z <- complex(real=sample(1:10, 1), imaginary=sample(1:10, 1))
+        
+        ## write to test_rcpp.txt from Rcpp
+        test_rcout_rcomplex(rcppfile,  z )
+        
+        ## write to test_r.txt from R
+        cat( z, file=rfile, sep='\n' )
+        
+        ## compare whether the two files have the same data
+        checkEquals( readLines(rcppfile), readLines(rfile), msg="Rcout Rcomplex")    
+    }
+
     test.na_proxy <- function(){
         checkEquals( 
             na_proxy(), 

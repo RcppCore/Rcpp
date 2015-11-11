@@ -65,4 +65,8 @@ inline bool operator==( const Rcomplex& a, const Rcomplex& b){
     return a.r == b.r && a.i == b.i ;
 }
 
+inline std::ostream & operator<<(std::ostream &os, const Rcomplex& cplx ){
+    return os << cplx.r << "+" << cplx.i << "i" ;
+}
+
 #endif
