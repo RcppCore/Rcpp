@@ -1,3 +1,11 @@
+2015-11-10  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/vector/Matrix.h: Added transpose for character
+        matrices as well
+
+        * inst/unitTests/runit.Matrix.R: New unit tests
+        * inst/unitTests/cpp/Matrix.cpp: Ditto
+
 2015-11-08  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/vector/Matrix.h: Matrix transpose is now a free

@@ -2,7 +2,7 @@
 //
 // Matrix.h: Rcpp R/C++ interface class library -- matrices
 //
-// Copyright (C) 2010 - 2014 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2015  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -376,7 +376,6 @@ Matrix<REALSXP, StoragePolicy> transpose(const Matrix<REALSXP, StoragePolicy> & 
         if (j > l_1) j -= l_1;
         s[i] = x[j];
     }
-    //Rf_copyMostAttrib((*this), r);
 
     // there must be a simpler, more C++-ish way for this ...
     SEXP rnames = internal::DimNameProxy(x, 0);
@@ -409,7 +408,6 @@ Matrix<INTSXP, StoragePolicy> transpose(const Matrix<INTSXP, StoragePolicy> & x)
         if (j > l_1) j -= l_1;
         s[i] = x[j];
     }
-    //Rf_copyMostAttrib((*this), r);
 
     // there must be a simpler, more C++-ish way for this ...
     SEXP rnames = internal::DimNameProxy(x, 0);
@@ -426,6 +424,37 @@ Matrix<INTSXP, StoragePolicy> transpose(const Matrix<INTSXP, StoragePolicy> & x)
     return r;
 }
 
+template<template <class> class StoragePolicy>
+Matrix<STRSXP, StoragePolicy> transpose(const Matrix<STRSXP, StoragePolicy> & x) {
+    typedef Matrix<STRSXP, StoragePolicy> MATRIX;
+    typedef Vector<STRSXP, StoragePolicy> VECTOR;
+
+    Vector<INTSXP, StoragePolicy> dims = ::Rf_getAttrib(x, R_DimSymbol);
+    int nrow = dims[0], ncol = dims[1];
+    MATRIX r(Dimension(ncol, nrow)); 	// new Matrix with reversed dimension
+    R_xlen_t len = XLENGTH(x), l_1 = XLENGTH(x)-1;
+
+    // similar approach as in R: fill by in column, "accessing row-wise"
+    VECTOR s = VECTOR(r.get__());
+    for (R_xlen_t i = 0, j = 0; i < len; i++, j += nrow) {
+        if (j > l_1) j -= l_1;
+        s[i] = x[j];
+    }
+
+    // there must be a simpler, more C++-ish way for this ...
+    SEXP rnames = internal::DimNameProxy(x, 0);
+    SEXP cnames = internal::DimNameProxy(x, 1);
+    if (!Rf_isNull(rnames) || !Rf_isNull(cnames)) {
+        SEXP dimnames;
+        PROTECT(dimnames = Rf_allocVector(VECSXP, 2));
+        SET_VECTOR_ELT(dimnames, 0, cnames);
+        SET_VECTOR_ELT(dimnames, 1, rnames);
+        // do we need dimnamesnames ?
+        Rf_setAttrib(r, R_DimNamesSymbol, dimnames);
+        UNPROTECT(1); /* dimnames */
+    }
+    return r;
+}
 
 }
 

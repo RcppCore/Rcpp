@@ -253,3 +253,8 @@ IntegerMatrix transposeInteger(const IntegerMatrix & x) {
 NumericMatrix transposeNumeric(const NumericMatrix & x) {
     return transpose(x);
 }
+
+// [[Rcpp::export]]
+CharacterMatrix transposeCharacter(const CharacterMatrix & x) {
+    return transpose(x);
+}
