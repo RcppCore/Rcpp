@@ -108,6 +108,28 @@ void test_rcout(std::string tfile, std::string teststring) {
 }
 
 // [[Rcpp::export]]
+void test_rcout_rcomplex(std::string tfile, SEXP rc) {
+    Rcomplex rx = Rcpp::as<Rcomplex>(rc);
+    // define and open testfile
+    std::ofstream testfile(tfile.c_str());
+
+    // save output buffer of the Rcout stream
+    std::streambuf* Rcout_buffer = Rcout.rdbuf();
+
+    // redirect ouput into testfile
+    Rcout.rdbuf( testfile.rdbuf() );
+
+    // write a test string to the file
+    Rcout << rx << std::endl;
+
+    // restore old output buffer
+    Rcout.rdbuf(Rcout_buffer);
+
+    // close testfile
+    testfile.close();
+}
+
+// [[Rcpp::export]]
 LogicalVector na_proxy() {
     CharacterVector s("foo");
     return LogicalVector::create(
