@@ -360,20 +360,20 @@ inline std::ostream &operator<<(std::ostream & s, const Matrix<RTYPE, StoragePol
     return s;
 }
 
-template<template <class> class StoragePolicy>
-Matrix<REALSXP, StoragePolicy> transpose(const Matrix<REALSXP, StoragePolicy> & x) {
-    typedef Matrix<REALSXP, StoragePolicy> MATRIX;
-    typedef Vector<REALSXP, StoragePolicy> VECTOR;
+template<int RTYPE, template <class> class StoragePolicy >
+Matrix<RTYPE, StoragePolicy> tranpose_impl(const Matrix<RTYPE, StoragePolicy> & x) {
+    typedef Matrix<RTYPE, StoragePolicy> MATRIX;
+    typedef Vector<RTYPE, StoragePolicy> VECTOR;
 
     Vector<INTSXP, StoragePolicy> dims = ::Rf_getAttrib(x, R_DimSymbol);
     int nrow = dims[0], ncol = dims[1];
     MATRIX r(Dimension(ncol, nrow)); 	// new Matrix with reversed dimension
-    R_xlen_t len = XLENGTH(x), l_1 = XLENGTH(x)-1;
+    R_xlen_t len = XLENGTH(x), len2 = XLENGTH(x)-1;
 
     // similar approach as in R: fill by in column, "accessing row-wise"
     VECTOR s = VECTOR(r.get__());
     for (R_xlen_t i = 0, j = 0; i < len; i++, j += nrow) {
-        if (j > l_1) j -= l_1;
+        if (j > len2) j -= len2;
         s[i] = x[j];
     }
 
@@ -387,64 +387,21 @@ Matrix<REALSXP, StoragePolicy> transpose(const Matrix<REALSXP, StoragePolicy> & 
         Rf_setAttrib(r, R_DimNamesSymbol, newDimNames);
     }
     return r;
+}
+
+template<template <class> class StoragePolicy>
+Matrix<REALSXP, StoragePolicy> transpose(const Matrix<REALSXP, StoragePolicy> & x) {
+    return tranpose_impl<REALSXP, StoragePolicy>(x);
 }
 
 template<template <class> class StoragePolicy>
 Matrix<INTSXP, StoragePolicy> transpose(const Matrix<INTSXP, StoragePolicy> & x) {
-    typedef Matrix<INTSXP, StoragePolicy> MATRIX;
-    typedef Vector<INTSXP, StoragePolicy> VECTOR;
-
-    Vector<INTSXP, StoragePolicy> dims = ::Rf_getAttrib(x, R_DimSymbol);
-    int nrow = dims[0], ncol = dims[1];
-    MATRIX r(Dimension(ncol, nrow)); 	// new Matrix with reversed dimension
-    R_xlen_t len = XLENGTH(x), l_1 = XLENGTH(x)-1;
-
-    // similar approach as in R: fill by in column, "accessing row-wise"
-    VECTOR s = VECTOR(r.get__());
-    for (R_xlen_t i = 0, j = 0; i < len; i++, j += nrow) {
-        if (j > l_1) j -= l_1;
-        s[i] = x[j];
-    }
-
-    // there must be a simpler, more C++-ish way for this ...
-    SEXP dimNames = Rf_getAttrib(x, R_DimNamesSymbol);
-    if (!Rf_isNull(dimNames)) {
-        // do we need dimnamesnames ?
-        Shield<SEXP> newDimNames(Rf_allocVector(VECSXP, 2));
-        SET_VECTOR_ELT(newDimNames, 0, VECTOR_ELT(dimNames, 1));
-        SET_VECTOR_ELT(newDimNames, 1, VECTOR_ELT(dimNames, 0));
-        Rf_setAttrib(r, R_DimNamesSymbol, newDimNames);
-    }
-    return r;
+    return tranpose_impl<INTSXP, StoragePolicy>(x);
 }
 
 template<template <class> class StoragePolicy>
 Matrix<STRSXP, StoragePolicy> transpose(const Matrix<STRSXP, StoragePolicy> & x) {
-    typedef Matrix<STRSXP, StoragePolicy> MATRIX;
-    typedef Vector<STRSXP, StoragePolicy> VECTOR;
-
-    Vector<INTSXP, StoragePolicy> dims = ::Rf_getAttrib(x, R_DimSymbol);
-    int nrow = dims[0], ncol = dims[1];
-    MATRIX r(Dimension(ncol, nrow)); 	// new Matrix with reversed dimension
-    R_xlen_t len = XLENGTH(x), l_1 = XLENGTH(x)-1;
-
-    // similar approach as in R: fill by in column, "accessing row-wise"
-    VECTOR s = VECTOR(r.get__());
-    for (R_xlen_t i = 0, j = 0; i < len; i++, j += nrow) {
-        if (j > l_1) j -= l_1;
-        s[i] = x[j];
-    }
-
-    // there must be a simpler, more C++-ish way for this ...
-    SEXP dimNames = Rf_getAttrib(x, R_DimNamesSymbol);
-    if (!Rf_isNull(dimNames)) {
-        // do we need dimnamesnames ?
-        Shield<SEXP> newDimNames(Rf_allocVector(VECSXP, 2));
-        SET_VECTOR_ELT(newDimNames, 0, VECTOR_ELT(dimNames, 1));
-        SET_VECTOR_ELT(newDimNames, 1, VECTOR_ELT(dimNames, 0));
-        Rf_setAttrib(r, R_DimNamesSymbol, newDimNames);
-    }
-    return r;
+    return tranpose_impl<STRSXP, StoragePolicy>(x);
 }
 
 }
