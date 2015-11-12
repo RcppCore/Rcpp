@@ -242,3 +242,19 @@ NumericVector runit_const_Matrix_column( const NumericMatrix& m ){
 int mat_access_with_bounds_checking(const IntegerMatrix m, int i, int j) {
     return m.at(i, j);
 }
+
+
+// [[Rcpp::export]]
+IntegerMatrix transposeInteger(const IntegerMatrix & x) {
+    return transpose(x);
+}
+
+// [[Rcpp::export]]
+NumericMatrix transposeNumeric(const NumericMatrix & x) {
+    return transpose(x);
+}
+
+// [[Rcpp::export]]
+CharacterMatrix transposeCharacter(const CharacterMatrix & x) {
+    return transpose(x);
+}

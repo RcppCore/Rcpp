@@ -183,4 +183,31 @@ if (.runThisTest) {
         checkException(mat_access_with_bounds_checking(m, -1, -1) , msg = "index out of bounds not detected" )
     }
 
+    test.IntegerMatrix.transpose <- function() {
+        M <- matrix(1:12, 3, 4)
+        checkEquals(transposeInteger(M), t(M), msg="integer transpose")
+        rownames(M) <- letters[1:nrow(M)]
+        checkEquals(transposeInteger(M), t(M), msg="integer transpose with rownames")
+        colnames(M) <- LETTERS[1:ncol(M)]
+        checkEquals(transposeInteger(M), t(M), msg="integer transpose with row and colnames")
+    }
+
+    test.NumericMatrix.transpose <- function() {
+        M <- matrix(1.0 * (1:12), 3, 4)
+        checkEquals(transposeNumeric(M), t(M), msg="numeric transpose")
+        rownames(M) <- letters[1:nrow(M)]
+        checkEquals(transposeNumeric(M), t(M), msg="numeric transpose with rownames")
+        colnames(M) <- LETTERS[1:ncol(M)]
+        checkEquals(transposeNumeric(M), t(M), msg="numeric transpose with row and colnames")
+    }
+
+    test.CharacterMatrix.transpose <- function() {
+        M <- matrix(as.character(1:12), 3, 4)
+        checkEquals(transposeCharacter(M), t(M), msg="character transpose")
+        rownames(M) <- letters[1:nrow(M)]
+        checkEquals(transposeCharacter(M), t(M), msg="character transpose with rownames")
+        colnames(M) <- LETTERS[1:ncol(M)]
+        checkEquals(transposeCharacter(M), t(M), msg="character transpose with row and colnames")
+    }
+    
 }

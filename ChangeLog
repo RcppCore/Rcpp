@@ -1,11 +1,37 @@
+2015-11-11  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/vector/Matrix.h: Further simplification
+
 2015-11-11  Qiang Kou <qkou@umail.iu.edu>
 
         * include/Rcpp/complex.h: operator<< for Rcomplex
+
+2015-11-10  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/vector/Matrix.h: Added transpose for character
+        matrices as well
+
+        * inst/unitTests/runit.Matrix.R: New unit tests
+        * inst/unitTests/cpp/Matrix.cpp: Ditto
+
+2015-11-08  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/vector/Matrix.h: Matrix transpose is now a free
+        function for both INTSXP and REALSXP
+
+        * inst/unitTests/runit.Matrix.R: New unit tests
+        * inst/unitTests/cpp/Matrix.cpp: Ditto
 
 2015-11-08  Daniel C. Dillon  <dcdillon@gmail.com>
 
         * inst/include/Rcpp/Nullable.h: No longer prevent assignment of
         R_NilValue to Nullable<> in function signatures
+
+        * inst/include/Rcpp/vector/Matrix.h: Use showpoint in operator<<()
+
+2015-11-07  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/vector/Matrix.h: Beginnings of a Matrix transpose
 
 2015-11-06  Kevin Ushey <kevinushey@gmailcom>
 

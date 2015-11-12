@@ -15,8 +15,12 @@
       by Tianqi, fixing \ghit{380})
       \item An overflow in Matrix column indexing was corrected (PR \ghpr{390}
       by Qiang, fixing a bug reported by Allessandro on the list)
+      \item Matrix classes now have a \code{transpose()} function (fixing
+      \ghit{383}) 
       \item \code{Nullable} types can now be assigned \code{R_NilValue} in
       function signatures. (PR \ghpr{395} by Dan, fixing issue \ghit{394})
+      \item \code{operator<<()} now always shows decimal points (PR \ghpr{396}
+      by Dan) 
     }
     \item Changes in Rcpp Attributes:
     \itemize{
