@@ -378,16 +378,13 @@ Matrix<REALSXP, StoragePolicy> transpose(const Matrix<REALSXP, StoragePolicy> & 
     }
 
     // there must be a simpler, more C++-ish way for this ...
-    SEXP rnames = internal::DimNameProxy(x, 0);
-    SEXP cnames = internal::DimNameProxy(x, 1);
-    if (!Rf_isNull(rnames) || !Rf_isNull(cnames)) {
-        SEXP dimnames;
-        PROTECT(dimnames = Rf_allocVector(VECSXP, 2));
-        SET_VECTOR_ELT(dimnames, 0, cnames);
-        SET_VECTOR_ELT(dimnames, 1, rnames);
+    SEXP dimNames = Rf_getAttrib(x, R_DimNamesSymbol);
+    if (!Rf_isNull(dimNames)) {
         // do we need dimnamesnames ?
-        Rf_setAttrib(r, R_DimNamesSymbol, dimnames);
-        UNPROTECT(1); /* dimnames */
+        Shield<SEXP> newDimNames(Rf_allocVector(VECSXP, 2));
+        SET_VECTOR_ELT(newDimNames, 0, VECTOR_ELT(dimNames, 1));
+        SET_VECTOR_ELT(newDimNames, 1, VECTOR_ELT(dimNames, 0));
+        Rf_setAttrib(r, R_DimNamesSymbol, newDimNames);
     }
     return r;
 }
@@ -410,16 +407,13 @@ Matrix<INTSXP, StoragePolicy> transpose(const Matrix<INTSXP, StoragePolicy> & x)
     }
 
     // there must be a simpler, more C++-ish way for this ...
-    SEXP rnames = internal::DimNameProxy(x, 0);
-    SEXP cnames = internal::DimNameProxy(x, 1);
-    if (!Rf_isNull(rnames) || !Rf_isNull(cnames)) {
-        SEXP dimnames;
-        PROTECT(dimnames = Rf_allocVector(VECSXP, 2));
-        SET_VECTOR_ELT(dimnames, 0, cnames);
-        SET_VECTOR_ELT(dimnames, 1, rnames);
+    SEXP dimNames = Rf_getAttrib(x, R_DimNamesSymbol);
+    if (!Rf_isNull(dimNames)) {
         // do we need dimnamesnames ?
-        Rf_setAttrib(r, R_DimNamesSymbol, dimnames);
-        UNPROTECT(1); /* dimnames */
+        Shield<SEXP> newDimNames(Rf_allocVector(VECSXP, 2));
+        SET_VECTOR_ELT(newDimNames, 0, VECTOR_ELT(dimNames, 1));
+        SET_VECTOR_ELT(newDimNames, 1, VECTOR_ELT(dimNames, 0));
+        Rf_setAttrib(r, R_DimNamesSymbol, newDimNames);
     }
     return r;
 }
@@ -442,16 +436,13 @@ Matrix<STRSXP, StoragePolicy> transpose(const Matrix<STRSXP, StoragePolicy> & x)
     }
 
     // there must be a simpler, more C++-ish way for this ...
-    SEXP rnames = internal::DimNameProxy(x, 0);
-    SEXP cnames = internal::DimNameProxy(x, 1);
-    if (!Rf_isNull(rnames) || !Rf_isNull(cnames)) {
-        SEXP dimnames;
-        PROTECT(dimnames = Rf_allocVector(VECSXP, 2));
-        SET_VECTOR_ELT(dimnames, 0, cnames);
-        SET_VECTOR_ELT(dimnames, 1, rnames);
+    SEXP dimNames = Rf_getAttrib(x, R_DimNamesSymbol);
+    if (!Rf_isNull(dimNames)) {
         // do we need dimnamesnames ?
-        Rf_setAttrib(r, R_DimNamesSymbol, dimnames);
-        UNPROTECT(1); /* dimnames */
+        Shield<SEXP> newDimNames(Rf_allocVector(VECSXP, 2));
+        SET_VECTOR_ELT(newDimNames, 0, VECTOR_ELT(dimNames, 1));
+        SET_VECTOR_ELT(newDimNames, 1, VECTOR_ELT(dimNames, 0));
+        Rf_setAttrib(r, R_DimNamesSymbol, newDimNames);
     }
     return r;
 }
