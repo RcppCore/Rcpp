@@ -1,3 +1,8 @@
+2015-11-13  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/complex.h: Define a header guard for dplyr to
+        prevent errorneous redefinition of operator<<() via dplyr
+
 2015-11-11  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/vector/Matrix.h: Further simplification

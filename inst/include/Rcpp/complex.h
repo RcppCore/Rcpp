@@ -2,7 +2,7 @@
 //
 // complex.h: Rcpp R/C++ interface class library -- binary operators for Rcomplex
 //
-// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2015  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,25 +22,28 @@
 #ifndef RCPP__complex_H
 #define RCPP__complex_H
 
-inline Rcomplex operator*( const Rcomplex& lhs, const Rcomplex& rhs){
+inline Rcomplex operator*( const Rcomplex& lhs, const Rcomplex& rhs) {
     Rcomplex y ;
     y.r = lhs.r * rhs.r - lhs.i * rhs.i ;
     y.i = lhs.r * rhs.i + rhs.r * lhs.i ;
     return y ;
 }
-inline Rcomplex operator+( const Rcomplex& lhs, const Rcomplex& rhs){
+
+inline Rcomplex operator+( const Rcomplex& lhs, const Rcomplex& rhs) {
     Rcomplex y ;
     y.r = lhs.r + rhs.r ;
     y.i = lhs.i + rhs.i ;
     return y ;
 }
-inline Rcomplex operator-( const Rcomplex& lhs, const Rcomplex& rhs){
+
+inline Rcomplex operator-( const Rcomplex& lhs, const Rcomplex& rhs) {
     Rcomplex y ;
     y.r = lhs.r - rhs.r ;
     y.i = lhs.i - rhs.i ;
     return y ;
 }
-inline Rcomplex operator/( const Rcomplex& a, const Rcomplex& b){
+
+inline Rcomplex operator/( const Rcomplex& a, const Rcomplex& b) {
 	Rcomplex c ;
     double ratio, den;
     double abr, abi;
@@ -61,12 +64,18 @@ inline Rcomplex operator/( const Rcomplex& a, const Rcomplex& b){
     return c ;
 
 }
-inline bool operator==( const Rcomplex& a, const Rcomplex& b){
+
+inline bool operator==( const Rcomplex& a, const Rcomplex& b) {
     return a.r == b.r && a.i == b.i ;
 }
 
-inline std::ostream & operator<<(std::ostream &os, const Rcomplex& cplx ){
+// to prevent a redefinition error in dplyr (<= 0.4.3) which has the _same_
+// definition of operator<<() for Rcomplex
+#define dplyr_tools_complex_H
+
+inline std::ostream & operator<<(std::ostream &os, const Rcomplex& cplx) {
     return os << cplx.r << "+" << cplx.i << "i" ;
 }
+
 
 #endif
