@@ -10,9 +10,10 @@
       \item Correct return type in product of matrix dimensions (PR \ghpr{374}
       by Florian)
       \item Before creating a single String object from a \code{SEXP}, ensure
-      that it is from a vector of length one (PR \ghpr{376} fixing \ghit{375}).
+      that it is from a vector of length one (PR \ghpr{376} by Dirk, fixing
+      \ghit{375}). 
       \item No longer use \code{STRING_ELT} as a left-hand side, thanks to a
-      heads-up by Luke Tierney (PR \ghpr{378} fixing \ghit{377}).
+      heads-up by Luke Tierney (PR \ghpr{378} by Dirk, fixing \ghit{377}).
       \item Rcpp Module objects are now checked more carefully (PR \ghpr{381}
       by Tianqi, fixing \ghit{380})
       \item An overflow in Matrix column indexing was corrected (PR \ghpr{390}
@@ -23,8 +24,8 @@
       by Dan)
       \item Matrix classes now have a \code{transpose()} function (PR \ghpr{397}
       by Dirk fixing \ghit{383}) 
-      \item \code{operator<<()} for complex types was added (PR \ghpr{398} by
-      Qiang, fixing \ghit{187})
+      \item \code{operator<<()} for complex types was added (PRs \ghpr{398} by
+      Qiang and \ghpr{399} by Dirk, fixing \ghit{187})
     }
     \item Changes in Rcpp Attributes:
     \itemize{
@@ -41,6 +42,7 @@
     \itemize{
       \item The \code{NEWS} file now links to GitHub issue tickets and pull
       requests. 
+      \item The \code{Rcpp.bib} file with bibliographic references was updated.
     }
   }
 }

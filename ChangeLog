@@ -1,3 +1,14 @@
+2015-11-14  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.12.2
+        * inst/NEWS.Rd: Release 0.12.2
+	* vignettes/Rcpp.bib: Release 0.12.2
+        * inst/include/Rcpp/config.h: Release 0.12.2
+
+        * debian/*: Changes for Debian release of 0.12.2
+
+	* vignettes/Rcpp.bib: Updated all CRAN reference to current versions
+
 2015-11-13  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/complex.h: Define a header guard for dplyr to

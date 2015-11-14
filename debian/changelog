@@ -1,3 +1,9 @@
+rcpp (0.12.2-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Sat, 14 Nov 2015 08:49:02 -0600
+
 rcpp (0.12.1-1) unstable; urgency=low
 
   * New upstream release
