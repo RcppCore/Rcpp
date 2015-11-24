@@ -36,6 +36,6 @@ notifications:
   email:
     on_success: change
     on_failure: change
-
-    
-
+  slack:
+    secure: kUzgzzpgBMc6a+qSjGovfU14U7x9GUXfghDgyF5qBaND/MjFpkmTBfW438Out2buiY+hFNnZc4zThifJM300cOXbcwVentmzuVQ5lLjBhTDvwQgdqytgWr/Ds9dErBeMXr178UD3MJXSOCLhO0wUke2xp2ZsDhsjquT+vFYnuk8=
+      
