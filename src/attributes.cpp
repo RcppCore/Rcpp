@@ -343,6 +343,12 @@ namespace attributes {
                 return function().name();
             }
         }
+        
+        std::string exportedCppName() const {
+            std::string name = exportedName();
+            std::replace(name.begin(), name.end(), '.', '_');
+            return name;
+        }
 
         bool rng() const {
             Param rngParam = paramNamed(kExportRng);
@@ -1795,7 +1801,7 @@ namespace attributes {
                        it = attributes.begin(); it != attributes.end(); ++it) {
                 if (it->isExportedFunction()) {
                     // add it to the list if it's not hidden
-                    Function fun = it->function().renamedTo(it->exportedName());
+                    Function fun = it->function().renamedTo(it->exportedCppName());
                     if (!fun.isHidden())
                         cppExports_.push_back(*it);
                 }
@@ -1978,7 +1984,7 @@ namespace attributes {
             if (it->isExportedFunction()) {
 
                 Function function =
-                    it->function().renamedTo(it->exportedName());
+                    it->function().renamedTo(it->exportedCppName());
 
                 // if it's hidden then don't generate a C++ interface
                 if (function.isHidden())

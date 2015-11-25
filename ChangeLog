@@ -1,3 +1,8 @@
+2015-10-01  JJ Allaire <jj@rstudio.org>
+
+        * src/attributes.cpp: Avoid invalid function names when 
+        generating C++ interfaces.
+
 2015-11-14  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.12.2
