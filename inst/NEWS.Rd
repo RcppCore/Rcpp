@@ -3,6 +3,15 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
+\section{Changes in Rcpp version 0.12.3 (Unreleased)}{
+  \itemize{
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Avoid invalid function names when generating C++ interfaces.
+    }
+  }
+}
+
 \section{Changes in Rcpp version 0.12.2 (2015-11-14)}{
   \itemize{
     \item Changes in Rcpp API:
