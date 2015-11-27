@@ -1,7 +1,28 @@
-2015-10-01  JJ Allaire <jj@rstudio.org>
+2015-11-27  JJ Allaire <jj@rstudio.org>
 
-        * src/attributes.cpp: Avoid invalid function names when 
+        * src/attributes.cpp: Avoid invalid function names when
         generating C++ interfaces.
+
+2015-11-27  Daniel C. Dillon  <dcdillon@gmail.com>
+
+        * inst/include/Rcpp/vector/proxy.h: const_iterators for CharacterVector
+        now work analogously to iterators
+        * inst/include/Rcpp/vector/const_generic_proxy.h: Idem
+        * inst/include/Rcpp/vector/const_string_proxy.h: Idem
+        * inst/include/Rcpp/vector/traits.h: Idem
+
+        * inst/unitTests/cpp/Vector.cpp: Tests for above
+        * inst/unitTests/runit.Vector.R: Idem
+
+        [ All this was commited on Sep 5 but only merged Nov 27 ]
+
+2015-11-15  Kazuki Fukui  <kazunoko93@gmail.com>>
+
+        * src/attributes.cpp: Insert extra space around & in interface
+
+2015-11-14  Dirk Eddelbuettel  <edd@debian.org>
+
+        * .travis.yml: Add token for secure Slack & Travis integration
 
 2015-11-14  Dirk Eddelbuettel  <edd@debian.org>
 

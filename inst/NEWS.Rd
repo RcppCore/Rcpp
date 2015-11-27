@@ -5,9 +5,17 @@
 
 \section{Changes in Rcpp version 0.12.3 (Unreleased)}{
   \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Const iterators now \code{CharacterVector} now behave like regular
+      iterators (PR \ghpr{404} by Dan fixing \ghit{362}).
+    }
     \item Changes in Rcpp Attributes:
     \itemize{
-      \item Avoid invalid function names when generating C++ interfaces.
+      \item Avoid invalid function names when generating C++ interfaces (PR
+      \ghpr{403} by JJ fixing \ghit{402}).
+      \item Insert additional space around \code{&} in function interface (PR 
+      \ghpr{400} by Kazuki Fukui fixing \ghit{278}).
     }
   }
 }
