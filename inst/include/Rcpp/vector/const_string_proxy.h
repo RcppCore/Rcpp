@@ -40,7 +40,7 @@ namespace internal{
 		 * @param v reference to the associated character vector
 		 * @param index index
 		 */
-		const_string_proxy( VECTOR& v, R_xlen_t index_ ) : parent(&v), index(index_){}
+		const_string_proxy( const VECTOR& v, R_xlen_t index_ ) : parent(&v), index(index_){}
 
         const_string_proxy(SEXP x): parent(0), index(0) {
             Vector<RTYPE> tmp(x);

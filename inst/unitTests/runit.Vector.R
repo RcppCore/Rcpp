@@ -499,6 +499,18 @@ if (.runThisTest) {
                     paste(letters, collapse=""),
                     msg = "CharacterVector::iterator using std::accumulate" )
     }
+    
+    test.CharacterVector.iterator <- function(){
+        fun <- character_const_iterator1
+        checkEquals(fun(letters),
+                    paste(letters, collapse=""),
+                    msg = "CharacterVector::iterator explicit looping" )
+
+        fun <- character_const_iterator2
+        checkEquals(fun(letters),
+                    paste(letters, collapse=""),
+                    msg = "CharacterVector::iterator using std::accumulate" )
+    }
 
     test.CharacterVector.reverse <- function(){
         fun <- character_reverse

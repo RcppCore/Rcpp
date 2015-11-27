@@ -576,9 +576,27 @@ std::string character_iterator1( CharacterVector letters ){
     return res ;
 }
 
+// [[Rcpp::export]]
+std::string character_const_iterator1( const CharacterVector letters ){
+    std::string res ;
+    CharacterVector::const_iterator first = letters.begin() ;
+    CharacterVector::const_iterator last = letters.end() ;
+    while( first != last ){
+        res += *first ;
+        ++first ;
+    }
+    return res ;
+}
+
 
 // [[Rcpp::export]]
 std::string character_iterator2( CharacterVector letters ){
+    std::string res(std::accumulate(letters.begin(), letters.end(), std::string()));
+    return res ;
+}
+
+// [[Rcpp::export]]
+std::string character_const_iterator2( const CharacterVector letters ){
     std::string res(std::accumulate(letters.begin(), letters.end(), std::string()));
     return res ;
 }
