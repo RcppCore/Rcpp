@@ -1440,6 +1440,13 @@ namespace attributes {
             // check for name
             std::string name;
             if (pos != std::string::npos) {
+                // insert whitespace if variables are joint with '&' 
+                std::string::size_type ref_pos = arg.substr(pos).find_last_of("&");
+                if (ref_pos != std::string::npos) {
+                    pos += ref_pos + 1;
+                    arg.insert(pos, " ");
+                }
+
                 name = arg.substr(pos);
                 trimWhitespace(&name);
             }
