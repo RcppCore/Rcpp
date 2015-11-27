@@ -94,9 +94,19 @@ if (.runThisTest) {
 	checkEquals( runit_NumericMatrix_row( x ), sum( x[1,] ), msg = "iterating over a row" )
     }
 
+    test.NumericMatrix.row.const <- function(){
+	x <- matrix( 1:16 + .5, ncol = 4 )
+	checkEquals( runit_NumericMatrix_row_const( x ), sum( x[1,] ), msg = "iterating over a row" )
+    }
+
     test.CharacterMatrix.row <- function(){
 	m <- matrix( letters, ncol = 2 )
 	checkEquals( runit_CharacterMatrix_row(m), paste( m[1,], collapse = "" ), msg = "CharacterVector::Row" )
+    }
+
+    test.CharacterMatrix.row.const <- function(){
+	m <- matrix( letters, ncol = 2 )
+	checkEquals( runit_CharacterMatrix_row_const(m), paste( m[1,], collapse = "" ), msg = "CharacterVector::Row" )
     }
 
     test.List.row <- function(){
@@ -105,9 +115,20 @@ if (.runThisTest) {
 	checkEquals( runit_GenericMatrix_row( m ), 1 + 0:3*4, msg = "List::Row" )
     }
 
+    test.List.row.const <- function(){
+	m <- lapply( 1:16, function(i) seq(from=1, to = i ) )
+	dim( m ) <- c( 4, 4 )
+	checkEquals( runit_GenericMatrix_row_const( m ), 1 + 0:3*4, msg = "List::Row" )
+    }
+
     test.NumericMatrix.column <- function(){
 	x <- matrix( 1:16 + .5, ncol = 4 )
 	checkEquals( runit_NumericMatrix_column( x ), sum( x[,1] ) , msg = "iterating over a column" )
+    }
+
+    test.NumericMatrix.column.const <- function(){
+	x <- matrix( 1:16 + .5, ncol = 4 )
+	checkEquals( runit_NumericMatrix_column_const( x ), sum( x[,1] ) , msg = "iterating over a column" )
     }
 
     test.NumericMatrix.cumsum <- function(){
@@ -120,10 +141,21 @@ if (.runThisTest) {
 	checkEquals( runit_CharacterMatrix_column(m), paste( m[,1], collapse = "" ), msg = "CharacterVector::Column" )
     }
 
+    test.CharacterMatrix.column.const <- function(){
+	m <- matrix( letters, ncol = 2 )
+	checkEquals( runit_CharacterMatrix_column_const(m), paste( m[,1], collapse = "" ), msg = "CharacterVector::Column" )
+    }
+
     test.List.column <- function(){
 	m <- lapply( 1:16, function(i) seq(from=1, to = i ) )
 	dim( m ) <- c( 4, 4 )
 	checkEquals( runit_GenericMatrix_column( m ), 1:4, msg = "List::Column" )
+    }
+
+    test.List.column.const <- function(){
+	m <- lapply( 1:16, function(i) seq(from=1, to = i ) )
+	dim( m ) <- c( 4, 4 )
+	checkEquals( runit_GenericMatrix_column_const( m ), 1:4, msg = "List::Column" )
     }
 
     test.NumericMatrix.colsum <- function( ){

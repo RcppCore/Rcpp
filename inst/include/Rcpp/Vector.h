@@ -31,7 +31,9 @@ namespace Rcpp{
          template <int RTYPE, bool NA, typename VECTOR> struct Extractor ;
     }
     template <int RTYPE> class MatrixRow ;
+    template <int RTYPE> class ConstMatrixRow ;
     template <int RTYPE> class MatrixColumn ;
+    template <int RTYPE> class ConstMatrixColumn  ;
     template <int RTYPE> class SubMatrix ;
 
     class Dimension ;
