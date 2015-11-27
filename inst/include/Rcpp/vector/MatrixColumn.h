@@ -110,7 +110,6 @@ public:
     typedef typename MATRIX::const_Proxy const_Proxy ;
     typedef typename MATRIX::value_type value_type ;
     typedef typename MATRIX::const_iterator const_iterator ;
-    typedef typename const_iterator iterator;
 
     ConstMatrixColumn( const MATRIX& parent, int i ) :
         n(parent.nrow()),
