@@ -217,6 +217,14 @@ namespace Rcpp {
             setBuffer(); buffer += CHAR(proxy_sexp); valid = false;
             return *this;
         }
+        inline String& operator+=(const const_StringProxy& proxy) {
+            RCPP_STRING_DEBUG("String::operator+=(const StringProxy&)");
+            if (is_na()) return *this;
+            SEXP proxy_sexp = proxy;
+            if (proxy_sexp == NA_STRING) { data = Rcpp_ReplaceObject(data, NA_STRING); valid = true; buffer_ready = false; return *this;}
+            setBuffer(); buffer += CHAR(proxy_sexp); valid = false;
+            return *this;
+        }
         inline String& operator+=(SEXP x) {
             RCPP_STRING_DEBUG("String::operator+=(SEXP)");
             if (is_na()) return *this;
