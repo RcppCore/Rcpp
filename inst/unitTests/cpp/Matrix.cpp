@@ -100,8 +100,23 @@ double runit_NumericMatrix_row( NumericMatrix m){
 }
 
 // [[Rcpp::export]]
+double runit_NumericMatrix_row_const( const NumericMatrix m){
+    NumericMatrix::ConstRow first_row = m.row(0) ;
+    return std::accumulate( first_row.begin(), first_row.end(), 0.0 ) ;
+}
+
+// [[Rcpp::export]]
 std::string runit_CharacterMatrix_row( CharacterMatrix m ){
     CharacterMatrix::Row first_row = m.row(0) ;
+    std::string res(
+    	std::accumulate(
+    		first_row.begin(), first_row.end(), std::string() ) ) ;
+    return res ;
+}
+
+// [[Rcpp::export]]
+std::string runit_CharacterMatrix_row_const( const CharacterMatrix m ){
+    CharacterMatrix::ConstRow first_row = m.row(0) ;
     std::string res(
     	std::accumulate(
     		first_row.begin(), first_row.end(), std::string() ) ) ;
@@ -120,8 +135,25 @@ IntegerVector runit_GenericMatrix_row( GenericMatrix m ){
 }
 
 // [[Rcpp::export]]
+IntegerVector runit_GenericMatrix_row_const( const GenericMatrix m ){
+    GenericMatrix::ConstRow first_row = m.row(0) ;
+    IntegerVector out( first_row.size() ) ;
+    std::transform(
+    	first_row.begin(), first_row.end(),
+    	out.begin(),
+    	unary_call<SEXP,int>( Function("length" ) ) ) ;
+    return out ;
+}
+
+// [[Rcpp::export]]
 double runit_NumericMatrix_column( NumericMatrix m ){
     NumericMatrix::Column col = m.column(0) ;
+    return std::accumulate( col.begin(), col.end(), 0.0 ) ;
+}
+
+// [[Rcpp::export]]
+double runit_NumericMatrix_column_const( const NumericMatrix m ){
+    NumericMatrix::ConstColumn col = m.column(0) ;
     return std::accumulate( col.begin(), col.end(), 0.0 ) ;
 }
 
@@ -148,8 +180,29 @@ std::string runit_CharacterMatrix_column( CharacterMatrix m){
 }
 
 // [[Rcpp::export]]
+std::string runit_CharacterMatrix_column_const( const CharacterMatrix m){
+    CharacterMatrix::ConstColumn col = m.column(0) ;
+    std::string res(
+        std::accumulate( col.begin(), col.end(), std::string() )
+    ) ;
+    return res ;
+}
+
+// [[Rcpp::export]]
 IntegerVector runit_GenericMatrix_column( GenericMatrix m ){
     GenericMatrix::Column col = m.column(0) ;
+    IntegerVector out( col.size() ) ;
+    std::transform(
+    	   col.begin(), col.end(),
+    	   out.begin(),
+    	   unary_call<SEXP,int>( Function("length" ) )
+    ) ;
+    return wrap(out) ;
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_GenericMatrix_column_const( const GenericMatrix m ){
+    GenericMatrix::ConstColumn col = m.column(0) ;
     IntegerVector out( col.size() ) ;
     std::transform(
     	   col.begin(), col.end(),

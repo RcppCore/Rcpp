@@ -103,5 +103,46 @@ private:
 
 } ;
 
+template <int RTYPE>
+class ConstMatrixColumn : public VectorBase<RTYPE,true,ConstMatrixColumn<RTYPE> > {
+public:
+    typedef Matrix<RTYPE> MATRIX ;
+    typedef typename MATRIX::const_Proxy const_Proxy ;
+    typedef typename MATRIX::value_type value_type ;
+    typedef typename MATRIX::const_iterator const_iterator ;
+
+    ConstMatrixColumn( const MATRIX& parent, int i ) :
+        n(parent.nrow()),
+        const_start(parent.begin() + i *n)
+    {
+        if( i < 0 || i >= parent.ncol() ) throw index_out_of_bounds() ;
+    }
+
+    ConstMatrixColumn( const ConstMatrixColumn& other ) :
+        n(other.n),
+        const_start(other.const_start) {}
+        
+    inline const_Proxy operator[]( int i ) const {
+        return const_start[i] ;
+    }
+
+    inline const_iterator begin() const {
+        return const_start ;
+    }
+
+    inline const_iterator end() const {
+        return const_start + n ;
+    }
+
+    inline int size() const {
+        return n ;
+    }
+
+private:
+    const int n ;
+    const_iterator const_start ;
+
+} ;
+
 }
 #endif

@@ -170,6 +170,127 @@ private:
         return i * parent_nrow ;
     }
 } ;
+
+template <int RTYPE>
+class ConstMatrixRow : public VectorBase< RTYPE, true, ConstMatrixRow<RTYPE> > {
+public:
+    typedef Matrix<RTYPE> MATRIX ;
+    typedef typename MATRIX::const_Proxy const_reference ;
+    typedef typename MATRIX::value_type value_type ;
+
+    class const_iterator {
+    public:
+        typedef typename traits::r_vector_iterator<RTYPE>::type vector_iterator ;
+
+        typedef int difference_type ;
+        typedef typename traits::r_vector_const_proxy<RTYPE>::type value_type ;
+        typedef typename traits::r_vector_const_proxy<RTYPE>::type reference ;
+        typedef typename std::iterator_traits<vector_iterator>::pointer pointer ;
+
+        typedef std::random_access_iterator_tag iterator_category ;
+
+        const_iterator( const const_iterator& other) : row(other.row), index(other.index){}
+        const_iterator( const ConstMatrixRow& row_, int index_ ) : row(row_), index(index_){}
+
+        const_iterator& operator++(){
+            index++;
+            return *this ;
+        }
+        const_iterator operator++(int) {
+            const_iterator orig(*this);
+            index++ ;
+            return orig ;
+        }
+
+        const_iterator& operator--(){
+            index-- ;
+            return *this ;
+        }
+        const_iterator operator--(int){
+            const_iterator orig(*this);
+            index-- ;
+            return orig ;
+        }
+
+        const_iterator operator+(difference_type n) const { return iterator( row, index + n ) ; }
+        const_iterator operator-(difference_type n) const { return iterator( row, index - n ) ; }
+        difference_type operator-(const const_iterator& other) const { return index - other.index ; }
+
+        const_iterator& operator+=(difference_type n) { index += n ; return *this ;}
+        const_iterator& operator-=(difference_type n) { index -= n ; return *this ;}
+
+        const reference operator*() {
+            return row[index] ;
+        }
+        const pointer operator->(){
+            return &row[index] ;
+        }
+
+        bool operator==( const const_iterator& other) { return index == other.index ; }
+        bool operator!=( const const_iterator& other) { return index != other.index ; }
+        bool operator<( const const_iterator& other ) { return index < other.index ;}
+        bool operator>( const const_iterator& other ) { return index > other.index ;}
+        bool operator<=( const const_iterator& other ) { return index <= other.index ; }
+        bool operator>=( const const_iterator& other ) { return index >= other.index ; }
+
+        inline const reference operator[]( int i) const {
+            return row[ index + i ] ;
+        }
+
+        difference_type operator-(const const_iterator& other) {
+            return index - other.index ;
+        }
+
+    private:
+        const ConstMatrixRow& row ;
+        int index ;
+    } ;
+    
+    typedef const_iterator iterator;
+
+    ConstMatrixRow( const MATRIX& object, int i ) :
+        parent(object),
+        start(parent.begin() + i),
+        parent_nrow(parent.nrow()),
+        row(i)
+    {
+        if( i < 0 || i >= parent.nrow() ) throw index_out_of_bounds() ;
+    }
+
+    ConstMatrixRow( const ConstMatrixRow& other ) :
+        parent(other.parent),
+        start(other.start),
+        parent_nrow(other.parent_nrow),
+        row(other.row)
+    {} ;
+
+    inline const_reference operator[]( int i ) const {
+        return parent[ row + i * parent_nrow ] ;
+    }
+
+    inline const_iterator begin() const {
+        return const_iterator( *this, 0 ) ;
+    }
+
+    inline const_iterator end() const {
+        return const_iterator( *this, size() ) ;
+    }
+
+    inline int size() const {
+        return parent.ncol() ;
+    }
+
+private:
+    const MATRIX& parent;
+    typename MATRIX::const_iterator start ;
+    int parent_nrow ;
+    int row ;
+
+    inline int get_parent_index(int i) const {
+        RCPP_DEBUG_4( "ConstMatrixRow<%d>::get_parent_index(int = %d), parent_nrow = %d >> %d\n", RTYPE, i, parent_nrow, i*parent_nrow )
+        return i * parent_nrow ;
+    }
+} ;
 }
 
 #endif
