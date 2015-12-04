@@ -242,4 +242,11 @@ if (.runThisTest) {
         checkEquals(transposeCharacter(M), t(M), msg="character transpose with row and colnames")
     }
     
+    test.Matrix.Scalar.op <- function() {
+        M <- matrix(c(1:12), 3, 4)
+        checkEquals(matrix_scalar_plus(M, 2), M + 2, msg="matrix + scalar")
+        checkEquals(matrix_scalar_plus2(M, 2), 2 + M, msg="scalar + matrix")
+        checkEquals(matrix_scalar_divide(M, 2), M / 2, msg="matrix / scalar")
+        checkEquals(matrix_scalar_divide2(M, 2), 2 / M, msg="scalar / matrix")
+    }
 }
