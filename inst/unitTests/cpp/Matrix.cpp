@@ -311,3 +311,23 @@ NumericMatrix transposeNumeric(const NumericMatrix & x) {
 CharacterMatrix transposeCharacter(const CharacterMatrix & x) {
     return transpose(x);
 }
+
+// [[Rcpp::export]]
+NumericMatrix matrix_scalar_plus(const NumericMatrix & x, int y) {
+    return x + y;
+}
+
+// [[Rcpp::export]]
+NumericMatrix matrix_scalar_plus2(const NumericMatrix & x, int y) {
+    return y + x;
+}
+
+// [[Rcpp::export]]
+NumericMatrix matrix_scalar_divide(const NumericMatrix & x, int y) {
+    return x / y;
+}
+
+// [[Rcpp::export]]
+NumericMatrix matrix_scalar_divide2(const NumericMatrix & x, int y) {
+    return y / x;
+}

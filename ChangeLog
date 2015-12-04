@@ -1,3 +1,9 @@
+2015-12-04  Qiang Kou <qkou@umail.iu.edu>
+
+        * inst/include/Rcpp/vector/Matrix.h: Add math operators between matrix and scalar
+        * inst/unitTests/runit.Matrix.R: Unit tests
+        * inst/unitTests/cpp/Matrix.cpp: Unit tests
+
 2015-11-27  JJ Allaire <jj@rstudio.org>
 
         * src/attributes.cpp: Avoid invalid function names when
