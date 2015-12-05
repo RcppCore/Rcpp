@@ -9,6 +9,8 @@
     \itemize{
       \item Const iterators now \code{CharacterVector} now behave like regular
       iterators (PR \ghpr{404} by Dan fixing \ghit{362}).
+      \item Math operators between matrix and scalars type have been added (PR
+      \ghpr{406} by Qiang fixing \ghit{365}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{

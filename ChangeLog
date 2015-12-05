@@ -1,13 +1,9 @@
 2015-12-04  Qiang Kou <qkou@umail.iu.edu>
 
-        * inst/include/Rcpp/vector/Matrix.h: Add math operators between matrix and scalar
+        * inst/include/Rcpp/vector/Matrix.h: Add math operators between matrix
+        and scalar
         * inst/unitTests/runit.Matrix.R: Unit tests
         * inst/unitTests/cpp/Matrix.cpp: Unit tests
-
-2015-11-27  JJ Allaire <jj@rstudio.org>
-
-        * src/attributes.cpp: Avoid invalid function names when
-        generating C++ interfaces.
 
 2015-11-27  Daniel C. Dillon  <dcdillon@gmail.com>
 
@@ -21,6 +17,11 @@
         * inst/unitTests/runit.Vector.R: Idem
 
         [ All this was commited on Sep 5 but only merged Nov 27 ]
+
+2015-11-25  JJ Allaire <jj@rstudio.org>
+
+        * src/attributes.cpp: Avoid invalid function names when
+        generating C++ interfaces.
 
 2015-11-15  Kazuki Fukui  <kazunoko93@gmail.com>>
 
