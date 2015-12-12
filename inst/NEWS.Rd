@@ -11,6 +11,9 @@
       iterators (PR \ghpr{404} by Dan fixing \ghit{362}).
       \item Math operators between matrix and scalars type have been added (PR
       \ghpr{406} by Qiang fixing \ghit{365}).
+      \item A missing \code{std::hash} function interface for
+      \code{Rcpp::String} has been addded (PR \ghpr{408} by Qiang fixing
+      \ghit{84}). 
     }
     \item Changes in Rcpp Attributes:
     \itemize{
