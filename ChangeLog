@@ -1,3 +1,9 @@
+2015-12-12  Qiang Kou <qkou@umail.iu.edu>
+
+        * inst/include/Rcpp/String.h: std::hash<Rcpp::String>
+        * inst/unitTests/cpp/wrap.cpp: Unit tests
+        * inst/unitTests/runit.wrap.R: Unit tests
+
 2015-12-04  Qiang Kou <qkou@umail.iu.edu>
 
         * inst/include/Rcpp/vector/Matrix.h: Add math operators between matrix

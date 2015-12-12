@@ -108,6 +108,18 @@ if (.runThisTest) {
         checkEquals( res[["c"]], 300L,  msg = "wrap( tr1::unordered_map<string,int>) " )
     }
 
+    test.wrap.unordered.map.rcpp.string.int <- function(){
+        res <- unordered_map_rcpp_string_int(c("a", "b", "c"))
+        checkEquals( res[["a"]], 200L,  msg = "wrap( tr1::unordered_map<Rcpp::String,int>) " )
+        checkEquals( res[["b"]], 100L,  msg = "wrap( tr1::unordered_map<Rcpp::String,int>) " )
+        checkEquals( res[["c"]], 300L,  msg = "wrap( tr1::unordered_map<Rcpp::String,int>) " )
+    }
+
+    test.unordered.set.rcpp.string <- function(){
+        checkEquals(unordered_set_rcpp_string(c("a", "b", "c", "b")),
+            c(FALSE, FALSE, FALSE, TRUE), msg = "wrap( tr1::unordered_set<Rcpp::String>) " )
+    }
+
     test.wrap.unordered.map.string.double <- function(){
         res <- unordered_map_string_double()
         checkEquals( res[["a"]], 200,  msg = "wrap( tr1::unordered_map<string,double>) " )

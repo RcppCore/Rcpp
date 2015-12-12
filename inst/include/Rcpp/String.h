@@ -556,4 +556,24 @@ namespace Rcpp {
 
 } // Rcpp
 
+/** hash can be in std or std::tr1 */
+#if defined(RCPP_USING_CXX11) || defined(HAS_TR1)
+namespace std
+{
+#ifndef RCPP_USING_CXX11
+namespace tr1 {
+#endif
+    template <>
+    struct hash<Rcpp::String>
+    {
+        size_t operator()(const Rcpp::String & s) const{
+            return hash<string>()(s.get_cstring());
+        }
+    };
+#ifndef RCPP_USING_CXX11
+}
+#endif
+}
+#endif
+
 #endif
