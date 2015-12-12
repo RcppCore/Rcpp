@@ -168,6 +168,10 @@ SEXP nonnull_const_char(){
     return wrap(p) ;
 }
 
+#ifdef RCPP_USING_CXX11
+// [[Rcpp::plugins(cpp11)]]
+#endif
+
 // [[Rcpp::export]]
 IntegerVector unordered_map_string_int(){
     RCPP_UNORDERED_MAP< std::string, int > m ;
@@ -175,6 +179,25 @@ IntegerVector unordered_map_string_int(){
     m["a"] = 200;
     m["c"] = 300;
     return wrap(m);
+}
+
+// [[Rcpp::export]]
+IntegerVector unordered_map_rcpp_string_int(StringVector v){
+    RCPP_UNORDERED_MAP< String, int > m ;
+    m[v[0]] = 200;
+    m[v[1]] = 100;
+    m[v[2]] = 300;
+    return wrap(m);
+}
+
+// [[Rcpp::export]]
+LogicalVector unordered_set_rcpp_string(StringVector x) {
+    RCPP_UNORDERED_SET<String> seen;
+    LogicalVector out(x.size());
+    for (int i = 0; i < x.size(); i++) {
+        out[i] = !seen.insert(x[i]).second;
+    }
+    return out;
 }
 
 // [[Rcpp::export]]
