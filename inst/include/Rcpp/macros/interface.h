@@ -35,6 +35,17 @@ __CLASS__( const GenericProxy<Proxy>& proxy ){                                 \
     Storage::set__( proxy.get() ) ;                                            \
 }
 
+#define RCPP_CTOR_ASSIGN_WITH_BASE(__CLASS__)                                  \
+  __CLASS__( const __CLASS__& other ) : Base(other) {			       \
+}                                                                              \
+__CLASS__& operator=(const __CLASS__& rhs) {                                   \
+    return Storage::copy__(rhs) ;                                              \
+}                                                                              \
+template <typename Proxy>                                                      \
+__CLASS__( const GenericProxy<Proxy>& proxy ){                                 \
+    Storage::set__( proxy.get() ) ;                                            \
+}
+
 #define RCPP_API_CLASS(__CLASS__)                                              \
 template < template <class> class StoragePolicy > class __CLASS__ :            \
     public StoragePolicy<__CLASS__<StoragePolicy> >,                           \

@@ -201,6 +201,7 @@ namespace Rcpp{
 
     template <typename Class>
     class S4_CppConstructor : public Reference {
+        typedef Reference Base;
     public:
         typedef XPtr<class_Base> XP_Class ;
         typedef Reference::Storage Storage ;
@@ -215,12 +216,13 @@ namespace Rcpp{
             field( "docstring" )     = m->docstring ;
         }
 
-        RCPP_CTOR_ASSIGN(S4_CppConstructor)
+        RCPP_CTOR_ASSIGN_WITH_BASE(S4_CppConstructor)
 
     } ;
 
     template <typename Class>
     class S4_CppOverloadedMethods : public Rcpp::Reference {
+        typedef Rcpp::Reference Base;
     public:
         typedef Rcpp::XPtr<class_Base> XP_Class ;
         typedef SignedMethod<Class> signed_method_class ;
@@ -253,7 +255,7 @@ namespace Rcpp{
 
         }
 
-        RCPP_CTOR_ASSIGN(S4_CppOverloadedMethods)
+        RCPP_CTOR_ASSIGN_WITH_BASE(S4_CppOverloadedMethods)
 
     } ;
 
@@ -317,6 +319,7 @@ namespace Rcpp{
 
     template <typename Class>
     class S4_field : public Rcpp::Reference {
+        typedef Rcpp::Reference Base;
     public:
         typedef XPtr<class_Base> XP_Class ;
         S4_field( CppProperty<Class>* p, const XP_Class& class_xp ) : Reference( "C++Field" ){
@@ -328,7 +331,7 @@ namespace Rcpp{
             field( "docstring" )     = p->docstring ;
         }
 
-        RCPP_CTOR_ASSIGN(S4_field)
+        RCPP_CTOR_ASSIGN_WITH_BASE(S4_field)
 
     } ;
 
@@ -377,6 +380,7 @@ namespace Rcpp {
     }
 
     class CppClass : public S4{
+        typedef S4 Base;
     public:
         typedef XPtr<class_Base> XP_Class ;
         typedef Rcpp::XPtr<Rcpp::Module> XP ;
@@ -401,11 +405,12 @@ namespace Rcpp {
 	        slot( "parents" )     = cl->parents ;
 	    }
 
-	    RCPP_CTOR_ASSIGN(CppClass)
+	    RCPP_CTOR_ASSIGN_WITH_BASE(CppClass)
 
     } ;
 
     class CppObject : public S4{
+        typedef S4 Base;
     public:
         typedef Rcpp::XPtr<Rcpp::Module> XP ;
         CppObject( Module* p, class_Base* clazz, SEXP xp ) : S4("C++Object") {
@@ -413,7 +418,7 @@ namespace Rcpp {
             slot( "cppclass" ) = Rcpp::XPtr<class_Base>( clazz, false ) ;
             slot( "pointer" )  = xp ;
         }
-        RCPP_CTOR_ASSIGN(CppObject)
+        RCPP_CTOR_ASSIGN_WITH_BASE(CppObject)
     } ;
 
 }
