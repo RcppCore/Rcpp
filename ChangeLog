@@ -1,3 +1,8 @@
+2015-12-29  Joshua Pritikin <jpritikin@pobox.com>
+
+        * inst/include/Rcpp/Module.h: Initialize base class in copy ctor
+        * inst/include/Rcpp/macros/interface.h: Idem
+
 2015-12-12  Qiang Kou <qkou@umail.iu.edu>
 
         * inst/include/Rcpp/String.h: std::hash<Rcpp::String>

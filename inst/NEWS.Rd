@@ -22,6 +22,11 @@
       \item Insert additional space around \code{&} in function interface (PR 
       \ghpr{400} by Kazuki Fukui fixing \ghit{278}).
     }
+    \item Changes in Rcpp Modules:
+    \itemize{
+      \item The copy constructor now initialized the base class (PR \ghpr{411}
+      by  Joshua Pritikin fixing \ghit{410})
+    }
   }
 }
 
