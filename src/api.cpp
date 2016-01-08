@@ -42,11 +42,11 @@ using namespace Rcpp;
         static std::string demangler_one(const char* input) {
             static std::string buffer;
             buffer = input;
-            buffer.resize(buffer.find_last_of('+') - 1);
-            buffer.erase(
-                buffer.begin(),
-                buffer.begin() + buffer.find_last_of(' ') + 1
-            );
+            buffer = buffer.substr(0, buffer.find_last_of('+'));
+            const auto last_space = buffer.find_last_of(' ');
+            if (last_space != std::string::npos) {
+                buffer = buffer.substr(last_space + 1);
+            }
             return demangle(buffer);
         }
 
