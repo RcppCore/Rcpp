@@ -59,20 +59,17 @@ and working examples.
 A number of examples are included as are over 920 unit tests in over 470 unit
 test functions provide additional usage examples.
 
-The [CRAN](http://cran.r-project.org) network contains 
-(as of May 2015) over 380 packages which also provide usage
-examples, with another 50+ as part of [BioConductor](http://www.bioconductor.org).
-
 An earlier version of Rcpp, containing what we now call the 'classic Rcpp
 API' was written during 2005 and 2006 by Dominick Samperi.  This code has
 been factored out of Rcpp into the package RcppClassic, and it is still
 available for code relying on the older interface. New development should 
 always use this Rcpp package instead.
 
-Other usage examples are provided by packages using Rcpp. As of July 2015, there
-are about 423 CRAN packages using Rcpp, a further 57 BioConductor packages as
+Other usage examples are provided by packages using Rcpp. As of January 2016, there
+are about 550 CRAN packages using Rcpp, a further [BioConductor](http://www.bioconductor.org) packages as
 well as an unknown number of GitHub, Bitbucket, R-Forge, ... repositories using
-Rcpp.
+Rcpp.  All these packages provide usage examples for Rcpp.
+
 
 ### Installation
 
