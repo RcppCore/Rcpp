@@ -6,11 +6,10 @@ inst/doc/jss.bst
 vignettes/jss.bst
 ^.*\.Rproj$
 ^\.Rproj\.user$
-inst/include/Rcpp/preprocessor
-inst/include/Rcpp/sugar/functions/impl
 vignettes/notyet
 doxyfile
 .travis.yml
 .dir-locals.el
 .clang_format
 vignettes/getCurrentVersionsOfCitedPackages.R
+^Contributing.md$
