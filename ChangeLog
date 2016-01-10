@@ -1,3 +1,10 @@
+2016-01-09  Dirk Eddelbuettel  <edd@debian.org>
+
+        * Contributing.md: Added to GitHub repo
+
+        * .Rbuildignore: Ensure Contributing.md is not in R package, also
+        removed two old entries
+
 2015-12-29  Joshua Pritikin <jpritikin@pobox.com>
 
         * inst/include/Rcpp/Module.h: Initialize base class in copy ctor
