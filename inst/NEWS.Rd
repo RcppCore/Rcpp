@@ -3,7 +3,7 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp version 0.12.3 (Unreleased)}{
+\section{Changes in Rcpp version 0.12.3 (2016-01-10)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
@@ -25,7 +25,12 @@
     \item Changes in Rcpp Modules:
     \itemize{
       \item The copy constructor now initialized the base class (PR \ghpr{411}
-      by  Joshua Pritikin fixing \ghit{410})
+      by Joshua Pritikin fixing \ghit{410})
+    }
+    \item Changes in Rcpp Repository:
+    \itemize{
+      \item Added a file \code{Contributing.md} providing some points to
+      potential contributors (PR \ghpr{414} closing issue \ghit{413})
     }
   }
 }
