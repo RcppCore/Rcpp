@@ -3,6 +3,17 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
+\section{Changes in Rcpp version 0.12.4 (2016-01-XX)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item \code{Nullable<>::operator SEXP()} and
+      \code{Nullable<>::get()} now also work for \code{const} objects
+      (PR \ghpr{417}).
+    }
+  }
+}
+
 \section{Changes in Rcpp version 0.12.3 (2016-01-10)}{
   \itemize{
     \item Changes in Rcpp API:

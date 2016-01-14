@@ -76,7 +76,7 @@ namespace Rcpp {
          *
          * @throw 'not initialized' if object has not been set
          */
-        inline operator SEXP() {
+        inline operator SEXP() const {
             checkIfSet();
             return m_sexp;
         }
@@ -86,7 +86,7 @@ namespace Rcpp {
          *
          * @throw 'not initialized' if object has not been set
          */
-        inline SEXP get() {
+        inline SEXP get() const {
             checkIfSet();
             return m_sexp;
         }
