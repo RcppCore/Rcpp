@@ -124,7 +124,7 @@ namespace Rcpp {
         /**
          * Return a clone of m_sexp as a T
          */
-        inline T clone() const { return Rcpp::clone(as()); }
+        inline T clone() const { return Rcpp::clone(Rcpp::as< T >(get())); }
 
     private:
         SEXP m_sexp;
