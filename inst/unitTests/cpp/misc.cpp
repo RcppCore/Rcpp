@@ -198,3 +198,12 @@ SEXP testNullableGet(const Nullable<NumericMatrix>& M) {
     return M.get();
 }
 
+// [[Rcpp::export]]
+NumericMatrix testNullableAs(Nullable<NumericMatrix>& M) {
+    return M.as();
+}
+
+// [[Rcpp::export]]
+NumericMatrix testNullableClone(const Nullable<NumericMatrix>& M) {
+    return M.clone();
+}

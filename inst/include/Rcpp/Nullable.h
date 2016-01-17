@@ -116,6 +116,16 @@ namespace Rcpp {
          */
         inline bool isSet(void) const { return m_set; }
 
+        /**
+         * Returns m_sexp as a T
+         */
+        inline T as() { return Rcpp::as< T >(get()); }
+
+        /**
+         * Return a clone of m_sexp as a T
+         */
+        inline T clone() const { return Rcpp::clone(as()); }
+
     private:
         SEXP m_sexp;
         bool m_set;
