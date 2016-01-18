@@ -716,3 +716,25 @@ IntegerVector runit_cummax_iv(IntegerVector xx){
 }
 
 
+// 18 January 2016: median 
+
+// [[Rcpp::export]]
+double median_dbl(Rcpp::NumericVector x, bool na_rm = false) {
+    return Rcpp::median(x, na_rm);
+}
+
+// [[Rcpp::export]]
+double median_int(Rcpp::IntegerVector x, bool na_rm = false) {
+    return Rcpp::median(x, na_rm);
+}
+
+// [[Rcpp::export]]
+Rcomplex median_cx(Rcpp::ComplexVector x, bool na_rm = false) {
+    return Rcpp::median(x, na_rm);
+}
+
+// [[Rcpp::export]]
+Rcpp::String median_ch(Rcpp::CharacterVector x, bool na_rm = false) {
+    return Rcpp::median(x, na_rm);
+}
+

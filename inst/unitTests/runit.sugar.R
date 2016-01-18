@@ -775,6 +775,121 @@ if (.runThisTest) {
         x[4] <- NA
         checkEquals(fx(x), cummax(x))
     }
+    
+    
+    ## 18 January 2016: median
+    ## median of integer vector
+    test.sugar.median_int <- function() {
+        fx <- median_int
+        
+        x <- as.integer(rpos(5, 20))
+        checkEquals(fx(x), median(x), 
+                    "median_int / odd length / no NA / na.rm = FALSE")
+        
+        x[4] <- NA
+        checkEquals(fx(x), median(x), 
+                    "median_int / odd length / with NA / na.rm = FALSE")
+        
+        checkEquals(fx(x, TRUE), median(x, TRUE), 
+                    "median_int / odd length / with NA / na.rm = TRUE")
+        
+        ##
+        x <- as.integer(rpos(6, 20))
+        checkEquals(fx(x), median(x), 
+                    "median_int / even length / no NA / na.rm = FALSE")
+        
+        x[4] <- NA
+        checkEquals(fx(x), median(x), 
+                    "median_int / even length / with NA / na.rm = FALSE")
+        
+        checkEquals(fx(x, TRUE), median(x, TRUE), 
+                    "median_int / even length / with NA / na.rm = TRUE")
+    }
+    
+    ## median of numeric vector
+    test.sugar.median_dbl <- function() {
+        fx <- median_dbl
+        
+        x <- rnorm(5)
+        checkEquals(fx(x), median(x), 
+                    "median_dbl / odd length / no NA / na.rm = FALSE")
+        
+        x[4] <- NA
+        checkEquals(fx(x), median(x), 
+                    "median_dbl / odd length / with NA / na.rm = FALSE")
+        
+        checkEquals(fx(x, TRUE), median(x, TRUE), 
+                    "median_dbl / odd length / with NA / na.rm = TRUE")
+        
+        ##
+        x <- rnorm(6)
+        checkEquals(fx(x), median(x), 
+                    "median_dbl / even length / no NA / na.rm = FALSE")
+        
+        x[4] <- NA
+        checkEquals(fx(x), median(x), 
+                    "median_dbl / even length / with NA / na.rm = FALSE")
+        
+        checkEquals(fx(x, TRUE), median(x, TRUE), 
+                    "median_dbl / even length / with NA / na.rm = TRUE")
+    }
+    
+    ## median of complex vector
+    test.sugar.median_cx <- function() {
+        fx <- median_cx
+        
+        x <- rnorm(5) + 2i
+        checkEquals(fx(x), median(x), 
+                    "median_cx / odd length / no NA / na.rm = FALSE")
+        
+        x[4] <- NA
+        checkEquals(fx(x), median(x), 
+                    "median_cx / odd length / with NA / na.rm = FALSE")
+        
+        checkEquals(fx(x, TRUE), median(x, TRUE), 
+                    "median_cx / odd length / with NA / na.rm = TRUE")
+        
+        ##
+        x <- rnorm(6) + 2i
+        checkEquals(fx(x), median(x), 
+                    "median_cx / even length / no NA / na.rm = FALSE")
+        
+        x[4] <- NA
+        checkEquals(fx(x), median(x), 
+                    "median_cx / even length / with NA / na.rm = FALSE")
+        
+        checkEquals(fx(x, TRUE), median(x, TRUE), 
+                    "median_cx / even length / with NA / na.rm = TRUE")
+    }
+    
+    ## median of character vector
+    test.sugar.median_ch <- function() {
+        fx <- median_ch
+        
+        x <- sample(letters, 5)
+        checkEquals(fx(x), median(x), 
+                    "median_ch / odd length / no NA / na.rm = FALSE")
+        
+        x[4] <- NA
+        checkEquals(fx(x), median(x), 
+                    "median_ch / odd length / with NA / na.rm = FALSE")
+        
+        checkEquals(fx(x, TRUE), median(x, TRUE), 
+                    "median_ch / odd length / with NA / na.rm = TRUE")
+        
+        ##
+        x <- sample(letters, 6)
+        checkEquals(fx(x), suppressWarnings(median(x)), 
+                    "median_ch / even length / no NA / na.rm = FALSE")
+        
+        x[4] <- NA
+        checkEquals(fx(x), suppressWarnings(median(x)), 
+                    "median_ch / even length / with NA / na.rm = FALSE")
+        
+        checkEquals(fx(x, TRUE), suppressWarnings(median(x, TRUE)), 
+                    "median_ch / even length / with NA / na.rm = TRUE")
+    }
+    
 
 }
 
