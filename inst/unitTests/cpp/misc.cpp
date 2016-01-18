@@ -207,3 +207,12 @@ NumericMatrix testNullableAs(Nullable<NumericMatrix>& M) {
 NumericMatrix testNullableClone(const Nullable<NumericMatrix>& M) {
     return M.clone();
 }
+
+// [[Rcpp::export]]
+SEXP testNullableIsUsable(const Nullable<NumericMatrix>& M) {
+    if (M.isUsable()) {
+        return M.clone();
+    } else {
+        return R_NilValue;
+    }
+}

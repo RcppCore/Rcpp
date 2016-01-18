@@ -92,6 +92,13 @@ namespace Rcpp {
         }
 
         /**
+         * Boolean test for usability as a T
+         */
+        inline bool isUsable() const {
+            return m_set && !Rf_isNull(m_sexp);
+        }
+
+        /**
          * Boolean test for NULL
          *
          * @throw 'not initialized' if object has not been set
