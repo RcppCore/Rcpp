@@ -88,7 +88,7 @@ class Median {
 public:
     typedef typename median_detail::result<RTYPE>::type result_type;
     typedef typename Rcpp::traits::storage_type<RTYPE>::type stored_type;
-    enum { RTYPE2 = median_detail::result<RTYPE>::rtype };
+    enum { RESULT_RTYPE = median_detail::result<RTYPE>::rtype };
     typedef T VECTOR;
     
 private:
@@ -100,11 +100,11 @@ public:
     
     operator result_type() {
         if (x.size() < 1) {
-            return Rcpp::traits::get_na<RTYPE2>();
+            return Rcpp::traits::get_na<RESULT_RTYPE>();
         }
         
         if (Rcpp::any(Rcpp::is_na(x))) {
-            return Rcpp::traits::get_na<RTYPE2>();
+            return Rcpp::traits::get_na<RESULT_RTYPE>();
         }
         
         R_xlen_t n = x.size() / 2;
@@ -126,7 +126,7 @@ class Median<RTYPE, NA, T, true> {
 public:
     typedef typename median_detail::result<RTYPE>::type result_type;
     typedef typename Rcpp::traits::storage_type<RTYPE>::type stored_type;
-    enum { RTYPE2 = median_detail::result<RTYPE>::rtype };
+    enum { RESULT_RTYPE = median_detail::result<RTYPE>::rtype };
     typedef T VECTOR;
     
 private:
@@ -138,7 +138,7 @@ public:
     
     operator result_type() {
         if (!x.size()) {
-            return Rcpp::traits::get_na<RTYPE2>();
+            return Rcpp::traits::get_na<RESULT_RTYPE>();
         }
         
         R_xlen_t n = x.size() / 2;
@@ -160,7 +160,7 @@ class Median<RTYPE, false, T, NA_RM> {
 public:
     typedef typename median_detail::result<RTYPE>::type result_type;
     typedef typename Rcpp::traits::storage_type<RTYPE>::type stored_type;
-    enum { RTYPE2 = median_detail::result<RTYPE>::rtype };
+    enum { RESULT_RTYPE = median_detail::result<RTYPE>::rtype };
     typedef T VECTOR;
     
 private:
@@ -172,7 +172,7 @@ public:
     
     operator result_type() {
         if (x.size() < 1) {
-            return Rcpp::traits::get_na<RTYPE2>();
+            return Rcpp::traits::get_na<RESULT_RTYPE>();
         }
         
         R_xlen_t n = x.size() / 2;
@@ -281,14 +281,8 @@ public:
 template <int RTYPE, bool NA, typename T>
 inline typename sugar::median_detail::result<RTYPE>::type
 median(const Rcpp::VectorBase<RTYPE, NA, T>& x, bool na_rm = false) {
-    switch (static_cast<int>(na_rm)) {
-        case 0:
-            return sugar::Median<RTYPE, NA, T, false>(x);
-        case 1:
-            return sugar::Median<RTYPE, NA, T, true>(x);
-        default:
-            return Rcpp::traits::get_na<RTYPE>();
-    }
+    if (!na_rm) return sugar::Median<RTYPE, NA, T, false>(x);
+    return sugar::Median<RTYPE, NA, T, true>(x);
 }
 
 } // Rcpp
