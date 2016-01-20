@@ -185,4 +185,23 @@ if (.runThisTest) {
         M <- matrix(1:4, 2, 2)
         checkEquals( testNullableGet(M), M )
     }
+
+    test.NullableAccessAs <- function() {
+        M <- matrix(1:4, 2, 2)
+        checkEquals( testNullableAs(M), M )
+    }
+
+    test.NullableAccessClone <- function() {
+        M <- matrix(1:4, 2, 2)
+        checkEquals( testNullableClone(M), M )
+    }
+
+    test.NullableIsUsableTrue <- function() {
+	M <- matrix(1:4, 2, 2)
+        checkEquals( testNullableIsUsable(M), M)
+    }
+
+    test.NullableIsUsableFalse <- function() {
+        checkTrue(is.null(testNullableIsUsable(NULL)))
+    }
 }

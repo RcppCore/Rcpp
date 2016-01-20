@@ -92,6 +92,13 @@ namespace Rcpp {
         }
 
         /**
+         * Boolean test for usability as a T
+         */
+        inline bool isUsable() const {
+            return m_set && !Rf_isNull(m_sexp);
+        }
+
+        /**
          * Boolean test for NULL
          *
          * @throw 'not initialized' if object has not been set
@@ -115,6 +122,16 @@ namespace Rcpp {
          *
          */
         inline bool isSet(void) const { return m_set; }
+
+        /**
+         * Returns m_sexp as a T
+         */
+        inline T as() { return get(); }
+
+        /**
+         * Return a clone of m_sexp as a T
+         */
+        inline T clone() const { return Rcpp::clone(get()); }
 
     private:
         SEXP m_sexp;
