@@ -1,3 +1,9 @@
+2016-01-22  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version): Mark as 0.12.3.1
+
+        * TODO: Add ChangeLog and NEWS entries for recent PRs
+
 2016-01-10  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.12.3
