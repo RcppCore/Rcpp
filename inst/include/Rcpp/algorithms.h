@@ -3,14 +3,10 @@ namespace Rcpp
 namespace algorithm
 {
 
-namespace helpers
-{
-    struct log
-    {
-        inline double operator()(double val)
-        {
-            if (!NumericVector::is_na(val))
-            {
+namespace helpers {
+    struct log {
+        inline double operator()(double val) {
+            if (!NumericVector::is_na(val)) {
                 return std::log(val);
             }
 
@@ -18,12 +14,9 @@ namespace helpers
         }
     };
 
-    struct exp
-    {
-        inline double operator()(double val)
-        {
-            if (!NumericVector::is_na(val))
-            {
+    struct exp {
+        inline double operator()(double val) {
+            if (!NumericVector::is_na(val)) {
                 return std::exp(val);
             }
 
@@ -31,12 +24,9 @@ namespace helpers
         }
     };
 
-    struct sqrt
-    {
-        inline double operator()(double val)
-        {
-            if (!NumericVector::is_na(val))
-            {
+    struct sqrt {
+        inline double operator()(double val) {
+            if (!NumericVector::is_na(val)) {
                 return std::sqrt(val);
             }
 
@@ -46,12 +36,10 @@ namespace helpers
 } // namespace helpers
 
 template< typename InputIterator >
-typename std::iterator_traits< InputIterator >::value_type sum(InputIterator begin, InputIterator end)
-{
+typename std::iterator_traits< InputIterator >::value_type sum(InputIterator begin, InputIterator end) {
     typename std::iterator_traits< InputIterator >::value_type start = *begin++;
 
-    while (begin != end)
-    {
+    while (begin != end) {
         start += *begin++;
     }
 
@@ -59,12 +47,10 @@ typename std::iterator_traits< InputIterator >::value_type sum(InputIterator beg
 }
 
 template< typename InputIterator >
-typename std::iterator_traits< InputIterator >::value_type prod(InputIterator begin, InputIterator end)
-{
+typename std::iterator_traits< InputIterator >::value_type prod(InputIterator begin, InputIterator end) {
     typename std::iterator_traits< InputIterator >::value_type start = *begin++;
 
-    while (begin != end)
-    {
+    while (begin != end) {
         start *= *begin++;
     }
 
@@ -72,20 +58,17 @@ typename std::iterator_traits< InputIterator >::value_type prod(InputIterator be
 }
 
 template< typename InputIterator, typename OutputIterator >
-void log(InputIterator begin, InputIterator end, OutputIterator out)
-{
+void log(InputIterator begin, InputIterator end, OutputIterator out) {
     std::transform(begin, end, out, helpers::log());
 }
 
 template< typename InputIterator, typename OutputIterator >
-void exp(InputIterator begin, InputIterator end, OutputIterator out)
-{
+void exp(InputIterator begin, InputIterator end, OutputIterator out) {
     std::transform(begin, end, out, helpers::exp());
 }
 
 template< typename InputIterator, typename OutputIterator >
-void sqrt(InputIterator begin, InputIterator end, OutputIterator out)
-{
+void sqrt(InputIterator begin, InputIterator end, OutputIterator out) {
     std::transform(begin, end, out, helpers::sqrt());
 }
 
