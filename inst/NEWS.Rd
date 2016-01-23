@@ -7,9 +7,20 @@
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
-      \item \code{Nullable<>::operator SEXP()} and
+      \item New accessors \code{as()} and \code{clone()} were added to the
+      \code{Nullable} class (Dan in PR \ghpr{423} closing \ghit{421})
+      \item The \code{Nullable<>::operator SEXP()} and
       \code{Nullable<>::get()} now also work for \code{const} objects
-      (PR \ghpr{417}).
+      (Kirill Mueller in PR \ghpr{417}).
+    }
+    \item Changes in Rcpp Sugar:
+    \itemize{
+      \item Added new Sugar function \code{median()} (Nathan in PR \ghpr{425}
+      closing \ghit{424})
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item A plugin for C++14 was added (Dan in PR \ghpr{427})
     }
   }
 }

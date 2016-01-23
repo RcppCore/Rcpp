@@ -2,7 +2,32 @@
 
         * DESCRIPTION (Version): Mark as 0.12.3.1
 
-        * TODO: Add ChangeLog and NEWS entries for recent PRs
+2016-01-22  Daniel C. Dillon  <dcdillon@gmail.com>
+
+        * R/Attributes.R: Add plugin for cpp14
+
+2016-01-18  Daniel C. Dillon  <dcdillon@gmail.com>
+
+        * inst/include/Rcpp/Nullable.h: Add isUsable()
+        * inst/unitTests/cpp/misc.cpp: Add tests
+        * inst/unitTests/runit.misc.R: Idem
+
+2016-01-17  Nathan Russell <russell.nr2012@gmail.com>
+
+        * inst/include/Rcpp/sugar/functions/median.h: New function
+        * inst/unitTests/cpp/sugar.cpp: Add tests
+        * inst/unitTests/runit.sugar.R: Idem
+
+2016-01-17  Daniel C. Dillon  <dcdillon@gmail.com>
+
+        * inst/include/Rcpp/Nullable.h: Add as() and clone()
+        * inst/unitTests/cpp/misc.cpp: Add tests
+        * inst/unitTests/runit.misc.R: Idem
+
+2016-01-13  Kirill Mueller  <kirill.mueller@ivt.baug.ethz.ch>
+
+        * inst/include/Rcpp/Nullable.h: Added const support
+        * inst/unitTests/cpp/misc.cpp: Added tests for const support
 
 2016-01-10  Dirk Eddelbuettel  <edd@debian.org>
 
