@@ -1,7 +1,5 @@
-namespace Rcpp
-{
-namespace algorithm
-{
+namespace Rcpp {
+namespace algorithm {
 
 namespace helpers {
     struct log {
