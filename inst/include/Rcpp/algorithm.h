@@ -2,9 +2,25 @@ namespace Rcpp {
 namespace algorithm {
 
 namespace helpers {
+    template< typename T >
+    struct rtype {
+        static const int RTYPE = REALSXP;
+    };
+
+    template<>
+    struct rtype< double > {
+        static const int RTYPE = REALSXP;
+    };
+
+    template<>
+    struct rtype< int > {
+        static const int RTYPE = INTSXP;
+    };
+
     struct log {
-        inline double operator()(double val) {
-            if (!NumericVector::is_na(val)) {
+        template< typename T >
+        inline double operator()(T val) {
+            if (!Vector< rtype< typename traits::remove_const_and_reference< T >::type >::RTYPE >::is_na(val)) {
                 return std::log(val);
             }
 
@@ -13,8 +29,9 @@ namespace helpers {
     };
 
     struct exp {
-        inline double operator()(double val) {
-            if (!NumericVector::is_na(val)) {
+        template< typename T >
+        inline double operator()(T val) {
+            if (!Vector< rtype< typename traits::remove_const_and_reference< T >::type >::RTYPE >::is_na(val)) {
                 return std::exp(val);
             }
 
@@ -23,8 +40,9 @@ namespace helpers {
     };
 
     struct sqrt {
-        inline double operator()(double val) {
-            if (!NumericVector::is_na(val)) {
+        template< typename T >
+        inline double operator()(T val) {
+            if (!Vector< rtype< typename traits::remove_const_and_reference< T >::type >::RTYPE >::is_na(val)) {
                 return std::sqrt(val);
             }
 
