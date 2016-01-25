@@ -5,43 +5,47 @@ namespace helpers {
     template< typename T >
     struct rtype_helper {
         static const int RTYPE = REALSXP;
-        static const double NA;
+        static double NA;
         static const double ZERO = 0.0;
         static const double ONE = 1.0;
     };
 
     template< typename T >
-    const double rtype_helper< T >::NA = NA_REAL;
+    double rtype_helper< T >::NA = NA_REAL;
 
     template<>
     struct rtype_helper< double > {
         static const int RTYPE = REALSXP;
-        static const double NA;
+        static double NA;
         static const double ZERO = 0.0;
         static const double ONE = 1.0;
     };
 
-    const double rtype_helper< double >::NA = NA_REAL;
+    double rtype_helper< double >::NA = NA_REAL;
 
     template<>
     struct rtype_helper< int > {
         static const int RTYPE = INTSXP;
-        static const int NA = INT_MIN;
+        static int NA;
         static const int ZERO = 0;
         static const int ONE = 1;
     };
+
+    int rtype_helper< int >::NA = NA_INTEGER;
 
     template< typename T >
     struct rtype {
         static const int RTYPE =
             rtype_helper< typename traits::remove_const_and_reference< T >::type >::RTYPE;
-        static const T NA =
-            rtype_helper< typename traits::remove_const_and_reference< T >::type >::NA;
+        static T NA;
         static const T ZERO =
             rtype_helper< typename traits::remove_const_and_reference< T >::type >::ZERO;
         static const T ONE =
             rtype_helper< typename traits::remove_const_and_reference< T >::type >::ONE;
     };
+
+    template< typename T >
+    T rtype< T >::NA = rtype_helper< typename traits::remove_const_and_reference< T >::type >::NA;
 
     struct log {
         template< typename T >
