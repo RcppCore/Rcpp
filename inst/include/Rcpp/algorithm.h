@@ -42,7 +42,7 @@ namespace helpers {
                 return std::log(val);
             }
 
-            return NA_REAL;
+            return rtype< double >::NA();
         }
     };
 
@@ -53,7 +53,7 @@ namespace helpers {
                 return std::exp(val);
             }
 
-            return NA_REAL;
+            return rtype< double >::NA();
         }
     };
 
@@ -64,7 +64,7 @@ namespace helpers {
                 return std::sqrt(val);
             }
 
-            return NA_REAL;
+            return rtype< double >::NA();
         }
     };
 } // namespace helpers
