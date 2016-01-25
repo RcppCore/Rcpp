@@ -3,24 +3,30 @@ namespace algorithm {
 
 namespace helpers {
     template< typename T >
-    struct rtype {
+    struct rtype_helper {
         static const int RTYPE = REALSXP;
     };
 
     template<>
-    struct rtype< double > {
+    struct rtype_helper< double > {
         static const int RTYPE = REALSXP;
     };
 
     template<>
-    struct rtype< int > {
+    struct rtype_helper< int > {
         static const int RTYPE = INTSXP;
+    };
+
+    template< typename T >
+    struct rtype {
+        static const int RTYPE =
+            rtype_helper< typename traits::remove_const_and_reference< T >::type >::RTYPE;
     };
 
     struct log {
         template< typename T >
         inline double operator()(T val) {
-            if (!Vector< rtype< typename traits::remove_const_and_reference< T >::type >::RTYPE >::is_na(val)) {
+            if (!Vector< rtype< T >::RTYPE >::is_na(val)) {
                 return std::log(val);
             }
 
@@ -31,7 +37,7 @@ namespace helpers {
     struct exp {
         template< typename T >
         inline double operator()(T val) {
-            if (!Vector< rtype< typename traits::remove_const_and_reference< T >::type >::RTYPE >::is_na(val)) {
+            if (!Vector< rtype< T >::RTYPE >::is_na(val)) {
                 return std::exp(val);
             }
 
@@ -42,7 +48,7 @@ namespace helpers {
     struct sqrt {
         template< typename T >
         inline double operator()(T val) {
-            if (!Vector< rtype< typename traits::remove_const_and_reference< T >::type >::RTYPE >::is_na(val)) {
+            if (!Vector< rtype< T >::RTYPE >::is_na(val)) {
                 return std::sqrt(val);
             }
 
