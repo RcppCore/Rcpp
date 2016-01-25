@@ -6,24 +6,24 @@ namespace helpers {
     struct rtype_helper {
         static const int RTYPE = REALSXP;
         static inline double NA() { return NA_REAL; }
-        static const double ZERO = 0.0;
-        static const double ONE = 1.0;
+        static inline double ZERO() { return 0.0; }
+        static inline double ONE() { return 1.0; }
     };
 
     template<>
     struct rtype_helper< double > {
         static const int RTYPE = REALSXP;
         static inline double NA() { return NA_REAL; }
-        static const double ZERO = 0.0;
-        static const double ONE = 1.0;
+        static inline double ZERO() { return 0.0; }
+        static inline double ONE() { return 1.0; }
     };
 
     template<>
     struct rtype_helper< int > {
         static const int RTYPE = INTSXP;
         static inline int NA() { return NA_INTEGER; }
-        static const int ZERO = 0;
-        static const int ONE = 1;
+        static inline int ZERO() { return 0; }
+        static inline int ONE() { return 1; }
     };
 
     template< typename T >
@@ -31,10 +31,8 @@ namespace helpers {
         static const int RTYPE =
             rtype_helper< typename traits::remove_const_and_reference< T >::type >::RTYPE;
         static inline T NA() { return rtype_helper< typename traits::remove_const_and_reference< T >::type >::NA(); }
-        static const T ZERO =
-            rtype_helper< typename traits::remove_const_and_reference< T >::type >::ZERO;
-        static const T ONE =
-            rtype_helper< typename traits::remove_const_and_reference< T >::type >::ONE;
+        static inline T ZERO() { return rtype_helper< typename traits::remove_const_and_reference< T >::type >::ZERO(); }
+        static inline T ONE() { return rtype_helper< typename traits::remove_const_and_reference< T >::type >::ONE(); }
     };
 
     struct log {
@@ -78,7 +76,7 @@ typename std::iterator_traits< InputIterator >::value_type sum(InputIterator beg
     typedef typename helpers::rtype< value_type > rtype;
 
     if (begin != end) {
-         value_type start = rtype::ZERO;
+         value_type start = rtype::ZERO();
 
         while (begin != end) {
             if (!Vector< rtype::RTYPE >::is_na(*begin)) {
@@ -91,7 +89,7 @@ typename std::iterator_traits< InputIterator >::value_type sum(InputIterator beg
         return start;
     }
 
-    return rtype::ZERO;
+    return rtype::ZERO();
 }
 
 template< typename InputIterator >
@@ -101,7 +99,7 @@ typename std::iterator_traits< InputIterator >::value_type prod(InputIterator be
     typedef typename helpers::rtype< value_type > rtype;
 
     if (begin != end) {
-        value_type start = rtype::ONE;
+        value_type start = rtype::ONE();
 
         while (begin != end) {
             if (!Vector< rtype::RTYPE >::is_na(*begin)) {
@@ -114,7 +112,7 @@ typename std::iterator_traits< InputIterator >::value_type prod(InputIterator be
         return start;
     }
 
-    return rtype::ZERO;
+    return rtype::ZERO();
 }
 
 template< typename InputIterator, typename OutputIterator >
