@@ -1,38 +1,44 @@
+#if __cplusplus >= 201103L
+#    define RCPP_CONSTEXPR constexpr
+#else
+#    define RCPP_CONSTEXPR const
+#endif
+
 namespace Rcpp {
 namespace algorithm {
 
 namespace helpers {
     template< typename T >
     struct rtype_helper {
-        static const int RTYPE = REALSXP;
+        static RCPP_CONSTEXPR int RTYPE = REALSXP;
         static inline double NA() { return NA_REAL; }
-        static inline double ZERO() { return 0.0; }
-        static inline double ONE() { return 1.0; }
+        static inline RCPP_CONSTEXPR double ZERO() { return 0.0; }
+        static inline RCPP_CONSTEXPR double ONE() { return 1.0; }
     };
 
     template<>
     struct rtype_helper< double > {
-        static const int RTYPE = REALSXP;
+        static RCPP_CONSTEXPR int RTYPE = REALSXP;
         static inline double NA() { return NA_REAL; }
-        static inline double ZERO() { return 0.0; }
-        static inline double ONE() { return 1.0; }
+        static inline RCPP_CONSTEXPR double ZERO() { return 0.0; }
+        static inline RCPP_CONSTEXPR double ONE() { return 1.0; }
     };
 
     template<>
     struct rtype_helper< int > {
-        static const int RTYPE = INTSXP;
+        static RCPP_CONSTEXPR int RTYPE = INTSXP;
         static inline int NA() { return NA_INTEGER; }
-        static inline int ZERO() { return 0; }
-        static inline int ONE() { return 1; }
+        static inline RCPP_CONSTEXPR int ZERO() { return 0; }
+        static inline RCPP_CONSTEXPR int ONE() { return 1; }
     };
 
     template< typename T >
     struct rtype {
-        static const int RTYPE =
+        static RCPP_CONSTEXPR int RTYPE =
             rtype_helper< typename traits::remove_const_and_reference< T >::type >::RTYPE;
         static inline T NA() { return rtype_helper< typename traits::remove_const_and_reference< T >::type >::NA(); }
-        static inline T ZERO() { return rtype_helper< typename traits::remove_const_and_reference< T >::type >::ZERO(); }
-        static inline T ONE() { return rtype_helper< typename traits::remove_const_and_reference< T >::type >::ONE(); }
+        static inline RCPP_CONSTEXPR T ZERO() { return rtype_helper< typename traits::remove_const_and_reference< T >::type >::ZERO(); }
+        static inline RCPP_CONSTEXPR T ONE() { return rtype_helper< typename traits::remove_const_and_reference< T >::type >::ONE(); }
     };
 
     struct log {
@@ -132,3 +138,5 @@ void sqrt(InputIterator begin, InputIterator end, OutputIterator out) {
 
 } // namespace algorithm
 } // namespace Rcpp
+
+#undef RCPP_CONSTEXPR
