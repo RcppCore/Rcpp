@@ -720,5 +720,14 @@ if (.runThisTest) {
         s <- vec_print_character(v)
         checkEquals(s, '"a" "b" "c" "d"')
     }
+
+    test.IntegerVector.subset.under.gc <- function() {
+        x <- 1:1E6
+        y <- 1:1E6
+        gctorture(TRUE)
+        z <- vec_subset(x, y)
+        gctorture(FALSE)
+        checkEquals(x[y], z)
+    }
 }
 
