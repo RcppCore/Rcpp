@@ -12,6 +12,8 @@
       \item The \code{Nullable<>::operator SEXP()} and
       \code{Nullable<>::get()} now also work for \code{const} objects
       (Kirill Mueller in PR \ghpr{417}).
+      \item A subsetting error was fixed (Qiang via \ghpr{432} closing
+      \ghit{431}).
     }
     \item Changes in Rcpp Sugar:
     \itemize{

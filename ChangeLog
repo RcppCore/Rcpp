@@ -1,6 +1,6 @@
-2016-01-30 Qiang Kou <qkou@umail.iu.edu>
+2016-01-30  Qiang Kou  <qkou@umail.iu.edu>
 
-        * inst//include/Rcpp/vector/Subsetter.h: fix the error under gc
+        * inst/include/Rcpp/vector/Subsetter.h: Fix the error under gc
         * inst/unitTests/cpp/Vector.cpp : Add tests
         * inst/unitTests/runit.Vector.R : Idem
 
