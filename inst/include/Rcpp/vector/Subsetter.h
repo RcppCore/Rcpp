@@ -144,9 +144,13 @@ private:
     #endif
 
     void get_indices( traits::identity< traits::int2type<INTSXP> > t ) {
-        indices = INTEGER(rhs);
-        indices_n = rhs_n;
-        check_indices(indices, rhs_n, lhs_n);
+        indices.reserve(rhs_n);
+        int* ptr = INTEGER(rhs);
+        check_indices(ptr, rhs_n, lhs_n);
+        for (int i=0; i < rhs_n; ++i) {
+            indices.push_back( rhs[i] );
+        }
+        indices_n = rhs_n;        
     }
 
     void get_indices( traits::identity< traits::int2type<REALSXP> > t ) {
@@ -215,13 +219,7 @@ private:
     int lhs_n;
     int rhs_n;
 
-    // we want to reuse the indices if an IntegerVector is passed in; otherwise,
-    // we construct a std::vector<int> to hold the indices
-    typename traits::if_<
-        RHS_RTYPE == INTSXP,
-        int*,
-        std::vector<int>
-    >::type indices;
+    std::vector<int> indices;
 
     // because of the above, we keep track of the size
     int indices_n;

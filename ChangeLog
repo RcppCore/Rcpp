@@ -1,3 +1,9 @@
+2016-01-30 Qiang Kou <qkou@umail.iu.edu>
+
+        * inst//include/Rcpp/vector/Subsetter.h: fix the error under gc
+        * inst/unitTests/cpp/Vector.cpp : Add tests
+        * inst/unitTests/runit.Vector.R : Idem
+
 2016-01-29  Dirk Eddelbuettel  <edd@debian.org>
 
         * vignettes/Rcpp-FAQ.Rnw (Rcpp): Add new entry about required TeXlive
