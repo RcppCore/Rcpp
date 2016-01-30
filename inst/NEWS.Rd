@@ -22,6 +22,11 @@
     \itemize{
       \item A plugin for C++14 was added (Dan in PR \ghpr{427})
     }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item An entry was added to the Rcpp-FAQ vignette describing the required
+      packages for vignette building (\ghit{422}).
+    }
   }
 }
 

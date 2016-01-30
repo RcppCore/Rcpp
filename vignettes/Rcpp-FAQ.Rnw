@@ -1026,6 +1026,35 @@ fit into \code{integer} types, up to 53 bit precision fits into
 for example from the \href{http://gmplib.org/}{GNU Multiple Precision Arithmetic
   Library} may be an alternative.
 
+\subsection{What LaTeX packages do I need to typeset the vignettes ?}
+
+\begin{quote}
+  \emph{I would like to typeset the vignettes. What do I need?}
+\end{quote}
+
+The \href{https://www.tug.org/texlive/}{TeXLive} distribution seems to get
+bigger and bigger.  What you need to install may depend on your operating
+system.
+
+Specific per-platform notes:
+\begin{description}
+  \item[Windows] users probably want the \href{http://miktex.org/}{MiKTeX}.
+    Suggestions for a more detailed walk through would be appreciated.
+  \item[OS X] users seem to fall into camps which like or do not like brew /
+    homebrew. One suggestion was to install
+    \href{https://tug.org/mactex/mactex-download.html}{MacTeX} but at
+    approximately 2.5gb (as of January 2016) this is not lightweight.
+  \item[Linux] users probably want the full
+    \href{https://www.tug.org/texlive/}{TeXLive} set from their distribution. On
+    \href{http://www.debian.org}{Debian} these packages are installed to build
+    the R package itself: \texttt{texlive-base, texlive-latex-base,
+      texlive-generic-recommended, texlive-fonts-recommended,
+      texlive-fonts-extra, texlive-extra-utils, texlive-latex-recommended,
+      texlive-latex-extra}.  Using \texttt{texlive-full} may be a shortcut.
+    Fedora and other distributions should have similar packages.
+\end{description}
+
+
 \section{Support}
 
 \subsection{Is the API documented ?}
@@ -1111,7 +1140,7 @@ which contained Rcpp and a number of related packages. It still has the full
 history as well as number of support files.
 
 We have since switched to a \href{http://github.com/RcppCore/Rcpp}{Git
-  repository at Github} for Rcpp (as well as RcppArmadillo and RcppEigen).
+  repository at Github} for Rcpp (as well as for RcppArmadillo and RcppEigen).
 
 \bibliographystyle{plainnat}
 \bibliography{Rcpp}

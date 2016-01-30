@@ -1,3 +1,8 @@
+2016-01-29  Dirk Eddelbuettel  <edd@debian.org>
+
+        * vignettes/Rcpp-FAQ.Rnw (Rcpp): Add new entry about required TeXlive
+        installation to build vignettes (issue #422)
+
 2016-01-22  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version): Mark as 0.12.3.1
