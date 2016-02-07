@@ -472,7 +472,7 @@ There are currently two distinct versions of R for OS X. The first version is a 
 The OS X operating environment lacks the ability to parallelize sections of code using the \href{http://openmp.org/wp/}{OpenMP} standard. As a result, make sure to protect any parallelized sections of code with:
 
 <<osx_openmp, engine="Rcpp", eval = F>>=
-#ifdef SUPPORT_OPENMP
+#ifdef _OPENMP
     // multithreaded OpenMP version of code
 #else
     // single-threaded version of code
