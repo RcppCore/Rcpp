@@ -69,6 +69,8 @@ require(highlight)
   \citep{CRAN:Rcpp,JSS:Rcpp,Eddelbuettel:2013:Rcpp} package. 
 }
 
+\tableofcontents
+
 \section{Getting started}
 
 \subsection{How do I get started ?}

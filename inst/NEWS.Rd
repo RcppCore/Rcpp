@@ -29,7 +29,8 @@
       \item An entry was added to the Rcpp-FAQ vignette describing the required
       packages for vignette building (\ghit{422}).
       \item Use on OS X was further detailed (James Balamuta in \ghpr{433} with
-      further review by Bob Rudis)
+      further review by Bob Rudis).
+      \item The Rcpp-FAQ now contains a table of content.
     }
   }
 }
