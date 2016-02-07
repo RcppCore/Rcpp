@@ -1,3 +1,8 @@
+2016-02-06  James J Balamuta  <balamut2@illinois.edu>
+
+        * vignettes/Rcpp-FAQ.Rnw (Rcpp): Additional material, and corrections,
+        for use on OS X
+
 2016-01-30  Qiang Kou  <qkou@umail.iu.edu>
 
         * inst/include/Rcpp/vector/Subsetter.h: Fix the error under gc
