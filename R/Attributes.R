@@ -461,7 +461,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
 
     body <- quote( CALL_PLACEHOLDER ( EXTERNALNAME, ARG ) )[ c(1:2, rep(3, length(args))) ]
 
-    for (i in seq(along = args))
+    for (i in seq(along.with = args))
         body[[i+2]] <- as.symbol(args[i])
 
     body[[1L]] <- .Call

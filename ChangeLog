@@ -1,5 +1,7 @@
 2016-02-07  Dirk Eddelbuettel  <edd@debian.org>
 
+        * R/Attributes.R (sourceCppFunction): Use fully matched seq(along.with=...)
+
         * vignettes/Rcpp-FAQ.Rnw: Added a table of contents
 
 2016-02-06  James J Balamuta  <balamut2@illinois.edu>
