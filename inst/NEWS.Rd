@@ -30,6 +30,8 @@
       packages for vignette building (\ghit{422}).
       \item Use on OS X was further detailed (James Balamuta in \ghpr{433} with
       further review by Bob Rudis).
+      \item An entry was added concerning the hard-code limit of arguments to
+      some constructor and function (cf \ghit{435}).
       \item The Rcpp-FAQ now contains a table of content.
     }
   }

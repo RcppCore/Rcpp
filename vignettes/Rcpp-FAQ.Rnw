@@ -1163,6 +1163,24 @@ Specific per-platform notes:
     Fedora and other distributions should have similar packages.
 \end{description}
 
+\subsection{Why is there a limit of 20 on some constructors?}
+
+\begin{quote}
+  \emph{Ok, I would like to pass $N$ object but you only allow 20. How come?}
+\end{quote}
+
+In essence, and in order to be able to compile it with the largest number of
+compilers, \pkg{Rcpp} is constrained by the older C++ standards which do not
+support variadic function arguments.  So we actually use macros and code
+generator scripts to explicitly enumerate arguments, and that number has to stop
+at some limit. We chose 20.
+
+A good discussion is available at
+\href{http://stackoverflow.com/questions/27371543}{this StackOverflow question}
+concering data.frame creation with \pkg{Rcpp}. One solution offers a custom
+\code{ListBuilder} class to circumvent the limit; another suggests to simply
+nest lists.
+
 
 \section{Support}
 
@@ -1245,11 +1263,12 @@ Yes. Just send us an email.
 
 From late 2008 to late 2013, we used the
 \href{https://r-forge.r-project.org/scm/?group_id=155}{Subversion repository at R-Forge}
-which contained Rcpp and a number of related packages. It still has the full
+which contained \pkg{Rcpp} and a number of related packages. It still has the full
 history as well as number of support files.
 
 We have since switched to a \href{http://github.com/RcppCore/Rcpp}{Git
-  repository at Github} for Rcpp (as well as for RcppArmadillo and RcppEigen).
+  repository at Github} for \pkg{Rcpp} (as well as for \pkg{RcppArmadillo} and
+\pkg{RcppEigen}).
 
 \bibliographystyle{plainnat}
 \bibliography{Rcpp}
