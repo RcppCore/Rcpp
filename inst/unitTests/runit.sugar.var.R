@@ -1,4 +1,4 @@
-#!/usr/bin/r -t
+#!/usr/bin/R -t
 #                     -*- mode: R; ess-indent-level: 4; indent-tabs-mode: nil; -*-
 #
 # Copyright (C) 2015 Wush Wu

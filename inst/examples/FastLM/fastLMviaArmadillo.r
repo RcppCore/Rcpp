@@ -1,4 +1,4 @@
-#!/usr/bin/r -t
+#!/usr/bin/R -t
 #
 # A faster lm() replacement based on Armadillo
 #

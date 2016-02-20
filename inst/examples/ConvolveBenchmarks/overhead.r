@@ -1,4 +1,4 @@
-#!/usr/bin/r
+#!/usr/bin/R
 
 set.seed(42)
 a <- rnorm(100)
