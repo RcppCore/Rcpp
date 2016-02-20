@@ -1,4 +1,4 @@
-#!/usr/bin/r -t
+#!/usr/bin/R -t
 #
 # Copyright (C) 2014  Dirk Eddelbuettel
 #

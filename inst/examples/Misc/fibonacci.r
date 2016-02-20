@@ -1,4 +1,4 @@
-#!/usr/bin/r
+#!/usr/bin/R
 
 ## this short example was provided in response to this StackOverflow questions:
 ## http://stackoverflow.com/questions/6807068/why-is-my-recursive-function-so-slow-in-r

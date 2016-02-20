@@ -1,4 +1,4 @@
-#!/usr/bin/r
+#!/usr/bin/R
 
 ## New and shorter version of Fibonacci example using Rcpp 0.9.16 or later features
 ## The the sibbling file 'fibonacci.r' for context

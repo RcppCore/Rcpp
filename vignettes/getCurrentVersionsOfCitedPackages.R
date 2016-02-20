@@ -1,4 +1,4 @@
-#/usr/bin/r
+#/usr/bin/R
 
 setwd("~/git/rcpp/vignettes")
 cmd <- "grep package= Rcpp.bib | cut -c27- | sed -e 's/\"$//' | sort | uniq"
