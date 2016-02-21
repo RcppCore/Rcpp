@@ -1,10 +1,12 @@
-#!/usr/bin/r
+#!/usr/bin/env r
 
 ## this short example was provided in response to this StackOverflow questions:
 ## http://stackoverflow.com/questions/6807068/why-is-my-recursive-function-so-slow-in-r
 ## and illustrates that recursive function calls are a) really expensive in R and b) not
 ## all expensive in C++ (my machine sees a 700-fold speed increase) and c) the byte
 ## compiler in R does not help here.
+
+suppressMessages(library(Rcpp))
 
 ## byte compiler
 require(compiler)

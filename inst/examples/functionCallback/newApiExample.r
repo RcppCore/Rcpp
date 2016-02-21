@@ -1,4 +1,4 @@
-#!/usr/bin/r -ti
+#!/usr/bin/env r
 
 suppressMessages(library(Rcpp))
 suppressMessages(library(inline))
@@ -24,8 +24,8 @@ cpp <- '
 '
 
 # create a C++ function
-funx <- cfunction(signature(N = "integer" , xvec = "numeric", fun = "function" ),
-                  cpp, , Rcpp = TRUE, include = "using namespace Rcpp; ")
+funx <- cxxfunction(signature(N = "integer" , xvec = "numeric", fun = "function" ),
+                    body=cpp, include = "using namespace Rcpp; ", plugin = "Rcpp")
 
 # create the vector
 xvec <- sqrt(c(1:12, 11:1))
@@ -36,4 +36,3 @@ par(mar=c(3,3,1,1),cex=0.8, pch=19)
 
 # run example
 funx( 10L, xvec, vecfunc )
-

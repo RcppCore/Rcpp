@@ -1,4 +1,4 @@
-#!/usr/bin/r
+#!/usr/bin/env r
 ##
 ## This example goes back to the following StackOverflow questions:
 ##   http://stackoverflow.com/questions/7153586/can-i-vectorize-a-calculation-which-depends-on-previous-elements

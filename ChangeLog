@@ -1,3 +1,16 @@
+2016-02-21  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/examples/functionCallback/newApiExample.r (vecfunc): Switched to
+        using '/usr/bin/env r', switch to using 'cxxfunction'
+
+        * inst/examples/Misc/fibonacci.r: Switched to using '/usr/bin/env r',
+        added explicit load of Rcpp package
+
+        * inst/examples/Misc/newFib.r: Switched to using '/usr/bin/env r'
+        * inst/examples/Misc/ifelseLooped.r: Idem
+        * inst/examples/Misc/piBySimulation.r: Idem
+        * inst/examples/SugarPerformance/sugarBenchmarks.r: Idem
+
 2016-02-16  Dirk Eddelbuettel  <edd@debian.org>
 
         * vignettes/Rcpp-FAQ.Rnw: Added answer on fixed-size limit of arguments
