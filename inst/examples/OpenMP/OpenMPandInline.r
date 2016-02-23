@@ -1,4 +1,4 @@
-#!/usr/bin/r
+#!/usr/bin/env r
 
 library(inline)
 library(rbenchmark)
