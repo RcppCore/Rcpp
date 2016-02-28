@@ -2,7 +2,7 @@
 //
 // Fast.h: Rcpp R/C++ interface class library -- faster vectors (less interface)
 //
-// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2016  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -26,19 +26,19 @@ namespace Rcpp {
 template <typename VECTOR>
 class Fast {
 public:
-    typedef typename VECTOR::stored_type value_type ;
+    typedef typename VECTOR::stored_type value_type;
 
-    Fast( const VECTOR& v_) : v(v_), data( v_.begin() ){}
+    Fast( /*const*/ VECTOR& v_) : v(v_), data(v_.begin()) {}
 
-    inline value_type& operator[]( R_xlen_t i){ return data[i] ; }
-    inline const value_type& operator[]( R_xlen_t i) const { return data[i] ; }
-    inline R_xlen_t size() const { return v.size() ; }
+    inline value_type& operator[](R_xlen_t i) { return data[i]; }
+    inline const value_type& operator[](R_xlen_t i) const { return data[i]; }
+    inline R_xlen_t size() const { return v.size(); }
 
 private:
-    const VECTOR& v ;
-    value_type* data ;
+    /*const*/ VECTOR& v;
+    value_type* data;
 
-} ;
+};
 }
 
 #endif

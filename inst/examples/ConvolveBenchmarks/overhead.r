@@ -1,4 +1,4 @@
-#!/usr/bin/r
+#!/usr/bin/env r
 
 set.seed(42)
 a <- rnorm(100)
@@ -17,12 +17,8 @@ overhead_cpp <- function(a,b) .Call( overhead_cpp_symbol, a, b )
 ## load benchmarkin helper function
 suppressMessages(library(rbenchmark))
 
-benchmark(
-
-    overhead_cpp(a,b),
-    overhead_c(a,b),
-    
-            columns=c("test", "replications", "elapsed", "relative", "user.self", "sys.self"),
-                order="relative",
-                replications=10000)
-
+res <- benchmark(overhead_cpp(a,b), overhead_c(a,b),
+                 columns=c("test", "replications", "elapsed", "relative", "user.self", "sys.self"),
+                 order="relative",
+                 replications=10000)
+print(res)

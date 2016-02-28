@@ -1,3 +1,14 @@
+2016-02-27  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/examples/RcppInline/RcppInlineWithLibsExamples.r: Switched to
+        using '/usr/bin/env r', switch to using 'cxxfunction' and RcppGSL plugin
+
+        * inst/examples/RcppInline/external_pointer.r: Switched to '/usr/bin/env r'
+        * inst/examples/RcppInline/RcppInlineExample.r: Idem
+        * inst/examples/ConvolveBenchmarks/overhead.r: Idem
+
+        * inst/include/Rcpp/Fast.h (Rcpp): Undo two const declarations
+
 2016-02-23  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/examples/OpenMP/OpenMPandInline.r: Switched to '/usr/bin/env r'
