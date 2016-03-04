@@ -5,6 +5,8 @@
         * inst/examples/FastLM/fastLMviaGSL.r: Idem
         * inst/examples/FastLM/lmArmadillo.R: Idem
         * inst/examples/FastLM/lmGSL.R: Idem
+        * inst/examples/FastLM/benchmark.r: Idem
+        * inst/examples/ConvolveBenchmarks/exampleRCode.r: Idem
 
 2016-02-27  Dirk Eddelbuettel  <edd@debian.org>
 

@@ -1,4 +1,4 @@
-#!/usr/bin/r -t
+#!/usr/bin/env r
 #
 # Comparison benchmark
 #
@@ -21,6 +21,9 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
+
+suppressMessages(library(RcppGSL))
+suppressMessages(library(RcppArmadillo))
 
 source("lmArmadillo.R")
 source("lmGSL.R")
