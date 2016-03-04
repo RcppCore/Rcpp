@@ -1,4 +1,4 @@
-#!/usr/bin/r -t
+#!/usr/bin/env r
 # -*- mode: R; tab-width: 4; -*-
 #
 # Copyright (C) 2009 - 2014  Romain Francois and Dirk Eddelbuettel

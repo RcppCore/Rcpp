@@ -1,4 +1,4 @@
-#!/usr/bin/r -t
+#!/usr/bin/env r
 # -*- mode: R; ess-indent-level: 4; tab-width: 4; indent-tabs-mode: nil; -*
 #
 # Copyright (C) 2012 - 2014  Dirk Eddelbuettel and Romain Francois
