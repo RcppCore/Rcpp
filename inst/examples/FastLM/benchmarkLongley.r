@@ -1,4 +1,4 @@
-#!/usr/bin/r -t
+#!/usr/bin/env r
 #
 # Comparison benchmark -- using old and small Longley data set
 #

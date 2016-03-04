@@ -49,11 +49,9 @@ lmArmadillo <- function() {
     '
 
     ## turn into a function that R can call
-    fun <- cfunction(signature(Ysexp="numeric", Xsexp="numeric"),
-                     src,
-                     includes="#include <armadillo>",
-                     Rcpp=TRUE,
-                     cppargs="-I/usr/include",
-                     libargs="-larmadillo -llapack")
+    fun <- cxxfunction(signature(Ysexp="numeric", Xsexp="numeric"),
+                       src,
+                       includes="#include <armadillo>",
+                       plugin="RcppArmadillo")
 }
 

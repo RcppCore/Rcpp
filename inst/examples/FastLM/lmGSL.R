@@ -62,10 +62,8 @@ lmGSL <- function() {
 
     ## turn into a function that R can call
     ## compileargs redundant on Debian/Ubuntu as gsl headers are found anyway
-    fun <- cfunction(signature(Ysexp="numeric", Xsexp="numeric"),
-                     src,
-                     includes="#include <gsl/gsl_multifit.h>",
-                     Rcpp=TRUE,
-                     cppargs="-I/usr/include",
-                     libargs="-lgsl -lgslcblas")
+    fun <- cxxfunction(signature(Ysexp="numeric", Xsexp="numeric"),
+                       src,
+                       includes="#include <gsl/gsl_multifit.h>",
+                       plugin="RcppGSL")
 }

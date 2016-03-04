@@ -1,3 +1,11 @@
+2016-03-03  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/examples/FastLM/benchmarkLongley.r: Switched to '/usr/bin/env r'
+        * inst/examples/FastLM/fastLMviaArmadillo.r: Idem
+        * inst/examples/FastLM/fastLMviaGSL.r: Idem
+        * inst/examples/FastLM/lmArmadillo.R: Idem
+        * inst/examples/FastLM/lmGSL.R: Idem
+
 2016-02-27  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/examples/RcppInline/RcppInlineWithLibsExamples.r: Switched to
