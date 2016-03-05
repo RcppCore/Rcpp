@@ -1,3 +1,12 @@
+2016-03-05  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/stats/exp.h: Replaced initial Emacs header line with
+        current one, ran M-x untabify and streamlined indentation
+        * inst/include/Rcpp/stats/lnorm.h: Idem
+        * inst/include/Rcpp/stats/logis.h: Idem
+        * inst/include/Rcpp/stats/norm.h: Idem
+        * inst/include/Rcpp/stats/weibull.h: Idem
+
 2016-03-04  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/unitTests/runit.Function.R: Switched to '/usr/bin/env r'

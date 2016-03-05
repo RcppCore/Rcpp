@@ -1,5 +1,4 @@
-
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // auto generated file (from script/stats.R)
 //
@@ -43,7 +42,6 @@ inline double dlnorm_0(double x, int log_p){
             -(M_LN_SQRT_2PI + 0.5 * y * y + ::log(x)) :
             M_1_SQRT_2PI * ::exp(-0.5 * y * y) / x);
     /* M_1_SQRT_2PI = 1 / sqrt(2 * pi) */
-
 }
 
 inline double dlnorm_1(double x, double meanlog, int log_p){
@@ -63,7 +61,6 @@ inline double dlnorm_1(double x, double meanlog, int log_p){
     /* M_1_SQRT_2PI = 1 / sqrt(2 * pi) */
 
 }
-
 
 inline double plnorm_0(double x, int lower_tail, int log_p){
 #ifdef IEEE_754
