@@ -27,46 +27,45 @@
 
 namespace Rcpp {
 namespace stats {
-	inline double d_exp_0( double x, int give_log){
+	inline double d_exp_0(double x, int give_log) {
 
 		#ifdef IEEE_754
-		    /* NaNs propagated correctly */
-		    if (ISNAN(x) ) return x + 1.0 ;
+		/* NaNs propagated correctly */
+		if (ISNAN(x)) return x + 1.0;
 		#endif
 
-    	if (x < 0.)
-		return R_D__0;
+		if (x < 0.)
+			return R_D__0;
 		return give_log ? (-x) : ::exp(-x);
 	}
-	inline double q_exp_0( double p, int lower_tail, int log_p){
+	inline double q_exp_0(double p, int lower_tail, int log_p) {
 		#ifdef IEEE_754
 		if (ISNAN(p)) return p + 1.0;
 		#endif
 
-		if ((log_p	&& p > 0) || (!log_p && (p < 0 || p > 1)) ) return R_NaN ;
+		if ((log_p && p > 0) || (!log_p && (p < 0 || p > 1))) return R_NaN;
 		if (p == R_DT_0)
-		return 0;
+			return 0;
 
 		return - R_DT_Clog(p);
 	}
 	inline double p_exp_0(double x, int lower_tail, int log_p) {
-#ifdef IEEE_754
-    if (ISNAN(x) )
-	return x + 1.0 ;
-#endif
+		#ifdef IEEE_754
+		if (ISNAN(x)) return x + 1.0;
+		#endif
 
-    if (x <= 0.)
-	return R_DT_0;
-    /* same as weibull( shape = 1): */
-    x = -x;
-    if (lower_tail)
-	return (log_p
-		/* log(1 - exp(x))  for x < 0 : */
-		? (x > -M_LN2 ? ::log(-::expm1(x)) : ::log1p(-::exp(x)))
-		: -::expm1(x));
-    /* else:  !lower_tail */
-    return R_D_exp(x);
-}
+		if (x <= 0.)
+			return R_DT_0;
+		/* same as weibull(shape = 1): */
+		x = -x;
+		if (lower_tail)
+			return (log_p
+				/* log(1 - exp(x))  for x < 0 : */
+				? (x > -M_LN2 ? ::log(-::expm1(x)) : ::log1p(-::exp(x)))
+				: -::expm1(x));
+		/* else:  !lower_tail */
+		return R_D_exp(x);
+	}
 
 } // stats
 } // Rcpp
