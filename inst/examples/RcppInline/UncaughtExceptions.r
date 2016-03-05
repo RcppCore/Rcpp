@@ -1,4 +1,4 @@
-#!/usr/bin/r -t
+#!/usr/bin/env r
 #
 # Copyright (C) 2009 - 2010  Romain Francois and Dirk Eddelbuettel
 #

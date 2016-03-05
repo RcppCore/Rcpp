@@ -1,4 +1,4 @@
-#!/usr/bin/r -t
+#!/usr/bin/env r
 #       hey emacs, please make this use  -*- tab-width: 4 -*-
 #
 # Copyright (C) 2010 - 2015  Dirk Eddelbuettel and Romain Francois

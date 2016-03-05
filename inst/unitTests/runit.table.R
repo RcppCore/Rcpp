@@ -1,4 +1,4 @@
-#!/usr/bin/r -t
+#!/usr/bin/env r
 #
 # Copyright (C) 2014  Dirk Eddelbuettel, Romain Francois, and Kevin Ushey
 #

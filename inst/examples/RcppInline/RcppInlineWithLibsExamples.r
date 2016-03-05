@@ -1,6 +1,6 @@
-#!/usr/bin/r -t
+#!/usr/bin/env r
 #
-# Copyright (C) 2009 - 2010	Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2009 - 2016  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -18,6 +18,7 @@
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 suppressMessages(library(Rcpp))
+suppressMessages(library(RcppGSL))
 suppressMessages(library(inline))
 
 firstExample <- function() {
@@ -29,10 +30,10 @@ firstExample <- function() {
 
     r = gsl_rng_alloc (gsl_rng_default);
 
-    printf("generator type: %s\\n", gsl_rng_name (r));
-    printf("seed = %lu\\n", gsl_rng_default_seed);
+    printf("  generator type: %s\\n", gsl_rng_name (r));
+    printf("  seed = %lu\\n", gsl_rng_default_seed);
     v = gsl_rng_get (r);
-    printf("first value = %.0f\\n", v);
+    printf("  first value = %.0f\\n", v);
 
     gsl_rng_free(r);
     return R_NilValue;
@@ -40,11 +41,9 @@ firstExample <- function() {
 
     ## turn into a function that R can call
     ## compileargs redundant on Debian/Ubuntu as gsl headers are found anyway
-    funx <- cfunction(signature(), gslrng,
-                      includes="#include <gsl/gsl_rng.h>",
-                      Rcpp=FALSE,
-                      cppargs="-I/usr/include",
-                      libargs="-lgsl -lgslcblas")
+    funx <- cxxfunction(signature(), gslrng,
+                        includes="#include <gsl/gsl_rng.h>",
+                        plugin="RcppGSL")
 
     cat("Calling first example\n")
     funx()
@@ -67,9 +66,9 @@ secondExample <- function() {
     v = gsl_rng_get (r);
 
     #ifndef BeSilent
-    printf("generator type: %s\\n", gsl_rng_name (r));
-    printf("seed = %d\\n", seed);
-    printf("first value = %.0f\\n", v);
+    printf("  generator type: %s\\n", gsl_rng_name (r));
+    printf("  seed = %d\\n", seed);
+    printf("  first value = %.0f\\n", v);
     #endif
 
     gsl_rng_free(r);
@@ -79,19 +78,20 @@ secondExample <- function() {
     ## turn into a function that R can call
     ## compileargs redundant on Debian/Ubuntu as gsl headers are found anyway
     ## use additional define for compile to suppress output
-    funx <- cfunction(signature(par="numeric"), gslrng,
-                      includes="#include <gsl/gsl_rng.h>",
-                      Rcpp=TRUE,
-                      cppargs="-I/usr/include",
-                      libargs="-lgsl -lgslcblas")
+    funx <- cxxfunction(signature(par="numeric"), gslrng,
+                        includes="#include <gsl/gsl_rng.h>",
+                        plugin="RcppGSL")
     cat("\n\nCalling second example without -DBeSilent set\n")
     print(funx(0))
 
-    funx <- cfunction(signature(par="numeric"), gslrng,
-                      includes="#include <gsl/gsl_rng.h>",
-                      Rcpp=TRUE,
-                      cppargs="-I/usr/include -DBeSilent",
-                      libargs="-lgsl -lgslcblas")
+
+    ## now override settings to add -D flag
+    settings <- getPlugin("RcppGSL")
+    settings$env$PKG_CPPFLAGS <- paste(settings$PKG_CPPFLAGS, "-DBeSilent")
+    
+    funx <- cxxfunction(signature(par="numeric"), gslrng,
+                        includes="#include <gsl/gsl_rng.h>",
+                        settings=settings)
     cat("\n\nCalling second example with -DBeSilent set\n")
     print(funx(0))
 
@@ -123,12 +123,10 @@ thirdExample <- function() {
     ## turn into a function that R can call
     ## compileargs redundant on Debian/Ubuntu as gsl headers are found anyway
     ## use additional define for compile to suppress output
-    funx <- cfunction(signature(s="numeric", n="numeric"),
-                      gslrng,
-                      includes="#include <gsl/gsl_rng.h>",
-                      Rcpp=TRUE,
-                      cppargs="-I/usr/include",
-                      libargs="-lgsl -lgslcblas")
+    funx <- cxxfunction(signature(s="numeric", n="numeric"),
+                        gslrng,
+                        includes="#include <gsl/gsl_rng.h>",
+                        plugin="RcppGSL")
     cat("\n\nCalling third example with seed and length\n")
     print(funx(0, 5))
 
@@ -160,14 +158,12 @@ fourthExample <- function() {
     ## turn into a function that R can call
     ## compileargs redundant on Debian/Ubuntu as gsl headers are found anyway
     ## use additional define for compile to suppress output
-    funx <- cfunction(signature(s="numeric", n="numeric"),
-                      gslrng,
-                      includes=c("#include <gsl/gsl_rng.h>",
-                                 "using namespace Rcpp;",
-                                 "using namespace std;"),
-                      Rcpp=TRUE,
-                      cppargs="-I/usr/include",
-                      libargs="-lgsl -lgslcblas")
+    funx <- cxxfunction(signature(s="numeric", n="numeric"),
+                        gslrng,
+                        includes=c("#include <gsl/gsl_rng.h>",
+                                   "using namespace Rcpp;",
+                                   "using namespace std;"),
+                        plugin="RcppGSL")
     cat("\n\nCalling fourth example with seed, length and namespaces\n")
     print(funx(0, 5))
 

@@ -1,3 +1,79 @@
+2016-03-04  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/unitTests/runit.Function.R: Switched to '/usr/bin/env r'
+        * inst/unitTests/runit.table.R: Idem
+        * inst/unitTests/runit.as.R: Idem
+        * inst/unitTests/runit.Date.R: Idem
+        * inst/unitTests/runit.misc.R: Idem
+        * inst/unitTests/runit.Language.R: Idem
+        * inst/unitTests/runit.subset.R: Idem
+        * inst/unitTests/runit.wrap.R: Idem
+        * inst/unitTests/runit.sugar.R: Idem
+        * inst/unitTests/runit.na.R: Idem
+        * inst/unitTests/runit.String.R: Idem
+        * inst/unitTests/runit.Vector.R: Idem
+        * inst/unitTests/runit.environments.R: Idem
+        * inst/unitTests/runit.Reference.R: Idem
+        * inst/unitTests/runit.Matrix.R: Idem
+        * inst/unitTests/runit.client.package.R: Idem
+        * inst/unitTests/runit.binary.package.R: Idem
+        * inst/unitTests/runit.support.R: Idem
+        * inst/unitTests/runit.S4.R: Idem
+        * inst/unitTests/runit.RObject.R: Idem
+        * inst/unitTests/runit.modref.R: Idem
+        * inst/unitTests/runit.InternalFunctionCPP11.R: Idem
+        * inst/unitTests/runit.attributes.R: Idem
+        * inst/unitTests/runit.sugar.var.R: Idem
+        * inst/unitTests/runit.Module.R: Idem
+        * inst/unitTests/runit.XPTr.R: Idem
+        * inst/unitTests/runit.Module.client.package.R: Idem
+        * inst/unitTests/runit.stats.R: Idem
+        * inst/unitTests/runit.rmath.R: Idem
+        * inst/unitTests/runit.DataFrame.R: Idem
+        * inst/unitTests/runit.wstring.R: Idem
+        * inst/unitTests/runit.InternalFunction.R: Idem
+
+2016-03-03  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/examples/FastLM/benchmarkLongley.r: Switched to '/usr/bin/env r'
+        * inst/examples/FastLM/fastLMviaArmadillo.r: Idem
+        * inst/examples/FastLM/fastLMviaGSL.r: Idem
+        * inst/examples/FastLM/lmArmadillo.R: Idem
+        * inst/examples/FastLM/lmGSL.R: Idem
+        * inst/examples/FastLM/benchmark.r: Idem
+        * inst/examples/ConvolveBenchmarks/exampleRCode.r: Idem
+
+2016-02-27  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/examples/RcppInline/RcppInlineWithLibsExamples.r: Switched to
+        using '/usr/bin/env r', switch to using 'cxxfunction' and RcppGSL plugin
+
+        * inst/examples/RcppInline/external_pointer.r: Switched to '/usr/bin/env r'
+        * inst/examples/RcppInline/RcppInlineExample.r: Idem
+        * inst/examples/ConvolveBenchmarks/overhead.r: Idem
+
+        * inst/include/Rcpp/Fast.h (Rcpp): Undo two const declarations
+
+2016-02-23  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/examples/OpenMP/OpenMPandInline.r: Switched to '/usr/bin/env r'
+        * inst/examples/RcppInline/RcppSimpleExample.r: Idem
+        * inst/examples/RcppInline/RObject.r: Idem
+        * inst/examples/RcppInline/UncaughtExceptions.r: Idem
+
+2016-02-21  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/examples/functionCallback/newApiExample.r (vecfunc): Switched to
+        using '/usr/bin/env r', switch to using 'cxxfunction'
+
+        * inst/examples/Misc/fibonacci.r: Switched to using '/usr/bin/env r',
+        added explicit load of Rcpp package
+
+        * inst/examples/Misc/newFib.r: Switched to using '/usr/bin/env r'
+        * inst/examples/Misc/ifelseLooped.r: Idem
+        * inst/examples/Misc/piBySimulation.r: Idem
+        * inst/examples/SugarPerformance/sugarBenchmarks.r: Idem
+
 2016-02-16  Dirk Eddelbuettel  <edd@debian.org>
 
         * vignettes/Rcpp-FAQ.Rnw: Added answer on fixed-size limit of arguments
