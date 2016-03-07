@@ -1,8 +1,8 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // norm.h: Rcpp R/C++ interface class library -- normal distribution
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2016  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -40,7 +40,8 @@ inline double dnorm_1(double x, double mu /*, double sigma [=1.0]*/ , int give_l
     /* M_1_SQRT_2PI = 1 / sqrt(2 * pi) */
 }
 
-inline double dnorm_0(double x /*, double mu [=0.0], double sigma [=1.0]*/ , int give_log) {
+inline double dnorm_0(double x /*, double mu [=0.0], double sigma [=1.0]*/ ,
+                      int give_log) {
 #ifdef IEEE_754
     if (ISNAN(x))
         return x + 1.0;
@@ -52,7 +53,8 @@ inline double dnorm_0(double x /*, double mu [=0.0], double sigma [=1.0]*/ , int
     /* M_1_SQRT_2PI = 1 / sqrt(2 * pi) */
 }
 
-inline double pnorm_1(double x, double mu /*, double sigma [=1.]*/ , int lower_tail, int log_p){
+inline double pnorm_1(double x, double mu /*, double sigma [=1.]*/ ,
+                      int lower_tail, int log_p) {
     double p, cp;
 
     /* Note: The structure of these checks has been carefully thought through.
@@ -93,10 +95,13 @@ inline double pnorm_0(double x /*, double mu [=0.] , double sigma [=1.]*/ , int 
     return(lower_tail ? p : cp);
 }
 
-inline double qnorm_1(double p, double mu /*, double sigma [=1.] */, int lower_tail, int log_p){
+inline double qnorm_1(double p, double mu /*, double sigma [=1.] */,
+                      int lower_tail, int log_p){
     return ::Rf_qnorm5(p, mu, 1.0, lower_tail, log_p);
 }
-inline double qnorm_0(double p /*, double mu [=0.], double sigma [=1.] */, int lower_tail, int log_p){
+
+inline double qnorm_0(double p /*, double mu [=0.], double sigma [=1.] */,
+                      int lower_tail, int log_p){
     return ::Rf_qnorm5(p, 0.0, 1.0, lower_tail, log_p);
 }
 

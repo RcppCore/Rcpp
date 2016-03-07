@@ -1,8 +1,8 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // logis.h: Rcpp R/C++ interface class library --
 //
-// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2016  Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -81,9 +81,8 @@ inline double plogis_1(double x, double location /*, double scale [=1.0] */,
     return (log_p ? -::log1p(x) : 1 / (1 + x));
 }
 
-
-inline double qlogis_0(double p /*, double location [=0.0], double scale [=1.0] */, int lower_tail, int log_p)
-{
+inline double qlogis_0(double p /*, double location [=0.0], double scale [=1.0] */,
+                       int lower_tail, int log_p) {
 #ifdef IEEE_754
     if (ISNAN(p))
         return p + 1.0;
@@ -104,8 +103,8 @@ inline double qlogis_0(double p /*, double location [=0.0], double scale [=1.0] 
 }
 
 
-inline double qlogis_1(double p, double location /*, double scale [=1.0] */, int lower_tail, int log_p)
-{
+inline double qlogis_1(double p, double location /*, double scale [=1.0] */,
+                       int lower_tail, int log_p) {
 #ifdef IEEE_754
     if (ISNAN(p) || ISNAN(location))
         return p + location + 1.0;
