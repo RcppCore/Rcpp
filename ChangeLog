@@ -1,7 +1,28 @@
+2016-03-07  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/stats/beta.h: Updated Emacs header and copyright
+	* inst/include/Rcpp/stats/binom.h: Idem
+	* inst/include/Rcpp/stats/cauchy.h: Idem
+	* inst/include/Rcpp/stats/chisq.h: Idem
+	* inst/include/Rcpp/stats/f.h: Idem
+	* inst/include/Rcpp/stats/gamma.h: Idem
+	* inst/include/Rcpp/stats/geom.h: Idem
+	* inst/include/Rcpp/stats/hyper.h: Idem
+	* inst/include/Rcpp/stats/nbeta.h: Idem
+	* inst/include/Rcpp/stats/nbinom.h: Idem
+	* inst/include/Rcpp/stats/nbinom_mu.h: Idem
+	* inst/include/Rcpp/stats/nchisq.h: Idem
+	* inst/include/Rcpp/stats/nf.h: Idem
+	* inst/include/Rcpp/stats/nt.h: Idem
+	* inst/include/Rcpp/stats/pois.h: Idem
+	* inst/include/Rcpp/stats/stats.h: Idem
+	* inst/include/Rcpp/stats/t.h: Idem
+	* inst/include/Rcpp/stats/unif.h: Idem
+
 2016-03-05  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/stats/exp.h: Replaced initial Emacs header line with
-        current one, ran M-x untabify and streamlined indentation
+        current one, ran M-x untabify, streamlined indentation, update copyright
         * inst/include/Rcpp/stats/lnorm.h: Idem
         * inst/include/Rcpp/stats/logis.h: Idem
         * inst/include/Rcpp/stats/norm.h: Idem

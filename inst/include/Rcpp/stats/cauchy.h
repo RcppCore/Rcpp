@@ -1,8 +1,8 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // cauchy.h: Rcpp R/C++ interface class library --
 //
-// Copyright (C) 2010 - 2011 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2016  Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -25,25 +25,27 @@
 namespace Rcpp{
 namespace stats{
 
-inline double dcauchy_0(double x, int give_log){
-	return ::Rf_dcauchy(x,0.0,1.0, give_log) ;
-}
-inline double dcauchy_1(double x, double location, int give_log){
-	return ::Rf_dcauchy(x,location,1.0, give_log) ;
+inline double dcauchy_0(double x, int give_log) {
+    return ::Rf_dcauchy(x,0.0,1.0, give_log) ;
 }
 
-inline double pcauchy_0(double x, int lower_tail, int log_p){
-	return ::Rf_pcauchy(x,0.0,1.0,lower_tail, log_p) ;
-}
-inline double pcauchy_1(double x, double location, int lower_tail, int log_p){
-	return ::Rf_pcauchy(x,location,1.0,lower_tail, log_p) ;
+inline double dcauchy_1(double x, double location, int give_log) {
+    return ::Rf_dcauchy(x,location,1.0, give_log) ;
 }
 
-inline double qcauchy_0(double p, int lower_tail, int log_p){
-	return ::Rf_qcauchy(p, 0.0, 1.0, lower_tail, log_p ) ;
+inline double pcauchy_0(double x, int lower_tail, int log_p) {
+    return ::Rf_pcauchy(x,0.0,1.0,lower_tail, log_p) ;
 }
-inline double qcauchy_1(double p, double location, int lower_tail, int log_p){
-	return ::Rf_qcauchy(p, location, 1.0, lower_tail, log_p ) ;
+
+inline double pcauchy_1(double x, double location, int lower_tail, int log_p) {
+    return ::Rf_pcauchy(x,location,1.0,lower_tail, log_p) ;
+}
+
+inline double qcauchy_0(double p, int lower_tail, int log_p) {
+    return ::Rf_qcauchy(p, 0.0, 1.0, lower_tail, log_p ) ;
+}
+inline double qcauchy_1(double p, double location, int lower_tail, int log_p) {
+    return ::Rf_qcauchy(p, location, 1.0, lower_tail, log_p ) ;
 }
 
 } // stats
