@@ -319,89 +319,89 @@ private:
 namespace Rcpp {                                                                       \
 template <int RTYPE, bool NA, typename T>                                              \
 inline stats::D0<RTYPE,NA,T> d##__NAME__(                                              \
-    const Rcpp::VectorBase<RTYPE,NA,T>& x, bool log = false                          \
+    const Rcpp::VectorBase<RTYPE,NA,T>& x, bool log = false                            \
 ) {                                                                                    \
-    return stats::D0<RTYPE,NA,T>( __D__, x, log );                                           \
+    return stats::D0<RTYPE,NA,T>( __D__, x, log );                                     \
 }                                                                                      \
-template <int RTYPE, bool NA, typename T>                                                         \
-inline stats::P0<RTYPE,NA,T> p##__NAME__(                                                    \
-    const Rcpp::VectorBase<RTYPE,NA,T>& x, bool lower = true, bool log = false       \
+template <int RTYPE, bool NA, typename T>                                              \
+inline stats::P0<RTYPE,NA,T> p##__NAME__(                                              \
+    const Rcpp::VectorBase<RTYPE,NA,T>& x, bool lower = true, bool log = false         \
 ) {                                                                                    \
-    return stats::P0<RTYPE,NA,T>( __P__, x, lower, log );                                    \
+    return stats::P0<RTYPE,NA,T>( __P__, x, lower, log );                              \
 }                                                                                      \
-template <int RTYPE, bool NA, typename T>                                                         \
-inline stats::Q0<RTYPE,NA,T> q##__NAME__(                                                    \
-    const Rcpp::VectorBase<RTYPE,NA,T>& x, bool lower = true, bool log = false       \
+template <int RTYPE, bool NA, typename T>                                              \
+inline stats::Q0<RTYPE,NA,T> q##__NAME__(                                              \
+    const Rcpp::VectorBase<RTYPE,NA,T>& x, bool lower = true, bool log = false         \
 ) {                                                                                    \
-    return stats::Q0<RTYPE,NA,T>( __Q__, x, lower, log );                                    \
+    return stats::Q0<RTYPE,NA,T>( __Q__, x, lower, log );                              \
 } }
 
 
 #define RCPP_DPQ_1(__NAME__,__D__,__P__,__Q__)                                         \
 namespace Rcpp {                                                                       \
-template <int RTYPE, bool NA, typename T>                                                         \
-inline stats::D1<RTYPE,NA,T> d##__NAME__(                                                    \
-    const Rcpp::VectorBase<RTYPE,NA,T>& x, double p0, bool log = false                          \
+template <int RTYPE, bool NA, typename T>                                              \
+inline stats::D1<RTYPE,NA,T> d##__NAME__(                                              \
+    const Rcpp::VectorBase<RTYPE,NA,T>& x, double p0, bool log = false                 \
 ) {                                                                                    \
-    return stats::D1<RTYPE,NA,T>( __D__, x, p0, log );                                           \
+    return stats::D1<RTYPE,NA,T>( __D__, x, p0, log );                                 \
 }                                                                                      \
-template <int RTYPE, bool NA, typename T>                                                         \
-inline stats::P1<RTYPE,NA,T> p##__NAME__(                                                    \
-    const Rcpp::VectorBase<RTYPE,NA,T>& x, double p0, bool lower = true, bool log = false       \
+template <int RTYPE, bool NA, typename T>                                              \
+inline stats::P1<RTYPE,NA,T> p##__NAME__(                                              \
+    const Rcpp::VectorBase<RTYPE,NA,T>& x, double p0, bool lower = true, bool log = false \
 ) {                                                                                    \
-    return stats::P1<RTYPE,NA,T>( __P__, x, p0, lower, log );                                    \
+    return stats::P1<RTYPE,NA,T>( __P__, x, p0, lower, log );                          \
 }                                                                                      \
-template <int RTYPE, bool NA, typename T>                                                         \
-inline stats::Q1<RTYPE,NA,T> q##__NAME__(                                                    \
-    const Rcpp::VectorBase<RTYPE,NA,T>& x, double p0, bool lower = true, bool log = false       \
+template <int RTYPE, bool NA, typename T>                                              \
+inline stats::Q1<RTYPE,NA,T> q##__NAME__(                                              \
+    const Rcpp::VectorBase<RTYPE,NA,T>& x, double p0, bool lower = true, bool log = false \
 ) {                                                                                    \
-    return stats::Q1<RTYPE,NA,T>( __Q__, x, p0, lower, log );                                    \
+    return stats::Q1<RTYPE,NA,T>( __Q__, x, p0, lower, log );                          \
 } }
 
 
 
 #define RCPP_DPQ_2(__NAME__,__D__,__P__,__Q__)                                         \
 namespace Rcpp {                                                                       \
-template <int RTYPE, bool NA, typename T>                                                         \
-inline stats::D2<RTYPE,NA,T> d##__NAME__(                                                    \
-    const Rcpp::VectorBase<RTYPE,NA,T>& x, double p0, double p1, bool log = false                          \
+template <int RTYPE, bool NA, typename T>                                              \
+inline stats::D2<RTYPE,NA,T> d##__NAME__(                                              \
+    const Rcpp::VectorBase<RTYPE,NA,T>& x, double p0, double p1, bool log = false      \
 ) {                                                                                    \
-    return stats::D2<RTYPE,NA,T>( __D__, x, p0, p1, log );                                           \
+    return stats::D2<RTYPE,NA,T>( __D__, x, p0, p1, log );                             \
 }                                                                                      \
-template <int RTYPE, bool NA, typename T>                                                         \
-inline stats::P2<RTYPE,NA,T> p##__NAME__(                                                    \
+template <int RTYPE, bool NA, typename T>                                              \
+inline stats::P2<RTYPE,NA,T> p##__NAME__(                                              \
     const Rcpp::VectorBase<RTYPE,NA,T>& x, double p0, double p1, bool lower = true, bool log = false       \
 ) {                                                                                    \
-    return stats::P2<RTYPE,NA,T>( __P__, x, p0, p1, lower, log );                                    \
+    return stats::P2<RTYPE,NA,T>( __P__, x, p0, p1, lower, log );                      \
 }                                                                                      \
-template <int RTYPE, bool NA, typename T>                                                         \
-inline stats::Q2<RTYPE,NA,T> q##__NAME__(                                                    \
+template <int RTYPE, bool NA, typename T>                                              \
+inline stats::Q2<RTYPE,NA,T> q##__NAME__(                                              \
     const Rcpp::VectorBase<RTYPE,NA,T>& x, double p0, double p1, bool lower = true, bool log = false       \
 ) {                                                                                    \
-    return stats::Q2<RTYPE,NA,T>( __Q__, x, p0, p1, lower, log );                                    \
+    return stats::Q2<RTYPE,NA,T>( __Q__, x, p0, p1, lower, log );                      \
 } }
 
 
 
 #define RCPP_DPQ_3(__NAME__,__D__,__P__,__Q__)                                         \
 namespace Rcpp {                                                                       \
-template <int RTYPE, bool NA, typename T>                                                         \
-inline stats::D3<RTYPE,NA,T> d##__NAME__(                                                    \
+template <int RTYPE, bool NA, typename T>                                              \
+inline stats::D3<RTYPE,NA,T> d##__NAME__(                                              \
     const Rcpp::VectorBase<RTYPE,NA,T>& x, double p0, double p1, double p2, bool log = false                          \
 ) {                                                                                    \
-    return stats::D3<RTYPE,NA,T>( __D__, x, p0, p1, p2, log );                                           \
+    return stats::D3<RTYPE,NA,T>( __D__, x, p0, p1, p2, log );                         \
 }                                                                                      \
-template <int RTYPE, bool NA, typename T>                                                         \
-inline stats::P3<RTYPE,NA,T> p##__NAME__(                                                    \
+template <int RTYPE, bool NA, typename T>                                              \
+inline stats::P3<RTYPE,NA,T> p##__NAME__(                                              \
     const Rcpp::VectorBase<RTYPE,NA,T>& x, double p0, double p1, double p2, bool lower = true, bool log = false       \
 ) {                                                                                    \
-    return stats::P3<RTYPE,NA,T>( __P__, x, p0, p1, p2, lower, log );                                    \
+    return stats::P3<RTYPE,NA,T>( __P__, x, p0, p1, p2, lower, log );                  \
 }                                                                                      \
-template <int RTYPE, bool NA, typename T>                                                         \
-inline stats::Q3<RTYPE,NA,T> q##__NAME__(                                                    \
+template <int RTYPE, bool NA, typename T>                                              \
+inline stats::Q3<RTYPE,NA,T> q##__NAME__(                                              \
     const Rcpp::VectorBase<RTYPE,NA,T>& x, double p0, double p1, double p2, bool lower = true, bool log = false       \
 ) {                                                                                    \
-    return stats::Q3<RTYPE,NA,T>( __Q__, x, p0, p1, p2, lower, log );                                    \
+    return stats::Q3<RTYPE,NA,T>( __Q__, x, p0, p1, p2, lower, log );                  \
 } }
 
 

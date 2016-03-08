@@ -18,6 +18,7 @@
 	* inst/include/Rcpp/stats/stats.h: Idem
 	* inst/include/Rcpp/stats/t.h: Idem
 	* inst/include/Rcpp/stats/unif.h: Idem
+        * inst/include/Rcpp/stats/dpq/dpq.h: Idem
 
 2016-03-05  Dirk Eddelbuettel  <edd@debian.org>
 
