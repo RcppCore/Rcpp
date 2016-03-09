@@ -104,7 +104,7 @@ The goal of the function \texttt{foo} code is simple. Given two
 
 <<eval=FALSE>>=
 foo <- function(x, y){
-	ifelse( x < y, x*x, -(y*y) )
+    ifelse( x < y, x*x, -(y*y) )
 }
 @
 
@@ -218,7 +218,6 @@ NumericVector res = -x ;
 // use it as part of a numerical expression
 NumericVector res = -x * ( x + 2.0 ) ;
 
-
 // two integer vectors of the same size
 NumericVector y ;
 NumericVector z ;
@@ -243,7 +242,6 @@ given a logical sugar expression.
 <<lang=cpp>>=
 IntegerVector x = seq_len( 1000 ) ;
 all( x*x < 3 ) ;
-
 any( x*x < 3 ) ;
 @
 
@@ -448,7 +446,7 @@ pow(x, z)     # x to the power of z
 
 % log() and log10() maybe?  Or ln() ?
 
-\subsection{The d/q/p/q statistical functions}
+\subsection{The d/q/p/r statistical functions}
 
 The framework provided by \sugar also permits easy and efficient access the
 density, distribution function, quantile and random number generation
@@ -460,8 +458,8 @@ would in \proglang{R}:
 
 <<lang=cpp>>=
 x1 = dnorm(y1, 0, 1);  // density of y1 at m=0, sd=1
-x2 = pnorm(y2, 0, 1);  // distribution function of y2
-x3 = qnorm(y3, 0, 1);  // quantiles of y3
+x2 = qnorm(y2, 0, 1);  // quantiles of y2
+x3 = pnorm(y3, 0, 1);  // distribution function of y3
 x4 = rnorm(n, 0, 1);   // 'n' RNG draws of N(0, 1)
 @
 
