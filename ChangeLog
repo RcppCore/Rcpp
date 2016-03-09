@@ -1,3 +1,16 @@
+2016-03-09  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/stats/random/rlogis.h: Updated Emacs header and
+        copyright, aligned indentation
+        * inst/include/Rcpp/stats/random/rnbinom.h: Idem
+        * inst/include/Rcpp/stats/random/rnbinom_mu.h: Idem
+        * inst/include/Rcpp/stats/random/rnchisq.h: Idem
+        * inst/include/Rcpp/stats/random/rnorm.h: Idem
+        * inst/include/Rcpp/stats/random/rt.h: Idem
+        * inst/include/Rcpp/stats/random/runif.h: Idem
+        * inst/include/Rcpp/stats/random/rweibull.h: Idem
+        * inst/include/Rcpp/stats/random/random.h: Idem
+
 2016-03-07  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/stats/beta.h: Updated Emacs header and copyright
