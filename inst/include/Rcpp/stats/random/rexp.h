@@ -1,8 +1,8 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // rexp.h: Rcpp R/C++ interface class library --
 //
-// Copyright (C) 2010 - 2012 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2016  Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -23,31 +23,28 @@
 #define Rcpp__stats__random_rexp_h
 
 namespace Rcpp {
-	namespace stats {
+namespace stats {
 
+class ExpGenerator : public ::Rcpp::Generator<double> {
+public:
 
-		class ExpGenerator : public ::Rcpp::Generator<double> {
-		public:
+    ExpGenerator( double scale_ ) : scale(scale_) {}
 
-			ExpGenerator( double scale_ ) : scale(scale_) {}
+    inline double operator()() const {
+        return scale * exp_rand() ;
+    }
 
-			inline double operator()() const {
-				return scale * exp_rand() ;
-			}
+private:
+    double scale ;
+};
 
-		private:
-			double scale ;
-		} ;
+class ExpGenerator__rate1 : public Generator<double>{
+public:
+    ExpGenerator__rate1(){}
+    inline double operator()() const { return exp_rand() ; }
+};
 
-
-		class ExpGenerator__rate1 : public Generator<double>{
-		public:
-		    ExpGenerator__rate1(){}
-		    inline double operator()() const { return exp_rand() ; }
-		} ;
-
-	} // stats
-
+} // stats
 }
 
 #endif

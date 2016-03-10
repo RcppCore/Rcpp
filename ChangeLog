@@ -10,6 +10,19 @@
         * inst/include/Rcpp/stats/random/runif.h: Idem
         * inst/include/Rcpp/stats/random/rweibull.h: Idem
         * inst/include/Rcpp/stats/random/random.h: Idem
+        * inst/include/Rcpp/stats/random/rcauchy.h: Idem
+        * inst/include/Rcpp/stats/random/rchisq.h: Idem
+        * inst/include/Rcpp/stats/random/rexp.h: Idem
+        * inst/include/Rcpp/stats/random/rf.h: Idem
+        * inst/include/Rcpp/stats/random/rgeom.h: Idem
+        * inst/include/Rcpp/stats/random/rlnorm.h: Idem
+        * inst/include/Rcpp/stats/random/rbeta.h: Idem
+        * inst/include/Rcpp/stats/random/rbinom.h: Idem
+        * inst/include/Rcpp/stats/random/rgamma.h: Idem
+        * inst/include/Rcpp/stats/random/rhyper.h: Idem
+        * inst/include/Rcpp/stats/random/rpois.h: Idem
+        * inst/include/Rcpp/stats/random/rsignrank.h: Idem
+        * inst/include/Rcpp/stats/random/rwilcox.h: Idem 
 
 2016-03-07  Dirk Eddelbuettel  <edd@debian.org>
 

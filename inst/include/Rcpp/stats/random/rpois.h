@@ -1,8 +1,8 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // rpois.h: Rcpp R/C++ interface class library --
 //
-// Copyright (C) 2010 - 2012 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2016  Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -23,18 +23,17 @@
 #define Rcpp__stats__random_rpois_h
 
 namespace Rcpp {
-    namespace stats{
+namespace stats{
 
+class PoissonGenerator : public Generator<double>{
+public:
+    PoissonGenerator( double mu_ ) : mu(mu_){}
+    inline double operator()() const { return ::Rf_rpois(mu); }
+private:
+    double mu ;
+};
 
-    	class PoissonGenerator : public Generator<double>{
-    	public:
-    	    PoissonGenerator( double mu_ ) : mu(mu_){}
-    	    inline double operator()() const { return ::Rf_rpois(mu); }
-    	private:
-    	    double mu ;
-    	} ;
-    }  // stats
-
+}  // stats
 } // Rcpp
 
 #endif

@@ -1,8 +1,8 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // rbeta.h: Rcpp R/C++ interface class library --
 //
-// Copyright (C) 2010 - 2012 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2016  Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -25,19 +25,18 @@
 namespace Rcpp {
 namespace stats{
 
-    class BetaGenerator : public Generator<double>{
-    public:
-        BetaGenerator(double a_, double b_) : a(a_), b(b_){}
+class BetaGenerator : public Generator<double>{
+public:
+    BetaGenerator(double a_, double b_) : a(a_), b(b_){}
 
-        inline double operator()() const {
-            return ::Rf_rbeta(a, b) ;
-        }
-    private:
-        double a, b ;
-    } ;
+    inline double operator()() const {
+        return ::Rf_rbeta(a, b) ;
+    }
+private:
+    double a, b ;
+};
 
 } // namespace stats
-
 } // Rcpp
 
 #endif
