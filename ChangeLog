@@ -1,3 +1,7 @@
+2016-03-09  Colin Gillespie <csgillespie@gmail.com>
+
+        * vignettes/Rcpp-sugar.Rnw: Correct typos and indentation
+
 2016-03-05  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/stats/exp.h: Replaced initial Emacs header line with
