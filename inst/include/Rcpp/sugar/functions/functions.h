@@ -82,5 +82,7 @@
 
 #include <Rcpp/sugar/functions/median.h>
 
+#include <Rcpp/sugar/functions/cbind.h>
+
 #endif
 
