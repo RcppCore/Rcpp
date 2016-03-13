@@ -2,10 +2,58 @@
 
         * vignettes/Rcpp-sugar.Rnw: Correct typos and indentation
 
+2016-03-09  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/stats/random/rlogis.h: Updated Emacs header and
+        copyright, aligned indentation
+        * inst/include/Rcpp/stats/random/rnbinom.h: Idem
+        * inst/include/Rcpp/stats/random/rnbinom_mu.h: Idem
+        * inst/include/Rcpp/stats/random/rnchisq.h: Idem
+        * inst/include/Rcpp/stats/random/rnorm.h: Idem
+        * inst/include/Rcpp/stats/random/rt.h: Idem
+        * inst/include/Rcpp/stats/random/runif.h: Idem
+        * inst/include/Rcpp/stats/random/rweibull.h: Idem
+        * inst/include/Rcpp/stats/random/random.h: Idem
+        * inst/include/Rcpp/stats/random/rcauchy.h: Idem
+        * inst/include/Rcpp/stats/random/rchisq.h: Idem
+        * inst/include/Rcpp/stats/random/rexp.h: Idem
+        * inst/include/Rcpp/stats/random/rf.h: Idem
+        * inst/include/Rcpp/stats/random/rgeom.h: Idem
+        * inst/include/Rcpp/stats/random/rlnorm.h: Idem
+        * inst/include/Rcpp/stats/random/rbeta.h: Idem
+        * inst/include/Rcpp/stats/random/rbinom.h: Idem
+        * inst/include/Rcpp/stats/random/rgamma.h: Idem
+        * inst/include/Rcpp/stats/random/rhyper.h: Idem
+        * inst/include/Rcpp/stats/random/rpois.h: Idem
+        * inst/include/Rcpp/stats/random/rsignrank.h: Idem
+        * inst/include/Rcpp/stats/random/rwilcox.h: Idem
+
+2016-03-07  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/stats/beta.h: Updated Emacs header and copyright
+	* inst/include/Rcpp/stats/binom.h: Idem
+	* inst/include/Rcpp/stats/cauchy.h: Idem
+	* inst/include/Rcpp/stats/chisq.h: Idem
+	* inst/include/Rcpp/stats/f.h: Idem
+	* inst/include/Rcpp/stats/gamma.h: Idem
+	* inst/include/Rcpp/stats/geom.h: Idem
+	* inst/include/Rcpp/stats/hyper.h: Idem
+	* inst/include/Rcpp/stats/nbeta.h: Idem
+	* inst/include/Rcpp/stats/nbinom.h: Idem
+	* inst/include/Rcpp/stats/nbinom_mu.h: Idem
+	* inst/include/Rcpp/stats/nchisq.h: Idem
+	* inst/include/Rcpp/stats/nf.h: Idem
+	* inst/include/Rcpp/stats/nt.h: Idem
+	* inst/include/Rcpp/stats/pois.h: Idem
+	* inst/include/Rcpp/stats/stats.h: Idem
+	* inst/include/Rcpp/stats/t.h: Idem
+	* inst/include/Rcpp/stats/unif.h: Idem
+        * inst/include/Rcpp/stats/dpq/dpq.h: Idem
+
 2016-03-05  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/stats/exp.h: Replaced initial Emacs header line with
-        current one, ran M-x untabify and streamlined indentation
+        current one, ran M-x untabify, streamlined indentation, update copyright
         * inst/include/Rcpp/stats/lnorm.h: Idem
         * inst/include/Rcpp/stats/logis.h: Idem
         * inst/include/Rcpp/stats/norm.h: Idem

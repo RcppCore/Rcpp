@@ -1,8 +1,8 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // rcauchy.h: Rcpp R/C++ interface class library --
 //
-// Copyright (C) 2010 - 2012 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2016  Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -28,44 +28,43 @@ namespace stats {
 class CauchyGenerator : public ::Rcpp::Generator<double> {
 public:
 
-	CauchyGenerator( double location_, double scale_) :
-		location(location_) , scale(scale_) {}
+    CauchyGenerator( double location_, double scale_) :
+        location(location_) , scale(scale_) {}
 
-	inline double operator()() const {
-		return location + scale * ::tan(M_PI * unif_rand()) ;
-	}
+    inline double operator()() const {
+        return location + scale * ::tan(M_PI * unif_rand()) ;
+    }
 
 private:
-	double location, scale ;
-} ;
+    double location, scale ;
+};
 
 class CauchyGenerator_1 : public ::Rcpp::Generator<double> {
 public:
 
-	CauchyGenerator_1( double location_) :
-		location(location_){}
+    CauchyGenerator_1( double location_) :
+        location(location_){}
 
-	inline double operator()() const {
-		return location + ::tan(M_PI * unif_rand()) ;
-	}
+    inline double operator()() const {
+        return location + ::tan(M_PI * unif_rand()) ;
+    }
 
 private:
-	double location ;
-} ;
+    double location ;
+};
 
 class CauchyGenerator_0 : public ::Rcpp::Generator<double> {
 public:
 
-	CauchyGenerator_0(){}
+    CauchyGenerator_0(){}
 
-	inline double operator()() const {
-		return ::tan(M_PI * unif_rand()) ;
-	}
+    inline double operator()() const {
+        return ::tan(M_PI * unif_rand()) ;
+    }
 
-} ;
+};
 
 } // stats
-
 } // Rcpp
 
 #endif
