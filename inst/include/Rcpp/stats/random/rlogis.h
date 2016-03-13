@@ -1,8 +1,8 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // rlogis.h: Rcpp R/C++ interface class library --
 //
-// Copyright (C) 2010 - 2012 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2016  Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -23,56 +23,54 @@
 #define Rcpp__stats__random_rlogis_h
 
 namespace Rcpp {
-	namespace stats {
+namespace stats {
+
+class LogisGenerator : public ::Rcpp::Generator<double> {
+public:
+
+    LogisGenerator( double location_, double scale_ ) :
+        location(location_), scale(scale_) {}
+
+    inline double operator()() const {
+        double u = unif_rand() ;
+        return location + scale * ::log(u / (1. - u));
+    }
+
+private:
+    double location ;
+    double scale ;
+};
 
 
-		class LogisGenerator : public ::Rcpp::Generator<double> {
-		public:
+class LogisGenerator_1 : public ::Rcpp::Generator<double> {
+public:
 
-			LogisGenerator( double location_, double scale_ ) :
-				location(location_), scale(scale_) {}
+    LogisGenerator_1( double location_) :
+        location(location_) {}
 
-			inline double operator()() const {
-				double u = unif_rand() ;
-				return location + scale * ::log(u / (1. - u));
-			}
+    inline double operator()() const {
+        double u = unif_rand() ;
+        return location + ::log(u / (1. - u));
+    }
 
-		private:
-			double location ;
-			double scale ;
-		} ;
-
-
-		class LogisGenerator_1 : public ::Rcpp::Generator<double> {
-		public:
-
-			LogisGenerator_1( double location_) :
-				location(location_) {}
-
-			inline double operator()() const {
-				double u = unif_rand() ;
-				return location + ::log(u / (1. - u));
-			}
-
-		private:
-			double location ;
-		} ;
+private:
+    double location ;
+};
 
 
-		class LogisGenerator_0 : public ::Rcpp::Generator<double> {
-		public:
+class LogisGenerator_0 : public ::Rcpp::Generator<double> {
+public:
 
-			LogisGenerator_0() {}
+    LogisGenerator_0() {}
 
-			inline double operator()() const {
-				double u = unif_rand() ;
-				return ::log(u / (1. - u));
-			}
+    inline double operator()() const {
+        double u = unif_rand() ;
+        return ::log(u / (1. - u));
+    }
 
-		} ;
+};
 
-	} // stats
-
+} // stats
 } // Rcpp
 
 #endif

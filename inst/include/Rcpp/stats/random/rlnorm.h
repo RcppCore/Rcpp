@@ -1,8 +1,8 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // rlnorm.h: Rcpp R/C++ interface class library --
 //
-// Copyright (C) 2010 - 2012 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2016  Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -23,53 +23,51 @@
 #define Rcpp__stats__random_rlnorm_h
 
 namespace Rcpp {
-	namespace stats {
+namespace stats {
+
+class LNormGenerator : public Generator<double> {
+public:
+
+    LNormGenerator( double meanlog_ = 0.0 , double sdlog_ = 1.0 ) :
+        meanlog(meanlog_), sdlog(sdlog_) {}
+
+    inline double operator()() const {
+        return ::exp( meanlog + sdlog * ::norm_rand() ) ;
+    }
+
+private:
+    double meanlog ;
+    double sdlog ;
+};
 
 
-		class LNormGenerator : public Generator<double> {
-		public:
+class LNormGenerator_1 : public Generator<double> {
+public:
 
-			LNormGenerator( double meanlog_ = 0.0 , double sdlog_ = 1.0 ) :
-				meanlog(meanlog_), sdlog(sdlog_) {}
+    LNormGenerator_1( double meanlog_ = 0.0 ) :
+        meanlog(meanlog_) {}
 
-			inline double operator()() const {
-				return ::exp( meanlog + sdlog * ::norm_rand() ) ;
-			}
+    inline double operator()() const {
+        return ::exp( meanlog + ::norm_rand() ) ;
+    }
 
-		private:
-			double meanlog ;
-			double sdlog ;
-		} ;
-
-
-		class LNormGenerator_1 : public Generator<double> {
-		public:
-
-			LNormGenerator_1( double meanlog_ = 0.0 ) :
-				meanlog(meanlog_) {}
-
-			inline double operator()() const {
-				return ::exp( meanlog + ::norm_rand() ) ;
-			}
-
-		private:
-			double meanlog ;
-		} ;
+private:
+    double meanlog ;
+};
 
 
-		class LNormGenerator_0 : public Generator<double> {
-		public:
+class LNormGenerator_0 : public Generator<double> {
+public:
 
-			LNormGenerator_0( ) {}
+    LNormGenerator_0( ) {}
 
-			inline double operator()() const {
-				return ::exp(::norm_rand() ) ;
-			}
+    inline double operator()() const {
+        return ::exp(::norm_rand() ) ;
+    }
 
-		} ;
+};
 
-	} // stats
-
+} // stats
 } // Rcpp
 
 #endif

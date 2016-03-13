@@ -1,8 +1,8 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // rchisq.h: Rcpp R/C++ interface class library --
 //
-// Copyright (C) 2010 - 2012 Douglas Bates, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2016  Douglas Bates, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -23,23 +23,22 @@
 #define Rcpp__stats__random_rchisq_h
 
 namespace Rcpp {
-	namespace stats {
+namespace stats {
 
+class ChisqGenerator : public ::Rcpp::Generator<double> {
+public:
 
-		class ChisqGenerator : public ::Rcpp::Generator<double> {
-		public:
+    ChisqGenerator( double df_ ) : df_2(df_ / 2.0) {}
 
-			ChisqGenerator( double df_ ) : df_2(df_ / 2.0) {}
+    inline double operator()() const {
+        return ::Rf_rgamma( df_2, 2.0 ) ;
+    }
 
-			inline double operator()() const {
-				return ::Rf_rgamma( df_2, 2.0 ) ;
-			}
+private:
+    double df_2 ;
+};
 
-		private:
-			double df_2 ;
-		} ;
-	} // stats
-
+} // stats
 } // Rcpp
 
 #endif
