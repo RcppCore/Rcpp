@@ -192,9 +192,7 @@ public:
     
     inline R_xlen_t nrow() const { return e1.nrow(); }
     
-    inline R_xlen_t ncol() const {
-        return e1.ncol() + e2.ncol();
-    }
+    inline R_xlen_t ncol() const { return e1.ncol() + e2.ncol(); }
     
     inline stored_type operator[](R_xlen_t i) const {
         return (i < e1.size()) ? e1[i] : e2[i - e1.size()];

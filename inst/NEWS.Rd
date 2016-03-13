@@ -19,7 +19,7 @@
     \itemize{
       \item Added new Sugar function \code{median()} (Nathan in PR \ghpr{425}
       closing \ghit{424})
-      \item Added new Sugar function \code{cbind()} (Nathan in PR TBD
+      \item Added new Sugar function \code{cbind()} (Nathan in PR \ghpr{447}
       closing \ghit{407})
     }
     \item Changes in Rcpp Attributes:
