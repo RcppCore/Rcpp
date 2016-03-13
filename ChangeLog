@@ -1,3 +1,7 @@
+2016-03-09  Colin Gillespie <csgillespie@gmail.com>
+
+        * vignettes/Rcpp-sugar.Rnw: Correct typos and indentation
+
 2016-03-09  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/stats/random/rlogis.h: Updated Emacs header and
@@ -22,7 +26,7 @@
         * inst/include/Rcpp/stats/random/rhyper.h: Idem
         * inst/include/Rcpp/stats/random/rpois.h: Idem
         * inst/include/Rcpp/stats/random/rsignrank.h: Idem
-        * inst/include/Rcpp/stats/random/rwilcox.h: Idem 
+        * inst/include/Rcpp/stats/random/rwilcox.h: Idem
 
 2016-03-07  Dirk Eddelbuettel  <edd@debian.org>
 
