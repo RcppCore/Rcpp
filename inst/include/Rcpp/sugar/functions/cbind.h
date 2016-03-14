@@ -817,6 +817,8 @@ cbind(const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5, cons
 
 // end cbind overloads
 
+#undef MakeBindable
+
 } // sugar
 
 namespace {
