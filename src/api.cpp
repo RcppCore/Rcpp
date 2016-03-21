@@ -37,18 +37,22 @@ using namespace Rcpp;
     #if defined(_WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__CYGWIN__) || defined(__sun) || defined(_AIX)
         // do nothing
     #else
-        #include <execinfo.h>
+        #ifndef __GLIBC__
+          // do nothing
+        #else
+          #include <execinfo.h>
 
-        static std::string demangler_one(const char* input) {
-            static std::string buffer;
-            buffer = input;
-            buffer.resize(buffer.find_last_of('+') - 1);
-            buffer.erase(
-                buffer.begin(),
-                buffer.begin() + buffer.find_last_of(' ') + 1
-            );
-            return demangle(buffer);
-        }
+          static std::string demangler_one(const char* input) {
+              static std::string buffer;
+              buffer = input;
+              buffer.resize(buffer.find_last_of('+') - 1);
+              buffer.erase(
+                  buffer.begin(),
+                  buffer.begin() + buffer.find_last_of(' ') + 1
+              );
+              return demangle(buffer);
+          }
+        #endif
 
     #endif
 #endif
