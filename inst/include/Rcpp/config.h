@@ -2,7 +2,7 @@
 //
 // config.h: Rcpp R/C++ interface class library -- Rcpp configuration
 //
-// Copyright (C) 2010 - 2015  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2016  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -27,10 +27,10 @@
 #define RcppDevVersion(maj, min, rev, dev)  (((maj)*1000000) + ((min)*10000) + ((rev)*100) + (dev))
 
 // the currently released version
-#define RCPP_VERSION Rcpp_Version(0,12,3)
+#define RCPP_VERSION Rcpp_Version(0,12,4)
 
 // the current source snapshot
-#define RCPP_DEV_VERSION RcppDevVersion(0,12,3,0)
+#define RCPP_DEV_VERSION RcppDevVersion(0,12,4,0)
 
 #endif
 

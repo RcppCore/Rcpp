@@ -1,3 +1,28 @@
+2016-03-22  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.12.4
+        * inst/NEWS.Rd: Release 0.12.4
+	* vignettes/Rcpp.bib: Release 0.12.4
+        * inst/include/Rcpp/config.h: Release 0.12.4
+
+        * debian/*: Changes for Debian release of 0.12.3
+
+2016-03-19  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Use canonical CRAN URL to please R-devel CMD check
+
+2016-03-12  Nathan Russell <russell.nr2012@gmail.com>
+
+        * inst/include/Rcpp/sugar/functions/cbind.h: Undefine MakeBindable macro
+        after use
+
+2016-03-12  Nathan Russell <russell.nr2012@gmail.com>
+
+        * inst/include/Rcpp/sugar/functions/cbind.h: New cbind() function
+        * inst/include/Rcpp/sugar/functions/functions.h: Idem
+        * inst/unitTests/cpp/sugar.cpp: Unit tests for cbind()
+        * inst/unitTests/runit.sugar.R: Idem
+
 2016-03-09  Colin Gillespie <csgillespie@gmail.com>
 
         * vignettes/Rcpp-sugar.Rnw: Correct typos and indentation
