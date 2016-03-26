@@ -1,3 +1,11 @@
+2016-03-26  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Rolled Date and minor Version
+
+2016-03-23  Sergio Marques <sergio.rtmarques@gmail.com>
+
+        * src/api.cpp: Also check a flag __MUSL__ to accomodate Alpine
+
 2016-03-22  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.12.4

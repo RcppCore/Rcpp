@@ -3,6 +3,17 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
+\section{Changes in Rcpp version 0.12.5 (2016-05-31)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      The checks for different C library implementations now also check for Musl
+      used by Alpine Linux (Sergio Marques in PR \ghpr{449}).
+    }
+  }
+}
+      
+      \item New accessors \code{as()} and \code{clone()} were added to the
 \section{Changes in Rcpp version 0.12.4 (2016-03-22)}{
   \itemize{
     \item Changes in Rcpp API:
