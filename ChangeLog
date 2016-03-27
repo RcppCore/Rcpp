@@ -1,3 +1,7 @@
+2016-03-27  Qin Wenfeng  <mail@qinwenfeng.com>
+
+        * R/Attributes.R: Support R 3.3.0 Windows new toolchain
+
 2016-03-26  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Rolled Date and minor Version

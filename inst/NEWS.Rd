@@ -10,6 +10,10 @@
       The checks for different C library implementations now also check for Musl
       used by Alpine Linux (Sergio Marques in PR \ghpr{449}).
     }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      R 3.3.0 Windows with Rtools 3.3 is now supported (Qin Wenfeng in PR \ghpr{451}).
+    }
   }
 }
       
