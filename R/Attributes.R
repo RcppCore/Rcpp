@@ -705,9 +705,11 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
 
             # Check version
             ver <- key$`Current Version`
-            if (ver %in% (c("2.15", "2.16", "3.0", "3.1", "3.2", "3.3"))) {
+            if (ver %in% (c("2.15", "2.16", "3.0", "3.1", "3.2", "3.3", "3.4"))) {
                 # See if the InstallPath leads to the expected directories
-                isGcc49 <- FALSE
+                # R version 3.3.0 alpha (2016-03-25 r70378)
+                isGcc49 <- ver %in% c("3.3", "3.4") && as.numeric(R.Version()$`svn rev`) >= 70378
+
                 rToolsPath <- key$`InstallPath`
                 if (!is.null(rToolsPath)) {
                     # add appropriate path entries
@@ -721,8 +723,10 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
                         env <- list()
                         path <- paste(path, collapse = .Platform$path.sep)
                         env$PATH <- paste(path, Sys.getenv("PATH"), sep=.Platform$path.sep)
-                        if (isGcc49)
-                            env$RTOOLS <- .rtoolsPath(rToolsPath)
+                        if (isGcc49) {
+                            env$RTOOLS  <- .rtoolsPath(rToolsPath)
+                            env$BINPREF <- file.path(env$RTOOLS, "mingw_$(WIN)/bin//", fsep = "/")
+                        }
                         return(env)
                     }
                 }
