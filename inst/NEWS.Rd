@@ -17,7 +17,6 @@
   }
 }
       
-      \item New accessors \code{as()} and \code{clone()} were added to the
 \section{Changes in Rcpp version 0.12.4 (2016-03-22)}{
   \itemize{
     \item Changes in Rcpp API:
