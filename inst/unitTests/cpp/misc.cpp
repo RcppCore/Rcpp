@@ -216,3 +216,11 @@ SEXP testNullableIsUsable(const Nullable<NumericMatrix>& M) {
         return R_NilValue;
     }
 }
+
+// [[Rcpp::export]]
+String testNullableString(Rcpp::Nullable<Rcpp::String> param = R_NilValue) {
+  if (param.isNotNull())
+    return String(param);
+  else
+    return String("");
+}

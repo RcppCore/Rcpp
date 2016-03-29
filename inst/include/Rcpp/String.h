@@ -71,16 +71,35 @@ namespace Rcpp {
         }
 
         /** construct a string from a single CHARSXP SEXP */
-        String(SEXP charsxp) : data(charsxp), valid(true), buffer_ready(false), enc(Rf_getCharCE(charsxp)) {
+        String(SEXP charsxp) : data(R_NilValue) {
+            if (TYPEOF(charsxp) == STRSXP) {
+                data = STRING_ELT(charsxp, 0);
+            } else if (TYPEOF(charsxp) == CHARSXP) {
+                data = charsxp;
+            }
+
             if (::Rf_isString(data) && ::Rf_length(data) != 1)
                 throw ::Rcpp::not_compatible("expecting a single value");
+
+            valid = true;
+            buffer_ready = false;
+            enc = Rf_getCharCE(data);
             Rcpp_PreserveObject(data);
             RCPP_STRING_DEBUG("String(SEXP)");
         }
 
-        String(SEXP charsxp, const std::string& enc) : data(charsxp), valid(true), buffer_ready(false) {
+        String(SEXP charsxp, const std::string& enc) : data(R_NilValue) {
+            if (TYPEOF(charsxp) == STRSXP) {
+                data = STRING_ELT(charsxp, 0);
+            } else if (TYPEOF(charsxp) == CHARSXP) {
+                data = charsxp;
+            }
+
             if (::Rf_isString(data) && ::Rf_length(data) != 1)
                 throw ::Rcpp::not_compatible("expecting a single value");
+
+            valid = true;
+            buffer_ready = false;
             Rcpp_PreserveObject(data);
             set_encoding(enc);
             RCPP_STRING_DEBUG("String(SEXP)");

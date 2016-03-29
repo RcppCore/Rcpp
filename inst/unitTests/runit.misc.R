@@ -204,4 +204,9 @@ if (.runThisTest) {
     test.NullableIsUsableFalse <- function() {
         checkTrue(is.null(testNullableIsUsable(NULL)))
     }
+
+    test.NullableString <- function() {
+        checkEquals(testNullableString(), "")
+        checkEquals(testNullableString("blah"), "blah")
+    }
 }
