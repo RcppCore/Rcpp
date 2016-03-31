@@ -22,6 +22,21 @@
 #ifndef Rcpp_Module_CLASS_h
 #define Rcpp_Module_CLASS_h
 
+    template <typename Class, bool ok>
+    struct CopyConstructor {
+        static Class* get( Class* obj ){
+          return new Class(*obj) ;
+        }
+    } ;
+
+    template <typename Class>
+    struct CopyConstructor<Class,false> {
+        static Class* get( Class* obj){
+          stop("no copy constructor available") ;
+          return obj ;
+        }
+    } ;
+
     template <typename Class>
     class class_ : public class_Base {
     public:
@@ -60,8 +75,7 @@
             constructors(),
             factories(),
             class_pointer(0),
-            typeinfo_name(""),
-            has_copy_constructor(false)
+            typeinfo_name("")
         {
             class_pointer = get_instance() ;
         }
@@ -112,11 +126,6 @@
             return constructor( docstring, valid ) ;
         }
 
-        self& copy_constructor(){
-            class_pointer->has_copy_constructor = true ;
-            return *this ;
-        }
-
 #include <Rcpp/module/Module_generated_class_constructor.h>
 #include <Rcpp/module/Module_generated_class_factory.h>
 
@@ -156,12 +165,8 @@
 
         SEXP invoke_copy_constructor( SEXP object ){
             BEGIN_RCPP
-
-            if( !has_copy_constructor )
-                stop("copy constructor not exposed") ;
-
             XP xp(object) ;
-            return internal::make_new_object<Class>( new Class(*xp) ) ;
+            return internal::make_new_object<Class>( CopyConstructor< Class, traits::has_copy_constructor<Class>::value >::get(xp) ) ;
             END_RCPP
         }
 
@@ -493,8 +498,7 @@
         vec_signed_factory factories ;
         self* class_pointer ;
         std::string typeinfo_name ;
-        bool has_copy_constructor ;
-
+        
         class_( ) : class_Base(), vec_methods(), properties(), specials(0), constructors(), factories() {};
 
 

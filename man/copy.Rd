@@ -4,9 +4,9 @@
   Invokes the copy constructor of the C++ class
 }
 \description{
-  Invokes the copy constructor of the C++ class if it has
-  been registered through the \code{.copy_constructor}
-  module declaration
+  Invokes the copy constructor of the C++ class. The function
+  fails if the underlying class does not have a copy
+  constructor.
 }
 \usage{
   copy(obj)
@@ -37,7 +37,6 @@
     RCPP_MODULE(test){
       class_<Foo>("Foo")
         .constructor<int>()
-        .copy_constructor()
         .field( "x", &Foo::x)
       ;
   }

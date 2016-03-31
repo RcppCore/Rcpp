@@ -17,9 +17,7 @@
     \item Changes in Rcpp Modules:
     \itemize{
       \item New function \code{copy} to invoke the copy constructor of a
-      C++ class that has been exposed by modules. \code{copy} only
-      works if the copy constructor has been declared by the
-      \code{copy\_constructor} module declaration.
+      C++ class that has been exposed by modules. 
     }
   }
 }
