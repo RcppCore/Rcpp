@@ -37,6 +37,7 @@ public:
 
     virtual void run_finalizer(SEXP){ }
 
+    virtual SEXP invoke_copy_constructor(SEXP) = 0 ;
     virtual bool has_default_constructor(){ return false ; }
     virtual bool has_method( const std::string& ){
         return false ;
