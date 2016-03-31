@@ -203,7 +203,7 @@ RCPP_MODULE(demoModule) {
         ;
 
     class_<ModuleCopyConstructor>( "ModuleCopyConstructor")
-        .constructor<int>
+        .constructor<int>()
         .copy_constructor()
         .field( "x", &ModuleCopyConstructor::x)
     ;
