@@ -111,6 +111,13 @@ private:
     double min, max;
 };
 
+class ModuleCopyConstructor {
+public:
+  ModuleCopyConstructor(int x_) : x(x_){}
+
+  int x ;
+} ;
+
 RCPP_EXPOSED_CLASS(ModuleTest)
 class ModuleTest {
 public:
@@ -194,6 +201,12 @@ RCPP_MODULE(demoModule) {
 
         .method("get" , &ModuleRandomizer::get)
         ;
+
+    class_<ModuleCopyConstructor>( "ModuleCopyConstructor")
+        .constructor<int>
+        .copy_constructor()
+        .field( "x", &ModuleCopyConstructor::x)
+    ;
 }
 
 // [[Rcpp::export]]
@@ -215,4 +228,3 @@ double attr_Test_get_x_const_pointer(const ModuleTest* x) {
 double attr_Test_get_x_pointer(ModuleTest* x) {
     return x->value;
 }
-

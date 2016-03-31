@@ -30,10 +30,9 @@ export(Module,
        demangle,
        sizeof,
        cpp_object_initializer,
-       cpp_object_dummy, 
-       Rcpp.plugin.maker
+       cpp_object_dummy,
+       Rcpp.plugin.maker,
+       copy
        )
 S3method( print, bytes )
 exportClass(RcppClass)
-
-
