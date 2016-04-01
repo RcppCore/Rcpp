@@ -27,7 +27,7 @@ namespace traits{
   template <typename T> struct has_copy_constructor :
     integral_constant<bool, std::is_copy_constructible<T>::value >{} ;
 #else
-  template<typename T> struct has_copy_constructor : true_type ;
+  template<typename T> struct has_copy_constructor : true_type {} ;
 #endif
 
 } // traits
