@@ -55,4 +55,4 @@
 
 }
 }
-\keyword{ ~kwd1 }
+\keyword{manip}

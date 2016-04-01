@@ -439,6 +439,14 @@ cpp_fields <- function( CLASS, where){
     paste0("Rcpp_",name)
 
 copy <- function( obj ){
-		xp <- .Call(copy_constructor, obj$.cppclass, obj$.pointer )
+		.Call(copy_constructor, obj$.cppclass, obj$.pointer )
+}
 
+destruct <- function(obj){
+		.Call(destructor, obj$.cppclass, obj$.pointer)
+		invisible(NULL)
+}
+
+is_destructed <- function(obj){
+		.Call(is_destructed_impl, obj$.pointer)
 }

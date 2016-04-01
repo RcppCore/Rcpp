@@ -32,7 +32,9 @@ export(Module,
        cpp_object_initializer,
        cpp_object_dummy,
        Rcpp.plugin.maker,
-       copy
+       copy,
+       destruct,
+       is_destructed
        )
 S3method( print, bytes )
 exportClass(RcppClass)

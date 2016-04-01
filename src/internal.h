@@ -124,6 +124,8 @@ CALLFUN_1(rcpp_error_recorder);
 CALLFUN_3(CppField__get);
 CALLFUN_4(CppField__set);
 CALLFUN_2(copy_constructor) ;
+CALLFUN_2(destructor) ;
+CALLFUN_1(is_destructed_impl) ;
 
 CALLFUN_0(rcpp_capabilities);
 CALLFUN_0(rcpp_can_use_cxx0x);

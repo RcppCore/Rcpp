@@ -17,7 +17,12 @@
     \item Changes in Rcpp Modules:
     \itemize{
       \item New function \code{copy} to invoke the copy constructor of a
-      C++ class that has been exposed by modules. 
+      C++ class that has been exposed by modules.
+      \item New function \code{destruct} to explicitely call the
+      destructor of the underlying C++ object without waiting for the
+      garbage collector.
+      \item New function \code{is\_destructed} to check if an object has been
+      destructed (presumably by \code{destruct} )
     }
   }
 }

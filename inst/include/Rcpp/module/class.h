@@ -170,6 +170,14 @@
             END_RCPP
         }
 
+        SEXP invoke_destructor(SEXP object) {
+            BEGIN_RCPP
+            run_finalizer(object);
+            XP(object).release() ;
+            return R_NilValue ;
+            END_RCPP
+        }
+
         bool has_default_constructor(){
             int n = constructors.size() ;
             signed_constructor_class* p ;
@@ -498,7 +506,7 @@
         vec_signed_factory factories ;
         self* class_pointer ;
         std::string typeinfo_name ;
-        
+
         class_( ) : class_Base(), vec_methods(), properties(), specials(0), constructors(), factories() {};
 
 

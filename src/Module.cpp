@@ -117,6 +117,13 @@ RCPP_FUN_2( SEXP, copy_constructor, XP_Class cl, SEXP obj){
   return cl->invoke_copy_constructor(obj) ;
 }
 
+RCPP_FUN_2( SEXP, destructor, XP_Class cl, SEXP obj){
+  return cl->invoke_destructor(obj) ;
+}
+RCPP_FUN_1( SEXP, is_destructed_impl, SEXP obj){
+  return Rf_ScalarLogical( R_ExternalPtrAddr(obj) == NULL ) ;
+}
+
 // .External functions
 SEXP InternalFunction_invoke(SEXP args) {
 BEGIN_RCPP
