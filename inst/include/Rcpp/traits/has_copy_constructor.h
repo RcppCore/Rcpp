@@ -33,4 +33,9 @@ namespace traits{
 } // traits
 } // Rcpp
 
+#define RCPP_DISABLE_COPY_CONSTRUCTOR(CLASS)                          \
+  namespace Rcpp { namespace traits {                                 \
+    template <> struct has_copy_constructor<CLASS> : false_type {} ;  \
+  }}
+
 #endif
