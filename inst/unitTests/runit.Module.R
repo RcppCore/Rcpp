@@ -106,9 +106,9 @@ if( .runThisTest && Rcpp:::capabilities()[["Rcpp modules"]] ) {
 
     test.Module.destructor <- function(){
         f <- new( ModuleCopyConstructor, 4L)
-        checkEquals( !is_destructed(f) )
+        checkTrue( !is_destructed(f) )
         destruct(f)
-        checkEquals( is_destructed(f) )
+        checkTrue( is_destructed(f) )
     }
 
 }
