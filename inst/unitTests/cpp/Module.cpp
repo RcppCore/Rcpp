@@ -119,6 +119,13 @@ public:
 } ;
 
 RCPP_EXPOSED_CLASS(ModuleTest)
+
+namespace Rcpp {
+namespace traits {
+  template <> struct has_copy_constructor<ModuleTest> : false_type ;
+}
+}
+
 class ModuleTest {
 public:
     double value;

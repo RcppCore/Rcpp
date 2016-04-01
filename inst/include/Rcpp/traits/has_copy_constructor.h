@@ -23,22 +23,12 @@
 namespace Rcpp{
 namespace traits{
 
-  template<typename T>
-  class _has_copy_constructor_helper : __sfinae_types {
-      template<typename U> struct _Wrap_type { };
-
-      template<typename U>
-        static __one __test(U);
-
-      template<typename U>
-        static __two __test(...);
-
-    public:
-      static const bool value = sizeof(__test<T>(0)) == 1;
-    };
-
-  template<typename T> struct has_copy_constructor :
-  	integral_constant<bool,_has_copy_constructor_helper<T>::value> { };
+#if defined(RCPP_USING_CXX11)
+  template <typename T> struct has_copy_constructor :
+    integral_constant<bool, std::is_copy_constructible<T>::value >{} ;
+#else
+  template<typename T> struct has_copy_constructor : true_type ;
+#endif
 
 } // traits
 } // Rcpp
