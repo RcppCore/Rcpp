@@ -264,9 +264,9 @@ if (.runThisTest) {
         checkEquals( runit_Rcpp(), asNamespace("Rcpp") , msg = "cached Rcpp namespace" )
     }
 
-    test.environment.child <- function(){
-        checkEquals( parent.env(runit_child()), globalenv(), msg = "child environment" )
-    }
+    #test.environment.child <- function(){
+    #    checkEquals( parent.env(runit_child()), globalenv(), msg = "child environment" )
+    #}
 
     test.environment.new_env <- function() {
         env <- new.env()
