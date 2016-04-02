@@ -16,15 +16,15 @@
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 internal_function <- function(pointer){
-	f <- function(xp){
-		force(xp)
-		function(...){
-			.External( InternalFunction_invoke, xp, ... )
-		}
-	}
-	o <- new( "C++Function", f(pointer) )
-	o@pointer <- pointer
-	o
+    f <- function(xp){
+        force(xp)
+        function(...){
+            .External( InternalFunction_invoke, xp, ... )
+        }
+    }
+    o <- new( "C++Function", f(pointer) )
+    o@pointer <- pointer
+    o
 }
 
 setMethod("$", "C++Class", function(x, name) {
@@ -42,8 +42,8 @@ setMethod("$", "C++Class", function(x, name) {
 .getModulePointer <- function(module, mustStart = TRUE) {
     pointer <- get("pointer", envir = as.environment(module))
     if(is.null(pointer) && mustStart) {
-## should be (except for bug noted in identical())
-##    if(identical(pointer, .badModulePointer) && mustStart) {
+        ## should be (except for bug noted in identical())
+        ##    if(identical(pointer, .badModulePointer) && mustStart) {
         Module(module, mustStart = TRUE) # will either initialize pointer or throw error
         pointer <- get("pointer", envir = as.environment(module))
     }
@@ -438,15 +438,15 @@ cpp_fields <- function( CLASS, where){
 .CppClassName <- function(name)
     paste0("Rcpp_",name)
 
-copy <- function( obj ){
-		.Call(copy_constructor, obj$.cppclass, obj$.pointer )
+copyObject <- function( obj ){
+    .Call(copy_constructor, obj$.cppclass, obj$.pointer )
 }
 
 destruct <- function(obj){
-		.Call(destructor, obj$.cppclass, obj$.pointer)
-		invisible(NULL)
+    .Call(destructor, obj$.cppclass, obj$.pointer)
+    invisible(NULL)
 }
 
 is_destructed <- function(obj){
-		.Call(is_destructed_impl, obj$.pointer)
+    .Call(is_destructed_impl, obj$.pointer)
 }
