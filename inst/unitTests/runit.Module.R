@@ -96,7 +96,7 @@ if( .runThisTest && Rcpp:::capabilities()[["Rcpp modules"]] ) {
 
     test.Module.copy.constructor <- function(){
         f <- new( ModuleCopyConstructor, 2L)
-        g <- copy(f)
+        g <- copyObject(f)
         checkEquals( f$x, g$x )
         checkTrue( !identical(f$.pointer, g$.pointer) )
         g$x <- 4L

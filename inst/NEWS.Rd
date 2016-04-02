@@ -12,17 +12,18 @@
     }
     \item Changes in Rcpp Attributes:
     \itemize{
-      \item R 3.3.0 Windows with Rtools 3.3 is now supported (Qin Wenfeng in PR \ghpr{451}).
+      \item R 3.3.0 Windows with Rtools 3.3 is now supported (Qin Wenfeng in PR
+      \ghpr{451}). 
     }
     \item Changes in Rcpp Modules:
     \itemize{
-      \item New function \code{copy} to invoke the copy constructor of a
-      C++ class that has been exposed by modules.
+      \item New function \code{copyObject} to invoke the copy constructor of a
+      C++ class that has been exposed by modules. (\ghpr{454})
       \item New function \code{destruct} to explicitely call the
       destructor of the underlying C++ object without waiting for the
-      garbage collector.
+      garbage collector. (\ghpr{454})
       \item New function \code{is\_destructed} to check if an object has been
-      destructed (presumably by \code{destruct} )
+      destructed (presumably by \code{destruct}) (Romain in \ghpr{454})
     }
   }
 }

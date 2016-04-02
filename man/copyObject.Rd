@@ -1,5 +1,5 @@
-\name{copy}
-\alias{copy}
+\name{copyObject}
+\alias{copyObject}
 \title{
   Invokes the copy constructor of the C++ class
 }
@@ -9,7 +9,7 @@
   constructor.
 }
 \usage{
-  copy(obj)
+  copyObject(obj)
 }
 \arguments{
   \item{obj}{A C++ object from a class exposed by an Rcpp module}
@@ -42,7 +42,7 @@
   }
   ')
   f <- new( Foo, 1 )
-  g <- copy(f)
+  g <- copyObject(f)
 
   # f and g have the same value for the x field
   f$x == g$x

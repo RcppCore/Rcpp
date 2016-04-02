@@ -32,7 +32,7 @@ export(Module,
        cpp_object_initializer,
        cpp_object_dummy,
        Rcpp.plugin.maker,
-       copy,
+       copyObject,
        destruct,
        is_destructed
        )
