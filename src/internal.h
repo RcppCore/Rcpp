@@ -2,7 +2,7 @@
 //
 // internal.h: Rcpp R/C++ interface class library --
 //
-// Copyright (C) 2012 - 2015  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2016  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -123,6 +123,9 @@ CALLFUN_0(init_Rcpp_cache);
 CALLFUN_1(rcpp_error_recorder);
 CALLFUN_3(CppField__get);
 CALLFUN_4(CppField__set);
+CALLFUN_2(copy_constructor) ;
+CALLFUN_2(destructor) ;
+CALLFUN_1(is_destructed_impl) ;
 
 CALLFUN_0(rcpp_capabilities);
 CALLFUN_0(rcpp_can_use_cxx0x);

@@ -2,7 +2,7 @@
 //
 // Rcpp_init.cpp : Rcpp R/C++ interface class library -- Initialize and register
 //
-// Copyright (C) 2010 - 2015  John Chambers, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2016  John Chambers, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -53,6 +53,9 @@ static R_CallMethodDef callEntries[]  = {
 
     CALLDEF(CppField__get,3),
     CALLDEF(CppField__set,4),
+    CALLDEF(copy_constructor,2),
+    CALLDEF(destructor, 2),
+    CALLDEF(is_destructed_impl, 1), 
 
     CALLDEF(rcpp_capabilities,0),
     CALLDEF(rcpp_can_use_cxx0x,0),

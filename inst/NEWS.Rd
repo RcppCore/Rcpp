@@ -14,9 +14,19 @@
     \itemize{
       R 3.3.0 Windows with Rtools 3.3 is now supported (Qin Wenfeng in PR \ghpr{451}).
     }
+    \item Changes in Rcpp Modules:
+    \itemize{
+      \item New function \code{copy} to invoke the copy constructor of a
+      C++ class that has been exposed by modules.
+      \item New function \code{destruct} to explicitely call the
+      destructor of the underlying C++ object without waiting for the
+      garbage collector.
+      \item New function \code{is\_destructed} to check if an object has been
+      destructed (presumably by \code{destruct} )
+    }
   }
 }
-      
+
 \section{Changes in Rcpp version 0.12.4 (2016-03-22)}{
   \itemize{
     \item Changes in Rcpp API:
@@ -65,13 +75,13 @@
       \ghpr{406} by Qiang fixing \ghit{365}).
       \item A missing \code{std::hash} function interface for
       \code{Rcpp::String} has been addded (PR \ghpr{408} by Qiang fixing
-      \ghit{84}). 
+      \ghit{84}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{
       \item Avoid invalid function names when generating C++ interfaces (PR
       \ghpr{403} by JJ fixing \ghit{402}).
-      \item Insert additional space around \code{&} in function interface (PR 
+      \item Insert additional space around \code{&} in function interface (PR
       \ghpr{400} by Kazuki Fukui fixing \ghit{278}).
     }
     \item Changes in Rcpp Modules:
@@ -95,7 +105,7 @@
       by Florian)
       \item Before creating a single String object from a \code{SEXP}, ensure
       that it is from a vector of length one (PR \ghpr{376} by Dirk, fixing
-      \ghit{375}). 
+      \ghit{375}).
       \item No longer use \code{STRING_ELT} as a left-hand side, thanks to a
       heads-up by Luke Tierney (PR \ghpr{378} by Dirk, fixing \ghit{377}).
       \item Rcpp Module objects are now checked more carefully (PR \ghpr{381}
@@ -107,7 +117,7 @@
       \item \code{operator<<()} now always shows decimal points (PR \ghpr{396}
       by Dan)
       \item Matrix classes now have a \code{transpose()} function (PR \ghpr{397}
-      by Dirk fixing \ghit{383}) 
+      by Dirk fixing \ghit{383})
       \item \code{operator<<()} for complex types was added (PRs \ghpr{398} by
       Qiang and \ghpr{399} by Dirk, fixing \ghit{187})
     }
@@ -125,20 +135,20 @@
     \item Changes in Rcpp Documentation:
     \itemize{
       \item The \code{NEWS} file now links to GitHub issue tickets and pull
-      requests. 
+      requests.
       \item The \code{Rcpp.bib} file with bibliographic references was updated.
     }
   }
 }
-      
+
 \section{Changes in Rcpp version 0.12.1 (2015-09-10)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
-      \item Correct use of WIN32 instead of _WIN32 to please Windows 10 
+      \item Correct use of WIN32 instead of _WIN32 to please Windows 10
       \item Add an assignment operator to \code{DimNameProxy} (PR \ghpr{339} by Florian)
       \item Add vector and matrix accessors \code{.at()} with bounds checking
-      (PR \ghpr{342} by Florian) 
+      (PR \ghpr{342} by Florian)
       \item Correct character vector conversion from single char (PR \ghpr{344} by
       Florian fixing issue \ghit{343})
       \item Correct on use of \code{R_xlen_t} back to \code{size_t} (PR \ghpr{348} by
@@ -186,13 +196,13 @@
       R expressions; this should resolve errors where calling handlers (e.g.
       through \code{suppressMessages()}) were not properly respected.
       \item All internal length variables have been changed from \code{R_len_t}
-      to \code{R_xlen_t} to support vectors longer than 2^31-1 elements (via 
+      to \code{R_xlen_t} to support vectors longer than 2^31-1 elements (via
       PR \ghpr{303} by Qiang Kou).
       \item The sugar function \code{sapply} now supports lambda functions
       (addressing \ghit{213} thanks to Matt Dziubinski)
       \item The \code{var} sugar function now uses a more robust two-pass
       method, supports complex numbers, with new unit tests added (via PR
-      \ghpr{320} by Matt Dziubinski) 
+      \ghpr{320} by Matt Dziubinski)
       \item \code{String} constructors now allow encodings (via PR \ghpr{310}
       by Qiang Kou)
       \item \code{String} objects are preserving the underlying \code{SEXP}
@@ -201,7 +211,7 @@
       \item DataFrame constructors are now a little more careful (via PR
       \ghpr{301} by Romain Francois)
       \item For R 3.2.0 or newer, \code{Rf_installChar()} is used instead of
-      \code{Rf_install(CHAR())} (via PR \ghpr{332}). 
+      \code{Rf_install(CHAR())} (via PR \ghpr{332}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{
@@ -233,7 +243,7 @@
       matrices (via a pull request by Dmitrii Meleshko).
       \item A new \code{empty()} string constructor was added (via another pull
       request).
-      \item Better support for Vectors with a storage policy different from the 
+      \item Better support for Vectors with a storage policy different from the
       default, i.e. \code{NoProtectStorage}, was added.
     }
     \item Changes in Rcpp Attributes:
@@ -258,16 +268,16 @@
       \item The \code{Rcpp::Environment} constructor can now use a supplied
       parent environment.
       \item The \code{Rcpp::Function} constructor can now use a supplied
-      environment or namespace. 
+      environment or namespace.
       \item The \code{attributes_hidden} macro from R is used to shield internal
       functions; the \code{R_ext/Visibility.h} header is now included as well.
-      \item A \code{Rcpp::print} function was added as a wrapper around \code{Rf_PrintValue}. 
+      \item A \code{Rcpp::print} function was added as a wrapper around \code{Rf_PrintValue}.
     }
     \item Changes in Rcpp Attributes:
     \itemize{
       \item The \code{pkg_types.h} file is now included in \code{RcppExports.cpp}
-      if it is present in either the \code{inst/include} or \code{src}. 
-      \item \code{sourceCpp} was modified to allow includes of local files 
+      if it is present in either the \code{inst/include} or \code{src}.
+      \item \code{sourceCpp} was modified to allow includes of local files
       (e.g. \code{#include "foo.hpp"}). Implementation files (*.cc; *.cpp) corresponding
       to local includes are also automatically built if they exist.
       \item The generated attributes code was simplified with respect to

@@ -1,4 +1,4 @@
-# Copyright (C) 2010 - 2014 John Chambers, Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2016 John Chambers, Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -127,7 +127,6 @@ new_CppObject_xp <- function(module, pointer, ...) {
 
 new_dummyObject <- function(...)
     .External( class__dummyInstance, ...)
-
 
 # class method for $initialize
 cpp_object_initializer <- function(.self, .refClassDef, ..., .object_pointer){
@@ -438,3 +437,16 @@ cpp_fields <- function( CLASS, where){
 
 .CppClassName <- function(name)
     paste0("Rcpp_",name)
+
+copy <- function( obj ){
+		.Call(copy_constructor, obj$.cppclass, obj$.pointer )
+}
+
+destruct <- function(obj){
+		.Call(destructor, obj$.cppclass, obj$.pointer)
+		invisible(NULL)
+}
+
+is_destructed <- function(obj){
+		.Call(is_destructed_impl, obj$.pointer)
+}

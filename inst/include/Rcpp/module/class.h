@@ -2,7 +2,7 @@
 //
 // class.h: Rcpp R/C++ interface class library -- Rcpp modules
 //
-// Copyright (C) 2012 - 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2016 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -21,6 +21,21 @@
 
 #ifndef Rcpp_Module_CLASS_h
 #define Rcpp_Module_CLASS_h
+
+    template <typename Class, bool ok>
+    struct CopyConstructor {
+        static Class* get( Class* obj ){
+          return new Class(*obj) ;
+        }
+    } ;
+
+    template <typename Class>
+    struct CopyConstructor<Class,false> {
+        static Class* get( Class* obj){
+          stop("no copy constructor available") ;
+          return obj ;
+        }
+    } ;
 
     template <typename Class>
     class class_ : public class_Base {
@@ -146,7 +161,22 @@
 
             throw std::range_error( "no valid constructor available for the argument list" ) ;
             END_RCPP
-                }
+        }
+
+        SEXP invoke_copy_constructor( SEXP object ){
+            BEGIN_RCPP
+            XP xp(object) ;
+            return internal::make_new_object<Class>( CopyConstructor< Class, traits::has_copy_constructor<Class>::value >::get(xp) ) ;
+            END_RCPP
+        }
+
+        SEXP invoke_destructor(SEXP object) {
+            BEGIN_RCPP
+            run_finalizer(object);
+            XP(object).release() ;
+            return R_NilValue ;
+            END_RCPP
+        }
 
         bool has_default_constructor(){
             int n = constructors.size() ;
@@ -476,7 +506,6 @@
         vec_signed_factory factories ;
         self* class_pointer ;
         std::string typeinfo_name ;
-
 
         class_( ) : class_Base(), vec_methods(), properties(), specials(0), constructors(), factories() {};
 
