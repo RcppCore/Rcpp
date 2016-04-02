@@ -1,3 +1,31 @@
+2016-04-02  Dirk Eddelbuettel  <edd@debian.org>
+
+        * ChangeLog: Added entries for PRs 453 and 454
+        * inst/NEWS.Rd: Add two missing \item uses
+
+2016-03-31  Romain Francois <romain@r-enthusiasts.com>
+
+        * R/Modules.R: New top-level functions copy, destruct and is_destructed
+        * NAMESPACE: New functions copy, destruct and is_destructed exported
+        * man/copy.Rd: New manual page
+        * man/destruct.Rd: Ditto
+
+        * inst/include/Rcpp/module/class.h: Add copy constructortor + destructor
+        * inst/include/Rcpp/module/class_Base.h: Ditto
+        * src/Module.cpp: Ditto
+        * src/Rcpp_init.cpp: Ditto
+        * src/internal.h: Ditto
+
+        * inst/include/Rcpp/traits/traits.h: New trait detecting copy contructor
+        * inst/include/Rcpp/traits/has_copy_constructor.h: Ditto
+
+        * inst/unitTests/runit.Module.R: Test new copy constructor and destructor
+        * inst/unitTests/cpp/Module.cpp: Ditto
+
+2016-03-29  Daniel C. Dillon  <dcdillon@gmail.com>
+
+        * inst/include/Rcpp/String.h: Correct Rcpp::String for Rcpp::Nullable
+
 2016-03-27  Qin Wenfeng  <mail@qinwenfeng.com>
 
         * R/Attributes.R: Support R 3.3.0 Windows new toolchain
