@@ -1,5 +1,8 @@
 2016-04-02  Dirk Eddelbuettel  <edd@debian.org>
 
+        * DESCRIPTION: Rolled to minor version 0.12.4.3
+        * inst/include/Rcpp/config.h: Ditto
+
         * ChangeLog: Added entries for PRs 453 and 454
         * inst/NEWS.Rd: Add two missing \item uses
 
