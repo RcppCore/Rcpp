@@ -1019,7 +1019,7 @@ There are some things \textsl{Rcpp modules} is not good at:
   implemented via an external pointer using a memory location, which is
   non-constant and varies between session. Objects have to be re-created,
   which is different from the (de-)serialization that R offers. So these
-  objects cannot be save from session to session.
+  objects cannot be saved from session to session.
 \item mulitple inheritance: currently, only simple class structures are
   representable via \textsl{Rcpp modules}.
 \end{itemize}
