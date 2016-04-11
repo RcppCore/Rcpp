@@ -111,7 +111,7 @@ setMethod("initialize", "Module",
 
 .get_Module_Class <- function( x, name, pointer =  .getModulePointer(x) ){
     value <- .Call( Module__get_class, pointer, name )
-    value@generator <-  get("refClassGenerators",envir=x)[[as.character(value)]]
+    value@generator <- get("refClassGenerators", envir=x)[[value@.Data]]
     value
 }
 
@@ -215,7 +215,7 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
     for( i in seq_along(classes) ){
         CLASS <- classes[[i]]
 
-        clname <- as.character(CLASS)
+        clname <- CLASS@.Data
 
         fields <- cpp_fields( CLASS, where )
         methods <- cpp_refMethods(CLASS, where)
@@ -276,7 +276,7 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
 
     for( i in seq_along(classes) ){
         CLASS <- classes[[i]]
-        clname <- as.character(CLASS)
+        clname <- CLASS@.Data
         demangled_name <- sub( "^Rcpp_", "", clname )
         .classes_map[[ CLASS@typeid ]] <- storage[[ demangled_name ]] <- .get_Module_Class( module, demangled_name, xp )
 
