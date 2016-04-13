@@ -1,3 +1,7 @@
+2016-04-13  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version): Rolling minor version and Date
+
 2016-04-11  Ben Goodrich  <goodrich.ben@gmail.com>
 
         * R/Module.R: Avoid calling as.character() on C++Object to prevent race
