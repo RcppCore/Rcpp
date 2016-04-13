@@ -24,6 +24,8 @@
       garbage collector. (\ghpr{454})
       \item New function \code{is\_destructed} to check if an object has been
       destructed (presumably by \code{destruct}) (Romain in \ghpr{454})
+      \item An apparent race condition in Module loading seen with R 3.3.0 was
+      fixed (Ben Goodrich in \ghpr{461} fixing \ghit{458}).
     }
   }
 }

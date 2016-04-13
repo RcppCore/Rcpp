@@ -1,5 +1,6 @@
 2016-04-11  Ben Goodrich  <goodrich.ben@gmail.com>
-        * R/Module.R: Avoid calling as.character() on a C++Object to prevent race
+
+        * R/Module.R: Avoid calling as.character() on C++Object to prevent race
 
 2016-04-02  Dirk Eddelbuettel  <edd@debian.org>
 
