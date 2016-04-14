@@ -851,7 +851,7 @@ namespace attributes {
                         // if it exists then normalize and add to our list
                         LogicalVector exists = fileExists(include);
                         if (exists[0]) {
-                            include = normalizePath(include);
+                            include = normalizePath(include, "/");
                             if (addUniqueDependency(include, pDependencies)) {
                                 newDependencies.push_back(
                                     FileInfo(Rcpp::as<std::string>(include)));
