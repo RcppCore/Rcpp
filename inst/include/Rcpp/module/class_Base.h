@@ -2,7 +2,7 @@
 //
 // class_Base.h: Rcpp R/C++ interface class library -- Rcpp modules
 //
-// Copyright (C) 2012 - 2016 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -37,8 +37,6 @@ public:
 
     virtual void run_finalizer(SEXP){ }
 
-    virtual SEXP invoke_copy_constructor(SEXP) = 0 ;
-    virtual SEXP invoke_destructor(SEXP) = 0 ;
     virtual bool has_default_constructor(){ return false ; }
     virtual bool has_method( const std::string& ){
         return false ;
@@ -82,7 +80,7 @@ public:
     }
     void add_enum( const std::string& enum_name, const std::map<std::string, int>& value ){
 	    enums.insert( ENUM_MAP_PAIR( enum_name, value ) ) ;
-	  }
+	}
 
     std::string name ;
     std::string docstring ;

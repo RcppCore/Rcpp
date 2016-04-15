@@ -3,7 +3,7 @@
 //
 // traits.h: Rcpp R/C++ interface class library -- traits to help wrap
 //
-// Copyright (C) 2012 - 2016 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2013 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -44,7 +44,6 @@ struct int2type { enum { value = I }; };
 #include <Rcpp/traits/named_object.h>
 #include <Rcpp/traits/is_convertible.h>
 #include <Rcpp/traits/has_iterator.h>
-#include <Rcpp/traits/has_copy_constructor.h>
 #include <Rcpp/traits/expands_to_logical.h>
 #include <Rcpp/traits/matrix_interface.h>
 #include <Rcpp/traits/is_sugar_expression.h>
@@ -78,3 +77,4 @@ struct int2type { enum { value = I }; };
 #include <Rcpp/traits/is_primitive.h>
 
 #endif
+
