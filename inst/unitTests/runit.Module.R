@@ -27,12 +27,12 @@ if( .runThisTest && Rcpp:::capabilities()[["Rcpp modules"]] ) {
     }
 
     .setUp <- Rcpp:::unitTestSetup("Module.cpp")
-
+    
     test.Module <- function(){
         checkEquals( bar( 2L ), 4L )
         checkEquals( foo( 2L, 10.0 ), 20.0 )
         checkEquals( hello(), "hello" )
-
+        
         w <- new( ModuleWorld )
         checkEquals( w$greet(), "hello" )
         w$set( "hello world" )
@@ -51,7 +51,7 @@ if( .runThisTest && Rcpp:::capabilities()[["Rcpp modules"]] ) {
         checkEquals( Test_get_x_const_pointer(test), 3.0 )
         checkEquals( Test_get_x_ref(test), 3.0 )
         checkEquals( Test_get_x_pointer(test), 3.0 )
-
+        
         checkEquals( attr_Test_get_x_const_ref(test), 3.0 )
         checkEquals( attr_Test_get_x_const_pointer(test), 3.0 )
         checkEquals( attr_Test_get_x_ref(test), 3.0 )
@@ -92,23 +92,6 @@ if( .runThisTest && Rcpp:::capabilities()[["Rcpp modules"]] ) {
         checkEquals( test_reference( seq(0,10) ), 11L )
         checkEquals( test_const_reference( seq(0,10) ), 11L )
         checkEquals( test_const( seq(0,10) ), 11L )
-    }
-
-    test.Module.copy.constructor <- function(){
-        f <- new( ModuleCopyConstructor, 2L)
-        g <- copyObject(f)
-        checkEquals( f$x, g$x )
-        checkTrue( !identical(f$.pointer, g$.pointer) )
-        g$x <- 4L
-        checkEquals( f$x, 2L)
-        checkEquals( g$x, 4L)
-    }
-
-    test.Module.destructor <- function(){
-        f <- new( ModuleCopyConstructor, 4L)
-        checkTrue( !is_destructed(f) )
-        destruct(f)
-        checkTrue( is_destructed(f) )
     }
 
 }

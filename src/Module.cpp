@@ -2,7 +2,7 @@
 //
 // Module.cpp: Rcpp R/C++ interface class library -- Rcpp modules
 //
-// Copyright (C) 2010 - 2016  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2015  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -111,17 +111,6 @@ RCPP_FUN_4(SEXP, CppField__set, XP_Class cl, SEXP field_xp, SEXP obj, SEXP value
 RCPP_FUN_2(SEXP, CppObject__finalize, XP_Class cl, SEXP obj) {
 	cl->run_finalizer(obj);
 	return R_NilValue;
-}
-
-RCPP_FUN_2( SEXP, copy_constructor, XP_Class cl, SEXP obj){
-  return cl->invoke_copy_constructor(obj) ;
-}
-
-RCPP_FUN_2( SEXP, destructor, XP_Class cl, SEXP obj){
-  return cl->invoke_destructor(obj) ;
-}
-RCPP_FUN_1( SEXP, is_destructed_impl, SEXP obj){
-  return Rf_ScalarLogical( R_ExternalPtrAddr(obj) == NULL ) ;
 }
 
 // .External functions
@@ -241,3 +230,4 @@ Rcpp::Module* getCurrentScope() {
 void setCurrentScope(Rcpp::Module* scope) {
     Rcpp::current_scope = scope;
 }
+
