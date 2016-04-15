@@ -1,3 +1,7 @@
+2013-05-24  J.J. Allaire <jj@rstudio.org>
+
+        * src/attributes.cpp: Correct handling of dependent file paths on Windows (use winslash = "/")
+
 2016-04-13  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version): Rolling minor version and Date
