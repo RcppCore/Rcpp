@@ -894,7 +894,7 @@ namespace attributes {
             // normalize source file
             Rcpp::Environment baseEnv = Rcpp::Environment::base_env();
             Rcpp::Function normalizePath = baseEnv["normalizePath"];
-            sourceFile = Rcpp::as<std::string>(normalizePath(sourceFile));
+            sourceFile = Rcpp::as<std::string>(normalizePath(sourceFile, "/"));
             
             // parse dependencies
             std::vector<FileInfo> dependencies;

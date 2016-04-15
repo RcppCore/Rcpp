@@ -1,4 +1,8 @@
-2013-05-24  J.J. Allaire <jj@rstudio.org>
+2013-05-15  Kevin Ushey <kevinushey@gmail.com>
+
+        * src/attributes.cpp: Add a missing 'winslash = "/"'
+
+2013-05-14  J.J. Allaire <jj@rstudio.org>
 
         * src/attributes.cpp: Correct handling of dependent file paths on Windows (use winslash = "/")
 
