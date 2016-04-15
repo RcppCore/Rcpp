@@ -14,7 +14,6 @@
     \itemize{
       \item R 3.3.0 Windows with Rtools 3.3 is now supported (Qin Wenfeng in PR
       \ghpr{451}). 
-      \item Correct handling of dependent file paths on Windows (use winslash = "/").
     }
     \item Changes in Rcpp Modules:
     \itemize{
