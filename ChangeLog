@@ -1,10 +1,22 @@
-2013-05-15  Kevin Ushey <kevinushey@gmail.com>
+2016-05-06  Dirk Eddelbuettel  <edd@debian.org>
+
+        * R/loadRcppModules.R (loadRcppModules): Add call to .Deprecated
+        pointing out that loadModule is preferred
+        * man/Rcpp-deprecated.Rd: Added to list deprecated functions
+        * man/loadRcppModules-deprecated.Rd: Renamed to -deprecated, added link
+        to loadModule which is the preferred method
+
+        * vignettes/Rcpp-modules.Rnw: Updated with respect to loadRcppModules
+        deprecation and loadModule being preferred
+
+2016-04-15  Kevin Ushey <kevinushey@gmail.com>
 
         * src/attributes.cpp: Add a missing 'winslash = "/"'
 
-2013-05-14  J.J. Allaire <jj@rstudio.org>
+2016-04-14  J.J. Allaire <jj@rstudio.org>
 
-        * src/attributes.cpp: Correct handling of dependent file paths on Windows (use winslash = "/")
+        * src/attributes.cpp: Correct handling of dependent file paths on
+        Windows (use winslash = "/") 
 
 2016-04-13  Dirk Eddelbuettel  <edd@debian.org>
 

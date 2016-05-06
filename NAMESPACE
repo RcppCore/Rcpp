@@ -15,7 +15,7 @@ exportMethods(prompt, show, .DollarNames, initialize, "formals<-")
 export(Module,
        Rcpp.package.skeleton,
        populate,
-       loadRcppModules,
+       loadRcppModules,  # deprecated since Rcpp 0.12.5
        setRcppClass,
        loadRcppClass,
        loadModule,
