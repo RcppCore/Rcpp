@@ -2,7 +2,7 @@
 //
 // Matrix.cpp: Rcpp R/C++ interface class library -- Matrix unit tests
 //
-// Copyright (C) 2013 - 2014    Dirk Eddelbuettel, Romain Francois and Kevin Ushey
+// Copyright (C) 2013 - 2016  Dirk Eddelbuettel, Romain Francois and Kevin Ushey
 //
 // This file is part of Rcpp.
 //
@@ -313,21 +313,21 @@ CharacterMatrix transposeCharacter(const CharacterMatrix & x) {
 }
 
 // [[Rcpp::export]]
-NumericMatrix matrix_scalar_plus(const NumericMatrix & x, int y) {
+NumericMatrix matrix_scalar_plus(const NumericMatrix & x, double y) {
     return x + y;
 }
 
 // [[Rcpp::export]]
-NumericMatrix matrix_scalar_plus2(const NumericMatrix & x, int y) {
+NumericMatrix matrix_scalar_plus2(const NumericMatrix & x, double y) {
     return y + x;
 }
 
 // [[Rcpp::export]]
-NumericMatrix matrix_scalar_divide(const NumericMatrix & x, int y) {
+NumericMatrix matrix_scalar_divide(const NumericMatrix & x, double y) {
     return x / y;
 }
 
 // [[Rcpp::export]]
-NumericMatrix matrix_scalar_divide2(const NumericMatrix & x, int y) {
+NumericMatrix matrix_scalar_divide2(const NumericMatrix & x, double y) {
     return y / x;
 }

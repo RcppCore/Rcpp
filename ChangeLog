@@ -1,3 +1,8 @@
+2016-05-08  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/unitTests/cpp/Matrix.cpp: Made four scalar/matrix tests less
+        ambiguous for overloads by using double as scalar
+
 2016-05-06  Dirk Eddelbuettel  <edd@debian.org>
 
         * R/loadRcppModules.R (loadRcppModules): Add call to .Deprecated
