@@ -23,6 +23,12 @@
       \item The (older) \code{loadRcppModules()} is now deprecated in favour of
       \code{loadModule()} introduced around R 2.15.1 and Rcpp 0.9.11.
     }
+    \item Changes in Rcpp support functions:
+    \itemize{
+      \item The \code{Rcpp.package.skeleton()} function was once again updated
+      in order to create a \code{DESCRIPTION} file  which passes
+      \code{R CMD check} without warnings under R-release and R-devel.
+    }
   }
 }
       

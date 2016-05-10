@@ -1,3 +1,8 @@
+2016-05-10  Dirk Eddelbuettel  <edd@debian.org>
+
+        * R/Rcpp.package.skeleton.R: Also correct Title: and Description: to
+        satisfy R CMD check in R-release and (current) R-devel
+
 2016-05-08  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/unitTests/cpp/Matrix.cpp: Made four scalar/matrix tests less
