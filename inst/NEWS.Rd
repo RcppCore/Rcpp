@@ -20,6 +20,8 @@
     \itemize{
       \item An apparent race condition in Module loading seen with R 3.3.0 was
       fixed (Ben Goodrich in \ghpr{461} fixing \ghit{458}).
+      \item The (older) \code{loadRcppModules()} is now deprecated in favour of
+      \code{loadModule()} introduced around R 2.15.1 and Rcpp 0.9.11.
     }
   }
 }

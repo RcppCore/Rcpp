@@ -15,7 +15,10 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-loadRcppModules <- function(direct=TRUE){
+loadRcppModules <- function(direct=TRUE) {
+    # deprecation added May 2016, 'loadModule' has been prefered for years
+    .Deprecated("loadModule")
+    
     ## hunt for the namespace of the package that calls this
     calls <- sys.calls()
     w <- which( sapply( calls, function(call){
