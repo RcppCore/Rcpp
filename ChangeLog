@@ -1,3 +1,13 @@
+2016-05-11  Dirk Eddelbuettel  <edd@debian.org>
+
+        * R/Rcpp.package.skeleton.R: Modified to create a package without notes,
+        warnings, or error even pkgKitten is not available
+
+        * R/Rcpp.package.skeleton.R (.playWithPerPackageHelpPage): Added new
+        helper function to be used when pkgKitten is not available
+        * inst/skeleton/manual-page-stub.Rd: Stub for per-package help page used
+        when pkgKitten is not available
+
 2016-05-10  Dirk Eddelbuettel  <edd@debian.org>
 
         * R/Rcpp.package.skeleton.R: Also correct Title: and Description: to

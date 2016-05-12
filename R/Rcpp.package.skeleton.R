@@ -28,6 +28,7 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
   
     havePkgKitten <- requireNamespace("pkgKitten", quietly=TRUE)
 
+    
     call <- match.call()
     call[[1]] <- as.name("package.skeleton")
     env <- parent.frame(1)
@@ -118,16 +119,7 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
     if (havePkgKitten) {                # if pkgKitten is available, use it
         pkgKitten::playWithPerPackageHelpPage(name, path, maintainer, email)
     } else {
-        package_help_page <- file.path(root, "man", sprintf( "%s-package.Rd", name))
-        if (file.exists(package_help_page)) {
-            lines <- readLines(package_help_page)
-            lines <- gsub("What license is it under?", license, lines, fixed = TRUE)
-            lines <- gsub("Who to complain to <yourfault@somewhere.net>",
-                          sprintf( "%s <%s>", maintainer, email),
-                          lines, fixed = TRUE)
-            lines <- gsub( "Who wrote it", author, lines, fixed = TRUE)
-            writeLines(lines, package_help_page)
-        }
+        .playWithPerPackageHelpPage(name, path, maintainer, email) 
     }
     
     ## lay things out in the src directory
@@ -207,5 +199,25 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
         rm("rcpp_hello_world", envir = env)
     }
 
+    invisible(NULL)
+}
+
+## Borrowed with love from pkgKitten, and modified slightly
+.playWithPerPackageHelpPage <- function(name = "anRpackage",
+                                        path = ".",
+                                        maintainer = "Your Name",
+                                        email = "your@mail.com") {
+    root <- file.path(path, name)    
+    helptgt <- file.path(root, "man", sprintf( "%s-package.Rd", name))
+    helpsrc <- system.file("skeleton", "manual-page-stub.Rd", package="Rcpp")
+    ## update the package description help page
+    if (file.exists(helpsrc)) {
+        lines <- readLines(helpsrc)
+        lines <- gsub("__placeholder__", name, lines, fixed = TRUE)
+        lines <- gsub("Who to complain to <yourfault@somewhere.net>",
+                      sprintf( "%s <%s>", maintainer, email),
+                      lines, fixed = TRUE)
+        writeLines(lines, helptgt)
+    }
     invisible(NULL)
 }

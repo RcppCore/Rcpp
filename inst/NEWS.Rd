@@ -25,9 +25,9 @@
     }
     \item Changes in Rcpp support functions:
     \itemize{
-      \item The \code{Rcpp.package.skeleton()} function was once again updated
-      in order to create a \code{DESCRIPTION} file  which passes
-      \code{R CMD check} without warnings under R-release and R-devel.
+      \item The \code{Rcpp.package.skeleton()} function was again updated in
+      order to create a \code{DESCRIPTION} file which passes \code{R CMD check}
+      without notes. warnings, or error under R-release and R-devel.
     }
   }
 }
