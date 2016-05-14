@@ -9,6 +9,8 @@
     \itemize{
       \item The checks for different C library implementations now also check for Musl
       used by Alpine Linux (Sergio Marques in PR \ghpr{449}).
+      \item \code{Rcpp::Nullable} works better with Rcpp::String (Dan Dillon in
+      PR \ghpr{453}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{
@@ -21,13 +23,15 @@
       \item An apparent race condition in Module loading seen with R 3.3.0 was
       fixed (Ben Goodrich in \ghpr{461} fixing \ghit{458}).
       \item The (older) \code{loadRcppModules()} is now deprecated in favour of
-      \code{loadModule()} introduced around R 2.15.1 and Rcpp 0.9.11.
+      \code{loadModule()} introduced around R 2.15.1 and Rcpp 0.9.11 (PR \ghpr{470}).
     }
     \item Changes in Rcpp support functions:
     \itemize{
       \item The \code{Rcpp.package.skeleton()} function was again updated in
       order to create a \code{DESCRIPTION} file which passes \code{R CMD check}
-      without notes. warnings, or error under R-release and R-devel.
+      without notes. warnings, or error under R-release and R-devel (PR \ghpr{471}).
+      \item A new function \code{compilerCheck} can test for minimal \code{g++}
+      versions (PR \ghpr{474}).
     }
   }
 }

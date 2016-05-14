@@ -1,3 +1,10 @@
+2016-05-13  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Rolled minor version
+
+        * R/compilerCheck.R: Minimal R function to check g++ version sufficiency
+        * man/compilerCheck.Rd: Documentation
+
 2016-05-11  Dirk Eddelbuettel  <edd@debian.org>
 
         * R/Rcpp.package.skeleton.R: Modified to create a package without notes,
@@ -36,7 +43,7 @@
 2016-04-14  J.J. Allaire <jj@rstudio.org>
 
         * src/attributes.cpp: Correct handling of dependent file paths on
-        Windows (use winslash = "/") 
+        Windows (use winslash = "/")
 
 2016-04-13  Dirk Eddelbuettel  <edd@debian.org>
 
