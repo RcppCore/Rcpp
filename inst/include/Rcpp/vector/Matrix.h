@@ -248,9 +248,9 @@ inline std::ostream &operator<<(std::ostream & s, const Matrix<REALSXP, StorageP
 }
 
 #define RCPP_GENERATE_MATRIX_SCALAR_OPERATOR(__OPERATOR__)                                                                    \
-    template <int RTYPE, template <class> class StoragePolicy >                                                               \
+    template <int RTYPE, template <class> class StoragePolicy, typename T >                                                   \
     inline Matrix<RTYPE, StoragePolicy> operator __OPERATOR__ (const Matrix<RTYPE, StoragePolicy> &lhs,                       \
-        const typename Matrix<RTYPE, StoragePolicy>::stored_type &rhs) {                                                      \
+        T rhs) {                                                                                                              \
         Vector<RTYPE, StoragePolicy> v = static_cast<const Vector<RTYPE, StoragePolicy> &>(lhs) __OPERATOR__ rhs;             \
         v.attr("dim") = Vector<INTSXP>::create(lhs.nrow(), lhs.ncol());                                                       \
         return as< Matrix<RTYPE, StoragePolicy> >(v);                                                                         \
@@ -264,8 +264,8 @@ RCPP_GENERATE_MATRIX_SCALAR_OPERATOR(/)
 #undef RCPP_GENERATE_MATRIX_SCALAR_OPERATOR
 
 #define RCPP_GENERATE_SCALAR_MATRIX_OPERATOR(__OPERATOR__)                                                                    \
-    template <int RTYPE, template <class> class StoragePolicy >                                                               \
-    inline Matrix<RTYPE, StoragePolicy> operator __OPERATOR__ (const typename Matrix<RTYPE, StoragePolicy>::stored_type &lhs, \
+    template <int RTYPE, template <class> class StoragePolicy, typename T >                                                   \
+    inline Matrix<RTYPE, StoragePolicy> operator __OPERATOR__ (T lhs,                                                         \
         const Matrix<RTYPE, StoragePolicy> &rhs) {                                                                            \
         Vector<RTYPE, StoragePolicy> v = static_cast<const Vector<RTYPE, StoragePolicy> &>(rhs);                              \
         v = lhs __OPERATOR__ v;                                                                                               \

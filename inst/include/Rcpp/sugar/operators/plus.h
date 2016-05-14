@@ -442,20 +442,20 @@ namespace sugar{
 
 }
 
-template <int RTYPE,bool NA, typename T>
+template <int RTYPE,bool NA, typename T, typename U>
 inline sugar::Plus_Vector_Primitive<RTYPE,NA,T>
 operator+(
 	const VectorBase<RTYPE,NA,T>& lhs,
-	typename traits::storage_type<RTYPE>::type rhs
+	U rhs
 ) {
 	return sugar::Plus_Vector_Primitive<RTYPE,NA,T>( lhs, rhs ) ;
 }
 
 
-template <int RTYPE,bool NA, typename T>
+template <int RTYPE,bool NA, typename T, typename U>
 inline sugar::Plus_Vector_Primitive< RTYPE , NA , T >
 operator+(
-	typename traits::storage_type<RTYPE>::type rhs,
+	U rhs,
 	const VectorBase<RTYPE,NA,T>& lhs
 ) {
 	return sugar::Plus_Vector_Primitive<RTYPE,NA, T >( lhs, rhs ) ;
