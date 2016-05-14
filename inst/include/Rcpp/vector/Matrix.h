@@ -249,7 +249,8 @@ inline std::ostream &operator<<(std::ostream & s, const Matrix<REALSXP, StorageP
 
 #define RCPP_GENERATE_MATRIX_SCALAR_OPERATOR(__OPERATOR__)                                                                    \
     template <int RTYPE, template <class> class StoragePolicy, typename T >                                                   \
-    inline Matrix<RTYPE, StoragePolicy> operator __OPERATOR__ (const Matrix<RTYPE, StoragePolicy> &lhs,                       \
+    inline typename traits::enable_if< traits::is_primitive< typename traits::remove_const_and_reference< T >::type >::value, \
+         Matrix<RTYPE, StoragePolicy> >::type operator __OPERATOR__ (const Matrix<RTYPE, StoragePolicy> &lhs,                 \
         T rhs) {                                                                                                              \
         Vector<RTYPE, StoragePolicy> v = static_cast<const Vector<RTYPE, StoragePolicy> &>(lhs) __OPERATOR__ rhs;             \
         v.attr("dim") = Vector<INTSXP>::create(lhs.nrow(), lhs.ncol());                                                       \
@@ -265,7 +266,8 @@ RCPP_GENERATE_MATRIX_SCALAR_OPERATOR(/)
 
 #define RCPP_GENERATE_SCALAR_MATRIX_OPERATOR(__OPERATOR__)                                                                    \
     template <int RTYPE, template <class> class StoragePolicy, typename T >                                                   \
-    inline Matrix<RTYPE, StoragePolicy> operator __OPERATOR__ (T lhs,                                                         \
+    inline typename traits::enable_if< traits::is_primitive< typename traits::remove_const_and_reference< T >::type >::value, \
+         Matrix<RTYPE, StoragePolicy> >::type operator __OPERATOR__ (T lhs,                                                   \
         const Matrix<RTYPE, StoragePolicy> &rhs) {                                                                            \
         Vector<RTYPE, StoragePolicy> v = static_cast<const Vector<RTYPE, StoragePolicy> &>(rhs);                              \
         v = lhs __OPERATOR__ v;                                                                                               \
