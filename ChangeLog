@@ -1,3 +1,14 @@
+2016-05-14  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.12.5
+        * inst/NEWS.Rd: Release 0.12.5
+	* vignettes/Rcpp.bib: Release 0.12.5
+        * inst/include/Rcpp/config.h: Release 0.12.5
+
+        * debian/*: Changes for Debian release of 0.12.5
+
+	* vignettes/Rcpp.bib: Updated references
+
 2016-05-13  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Rolled minor version
@@ -111,7 +122,7 @@
 	* vignettes/Rcpp.bib: Release 0.12.4
         * inst/include/Rcpp/config.h: Release 0.12.4
 
-        * debian/*: Changes for Debian release of 0.12.3
+        * debian/*: Changes for Debian release of 0.12.4
 
 2016-03-19  Dirk Eddelbuettel  <edd@debian.org>
 
