@@ -409,19 +409,19 @@ namespace sugar{
 }
 
 template <int RTYPE,bool NA, typename T, typename U>
-inline typename traits::enable_if< traits::is_primitive< typename traits::remove_const_and_reference<U>::type >::value, sugar::Divides_Vector_Primitive< RTYPE , NA, T > >::type
+inline typename traits::enable_if<traits::is_convertible<typename traits::remove_const_and_reference<U>::type, typename traits::storage_type<RTYPE>::type>::value, sugar::Divides_Vector_Primitive< RTYPE , NA, T > >::type
 operator/(
 	const VectorBase<RTYPE,NA,T>& lhs,
-	U rhs
+	const U &rhs
 ) {
 	return sugar::Divides_Vector_Primitive<RTYPE,NA,T>( lhs, rhs ) ;
 }
 
 
 template <int RTYPE,bool NA, typename T, typename U>
-inline typename traits::enable_if< traits::is_primitive< typename traits::remove_const_and_reference<U>::type >::value, sugar::Divides_Primitive_Vector< RTYPE , NA,T> >::type
+inline typename traits::enable_if< traits::is_convertible< typename traits::remove_const_and_reference<U>::type, typename traits::storage_type<RTYPE>::type>::value, sugar::Divides_Primitive_Vector< RTYPE , NA,T> >::type
 operator/(
-	U lhs,
+	const U &lhs,
 	const VectorBase<RTYPE,NA,T>& rhs
 ) {
 	return sugar::Divides_Primitive_Vector<RTYPE,NA,T>( lhs, rhs ) ;
