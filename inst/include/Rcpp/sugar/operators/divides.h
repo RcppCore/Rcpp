@@ -408,20 +408,20 @@ namespace sugar{
 
 }
 
-template <int RTYPE,bool NA, typename T>
-inline sugar::Divides_Vector_Primitive< RTYPE , NA, T >
+template <int RTYPE,bool NA, typename T, typename U>
+inline typename traits::enable_if<traits::is_convertible<typename traits::remove_const_and_reference<U>::type, typename traits::storage_type<RTYPE>::type>::value, sugar::Divides_Vector_Primitive< RTYPE , NA, T > >::type
 operator/(
 	const VectorBase<RTYPE,NA,T>& lhs,
-	typename traits::storage_type<RTYPE>::type rhs
+	const U &rhs
 ) {
 	return sugar::Divides_Vector_Primitive<RTYPE,NA,T>( lhs, rhs ) ;
 }
 
 
-template <int RTYPE,bool NA, typename T>
-inline sugar::Divides_Primitive_Vector< RTYPE , NA,T>
+template <int RTYPE,bool NA, typename T, typename U>
+inline typename traits::enable_if< traits::is_convertible< typename traits::remove_const_and_reference<U>::type, typename traits::storage_type<RTYPE>::type>::value, sugar::Divides_Primitive_Vector< RTYPE , NA,T> >::type
 operator/(
-	typename traits::storage_type<RTYPE>::type lhs,
+	const U &lhs,
 	const VectorBase<RTYPE,NA,T>& rhs
 ) {
 	return sugar::Divides_Primitive_Vector<RTYPE,NA,T>( lhs, rhs ) ;

@@ -442,20 +442,21 @@ namespace sugar{
 
 }
 
-template <int RTYPE,bool NA, typename T>
-inline sugar::Plus_Vector_Primitive<RTYPE,NA,T>
+
+template <int RTYPE,bool NA, typename T, typename U>
+inline typename traits::enable_if<traits::is_convertible<typename traits::remove_const_and_reference<U>::type, typename traits::storage_type<RTYPE>::type>::value, typename sugar::Plus_Vector_Primitive<RTYPE,NA,T> >::type
 operator+(
 	const VectorBase<RTYPE,NA,T>& lhs,
-	typename traits::storage_type<RTYPE>::type rhs
+	const U &rhs
 ) {
 	return sugar::Plus_Vector_Primitive<RTYPE,NA,T>( lhs, rhs ) ;
 }
 
 
-template <int RTYPE,bool NA, typename T>
-inline sugar::Plus_Vector_Primitive< RTYPE , NA , T >
+template <int RTYPE,bool NA, typename T, typename U>
+inline typename traits::enable_if<traits::is_convertible<typename traits::remove_const_and_reference<U>::type, typename traits::storage_type<RTYPE>::type>::value, typename sugar::Plus_Vector_Primitive< RTYPE , NA , T> >::type
 operator+(
-	typename traits::storage_type<RTYPE>::type rhs,
+	const U &rhs,
 	const VectorBase<RTYPE,NA,T>& lhs
 ) {
 	return sugar::Plus_Vector_Primitive<RTYPE,NA, T >( lhs, rhs ) ;
@@ -463,19 +464,19 @@ operator+(
 
 
 
-template <int RTYPE,bool NA, typename T>
-inline sugar::Plus_Vector_Primitive_nona<RTYPE,NA,T>
+template <int RTYPE,bool NA, typename T, typename U>
+inline typename traits::enable_if<traits::is_convertible<typename traits::remove_const_and_reference<U>::type, typename traits::storage_type<RTYPE>::type>::value, sugar::Plus_Vector_Primitive_nona<RTYPE,NA,T> >::type
 operator+(
 	const VectorBase<RTYPE,NA,T>& lhs,
-	typename sugar::NonaPrimitive< typename traits::storage_type<RTYPE>::type > rhs
+	const typename sugar::NonaPrimitive< U > &rhs
 ) {
 	return sugar::Plus_Vector_Primitive_nona<RTYPE,NA,T>( lhs, rhs ) ;
 }
 
-template <int RTYPE,bool NA, typename T>
-inline sugar::Plus_Vector_Primitive_nona< RTYPE , NA , T >
+template <int RTYPE,bool NA, typename T, typename U>
+inline typename traits::enable_if<traits::is_convertible<typename traits::remove_const_and_reference<U>::type, typename traits::storage_type<RTYPE>::type>::value, sugar::Plus_Vector_Primitive_nona< RTYPE , NA , T> >::type
 operator+(
-	typename sugar::NonaPrimitive< typename traits::storage_type<RTYPE>::type > rhs,
+	const typename sugar::NonaPrimitive< U > &rhs,
 	const VectorBase<RTYPE,NA,T>& lhs
 ) {
 	return sugar::Plus_Vector_Primitive_nona<RTYPE,NA, T >( lhs, rhs ) ;
