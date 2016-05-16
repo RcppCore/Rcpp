@@ -24,13 +24,13 @@ if (.runThisTest) {
     .setUp <- Rcpp:::unitTestSetup("String.cpp")
 
     test.replace_all <- function(){
-        checkEquals( String_replace_all("foobar", "o", "*"), "f**bar")
+        checkEquals( String_replace_all("abcdbacdab", "ab", "AB"), "ABcdbacdAB")
     }
     test.replace_first <- function(){
-        checkEquals( String_replace_first("foobar", "o", "*"), "f*obar")
+        checkEquals( String_replace_first("abcdbacdab", "ab", "AB"), "ABcdbacdab")
     }
     test.replace_last <- function(){
-        checkEquals( String_replace_last("foobar", "o", "*"), "fo*bar")
+        checkEquals( String_replace_last("abcdbacdab", "ab", "AB"), "abcdbacdAB")
     }
 
     test.String.sapply <- function(){
