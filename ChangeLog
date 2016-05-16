@@ -1,3 +1,17 @@
+2016-05-16  Daniel C. Dillon  <dcdillon@gmail.com>
+
+        * inst/include/Rcpp/sugar/functions/max.h: Fixing constness
+        * inst/include/Rcpp/sugar/functions/min.h: Ditto
+
+2016-05-15  Daniel C. Dillon  <dcdillon@gmail.com>
+
+        * inst/include/Rcpp/vector/Matrix.h: Correcting ambiguities in
+        Vector/Matrix and scalar operations
+        * inst/include/Rcpp/sugar/operators/divides.h: Ditto
+        * inst/include/Rcpp/sugar/operators/minus.h: Ditto
+        * inst/include/Rcpp/sugar/operators/plus.h: Ditto
+        * inst/include/Rcpp/sugar/operators/times.h: Ditto
+
 2016-05-14  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.12.5

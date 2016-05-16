@@ -3,6 +3,18 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
+\section{Changes in Rcpp version 0.12.6 (2016-07-31)}{
+  \itemize{
+    \item Changes in Rcpp Sugar:
+    \itemize{
+      \item Const-ness of \code{min} and \code{max} functions has been corrected.
+      (Dan Dillon in PR \ghpr{478} fixing issue \ghit{477}).
+      \item Ambiguities for matrix/vector and scalar operations have been fixed
+      (Dan Dillon in PR \ghpr{476} fixing issue \ghit{475}).
+    }
+  }
+}
+      
 \section{Changes in Rcpp version 0.12.5 (2016-05-14)}{
   \itemize{
     \item Changes in Rcpp API:
