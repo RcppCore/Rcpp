@@ -262,7 +262,8 @@ namespace Rcpp {
             RCPP_STRING_DEBUG_2("String::replace_first(const char* = '%s' , const char* = '%s')", s, news);
             if (is_na()) return *this;
             setBuffer();
-            size_t index = buffer.find_first_of(s);
+            std::string s2 = std::string(s);
+            size_t index = std::distance(buffer.begin(), std::search(buffer.begin(), buffer.end(), s2.begin(), s2.end()));
             if (index != std::string::npos) buffer.replace(index, strlen(s), news);
             valid = false;
             return *this;
@@ -287,7 +288,8 @@ namespace Rcpp {
             RCPP_STRING_DEBUG_2("String::replace_last(const char* = '%s' , const char* = '%s')", s, news);
             if (is_na()) return *this;
             setBuffer();
-            size_t index = buffer.find_last_of(s);
+            std::string s2 = std::string(s);
+            size_t index = std::distance(buffer.begin(), std::find_end(buffer.begin(), buffer.end(), s2.begin(), s2.end()));
             if (index != std::string::npos) buffer.replace(index, strlen(s), news);
             valid = false;
             return *this;
@@ -313,10 +315,13 @@ namespace Rcpp {
             RCPP_STRING_DEBUG_2("String::replace_all(const char* = '%s' , const char* = '%s')", s, news);
             if (is_na()) return *this;
             setBuffer();
-            size_t lens = strlen(s), len_news = strlen(news), index = buffer.find(s);
-            while(index != std::string::npos) {
-                buffer.replace(index, lens, news);
-                index = buffer.find(s, index + len_news);
+            std::string s2 = std::string(s);
+            std::string::iterator iter = buffer.begin();
+            while(true) {
+                iter = std::search(iter, buffer.end(), s2.begin(), s2.end());
+                if (iter == buffer.end()) break;
+                size_t index = std::distance(buffer.begin(), iter);
+                if (index != std::string::npos) buffer.replace(index, strlen(s), news);
             }
             valid = false;
             return *this;
