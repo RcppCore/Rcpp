@@ -32,21 +32,21 @@ namespace sugar{
 
         Min( const T& obj_) : obj(obj_) {}
 
-        operator STORAGE() {
-            min_ = obj[0] ;
-            if( Rcpp::traits::is_na<RTYPE>( min_ ) ) return min_ ;
+        operator STORAGE() const {
+            STORAGE min, current ;
+            min = obj[0] ;
+            if( Rcpp::traits::is_na<RTYPE>( min ) ) return min ;
 
             R_xlen_t n = obj.size() ;
             for( R_xlen_t i=1; i<n; i++){
                 current = obj[i] ;
                 if( Rcpp::traits::is_na<RTYPE>( current ) ) return current;
-                if( current < min_ ) min_ = current ;
+                if( current < min ) min = current ;
             }
-            return min_ ;
+            return min ;
         }
 
         const T& obj ;
-        STORAGE min_, max_, current ;
     } ;
 
     // version for NA = false
@@ -57,19 +57,19 @@ namespace sugar{
 
         Min( const T& obj_) : obj(obj_) {}
 
-        operator STORAGE() {
-            min_ = obj[0] ;
+        operator STORAGE() const {
+            STORAGE min, current ;
+            min = obj[0] ;
 
             R_xlen_t n = obj.size() ;
             for( R_xlen_t i=1; i<n; i++){
                 current = obj[i] ;
-                if( current < min_ ) min_ = current ;
+                if( current < min ) min = current ;
             }
-            return min_ ;
+            return min ;
         }
 
         const T& obj ;
-        STORAGE min_, current ;
     } ;
 
 
