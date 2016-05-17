@@ -1,4 +1,8 @@
-2016-05-19  Qiang Kou  <qkou@umail.iu.edu>
+2016-05-17  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version): Rolling minor version
+
+2016-05-16  Qiang Kou  <qkou@umail.iu.edu>
 
         * inst/include/Rcpp/String.h: Correct string replacement
         * inst/unitTests/runit.String.R: Unit test
