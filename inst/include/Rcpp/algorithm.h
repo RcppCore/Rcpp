@@ -10,14 +10,18 @@ namespace algorithm {
 namespace helpers {
     template< typename T >
     struct rtype_helper {
+        /*
+	typedef T type;
         static RCPP_CONSTEXPR int RTYPE = REALSXP;
         static inline double NA() { return NA_REAL; }
         static inline RCPP_CONSTEXPR double ZERO() { return 0.0; }
         static inline RCPP_CONSTEXPR double ONE() { return 1.0; }
+        */
     };
 
     template<>
     struct rtype_helper< double > {
+        typedef double type;
         static RCPP_CONSTEXPR int RTYPE = REALSXP;
         static inline double NA() { return NA_REAL; }
         static inline RCPP_CONSTEXPR double ZERO() { return 0.0; }
@@ -26,6 +30,7 @@ namespace helpers {
 
     template<>
     struct rtype_helper< int > {
+        typedef int type;
         static RCPP_CONSTEXPR int RTYPE = INTSXP;
         static inline int NA() { return NA_INTEGER; }
         static inline RCPP_CONSTEXPR int ZERO() { return 0; }
@@ -34,6 +39,7 @@ namespace helpers {
 
     template< typename T >
     struct rtype {
+        typedef typename rtype_helper< typename traits::remove_const_and_reference< T >::type >::type type;
         static RCPP_CONSTEXPR int RTYPE =
             rtype_helper< typename traits::remove_const_and_reference< T >::type >::RTYPE;
         static inline T NA() { return rtype_helper< typename traits::remove_const_and_reference< T >::type >::NA(); }
@@ -137,7 +143,7 @@ typename std::iterator_traits< InputIterator >::value_type prod(InputIterator be
         return start;
     }
 
-    return rtype::ZERO();
+    return rtype::ONE();
 }
 
 template< typename InputIterator >
@@ -156,7 +162,87 @@ typename std::iterator_traits< InputIterator >::value_type prod_nona(InputIterat
         return start;
     }
 
-    return rtype::ZERO();
+    return rtype::ONE();
+}
+
+template< typename InputIterator >
+typename std::iterator_traits< InputIterator >::value_type max(InputIterator begin, InputIterator end) {
+    typedef typename std::iterator_traits< InputIterator >::value_type value_type;
+    typedef typename helpers::rtype< value_type > rtype;
+
+    if (begin != end) {
+        value_type max = *begin;
+
+	while (begin != end) {
+            if (!Vector< rtype::RTYPE >::is_na(*begin)) {
+                max = std::max(max, *begin++);
+            } else {
+                return rtype::NA();
+            }
+        }
+
+        return max;
+    }
+
+    return std::numeric_limits< typename rtype::type >::infinity() * -rtype::ONE();
+}
+
+template< typename InputIterator >
+typename std::iterator_traits< InputIterator >::value_type max_nona(InputIterator begin, InputIterator end) {
+    typedef typename std::iterator_traits< InputIterator >::value_type value_type;
+    typedef typename helpers::rtype< value_type > rtype;
+
+    if (begin != end) {
+        value_type max = *begin;
+
+	while (begin != end) {
+            max = std::max(max, *begin++);
+        }
+
+        return max;
+    }
+
+    return std::numeric_limits< typename rtype::type >::infinity() * -rtype::ONE();
+}
+
+template< typename InputIterator >
+typename std::iterator_traits< InputIterator >::value_type min(InputIterator begin, InputIterator end) {
+    typedef typename std::iterator_traits< InputIterator >::value_type value_type;
+    typedef typename helpers::rtype< value_type > rtype;
+
+    if (begin != end) {
+        value_type min = *begin;
+
+	while (begin != end) {
+            if (!Vector< rtype::RTYPE >::is_na(*begin)) {
+                min = std::min(min, *begin++);
+            } else {
+                return rtype::NA();
+            }
+        }
+
+        return min;
+    }
+
+    return std::numeric_limits< typename rtype::type >::infinity();
+}
+
+template< typename InputIterator >
+typename std::iterator_traits< InputIterator >::value_type min_nona(InputIterator begin, InputIterator end) {
+    typedef typename std::iterator_traits< InputIterator >::value_type value_type;
+    typedef typename helpers::rtype< value_type > rtype;
+
+    if (begin != end) {
+        value_type min = *begin;
+
+	while (begin != end) {
+            min = std::min(min, *begin++);
+        }
+
+        return min;
+    }
+
+    return std::numeric_limits< typename rtype::type >::infinity();
 }
 
 template< typename InputIterator, typename OutputIterator >
