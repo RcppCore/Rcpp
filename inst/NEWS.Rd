@@ -5,6 +5,11 @@
 
 \section{Changes in Rcpp version 0.12.6 (2016-07-31)}{
   \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item String replacement was corrected (Qiang in \ghpr{479} following
+      mailing list bug report by Masaki Tsuda)
+    }
     \item Changes in Rcpp Sugar:
     \itemize{
       \item Const-ness of \code{min} and \code{max} functions has been corrected.

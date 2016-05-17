@@ -1,3 +1,8 @@
+2016-05-19  Qiang Kou  <qkou@umail.iu.edu>
+
+        * inst/include/Rcpp/String.h: Correct string replacement
+        * inst/unitTests/runit.String.R: Unit test
+
 2016-05-16  Daniel C. Dillon  <dcdillon@gmail.com>
 
         * inst/include/Rcpp/sugar/functions/max.h: Fixing constness
