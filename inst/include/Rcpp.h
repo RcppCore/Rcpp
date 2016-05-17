@@ -80,4 +80,6 @@
 
 #include <Rcpp/platform/solaris.h>
 #include <Rcpp/api/meat/meat.h>
+
+#include <Rcpp/algorithm.h>
 #endif
