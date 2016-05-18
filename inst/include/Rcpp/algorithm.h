@@ -313,6 +313,68 @@ void sqrt(InputIterator begin, InputIterator end, OutputIterator out) {
     std::transform(begin, end, out, helpers::sqrt());
 }
 
+typedef struct {char a[1];} CAN_BE_ONE;
+typedef struct {char a[2];} CAN_BE_TWO;
+typedef struct {char a[3];} CAN_BE_THREE;
+typedef struct {char a[4];} CAN_BE_FOUR;
+typedef struct {char a[5];} CAN_BE_FIVE;
+typedef struct {char a[6];} CAN_BE_SIX;
+typedef struct {char a[7];} CAN_BE_SEVEN;
+typedef struct {char a[8];} CAN_BE_EIGHT;
+typedef struct {char a[9];} CAN_BE_NINE;
+typedef struct {char a[128];} CAN_BE_UNKNOWN;
+
+template< std::size_t I >
+struct ctype_helper { };
+
+template<>
+struct ctype_helper< sizeof(CAN_BE_ONE) > { typedef char type; };
+
+template<>
+struct ctype_helper< sizeof(CAN_BE_TWO) > { typedef short type; };
+
+template<>
+struct ctype_helper< sizeof(CAN_BE_THREE) > { typedef int type; };
+
+template<>
+struct ctype_helper< sizeof(CAN_BE_FOUR) > { typedef long type; };
+
+template<>
+struct ctype_helper< sizeof(CAN_BE_FIVE) > { typedef long long type; };
+
+template<>
+struct ctype_helper< sizeof(CAN_BE_SIX) > { typedef float type; };
+
+template<>
+struct ctype_helper< sizeof(CAN_BE_SEVEN) > { typedef double type; };
+
+template<>
+struct ctype_helper< sizeof(CAN_BE_EIGHT) > { typedef long double type; };
+
+template<>
+struct ctype_helper< sizeof(CAN_BE_NINE) > { typedef std::string type; };
+
+
+template< typename T >
+struct ctype
+{
+    static CAN_BE_ONE test(const char &);
+    static CAN_BE_TWO test(const short &);
+    static CAN_BE_THREE test(const int &);
+    static CAN_BE_FOUR test(const long &);
+    static CAN_BE_FIVE test(const long long &);
+    static CAN_BE_SIX test(const float &);
+    static CAN_BE_SEVEN test(const double &);
+    static CAN_BE_EIGHT test(const long double &);
+    static CAN_BE_NINE test(const std::string &);
+    static CAN_BE_UNKNOWN test(...);
+
+    static T make();
+
+    typedef typename ctype_helper< sizeof(test(make())) >::type type;
+};
+
+
 } // namespace algorithm
 } // namespace Rcpp
 
