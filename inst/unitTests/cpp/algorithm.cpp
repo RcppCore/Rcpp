@@ -80,3 +80,18 @@ int minTest_int_nona(Rcpp::IntegerVector v) {
 int maxTest_int_nona(Rcpp::IntegerVector v) {
 	return Rcpp::algorithm::max_nona(v.begin(), v.end());
 }
+
+// [[Rcpp::export]]
+double meanTest(Rcpp::NumericVector v) {
+	return Rcpp::algorithm::mean(v.begin(), v.end());
+}
+
+// [[Rcpp::export]]
+double meanTest_int(Rcpp::IntegerVector v) {
+	return Rcpp::algorithm::mean(v.begin(), v.end());
+}
+
+// [[Rcpp::export]]
+double meanTest_logical(Rcpp::LogicalVector v) {
+	return Rcpp::algorithm::mean(v.begin(), v.end());
+}

@@ -245,6 +245,59 @@ typename std::iterator_traits< InputIterator >::value_type min_nona(InputIterato
     return std::numeric_limits< typename rtype::type >::infinity();
 }
 
+// for REALSXP
+template< typename InputIterator >
+typename traits::enable_if< traits::same_type< typename std::iterator_traits< InputIterator >::value_type, double >::value, double >::type
+mean(InputIterator begin, InputIterator end)
+{
+    if (begin != end)
+    {
+        std::size_t n = end - begin;
+        long double s = std::accumulate(begin, end, 0.0L);
+        s /= n;
+
+        if (R_FINITE((double) s)) {
+            long double t = 0.0L;
+            while (begin != end) {
+                t += *begin++ - s;
+            }
+
+            s += t / n;
+        }
+
+        return (double) s;
+    }
+
+    return helpers::rtype< double >::NA();
+}
+
+// for LGLSXP and INTSXP
+template< typename InputIterator >
+typename traits::enable_if< traits::same_type< typename std::iterator_traits< InputIterator >::value_type, int >::value, double >::type
+mean(InputIterator begin, InputIterator end)
+{
+    if (begin != end)
+    {
+        std::size_t n = end - begin;
+        long double s = std::accumulate(begin, end, 0.0L);
+        s /= n;
+
+        if (R_FINITE((double) s)) {
+            long double t = 0.0L;
+            while (begin != end) {
+                if (*begin == helpers::rtype< int >::NA()) return helpers::rtype< double >::NA();
+                t += *begin++ - s;
+            }
+
+            s += t / n;
+        }
+
+        return (double) s;
+    }
+
+    return helpers::rtype< double >::NA();
+}
+
 template< typename InputIterator, typename OutputIterator >
 void log(InputIterator begin, InputIterator end, OutputIterator out) {
     std::transform(begin, end, out, helpers::log());

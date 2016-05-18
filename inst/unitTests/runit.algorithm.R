@@ -115,4 +115,34 @@ if (.runThisTest) {
         v <- c(1, 2, 3, 4, 5)
         checkEquals(max(v), maxTest_int_nona(v))
     }
+
+    test.mean <- function() {
+        v <- c(1.0, 2.0, 3.0, 4.0, 5.0)
+        checkEquals(mean(v), meanTest(v))
+        v <- c(1.0, 2.0, 3.0, 4.0, NA)
+        checkEquals(mean(v), meanTest(v))
+        v <- c(1.0, 2.0, 3.0, 4.0, NaN)
+        checkEquals(mean(v), meanTest(v))
+        v <- c(1.0, 2.0, 3.0, 4.0, 1.0/0.0)
+        checkEquals(mean(v), meanTest(v))
+        v <- c(1.0, 2.0, 3.0, 4.0, -1.0/0.0)
+        checkEquals(mean(v), meanTest(v))
+        v <- c(1.0, 2.0, 1.0/0.0, NA, NaN)
+        checkEquals(mean(v), meanTest(v))
+        v <- c(1.0, 2.0, 1.0/0.0, NaN, NA)
+    }
+
+    test.mean.int <- function() {
+        v <- c(1, 2, 3, 4, 5)
+        checkEquals(mean(v), meanTest_int(v))
+        v <- c(1, 2, 3, 4, NA)
+        checkEquals(mean(v), meanTest_int(v))
+    }
+
+    test.mean.logical <- function() {
+        v <- c(TRUE, FALSE, FALSE)
+        checkEquals(mean(v), meanTest_logical(v))
+        v <- c(TRUE, FALSE, FALSE, NA)
+        checkEquals(mean(v), meanTest_logical(v))
+    }
 }
