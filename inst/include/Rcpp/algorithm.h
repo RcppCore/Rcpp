@@ -64,49 +64,49 @@ namespace helpers {
     typedef struct {char a[128];} CTYPE_UNKNOWN;
 
     template< std::size_t I >
-    struct ctype_helper { };
+    struct ctype_helper { static const bool value = false; };
 
     template<>
-    struct ctype_helper< sizeof(CTYPE_CHAR) > { typedef char type; };
+    struct ctype_helper< sizeof(CTYPE_CHAR) > { typedef char type; static const bool value = true; };
 
     template<>
-    struct ctype_helper< sizeof(CTYPE_SHORT) > { typedef short type; };
+    struct ctype_helper< sizeof(CTYPE_SHORT) > { typedef short type; static const bool value = true; };
 
     template<>
-    struct ctype_helper< sizeof(CTYPE_INT) > { typedef int type; };
+    struct ctype_helper< sizeof(CTYPE_INT) > { typedef int type; static const bool value = true; };
 
     template<>
-    struct ctype_helper< sizeof(CTYPE_LONG) > { typedef long type; };
+    struct ctype_helper< sizeof(CTYPE_LONG) > { typedef long type; static const bool value = true; };
 
     template<>
-    struct ctype_helper< sizeof(CTYPE_LONG_LONG) > { typedef long long type; };
+    struct ctype_helper< sizeof(CTYPE_LONG_LONG) > { typedef long long type; static const bool value = true; };
 
     template<>
-    struct ctype_helper< sizeof(CTYPE_FLOAT) > { typedef float type; };
+    struct ctype_helper< sizeof(CTYPE_FLOAT) > { typedef float type; static const bool value = true; };
 
     template<>
-    struct ctype_helper< sizeof(CTYPE_DOUBLE) > { typedef double type; };
+    struct ctype_helper< sizeof(CTYPE_DOUBLE) > { typedef double type; static const bool value = true; };
 
     template<>
-    struct ctype_helper< sizeof(CTYPE_LONG_DOUBLE) > { typedef long double type; };
+    struct ctype_helper< sizeof(CTYPE_LONG_DOUBLE) > { typedef long double type; static const bool value = true; };
 
     template<>
-    struct ctype_helper< sizeof(CTYPE_STRING) > { typedef std::string type; };
+    struct ctype_helper< sizeof(CTYPE_STRING) > { typedef std::string type; static const bool value = true; };
 
     template<>
-    struct ctype_helper< sizeof(CTYPE_UNSIGNED_CHAR) > { typedef unsigned char type; };
+    struct ctype_helper< sizeof(CTYPE_UNSIGNED_CHAR) > { typedef unsigned char type; static const bool value = true; };
 
     template<>
-    struct ctype_helper< sizeof(CTYPE_UNSIGNED_SHORT) > { typedef unsigned short type; };
+    struct ctype_helper< sizeof(CTYPE_UNSIGNED_SHORT) > { typedef unsigned short type; static const bool value = true; };
 
     template<>
-    struct ctype_helper< sizeof(CTYPE_UNSIGNED_INT) > { typedef unsigned int type; };
+    struct ctype_helper< sizeof(CTYPE_UNSIGNED_INT) > { typedef unsigned int type; static const bool value = true; };
 
     template<>
-    struct ctype_helper< sizeof(CTYPE_UNSIGNED_LONG) > { typedef unsigned long type; };
+    struct ctype_helper< sizeof(CTYPE_UNSIGNED_LONG) > { typedef unsigned long type; static const bool value = true; };
 
     template<>
-    struct ctype_helper< sizeof(CTYPE_UNSIGNED_LONG_LONG) > { typedef unsigned long long type; };
+    struct ctype_helper< sizeof(CTYPE_UNSIGNED_LONG_LONG) > { typedef unsigned long long type; static const bool value = true; };
 
 
     template< typename T >
@@ -131,6 +131,30 @@ namespace helpers {
         static T make();
 
         typedef typename ctype_helper< sizeof(test(make())) >::type type;
+    };
+
+    template< typename T >
+    struct decays_to_ctype
+    {
+        static CTYPE_CHAR test(const char &);
+        static CTYPE_SHORT test(const short &);
+        static CTYPE_INT test(const int &);
+        static CTYPE_LONG test(const long &);
+        static CTYPE_LONG_LONG test(const long long &);
+        static CTYPE_FLOAT test(const float &);
+        static CTYPE_DOUBLE test(const double &);
+        static CTYPE_LONG_DOUBLE test(const long double &);
+        static CTYPE_STRING test(const std::string &);
+        static CTYPE_UNSIGNED_CHAR test(const unsigned char &);
+        static CTYPE_UNSIGNED_SHORT test(const unsigned short &);
+        static CTYPE_UNSIGNED_INT test(const unsigned int &);
+        static CTYPE_UNSIGNED_LONG test(const unsigned long &);
+        static CTYPE_UNSIGNED_LONG_LONG test(const unsigned long long &);
+        static CTYPE_UNKNOWN test(...);
+
+        static T make();
+
+        static const bool value = ctype_helper< sizeof(test(make())) >::value;
     };
 
     struct log {
@@ -168,7 +192,9 @@ namespace helpers {
 } // namespace helpers
 
 template< typename InputIterator >
-typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_type >::type sum(InputIterator begin, InputIterator end) {
+typename traits::enable_if< helpers::decays_to_ctype< typename std::iterator_traits< InputIterator >::value_type >::value,
+    typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_type >::type >::type
+        sum(InputIterator begin, InputIterator end) {
     
     typedef typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_type >::type value_type;
     typedef typename helpers::rtype< value_type > rtype;
@@ -191,7 +217,9 @@ typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_t
 }
 
 template< typename InputIterator >
-typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_type >::type sum_nona(InputIterator begin, InputIterator end) {
+typename traits::enable_if< helpers::decays_to_ctype< typename std::iterator_traits< InputIterator >::value_type >::value,
+    typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_type >::type >::type
+        sum_nona(InputIterator begin, InputIterator end) {
     
     typedef typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_type >::type value_type;
     typedef typename helpers::rtype< value_type > rtype;
@@ -210,7 +238,9 @@ typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_t
 }
 
 template< typename InputIterator >
-typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_type >::type prod(InputIterator begin, InputIterator end) {
+typename traits::enable_if< helpers::decays_to_ctype< typename std::iterator_traits< InputIterator >::value_type >::value,
+    typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_type >::type >::type
+        prod(InputIterator begin, InputIterator end) {
 
     typedef typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_type >::type value_type;
     typedef typename helpers::rtype< value_type > rtype;
@@ -233,7 +263,9 @@ typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_t
 }
 
 template< typename InputIterator >
-typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_type >::type prod_nona(InputIterator begin, InputIterator end) {
+typename traits::enable_if< helpers::decays_to_ctype< typename std::iterator_traits< InputIterator >::value_type >::value,
+    typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_type >::type >::type
+        prod_nona(InputIterator begin, InputIterator end) {
 
     typedef typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_type >::type value_type;
     typedef typename helpers::rtype< value_type > rtype;
@@ -252,7 +284,10 @@ typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_t
 }
 
 template< typename InputIterator >
-typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_type >::type max(InputIterator begin, InputIterator end) {
+typename traits::enable_if< helpers::decays_to_ctype< typename std::iterator_traits< InputIterator >::value_type >::value,
+    typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_type >::type >::type
+        max(InputIterator begin, InputIterator end) {
+
     typedef typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_type >::type value_type;
     typedef typename helpers::rtype< value_type > rtype;
 
@@ -274,7 +309,10 @@ typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_t
 }
 
 template< typename InputIterator >
-typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_type >::type max_nona(InputIterator begin, InputIterator end) {
+typename traits::enable_if< helpers::decays_to_ctype< typename std::iterator_traits< InputIterator >::value_type >::value,
+    typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_type >::type >::type
+        max_nona(InputIterator begin, InputIterator end) {
+
     typedef typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_type >::type value_type;
     typedef typename helpers::rtype< value_type > rtype;
 
@@ -292,7 +330,10 @@ typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_t
 }
 
 template< typename InputIterator >
-typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_type >::type min(InputIterator begin, InputIterator end) {
+typename traits::enable_if< helpers::decays_to_ctype< typename std::iterator_traits< InputIterator >::value_type >::value,
+    typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_type >::type >::type
+        min(InputIterator begin, InputIterator end) {
+
     typedef typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_type >::type value_type;
     typedef typename helpers::rtype< value_type > rtype;
 
@@ -314,7 +355,10 @@ typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_t
 }
 
 template< typename InputIterator >
-typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_type >::type min_nona(InputIterator begin, InputIterator end) {
+typename traits::enable_if< helpers::decays_to_ctype< typename std::iterator_traits< InputIterator >::value_type >::value,
+    typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_type >::type >::type
+        min_nona(InputIterator begin, InputIterator end) {
+
     typedef typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_type >::type value_type;
     typedef typename helpers::rtype< value_type > rtype;
 
@@ -333,8 +377,9 @@ typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_t
 
 // for REALSXP
 template< typename InputIterator >
-typename traits::enable_if< traits::same_type< typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_type >::type, double >::value, double >::type
-mean(InputIterator begin, InputIterator end)
+typename traits::enable_if< helpers::decays_to_ctype< typename std::iterator_traits< InputIterator >::value_type >::value
+    && traits::same_type< typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_type >::type, double >::value, double >::type
+        mean(InputIterator begin, InputIterator end)
 {
     if (begin != end)
     {
@@ -359,8 +404,9 @@ mean(InputIterator begin, InputIterator end)
 
 // for LGLSXP and INTSXP
 template< typename InputIterator >
-typename traits::enable_if< traits::same_type< typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_type >::type, int >::value, double >::type
-mean(InputIterator begin, InputIterator end)
+typename traits::enable_if< helpers::decays_to_ctype< typename std::iterator_traits< InputIterator >::value_type >::value
+    && traits::same_type< typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_type >::type, int >::value, double >::type
+        mean(InputIterator begin, InputIterator end)
 {
     if (begin != end)
     {
