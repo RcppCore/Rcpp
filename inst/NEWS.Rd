@@ -16,6 +16,8 @@
       (Dan Dillon in PR \ghpr{478} fixing issue \ghit{477}).
       \item Ambiguities for matrix/vector and scalar operations have been fixed
       (Dan Dillon in PR \ghpr{476} fixing issue \ghit{475}).
+      \item New \code{algorithm} header using iterator-based approach for
+      vectorized functions (Dan in \ghpr{481} revisiting \ghpr{428}). 
     }
   }
 }

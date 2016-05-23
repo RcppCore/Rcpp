@@ -1,3 +1,10 @@
+2016-05-18  Daniel C. Dillon  <dcdillon@gmail.com>
+
+        * inst/include/Rcpp/algorithm.h: New approach for sugar
+
+        * inst/unitTests/cpp/algorithm.cpp: Unit test support
+        * inst/unitTests/runit.algorithm.R: Ditto
+
 2016-05-17  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version): Rolling minor version
