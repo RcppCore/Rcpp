@@ -297,7 +297,7 @@ any( ! is_na( x ) )
 \subsubsection{seq\_along}
 
 Given a sugar expression of any type, \texttt{seq\_along} creates an
-integer sugar expression whose values go from 1 to the sire of the input.
+integer sugar expression whose values go from 1 to the size of the input.
 
 <<lang=cpp>>=
 IntegerVector x = IntegerVector::create( 0, 1, NA_INTEGER, 3 ) ;
