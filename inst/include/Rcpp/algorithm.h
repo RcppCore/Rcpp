@@ -12,7 +12,9 @@ namespace helpers {
     typedef struct {char a[2];} CTYPE_SHORT;
     typedef struct {char a[3];} CTYPE_INT;
     typedef struct {char a[4];} CTYPE_LONG;
+#ifdef RCPP_HAS_LONG_LONG_TYPES
     typedef struct {char a[5];} CTYPE_LONG_LONG;
+#endif
     typedef struct {char a[6];} CTYPE_FLOAT;
     typedef struct {char a[7];} CTYPE_DOUBLE;
     typedef struct {char a[8];} CTYPE_LONG_DOUBLE;
@@ -21,7 +23,9 @@ namespace helpers {
     typedef struct {char a[11];} CTYPE_UNSIGNED_SHORT;
     typedef struct {char a[12];} CTYPE_UNSIGNED_INT;
     typedef struct {char a[13];} CTYPE_UNSIGNED_LONG;
+#ifdef RCPP_HAS_LONG_LONG_TYPES
     typedef struct {char a[14];} CTYPE_UNSIGNED_LONG_LONG;
+#endif
     typedef struct {char a[128];} CTYPE_UNKNOWN;
 
     template< std::size_t I >
@@ -39,8 +43,10 @@ namespace helpers {
     template<>
     struct ctype_helper< sizeof(CTYPE_LONG) > { typedef long type; static const bool value = true; };
 
+#ifdef RCPP_HAS_LONG_LONG_TYPES
     template<>
     struct ctype_helper< sizeof(CTYPE_LONG_LONG) > { typedef long long type; static const bool value = true; };
+#endif
 
     template<>
     struct ctype_helper< sizeof(CTYPE_FLOAT) > { typedef float type; static const bool value = true; };
@@ -66,8 +72,10 @@ namespace helpers {
     template<>
     struct ctype_helper< sizeof(CTYPE_UNSIGNED_LONG) > { typedef unsigned long type; static const bool value = true; };
 
+#ifdef RCPP_HAS_LONG_LONG_TYPES
     template<>
     struct ctype_helper< sizeof(CTYPE_UNSIGNED_LONG_LONG) > { typedef unsigned long long type; static const bool value = true; };
+#endif
 
 
     template< typename T >
@@ -77,7 +85,9 @@ namespace helpers {
         static CTYPE_SHORT test(const short &);
         static CTYPE_INT test(const int &);
         static CTYPE_LONG test(const long &);
+#ifdef RCPP_HAS_LONG_LONG_TYPES
         static CTYPE_LONG_LONG test(const long long &);
+#endif
         static CTYPE_FLOAT test(const float &);
         static CTYPE_DOUBLE test(const double &);
         static CTYPE_LONG_DOUBLE test(const long double &);
@@ -86,7 +96,9 @@ namespace helpers {
         static CTYPE_UNSIGNED_SHORT test(const unsigned short &);
         static CTYPE_UNSIGNED_INT test(const unsigned int &);
         static CTYPE_UNSIGNED_LONG test(const unsigned long &);
+#ifdef RCPP_HAS_LONG_LONG_TYPES
         static CTYPE_UNSIGNED_LONG_LONG test(const unsigned long long &);
+#endif
         static CTYPE_UNKNOWN test(...);
 
         static T make();
@@ -101,7 +113,9 @@ namespace helpers {
         static CTYPE_SHORT test(const short &);
         static CTYPE_INT test(const int &);
         static CTYPE_LONG test(const long &);
+#ifdef RCPP_HAS_LONG_LONG_TYPES
         static CTYPE_LONG_LONG test(const long long &);
+#endif
         static CTYPE_FLOAT test(const float &);
         static CTYPE_DOUBLE test(const double &);
         static CTYPE_LONG_DOUBLE test(const long double &);
@@ -110,7 +124,9 @@ namespace helpers {
         static CTYPE_UNSIGNED_SHORT test(const unsigned short &);
         static CTYPE_UNSIGNED_INT test(const unsigned int &);
         static CTYPE_UNSIGNED_LONG test(const unsigned long &);
+#ifdef RCPP_HAS_LONG_LONG_TYPES
         static CTYPE_UNSIGNED_LONG_LONG test(const unsigned long long &);
+#endif
         static CTYPE_UNKNOWN test(...);
 
         static T make();
