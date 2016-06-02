@@ -1,3 +1,8 @@
+2016-06-02  Kirill Müller <krlmlr@mailbox.org>
+
+        * inst/include/Rcpp/algorithm.h: Use "long long" only if available
+        * inst/include/Rcpp/exceptions.h: Annotate stop() with NORET
+
 2016-05-18  Daniel C. Dillon  <dcdillon@gmail.com>
 
         * inst/include/Rcpp/algorithm.h: New approach for sugar

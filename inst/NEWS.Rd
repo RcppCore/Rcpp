@@ -7,6 +7,11 @@
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
+      \item The \code{long long} data type is used only if it is available,
+      to avoid compiler warnings (Kirill Müller in \ghpr{488}).
+      \item The compiler is made aware that \code{stop()} never returns, to
+      improve code path analysis (Kirill Müller in \ghpr{487} addressing issue
+      \ghit{486}).
       \item String replacement was corrected (Qiang in \ghpr{479} following
       mailing list bug report by Masaki Tsuda)
     }
