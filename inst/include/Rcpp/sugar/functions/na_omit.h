@@ -30,7 +30,9 @@ namespace sugar{
         R_xlen_t n = x.size() ;
         R_xlen_t n_out = n - sum( is_na(x) ) ;
 
-        Vector<RTYPE> out(n_out) ;
+        if( n_out == n ) return x ;
+
+        Vector<RTYPE> out = no_init(n_out) ;
         for( R_xlen_t i=0, j=0; i<n; i++){
             if( Vector<RTYPE>::is_na( x[i] ) ) continue ;
             out[j++] = x[i];
@@ -43,7 +45,10 @@ namespace sugar{
         R_xlen_t n = x.size() ;
         R_xlen_t n_out = n - sum( is_na(x) ) ;
 
-        Vector<RTYPE> out(n_out) ;
+        if( n_out == n ) return x;
+
+        Vector<RTYPE> out = no_init(n_out) ;
+
         bool has_name = x.attr("names") != R_NilValue ;
         if( has_name ){
             CharacterVector names = x.attr("names") ;
