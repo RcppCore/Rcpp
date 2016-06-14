@@ -1,3 +1,10 @@
+2016-06-14  Artem Klevtsov <a.a.klevtsov@gmail.com>
+
+        * inst/include/Rcpp/sugar/functions/na_omit.h: Improve na_omit for
+        vectors without NA
+        * inst/unitTests/cpp/sugar.cpp: Add unit test for the na_omit
+        * inst/unitTests/runit.sugar.R: Ditto
+
 2016-06-02  Kirill Müller <krlmlr@mailbox.org>
 
         * inst/include/Rcpp/algorithm.h: Use "long long" only if available
