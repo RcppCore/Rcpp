@@ -290,6 +290,16 @@ if (.runThisTest) {
 	checkEquals( fx( c(1:5,NA,7:10) ) , TRUE )
     }
 
+    test.sugar.na_omit.na <- function( ){
+        fx <- runit_na_omit
+        checkEquals( fx( c(1:5,NA,7:10) ), fx( c(1:5,7:10) ) )
+    }
+
+    test.sugar.na_omit.nona <- function( ){
+        fx <- runit_na_omit
+        checkEquals( fx( c(1:10) ), fx( c(1:10) ) )
+    }
+
     test.sugar.lapply <- function( ){
 	fx <- runit_lapply
 	checkEquals( fx( 1:10 ), lapply( 1:10, seq_len ) )

@@ -217,6 +217,11 @@ LogicalVector runit_any_isna( NumericVector xx){
 }
 
 // [[Rcpp::export]]
+NumericVector runit_na_omit( NumericVector xx ){
+    return na_omit( xx ) ;
+}
+
+// [[Rcpp::export]]
 List runit_lapply( IntegerVector xx){
     List res = lapply( xx, seq_len );
     return res ;
