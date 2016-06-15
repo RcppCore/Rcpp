@@ -23,7 +23,9 @@
       (Dan Dillon in PR \ghpr{476} fixing issue \ghit{475}).
       \item New \code{algorithm} header using iterator-based approach for
       vectorized functions (Dan in PR \ghpr{481} revisiting PR \ghpr{428} and
-      addressing issue \ghit{426}). 
+      addressing issue \ghit{426}).
+      \item The \code{na_omit()} function is now faster for vectors without
+      \code{NA} values (Artem Klevtsov in PR \ghpr{492})
     }
   }
 }
