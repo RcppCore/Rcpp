@@ -14,6 +14,7 @@
       \ghit{486}).
       \item String replacement was corrected (Qiang in \ghpr{479} following
       mailing list bug report by Masaki Tsuda)
+      \item Add RCPP_USING_UTF8_ERROR_STRING macro to use UTF-8 encoding exception string in R (Qin Wenfeng in \ghpr{493})
     }
     \item Changes in Rcpp Sugar:
     \itemize{
