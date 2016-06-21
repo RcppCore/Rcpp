@@ -137,7 +137,12 @@ inline SEXP get_last_call(){
 
 inline SEXP get_exception_classes( const std::string& ex_class) {
     Rcpp::Shield<SEXP> res( Rf_allocVector( STRSXP, 4 ) );
+    
+    #ifndef RCPP_USING_UTF8_ERROR_STRING
     SET_STRING_ELT( res, 0, Rf_mkChar( ex_class.c_str() ) ) ;
+    #else
+    SET_STRING_ELT( res, 0, Rf_mkCharLenCE( ex_class.c_str(), ex_class.size(), CE_UTF8 ) );
+    #endif
     SET_STRING_ELT( res, 1, Rf_mkChar( "C++Error" ) ) ;
     SET_STRING_ELT( res, 2, Rf_mkChar( "error" ) ) ;
     SET_STRING_ELT( res, 3, Rf_mkChar( "condition" ) ) ;
@@ -146,8 +151,13 @@ inline SEXP get_exception_classes( const std::string& ex_class) {
 
 inline SEXP make_condition(const std::string& ex_msg, SEXP call, SEXP cppstack, SEXP classes){
     Rcpp::Shield<SEXP> res( Rf_allocVector( VECSXP, 3 ) ) ;
-
-    SET_VECTOR_ELT( res, 0, Rf_mkString( ex_msg.c_str() ) ) ;
+    #ifndef RCPP_USING_UTF8_ERROR_STRING
+        SET_VECTOR_ELT( res, 0, Rf_mkString( ex_msg.c_str() ) ) ;
+    #else
+        Rcpp::Shield<SEXP> ex_msg_rstring( Rf_allocVector( STRSXP, 1 ) ) ;
+        SET_STRING_ELT( ex_msg_rstring, 0, Rf_mkCharLenCE( ex_msg.c_str(), ex_msg.size(), CE_UTF8 ) );
+        SET_VECTOR_ELT( res, 0, ex_msg_rstring ) ;
+    #endif
     SET_VECTOR_ELT( res, 1, call ) ;
     SET_VECTOR_ELT( res, 2, cppstack ) ;
 
@@ -174,10 +184,17 @@ inline SEXP exception_to_r_condition( const std::exception& ex){
 
 inline SEXP string_to_try_error( const std::string& str){
     using namespace Rcpp;
-
-    Rcpp::Shield<SEXP> simpleErrorExpr( Rf_lang2(::Rf_install("simpleError"), Rf_mkString(str.c_str())) );
+    
+    #ifndef RCPP_USING_UTF8_ERROR_STRING
+        Rcpp::Shield<SEXP> simpleErrorExpr( Rf_lang2(::Rf_install("simpleError"), Rf_mkString(str.c_str())) );
+        Rcpp::Shield<SEXP> tryError( Rf_mkString( str.c_str() ) );
+    #else
+        Rcpp::Shield<SEXP> tryError( Rf_allocVector( STRSXP, 1 ) ) ;
+        SET_STRING_ELT( tryError, 0, Rf_mkCharLenCE( str.c_str(), str.size(), CE_UTF8 ) );
+        Rcpp::Shield<SEXP> simpleErrorExpr( Rf_lang2(::Rf_install("simpleError"), tryError ));
+   #endif
+    
     Rcpp::Shield<SEXP> simpleError( Rf_eval(simpleErrorExpr, R_GlobalEnv) );
-    Rcpp::Shield<SEXP> tryError( Rf_mkString( str.c_str() ) );
     Rf_setAttrib( tryError, R_ClassSymbol, Rf_mkString("try-error") ) ;
     Rf_setAttrib( tryError, Rf_install( "condition") , simpleError ) ;
 
