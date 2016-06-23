@@ -1,3 +1,10 @@
+2016-06-23  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version): Rolling minor version
+
+        * inst/include/Rcpp/exceptions.h (Rcpp): Also expose Rf_warningcall()
+        within Rcpp namespace (without leading Rf_) 
+
 2016-06-20  Qin Wenfeng <mail@qinwenfeng.com>
 
         * inst/include/Rcpp/exceptions.h: add RCPP_USING_UTF8_ERROR_STRING macro

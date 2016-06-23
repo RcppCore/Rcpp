@@ -15,7 +15,9 @@
       \item String replacement was corrected (Qiang in \ghpr{479} following
       mailing list bug report by Masaki Tsuda)
       \item Allow for UTF-8 encoding in error messages via
-      \code{RCPP_USING_UTF8_ERROR_STRING} macro (Qin Wenfeng in \ghpr{493}) 
+      \code{RCPP_USING_UTF8_ERROR_STRING} macro (Qin Wenfeng in \ghpr{493})
+      \item The R function \code{Rf_warningcall} is now provided as well (as
+      usual without leading Rf_) (\ghpr{496} fixing \ghit{495}) 
     }
     \item Changes in Rcpp Sugar:
     \itemize{

@@ -2,7 +2,7 @@
 //
 // exceptions.h: Rcpp R/C++ interface class library -- exceptions
 //
-// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2016  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -212,6 +212,10 @@ namespace Rcpp{
 
     inline void warning(const std::string& message) {
         Rf_warning(message.c_str());
+    }
+
+    inline void warningcall(SEXP call, const std::string & s) {
+        Rf_warningcall(call, s.c_str());
     }
 
     template <typename T1>

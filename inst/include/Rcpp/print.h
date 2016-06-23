@@ -26,7 +26,5 @@ inline void print(SEXP s) {
     Rf_PrintValue(s);           // defined in Rinternals.h
 }
 
-}
-
 #endif
 
