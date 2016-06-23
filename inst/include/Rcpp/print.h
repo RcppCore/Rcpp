@@ -26,11 +26,11 @@ inline void print(SEXP s) {
     Rf_PrintValue(s);           // defined in Rinternals.h
 }
 
-inline void warning(const std::string s) {
+inline void warning(const std::string & s) {
     Rf_warning(s.c_str());
 }
 
-inline void warningcall(SEXP call, const std::string s) {
+inline void warningcall(SEXP call, const std::string & s) {
     Rf_warningcall(call, s.c_str());
 }
 
