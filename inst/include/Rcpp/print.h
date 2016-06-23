@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
-// Copyright (C) 2015  Dirk Eddelbuettel
+// Copyright (C) 2015 - 2016  Dirk Eddelbuettel
 //
 // This file is part of Rcpp.
 //
@@ -25,6 +25,12 @@ namespace Rcpp {
 inline void print(SEXP s) {
     Rf_PrintValue(s);           // defined in Rinternals.h
 }
+
+inline void warningcall(SEXP call, const std::string & s) {
+    Rf_warningcall(call, s.c_str());
+}
+
+// also note that warning() is defined in file exceptions.h
 
 }
 
