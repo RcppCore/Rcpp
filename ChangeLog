@@ -2,8 +2,8 @@
 
         * DESCRIPTION (Version): Rolling minor version
 
-        * inst/include/Rcpp/print.h (Rcpp): Also expose Rf_warning() and
-        Rf_warningcall() with Rcpp namespace (without leading Rf_)
+        * inst/include/Rcpp/exceptions.h (Rcpp): Also expose Rf_warningcall()
+        within Rcpp namespace (without leading Rf_) 
 
 2016-06-20  Qin Wenfeng <mail@qinwenfeng.com>
 
