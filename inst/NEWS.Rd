@@ -17,7 +17,7 @@
       \item Allow for UTF-8 encoding in error messages via
       \code{RCPP_USING_UTF8_ERROR_STRING} macro (Qin Wenfeng in \ghpr{493})
       \item The R function \code{Rf_warning} and \code{Rf_warningcall} are now
-      provided as well (as usual without leading Rf_) (\ghit{495})
+      provided as well (as usual without leading Rf_) (\ghpr{496} fixing \ghit{495})
     }
     \item Changes in Rcpp Sugar:
     \itemize{
