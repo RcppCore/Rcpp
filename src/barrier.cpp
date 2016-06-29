@@ -28,6 +28,8 @@
 #include <algorithm>
 #include <Rcpp/protection/Shield.h>
 
+namespace Rcpp { SEXP Rcpp_eval(SEXP, SEXP); }
+
 // [[Rcpp::register]]
 SEXP get_string_elt(SEXP x, int i) {
     return STRING_ELT(x, i);
