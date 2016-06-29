@@ -111,7 +111,7 @@ namespace Rcpp{
 
             /* We need to evaluate if it is a promise */
             if( TYPEOF(res) == PROMSXP){
-                res = Rf_eval( res, env ) ;
+                res = Rcpp_eval( res, env ) ;
             }
             return res ;
         }
@@ -132,7 +132,7 @@ namespace Rcpp{
 
             /* We need to evaluate if it is a promise */
             if( TYPEOF(res) == PROMSXP){
-                res = Rf_eval( res, env ) ;
+                res = Rcpp_eval( res, env ) ;
             }
             return res ;
         }
@@ -203,7 +203,7 @@ namespace Rcpp{
                     Shield<SEXP> call( Rf_lang2(internalSym,
                             Rf_lang4(removeSym, Rf_mkString(name.c_str()), Storage::get__(), Rf_ScalarLogical( FALSE ))
                         ) );
-                    Rf_eval( call, R_GlobalEnv ) ;
+                    Rcpp_eval( call, R_GlobalEnv ) ;
                 }
             } else{
                 throw no_such_binding(name) ;

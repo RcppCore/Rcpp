@@ -144,9 +144,12 @@ namespace Rcpp{
             return Rcpp_eval( Storage::get__(), env ) ;
         }
 
+        // TODO: deprecate as unsafe API
         SEXP fast_eval() const {
             return Rf_eval( Storage::get__(), R_GlobalEnv) ;
         }
+
+        // TODO: deprecate as unsafe API
         SEXP fast_eval(SEXP env ) const {
             return Rf_eval( Storage::get__(), env) ;
         }
