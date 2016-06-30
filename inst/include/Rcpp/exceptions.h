@@ -129,7 +129,7 @@ namespace Rcpp{
 inline SEXP get_last_call(){
     SEXP sys_calls_symbol = Rf_install( "sys.calls" ) ;
     Rcpp::Shield<SEXP> sys_calls_expr( Rf_lang1(sys_calls_symbol) );
-    Rcpp::Shield<SEXP> calls( Rf_eval( sys_calls_expr, R_GlobalEnv ) );
+    Rcpp::Shield<SEXP> calls( Rcpp_eval( sys_calls_expr, R_GlobalEnv ) );
     SEXP res = calls ;
     while( !Rf_isNull(CDR(res)) ) res = CDR(res);
     return CAR(res) ;
@@ -193,8 +193,8 @@ inline SEXP string_to_try_error( const std::string& str){
         SET_STRING_ELT( tryError, 0, Rf_mkCharLenCE( str.c_str(), str.size(), CE_UTF8 ) );
         Rcpp::Shield<SEXP> simpleErrorExpr( Rf_lang2(::Rf_install("simpleError"), tryError ));
    #endif
-    
-    Rcpp::Shield<SEXP> simpleError( Rf_eval(simpleErrorExpr, R_GlobalEnv) );
+    // TODO: We could avoid calling 'simpleError' and just construct error object ourselves
+    Rcpp::Shield<SEXP> simpleError( Rcpp_eval(simpleErrorExpr, R_GlobalEnv) );
     Rf_setAttrib( tryError, R_ClassSymbol, Rf_mkString("try-error") ) ;
     Rf_setAttrib( tryError, Rf_install( "condition") , simpleError ) ;
 
