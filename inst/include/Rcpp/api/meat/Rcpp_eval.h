@@ -24,16 +24,20 @@ namespace Rcpp {
 
 inline SEXP Rcpp_eval(SEXP expr, SEXP env) {
 
-    // 'identity' function used to capture errors, interrupts
     SEXP identity = Rf_findFun(
         ::Rf_install("identity"),
+        R_BaseNamespace
+    );
+
+    SEXP tryCatch = Rf_findFun(
+        ::Rf_install("tryCatch"),
         R_BaseNamespace
     );
 
     // define the call -- enclose with `tryCatch` so we can record
     // and later forward error messages
     Shield<SEXP> call(Rf_lang4(
-        ::Rf_install("tryCatch"),
+        tryCatch,
         expr,
         identity,
         identity
