@@ -547,6 +547,7 @@ namespace attributes {
         // Name of target file and package
         const std::string& targetFile() const { return targetFile_; }
         const std::string& package() const { return package_; }
+        const std::string& packageCpp() const { return packageCpp_; }
 
         // Abstract interface for code generation
         virtual void writeBegin() = 0;
@@ -580,10 +581,10 @@ namespace attributes {
             return "RcppExport_validate";
         }
         std::string exportValidationFunctionRegisteredName() {
-            return package() + "_" + exportValidationFunction();
+            return packageCpp() + "_" + exportValidationFunction();
         }
         std::string registerCCallableExportedName() {
-            return package() + "_RcppExport_registerCCallable";
+            return packageCpp() + "_RcppExport_registerCCallable";
         }
 
         // Commit the stream -- is a no-op if the existing code is identical
@@ -614,6 +615,7 @@ namespace attributes {
     private:
         std::string targetFile_;
         std::string package_;
+        std::string packageCpp_;
         std::string commentPrefix_;
         std::string existingCode_;
         std::ostringstream codeStream_;
@@ -1706,6 +1708,7 @@ namespace attributes {
                                        const std::string& commentPrefix)
         : targetFile_(targetFile),
           package_(package),
+          packageCpp_(package),
           commentPrefix_(commentPrefix),
           hasCppInterface_(false) {
 
@@ -1718,6 +1721,8 @@ namespace attributes {
             buffer << ifs.rdbuf();
             existingCode_ = buffer.str();
         }
+
+        std::replace(packageCpp_.begin(), packageCpp_.end(), '.', '_');
 
         // see if this is safe to overwite and throw if it isn't
         if (!isSafeToOverwrite())
@@ -1799,7 +1804,7 @@ namespace attributes {
                     attributes,
                     true,
                     attributes.hasInterface(kInterfaceCpp),
-                    package());
+                    packageCpp());
 
         // track cppExports and signatures (we use these at the end to
         // generate the ValidateSignature and RegisterCCallable functions)
@@ -1866,7 +1871,6 @@ namespace attributes {
                    << "() { " << std::endl;
             for (std::size_t i=0;i<cppExports_.size(); i++) {
                 const Attribute& attr = cppExports_[i];
-                std::string name = package() + "_" + attr.exportedName();
                 ostr() << registerCCallable(
                               4,
                               attr.exportedName(),
@@ -1889,8 +1893,8 @@ namespace attributes {
         std::ostringstream ostr;
         std::string indentStr(indent, ' ');
         ostr <<  indentStr << "R_RegisterCCallable(\"" << package() << "\", "
-              << "\"" << package() << "_" << exportedName << "\", "
-              << "(DL_FUNC)" << package() << "_" << name << ");";
+              << "\"" << packageCpp() << "_" << exportedName << "\", "
+              << "(DL_FUNC)" << packageCpp() << "_" << name << ");";
         return ostr.str();
     }
 
@@ -1930,7 +1934,7 @@ namespace attributes {
 
     void CppExportsIncludeGenerator::writeBegin() {
 
-        ostr() << "namespace " << package() << " {"
+        ostr() << "namespace " << packageCpp() << " {"
                << std::endl << std::endl;
 
         // Import Rcpp into this namespace. This allows declarations to
@@ -2020,7 +2024,7 @@ namespace attributes {
                        << std::endl;
                 ostr() << "            " << ptrName << " = "
                        << "(" << fnType << ")"
-                       << getCCallable(package() + "_" + function.name()) << ";"
+                       << getCCallable(packageCpp() + "_" + function.name()) << ";"
                        << std::endl;
                 ostr() << "        }" << std::endl;
                 ostr() << "        RObject __result;" << std::endl;
@@ -2088,12 +2092,12 @@ namespace attributes {
                     // the package header file (since it includes this file)
                     // and we transorm _types includes into local includes
                     std::string preamble = "#include \"../inst/include/";
-                    std::string pkgInclude = preamble + package() + ".h\"";
+                    std::string pkgInclude = preamble + packageCpp() + ".h\"";
                     if (includes[i] == pkgInclude)
                         continue;
 
                     // check for _types
-                    std::string typesInclude = preamble + package() + "_types.h";
+                    std::string typesInclude = preamble + packageCpp() + "_types.h";
                     if (includes[i].find(typesInclude) != std::string::npos)
                     {
                         std::string include = "#include \"" +
@@ -2126,7 +2130,7 @@ namespace attributes {
     }
 
     std::string CppExportsIncludeGenerator::getHeaderGuard() const {
-        return "__" + package() + "_RcppExports_h__";
+        return "__" + packageCpp() + "_RcppExports_h__";
     }
 
     CppPackageIncludeGenerator::CppPackageIncludeGenerator(
@@ -2149,7 +2153,7 @@ namespace attributes {
             ostr() << "#ifndef " << guard << std::endl;
             ostr() << "#define " << guard << std::endl << std::endl;
 
-            ostr() << "#include \"" << package() << kRcppExportsSuffix
+            ostr() << "#include \"" << packageCpp() << kRcppExportsSuffix
                    << "\"" << std::endl;
 
             ostr() << std::endl;
@@ -2174,7 +2178,7 @@ namespace attributes {
     }
 
     std::string CppPackageIncludeGenerator::getHeaderGuard() const {
-        return "__" + package() + "_h__";
+        return "__" + packageCpp() + "_h__";
     }
 
     RExportsGenerator::RExportsGenerator(const std::string& packageDir,
@@ -2230,7 +2234,7 @@ namespace attributes {
                 if (function.type().isVoid())
                     ostr() << "invisible(";
                 ostr() << ".Call(";
-                ostr() << "'" << package() << "_" << function.name() << "', "
+                ostr() << "'" << packageCpp() << "_" << function.name() << "', "
                        << "PACKAGE = '" << package() << "'";
 
                 // add arguments
