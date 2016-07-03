@@ -1,3 +1,11 @@
+2016-07-03  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version): Rolling minor version
+
+2016-07-02  Qiang Kou  <qkou@umail.iu.edu>
+
+        * src/attributes.cpp: Replace '.' in package names
+
 2016-06-23  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version): Rolling minor version

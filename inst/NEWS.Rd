@@ -31,6 +31,11 @@
       \item The \code{na_omit()} function is now faster for vectors without
       \code{NA} values (Artem Klevtsov in PR \ghpr{492})
     }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Code generation now deals correctly which packages containing a dot
+      in their name (Qiang in \ghpr{501} fixing \ghit{500})
+    }
   }
 }
       
