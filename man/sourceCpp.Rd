@@ -9,7 +9,7 @@ and RCPP_MODULE declarations. A shared library is then built and its exported fu
 }
 \usage{
 sourceCpp(file = "", code = NULL, env = globalenv(),
-          embeddedR = TRUE, rebuild = FALSE,
+          embeddedR = TRUE, rebuild = FALSE, cacheDir = tempdir(),
           showOutput = verbose, verbose = getOption("verbose"),
           dryRun = FALSE)
 }

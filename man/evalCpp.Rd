@@ -10,8 +10,8 @@ Evaluates a C++ expression. This creates a C++ function using
 }
 \usage{
 evalCpp(code, depends = character(), plugins = character(),
-        includes = character(), rebuild = FALSE, showOutput = verbose, 
-        verbose = getOption("verbose"))
+        includes = character(), rebuild = FALSE, cacheDir = tempdir(),
+        showOutput = verbose, verbose = getOption("verbose"))
 areMacrosDefined(names, depends = character(), includes = character(), 
         rebuild = FALSE, showOutput = verbose, 
         verbose = getOption("verbose"))

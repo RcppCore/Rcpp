@@ -7,8 +7,8 @@ Define an R Function with a C++ Implementation
 Dynamically define an R function with C++ source code. Compiles and links a shared library with bindings to the C++ function then defines an R function that uses \code{.Call} to invoke the library.
 }
 \usage{
-cppFunction(code, depends = character(), plugins = character(),
-            includes = character(), env = parent.frame(), rebuild = FALSE, 
+cppFunction(code, depends = character(), plugins = character(), includes = character(),
+            env = parent.frame(), rebuild = FALSE, cacheDir = tempdir(), 
             showOutput = verbose, verbose = getOption("verbose"))
 }
 
