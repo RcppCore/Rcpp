@@ -1045,8 +1045,8 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
     if (length(cache) > 0) {
         for (i in 1:length(cache)) {
             entry <- cache[[i]]
-            if ((!is.null(file) && identical(file, entry$file)) ||
-                (!is.null(code) && identical(code, entry$code))) {
+            if ((nzchar(file) && identical(file, entry$file)) ||
+                (nzchar(code) && identical(code, entry$code))) {
                 return(i)
             }
         }
