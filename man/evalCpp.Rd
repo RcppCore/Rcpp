@@ -35,6 +35,9 @@ see \code{\link{cppFunction}}
   \item{rebuild}{
 see \code{\link{cppFunction}}
 }
+  \item{cacheDir}{
+    Directory to use for caching shared libraries. If the underlying code passed to \code{sourceCpp} has not changed since the last invocation then a cached version of the shared library is used. The default value of \code{tempdir()} results in the cache being valid only for the current R session. Pass an alternate directory to preserve the cache across R sessions.
+}
   \item{showOutput}{
 see \code{\link{cppFunction}}
 }
