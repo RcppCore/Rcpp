@@ -1033,7 +1033,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
     index_file <- file.path(cacheDir, "cache.rds")
     if (file.exists(index_file)) {
         load(file = index_file)
-        cache
+        get("cache")
     } else {
         list()
     }
