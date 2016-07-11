@@ -28,11 +28,18 @@ sourceCpp <- function(file = "",
                       verbose = getOption("verbose"),
                       dryRun = FALSE) {
 
+    # use an architecture/version specific subdirectory of the cacheDir
+    # (since cached dynlibs can now perist across sessions we need to be
+    # sure to invalidate them when R or Rcpp versions change)
+    cacheDir <- path.expand(cacheDir)
+    cacheDir <- normalizePath(cacheDir, winslash = "/", mustWork = FALSE)
+    cacheDir <- .sourceCppPlatformCacheDir(cacheDir)
+    
     # resolve code into a file if necessary. also track the working
     # directory to source the R embedded code chunk within
     if (!missing(code)) {
         rWorkingDir <- getwd()
-        file <- tempfile(fileext = ".cpp")
+        file <- tempfile(fileext = ".cpp", tmpdir = cacheDir)
         con <- file(file, open = "w")
         writeLines(code, con)
         close(con)
@@ -56,13 +63,6 @@ sourceCpp <- function(file = "",
                  "is not permitted.")
         }
     }
-
-    # use an architecture/version specific subdirectory of the cacheDir
-    # (since cached dynlibs can now perist across sessions we need to be
-    # sure to invalidate them when R or Rcpp versions change)
-    cacheDir <- path.expand(cacheDir)
-    cacheDir <- normalizePath(cacheDir, winslash = "/", mustWork = FALSE)
-    cacheDir <- .sourceCppPlatformCacheDir(cacheDir)
     
     # get the context (does code generation as necessary)
     context <- .Call("sourceCppContext", PACKAGE="Rcpp",
