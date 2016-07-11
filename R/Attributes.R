@@ -1025,7 +1025,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
 # write the cache to disk
 .sourceCppDynlibWriteCache <- function(cacheDir, cache) {
     index_file <- file.path(cacheDir, "cache.rds")
-    save(cache, file = index_file)
+    save(cache, file = index_file, compress = FALSE)
 }
 
 # read the cache from disk 
