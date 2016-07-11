@@ -62,7 +62,7 @@ namespace attributes {
         // convert to R list
         List toList() const {
             List fileInfo;
-            fileInfo["path "] = path_;
+            fileInfo["path"] = path_;
             fileInfo["exists"] = exists_;
             fileInfo["lastModified"] = lastModified_;
             return fileInfo;
