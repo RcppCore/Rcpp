@@ -56,7 +56,7 @@ namespace attributes {
         explicit FileInfo(const List& fileInfo) {
             path_ = as<std::string>(fileInfo["path"]);
             exists_ = as<bool>(fileInfo["exists"]);
-            lastModified_ = as<std::time_t>(fileInfo["lastModified"]);
+            lastModified_ = as<double>(fileInfo["lastModified"]);
         }
     
         // convert to R list
@@ -70,7 +70,7 @@ namespace attributes {
 
         std::string path() const { return path_; }
         bool exists() const { return exists_; }
-        time_t lastModified() const { return lastModified_; }
+        double lastModified() const { return lastModified_; }
 
         std::string extension() const {
             std::string::size_type pos = path_.find_last_of('.');
@@ -102,7 +102,7 @@ namespace attributes {
     private:
         std::string path_;
         bool exists_;
-        time_t lastModified_;
+        double lastModified_;
     };
 
     // Remove a file
@@ -2686,7 +2686,7 @@ namespace attributes {
                 throw Rcpp::file_io_error(errno, path);
         } else {
             exists_ = true;
-            lastModified_ = buffer.st_mtime;
+            lastModified_ = static_cast<double>(buffer.st_mtime);
         }
     }
 
