@@ -45,7 +45,7 @@ namespace helpers {
 
 #ifdef RCPP_HAS_LONG_LONG_TYPES
     template<>
-    struct ctype_helper< sizeof(CTYPE_LONG_LONG) > { typedef long long type; static const bool value = true; };
+    struct ctype_helper< sizeof(CTYPE_LONG_LONG) > { typedef rcpp_long_long_type type; static const bool value = true; };
 #endif
 
     template<>
@@ -74,7 +74,7 @@ namespace helpers {
 
 #ifdef RCPP_HAS_LONG_LONG_TYPES
     template<>
-    struct ctype_helper< sizeof(CTYPE_UNSIGNED_LONG_LONG) > { typedef unsigned long long type; static const bool value = true; };
+    struct ctype_helper< sizeof(CTYPE_UNSIGNED_LONG_LONG) > { typedef rcpp_ulong_long_type type; static const bool value = true; };
 #endif
 
 
@@ -86,7 +86,7 @@ namespace helpers {
         static CTYPE_INT test(const int &);
         static CTYPE_LONG test(const long &);
 #ifdef RCPP_HAS_LONG_LONG_TYPES
-        static CTYPE_LONG_LONG test(const long long &);
+        static CTYPE_LONG_LONG test(const rcpp_long_long_type &);
 #endif
         static CTYPE_FLOAT test(const float &);
         static CTYPE_DOUBLE test(const double &);
@@ -97,7 +97,7 @@ namespace helpers {
         static CTYPE_UNSIGNED_INT test(const unsigned int &);
         static CTYPE_UNSIGNED_LONG test(const unsigned long &);
 #ifdef RCPP_HAS_LONG_LONG_TYPES
-        static CTYPE_UNSIGNED_LONG_LONG test(const unsigned long long &);
+        static CTYPE_UNSIGNED_LONG_LONG test(const rcpp_ulong_long_type &);
 #endif
         static CTYPE_UNKNOWN test(...);
 
@@ -114,7 +114,7 @@ namespace helpers {
         static CTYPE_INT test(const int &);
         static CTYPE_LONG test(const long &);
 #ifdef RCPP_HAS_LONG_LONG_TYPES
-        static CTYPE_LONG_LONG test(const long long &);
+        static CTYPE_LONG_LONG test(const rcpp_long_long_type &);
 #endif
         static CTYPE_FLOAT test(const float &);
         static CTYPE_DOUBLE test(const double &);
@@ -125,7 +125,7 @@ namespace helpers {
         static CTYPE_UNSIGNED_INT test(const unsigned int &);
         static CTYPE_UNSIGNED_LONG test(const unsigned long &);
 #ifdef RCPP_HAS_LONG_LONG_TYPES
-        static CTYPE_UNSIGNED_LONG_LONG test(const unsigned long long &);
+        static CTYPE_UNSIGNED_LONG_LONG test(const rcpp_ulong_long_type &);
 #endif
         static CTYPE_UNKNOWN test(...);
 
