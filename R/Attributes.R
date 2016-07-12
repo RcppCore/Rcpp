@@ -24,6 +24,7 @@ sourceCpp <- function(file = "",
                       embeddedR = TRUE,
                       rebuild = FALSE,
                       cacheDir = tempdir(),
+                      cleanupCacheDir = FALSE,
                       showOutput = verbose,
                       verbose = getOption("verbose"),
                       dryRun = FALSE) {
@@ -32,8 +33,8 @@ sourceCpp <- function(file = "",
     # (since cached dynlibs can now perist across sessions we need to be
     # sure to invalidate them when R or Rcpp versions change)
     cacheDir <- path.expand(cacheDir)
-    cacheDir <- normalizePath(cacheDir, winslash = "/", mustWork = FALSE)
     cacheDir <- .sourceCppPlatformCacheDir(cacheDir)
+    cacheDir <- normalizePath(cacheDir)
     
     # resolve code into a file if necessary. also track the working
     # directory to source the R embedded code chunk within
@@ -197,12 +198,37 @@ sourceCpp <- function(file = "",
         setwd(rWorkingDir) # will be reset by previous on.exit handler
         source(file=srcConn, echo=TRUE)
     }
+    
+    # cleanup the cache dir if requested
+    if (cleanupCacheDir)
+        cleanupSourceCppCache(cacheDir, context$cppSourcePath, context$buildDirectory)
 
     # return (invisibly) a list containing exported functions and modules
     invisible(list(functions = context$exportedFunctions,
                    modules = context$modules,
                    cppSourcePath = context$cppSourcePath,
                    buildDirectory = context$buildDirectory))
+}
+
+
+# Cleanup a directory used as the cache for a sourceCpp compilation. This will
+# remove all files from the cache directory that aren't a result of the 
+# compilation that yielded the passed buildDirectory. 
+cleanupSourceCppCache <- function(cacheDir, cppSourcePath, buildDirectory) {
+    # normalize cpp source path and build directory 
+    cppSourcePath <- normalizePath(cppSourcePath)
+    buildDirectory <- normalizePath(buildDirectory)
+    
+    # determine the parent dir that was used for the compilation then collect all the
+    # *.cpp files and subdirectories therein
+    cacheFiles <- list.files(cacheDir, pattern = glob2rx("*.cpp"), recursive = FALSE, full.names = TRUE)
+    cacheFiles <- c(cacheFiles, list.dirs(cacheDir, recursive = FALSE, full.names = TRUE))
+    cacheFiles <- normalizePath(cacheFiles)
+    
+    # determine the list of tiles that were not yielded by the passed sourceCpp
+    # result and remove them
+    oldCacheFiles <- cacheFiles[!cacheFiles %in% c(cppSourcePath, buildDirectory)]
+    unlink(oldCacheFiles, recursive = TRUE)
 }
 
 # Define a single C++ function
@@ -1063,10 +1089,8 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
 .sourceCppPlatformCacheDir <- function(cacheDir) {
     
     dir <- file.path(cacheDir,
-                     paste("sourceCpp",
+                     paste(R.version$platform,
                            utils::packageVersion("Rcpp"),
-                           R.version$platform,
-                           R.version$`svn rev`,
                            sep = "-"))
     if (!dir.exists(dir))
         dir.create(dir, recursive = TRUE)

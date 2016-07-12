@@ -9,7 +9,8 @@ and RCPP_MODULE declarations. A shared library is then built and its exported fu
 }
 \usage{
 sourceCpp(file = "", code = NULL, env = globalenv(),
-          embeddedR = TRUE, rebuild = FALSE, cacheDir = tempdir(),
+          embeddedR = TRUE, rebuild = FALSE, 
+          cacheDir = tempdir(), cleanupCacheDir = FALSE,
           showOutput = verbose, verbose = getOption("verbose"),
           dryRun = FALSE)
 }
@@ -31,6 +32,9 @@ sourceCpp(file = "", code = NULL, env = globalenv(),
 }
   \item{cacheDir}{
     Directory to use for caching shared libraries. If the underlying file or code passed to \code{sourceCpp} has not changed since the last invocation then a cached version of the shared library is used. The default value of \code{tempdir()} results in the cache being valid only for the current R session. Pass an alternate directory to preserve the cache across R sessions.
+}
+\item{cleanupCacheDir}{
+    Cleanup all files in the cacheDir that were not a result of this compilation. Note that this will cleanup the cache from all other calls to sourceCpp with the same cacheDir. This option should therefore only be specified by callers that provide a unique cacheDir per scope (e.g. chunk labels in a weaved document).
 }
   \item{showOutput}{
     \code{TRUE} to print \code{R CMD SHLIB} output to the console.
@@ -74,7 +78,7 @@ fibonacci(10)
 */
 }
 
-	Multiple R code chunks can be included in a C++ file. R code is sourced after the C++ compliation is completed so all functions and modules will be available to the R code.   
+	Multiple R code chunks can be included in a C++ file. R code is sourced after the C++ compilation is completed so all functions and modules will be available to the R code.   
 }
 
 \value{
