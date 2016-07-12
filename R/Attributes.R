@@ -201,6 +201,7 @@ sourceCpp <- function(file = "",
     # return (invisibly) a list containing exported functions and modules
     invisible(list(functions = context$exportedFunctions,
                    modules = context$modules,
+                   cppSourcePath = context$cppSourcePath,
                    buildDirectory = context$buildDirectory))
 }
 
@@ -1048,7 +1049,8 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
             entry <- cache[[i]]
             if ((nzchar(file) && identical(file, entry$file)) ||
                 (nzchar(code) && identical(code, entry$code))) {
-                return(i)
+                if (file.exists(entry$dynlib$cppSourcePath))
+                    return(i)
             }
         }
     }
