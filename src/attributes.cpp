@@ -3192,7 +3192,7 @@ namespace {
                                const std::string& code,
                                const SourceCppDynlib& dynlib)
     {
-        dynlibCacheInsert(cacheDir, "", "code", dynlib);
+        dynlibCacheInsert(cacheDir, "", code, dynlib);
     }
     
     SourceCppDynlib dynlibCacheLookup(const std::string& cacheDir,
