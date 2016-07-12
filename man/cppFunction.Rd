@@ -8,7 +8,7 @@ Dynamically define an R function with C++ source code. Compiles and links a shar
 }
 \usage{
 cppFunction(code, depends = character(), plugins = character(), includes = character(),
-            env = parent.frame(), rebuild = FALSE, cacheDir = tempdir(), 
+            env = parent.frame(), rebuild = FALSE, cacheDir = getOption("rcpp.cache.dir", tempdir()), 
             showOutput = verbose, verbose = getOption("verbose"))
 }
 

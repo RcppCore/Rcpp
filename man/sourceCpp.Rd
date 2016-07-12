@@ -8,11 +8,9 @@ Source C++ Code from a File or String
 and RCPP_MODULE declarations. A shared library is then built and its exported functions and Rcpp modules are made available in the specified environment.
 }
 \usage{
-sourceCpp(file = "", code = NULL, env = globalenv(),
-          embeddedR = TRUE, rebuild = FALSE, 
-          cacheDir = tempdir(), cleanupCacheDir = FALSE,
-          showOutput = verbose, verbose = getOption("verbose"),
-          dryRun = FALSE)
+sourceCpp(file = "", code = NULL, env = globalenv(), embeddedR = TRUE, rebuild = FALSE, 
+          cacheDir = getOption("rcpp.cache.dir", tempdir()), cleanupCacheDir = FALSE,
+          showOutput = verbose, verbose = getOption("verbose"), dryRun = FALSE)
 }
 \arguments{
   \item{file}{
