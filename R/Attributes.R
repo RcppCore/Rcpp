@@ -113,7 +113,7 @@ sourceCpp <- function(file = "",
 
         # unload and delete existing dylib if necessary
         if (file.exists(context$previousDynlibPath)) {
-            try(silent=T, dyn.unload(context$previousDynlibPath))
+            try(silent=TRUE, dyn.unload(context$previousDynlibPath))
             file.remove(context$previousDynlibPath)
         }
 
@@ -200,7 +200,8 @@ sourceCpp <- function(file = "",
 
     # return (invisibly) a list containing exported functions and modules
     invisible(list(functions = context$exportedFunctions,
-                   modules = context$modules))
+                   modules = context$modules,
+                   buildDirectory = context$buildDirectory))
 }
 
 # Define a single C++ function
