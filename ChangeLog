@@ -1,9 +1,16 @@
 2016-07-11  J.J. Allaire <jj@rstudio.org>
 
-        * R/Attributes.R Add cacheDir argument to sourceCpp to enable caching of 
+        * R/Attributes.R Add cacheDir argument to sourceCpp to enable caching of
         shared libraries across R sessions
-        * src/attributes.cpp Add cacheDir argument to sourceCpp to enable caching of 
+        * src/attributes.cpp Add cacheDir argument to sourceCpp to enable caching of
         shared libraries across R sessions
+        * man/sourceCpp.Rd: Document new cacheDir option
+        * man/cppFunction.Rd: Idem
+        * man/evalFunction.Rd: Idem
+
+2016-07-10  Nathan Russell <russell.nr2012@gmail.com>
+
+        * inst/include/Rcpp/algorithm.h: Accomdate clang compiler
 
 2016-07-03  Dirk Eddelbuettel  <edd@debian.org>
 

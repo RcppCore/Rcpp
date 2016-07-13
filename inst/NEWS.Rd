@@ -3,7 +3,7 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp version 0.12.6 (2016-07-31)}{
+\section{Changes in Rcpp version 0.12.6 (2016-07-18)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
@@ -17,7 +17,7 @@
       \item Allow for UTF-8 encoding in error messages via
       \code{RCPP_USING_UTF8_ERROR_STRING} macro (Qin Wenfeng in \ghpr{493}) 
       \item The R function \code{Rf_warningcall} is now provided as well (as
-      usual without leading Rf_) (\ghpr{497} fixing \ghit{495}) 
+      usual without leading \code{Rf_}) (\ghpr{497} fixing \ghit{495}) 
     }
     \item Changes in Rcpp Sugar:
     \itemize{
@@ -27,16 +27,17 @@
       (Dan Dillon in PR \ghpr{476} fixing issue \ghit{475}).
       \item New \code{algorithm} header using iterator-based approach for
       vectorized functions (Dan in PR \ghpr{481} revisiting PR \ghpr{428} and
-      addressing issue \ghit{426}).
+      addressing issue \ghit{426}, with futher work by Kirill in PR \ghpr{488}
+      and Nathan in \ghpr{503} fixing issue \ghit{502}).
       \item The \code{na_omit()} function is now faster for vectors without
       \code{NA} values (Artem Klevtsov in PR \ghpr{492})
     }
     \item Changes in Rcpp Attributes:
     \itemize{
       \item Add \code{cacheDir} argument to \code{sourceCpp()} to enable caching of 
-        shared libraries across R sessions.
+        shared libraries across R sessions (JJ in \ghpr{504}).
       \item Code generation now deals correctly which packages containing a dot
-      in their name (Qiang in \ghpr{501} fixing \ghit{500})
+      in their name (Qiang in \ghpr{501} fixing \ghit{500}).
     }
   }
 }
