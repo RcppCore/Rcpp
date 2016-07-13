@@ -1,3 +1,8 @@
+2016-07-13  Dirk Eddelbuettel  <edd@debian.org>
+
+        * NAMESPACE: Add import for glob2rx to please R CMD check
+        * man/cppFunction.Rd: line break below 90 columns to please R CMD check
+
 2016-07-11  J.J. Allaire <jj@rstudio.org>
 
         * R/Attributes.R Add cacheDir argument to sourceCpp to enable caching of

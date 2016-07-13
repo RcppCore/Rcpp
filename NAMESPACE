@@ -1,7 +1,8 @@
 useDynLib(Rcpp, .registration = TRUE)
 
 import(methods)
-importFrom(utils, capture.output, assignInNamespace, .DollarNames, prompt, packageDescription, package.skeleton)
+importFrom(utils, capture.output, assignInNamespace, .DollarNames, prompt,
+           packageDescription, package.skeleton, glob2rx)
 
 exportClasses(Module, "C++Field",
               "C++OverloadedMethods",
@@ -33,7 +34,7 @@ export(Module,
        cpp_object_dummy, 
        Rcpp.plugin.maker
        )
-S3method( print, bytes )
+S3method(print, bytes)
 exportClass(RcppClass)
 
 
