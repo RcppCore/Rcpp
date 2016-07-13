@@ -23,15 +23,24 @@ sourceCpp <- function(file = "",
                       env = globalenv(),
                       embeddedR = TRUE,
                       rebuild = FALSE,
+                      cacheDir = getOption("rcpp.cache.dir", tempdir()),
+                      cleanupCacheDir = FALSE,
                       showOutput = verbose,
                       verbose = getOption("verbose"),
                       dryRun = FALSE) {
 
+    # use an architecture/version specific subdirectory of the cacheDir
+    # (since cached dynlibs can now perist across sessions we need to be
+    # sure to invalidate them when R or Rcpp versions change)
+    cacheDir <- path.expand(cacheDir)
+    cacheDir <- .sourceCppPlatformCacheDir(cacheDir)
+    cacheDir <- normalizePath(cacheDir)
+    
     # resolve code into a file if necessary. also track the working
     # directory to source the R embedded code chunk within
     if (!missing(code)) {
         rWorkingDir <- getwd()
-        file <- tempfile(fileext = ".cpp")
+        file <- tempfile(fileext = ".cpp", tmpdir = cacheDir)
         con <- file(file, open = "w")
         writeLines(code, con)
         close(con)
@@ -55,10 +64,10 @@ sourceCpp <- function(file = "",
                  "is not permitted.")
         }
     }
-
+    
     # get the context (does code generation as necessary)
     context <- .Call("sourceCppContext", PACKAGE="Rcpp",
-                     file, code, rebuild, .Platform)
+                     file, code, rebuild, cacheDir, .Platform)
 
     # perform a build if necessary
     if (context$buildRequired || rebuild) {
@@ -105,7 +114,7 @@ sourceCpp <- function(file = "",
 
         # unload and delete existing dylib if necessary
         if (file.exists(context$previousDynlibPath)) {
-            try(silent=T, dyn.unload(context$previousDynlibPath))
+            try(silent=TRUE, dyn.unload(context$previousDynlibPath))
             file.remove(context$previousDynlibPath)
         }
 
@@ -189,10 +198,37 @@ sourceCpp <- function(file = "",
         setwd(rWorkingDir) # will be reset by previous on.exit handler
         source(file=srcConn, echo=TRUE)
     }
+    
+    # cleanup the cache dir if requested
+    if (cleanupCacheDir)
+        cleanupSourceCppCache(cacheDir, context$cppSourcePath, context$buildDirectory)
 
     # return (invisibly) a list containing exported functions and modules
     invisible(list(functions = context$exportedFunctions,
-                   modules = context$modules))
+                   modules = context$modules,
+                   cppSourcePath = context$cppSourcePath,
+                   buildDirectory = context$buildDirectory))
+}
+
+
+# Cleanup a directory used as the cache for a sourceCpp compilation. This will
+# remove all files from the cache directory that aren't a result of the 
+# compilation that yielded the passed buildDirectory. 
+cleanupSourceCppCache <- function(cacheDir, cppSourcePath, buildDirectory) {
+    # normalize cpp source path and build directory 
+    cppSourcePath <- normalizePath(cppSourcePath)
+    buildDirectory <- normalizePath(buildDirectory)
+    
+    # determine the parent dir that was used for the compilation then collect all the
+    # *.cpp files and subdirectories therein
+    cacheFiles <- list.files(cacheDir, pattern = glob2rx("*.cpp"), recursive = FALSE, full.names = TRUE)
+    cacheFiles <- c(cacheFiles, list.dirs(cacheDir, recursive = FALSE, full.names = TRUE))
+    cacheFiles <- normalizePath(cacheFiles)
+    
+    # determine the list of tiles that were not yielded by the passed sourceCpp
+    # result and remove them
+    oldCacheFiles <- cacheFiles[!cacheFiles %in% c(cppSourcePath, buildDirectory)]
+    unlink(oldCacheFiles, recursive = TRUE)
 }
 
 # Define a single C++ function
@@ -202,6 +238,7 @@ cppFunction <- function(code,
                         includes = character(),
                         env = parent.frame(),
                         rebuild = FALSE,
+                        cacheDir = getOption("rcpp.cache.dir", tempdir()),
                         showOutput = verbose,
                         verbose = getOption("verbose")) {
 
@@ -258,6 +295,7 @@ cppFunction <- function(code,
     exported <- sourceCpp(code = code,
                           env = env,
                           rebuild = rebuild,
+                          cacheDir = cacheDir,
                           showOutput = showOutput,
                           verbose = verbose)
 
@@ -304,6 +342,7 @@ evalCpp <- function(code,
                     plugins = character(), 
                     includes = character(),
                     rebuild = FALSE,
+                    cacheDir = getOption("rcpp.cache.dir", tempdir()),
                     showOutput = verbose,
                     verbose = getOption( "verbose" ) ){
 
@@ -312,7 +351,7 @@ evalCpp <- function(code,
     env <- new.env()
     cppFunction(code, depends = depends, plugins = plugins,
                 includes = includes, env = env,
-                rebuild = rebuild, showOutput = showOutput, verbose = verbose )
+                rebuild = rebuild, cacheDir = cacheDir, showOutput = showOutput, verbose = verbose )
     fun <- env[["get_value"]]
     fun()
 }
@@ -989,3 +1028,92 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
     }
     .hasDevelTools
 }
+
+
+# insert a dynlib entry into the cache
+.sourceCppDynlibInsert <- function(cacheDir, file, code, dynlib) {
+    cache <- .sourceCppDynlibReadCache(cacheDir)
+    index <- .sourceCppFindCacheEntryIndex(cache, file, code)
+    if (is.null(index))
+        index <- length(cache) + 1
+    cache[[index]] <- list(file = file, code = code, dynlib = dynlib)
+    .sourceCppDynlibWriteCache(cacheDir, cache)
+}
+
+# attempt to lookup a dynlib entry from the cache
+.sourceCppDynlibLookup <- function(cacheDir, file, code) {
+    cache <- .sourceCppDynlibReadCache(cacheDir)
+    index <- .sourceCppFindCacheEntryIndex(cache, file, code)
+    if (!is.null(index))
+        cache[[index]]$dynlib
+    else
+        list()
+}
+
+# write the cache to disk
+.sourceCppDynlibWriteCache <- function(cacheDir, cache) {
+    index_file <- file.path(cacheDir, "cache.rds")
+    save(cache, file = index_file, compress = FALSE)
+}
+
+# read the cache from disk 
+.sourceCppDynlibReadCache <- function(cacheDir) {
+    index_file <- file.path(cacheDir, "cache.rds")
+    if (file.exists(index_file)) {
+        load(file = index_file)
+        get("cache")
+    } else {
+        list()
+    }
+}
+
+# search the cache for an entry that matches the file or code argument
+.sourceCppFindCacheEntryIndex <- function(cache, file, code) {
+    
+    if (length(cache) > 0) {
+        for (i in 1:length(cache)) {
+            entry <- cache[[i]]
+            if ((nzchar(file) && identical(file, entry$file)) ||
+                (nzchar(code) && identical(code, entry$code))) {
+                if (file.exists(entry$dynlib$cppSourcePath))
+                    return(i)
+            }
+        }
+    }
+    
+    # none found
+    NULL
+}
+
+# generate an R version / Rcpp version specific cache dir for dynlibs
+.sourceCppPlatformCacheDir <- function(cacheDir) {
+    
+    dir <- file.path(cacheDir,
+                     paste(R.version$platform,
+                           utils::packageVersion("Rcpp"),
+                           sep = "-"))
+    if (!dir.exists(dir))
+        dir.create(dir, recursive = TRUE)
+    
+    dir
+}
+
+# generate a unique token for a cacheDir
+.sourceCppDynlibUniqueToken <- function(cacheDir) {
+    # read existing token (or create a new one)
+    token_file <- file.path(cacheDir, "token.rds")
+    if (file.exists(token_file))
+        load(file = token_file)
+    else
+        token <- 0
+    
+    # increment
+    token <- token + 1
+    
+    # write it
+    save(token, file = token_file)
+    
+    # return it as a string
+    as.character(token)
+}
+

@@ -1,3 +1,10 @@
+2016-07-11  J.J. Allaire <jj@rstudio.org>
+
+        * R/Attributes.R Add cacheDir argument to sourceCpp to enable caching of 
+        shared libraries across R sessions
+        * src/attributes.cpp Add cacheDir argument to sourceCpp to enable caching of 
+        shared libraries across R sessions
+
 2016-07-03  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version): Rolling minor version

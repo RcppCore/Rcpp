@@ -9,9 +9,10 @@ Evaluates a C++ expression. This creates a C++ function using
 \code{\link{cppFunction}} and calls it to get the result. 
 }
 \usage{
-evalCpp(code, depends = character(), plugins = character(),
-        includes = character(), rebuild = FALSE, showOutput = verbose, 
-        verbose = getOption("verbose"))
+evalCpp(code, depends = character(), plugins = character(), includes = character(), 
+        rebuild = FALSE, cacheDir = getOption("rcpp.cache.dir", tempdir()),
+        showOutput = verbose, verbose = getOption("verbose"))
+
 areMacrosDefined(names, depends = character(), includes = character(), 
         rebuild = FALSE, showOutput = verbose, 
         verbose = getOption("verbose"))
@@ -34,6 +35,9 @@ see \code{\link{cppFunction}}
 }
   \item{rebuild}{
 see \code{\link{cppFunction}}
+}
+  \item{cacheDir}{
+    Directory to use for caching shared libraries. If the underlying code passed to \code{sourceCpp} has not changed since the last invocation then a cached version of the shared library is used. The default value of \code{tempdir()} results in the cache being valid only for the current R session. Pass an alternate directory to preserve the cache across R sessions.
 }
   \item{showOutput}{
 see \code{\link{cppFunction}}

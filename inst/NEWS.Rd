@@ -33,6 +33,8 @@
     }
     \item Changes in Rcpp Attributes:
     \itemize{
+      \item Add \code{cacheDir} argument to \code{sourceCpp()} to enable caching of 
+        shared libraries across R sessions.
       \item Code generation now deals correctly which packages containing a dot
       in their name (Qiang in \ghpr{501} fixing \ghit{500})
     }

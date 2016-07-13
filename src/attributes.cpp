@@ -48,11 +48,29 @@ namespace attributes {
     // Utility class for getting file existence and last modified time
     class FileInfo {
     public:
+    
+        // create from path
         explicit FileInfo(const std::string& path);
+        
+        // create from R list
+        explicit FileInfo(const List& fileInfo) {
+            path_ = as<std::string>(fileInfo["path"]);
+            exists_ = as<bool>(fileInfo["exists"]);
+            lastModified_ = as<double>(fileInfo["lastModified"]);
+        }
+    
+        // convert to R list
+        List toList() const {
+            List fileInfo;
+            fileInfo["path"] = path_;
+            fileInfo["exists"] = exists_;
+            fileInfo["lastModified"] = lastModified_;
+            return fileInfo;
+        }
 
         std::string path() const { return path_; }
         bool exists() const { return exists_; }
-        time_t lastModified() const { return lastModified_; }
+        double lastModified() const { return lastModified_; }
 
         std::string extension() const {
             std::string::size_type pos = path_.find_last_of('.');
@@ -84,7 +102,7 @@ namespace attributes {
     private:
         std::string path_;
         bool exists_;
-        time_t lastModified_;
+        double lastModified_;
     };
 
     // Remove a file
@@ -2668,7 +2686,7 @@ namespace attributes {
                 throw Rcpp::file_io_error(errno, path);
         } else {
             exists_ = true;
-            lastModified_ = buffer.st_mtime;
+            lastModified_ = static_cast<double>(buffer.st_mtime);
         }
     }
 
@@ -2822,7 +2840,9 @@ namespace {
     public:
         SourceCppDynlib() {}
 
-        SourceCppDynlib(const std::string& cppSourcePath, Rcpp::List platform)
+        SourceCppDynlib(const std::string& cacheDir, 
+                        const std::string& cppSourcePath, 
+                        Rcpp::List platform)
             :  cppSourcePath_(cppSourcePath)
 
         {
@@ -2841,18 +2861,72 @@ namespace {
 
             // generate temp directory
             Rcpp::Function tempfile = Rcpp::Environment::base_env()["tempfile"];
-            buildDirectory_ = Rcpp::as<std::string>(tempfile("sourcecpp_"));
+            buildDirectory_ = Rcpp::as<std::string>(tempfile("sourcecpp_", cacheDir));
             std::replace(buildDirectory_.begin(), buildDirectory_.end(), '\\', '/');
             Rcpp::Function dircreate = Rcpp::Environment::base_env()["dir.create"];
             dircreate(buildDirectory_);
 
             // generate a random context id
-            contextId_ = "sourceCpp_" + uniqueToken();
+            contextId_ = "sourceCpp_" + uniqueToken(cacheDir);
 
             // regenerate the source code
-            regenerateSource();
+            regenerateSource(cacheDir);
         }
-
+        
+        // create from list
+        explicit SourceCppDynlib(const Rcpp::List& dynlib) 
+        {
+            using namespace Rcpp;
+            
+            cppSourcePath_ = as<std::string>(dynlib["cppSourcePath"]);
+            generatedCpp_ = as<std::string>(dynlib["generatedCpp"]);
+            cppSourceFilename_ = as<std::string>(dynlib["cppSourceFilename"]);
+            contextId_ = as<std::string>(dynlib["contextId"]);
+            buildDirectory_ = as<std::string>(dynlib["buildDirectory"]);
+            fileSep_ = as<std::string>(dynlib["fileSep"]);
+            dynlibFilename_ = as<std::string>(dynlib["dynlibFilename"]);
+            previousDynlibFilename_ = as<std::string>(dynlib["previousDynlibFilename"]);      
+            dynlibExt_ = as<std::string>(dynlib["dynlibExt"]);
+            exportedFunctions_ = as<std::vector<std::string> >(dynlib["exportedFunctions"]);
+            modules_ = as<std::vector<std::string> >(dynlib["modules"]);
+            depends_ = as<std::vector<std::string> >(dynlib["depends"]);
+            plugins_ = as<std::vector<std::string> >(dynlib["plugins"]);
+            embeddedR_ = as<std::vector<std::string> >(dynlib["embeddedR"]);
+            List sourceDependencies = as<List>(dynlib["sourceDependencies"]);
+            for (R_xlen_t i = 0; i<sourceDependencies.length(); i++) {
+                List fileInfo = as<List>(sourceDependencies.at(i));
+                sourceDependencies_.push_back(FileInfo(fileInfo)); 
+            }
+        }
+        
+        // convert to list
+        Rcpp::List toList() const {
+            using namespace Rcpp;
+            List dynlib;
+            dynlib["cppSourcePath"] = cppSourcePath_;
+            dynlib["generatedCpp"] = generatedCpp_;
+            dynlib["cppSourceFilename"] = cppSourceFilename_;
+            dynlib["contextId"] = contextId_;
+            dynlib["buildDirectory"] = buildDirectory_;
+            dynlib["fileSep"] = fileSep_;
+            dynlib["dynlibFilename"] = dynlibFilename_;
+            dynlib["previousDynlibFilename"] = previousDynlibFilename_;
+            dynlib["dynlibExt"] = dynlibExt_;
+            dynlib["exportedFunctions"] = exportedFunctions_;
+            dynlib["modules"] = modules_;
+            dynlib["depends"] = depends_;
+            dynlib["plugins"] = plugins_;
+            dynlib["embeddedR"] = embeddedR_;
+            List sourceDependencies;
+            for (std::size_t i = 0; i<sourceDependencies_.size(); i++) {
+                FileInfo fileInfo = sourceDependencies_.at(i);
+                sourceDependencies.push_back(fileInfo.toList());
+            }
+            dynlib["sourceDependencies"] = sourceDependencies;
+            
+            return dynlib;
+        }
+        
         bool isEmpty() const { return cppSourcePath_.empty(); }
 
         bool isBuilt() const { return FileInfo(dynlibPath()).exists(); };
@@ -2876,12 +2950,12 @@ namespace {
             // not dirty
             return false;
         }
-
-        void regenerateSource() {
+        
+        void regenerateSource(const std::string& cacheDir) {
 
             // create new dynlib filename
             previousDynlibFilename_ = dynlibFilename_;
-            dynlibFilename_ = "sourceCpp_" + uniqueToken() + dynlibExt_;
+            dynlibFilename_ = "sourceCpp_" + uniqueToken(cacheDir) + dynlibExt_;
 
             // copy the source file to the build dir
             Rcpp::Function filecopy = Rcpp::Environment::base_env()["file.copy"];
@@ -3071,10 +3145,10 @@ namespace {
 
         }
 
-        std::string uniqueToken() {
-            std::ostringstream ostr;
-            ostr << s_nextUniqueToken++;
-            return ostr.str();
+        std::string uniqueToken(const std::string& cacheDir) {
+            Rcpp::Environment rcppEnv = Rcpp::Environment::namespace_env("Rcpp");
+            Rcpp::Function uniqueTokenFunc = rcppEnv[".sourceCppDynlibUniqueToken"];
+            return Rcpp::as<std::string>(uniqueTokenFunc(cacheDir));
         }
 
     private:
@@ -3093,134 +3167,122 @@ namespace {
         std::vector<std::string> plugins_;
         std::vector<std::string> embeddedR_;
         std::vector<FileInfo> sourceDependencies_;
-        static int s_nextUniqueToken;
     };
-
-    // initialize next unique token
-    int SourceCppDynlib::s_nextUniqueToken = 0;
 
     // Dynlib cache that allows lookup by either file path or code contents
-    class SourceCppDynlibCache {
-
-    public:
-        SourceCppDynlibCache() {}
-
-    private:
-        // prohibit copying
-        SourceCppDynlibCache(const SourceCppDynlibCache&);
-        SourceCppDynlibCache& operator=(const SourceCppDynlibCache&);
-
-    public:
-        // Insert into cache by file name
-        SourceCppDynlib* insertFile(const std::string& file,
-                                    const SourceCppDynlib& dynlib) {
-            Entry entry;
-            entry.file = file;
-            entry.dynlib = dynlib;
-            entries_.push_back(entry);
-            return &(entries_.rbegin()->dynlib);
-        }
-
-        // Insert into cache by code
-        SourceCppDynlib* insertCode(const std::string& code,
-                                    const SourceCppDynlib& dynlib) {
-            Entry entry;
-            entry.code = code;
-            entry.dynlib = dynlib;
-            entries_.push_back(entry);
-            return &(entries_.rbegin()->dynlib);
-        }
-
-        // Lookup by file
-        SourceCppDynlib* lookupByFile(const std::string& file) {
-            for (std::size_t i = 0; i < entries_.size(); i++) {
-                if (entries_[i].file == file)
-                    return &(entries_[i].dynlib);
-            }
-
-            return NULL;
-        }
-
-        // Lookup by code
-        SourceCppDynlib* lookupByCode(const std::string& code) {
-            for (std::size_t i = 0; i < entries_.size(); i++) {
-                if (entries_[i].code == code)
-                    return &(entries_[i].dynlib);
-            }
-
-            return NULL;
-        }
-
-    private:
-        struct Entry {
-            std::string file;
-            std::string code;
-            SourceCppDynlib dynlib;
-        };
-        std::vector<Entry> entries_;
-    };
-
+    
+    void dynlibCacheInsert(const std::string& cacheDir,
+                           const std::string& file,
+                           const std::string& code,
+                           const SourceCppDynlib& dynlib)
+    {
+        Rcpp::Environment rcppEnv = Rcpp::Environment::namespace_env("Rcpp");
+        Rcpp::Function dynlibInsertFunc = rcppEnv[".sourceCppDynlibInsert"];
+        dynlibInsertFunc(cacheDir, file, code, dynlib.toList());
+    }
+    
+    void dynlibCacheInsertFile(const std::string& cacheDir,
+                               const std::string& file,
+                               const SourceCppDynlib& dynlib)
+    {
+        dynlibCacheInsert(cacheDir, file, "", dynlib);
+    }
+    
+    void dynlibCacheInsertCode(const std::string& cacheDir,
+                               const std::string& code,
+                               const SourceCppDynlib& dynlib)
+    {
+        dynlibCacheInsert(cacheDir, "", code, dynlib);
+    }
+    
+    SourceCppDynlib dynlibCacheLookup(const std::string& cacheDir,
+                                      const std::string& file,
+                                      const std::string& code)
+    {
+        Rcpp::Environment rcppEnv = Rcpp::Environment::namespace_env("Rcpp");
+        Rcpp::Function dynlibLookupFunc = rcppEnv[".sourceCppDynlibLookup"];
+        Rcpp::List dynlibList = dynlibLookupFunc(cacheDir, file, code);
+        if (dynlibList.length() > 0)
+            return SourceCppDynlib(dynlibList); 
+        else
+            return SourceCppDynlib();
+    }
+    
+    SourceCppDynlib dynlibCacheLookupByFile(const std::string& cacheDir,
+                                            const std::string& file)
+    {
+        return dynlibCacheLookup(cacheDir, file, "");
+    }
+    
+    SourceCppDynlib dynlibCacheLookupByCode(const std::string& cacheDir,
+                                            const std::string& code)
+    {
+        return dynlibCacheLookup(cacheDir, "", code);
+    }
+    
 } // anonymous namespace
 
 // Create temporary build directory, generate code as necessary, and return
 // the context required for the sourceCpp function to complete it's work
 RcppExport SEXP sourceCppContext(SEXP sFile, SEXP sCode,
-                                 SEXP sRebuild, SEXP sPlatform) {
+                                 SEXP sRebuild, SEXP sCacheDir, SEXP sPlatform) {
 BEGIN_RCPP
     // parameters
     std::string file = Rcpp::as<std::string>(sFile);
     std::string code = sCode != R_NilValue ? Rcpp::as<std::string>(sCode) : "";
     bool rebuild = Rcpp::as<bool>(sRebuild);
+    std::string cacheDir = Rcpp::as<std::string>(sCacheDir);
     Rcpp::List platform = Rcpp::as<Rcpp::List>(sPlatform);
 
     // get dynlib (using cache if possible)
-    static SourceCppDynlibCache s_dynlibCache;
-    SourceCppDynlib* pDynlib = !code.empty() ? s_dynlibCache.lookupByCode(code)
-                                             : s_dynlibCache.lookupByFile(file);
+    SourceCppDynlib dynlib = !code.empty() ? dynlibCacheLookupByCode(cacheDir, code)
+                                           : dynlibCacheLookupByFile(cacheDir, file);
 
     // check dynlib build state
     bool buildRequired = false;
 
-    // if there is no dynlib in the cache then create one
-    if (pDynlib == NULL) {
+    // if there is no dynlib in the cache then create a new one
+    if (dynlib.isEmpty()) {
         buildRequired = true;
-        SourceCppDynlib newDynlib(file, platform);
-        if (!code.empty())
-            pDynlib = s_dynlibCache.insertCode(code, newDynlib);
-        else
-            pDynlib = s_dynlibCache.insertFile(file, newDynlib);
+        dynlib = SourceCppDynlib(cacheDir, file, platform);
     }
 
     // if the cached dynlib is dirty then regenerate the source
-    else if (rebuild || pDynlib->isSourceDirty()) {
+    else if (rebuild || dynlib.isSourceDirty()) {
         buildRequired = true;
-        pDynlib->regenerateSource();
+        dynlib.regenerateSource(cacheDir);
     }
 
     // if the dynlib hasn't yet been built then note that
-    else if (!pDynlib->isBuilt()) {
+    else if (!dynlib.isBuilt()) {
         buildRequired = true;
     }
 
+    // save the dynlib to the cache
+    if (!code.empty())
+        dynlibCacheInsertCode(cacheDir, code, dynlib);
+    else
+        dynlibCacheInsertFile(cacheDir, file, dynlib);
+    
     // return context as a list
     using namespace Rcpp;
     return List::create(
-        _["contextId"] = pDynlib->contextId(),
-        _["cppSourcePath"] = pDynlib->cppSourcePath(),
-        _["cppDependencySourcePaths"] = pDynlib->cppDependencySourcePaths(),
+        _["contextId"] = dynlib.contextId(),
+        _["cppSourcePath"] = dynlib.cppSourcePath(),
+        _["cppDependencySourcePaths"] = dynlib.cppDependencySourcePaths(),
         _["buildRequired"] = buildRequired,
-        _["buildDirectory"] = pDynlib->buildDirectory(),
-        _["generatedCpp"] = pDynlib->generatedCpp(),
-        _["exportedFunctions"] = pDynlib->exportedFunctions(),
-        _["modules"] = pDynlib->modules(),
-        _["cppSourceFilename"] = pDynlib->cppSourceFilename(),
-        _["rSourceFilename"] = pDynlib->rSourceFilename(),
-        _["dynlibFilename"] = pDynlib->dynlibFilename(),
-        _["dynlibPath"] = pDynlib->dynlibPath(),
-        _["previousDynlibPath"] = pDynlib->previousDynlibPath(),
-        _["depends"] = pDynlib->depends(),
-        _["plugins"] = pDynlib->plugins(),
-        _["embeddedR"] = pDynlib->embeddedR());
+        _["buildDirectory"] = dynlib.buildDirectory(),
+        _["generatedCpp"] = dynlib.generatedCpp(),
+        _["exportedFunctions"] = dynlib.exportedFunctions(),
+        _["modules"] = dynlib.modules(),
+        _["cppSourceFilename"] = dynlib.cppSourceFilename(),
+        _["rSourceFilename"] = dynlib.rSourceFilename(),
+        _["dynlibFilename"] = dynlib.dynlibFilename(),
+        _["dynlibPath"] = dynlib.dynlibPath(),
+        _["previousDynlibPath"] = dynlib.previousDynlibPath(),
+        _["depends"] = dynlib.depends(),
+        _["plugins"] = dynlib.plugins(),
+        _["embeddedR"] = dynlib.embeddedR());
 END_RCPP
 }
 
