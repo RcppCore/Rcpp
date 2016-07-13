@@ -1089,7 +1089,8 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
 .sourceCppPlatformCacheDir <- function(cacheDir) {
     
     dir <- file.path(cacheDir,
-                     paste(R.version$platform,
+                     paste("sourceCpp",
+                           R.version$platform,
                            utils::packageVersion("Rcpp"),
                            sep = "-"))
     if (!dir.exists(dir))
