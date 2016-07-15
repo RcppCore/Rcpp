@@ -1,3 +1,7 @@
+2016-07-15  Dirk Eddelbuettel  <edd@debian.org>
+
+        * vignettes/Rcpp-FAQ.Rnw: Also point to Rcpp-attributes in Question 1
+
 2016-07-13  Dirk Eddelbuettel  <edd@debian.org>
 
         * NAMESPACE: Add import for glob2rx to please R CMD check

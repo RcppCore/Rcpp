@@ -77,13 +77,15 @@ require(highlight)
 
 If you have \pkg{Rcpp} installed, please execute the following command in \proglang{R}
 to access the introductory vignette (which is a variant of the \citet{JSS:Rcpp}
-paper) for a detailed introduction:
+paper) for a detailed introduction, ideally followed by at least the 
+Rcpp Attributes \citep{CRAN:Rcpp:Attributes} vignette:
 
 <<eval=FALSE>>=
 vignette("Rcpp-introduction")
+vignette("Rcpp-attributes")      
 @
 
-If you do not have \pkg{Rcpp} installed, the document should also be available
+If you do not have \pkg{Rcpp} installed, these documents should also be available
 whereever you found this document, \textsl{i.e.,} on every mirror of CRAN site.
 
 \subsection{What do I need ?}
