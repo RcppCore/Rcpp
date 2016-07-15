@@ -668,9 +668,9 @@ library paths. A solution is outlined
 
 In short, you want to add this entry to your \texttt{~/.R/Makevars}:
 
-\begin{verbatim}
+<<lang=bash>>=
 FLIBS=`gfortran -print-search-dirs | grep ^libraries: | sed 's|libraries: =||' | sed 's|:| -L|g' | sed 's|^|-L|'`
-\end{verbatim}
+@
 
 This invocation explicitly asks and constructs the library link paths
 from the \texttt{gfortran}'s reported search paths, and produces a set
@@ -692,6 +692,7 @@ exposure to a number of advanced Rcpp users.  The
 
 Several dozen fully documented examples are provided at the
 \href{http://gallery.rcpp.org}{Rcpp Gallery} -- which is also open for new contributions.
+
 
 \subsection{Can I use templates with \pkg{Rcpp} ? }
 
@@ -1182,6 +1183,61 @@ A good discussion is available at
 concering data.frame creation with \pkg{Rcpp}. One solution offers a custom
 \code{ListBuilder} class to circumvent the limit; another suggests to simply
 nest lists.
+
+\subsection{Can I use default function parameters with \pkg{Rcpp}?}
+
+Yes, you can use default parameters with \textit{some} limitations. 
+The limitations are mainly related to string literals and empty vectors.
+This is what is currently supported:
+
+\begin{itemize}
+\item String literals delimited by quotes (e.g. \code{"foo"})
+\item Integer and Decimal numeric values (e.g. \code{10} or \code{4.5})
+\item Pre-defined constants including:
+\begin{itemize}
+\item Booleans: \code{true} and \code{false}
+\item Null Values: \code{R_NilValue}, \code{NA_STRING},
+\code{NA_INTEGER}, \code{NA_REAL}, and \code{NA_LOGICAL}.
+\end{itemize}
+\item Selected vector types can be instantiated using the empty form of the
+\code{::create} static member function.
+\begin{itemize}
+\item \code{CharacterVector}, \code{IntegerVector}, and
+\code{NumericVector}
+\end{itemize}
+\item Matrix types instantiated using the rows, cols constructor \code{Rcpp::<Type>Matrix n(rows,cols)}
+\begin{itemize}
+\item \code{CharacterMatrix}, \code{IntegerMatrix}, and
+\code{NumericMatrix})
+\end{itemize}
+\end{itemize}
+
+To illustrate, please consider the following example that provides a short
+how to:
+
+<<lang=cpp>>=
+#include <Rcpp.h>
+
+// [[Rcpp::export]]
+void sample_defaults(NumericVector x = NumericVector::create(), // Size 0 vector
+                     bool bias = true,                          // Set to true
+                     std::string method = "rcpp rules!"){       // Default string
+  Rcpp::Rcout << "x size: " << x.size() << ", ";
+  Rcpp::Rcout << "bias value: " << bias << ", ";
+  Rcpp::Rcout << "method value: " << method << std::endl;
+}
+
+/*** R
+sample_defaults()                  # all defaults
+sample_defaults(1:5)               # supply x values
+sample_defaults(bias = FALSE,
+                method = "rstats") # supply bool and string
+*/
+@ 
+
+Note: In \code{cpp}, the default \code{bool} values are \code{true} and 
+\code{false} whereas in R the valid types are \code{TRUE} or \code{FALSE}.
+
 
 
 \section{Support}

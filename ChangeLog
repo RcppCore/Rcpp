@@ -1,3 +1,7 @@
+2016-07-15  James J Balamuta  <balamut2@illinois.edu>
+
+        * vignettes/Rcpp-FAQ.Rnw: Added section on default function parameters
+
 2016-07-15  Dirk Eddelbuettel  <edd@debian.org>
 
         * vignettes/Rcpp-FAQ.Rnw: Also point to Rcpp-attributes in Question 1
