@@ -1196,8 +1196,8 @@ This is what is currently supported:
 \item Pre-defined constants including:
 \begin{itemize}
 \item Booleans: \code{true} and \code{false}
-\item Null Values: \code{R_NilValue}, \code{NA_STRING},
-\code{NA_INTEGER}, \code{NA_REAL}, and \code{NA_LOGICAL}.
+\item Null Values: \code{R\_NilValue}, \code{NA\_STRING},
+\code{NA\_INTEGER}, \code{NA\_REAL}, and \code{NA\_LOGICAL}.
 \end{itemize}
 \item Selected vector types can be instantiated using the empty form of the
 \code{::create} static member function.
@@ -1222,9 +1222,9 @@ how to:
 void sample_defaults(NumericVector x = NumericVector::create(), // Size 0 vector
                      bool bias = true,                          // Set to true
                      std::string method = "rcpp rules!"){       // Default string
-  Rcpp::Rcout << "x size: " << x.size() << ", ";
-  Rcpp::Rcout << "bias value: " << bias << ", ";
-  Rcpp::Rcout << "method value: " << method << std::endl;
+    Rcpp::Rcout << "x size: " << x.size() << ", ";
+    Rcpp::Rcout << "bias value: " << bias << ", ";
+    Rcpp::Rcout << "method value: " << method << std::endl;
 }
 
 /*** R
