@@ -135,6 +135,8 @@ public:
 		R_xlen_t index;
 	} ;
 
+        typedef iterator const_iterator;
+
 	inline iterator begin() const { return iterator(*this, 0) ; }
 	inline iterator end() const { return iterator(*this, size() ) ; }
 
