@@ -39,6 +39,13 @@
       \item Code generation now deals correctly which packages containing a dot
       in their name (Qiang in \ghpr{501} fixing \ghit{500}).
     }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item A section on default parameters was added to the Rcpp FAQ vignette
+      (James Balamuta in \ghpr{505} fixing \ghit{418}).
+      \item The Rcpp-attributes vignette is now mentioned more prominently in
+      question one of the Rcpp FAQ vignette.
+    }
   }
 }
       
