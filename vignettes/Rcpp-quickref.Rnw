@@ -64,8 +64,11 @@ prettyDate <- format(Sys.Date(), "%B %e, %Y")
 // If you experience compiler errors, please check that you have an appropriate version of g++. See `Rcpp-FAQ' for more information.
 
 // Many of the examples here imply the following:
+#include <Rcpp.h>
 using namespace Rcpp;
-// The inline package adds this for you. Alternately, use e.g.:
+// The cppFunction will automatically add this.
+
+// Or, prefix Rcpp objects with the Rcpp namespace e.g.:
 Rcpp::NumericVector xx(10);
 @
 
@@ -90,7 +93,7 @@ NumericVector xx = NumericVector::create(
     1.0, 2.0, 3.0, 4.0 );
 NumericVector yy = NumericVector::create(
     Named["foo"] = 1.0,
-    _["bar"]     = 2.0 );  // short for Named
+        _["bar"] = 2.0 );  // _ short for Named
 @
 
 \paragraph{Extract and set single elements}~
@@ -147,20 +150,23 @@ NumericVector zz1 = xx( _, 1);
 NumericMatrix zz2 = xx( Range(0,2), Range(0,2));
 @
 
-\paragraph{Inline}~
+\paragraph{Inline C++ Compile in R}~
   \newline
 <<lang=cpp>>=
-## Note - this is R code. inline allows rapid testing.
-require(inline)
-testfun = cxxfunction(
-            signature(x="numeric", i="integer"),
-            body = '
-                NumericVector xx(x);
-                int ii = as<int>(i);
-                xx = xx * ii;
-                return( xx );
-            ', plugin="Rcpp")
-testfun(1:5, 3)
+## Note - this is R code. 
+## cppFunction in Rcpp allows rapid testing.
+require(Rcpp)
+
+cppFunction("
+NumericVector exfun(NumericVector x, int i){
+    x = x*i;
+    return x;
+}")
+
+exfun(1:5, 3)
+
+## Use evalCpp to evaluate C++ expressions
+evalCpp("std::numeric_limits<double>::max()")
 @
 
 \paragraph{Interface with R}~
@@ -222,95 +228,74 @@ double s2 = std::inner_product(res.begin(),
     res.end(), res.begin(), 0.0);
 @
 
-\paragraph{Function}~
+\paragraph{Rcpp Attributes}~
   \newline
 <<lang=cpp>>=
-Function rnorm("rnorm");
-rnorm(100, _["mean"] = 10.2, _["sd"] = 3.2 );
+// Add code below into C++ file Rcpp_example.cpp
+
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// Place the export tag right above function declaration.
+
+// [[Rcpp::export]]
+double muRcpp(NumericVector x){
+    int n = x.size(); // Size of vector
+    double sum = 0;   // Sum value         
+    
+    // For loop, note cpp index shift to 0
+    for(int i = 0; i < n; i++){ 
+        // Shorthand for sum = sum + x[i]
+        sum += x[i];            
+    }
+    
+    return sum/n;  // Obtain and return the Mean
+}
+
+// Place dependent functions above call or 
+// declare the function definition with:
+double muRcpp(NumericVector x);
+
+// [[Rcpp::export]]
+double varRcpp(NumericVector x, bool bias = true){
+    // Calculate the mean using C++ function
+    double mean = muRcpp(x);  
+    double sum = 0;
+    int n = x.size();
+    
+    for(int i = 0; i < n; i++){   
+        sum += pow(x[i] - mean, 2.0); // Square
+    }
+    
+    return sum/(n-bias); // Return variance 
+}
+
+## In R:
+require(Rcpp)
+sourceCpp("path/to/file/Rcpp_example.cpp")
+x = 1:5;
+all.equal(muRcpp(x), mean(x)); all.equal(var(x),varRcpp(x))
+## TRUE
 @
 
-\paragraph{Environment}~
-    \newline
-<<lang=cpp>>=
-Environment stats("package:stats");
-Environment env( 2 ); // by position
 
-// special environments
-Environment::Rcpp_namespace();
-Environment::base_env();
-Environment::base_namespace();
-Environment::global_env();
-Environment::empty_env();
 
-Function rnorm = stats["rnorm"];
-glob["x"] = "foo";
-glob["y"] = 3;
-std::string x = glob["x"];
-
-glob.assign( "foo" , 3 );
-int foo = glob.get( "foo" );
-int foo = glob.find( "foo" );
-CharacterVector names = glob.ls()
-bool b = glob.exists( "foo" );
-glob.remove( "foo" );
-
-glob.lockBinding("foo");
-glob.unlockBinding("foo");
-bool b = glob.bindingIsLocked("foo");
-bool b = glob.bindingIsActive("foo");
-
-Environment e = stats.parent();
-Environment e = glob.new_child();
-@
-
-\paragraph{Modules}~
+\paragraph{Rcpp Extensions}~
   \newline
 <<lang=cpp>>=
-// Warning -- At present, module-based objects do not persist across quit(save="yes")/reload cycles.  To be safe, save results to R objects and remove module objects before exiting R.
+// Enable C++11
+// [[Rcpp::plugins(cpp11)]]
 
-// To create a module-containing package from R, use:
-Rcpp.package.skeleton("mypackage",module=TRUE)
-// You will need to edit the RcppModules: line of the DESCRIPTION file to match your module name (in this example, from yada to mod_bar).
+// Enable OpenMP (excludes macOS)
+// [[Rcpp::plugins(openmp)]]
 
-class Bar {
-  public:
-    Bar(double x_) :
-      x(x_), nread(0), nwrite(0) {}
-
-    double get_x( ) {
-      nread++;    return x;
-    }
-
-    void set_x( double x_) {
-      nwrite++;   x = x_;
-    }
-
-    IntegerVector stats() const {
-      return IntegerVector::create(
-        _["read"] = nread,
-        _["write"] = nwrite);
-    }
-  private:
-    double x; int nread, nwrite;
-};
-
-RCPP_MODULE(mod_bar) {
-  class_<Bar>( "Bar" )
-  .constructor<double>()
-  .property( "x", &Bar::get_x, &Bar::set_x,
-    "Docstring for x" )
-  .method( "stats", &Bar::stats,
-    "Docstring for stats")
-;}
-
-## The following is R code.
-require(mypackage); show(Bar)
-b <- new(Bar, 10);  b$x <- 10
-b_persist <- list(stats=b$stats(), x=b$x)
-rm(b)
+// Use the RcppArmadillo package
+// Requires different header file from Rcpp.h
+#include <RcppArmadillo.h>
+// [[Rcpp::depends(RcppArmadillo)]]
 @
 
-\newpage
+
 
 \paragraph{Rcpp sugar}~
   \newline
@@ -384,6 +369,123 @@ NumericVector yy = dnorm(quants, 0.0, 2.0, true) ;
 double zz = Rf_rnorm(0, 2);
 @
 
+
+
+\newpage
+
+\paragraph{Environment}~
+    \newline
+<<lang=cpp>>=
+// Obtain an R environment
+Environment stats("package:stats");
+Environment env( 2 ); // by position
+
+// Special environments
+Environment::Rcpp_namespace();
+Environment::base_env();
+Environment::base_namespace();
+Environment::global_env();
+Environment::empty_env();
+
+// Extract function from specific
+// environment
+Function rnorm = stats["rnorm"];
+
+// Assign into the environment
+glob["x"] = "foo";
+glob["y"] = 3;
+
+// Retrieve information from environment
+std::string x = glob["x"];
+glob.assign( "foo" , 3 );
+int foo = glob.get( "foo" );
+int foo = glob.find( "foo" );
+CharacterVector names = glob.ls()
+bool b = glob.exists( "foo" );
+glob.remove( "foo" );
+
+// Administration
+glob.lockBinding("foo");
+glob.unlockBinding("foo");
+bool b = glob.bindingIsLocked("foo");
+bool b = glob.bindingIsActive("foo");
+
+// Retrieve related environments
+Environment e = stats.parent();
+Environment e = glob.new_child();
+@
+
+\paragraph{Calling Functions in R}~
+  \newline
+<<lang=cpp>>=
+// Do NOT expect to have a performance gain
+// when calling R functions from R! 
+
+// Retrieve functions from default loaded environment
+Function rnorm("rnorm");
+rnorm(100, _["mean"] = 10.2, _["sd"] = 3.2 );
+
+// Passing in an R function and obtaining results
+// Make sure the function conforms with return type!
+NumericVector callFunction(NumericVector x, 
+                           Function f) {
+    NumericVector res = f(x);
+    return res;
+}
+
+## In R:
+x = 1:5
+callFunction(x, sum)
+@
+
+\newpage
+
+\paragraph{Modules}~
+  \newline
+<<lang=cpp>>=
+// Warning -- At present, module-based objects do not persist across quit(save="yes")/reload cycles.  To be safe, save results to R objects and remove module objects before exiting R.
+
+// To create a module-containing package from R, use:
+Rcpp.package.skeleton("mypackage",module=TRUE)
+// You will need to edit the RcppModules: line of the DESCRIPTION file to match your module name (in this example, from yada to mod_bar).
+
+class Bar {
+  public:
+    Bar(double x_) :
+      x(x_), nread(0), nwrite(0) {}
+
+    double get_x( ) {
+      nread++;    return x;
+    }
+
+    void set_x( double x_) {
+      nwrite++;   x = x_;
+    }
+
+    IntegerVector stats() const {
+      return IntegerVector::create(
+        _["read"] = nread,
+        _["write"] = nwrite);
+    }
+  private:
+    double x; int nread, nwrite;
+};
+
+RCPP_MODULE(mod_bar) {
+  class_<Bar>( "Bar" )
+  .constructor<double>()
+  .property( "x", &Bar::get_x, &Bar::set_x,
+    "Docstring for x" )
+  .method( "stats", &Bar::stats,
+    "Docstring for stats")
+;}
+
+## The following is R code.
+require(mypackage); show(Bar)
+b <- new(Bar, 10);  b$x <- 10
+b_persist <- list(stats=b$stats(), x=b$x)
+rm(b)
+@
 
 
 \end{document}
