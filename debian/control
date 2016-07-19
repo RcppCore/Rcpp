@@ -2,8 +2,8 @@ Source: rcpp
 Section: gnu-r
 Priority: optional
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
-Build-Depends: debhelper (>= 7.0.0), r-base-dev (>= 3.3.0), cdbs, r-cran-codetools, r-cran-pkgkitten
-Standards-Version: 3.9.7
+Build-Depends: debhelper (>= 7.0.0), r-base-dev (>= 3.3.1), cdbs, r-cran-codetools, r-cran-pkgkitten
+Standards-Version: 3.9.8
 Homepage: http://dirk.eddelbuettel.com/code/rcpp.html
 
 Package: r-cran-rcpp

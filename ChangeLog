@@ -1,9 +1,24 @@
+2016-07-18  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.12.6
+        * inst/NEWS.Rd: Release 0.12.6
+	* vignettes/Rcpp.bib: Release 0.12.6, RProtoBuf updates
+        * inst/include/Rcpp/config.h: Release 0.12.6
+
+        * README.md: Updated counts for dependents and tests
+
+        * debian/*: Changes for Debian release of 0.12.5
+
 2016-07-17  James J Balamuta  <balamut2@illinois.edu>
 
         * vignettes/Rcpp-quickref.Rnw: Added sections on Rcpp attributes and
-        plugins. Facelifts on important notes, inline, environments, and 
-        calling R functions.
-        
+        plugins. Facelifts on important notes, inline, environments, and calling
+        R functions.
+
+2016-07-16  Daniel C. Dillon  <dcdillon@gmail.com>
+
+        * Added a const_interator typedef to VectorBase
+
 2016-07-15  James J Balamuta  <balamut2@illinois.edu>
 
         * vignettes/Rcpp-FAQ.Rnw: Added section on default function parameters

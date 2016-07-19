@@ -41,16 +41,15 @@
     }
     \item Changes in Rcpp Documentation:
     \itemize{
-      \item The Rcpp Quick Reference vignette received a facelift with 
-        new sections on Rcpp attributes and plugins begin added.
-        Furthermore, content was improved in the following
-        sections: important notes, inline compiling, environments,
-        and calling R functions.
-      (James Balamuta in \ghpr{509} fixing \ghit{484}).
       \item A section on default parameters was added to the Rcpp FAQ vignette
       (James Balamuta in \ghpr{505} fixing \ghit{418}).
       \item The Rcpp-attributes vignette is now mentioned more prominently in
       question one of the Rcpp FAQ vignette.
+      \item The Rcpp Quick Reference vignette received a facelift with new
+      sections on Rcpp attributes and plugins begin added. (James Balamuta in
+      \ghpr{509} fixing \ghit{484}).
+      \item The bib file was updated with respect to the recent JSS publication
+      for RProtoBuf.
     }
   }
 }
