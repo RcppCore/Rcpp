@@ -607,8 +607,8 @@ But for most packages using \pkg{Rcpp}, only two things are required:
   instantiated, for example \code{importFrom(Rcpp, evalCpp)}.
 \end{itemize}
 
-The name of the symbol does really matter; once one symbol is imported all
-should be available.
+The name of the symbol does not really matter; once one symbol is imported all
+symbols should be available.
 
 \subsection{I am having problems building RcppArmadillo on OS X, any help ?}
 \label{q:OSXArma}
