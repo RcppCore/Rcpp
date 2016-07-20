@@ -56,6 +56,12 @@
 #include <R_ext/Rdynload.h>
 #include <Rversion.h>
 
+#if defined(__GNUC__) && __GNUC__ >= 3
+#define NORET __attribute__((noreturn))
+#else
+#define NORET
+#endif
+
 #undef major
 #undef minor
 #undef makedev
