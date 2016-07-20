@@ -1,6 +1,7 @@
 2016-07-18  Kevin Ushey  <kevin@rstudio.com>
 
-        * inst/include/r/headers.h: Ensure NORET macro set appropriately
+        * inst/NEWS.rd: NEWS entry for NORET macro def'n
+        * inst/include/Rcpp/r/headers.h: Ensure NORET macro set appropriately
 
 
 2016-07-18  Dirk Eddelbuettel  <edd@debian.org>

@@ -3,6 +3,16 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
+\section{Changes in Rcpp version 0.12.7 (UNRELEASED)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Rcpp now ensures the \code{NORET} macro is defined, if it is not
+      already defined by R. (addressing issue \ghit{512})
+    }
+  }
+}
+
 \section{Changes in Rcpp version 0.12.6 (2016-07-18)}{
   \itemize{
     \item Changes in Rcpp API:
