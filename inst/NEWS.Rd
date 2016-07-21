@@ -7,8 +7,8 @@
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
-      \item Rcpp now ensures the \code{NORET} macro is defined, if it is not
-      already defined by R. (addressing issue \ghit{512})
+      \item The \code{NORET} macro is now defined if it was not already defined
+      by R (Kevin fixing issue \ghit{512}). 
     }
   }
 }
