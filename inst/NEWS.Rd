@@ -10,6 +10,12 @@
       \item The \code{NORET} macro is now defined if it was not already defined
       by R (Kevin fixing issue \ghit{512}). 
     }
+    \item Changes in Rcpp unit tests
+    \itemize{
+      \item New unit tests for random number generators the R namespace which 
+      call the standalone Rmath library. (James Balamuta in \ghpr{514} 
+      addressing issue \ghit{28}).
+    }
   }
 }
 

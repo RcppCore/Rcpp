@@ -1,3 +1,9 @@
+2016-07-22  James J Balamuta  <balamut2@illinois.edu>
+
+        * inst/unitTests/cpp/rmath.cpp: Added unit test functions for Rmath
+        random number generators.
+        * inst/unitTests/runit.rmath.R: idem
+
 2016-07-21  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version): Roll minor release
