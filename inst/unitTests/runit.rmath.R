@@ -43,7 +43,7 @@ if (.runThisTest) {
                     msg = " rmath.qnorm")
         
         set.seed(333)
-        rcpp_result = runit_rnorm(a, b)
+        rcpp_result <- runit_rnorm(a, b)
         set.seed(333)
         
         checkEquals(rcpp_result,
@@ -71,7 +71,7 @@ if (.runThisTest) {
         
         
         set.seed(333)
-        rcpp_result = runit_runif(a, b)
+        rcpp_result <- runit_runif(a, b)
         set.seed(333)
         
         checkEquals(rcpp_result,
@@ -98,7 +98,7 @@ if (.runThisTest) {
                     msg = " rmath.qgamma")
         
         set.seed(333)
-        rcpp_result = runit_rgamma(a, b)
+        rcpp_result <- runit_rgamma(a, b)
         set.seed(333)
         
         checkEquals(rcpp_result,
@@ -125,7 +125,7 @@ if (.runThisTest) {
                     msg = " rmath.qbeta")
         
         set.seed(333)
-        rcpp_result = runit_rbeta(a, b)
+        rcpp_result <- runit_rbeta(a, b)
         set.seed(333)
         
         checkEquals(rcpp_result,
@@ -153,7 +153,7 @@ if (.runThisTest) {
                     msg = " rmath.qlnorm")
         
         set.seed(333)
-        rcpp_result = runit_rlnorm(a, b)
+        rcpp_result <- runit_rlnorm(a, b)
         set.seed(333)
         
         checkEquals(rcpp_result,
@@ -180,7 +180,7 @@ if (.runThisTest) {
                     msg = " rmath.qchisq")
         
         set.seed(333)
-        rcpp_result = runit_rchisq(a)
+        rcpp_result <- runit_rchisq(a)
         set.seed(333)
         
         checkEquals(rcpp_result,
@@ -228,7 +228,7 @@ if (.runThisTest) {
                     msg = " rmath.qf")
         
         set.seed(333)
-        rcpp_result = runit_rf(a, b)
+        rcpp_result <- runit_rf(a, b)
         set.seed(333)
         
         checkEquals(rcpp_result,
@@ -255,7 +255,7 @@ if (.runThisTest) {
                     msg = " rmath.qt")
         
         set.seed(333)
-        rcpp_result = runit_rt(a)
+        rcpp_result <- runit_rt(a)
         set.seed(333)
         
         checkEquals(rcpp_result,
@@ -284,7 +284,7 @@ if (.runThisTest) {
                     msg = " rmath.qbinom")
         
         set.seed(333)
-        rcpp_result = runit_rbinom(a, b)
+        rcpp_result <- runit_rbinom(a, b)
         set.seed(333)
         
         checkEquals(rcpp_result,
@@ -312,7 +312,7 @@ if (.runThisTest) {
                     msg = " rmath.qcauchy")
         
         set.seed(333)
-        rcpp_result = runit_rcauchy(a, b)
+        rcpp_result <- runit_rcauchy(a, b)
         set.seed(333)
         
         checkEquals(rcpp_result,
@@ -339,7 +339,7 @@ if (.runThisTest) {
                     msg = " rmath.qexp")
         
         set.seed(333)
-        rcpp_result = runit_rexp(a)
+        rcpp_result <- runit_rexp(a)
         set.seed(333)
         
         checkEquals(rcpp_result,
@@ -366,7 +366,7 @@ if (.runThisTest) {
                     msg = " rmath.qgeom")
         
         set.seed(333)
-        rcpp_result = runit_rgeom(a)
+        rcpp_result <- runit_rgeom(a)
         set.seed(333)
         
         checkEquals(rcpp_result,
@@ -395,7 +395,7 @@ if (.runThisTest) {
                     msg = " rmath.qhyper")
         
         set.seed(333)
-        rcpp_result = runit_rhyper(a, b, c)
+        rcpp_result <- runit_rhyper(a, b, c)
         set.seed(333)
         
         checkEquals(rcpp_result,
@@ -424,7 +424,7 @@ if (.runThisTest) {
                     msg = " rmath.qnbinom")
         
         set.seed(333)
-        rcpp_result = runit_rnbinom(a, b)
+        rcpp_result <- runit_rnbinom(a, b)
         set.seed(333)
         
         checkEquals(rcpp_result,
@@ -452,7 +452,7 @@ if (.runThisTest) {
                     msg = " rmath.qpois")
         
         set.seed(333)
-        rcpp_result = runit_rpois(a)
+        rcpp_result <- runit_rpois(a)
         set.seed(333)
         
         checkEquals(rcpp_result,
@@ -481,7 +481,7 @@ if (.runThisTest) {
                     msg = " rmath.qweibull")
         
         set.seed(333)
-        rcpp_result = runit_rweibull(a, b)
+        rcpp_result <- runit_rweibull(a, b)
         set.seed(333)
         
         checkEquals(rcpp_result,
@@ -510,7 +510,7 @@ if (.runThisTest) {
                     msg = " rmath.qlogis")  
         
         set.seed(333)
-        rcpp_result = runit_rlogis(a, b)
+        rcpp_result <- runit_rlogis(a, b)
         set.seed(333)
         
         checkEquals(rcpp_result,
@@ -603,7 +603,7 @@ if (.runThisTest) {
         
         
         set.seed(333)
-        rcpp_result = runit_rwilcox(a, b)
+        rcpp_result <- runit_rwilcox(a, b)
         set.seed(333)
         
         checkEquals(rcpp_result,
