@@ -1,3 +1,9 @@
+2016-07-22  James J Balamuta  <balamut2@illinois.edu>
+        * inst/include/Rcpp/Environment.h: Added get() & find() that accept 
+        a symbol
+        * inst/include/Rcpp.h: Modified header load order so that Symbol.h 
+        is now placed before Environment.h
+
 2016-07-21  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version): Roll minor release
@@ -10,7 +16,7 @@
 
         * DESCRIPTION: Release 0.12.6
         * inst/NEWS.Rd: Release 0.12.6
-	* vignettes/Rcpp.bib: Release 0.12.6, RProtoBuf updates
+        * vignettes/Rcpp.bib: Release 0.12.6, RProtoBuf updates
         * inst/include/Rcpp/config.h: Release 0.12.6
 
         * README.md: Updated counts for dependents and tests
