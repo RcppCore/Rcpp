@@ -9,6 +9,8 @@
     \itemize{
       \item The \code{NORET} macro is now defined if it was not already defined
       by R (Kevin fixing issue \ghit{512}). 
+      \item Environment functions get() & find() now accept a Symbol
+      (James Joseph Balamuta in \ghpr{513} addressing issue \ghit{326}).
     }
   }
 }
