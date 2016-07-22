@@ -33,6 +33,8 @@
 #include <Rcpp/clone.h>
 #include <Rcpp/grow.h>
 #include <Rcpp/Dimension.h>
+
+#include <Rcpp/Symbol.h>
 #include <Rcpp/Environment.h>
 
 #include <Rcpp/Vector.h>
@@ -42,7 +44,6 @@
 #include <Rcpp/Promise.h>
 
 #include <Rcpp/XPtr.h>
-#include <Rcpp/Symbol.h>
 #include <Rcpp/DottedPairImpl.h>
 #include <Rcpp/Function.h>
 #include <Rcpp/Language.h>

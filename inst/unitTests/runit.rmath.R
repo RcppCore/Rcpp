@@ -46,8 +46,10 @@ if (.runThisTest) {
         rcpp_result <- runit_rnorm(a, b)
         set.seed(333)
         
+        r_result <- rnorm(5, a, b)
+        
         checkEquals(rcpp_result,
-                    c(rnorm(1, a, b), rnorm(1, a, b)),
+                    r_result,
                     msg = " rmath.rnorm")
     }
 
@@ -74,8 +76,10 @@ if (.runThisTest) {
         rcpp_result <- runit_runif(a, b)
         set.seed(333)
         
+        r_result <- runif(5, a, b)
+        
         checkEquals(rcpp_result,
-                    c(runif(1, a, b), runif(1, a, b)),
+                    r_result,
                     msg = " rmath.runif")
     }
 
@@ -101,8 +105,10 @@ if (.runThisTest) {
         rcpp_result <- runit_rgamma(a, b)
         set.seed(333)
         
+        r_result <- rgamma(5, a, b)
+        
         checkEquals(rcpp_result,
-                    c(rgamma(1, a, b), rgamma(1, a, b)),
+                    r_result,
                     msg = " rmath.rgamma")
     }
 
@@ -128,8 +134,10 @@ if (.runThisTest) {
         rcpp_result <- runit_rbeta(a, b)
         set.seed(333)
         
+        r_result <- rbeta(5, a, b)
+        
         checkEquals(rcpp_result,
-                    c(rbeta(1, a, b), rbeta(1, a, b)),
+                    r_result,
                     msg = " rmath.rbeta")
     }
 
@@ -156,8 +164,10 @@ if (.runThisTest) {
         rcpp_result <- runit_rlnorm(a, b)
         set.seed(333)
         
+        r_result <- rlnorm(5, a, b)
+        
         checkEquals(rcpp_result,
-                    c(rlnorm(1, a, b), rlnorm(1, a, b)),
+                    r_result,
                     msg = " rmath.rlnorm")
     }
 
@@ -183,8 +193,10 @@ if (.runThisTest) {
         rcpp_result <- runit_rchisq(a)
         set.seed(333)
         
+        r_result <- rchisq(5, a)
+        
         checkEquals(rcpp_result,
-                    c(rchisq(1, a), rchisq(1, a)),
+                    r_result,
                     msg = " rmath.rchisq")
     }
 
@@ -231,8 +243,10 @@ if (.runThisTest) {
         rcpp_result <- runit_rf(a, b)
         set.seed(333)
         
+        r_result <- rf(5, a, b)
+        
         checkEquals(rcpp_result,
-                    c(rf(1, a, b), rf(1, a, b)),
+                    r_result,
                     msg = " rmath.rf")
     }
 
@@ -258,8 +272,10 @@ if (.runThisTest) {
         rcpp_result <- runit_rt(a)
         set.seed(333)
         
+        r_result <- rt(5, a)
+        
         checkEquals(rcpp_result,
-                    c(rt(1, a), rt(1, a)),
+                    r_result,
                     msg = " rmath.rt")
     }
 
@@ -287,8 +303,10 @@ if (.runThisTest) {
         rcpp_result <- runit_rbinom(a, b)
         set.seed(333)
         
+        r_result <- rbinom(5, a, b)
+        
         checkEquals(rcpp_result,
-                    c(rbinom(1, a, b), rbinom(1, a, b)),
+                    r_result,
                     msg = " rmath.rbinom")
     }
 
@@ -315,8 +333,10 @@ if (.runThisTest) {
         rcpp_result <- runit_rcauchy(a, b)
         set.seed(333)
         
+        r_result <- rcauchy(5, a, b)
+        
         checkEquals(rcpp_result,
-                    c(rcauchy(1, a, b), rcauchy(1, a, b)),
+                    r_result,
                     msg = " rmath.rcauchy")
     }
 
@@ -342,8 +362,10 @@ if (.runThisTest) {
         rcpp_result <- runit_rexp(a)
         set.seed(333)
         
+        r_result <- rexp(5, a)
+        
         checkEquals(rcpp_result,
-                    c(rexp(1, a), rexp(1, a)),
+                    r_result,
                     msg = " rmath.rexp")
     }
 
@@ -369,8 +391,10 @@ if (.runThisTest) {
         rcpp_result <- runit_rgeom(a)
         set.seed(333)
         
+        r_result <- rgeom(5, a)
+        
         checkEquals(rcpp_result,
-                    c(rgeom(1, a), rgeom(1, a)),
+                    r_result,
                     msg = " rmath.rgeom")
     }
 
@@ -398,8 +422,10 @@ if (.runThisTest) {
         rcpp_result <- runit_rhyper(a, b, c)
         set.seed(333)
         
+        r_result <- rhyper(5, a, b, c)
+        
         checkEquals(rcpp_result,
-                    c(rhyper(1, a, b, c), rhyper(1, a, b, c)),
+                    r_result,
                     msg = " rmath.rhyper")
     }
 
@@ -427,9 +453,11 @@ if (.runThisTest) {
         rcpp_result <- runit_rnbinom(a, b)
         set.seed(333)
         
+        r_result <- rnbinom(5, a, b)
+        
         checkEquals(rcpp_result,
-                    c(rnbinom(1, a, b), rnbinom(1, a, b)),
-                    msg = " rmath.rbinom")
+                    r_result,
+                    msg = " rmath.rnbinom")
     }
 
 
@@ -455,8 +483,10 @@ if (.runThisTest) {
         rcpp_result <- runit_rpois(a)
         set.seed(333)
         
+        r_result <- rpois(5, a)
+        
         checkEquals(rcpp_result,
-                    c(rpois(1, a), rpois(1, a)),
+                    r_result,
                     msg = " rmath.rpois")
     }
 
@@ -484,8 +514,10 @@ if (.runThisTest) {
         rcpp_result <- runit_rweibull(a, b)
         set.seed(333)
         
+        r_result <- rweibull(5, a, b)
+        
         checkEquals(rcpp_result,
-                    c(rweibull(1, a, b), rweibull(1, a, b)),
+                    r_result,
                     msg = " rmath.rweibull")
     }
 
@@ -513,8 +545,10 @@ if (.runThisTest) {
         rcpp_result <- runit_rlogis(a, b)
         set.seed(333)
         
+        r_result <- rlogis(5, a, b)
+        
         checkEquals(rcpp_result,
-                    c(rlogis(1, a, b), rlogis(1, a, b)),
+                    r_result,
                     msg = " rmath.rlogis")
     }
 
@@ -606,8 +640,10 @@ if (.runThisTest) {
         rcpp_result <- runit_rwilcox(a, b)
         set.seed(333)
         
+        r_result <- rwilcox(5, a, b)
+        
         checkEquals(rcpp_result,
-                    c(rwilcox(1, a, b), rwilcox(1, a, b)),
+                    r_result,
                     msg = " rmath.rwilcox")
     }
 

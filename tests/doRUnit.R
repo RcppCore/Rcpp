@@ -37,8 +37,6 @@ set.seed(42)
 ## Define tests
 testSuite <- defineTestSuite(name = "Rcpp Unit Tests",
                              dirs = system.file("unitTests", package = "Rcpp"),
-                             rngKind = "Mersenne-Twister",
-                             rngNormalKind = "Inversion",
                              testFuncRegexp = "^[Tt]est.+")
 
 ## without this, we get (or used to get) unit test failures
