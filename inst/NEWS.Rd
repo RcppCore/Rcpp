@@ -10,7 +10,10 @@
       \item The \code{NORET} macro is now defined if it was not already defined
       by R (Kevin fixing issue \ghit{512}). 
       \item Environment functions get() & find() now accept a Symbol
-      (James Joseph Balamuta in \ghpr{513} addressing issue \ghit{326}).
+      (James Balamuta in \ghpr{513} addressing issue \ghit{326}).
+      \item When compiling packages with older compilers, a warning message
+      is now triggered on compilers that lack features.
+      (James Balamuta in \ghpr{515} addressing issue \ghit{308}).
     }
   }
 }

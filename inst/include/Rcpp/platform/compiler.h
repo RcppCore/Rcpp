@@ -56,6 +56,12 @@
     #if GCC_VERSION >= 40600
         #define IS_GCC_460_OR_LATER
     #endif
+    // Inform users of dated compiler (e.g. <= RHEL6 )
+    #if GCC_VERSION <= 40602
+        #pragma message ("WARNING: GCC Compiler Version <= 4.6.2")
+        #pragma message ("WARNING: The compiler being used is both OUTDATED and INCOMPLETE in terms of C++ standards;")
+        #pragma message ("WARNING: if something does not work, you should upgrade your compiler!")
+    #endif
 #endif
 
 // Check for the presence of C++0x (or later) support

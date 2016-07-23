@@ -3,7 +3,9 @@
         a symbol
         * inst/include/Rcpp.h: Modified header load order so that Symbol.h 
         is now placed before Environment.h
-
+        * inst/include/Rcpp/platform/compiler.h: Added a pragma message that
+        warns if the compiler being used is GCC <= 4.6.2
+        
 2016-07-21  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version): Roll minor release
