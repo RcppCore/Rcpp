@@ -22,6 +22,9 @@
 #include <Rcpp.h>
 using namespace Rcpp ;
 
+
+// ------------------- Normal Distribution
+
 // [[Rcpp::export]]
 NumericVector runit_dnorm( double x, double a, double b ){
 	     return NumericVector::create(R::dnorm(x, a, b, 0), R::dnorm(x, a, b, 1));
@@ -38,6 +41,18 @@ NumericVector runit_qnorm( double x, double a, double b ){
 	     return NumericVector::create(R::qnorm(x, a, b, 1, 0), R::qnorm(log(x), a, b, 1, 1),
                                           R::qnorm(x, a, b, 0, 0), R::qnorm(log(x), a, b, 0, 1));
 }
+
+// [[Rcpp::export]]
+NumericVector runit_rnorm( double a, double b ){
+    NumericVector o(5);
+    
+    for(int i = 0; i < o.size(); i++)
+        o[i] = R::rnorm(a, b);
+    
+    return o;
+}
+
+// ------------------- Uniform Distribution
 
 // [[Rcpp::export]]
 NumericVector runit_dunif( double x, double a, double b ){
@@ -57,6 +72,19 @@ NumericVector runit_qunif( double x, double a, double b ){
 }
 
 // [[Rcpp::export]]
+NumericVector runit_runif( double a, double b ){
+    NumericVector o(5);
+    
+    for(int i = 0; i < o.size(); i++)
+        o[i] = R::runif(a, b);
+    
+    return o;
+}
+
+
+// ------------------- Gamma Distribution
+
+// [[Rcpp::export]]
 NumericVector runit_dgamma( double x, double a, double b ){
 	     return NumericVector::create(R::dgamma(x, a, b, 0), R::dgamma(x, a, b, 1));
 }
@@ -72,6 +100,19 @@ NumericVector runit_qgamma( double x, double a, double b ){
 	     return NumericVector::create(R::qgamma(x, a, b, 1, 0), R::qgamma(log(x), a, b, 1, 1),
                                           R::qgamma(x, a, b, 0, 0), R::qgamma(log(x), a, b, 0, 1));
 }
+
+// [[Rcpp::export]]
+NumericVector runit_rgamma( double a, double b ){
+    NumericVector o(5);
+    
+    for(int i = 0; i < o.size(); i++)
+        o[i] = R::rgamma(a, b);
+    
+    return o;
+}
+
+
+// ------------------- Beta Distribution
 
 // [[Rcpp::export]]
 NumericVector runit_dbeta( double x, double a, double b ){
@@ -91,6 +132,19 @@ NumericVector runit_qbeta( double x, double a, double b ){
 }
 
 // [[Rcpp::export]]
+NumericVector runit_rbeta( double a, double b ){
+    NumericVector o(5);
+    
+    for(int i = 0; i < o.size(); i++)
+        o[i] = R::rbeta(a, b);
+    
+    return o;
+}
+
+
+// ------------------- Log Normal Distribution
+
+// [[Rcpp::export]]
 NumericVector runit_dlnorm( double x, double a, double b ){
 	     return NumericVector::create(R::dlnorm(x, a, b, 0), R::dlnorm(x, a, b, 1));
 }
@@ -106,6 +160,18 @@ NumericVector runit_qlnorm( double x, double a, double b ){
 	     return NumericVector::create(R::qlnorm(x, a, b, 1, 0), R::qlnorm(log(x), a, b, 1, 1),
                                           R::qlnorm(x, a, b, 0, 0), R::qlnorm(log(x), a, b, 0, 1));
 }
+
+// [[Rcpp::export]]
+NumericVector runit_rlnorm( double a, double b ){
+    NumericVector o(5);
+    
+    for(int i = 0; i < o.size(); i++)
+        o[i] = R::rlnorm(a, b);
+    
+    return o;
+}
+
+// ------------------- Chi-Squared Distribution
 
 // [[Rcpp::export]]
 NumericVector runit_dchisq( double x, double a ){
@@ -125,6 +191,18 @@ NumericVector runit_qchisq( double x, double a ){
 }
 
 // [[Rcpp::export]]
+NumericVector runit_rchisq( double a ){
+    NumericVector o(5);
+    
+    for(int i = 0; i < o.size(); i++)
+        o[i] = R::rchisq(a);
+    
+    return o;
+}
+
+// ------------------- Non-central Chi-Squared Distribution
+
+// [[Rcpp::export]]
 NumericVector runit_dnchisq( double x, double a, double b ){
 	     return NumericVector::create(R::dnchisq(x, a, b, 0), R::dnchisq(x, a, b, 1));
 }
@@ -140,6 +218,8 @@ NumericVector runit_qnchisq( double x, double a, double b ){
 	     return NumericVector::create(R::qnchisq(x, a, b, 1, 0), R::qnchisq(log(x), a, b, 1, 1),
                                           R::qnchisq(x, a, b, 0, 0), R::qnchisq(log(x), a, b, 0, 1));
 }
+
+// -------------------  F Distribution
 
 // [[Rcpp::export]]
 NumericVector runit_df( double x, double a, double b ){
@@ -159,6 +239,18 @@ NumericVector runit_qf( double x, double a, double b ){
 }
 
 // [[Rcpp::export]]
+NumericVector runit_rf( double a, double b ){
+    NumericVector o(5);
+    
+    for(int i = 0; i < o.size(); i++)
+        o[i] = R::rf(a, b);
+    
+    return o;
+}
+
+// -------------------  Student t Distribution
+
+// [[Rcpp::export]]
 NumericVector runit_dt( double x, double a ){
 	     return NumericVector::create(R::dt(x, a, 0), R::dt(x, a, 1));
 }
@@ -174,6 +266,18 @@ NumericVector runit_qt( double x, double a ){
 	     return NumericVector::create(R::qt(x, a, 1, 0), R::qt(log(x), a, 1, 1),
                                           R::qt(x, a, 0, 0), R::qt(log(x), a, 0, 1));
 }
+
+// [[Rcpp::export]]
+NumericVector runit_rt( double a ){
+    NumericVector o(5);
+    
+    for(int i = 0; i < o.size(); i++)
+        o[i] = R::rt(a);
+    
+    return o;
+}
+
+// -------------------  Binomial Distribution
 
 // [[Rcpp::export]]
 NumericVector runit_dbinom( double x, double a, double b ){
@@ -193,6 +297,18 @@ NumericVector runit_qbinom( double x, double a, double b ){
 }
 
 // [[Rcpp::export]]
+NumericVector runit_rbinom( double a, double b ){
+    NumericVector o(5);
+    
+    for(int i = 0; i < o.size(); i++)
+        o[i] = R::rbinom(a, b);
+    
+    return o;
+}
+
+// -------------------  Cauchy Distribution
+
+// [[Rcpp::export]]
 NumericVector runit_dcauchy( double x, double a, double b ){
 	     return NumericVector::create(R::dcauchy(x, a, b, 0), R::dcauchy(x, a, b, 1));
 }
@@ -208,6 +324,18 @@ NumericVector runit_qcauchy( double x, double a, double b ){
 	     return NumericVector::create(R::qcauchy(x, a, b, 1, 0), R::qcauchy(log(x), a, b, 1, 1),
                                           R::qcauchy(x, a, b, 0, 0), R::qcauchy(log(x), a, b, 0, 1));
 }
+
+// [[Rcpp::export]]
+NumericVector runit_rcauchy( double a, double b ){
+    NumericVector o(5);
+    
+    for(int i = 0; i < o.size(); i++)
+        o[i] = R::rcauchy(a, b);
+    
+    return o;
+}
+
+// -------------------  Exponential Distribution
 
 // [[Rcpp::export]]
 NumericVector runit_dexp( double x, double a ){
@@ -227,6 +355,18 @@ NumericVector runit_qexp( double x, double a ){
 }
 
 // [[Rcpp::export]]
+NumericVector runit_rexp( double a ){
+    NumericVector o(5);
+    
+    for(int i = 0; i < o.size(); i++)
+        o[i] = R::rexp(a);
+    
+    return o;
+}
+
+// -------------------  Geometric Distribution
+
+// [[Rcpp::export]]
 NumericVector runit_dgeom( double x, double a ){
 	     return NumericVector::create(R::dgeom(x, a, 0), R::dgeom(x, a, 1));
 }
@@ -242,6 +382,18 @@ NumericVector runit_qgeom( double x, double a ){
 	     return NumericVector::create(R::qgeom(x, a, 1, 0), R::qgeom(log(x), a, 1, 1),
                                           R::qgeom(x, a, 0, 0), R::qgeom(log(x), a, 0, 1));
 }
+
+// [[Rcpp::export]]
+NumericVector runit_rgeom( double a ){
+    NumericVector o(5);
+    
+    for(int i = 0; i < o.size(); i++)
+        o[i] = R::rgeom(a);
+    
+    return o;
+}
+
+// -------------------  Hypergeometric Distribution
 
 // [[Rcpp::export]]
 NumericVector runit_dhyper( double x, double a, double b, double c ){
@@ -261,6 +413,18 @@ NumericVector runit_qhyper( double x, double a, double b, double c ){
 }
 
 // [[Rcpp::export]]
+NumericVector runit_rhyper( double a, double b, double c ){
+    NumericVector o(5);
+    
+    for(int i = 0; i < o.size(); i++)
+        o[i] = R::rhyper(a, b, c);
+    
+    return o;
+}
+
+// -------------------  Negative Binomial Distribution
+
+// [[Rcpp::export]]
 NumericVector runit_dnbinom( double x, double a, double b ){
 	     return NumericVector::create(R::dnbinom(x, a, b, 0), R::dnbinom(x, a, b, 1));
 }
@@ -276,6 +440,18 @@ NumericVector runit_qnbinom( double x, double a, double b ){
 	     return NumericVector::create(R::qnbinom(x, a, b, 1, 0), R::qnbinom(log(x), a, b, 1, 1),
                                           R::qnbinom(x, a, b, 0, 0), R::qnbinom(log(x), a, b, 0, 1));
 }
+
+// [[Rcpp::export]]
+NumericVector runit_rnbinom( double a, double b){
+    NumericVector o(5);
+    
+    for(int i = 0; i < o.size(); i++)
+        o[i] = R::rnbinom(a, b);
+    
+    return o;
+}
+
+// -------------------  Poisson Distribution
 
 // [[Rcpp::export]]
 NumericVector runit_dpois( double x, double a ){
@@ -295,6 +471,18 @@ NumericVector runit_qpois( double x, double a ){
 }
 
 // [[Rcpp::export]]
+NumericVector runit_rpois( double a ){
+    NumericVector o(5);
+    
+    for(int i = 0; i < o.size(); i++)
+        o[i] = R::rpois(a);
+    
+    return o;
+}
+
+// -------------------  Weibull Distribution
+
+// [[Rcpp::export]]
 NumericVector runit_dweibull( double x, double a, double b ){
 	     return NumericVector::create(R::dweibull(x, a, b, 0), R::dweibull(x, a, b, 1));
 }
@@ -310,6 +498,18 @@ NumericVector runit_qweibull( double x, double a, double b ){
 	     return NumericVector::create(R::qweibull(x, a, b, 1, 0), R::qweibull(log(x), a, b, 1, 1),
                                           R::qweibull(x, a, b, 0, 0), R::qweibull(log(x), a, b, 0, 1));
 }
+
+// [[Rcpp::export]]
+NumericVector runit_rweibull( double a, double b ){
+    NumericVector o(5);
+    
+    for(int i = 0; i < o.size(); i++)
+        o[i] = R::rweibull(a, b);
+    
+    return o;
+}
+
+// -------------------  Logistic Distribution
 
 // [[Rcpp::export]]
 NumericVector runit_dlogis( double x, double a, double b ){
@@ -329,6 +529,18 @@ NumericVector runit_qlogis( double x, double a, double b ){
 }
 
 // [[Rcpp::export]]
+NumericVector runit_rlogis( double a, double b ){
+    NumericVector o(5);
+    
+    for(int i = 0; i < o.size(); i++)
+        o[i] = R::rlogis(a, b);
+    
+    return o;
+}
+
+// -------------------  Non-central Beta Distribution
+
+// [[Rcpp::export]]
 NumericVector runit_dnbeta( double x, double a, double b, double c ){
 	     return NumericVector::create(R::dnbeta(x, a, b, c, 0), R::dnbeta(x, a, b, c, 1));
 }
@@ -344,6 +556,8 @@ NumericVector runit_qnbeta( double x, double a, double b, double c ){
 	     return NumericVector::create(R::qnbeta(x, a, b, c, 1, 0), R::qnbeta(log(x), a, b, c, 1, 1),
                                           R::qnbeta(x, a, b, c, 0, 0), R::qnbeta(log(x), a, b, c, 0, 1));
 }
+
+// -------------------  Non-central F Distribution
 
 // [[Rcpp::export]]
 NumericVector runit_dnf( double x, double a, double b, double c ){
@@ -362,6 +576,8 @@ NumericVector runit_qnf( double x, double a, double b, double c ){
                                           R::qnf(x, a, b, c, 0, 0), R::qnf(log(x), a, b, c, 0, 1));
 }
 
+// -------------------  Non-central Student t Distribution
+
 // [[Rcpp::export]]
 NumericVector runit_dnt( double x, double a, double b ){
 	     return NumericVector::create(R::dnt(x, a, b, 0), R::dnt(x, a, b, 1));
@@ -378,6 +594,8 @@ NumericVector runit_qnt( double x, double a, double b ){
 	     return NumericVector::create(R::qnt(x, a, b, 1, 0), R::qnt(log(x), a, b, 1, 1),
                                           R::qnt(x, a, b, 0, 0), R::qnt(log(x), a, b, 0, 1));
 }
+
+// -------------------  Wilcoxon Rank Sum Statistic Distribution
 
 // [[Rcpp::export]]
 NumericVector runit_dwilcox( double x, double a, double b ){
@@ -396,3 +614,12 @@ NumericVector runit_qwilcox( double x, double a, double b ){
                                           R::qwilcox(x, a, b, 0, 0), R::qwilcox(log(x), a, b, 0, 1));
 }
 
+// [[Rcpp::export]]
+NumericVector runit_rwilcox( double a, double b ){
+    NumericVector o(5);
+    
+    for(int i = 0; i < o.size(); i++)
+        o[i] = R::rwilcox(a, b);
+    
+    return o;
+}

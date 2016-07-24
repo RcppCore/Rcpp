@@ -12,6 +12,12 @@
       \item Environment functions get() & find() now accept a Symbol
       (James Joseph Balamuta in \ghpr{513} addressing issue \ghit{326}).
     }
+    \item Changes in Rcpp unit tests
+    \itemize{
+      \item New unit tests for random number generators the R namespace which 
+      call the standalone Rmath library. (James Balamuta in \ghpr{514} 
+      addressing issue \ghit{28}).
+    }
   }
 }
 
