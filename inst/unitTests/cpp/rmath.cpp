@@ -45,12 +45,17 @@ NumericVector runit_qnorm( double x, double a, double b ){
 // [[Rcpp::export]]
 NumericVector runit_rnorm( double a, double b ){
     NumericVector o(5);
-    
-    for(int i = 0; i < o.size(); i++)
+    for (int i = 0; i < o.size(); i++) {
         o[i] = R::rnorm(a, b);
-    
+    }
     return o;
 }
+
+// [[Rcpp::export]]
+NumericVector runit_rnorm_sugar(double a, double b) {
+    return Rcpp::rnorm(5, a, b);
+}
+
 
 // ------------------- Uniform Distribution
 
@@ -74,11 +79,15 @@ NumericVector runit_qunif( double x, double a, double b ){
 // [[Rcpp::export]]
 NumericVector runit_runif( double a, double b ){
     NumericVector o(5);
-    
-    for(int i = 0; i < o.size(); i++)
+    for (int i = 0; i < o.size(); i++) {
         o[i] = R::runif(a, b);
-    
+    }
     return o;
+}
+
+// [[Rcpp::export]]
+NumericVector runit_runif_sugar( double a, double b ){
+    return Rcpp::runif(5, a, b);
 }
 
 
@@ -102,13 +111,17 @@ NumericVector runit_qgamma( double x, double a, double b ){
 }
 
 // [[Rcpp::export]]
-NumericVector runit_rgamma( double a, double b ){
+NumericVector runit_rgamma(double a, double b) {
     NumericVector o(5);
-    
-    for(int i = 0; i < o.size(); i++)
+    for (int i = 0; i < o.size(); i++) {
         o[i] = R::rgamma(a, b);
-    
+    }
     return o;
+}
+
+// [[Rcpp::export]]
+NumericVector runit_rgamma_sugar(double a, double b) {
+    return Rcpp::rgamma(5, a, b);
 }
 
 
@@ -132,13 +145,17 @@ NumericVector runit_qbeta( double x, double a, double b ){
 }
 
 // [[Rcpp::export]]
-NumericVector runit_rbeta( double a, double b ){
+NumericVector runit_rbeta(double a, double b) {
     NumericVector o(5);
-    
-    for(int i = 0; i < o.size(); i++)
+    for (int i = 0; i < o.size(); i++) {
         o[i] = R::rbeta(a, b);
-    
+    }
     return o;
+}
+
+// [[Rcpp::export]]
+NumericVector runit_rbeta_sugar(double a, double b) {
+    return Rcpp::rbeta(5, a, b);
 }
 
 

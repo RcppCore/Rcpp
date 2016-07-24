@@ -1,11 +1,16 @@
+2016-07-24  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/unitTests/cpp/rmath.cpp: More RNG unit tests for sugar variants
+        * inst/unitTests/runit.rmath.R: idem
+
 2016-07-22  James J Balamuta  <balamut2@illinois.edu>
 
         * inst/unitTests/cpp/rmath.cpp: Added unit test functions for Rmath
         random number generators.
         * inst/unitTests/runit.rmath.R: idem
-        * inst/include/Rcpp/Environment.h: Added get() & find() that accept 
+        * inst/include/Rcpp/Environment.h: Added get() & find() that accept
         a symbol
-        * inst/include/Rcpp.h: Modified header load order so that Symbol.h 
+        * inst/include/Rcpp.h: Modified header load order so that Symbol.h
         is now placed before Environment.h
 
 2016-07-21  Dirk Eddelbuettel  <edd@debian.org>
