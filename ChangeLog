@@ -1,12 +1,11 @@
 2016-07-24  Dirk Eddelbuettel  <edd@debian.org>
 
-        * inst/unitTests/cpp/rmath.cpp: More RNG unit tests for sugar variants
-        * inst/unitTests/runit.rmath.R: idem
+        * inst/unitTests/cpp/rmath.cpp: Added RNG unit tests for sugar variants
+        * inst/unitTests/runit.rmath.R: Idem
 
 2016-07-22  James J Balamuta  <balamut2@illinois.edu>
 
-        * inst/unitTests/cpp/rmath.cpp: Added unit test functions for Rmath
-        random number generators.
+        * inst/unitTests/cpp/rmath.cpp: Added unit tests for Rmath RNGs
         * inst/unitTests/runit.rmath.R: idem
         * inst/include/Rcpp/Environment.h: Added get() & find() that accept
         a symbol
