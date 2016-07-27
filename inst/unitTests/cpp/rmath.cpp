@@ -45,12 +45,17 @@ NumericVector runit_qnorm( double x, double a, double b ){
 // [[Rcpp::export]]
 NumericVector runit_rnorm( double a, double b ){
     NumericVector o(5);
-    
-    for(int i = 0; i < o.size(); i++)
+    for (int i = 0; i < o.size(); i++) {
         o[i] = R::rnorm(a, b);
-    
+    }
     return o;
 }
+
+// [[Rcpp::export]]
+NumericVector runit_rnorm_sugar(double a, double b) {
+    return Rcpp::rnorm(5, a, b);
+}
+
 
 // ------------------- Uniform Distribution
 
@@ -74,11 +79,15 @@ NumericVector runit_qunif( double x, double a, double b ){
 // [[Rcpp::export]]
 NumericVector runit_runif( double a, double b ){
     NumericVector o(5);
-    
-    for(int i = 0; i < o.size(); i++)
+    for (int i = 0; i < o.size(); i++) {
         o[i] = R::runif(a, b);
-    
+    }
     return o;
+}
+
+// [[Rcpp::export]]
+NumericVector runit_runif_sugar( double a, double b ){
+    return Rcpp::runif(5, a, b);
 }
 
 
@@ -102,13 +111,17 @@ NumericVector runit_qgamma( double x, double a, double b ){
 }
 
 // [[Rcpp::export]]
-NumericVector runit_rgamma( double a, double b ){
+NumericVector runit_rgamma(double a, double b) {
     NumericVector o(5);
-    
-    for(int i = 0; i < o.size(); i++)
+    for (int i = 0; i < o.size(); i++) {
         o[i] = R::rgamma(a, b);
-    
+    }
     return o;
+}
+
+// [[Rcpp::export]]
+NumericVector runit_rgamma_sugar(double a, double b) {
+    return Rcpp::rgamma(5, a, b);
 }
 
 
@@ -132,13 +145,17 @@ NumericVector runit_qbeta( double x, double a, double b ){
 }
 
 // [[Rcpp::export]]
-NumericVector runit_rbeta( double a, double b ){
+NumericVector runit_rbeta(double a, double b) {
     NumericVector o(5);
-    
-    for(int i = 0; i < o.size(); i++)
+    for (int i = 0; i < o.size(); i++) {
         o[i] = R::rbeta(a, b);
-    
+    }
     return o;
+}
+
+// [[Rcpp::export]]
+NumericVector runit_rbeta_sugar(double a, double b) {
+    return Rcpp::rbeta(5, a, b);
 }
 
 
@@ -162,13 +179,17 @@ NumericVector runit_qlnorm( double x, double a, double b ){
 }
 
 // [[Rcpp::export]]
-NumericVector runit_rlnorm( double a, double b ){
+NumericVector runit_rlnorm(double a, double b) {
     NumericVector o(5);
-    
-    for(int i = 0; i < o.size(); i++)
+    for (int i = 0; i < o.size(); i++) {
         o[i] = R::rlnorm(a, b);
-    
+    }
     return o;
+}
+
+// [[Rcpp::export]]
+NumericVector runit_rlnorm_sugar(double a, double b) {
+    return Rcpp::rlnorm(5, a, b);
 }
 
 // ------------------- Chi-Squared Distribution
@@ -191,13 +212,17 @@ NumericVector runit_qchisq( double x, double a ){
 }
 
 // [[Rcpp::export]]
-NumericVector runit_rchisq( double a ){
+NumericVector runit_rchisq(double a) {
     NumericVector o(5);
-    
-    for(int i = 0; i < o.size(); i++)
+    for (int i = 0; i < o.size(); i++) {
         o[i] = R::rchisq(a);
-    
+    }
     return o;
+}
+
+// [[Rcpp::export]]
+NumericVector runit_rchisq_sugar(double a) {
+    return Rcpp::rchisq(5, a);
 }
 
 // ------------------- Non-central Chi-Squared Distribution
@@ -239,13 +264,17 @@ NumericVector runit_qf( double x, double a, double b ){
 }
 
 // [[Rcpp::export]]
-NumericVector runit_rf( double a, double b ){
+NumericVector runit_rf(double a, double b) {
     NumericVector o(5);
-    
-    for(int i = 0; i < o.size(); i++)
+    for (int i = 0; i < o.size(); i++) {
         o[i] = R::rf(a, b);
-    
+    }
     return o;
+}
+
+// [[Rcpp::export]]
+NumericVector runit_rf_sugar(double a, double b) {
+    return Rcpp::rf(5, a, b);
 }
 
 // -------------------  Student t Distribution
@@ -268,13 +297,17 @@ NumericVector runit_qt( double x, double a ){
 }
 
 // [[Rcpp::export]]
-NumericVector runit_rt( double a ){
+NumericVector runit_rt(double a) {
     NumericVector o(5);
-    
-    for(int i = 0; i < o.size(); i++)
+    for(int i = 0; i < o.size(); i++) {
         o[i] = R::rt(a);
-    
+    }
     return o;
+}
+
+// [[Rcpp::export]]
+NumericVector runit_rt_sugar(double a) {
+    return Rcpp::rt(5, a);
 }
 
 // -------------------  Binomial Distribution
@@ -297,13 +330,17 @@ NumericVector runit_qbinom( double x, double a, double b ){
 }
 
 // [[Rcpp::export]]
-NumericVector runit_rbinom( double a, double b ){
+NumericVector runit_rbinom(double a, double b) {
     NumericVector o(5);
-    
-    for(int i = 0; i < o.size(); i++)
+    for(int i = 0; i < o.size(); i++) {
         o[i] = R::rbinom(a, b);
-    
+    }
     return o;
+}
+
+// [[Rcpp::export]]
+NumericVector runit_rbinom_sugar(double a, double b) {
+    return Rcpp::rbinom(5, a, b);
 }
 
 // -------------------  Cauchy Distribution
@@ -326,13 +363,17 @@ NumericVector runit_qcauchy( double x, double a, double b ){
 }
 
 // [[Rcpp::export]]
-NumericVector runit_rcauchy( double a, double b ){
+NumericVector runit_rcauchy(double a, double b) {
     NumericVector o(5);
-    
-    for(int i = 0; i < o.size(); i++)
+    for(int i = 0; i < o.size(); i++) {
         o[i] = R::rcauchy(a, b);
-    
+    }
     return o;
+}
+
+// [[Rcpp::export]]
+NumericVector runit_rcauchy_sugar(double a, double b) {
+    return Rcpp::rcauchy(5, a, b);
 }
 
 // -------------------  Exponential Distribution
@@ -355,13 +396,17 @@ NumericVector runit_qexp( double x, double a ){
 }
 
 // [[Rcpp::export]]
-NumericVector runit_rexp( double a ){
+NumericVector runit_rexp(double a) {
     NumericVector o(5);
-    
-    for(int i = 0; i < o.size(); i++)
+    for(int i = 0; i < o.size(); i++) {
         o[i] = R::rexp(a);
-    
+    }
     return o;
+}
+
+// [[Rcpp::export]]
+NumericVector runit_rexp_sugar(double a) {
+    return Rcpp::rexp(5, a);
 }
 
 // -------------------  Geometric Distribution
@@ -384,13 +429,17 @@ NumericVector runit_qgeom( double x, double a ){
 }
 
 // [[Rcpp::export]]
-NumericVector runit_rgeom( double a ){
+NumericVector runit_rgeom(double a) {
     NumericVector o(5);
-    
-    for(int i = 0; i < o.size(); i++)
+    for (int i = 0; i < o.size(); i++) {
         o[i] = R::rgeom(a);
-    
+    }
     return o;
+}
+
+// [[Rcpp::export]]
+NumericVector runit_rgeom_sugar(double a) {
+    return Rcpp::rgeom(5, a);
 }
 
 // -------------------  Hypergeometric Distribution
@@ -413,13 +462,17 @@ NumericVector runit_qhyper( double x, double a, double b, double c ){
 }
 
 // [[Rcpp::export]]
-NumericVector runit_rhyper( double a, double b, double c ){
+NumericVector runit_rhyper(double a, double b, double c) {
     NumericVector o(5);
-    
-    for(int i = 0; i < o.size(); i++)
+    for(int i = 0; i < o.size(); i++) {
         o[i] = R::rhyper(a, b, c);
-    
+    }
     return o;
+}
+
+// [[Rcpp::export]]
+NumericVector runit_rhyper_sugar(double a, double b, double c) {
+    return Rcpp::rhyper(5, a, b, c);
 }
 
 // -------------------  Negative Binomial Distribution
@@ -442,13 +495,17 @@ NumericVector runit_qnbinom( double x, double a, double b ){
 }
 
 // [[Rcpp::export]]
-NumericVector runit_rnbinom( double a, double b){
+NumericVector runit_rnbinom(double a, double b) {
     NumericVector o(5);
-    
-    for(int i = 0; i < o.size(); i++)
+    for(int i = 0; i < o.size(); i++) {
         o[i] = R::rnbinom(a, b);
-    
+    }
     return o;
+}
+
+// [[Rcpp::export]]
+NumericVector runit_rnbinom_sugar(double a, double b) {
+    return Rcpp::rnbinom(5, a, b);
 }
 
 // -------------------  Poisson Distribution
@@ -471,13 +528,17 @@ NumericVector runit_qpois( double x, double a ){
 }
 
 // [[Rcpp::export]]
-NumericVector runit_rpois( double a ){
+NumericVector runit_rpois(double a) {
     NumericVector o(5);
-    
-    for(int i = 0; i < o.size(); i++)
+    for(int i = 0; i < o.size(); i++) {
         o[i] = R::rpois(a);
-    
+    }
     return o;
+}
+
+// [[Rcpp::export]]
+NumericVector runit_rpois_sugar(double a) {
+    return Rcpp::rpois(5, a);
 }
 
 // -------------------  Weibull Distribution
@@ -500,13 +561,17 @@ NumericVector runit_qweibull( double x, double a, double b ){
 }
 
 // [[Rcpp::export]]
-NumericVector runit_rweibull( double a, double b ){
+NumericVector runit_rweibull(double a, double b) {
     NumericVector o(5);
-    
-    for(int i = 0; i < o.size(); i++)
+    for(int i = 0; i < o.size(); i++) {
         o[i] = R::rweibull(a, b);
-    
+    }
     return o;
+}
+
+// [[Rcpp::export]]
+NumericVector runit_rweibull_sugar(double a, double b) {
+    return Rcpp::rweibull(5, a, b);
 }
 
 // -------------------  Logistic Distribution
@@ -529,13 +594,17 @@ NumericVector runit_qlogis( double x, double a, double b ){
 }
 
 // [[Rcpp::export]]
-NumericVector runit_rlogis( double a, double b ){
+NumericVector runit_rlogis(double a, double b) {
     NumericVector o(5);
-    
-    for(int i = 0; i < o.size(); i++)
+    for(int i = 0; i < o.size(); i++) {
         o[i] = R::rlogis(a, b);
-    
+    }
     return o;
+}
+
+// [[Rcpp::export]]
+NumericVector runit_rlogis_sugar(double a, double b) {
+    return Rcpp::rlogis(5, a, b);
 }
 
 // -------------------  Non-central Beta Distribution
@@ -615,11 +684,15 @@ NumericVector runit_qwilcox( double x, double a, double b ){
 }
 
 // [[Rcpp::export]]
-NumericVector runit_rwilcox( double a, double b ){
+NumericVector runit_rwilcox(double a, double b) {
     NumericVector o(5);
-    
-    for(int i = 0; i < o.size(); i++)
+    for (int i = 0; i < o.size(); i++) {
         o[i] = R::rwilcox(a, b);
-    
+    }
     return o;
+}
+
+// [[Rcpp::export]]
+NumericVector runit_rwilcox_sugar(double a, double b) {
+    return Rcpp::rwilcox(5, a, b);
 }

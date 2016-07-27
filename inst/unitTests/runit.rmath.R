@@ -1,7 +1,8 @@
 #!/usr/bin/env r
 # -*- mode: R; ess-indent-level: 4; tab-width: 4; indent-tabs-mode: nil; -*
 #
-# Copyright (C) 2012 - 2014  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2012 - 2016  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2016         Dirk Eddelbuettel and James J Balamuta
 #
 # This file is part of Rcpp.
 #
@@ -43,14 +44,14 @@ if (.runThisTest) {
                     msg = " rmath.qnorm")
         
         set.seed(333)
-        rcpp_result <- runit_rnorm(a, b)
-        set.seed(333)
-        
         r_result <- rnorm(5, a, b)
+        set.seed(333)
+        rcpp_result <- runit_rnorm(a, b)
+        checkEquals(rcpp_result, r_result, msg = " rmath.rnorm")
         
-        checkEquals(rcpp_result,
-                    r_result,
-                    msg = " rmath.rnorm")
+        set.seed(333)
+        rcpp_result_sugar <- runit_rnorm_sugar(a, b)
+        checkEquals(rcpp_result_sugar, r_result, msg = " rmath.rnorm.sugar")
     }
 
     test.rmath.unif <- function() {
@@ -71,16 +72,15 @@ if (.runThisTest) {
                       qunif(x, a, b, lower=FALSE, log=FALSE), qunif(log(x), a, b, lower=FALSE, log=TRUE)),
                     msg = " rmath.qunif")
         
-        
+        set.seed(333)
+        r_result <- runif(5, a, b)
         set.seed(333)
         rcpp_result <- runit_runif(a, b)
+        checkEquals(rcpp_result, r_result, msg = " rmath.runif")
+
         set.seed(333)
-        
-        r_result <- runif(5, a, b)
-        
-        checkEquals(rcpp_result,
-                    r_result,
-                    msg = " rmath.runif")
+        rcpp_result_sugar <- runit_runif_sugar(a, b)
+        checkEquals(rcpp_result_sugar, r_result, msg = " rmath.runif.sugar")
     }
 
     test.rmath.gamma <- function() {
@@ -102,14 +102,14 @@ if (.runThisTest) {
                     msg = " rmath.qgamma")
         
         set.seed(333)
-        rcpp_result <- runit_rgamma(a, b)
-        set.seed(333)
-        
         r_result <- rgamma(5, a, b)
-        
-        checkEquals(rcpp_result,
-                    r_result,
-                    msg = " rmath.rgamma")
+        set.seed(333)
+        rcpp_result <- runit_rgamma(a, b)
+        checkEquals(rcpp_result, r_result, msg = " rmath.rgamma")
+
+        set.seed(333)
+        rcpp_result_sugar <- runit_rgamma_sugar(a, b)
+        checkEquals(rcpp_result_sugar, r_result, msg = " rmath.rgamma.sugar")
     }
 
     test.rmath.beta <- function() {
@@ -131,14 +131,15 @@ if (.runThisTest) {
                     msg = " rmath.qbeta")
         
         set.seed(333)
-        rcpp_result <- runit_rbeta(a, b)
-        set.seed(333)
-        
         r_result <- rbeta(5, a, b)
+        set.seed(333)
+        rcpp_result <- runit_rbeta(a, b)
+        checkEquals(rcpp_result, r_result, msg = " rmath.rbeta")
+
+        set.seed(333)
+        rcpp_result_sugar <- runit_rbeta(a, b)
+        checkEquals(rcpp_result_sugar, r_result, msg = " rmath.rbeta.sugar")
         
-        checkEquals(rcpp_result,
-                    r_result,
-                    msg = " rmath.rbeta")
     }
 
 
@@ -161,14 +162,14 @@ if (.runThisTest) {
                     msg = " rmath.qlnorm")
         
         set.seed(333)
-        rcpp_result <- runit_rlnorm(a, b)
-        set.seed(333)
-        
         r_result <- rlnorm(5, a, b)
-        
-        checkEquals(rcpp_result,
-                    r_result,
-                    msg = " rmath.rlnorm")
+        set.seed(333)
+        rcpp_result <- runit_rlnorm(a, b)
+        checkEquals(rcpp_result, r_result, msg = " rmath.rlnorm")
+
+        set.seed(333)
+        rcpp_result_sugar <- runit_rlnorm_sugar(a, b)
+        checkEquals(rcpp_result_sugar, r_result, msg = " rmath.rlnorm.sugar")
     }
 
 
@@ -190,14 +191,14 @@ if (.runThisTest) {
                     msg = " rmath.qchisq")
         
         set.seed(333)
-        rcpp_result <- runit_rchisq(a)
-        set.seed(333)
-        
         r_result <- rchisq(5, a)
-        
-        checkEquals(rcpp_result,
-                    r_result,
-                    msg = " rmath.rchisq")
+        set.seed(333)
+        rcpp_result <- runit_rchisq(a)
+        checkEquals(rcpp_result, r_result, msg = " rmath.rchisq")
+
+        set.seed(333)
+        rcpp_result_sugar <- runit_rchisq_sugar(a)
+        checkEquals(rcpp_result_sugar, r_result, msg = " rmath.rchisq.sugar")
     }
 
 
@@ -240,14 +241,14 @@ if (.runThisTest) {
                     msg = " rmath.qf")
         
         set.seed(333)
-        rcpp_result <- runit_rf(a, b)
-        set.seed(333)
-        
         r_result <- rf(5, a, b)
-        
-        checkEquals(rcpp_result,
-                    r_result,
-                    msg = " rmath.rf")
+        set.seed(333)
+        rcpp_result <- runit_rf(a, b)
+        checkEquals(rcpp_result, r_result, msg = " rmath.rf")
+
+        set.seed(333)
+        rcpp_result_sugar <- runit_rf_sugar(a, b)
+        checkEquals(rcpp_result_sugar, r_result, msg = " rmath.rf.sugar")
     }
 
 
@@ -269,14 +270,14 @@ if (.runThisTest) {
                     msg = " rmath.qt")
         
         set.seed(333)
-        rcpp_result <- runit_rt(a)
-        set.seed(333)
-        
         r_result <- rt(5, a)
-        
-        checkEquals(rcpp_result,
-                    r_result,
-                    msg = " rmath.rt")
+        set.seed(333)
+        rcpp_result <- runit_rt(a)
+        checkEquals(rcpp_result, r_result, msg = " rmath.rt")
+
+        set.seed(333)
+        rcpp_result_sugar <- runit_rt_sugar(a)
+        checkEquals(rcpp_result_sugar, r_result, msg = " rmath.rt.sugar")
     }
 
 
@@ -300,14 +301,14 @@ if (.runThisTest) {
                     msg = " rmath.qbinom")
         
         set.seed(333)
-        rcpp_result <- runit_rbinom(a, b)
-        set.seed(333)
-        
         r_result <- rbinom(5, a, b)
-        
-        checkEquals(rcpp_result,
-                    r_result,
-                    msg = " rmath.rbinom")
+        set.seed(333)
+        rcpp_result <- runit_rbinom(a, b)
+        checkEquals(rcpp_result, r_result, msg = " rmath.rbinom")
+
+        set.seed(333)
+        rcpp_result_sugar <- runit_rbinom_sugar(a, b)
+        checkEquals(rcpp_result_sugar, r_result, msg = " rmath.rbinom.sugar")
     }
 
 
@@ -330,14 +331,14 @@ if (.runThisTest) {
                     msg = " rmath.qcauchy")
         
         set.seed(333)
-        rcpp_result <- runit_rcauchy(a, b)
-        set.seed(333)
-        
         r_result <- rcauchy(5, a, b)
-        
-        checkEquals(rcpp_result,
-                    r_result,
-                    msg = " rmath.rcauchy")
+        set.seed(333)
+        rcpp_result <- runit_rcauchy(a, b)
+        checkEquals(rcpp_result, r_result, msg = " rmath.rcauchy")
+
+        set.seed(333)
+        rcpp_result_sugar <- runit_rcauchy_sugar(a, b)
+        checkEquals(rcpp_result_sugar, r_result, msg = " rmath.rcauchy.sugar")
     }
 
 
@@ -359,14 +360,14 @@ if (.runThisTest) {
                     msg = " rmath.qexp")
         
         set.seed(333)
-        rcpp_result <- runit_rexp(a)
-        set.seed(333)
-        
         r_result <- rexp(5, a)
-        
-        checkEquals(rcpp_result,
-                    r_result,
-                    msg = " rmath.rexp")
+        set.seed(333)
+        rcpp_result <- runit_rexp(a)
+        checkEquals(rcpp_result, r_result, msg = " rmath.rexp")
+
+        set.seed(333)
+        rcpp_result_sugar <- runit_rexp_sugar(a)
+        checkEquals(rcpp_result_sugar, r_result, msg = " rmath.rexp.sugar")
     }
 
 
@@ -388,14 +389,14 @@ if (.runThisTest) {
                     msg = " rmath.qgeom")
         
         set.seed(333)
-        rcpp_result <- runit_rgeom(a)
-        set.seed(333)
-        
         r_result <- rgeom(5, a)
-        
-        checkEquals(rcpp_result,
-                    r_result,
-                    msg = " rmath.rgeom")
+        set.seed(333)
+        rcpp_result <- runit_rgeom(a)
+        checkEquals(rcpp_result, r_result, msg = " rmath.rgeom")
+
+        set.seed(333)
+        rcpp_result_sugar <- runit_rgeom_sugar(a)
+        checkEquals(rcpp_result_sugar, r_result, msg = " rmath.rgeom.sugar")
     }
 
     test.rmath.hyper <- function() {
@@ -419,14 +420,14 @@ if (.runThisTest) {
                     msg = " rmath.qhyper")
         
         set.seed(333)
-        rcpp_result <- runit_rhyper(a, b, c)
-        set.seed(333)
-        
         r_result <- rhyper(5, a, b, c)
-        
-        checkEquals(rcpp_result,
-                    r_result,
-                    msg = " rmath.rhyper")
+        set.seed(333)
+        rcpp_result <- runit_rhyper(a, b, c)
+        checkEquals(rcpp_result, r_result, msg = " rmath.rhyper")
+
+        set.seed(333)
+        rcpp_result_sugar <- runit_rhyper_sugar(a, b, c)
+        checkEquals(rcpp_result_sugar, r_result, msg = " rmath.rhyper.sugar")
     }
 
 
@@ -450,14 +451,14 @@ if (.runThisTest) {
                     msg = " rmath.qnbinom")
         
         set.seed(333)
-        rcpp_result <- runit_rnbinom(a, b)
-        set.seed(333)
-        
         r_result <- rnbinom(5, a, b)
-        
-        checkEquals(rcpp_result,
-                    r_result,
-                    msg = " rmath.rnbinom")
+        set.seed(333)
+        rcpp_result <- runit_rnbinom(a, b)
+        checkEquals(rcpp_result, r_result, msg = " rmath.rnbinom")
+
+        set.seed(333)
+        rcpp_result_sugar <- runit_rnbinom_sugar(a, b)
+        checkEquals(rcpp_result_sugar, r_result, msg = " rmath.rnbinom.sugar")
     }
 
 
@@ -480,14 +481,14 @@ if (.runThisTest) {
                     msg = " rmath.qpois")
         
         set.seed(333)
-        rcpp_result <- runit_rpois(a)
-        set.seed(333)
-        
         r_result <- rpois(5, a)
-        
-        checkEquals(rcpp_result,
-                    r_result,
-                    msg = " rmath.rpois")
+        set.seed(333)
+        rcpp_result <- runit_rpois(a)
+        checkEquals(rcpp_result, r_result, msg = " rmath.rpois")
+
+        set.seed(333)
+        rcpp_result_sugar <- runit_rpois_sugar(a)
+        checkEquals(rcpp_result_sugar, r_result, msg = " rmath.rpois.sugar")
     }
 
 
@@ -511,14 +512,14 @@ if (.runThisTest) {
                     msg = " rmath.qweibull")
         
         set.seed(333)
-        rcpp_result <- runit_rweibull(a, b)
-        set.seed(333)
-        
         r_result <- rweibull(5, a, b)
-        
-        checkEquals(rcpp_result,
-                    r_result,
-                    msg = " rmath.rweibull")
+        set.seed(333)
+        rcpp_result <- runit_rweibull(a, b)
+        checkEquals(rcpp_result, r_result, msg = " rmath.rweibull")
+
+        set.seed(333)
+        rcpp_result_sugar <- runit_rweibull_sugar(a, b)
+        checkEquals(rcpp_result_sugar, r_result, msg = " rmath.rweibull.sugar")
     }
 
 
@@ -542,14 +543,14 @@ if (.runThisTest) {
                     msg = " rmath.qlogis")  
         
         set.seed(333)
-        rcpp_result <- runit_rlogis(a, b)
-        set.seed(333)
-        
         r_result <- rlogis(5, a, b)
-        
-        checkEquals(rcpp_result,
-                    r_result,
-                    msg = " rmath.rlogis")
+        set.seed(333)
+        rcpp_result <- runit_rlogis(a, b)
+        checkEquals(rcpp_result, r_result, msg = " rmath.rlogis")
+
+        set.seed(333)
+        rcpp_result_sugar <- runit_rlogis_sugar(a, b)
+        checkEquals(rcpp_result_sugar, r_result, msg = " rmath.rlogis.sugar")
     }
 
 
@@ -637,14 +638,14 @@ if (.runThisTest) {
         
         
         set.seed(333)
-        rcpp_result <- runit_rwilcox(a, b)
-        set.seed(333)
-        
         r_result <- rwilcox(5, a, b)
-        
-        checkEquals(rcpp_result,
-                    r_result,
-                    msg = " rmath.rwilcox")
+        set.seed(333)
+        rcpp_result <- runit_rwilcox(a, b)
+        checkEquals(rcpp_result, r_result, msg = " rmath.rwilcox")
+
+        set.seed(333)
+        rcpp_result_sugar <- runit_rwilcox_sugar(a, b)
+        checkEquals(rcpp_result_sugar, r_result, msg = " rmath.rwilcox_sugar")
     }
 
 }
