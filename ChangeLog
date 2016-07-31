@@ -1,3 +1,14 @@
+2016-07-31 Qiang Kou <qkou@umail.iu.edu>
+
+        * inst/examples/SugarPerformance/sugarBenchmarks.R: Remove usage of Rf_eval
+        * inst/include/Rcpp/Environment.h: Idem
+        * inst/include/Rcpp/Module.h: Idem
+        * inst/include/Rcpp/exceptions.h: Idem
+        * inst/include/Rcpp/proxy/FieldProxy.h: Idem
+        * inst/include/Rcpp/r_cast.h: Idem
+        * inst/unitTests/cpp/language.cpp: Idem
+        * src/barrier.cpp: Idem
+
 2016-07-24  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/unitTests/cpp/rmath.cpp: Added RNG unit tests for sugar variants
