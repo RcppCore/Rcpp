@@ -25,21 +25,8 @@
 // NB: A vast list valid identifiers is at these wiki pages:
 //     http://sourceforge.net/p/predef/wiki/Home/
 
-#undef GOOD_COMPILER_FOR_RCPP
-#ifdef __GNUC__
-#define GOOD_COMPILER_FOR_RCPP
-#endif
-#ifdef __SUNPRO_CC
-#define GOOD_COMPILER_FOR_RCPP
-#endif
-#ifdef __clang__
-#define GOOD_COMPILER_FOR_RCPP
-#endif
-#ifdef __INTEL_COMPILER
-#define GOOD_COMPILER_FOR_RCPP
-#endif
-
-#ifndef GOOD_COMPILER_FOR_RCPP
+// Compiler is not supported
+#if !(defined(__GNUC__) || defined(__SUNPRO_CC) || defined(__clang__) || defined(__INTEL_COMPILER))
 # error "This compiler is not supported"
 #endif
 
@@ -57,10 +44,11 @@
         #define IS_GCC_460_OR_LATER
     #endif
     // Inform users of dated compiler (e.g. <= RHEL6 )
-    #if GCC_VERSION <= 40602
-        #pragma message ("WARNING: GCC Compiler Version <= 4.6.2")
-        #pragma message ("WARNING: The compiler being used is both OUTDATED and INCOMPLETE in terms of C++ standards;")
-        #pragma message ("WARNING: if something does not work, you should upgrade your compiler!")
+    #if GCC_VERSION <= 40602 && !defined(RCPP_GCC_COMPILER_WARNING_SILENT)
+         // Ensure not fake GCC flag set by clang or intel.
+         #if !(defined(__clang__) || defined(__INTEL_COMPILER))
+             #pragma message ("WARNING: GCC Compiler Version <= 4.6.2")
+         #endif
     #endif
 #endif
 
