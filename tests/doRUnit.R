@@ -35,8 +35,8 @@ stopifnot(require(Rcpp, quietly=TRUE))
 set.seed(42)
 
 ## Define tests
-testSuite <- defineTestSuite(name="Rcpp Unit Tests",
-                             dirs=system.file("unitTests", package = "Rcpp"),
+testSuite <- defineTestSuite(name = "Rcpp Unit Tests",
+                             dirs = system.file("unitTests", package = "Rcpp"),
                              testFuncRegexp = "^[Tt]est.+")
 
 ## without this, we get (or used to get) unit test failures
