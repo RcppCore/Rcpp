@@ -1,3 +1,11 @@
+2016-07-30  James J Balamuta  <balamut2@illinois.edu>
+
+        * inst/include/Rcpp/platform/compiler.h: Added a pragma message that
+        warns if the compiler being used is GCC <= 4.6.2
+        * configure.ac: Added an autoconfigure script to warn installer that
+        compiler support was lacking.
+        * configure: expanded version of configure.ac given by autoconf 
+
 2016-07-24  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/unitTests/cpp/rmath.cpp: Added RNG unit tests for sugar variants
@@ -11,8 +19,6 @@
         a symbol
         * inst/include/Rcpp.h: Modified header load order so that Symbol.h
         is now placed before Environment.h
-        * inst/include/Rcpp/platform/compiler.h: Added a pragma message that
-        warns if the compiler being used is GCC <= 4.6.2
         
 2016-07-21  Dirk Eddelbuettel  <edd@debian.org>
 
