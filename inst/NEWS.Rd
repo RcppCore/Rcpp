@@ -11,6 +11,8 @@
       by R (Kevin fixing issue \ghit{512}). 
       \item Environment functions get() & find() now accept a Symbol
       (James Joseph Balamuta in \ghpr{513} addressing issue \ghit{326}).
+      \item Several uses of \code{Rf_eval} were replaced by the preferred
+      \code{Rcpp::eval} (Qiang in PR \ghpr{523 closing \ghit{498}).
     }
     \item Changes in Rcpp unit tests
     \itemize{
