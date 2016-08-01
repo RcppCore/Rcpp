@@ -129,7 +129,7 @@ namespace Rcpp{
 inline SEXP get_last_call(){
     SEXP sys_calls_symbol = Rf_install( "sys.calls" ) ;
     Rcpp::Shield<SEXP> sys_calls_expr( Rf_lang1(sys_calls_symbol) );
-    Rcpp::Shield<SEXP> calls( Rf_eval( sys_calls_expr, R_GlobalEnv ) );
+    Rcpp::Shield<SEXP> calls( Rcpp_eval( sys_calls_expr, R_GlobalEnv ) );
     SEXP res = calls ;
     while( !Rf_isNull(CDR(res)) ) res = CDR(res);
     return CAR(res) ;

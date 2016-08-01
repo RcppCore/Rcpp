@@ -68,7 +68,7 @@ Language runit_lang_square_lv(){
 SEXP runit_lang_fun( Function fun, IntegerVector x ){
     Language call( fun );
     call.push_back(x) ;
-    return Rf_eval( call, R_GlobalEnv ) ;
+    return Rcpp_eval( call, R_GlobalEnv ) ;
 }
 
 // [[Rcpp::export]]
