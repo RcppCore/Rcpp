@@ -95,7 +95,7 @@ namespace Rcpp{
                     // return Rf_coerceVector( x, STRSXP );
                     // coerceVector does not work for some reason
                     Shield<SEXP> call( Rf_lang2( Rf_install( "as.character" ), x ) ) ;
-                    Shield<SEXP> res( Rf_eval( call, R_GlobalEnv ) ) ;
+                    Shield<SEXP> res( Rcpp_eval( call, R_GlobalEnv ) ) ;
                     return res ;
                 }
             case CHARSXP:
