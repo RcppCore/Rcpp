@@ -21,7 +21,7 @@ compileAttributes(pkgdir = ".", verbose = getOption("verbose"))
 \details{
     The source files in the package directory given by \code{pkgdir} are scanned for attributes and code is generated as required based on the attributes. 
     
-    For C++ functions adorned with the \code{Rcpp::export} attribute, the C++ and R source code required to bind to the function from R is generated and added (respectively) to \code{src/RcppExports.cpp} or \code{R/RcppExports.R}.
+    For C++ functions adorned with the \code{Rcpp::export} attribute, the C++ and R source code required to bind to the function from R is generated and added (respectively) to \code{src/RcppExports.cpp} or \code{R/RcppExports.R}. Both of these files are automatically generated from \emph{scratch} each time \code{compiledAttributes} is run.
     
     In order to access the declarations for custom \code{Rcpp::as} and \code{Rcpp::wrap} handlers the \code{compileAttributes} function will also call any \link[inline:plugins]{inline plugins} available for packages listed in the \code{LinkingTo} field of the \code{DESCRIPTION} file.
 }

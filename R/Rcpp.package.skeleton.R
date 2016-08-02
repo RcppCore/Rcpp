@@ -144,6 +144,8 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
             message(" >> added example src file using Rcpp attributes")
             compileAttributes(root)
             message(" >> compiled Rcpp attributes")
+            message(" >> do NOT modify by hand either RcppExports.cpp or ",
+                    "RcppExports.R")
         } else {
             header <- readLines(file.path(skeleton, "rcpp_hello_world.h"))
             header <- gsub("@PKG@", name, header, fixed = TRUE)
