@@ -23,7 +23,7 @@
 #ifndef Rcpp__internal__NAComparator__h
 #define Rcpp__internal__NAComparator__h
 
-namespace Rcpp{
+namespace Rcpp {
 
 namespace internal {
 
@@ -104,8 +104,16 @@ struct NAComparator<SEXP> {
     }
 };
 
-}
 
-}
+template <typename T>
+struct NAComparatorGreater {
+    inline bool operator()(T left, T right) const {
+        return NAComparator<T>()(right, left);
+    }
+};
 
-#endif
+} // internal
+
+} // Rcpp
+
+#endif // Rcpp__internal__NAComparator__h
