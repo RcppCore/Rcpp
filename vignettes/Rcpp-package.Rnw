@@ -184,10 +184,10 @@ using namespace Rcpp;
 List rcpp_hello_world();
 RcppExport SEXP mypackage_rcpp_hello_world() {
 BEGIN_RCPP
-    Rcpp::RObject RCPP_result_gen_;
-    Rcpp::RNGScope RCPP_rngScope_gen_;
-    RCPP_result_gen_ = Rcpp::wrap(rcpp_hello_world());
-    return RCPP_result_gen_;
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    rcpp_result_gen = Rcpp::wrap(rcpp_hello_world());
+    return rcpp_result_gen;
 END_RCPP
 }
 @

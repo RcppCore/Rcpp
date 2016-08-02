@@ -2046,11 +2046,11 @@ namespace attributes {
                        << getCCallable(packageCpp() + "_" + function.name()) << ";"
                        << std::endl;
                 ostr() << "        }" << std::endl;
-                ostr() << "        RObject RCPP_result_gen_;" << std::endl;
+                ostr() << "        RObject rcpp_result_gen;" << std::endl;
                 ostr() << "        {" << std::endl;
                 if (it->rng())
                     ostr() << "            RNGScope RCPP_rngScope_gen;" << std::endl;
-                ostr() << "            RCPP_result_gen_ = " << ptrName << "(";
+                ostr() << "            rcpp_result_gen = " << ptrName << "(";
 
                 const std::vector<Argument>& args = function.arguments();
                 for (std::size_t i = 0; i<args.size(); i++) {
@@ -2062,18 +2062,18 @@ namespace attributes {
                 ostr() << ");" << std::endl;
                 ostr() << "        }" << std::endl;
 
-                ostr() << "        if (RCPP_result_gen_.inherits(\"interrupted-error\"))"
+                ostr() << "        if (rcpp_result_gen.inherits(\"interrupted-error\"))"
                        << std::endl
                        << "            throw Rcpp::internal::InterruptedException();"
                        << std::endl;
-                ostr() << "        if (RCPP_result_gen_.inherits(\"try-error\"))"
+                ostr() << "        if (rcpp_result_gen.inherits(\"try-error\"))"
                        << std::endl
                        << "            throw Rcpp::exception(as<std::string>("
-                       << "RCPP_result_gen_).c_str());"
+                       << "rcpp_result_gen).c_str());"
                        << std::endl;
                 if (!function.type().isVoid()) {
                     ostr() << "        return Rcpp::as<" << function.type() << " >"
-                           << "(RCPP_result_gen_);" << std::endl;
+                           << "(rcpp_result_gen);" << std::endl;
                 }
                 
                 ostr() << "    }" << std::endl << std::endl;
@@ -2149,7 +2149,7 @@ namespace attributes {
     }
 
     std::string CppExportsIncludeGenerator::getHeaderGuard() const {
-        return "RCPP_" + packageCpp() + "_RcppExports_h_gen_";
+        return "_RCPP_" + packageCpp() + "_RcppExports_h_gen_";
     }
 
     CppPackageIncludeGenerator::CppPackageIncludeGenerator(
@@ -2197,7 +2197,7 @@ namespace attributes {
     }
 
     std::string CppPackageIncludeGenerator::getHeaderGuard() const {
-        return "RCPP_" + packageCpp() + "_h_gen_";
+        return "_RCPP_" + packageCpp() + "_h_gen_";
     }
 
     RExportsGenerator::RExportsGenerator(const std::string& packageDir,
@@ -2583,9 +2583,9 @@ namespace attributes {
             ostr << args << ") {" << std::endl;
             ostr << "BEGIN_RCPP" << std::endl;
             if (!function.type().isVoid())
-                ostr << "    Rcpp::RObject RCPP_result_gen_;" << std::endl;
+                ostr << "    Rcpp::RObject rcpp_result_gen;" << std::endl;
             if (!cppInterface && attribute.rng())
-                ostr << "    Rcpp::RNGScope RCPP_rngScope_gen_;" << std::endl;
+                ostr << "    Rcpp::RNGScope rcpp_rngScope_gen;" << std::endl;
             for (size_t i = 0; i<arguments.size(); i++) {
                 const Argument& argument = arguments[i];
 
@@ -2596,7 +2596,7 @@ namespace attributes {
 
             ostr << "    ";
             if (!function.type().isVoid())
-                ostr << "RCPP_result_gen_ = Rcpp::wrap(";
+                ostr << "rcpp_result_gen = Rcpp::wrap(";
             ostr << function.name() << "(";
             for (size_t i = 0; i<arguments.size(); i++) {
                 const Argument& argument = arguments[i];
@@ -2610,7 +2610,7 @@ namespace attributes {
 
             if (!function.type().isVoid())
             {
-                ostr << "    return RCPP_result_gen_;" << std::endl;
+                ostr << "    return rcpp_result_gen;" << std::endl;
             }
             else
             {
@@ -2624,11 +2624,11 @@ namespace attributes {
             if (cppInterface) {
                 ostr << "RcppExport SEXP " << funcName << "(" << args << ") {"
                      << std::endl;
-                ostr << "    SEXP RCPP_result_gen_;" << std::endl;
+                ostr << "    SEXP rcpp_result_gen;" << std::endl;
                 ostr << "    {" << std::endl;
                 if (attribute.rng())
-                    ostr << "        Rcpp::RNGScope RCPP_rngScope_gen_;" << std::endl;
-                ostr << "        RCPP_result_gen_ = PROTECT(" << funcName
+                    ostr << "        Rcpp::RNGScope rcpp_rngScope_gen;" << std::endl;
+                ostr << "        rcpp_result_gen = PROTECT(" << funcName
                      << kTrySuffix << "(";
                 for (size_t i = 0; i<arguments.size(); i++) {
                     const Argument& argument = arguments[i];
@@ -2638,21 +2638,21 @@ namespace attributes {
                 }
                 ostr << "));" << std::endl;
                 ostr << "    }" << std::endl;
-                ostr << "    Rboolean RCPP_isInterrupt_gen_ = Rf_inherits(RCPP_result_gen_, \"interrupted-error\");"
+                ostr << "    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, \"interrupted-error\");"
                      << std::endl
-                     << "    if (RCPP_isInterrupt_gen_) {" << std::endl
+                     << "    if (rcpp_isError_gen) {" << std::endl
                      << "        UNPROTECT(1);" << std::endl
                      << "        Rf_onintr();" << std::endl
                      << "    }" << std::endl
-                     << "    Rboolean RCPP_isError_gen_ = Rf_inherits(RCPP_result_gen_, \"try-error\");"
+                     << "    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, \"try-error\");"
                      << std::endl
-                     << "    if (RCPP_isError_gen_) {" << std::endl
-                     << "        SEXP RCPP_msgSEXP_gen_ = Rf_asChar(RCPP_result_gen_);" << std::endl
+                     << "    if (rcpp_isError_gen) {" << std::endl
+                     << "        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);" << std::endl
                      << "        UNPROTECT(1);" << std::endl
-                     << "        Rf_error(CHAR(RCPP_msgSEXP_gen_));" << std::endl
+                     << "        Rf_error(CHAR(rcpp_msgSEXP_gen));" << std::endl
                      << "    }" << std::endl
                      << "    UNPROTECT(1);" << std::endl
-                     << "    return RCPP_result_gen_;" << std::endl
+                     << "    return rcpp_result_gen;" << std::endl
                      << "}" << std::endl;
             }
         }
