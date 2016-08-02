@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2016-07-30  James J Balamuta  <balamut2@illinois.edu>
 
         * inst/include/Rcpp/platform/compiler.h: Added a pragma message that
@@ -5,6 +6,26 @@
         * configure.ac: Added an autoconfigure script to warn installer that
         compiler support was lacking.
         * configure: expanded version of configure.ac given by autoconf 
+=======
+2016-08-01 Nathan Russell <russell.nr2012@gmail.com>
+
+        * inst/include/Rcpp/vector/Vector.h: Added decreasing option for Vector 
+        sort 
+        * inst/include/Rcpp/internal/NAComparator.h: Idem
+        * inst/unitTests/cpp/Vector.cpp: Idem
+        * inst/unitTests/runit.Vector.R: Idem
+
+2016-07-31 Qiang Kou <qkou@umail.iu.edu>
+
+        * inst/examples/SugarPerformance/sugarBenchmarks.R: Remove usage of Rf_eval
+        * inst/include/Rcpp/Environment.h: Idem
+        * inst/include/Rcpp/Module.h: Idem
+        * inst/include/Rcpp/exceptions.h: Idem
+        * inst/include/Rcpp/proxy/FieldProxy.h: Idem
+        * inst/include/Rcpp/r_cast.h: Idem
+        * inst/unitTests/cpp/language.cpp: Idem
+        * src/barrier.cpp: Idem
+>>>>>>> RcppCore/master
 
 2016-07-24  Dirk Eddelbuettel  <edd@debian.org>
 

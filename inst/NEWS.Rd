@@ -14,6 +14,8 @@
       \item When compiling packages with older compilers, a warning message
       is now triggered on compilers that lack features.
       (James Balamuta in \ghpr{515} addressing issue \ghit{308}).
+      \item Several uses of \code{Rf_eval} were replaced by the preferred
+      \code{Rcpp::Rcpp_eval} (Qiang in PR \ghpr{523} closing \ghit{498}).
     }
     \item Changes in Rcpp unit tests
     \itemize{

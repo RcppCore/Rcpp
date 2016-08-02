@@ -382,7 +382,7 @@ public:
         );
     }
 
-    Vector& sort(){
+    Vector& sort(bool decreasing = false) {
         // sort() does not apply to List, RawVector or ExpressionVector.
         //
         // The function below does nothing for qualified Vector types,
@@ -390,13 +390,23 @@ public:
         // compiler error when sorting List, RawVector or ExpressionVector.
         internal::Sort_is_not_allowed_for_this_type<RTYPE>::do_nothing();
         
-        typename traits::storage_type<RTYPE>::type* start = internal::r_vector_start<RTYPE>( Storage::get__() ) ;
-        std::sort(
-            start,
-            start + size(),
-            internal::NAComparator<typename traits::storage_type<RTYPE>::type >()
-        ) ;
-        return *this ;
+        typename traits::storage_type<RTYPE>::type* start = internal::r_vector_start<RTYPE>( Storage::get__() );
+        
+        if (!decreasing) {
+            std::sort(
+                start,
+                start + size(),
+                internal::NAComparator<typename traits::storage_type<RTYPE>::type>()
+            );            
+        } else {
+            std::sort(
+                start,
+                start + size(),
+                internal::NAComparatorGreater<typename traits::storage_type<RTYPE>::type>()
+            );     
+        }
+
+        return *this;
     }
 
     template <typename InputIterator>
