@@ -90,20 +90,20 @@ String test_push_front(String x) {
 }
 
 // [[Rcpp::export]]
-String test_String_encoding(String x) {
+int test_String_encoding(String x) {
     return x.get_encoding();
 }
 
 // [[Rcpp::export]]
 String test_String_set_encoding(String x) {
-    x.set_encoding("UTF-8");
+    x.set_encoding(CE_UTF8);
     return x;
 }
 
 // [[Rcpp::export]]
 String test_String_ctor_encoding(String x) {
     String y(x);
-    y.set_encoding("UTF-8");
+    y.set_encoding(CE_UTF8);
     return y;
 }
 
@@ -111,6 +111,6 @@ String test_String_ctor_encoding(String x) {
 // [[Rcpp::export]]
 String test_String_ctor_encoding2() {
     String y("å");
-    y.set_encoding("UTF-8");
+    y.set_encoding(CE_UTF8);
     return y;
 }
