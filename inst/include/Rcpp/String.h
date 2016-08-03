@@ -40,7 +40,6 @@
     #define RCPP_STRING_DEBUG_3(fmt, M1, M2, M3)
 #endif
 
-
 namespace Rcpp {
 
     /**
@@ -53,7 +52,7 @@ namespace Rcpp {
         typedef internal::const_string_proxy<STRSXP> const_StringProxy;
 
         /** default constructor */
-        String(): data(Rf_mkChar("")), buffer(), valid(true), buffer_ready(true), enc(CE_NATIVE) {
+        String(): data(Rf_mkCharCE("", CE_UTF8)), buffer(), valid(true), buffer_ready(true), enc(CE_UTF8) {
             Rcpp_PreserveObject(data);
             RCPP_STRING_DEBUG("String()");
         }
@@ -61,12 +60,6 @@ namespace Rcpp {
         /** copy constructor */
         String(const String& other) : data(other.get_sexp()), valid(true), buffer_ready(false), enc(Rf_getCharCE(other.get_sexp())) {
             Rcpp_PreserveObject(data);
-            RCPP_STRING_DEBUG("String(const String&)");
-        }
-
-        String(const String& other, const std::string& enc) : data(other.get_sexp()), valid(true), buffer_ready(false) {
-            Rcpp_PreserveObject(data);
-            set_encoding(enc);
             RCPP_STRING_DEBUG("String(const String&)");
         }
 
@@ -88,33 +81,16 @@ namespace Rcpp {
             RCPP_STRING_DEBUG("String(SEXP)");
         }
 
-        String(SEXP charsxp, const std::string& enc) : data(R_NilValue) {
-            if (TYPEOF(charsxp) == STRSXP) {
-                data = STRING_ELT(charsxp, 0);
-            } else if (TYPEOF(charsxp) == CHARSXP) {
-                data = charsxp;
-            }
-
-            if (::Rf_isString(data) && ::Rf_length(data) != 1)
-                throw ::Rcpp::not_compatible("expecting a single value");
-
-            valid = true;
-            buffer_ready = false;
-            Rcpp_PreserveObject(data);
-            set_encoding(enc);
-            RCPP_STRING_DEBUG("String(SEXP)");
-        }
-
         /** from string proxy */
         String(const StringProxy& proxy): data(proxy.get()), valid(true), buffer_ready(false), enc(Rf_getCharCE(proxy.get())) {
             Rcpp_PreserveObject(data);
             RCPP_STRING_DEBUG("String(const StringProxy&)");
         }
 
-        String(const StringProxy& proxy, const std::string& enc): data(proxy.get()), valid(true), buffer_ready(false) {
+        String(const StringProxy& proxy, cetype_t enc): data(proxy.get()), valid(true), buffer_ready(false) {
             Rcpp_PreserveObject(data);
             set_encoding(enc);
-            RCPP_STRING_DEBUG("String(const StringProxy&)");
+            RCPP_STRING_DEBUG("String(const StringProxy&, cetype_t)");
         }
 
         /** from string proxy */
@@ -123,40 +99,40 @@ namespace Rcpp {
             RCPP_STRING_DEBUG("String(const const_StringProxy&)");
         }
 
-        String(const const_StringProxy& proxy, const std::string& enc): data(proxy.get()), valid(true), buffer_ready(false) {
+        String(const const_StringProxy& proxy, cetype_t enc): data(proxy.get()), valid(true), buffer_ready(false) {
             Rcpp_PreserveObject(data);
             set_encoding(enc);
-            RCPP_STRING_DEBUG("String(const const_StringProxy&)");
+            RCPP_STRING_DEBUG("String(const const_StringProxy&, cetype_t)");
         }
 
         /** from a std::string */
-        String(const std::string& s) : buffer(s), valid(false), buffer_ready(true), enc(CE_NATIVE) {
+        String(const std::string& s, cetype_t enc = CE_UTF8) : buffer(s), valid(false), buffer_ready(true), enc(enc) {
             data = R_NilValue;
-            RCPP_STRING_DEBUG("String(const std::string&)");
+            RCPP_STRING_DEBUG("String(const std::string&, cetype_t)");
         }
 
-        String(const std::wstring& s) : data(internal::make_charsexp(s)), valid(true), buffer_ready(false), enc(CE_NATIVE) {
+        String(const std::wstring& s, cetype_t enc = CE_UTF8) : data(internal::make_charsexp(s)), valid(true), buffer_ready(false), enc(enc) {
             Rcpp_PreserveObject(data);
-            RCPP_STRING_DEBUG("String(const std::wstring&)");
+            RCPP_STRING_DEBUG("String(const std::wstring&, cetype_t)");
         }
 
         /** from a const char* */
-        String(const char* s) : buffer(s), valid(false), buffer_ready(true), enc(CE_NATIVE) {
+        String(const char* s, cetype_t enc = CE_UTF8) : buffer(s), valid(false), buffer_ready(true), enc(enc) {
             data = R_NilValue;
-            RCPP_STRING_DEBUG("String(const char*)");
+            RCPP_STRING_DEBUG("String(const char*, cetype_t)");
         }
 
-        String(const wchar_t* s) : data(internal::make_charsexp(s)), valid(true), buffer_ready(false), enc(CE_NATIVE) {
+        String(const wchar_t* s, cetype_t enc = CE_UTF8) : data(internal::make_charsexp(s)), valid(true), buffer_ready(false), enc(enc) {
             Rcpp_PreserveObject(data);
-            RCPP_STRING_DEBUG("String(const wchar_t* s)");
+            RCPP_STRING_DEBUG("String(const wchar_t* s, cetype_t)");
         }
 
         /** constructors from R primitives */
-        String(int x) : data(internal::r_coerce<INTSXP,STRSXP>(x)), valid(true), buffer_ready(false), enc(CE_NATIVE) {Rcpp_PreserveObject(data);}
-        String(double x) : data(internal::r_coerce<REALSXP,STRSXP>(x)), valid(true), buffer_ready(false), enc(CE_NATIVE) {Rcpp_PreserveObject(data);}
-        String(bool x) : data(internal::r_coerce<LGLSXP,STRSXP>(x)), valid(true) , buffer_ready(false), enc(CE_NATIVE) {Rcpp_PreserveObject(data);}
-        String(Rcomplex x) : data(internal::r_coerce<CPLXSXP,STRSXP>(x)), valid(true), buffer_ready(false), enc(CE_NATIVE) {Rcpp_PreserveObject(data);}
-        String(Rbyte x) : data(internal::r_coerce<RAWSXP,STRSXP>(x)), valid(true), buffer_ready(false), enc(CE_NATIVE) {Rcpp_PreserveObject(data);}
+        String(int x) : data(internal::r_coerce<INTSXP,STRSXP>(x)), valid(true), buffer_ready(false), enc(CE_UTF8) {Rcpp_PreserveObject(data);}
+        String(double x) : data(internal::r_coerce<REALSXP,STRSXP>(x)), valid(true), buffer_ready(false), enc(CE_UTF8) {Rcpp_PreserveObject(data);}
+        String(bool x) : data(internal::r_coerce<LGLSXP,STRSXP>(x)), valid(true) , buffer_ready(false), enc(CE_UTF8) {Rcpp_PreserveObject(data);}
+        String(Rcomplex x) : data(internal::r_coerce<CPLXSXP,STRSXP>(x)), valid(true), buffer_ready(false), enc(CE_UTF8) {Rcpp_PreserveObject(data);}
+        String(Rbyte x) : data(internal::r_coerce<RAWSXP,STRSXP>(x)), valid(true), buffer_ready(false), enc(CE_UTF8) {Rcpp_PreserveObject(data);}
 
         ~String() {
             Rcpp_ReleaseObject(data);
@@ -406,17 +382,8 @@ namespace Rcpp {
             return buffer_ready ? buffer.c_str() : CHAR(data);
         }
 
-        inline const std::string get_encoding() const {
-            switch (enc) {
-                case CE_BYTES:
-                    return "bytes";
-                case CE_LATIN1:
-                    return "latin1";
-                case CE_UTF8:
-                    return "UTF-8";
-                default:
-                    return "unknown";
-            }
+        inline cetype_t get_encoding() const {
+            return enc;
         }
 
         inline void set_encoding(cetype_t encoding) {
@@ -428,18 +395,6 @@ namespace Rcpp {
                 data = Rf_mkCharCE(buffer.c_str(), encoding);
                 Rcpp_PreserveObject(data);
                 valid = true;
-            }
-        }
-
-        inline void set_encoding(const std::string & encoding) {
-            if (encoding == "bytes") {
-                set_encoding(CE_BYTES);
-            } else if (encoding == "latin1") {
-                set_encoding(CE_LATIN1);
-            } else if (encoding == "UTF-8") {
-                set_encoding(CE_UTF8);
-            } else {
-                set_encoding(CE_ANY);
             }
         }
 

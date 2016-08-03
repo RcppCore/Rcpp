@@ -87,8 +87,8 @@ if (.runThisTest) {
         a <- b <- "å"
         Encoding(a) <- "unknown"
         Encoding(b) <- "UTF-8"
-        checkEquals(test_String_encoding(a), "unknown")
-        checkEquals(test_String_encoding(b), "UTF-8")
+        checkEquals(test_String_encoding(a), 0)
+        checkEquals(test_String_encoding(b), 1)
         checkEquals(Encoding(test_String_set_encoding(a)), "UTF-8")
         checkEquals(Encoding(test_String_ctor_encoding(a)), "UTF-8")
         checkEquals(Encoding(test_String_ctor_encoding2()), "UTF-8")
