@@ -1,3 +1,7 @@
+2016-08-03  Dirk Eddelbuettel  <edd@debian.org>
+
+        * .gitattributes: Added to have ChangeLog and NEWS.Rd merge via union
+
 2016-08-02  James J Balamuta  <balamut2@illinois.edu>
 
         * R/Rcpp.package.skeleton.R: Added autogeneration warning
