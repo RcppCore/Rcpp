@@ -2638,9 +2638,9 @@ namespace attributes {
                 }
                 ostr << "));" << std::endl;
                 ostr << "    }" << std::endl;
-                ostr << "    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, \"interrupted-error\");"
+                ostr << "    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, \"interrupted-error\");"
                      << std::endl
-                     << "    if (rcpp_isError_gen) {" << std::endl
+                     << "    if (rcpp_isInterrupt_gen) {" << std::endl
                      << "        UNPROTECT(1);" << std::endl
                      << "        Rf_onintr();" << std::endl
                      << "    }" << std::endl
