@@ -27,6 +27,12 @@
       call the standalone Rmath library. (James Balamuta in \ghpr{514} 
       addressing issue \ghit{28}).
     }
+    \item Changes in Rcpp Examples:
+    \itemize{
+      \item Examples that used cxxfunction() from the inline package have been
+      rewritten to use either sourceCpp() or cppFunction() 
+      (James Balamuta in \ghpr{532} addressing issue \ghit{56}).
+    }
   }
 }
 
