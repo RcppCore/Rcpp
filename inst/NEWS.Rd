@@ -16,7 +16,10 @@
       \item Improved Autogeneration Warning for RcppExports
       (James Balamuta in \ghpr{528} addressing issue \ghit{526}).
       \item Fixed invalid C++ prefix identifiers in auto-generated code 
-      (James Balamuta in \ghpr{528} addressing issue \ghit{387}).
+      (James Balamuta in \ghpr{528} and \ghpr{531} addressing issue
+      \ghit{387}). 
+      \item String constructors now set default UTF-8 encoding (Qiang Kou in
+      \ghpr{529} fixing \ghit{263}).
     }
     \item Changes in Rcpp unit tests
     \itemize{
