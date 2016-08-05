@@ -1,3 +1,10 @@
+2016-08-04  James J Balamuta  <balamut2@illinois.edu>
+
+        * src/attributes.cpp: Correct variable re-declaration
+        * inst/examples/RcppGibbs/RcppGibbs.R: Updated example to use Rcpp
+        attributes instead of cxxfunction
+        * inst/examples/RcppGibbs/timeRNGs.R: Idem
+        
 2016-08-03  Dirk Eddelbuettel  <edd@debian.org>
 
         * .gitattributes: Added to have ChangeLog and NEWS.Rd merge via union

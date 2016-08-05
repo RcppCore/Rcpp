@@ -1,7 +1,7 @@
 Package: Rcpp
 Title: Seamless R and C++ Integration
-Version: 0.12.6.2
-Date: 2016-07-31
+Version: 0.12.6.4
+Date: 2016-08-04
 Author: Dirk Eddelbuettel, Romain Francois, JJ Allaire, Kevin Ushey,
  Qiang Kou, Douglas Bates and John Chambers
 Maintainer: Dirk Eddelbuettel <edd@debian.org>

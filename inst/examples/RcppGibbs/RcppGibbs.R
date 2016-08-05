@@ -83,8 +83,12 @@ RCgibbs <- cmpfun(Rgibbs)
 ## mat <- Rgibbs(10000,10); dim(mat)
 ## would give: [1] 10000     2
 
-
 ## Now for the Rcpp version -- Notice how easy it is to code up!
+
+## NOTE: This is the old way to compile Rcpp code inline.
+## The code here has left as a historical artifact and tribute to the old way.
+## Please use the code under the "new" inline compilation section.
+
 gibbscode <- '
 
   using namespace Rcpp;   // inline does that for us already
@@ -114,7 +118,7 @@ gibbscode <- '
 '
 
 # Compile and Load
-RcppGibbs <- cxxfunction(signature(n="int", thin = "int"),
+RcppGibbs_old <- cxxfunction(signature(n="int", thin = "int"),
                          gibbscode, plugin="Rcpp")
 
 
@@ -146,7 +150,7 @@ gslgibbscode <- '
 '
 
 ## Compile and Load
-GSLGibbs <- cxxfunction(signature(ns="int", thns = "int"),
+GSLGibbs_old <- cxxfunction(signature(ns="int", thns = "int"),
                         body=gslgibbscode, includes=gslgibbsincl,
                         plugin="RcppGSL")
 
@@ -156,6 +160,69 @@ GSLGibbs <- cxxfunction(signature(ns="int", thns = "int"),
 #                      Rcpp=TRUE,
 #                      cppargs="-I/usr/include",
 #                      libargs="-lgsl -lgslcblas")
+
+
+## NOTE: Within this section, the new way to compile Rcpp code inline has been
+## written. Please use the code next as a template for your own project.
+
+## Use of the cppFunction() gives the ability to immediately compile embed C++
+## without having to worry about header specification or Rcpp attributes.
+
+cppFunction('
+NumericMatrix RcppGibbs(int N, int thn){
+    // Note: n and thin are SEXPs which the Rcpp automatically converts to ints
+
+    // Setup storage matrix
+    NumericMatrix mat(N, 2);
+    
+    // The rest of the code follows the R version
+    double x = 0, y = 0;
+    
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < thn; j++) {
+            x = R::rgamma(3.0,1.0/(y*y+4));
+            y = R::rnorm(1.0/(x+1),1.0/sqrt(2*x+2));
+        }
+        mat(i,0) = x;
+        mat(i,1) = y;
+    }
+    
+    return mat;             // Return to R
+}')
+
+
+## Use of the sourceCpp() is preferred for users who wish to source external
+## files or specify their headers and Rcpp attributes within their code.
+## Code here is able to easily be extracted and placed into its own C++ file. 
+
+## Compile and Load
+sourceCpp(code="
+#include <RcppGSL.h>
+#include <gsl/gsl_rng.h>
+#include <gsl/gsl_randist.h>
+
+using namespace Rcpp;  // just to be explicit
+
+// [[Rcpp::depends(RcppGSL)]]
+
+// [[Rcpp::export]]
+NumericMatrix GSLGibbs(int N, int thin){
+    gsl_rng *r = gsl_rng_alloc(gsl_rng_mt19937);
+    double x = 0, y = 0;
+    NumericMatrix mat(N, 2);
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < thin; j++) {
+            x = gsl_ran_gamma(r,3.0,1.0/(y*y+4));
+            y = 1.0/(x+1)+gsl_ran_gaussian(r,1.0/sqrt(2*x+2));
+        }
+        mat(i,0) = x;
+        mat(i,1) = y;
+    }
+    gsl_rng_free(r);
+    
+    return mat;           // Return to R
+}")
+
 
 
 ## Now for some tests
