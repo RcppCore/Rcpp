@@ -18,11 +18,26 @@
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 require(Rcpp)
+
+
+## NOTE: This is the old way to compile Rcpp code inline.
+## The code here has left as a historical artifact and tribute to the old way.
+## Please use the code under the "new" inline compilation section.
+
 require(inline)
-funx <- cxxfunction(	
+funx_old <- cxxfunction(	
 	signature(), 
 	'throw std::range_error("boom"); return R_NilValue ; ', 
 	plugin = "Rcpp" )
+
+## NOTE: Within this section, the new way to compile Rcpp code inline has been
+## written. Please use the code next as a template for your own project.
+
+cppFunction('
+SEXP funx(){
+    throw std::range_error("boom"); return R_NilValue ; 
+}')	
+
 tryCatch(  funx(), "C++Error" = function(e){
 	cat( sprintf( "C++ exception of class '%s' : %s\n", class(e)[1L], e$message  ) )
 } )
