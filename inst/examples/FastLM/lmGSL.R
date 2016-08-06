@@ -19,9 +19,14 @@
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 suppressMessages(require(Rcpp))
+
+## NOTE: This is the old way to compile Rcpp code inline.
+## The code here has left as a historical artifact and tribute to the old way.
+## Please use the code under the "new" inline compilation section.
+
 suppressMessages(require(inline))
 
-lmGSL <- function() {
+lmGSL_old <- function() {
 
     src <- '
 
@@ -62,8 +67,55 @@ lmGSL <- function() {
 
     ## turn into a function that R can call
     ## compileargs redundant on Debian/Ubuntu as gsl headers are found anyway
-    fun <- cxxfunction(signature(Ysexp="numeric", Xsexp="numeric"),
+    fun_old <- cxxfunction(signature(Ysexp="numeric", Xsexp="numeric"),
                        src,
                        includes="#include <gsl/gsl_multifit.h>",
                        plugin="RcppGSL")
+}
+
+## NOTE: Within this section, the new way to compile Rcpp code inline has been
+## written. Please use the code next as a template for your own project.
+
+lmGSL <- function() {
+    
+sourceCpp(code='
+#include <RcppGSL.h>
+#include <gsl/gsl_multifit.h>
+// [[Rcpp::depends(RcppGSL)]]
+
+// [[Rcpp::export]]
+Rcpp::List fun(Rcpp::NumericVector Yr, Rcpp::NumericMatrix Xr){
+    
+    int i,j,n = Xr.nrow(), k = Xr.ncol();
+    double chisq;
+    
+    gsl_matrix *X = gsl_matrix_alloc (n, k);
+    gsl_vector *y = gsl_vector_alloc (n);
+    gsl_vector *c = gsl_vector_alloc (k);
+    gsl_matrix *cov = gsl_matrix_alloc (k, k);
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < k; j++)
+            gsl_matrix_set (X, i, j, Xr(i,j));
+        gsl_vector_set (y, i, Yr(i));
+    }
+    
+    gsl_multifit_linear_workspace *work = gsl_multifit_linear_alloc (n, k);
+    gsl_multifit_linear (X, y, c, cov, &chisq, work);
+    gsl_multifit_linear_free (work);
+    
+    Rcpp::NumericVector coefr(k), stderrestr(k);
+    for (i = 0; i < k; i++) {
+        coefr(i) = gsl_vector_get(c,i);
+        stderrestr(i) = sqrt(gsl_matrix_get(cov,i,i));
+    }
+    gsl_matrix_free (X);
+    gsl_vector_free (y);
+    gsl_vector_free (c);
+    gsl_matrix_free (cov);
+    
+    
+    return Rcpp::List::create( Rcpp::Named( "coef", coefr),
+                               Rcpp::Named( "stderr", stderrestr));
+}')
+fun
 }

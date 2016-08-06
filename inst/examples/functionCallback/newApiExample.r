@@ -1,7 +1,6 @@
 #!/usr/bin/env r
 
 suppressMessages(library(Rcpp))
-suppressMessages(library(inline))
 
 # R function that will be called from C++
 vecfunc <- function(x) {
@@ -11,6 +10,12 @@ vecfunc <- function(x) {
     Sys.sleep(0.225)                    # sleep before next call
     return(y)
 }
+
+## NOTE: This is the old way to compile Rcpp code inline.
+## The code here has left as a historical artifact and tribute to the old way.
+## Please use the code under the "new" inline compilation section.
+
+suppressMessages(library(inline))
 
 # C++ source code to operate on function and vector
 cpp <- '
@@ -26,6 +31,20 @@ cpp <- '
 # create a C++ function
 funx <- cxxfunction(signature(N = "integer" , xvec = "numeric", fun = "function" ),
                     body=cpp, include = "using namespace Rcpp; ", plugin = "Rcpp")
+
+
+## NOTE: Within this section, the new way to compile Rcpp code inline has been
+## written. Please use the code next as a template for your own project.
+
+# C++ source code to operate on function and vector
+cppFunction('
+NumericVector funx(int n, NumericVector numvec, Function f){
+    for( int i = 0; i < n; i++ ){
+       numvec = f( numvec ) ;
+    }
+    return numvec ;
+}')
+
 
 # create the vector
 xvec <- sqrt(c(1:12, 11:1))

@@ -27,8 +27,8 @@ checkLmArmadillo <- function(y, X) {
     fun <- lmArmadillo()
     res <- fun(y, X)
     fit <- lm(y ~ X - 1)
-    rc <- all.equal( res[[1]], as.numeric(coef(fit))) &
-          all.equal( res[[2]], as.numeric(coef(summary(fit))[,2]))
+    rc <- all.equal( as.numeric(res[[1]]), as.numeric(coef(fit))) &
+          all.equal( as.numeric(res[[2]]), as.numeric(coef(summary(fit))[,2]))
     invisible(rc)
 }
 

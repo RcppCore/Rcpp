@@ -31,7 +31,8 @@
     \itemize{
       \item Examples that used cxxfunction() from the inline package have been
       rewritten to use either sourceCpp() or cppFunction() 
-      (James Balamuta in \ghpr{532} addressing issue \ghit{56}).
+      (James Balamuta in \ghpr{535}, \ghpr{534}, and \ghpr{532} 
+      addressing issue \ghit{56}).
     }
   }
 }
