@@ -1,3 +1,15 @@
+2016-08-05  James J Balamuta  <balamut2@illinois.edu>
+
+        * inst/examples/FastLM/fastLMviaArmadillo.r: format fix
+        * inst/examples/FastLM/lmGSL.R: Updated example to use 
+        Rcpp attributes instead of cxxfunction
+        * inst/examples/FastLM/lmArmadillo.R: Idem
+        * inst/examples/functionCallback/newApiExample.r: Idem
+        * inst/examples/RcppInline/RcppInlineExample.r: Idem
+        * inst/examples/RcppInline/RcppInlineWithLibsExamples.r: Idem
+        * inst/examples/RcppInline/UncaughtExceptions.r: Idem
+        * inst/examples/RcppInline/external_pointer.r: Idem
+
 2016-08-04  James J Balamuta  <balamut2@illinois.edu>
 
         * src/attributes.cpp: Correct variable re-declaration

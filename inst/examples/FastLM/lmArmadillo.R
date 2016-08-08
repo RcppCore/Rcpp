@@ -19,9 +19,14 @@
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 suppressMessages(require(Rcpp))
+
+## NOTE: This is the old way to compile Rcpp code inline.
+## The code here has left as a historical artifact and tribute to the old way.
+## Please use the code under the "new" inline compilation section.
+
 suppressMessages(require(inline))
 
-lmArmadillo <- function() {
+lmArmadillo_old <- function() {
     src <- '
 
     Rcpp::NumericVector yr(Ysexp);
@@ -49,9 +54,36 @@ lmArmadillo <- function() {
     '
 
     ## turn into a function that R can call
-    fun <- cxxfunction(signature(Ysexp="numeric", Xsexp="numeric"),
+    fun_old <- cxxfunction(signature(Ysexp="numeric", Xsexp="numeric"),
                        src,
                        includes="#include <armadillo>",
                        plugin="RcppArmadillo")
 }
 
+
+## NOTE: Within this section, the new way to compile Rcpp code inline has been
+## written. Please use the code next as a template for your own project.
+
+lmArmadillo <- function() {
+
+    sourceCpp(code='
+    #include <RcppArmadillo.h>
+    // [[Rcpp::depends(RcppArmadillo)]]
+          
+    // [[Rcpp::export]]
+    Rcpp::List fun(const arma::vec & y, const arma::mat & X){
+
+        int n = X.n_rows, k = X.n_cols;
+    
+        arma::vec coef = solve(X, y);		// fit model y ~ X
+    
+        arma::vec resid = y - X*coef;    	// to compute std. error of the coefficients
+        double sig2 = arma::as_scalar(trans(resid)*resid)/(n-k);	// requires Armadillo 0.8.2 or later
+        arma::mat covmat = sig2 * arma::inv(arma::trans(X)*X);
+    
+        return Rcpp::List::create( Rcpp::Named( "coefficients") = coef,
+                                   Rcpp::Named( "stderr") = sqrt(arma::diagvec(covmat)));
+    }')
+    
+    fun
+}
