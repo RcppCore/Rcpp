@@ -27,12 +27,7 @@ if (.runThisTest) {
         x <- as.raw(0:9)
         checkEquals(first_el(x), x[1], msg = "RCPP_RETURN_VECTOR (raw)")
     }
-    
-    test.ExpressionVector <- function() {
-        x <- as.expression(0:9)
-        checkEquals(first_el(x), x[1], msg = "RCPP_RETURN_VECTOR (expression)")
-    }
-    
+
     test.ComplexVector <- function() {
         x <- as.complex(0:9)
         checkEquals(first_el(x), x[1], msg = "RCPP_RETURN_VECTOR (complex)")
@@ -49,7 +44,7 @@ if (.runThisTest) {
     }
     
     test.GenericVector <- function() {
-        x <- as.list(0:9)
+        x <- list("foo", 10L, 10.2, FALSE)
         checkEquals(first_el(x), x[1], msg = "RCPP_RETURN_VECTOR (list)")
     }
     
@@ -61,11 +56,6 @@ if (.runThisTest) {
     test.RawMatrix <- function() {
         x <- matrix(as.raw(0:9), ncol = 2L)
         checkEquals(first_cell(x), x[1, 1, drop = FALSE], msg = "RCPP_RETURN_MATRIX (raw)")
-    }
-    
-    test.ExpressionMatrix <- function() {
-        x <- matrix(as.expression(0:9), ncol = 2L)
-        checkEquals(first_cell(x), x[1, 1, drop = FALSE], msg = "RCPP_RETURN_MATRIX (expression)")
     }
     
     test.ComplexMatrix <- function() {
@@ -84,7 +74,7 @@ if (.runThisTest) {
     }
     
     test.GenericMatrix <- function() {
-        x <- matrix(lapply(0:9, function(.) as.list(0:9)), ncol = 2L)
+        x <- matrix(lapply(0:9, function(.) 0:9), ncol = 2L)
         checkEquals(first_cell(x), x[1, 1, drop = FALSE], msg = "RCPP_RETURN_MATRIX (list)")
     }
     
