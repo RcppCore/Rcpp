@@ -1,3 +1,8 @@
+2016-08-09  Artem Klevtsov <a.a.klevtsov@gmail.com>
+
+        * inst/include/Rcpp/macros/dispatch.h: Add variadic conditional macro
+        when C++11 compiler used
+
 2016-08-05  James J Balamuta  <balamut2@illinois.edu>
 
         * inst/examples/FastLM/fastLMviaArmadillo.r: format fix

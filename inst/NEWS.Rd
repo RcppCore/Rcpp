@@ -20,6 +20,8 @@
       \ghit{387}). 
       \item String constructors now set default UTF-8 encoding (Qiang Kou in
       \ghpr{529} fixing \ghit{263}).
+      \item Add variadic variants of the \code{RCPP_RETURN_VECTOR} and \code{RCPP_RETURN_MATRIX} macro when C++11 compiler used (Artem Klevtsov
+      in \ghpr{536} fixing \ghit{38}).
     }
     \item Changes in Rcpp unit tests
     \itemize{
