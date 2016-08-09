@@ -43,6 +43,11 @@ if (.runThisTest) {
         checkEquals(first_el(x), x[1], msg = "RCPP_RETURN_VECTOR (numeric)")
     }
     
+    test.ExpressionVector <- function() {
+        x <- parse(text = "rnrom; rnrom(10); mean(1:10)")
+        checkEquals(first_el(x), x[1], msg = "RCPP_RETURN_VECTOR (numeric)")
+    }
+    
     test.GenericVector <- function() {
         x <- list("foo", 10L, 10.2, FALSE)
         checkEquals(first_el(x), x[1], msg = "RCPP_RETURN_VECTOR (list)")
