@@ -24,7 +24,7 @@ before_install:
 
 install:
   ## note that we currently depend on highlight 0.4.4.1 from the PPA as 0.4.5 has issues
-  - ./travis-tool.sh install_aptget r-cran-runit r-cran-inline r-cran-rbenchmark r-cran-highlight r-cran-pkgkitten
+  - ./travis-tool.sh install_aptget r-cran-runit r-cran-inline r-cran-rbenchmark r-cran-highlight r-cran-pkgkitten r-cran-littler
 
 script: 
   - ./travis-tool.sh run_tests
