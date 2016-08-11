@@ -1,3 +1,7 @@
+2016-08-11  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .travis.yml: Switch to using run.sh for Travis CI
+
 2016-08-09  Artem Klevtsov <a.a.klevtsov@gmail.com>
 
         * inst/include/Rcpp/macros/dispatch.h: Add variadic conditional macro
