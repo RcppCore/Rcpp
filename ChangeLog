@@ -1,3 +1,11 @@
+2016-08-09  Artem Klevtsov <a.a.klevtsov@gmail.com>
+
+        * inst/include/Rcpp/macros/dispatch.h: Add variadic conditional macro
+        when C++11 compiler used
+        * ints/include/unitTests/cpp/dispatch.cpp: Add unit tests for
+        RCPP_RETURN_VECTOR and RCPP_RETURN_MATRIX macro
+        * ints/include/unitTests/runit.dispatch.R: Idem
+
 2016-08-05  James J Balamuta  <balamut2@illinois.edu>
 
         * inst/examples/FastLM/fastLMviaArmadillo.r: format fix
