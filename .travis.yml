@@ -1,36 +1,29 @@
-# Sample .travis.yml for R projects.
-#
-# See README.md for instructions, or for more configuration options,
-# see the wiki:
-#   https://github.com/craigcitro/r-travis/wiki
+# Run Travis CI for R using https://eddelbuettel.github.io/r-travis/
 
 language: c
 
 sudo: required
 
+dist: trusty
+
 env:
   global:
-    - R_BUILD_ARGS="--no-build-vignettes --no-manual"
-    - R_CHECK_ARGS="--no-build-vignettes --no-manual --as-cran"
     - RunAllRcppTests="yes"
-    - CRAN="http://cran.us.r-project.org"
 
 before_install:
-  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
-  - chmod 755 ./travis-tool.sh
-  - ./travis-tool.sh bootstrap
+  - curl -OLs http://eddelbuettel.github.io/r-travis/run.sh && chmod 0755 run.sh
+  # add our launchpad repo which has (inter alia) the r-cran-rbenchmark package
   - sudo add-apt-repository -y ppa:edd/misc
-  - sudo apt-get update -q
+  - ./run.sh bootstrap
 
 install:
-  ## note that we currently depend on highlight 0.4.4.1 from the PPA as 0.4.5 has issues
-  - ./travis-tool.sh install_aptget r-cran-runit r-cran-inline r-cran-rbenchmark r-cran-highlight r-cran-pkgkitten
+  - ./run.sh install_aptget r-cran-runit r-cran-inline r-cran-rbenchmark r-cran-highlight r-cran-pkgkitten
 
 script: 
-  - ./travis-tool.sh run_tests
+  - ./run.sh run_tests
 
 after_failure:
-  - ./travis-tool.sh dump_logs
+  - ./run.sh dump_logs
 
 notifications:
   email:
@@ -39,3 +32,4 @@ notifications:
   slack:
     secure: kUzgzzpgBMc6a+qSjGovfU14U7x9GUXfghDgyF5qBaND/MjFpkmTBfW438Out2buiY+hFNnZc4zThifJM300cOXbcwVentmzuVQ5lLjBhTDvwQgdqytgWr/Ds9dErBeMXr178UD3MJXSOCLhO0wUke2xp2ZsDhsjquT+vFYnuk8=
       
+
