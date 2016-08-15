@@ -24,6 +24,12 @@
       \code{RCPP_RETURN_MATRIX} macro when C++11 compiler used (Artem Klevtsov
       in \ghpr{537} fixing \ghit{38}).
     }
+    \item Changes in Rcpp build system
+    \itemize{
+      \item Travis CI is now driven via \code{run.sh} from our fork, and deploys
+      all packages as .deb binaries using our PPA where needed (Dirk in
+      \ghpr{540} addressing issue \ghit{517}).
+    }
     \item Changes in Rcpp unit tests
     \itemize{
       \item New unit tests for random number generators the R namespace which 
@@ -34,7 +40,7 @@
     \itemize{
       \item Examples that used cxxfunction() from the inline package have been
       rewritten to use either sourceCpp() or cppFunction() 
-      (James Balamuta in \ghpr{535}, \ghpr{534}, and \ghpr{532} 
+      (James Balamuta in \ghpr{541}, \ghpr{535}, \ghpr{534}, and \ghpr{532} 
       addressing issue \ghit{56}).
     }
   }
