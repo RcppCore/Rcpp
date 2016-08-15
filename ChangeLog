@@ -4,7 +4,7 @@
 
 2016-08-11  Dirk Eddelbuettel  <edd@debian.org>
 
-	    * .travis.yml: Switch to using run.sh for Travis CI
+	* .travis.yml: Switch to using run.sh for Travis CI
 
 2016-08-09  Artem Klevtsov <a.a.klevtsov@gmail.com>
 
@@ -17,7 +17,7 @@
 2016-08-05  James J Balamuta  <balamut2@illinois.edu>
 
         * inst/examples/FastLM/fastLMviaArmadillo.r: format fix
-        * inst/examples/FastLM/lmGSL.R: Updated example to use 
+        * inst/examples/FastLM/lmGSL.R: Updated example to use
         Rcpp attributes instead of cxxfunction
         * inst/examples/FastLM/lmArmadillo.R: Idem
         * inst/examples/functionCallback/newApiExample.r: Idem
@@ -32,7 +32,7 @@
         * inst/examples/RcppGibbs/RcppGibbs.R: Updated example to use Rcpp
         attributes instead of cxxfunction
         * inst/examples/RcppGibbs/timeRNGs.R: Idem
-        
+
 2016-08-03  Dirk Eddelbuettel  <edd@debian.org>
 
         * .gitattributes: Added to have ChangeLog and NEWS.Rd merge via union
