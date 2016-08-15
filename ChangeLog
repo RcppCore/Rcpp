@@ -1,6 +1,10 @@
+2016-08-14  James J Balamuta  <balamut2@illinois.edu>
+
+        * inst/examples/FastLM/lmGSL.R: Updated example to use new GSL templates
+
 2016-08-11  Dirk Eddelbuettel  <edd@debian.org>
 
-	* .travis.yml: Switch to using run.sh for Travis CI
+	    * .travis.yml: Switch to using run.sh for Travis CI
 
 2016-08-09  Artem Klevtsov <a.a.klevtsov@gmail.com>
 
