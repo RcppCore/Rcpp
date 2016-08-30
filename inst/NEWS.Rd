@@ -1,9 +1,9 @@
 \name{NEWS}
-\title{News for Package 'Rcpp'}
+\title{News for Package \pkg{Rcpp}}
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp version 0.12.7 (UNRELEASED)}{
+\section{Changes in Rcpp version 0.12.7 (2016-09-??)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
