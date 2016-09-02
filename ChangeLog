@@ -1,3 +1,7 @@
+2016-09-02  Simon Dirmeier <simon.dirmeier@bsse.ethz.ch>
+
+        * src/attributes.cpp: Remove leading underscore in header guard
+
 2016-08-14  James J Balamuta  <balamut2@illinois.edu>
 
         * inst/examples/FastLM/lmGSL.R: Updated example to use new GSL templates
