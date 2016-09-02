@@ -2149,7 +2149,7 @@ namespace attributes {
     }
 
     std::string CppExportsIncludeGenerator::getHeaderGuard() const {
-        return "_RCPP_" + packageCpp() + "_RCPPEXPORTS_H_GEN_";
+        return "RCPP_" + packageCpp() + "_RCPPEXPORTS_H_GEN_";
     }
 
     CppPackageIncludeGenerator::CppPackageIncludeGenerator(
@@ -2197,7 +2197,7 @@ namespace attributes {
     }
 
     std::string CppPackageIncludeGenerator::getHeaderGuard() const {
-        return "_RCPP_" + packageCpp() + "_H_GEN_";
+        return "RCPP_" + packageCpp() + "_H_GEN_";
     }
 
     RExportsGenerator::RExportsGenerator(const std::string& packageDir,
