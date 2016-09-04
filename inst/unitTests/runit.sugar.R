@@ -1121,5 +1121,494 @@ if (.runThisTest) {
   
     }
     
+
+    ## 04 September 2016
+    ## {row,col}{Sums,Means} numeric tests
+    test.sugar.rowMeans_numeric <- function() {
+        
+        x <- matrix(rnorm(9), 3)
+        
+        checkEquals(
+            dbl_row_sums(x), rowSums(x),
+            "numeric / rowSums / keep NA / clean input"
+        )
+        checkEquals(
+            dbl_row_sums(x, TRUE), rowSums(x, TRUE),
+            "numeric / rowSums / rm NA / clean input"
+        )
+        
+        checkEquals(
+            dbl_col_sums(x), colSums(x),
+            "numeric / colSums / keep NA / clean input"
+        )
+        checkEquals(
+            dbl_col_sums(x, TRUE), colSums(x, TRUE),
+            "numeric / colSums / rm NA / clean input"
+        )
+        
+        checkEquals(
+            dbl_row_means(x), rowMeans(x),
+            "numeric / rowMeans / keep NA / clean input"
+        )
+        checkEquals(
+            dbl_row_means(x, TRUE), rowMeans(x, TRUE),
+            "numeric / rowMeans / rm NA / clean input"
+        )
+        
+        checkEquals(
+            dbl_col_means(x), colMeans(x),
+            "numeric / colMeans / keep NA / clean input"
+        )
+        checkEquals(
+            dbl_col_means(x, TRUE), colMeans(x, TRUE),
+            "numeric / colMeans / rm NA / clean input"
+        )
+        
+        
+        x[sample(1:9, 4)] <- NA
+        
+        checkEquals(
+            dbl_row_sums(x), rowSums(x),
+            "numeric / rowSums / keep NA / mixed input"
+        )
+        checkEquals(
+            dbl_row_sums(x, TRUE), rowSums(x, TRUE),
+            "numeric / rowSums / rm NA / mixed input"
+        )
+        
+        checkEquals(
+            dbl_col_sums(x), colSums(x),
+            "numeric / colSums / keep NA / mixed input"
+        )
+        checkEquals(
+            dbl_col_sums(x, TRUE), colSums(x, TRUE),
+            "numeric / colSums / rm NA / mixed input"
+        )
+        
+        checkEquals(
+            dbl_row_means(x), rowMeans(x),
+            "numeric / rowMeans / keep NA / mixed input"
+        )
+        checkEquals(
+            dbl_row_means(x, TRUE), rowMeans(x, TRUE),
+            "numeric / rowMeans / rm NA / mixed input"
+        )
+        
+        checkEquals(
+            dbl_col_means(x), colMeans(x),
+            "numeric / colMeans / keep NA / mixed input"
+        )
+        checkEquals(
+            dbl_col_means(x, TRUE), colMeans(x, TRUE),
+            "numeric / colMeans / rm NA / mixed input"
+        )
+        
+        
+        x[] <- NA_real_
+        
+        checkEquals(
+            dbl_row_sums(x), rowSums(x),
+            "numeric / rowSums / keep NA / dirty input"
+        )
+        checkEquals(
+            dbl_row_sums(x, TRUE), rowSums(x, TRUE),
+            "numeric / rowSums / rm NA / dirty input"
+        )
+        
+        checkEquals(
+            dbl_col_sums(x), colSums(x),
+            "numeric / colSums / keep NA / dirty input"
+        )
+        checkEquals(
+            dbl_col_sums(x, TRUE), colSums(x, TRUE),
+            "numeric / colSums / rm NA / dirty input"
+        )
+        
+        checkEquals(
+            dbl_row_means(x), rowMeans(x),
+            "numeric / rowMeans / keep NA / dirty input"
+        )
+        checkEquals(
+            dbl_row_means(x, TRUE), rowMeans(x, TRUE),
+            "numeric / rowMeans / rm NA / dirty input"
+        )
+        
+        checkEquals(
+            dbl_col_means(x), colMeans(x),
+            "numeric / colMeans / keep NA / dirty input"
+        )
+        checkEquals(
+            dbl_col_means(x, TRUE), colMeans(x, TRUE),
+            "numeric / colMeans / rm NA / dirty input"
+        )
+  
+    }
+    
+    
+    ## {row,col}{Sums,Means} integer tests
+    test.sugar.rowMeans_integer <- function() {
+        
+        x <- matrix(as.integer(rnorm(9) * 1e4), 3)
+        
+        checkEquals(
+            int_row_sums(x), rowSums(x),
+            "integer / rowSums / keep NA / clean input"
+        )
+        checkEquals(
+            int_row_sums(x, TRUE), rowSums(x, TRUE),
+            "integer / rowSums / rm NA / clean input"
+        )
+        
+        checkEquals(
+            int_col_sums(x), colSums(x),
+            "integer / colSums / keep NA / clean input"
+        )
+        checkEquals(
+            int_col_sums(x, TRUE), colSums(x, TRUE),
+            "integer / colSums / rm NA / clean input"
+        )
+        
+        checkEquals(
+            int_row_means(x), rowMeans(x),
+            "integer / rowMeans / keep NA / clean input"
+        )
+        checkEquals(
+            int_row_means(x, TRUE), rowMeans(x, TRUE),
+            "integer / rowMeans / rm NA / clean input"
+        )
+        
+        checkEquals(
+            int_col_means(x), colMeans(x),
+            "integer / colMeans / keep NA / clean input"
+        )
+        checkEquals(
+            int_col_means(x, TRUE), colMeans(x, TRUE),
+            "integer / colMeans / rm NA / clean input"
+        )
+        
+        
+        x[sample(1:9, 4)] <- NA
+        
+        checkEquals(
+            int_row_sums(x), rowSums(x),
+            "integer / rowSums / keep NA / mixed input"
+        )
+        checkEquals(
+            int_row_sums(x, TRUE), rowSums(x, TRUE),
+            "integer / rowSums / rm NA / mixed input"
+        )
+        
+        checkEquals(
+            int_col_sums(x), colSums(x),
+            "integer / colSums / keep NA / mixed input"
+        )
+        checkEquals(
+            int_col_sums(x, TRUE), colSums(x, TRUE),
+            "integer / colSums / rm NA / mixed input"
+        )
+        
+        checkEquals(
+            int_row_means(x), rowMeans(x),
+            "integer / rowMeans / keep NA / mixed input"
+        )
+        checkEquals(
+            int_row_means(x, TRUE), rowMeans(x, TRUE),
+            "integer / rowMeans / rm NA / mixed input"
+        )
+        
+        checkEquals(
+            int_col_means(x), colMeans(x),
+            "integer / colMeans / keep NA / mixed input"
+        )
+        checkEquals(
+            int_col_means(x, TRUE), colMeans(x, TRUE),
+            "integer / colMeans / rm NA / mixed input"
+        )
+        
+        
+        x[] <- NA_integer_
+        
+        checkEquals(
+            int_row_sums(x), rowSums(x),
+            "integer / rowSums / keep NA / dirty input"
+        )
+        checkEquals(
+            int_row_sums(x, TRUE), rowSums(x, TRUE),
+            "integer / rowSums / rm NA / dirty input"
+        )
+        
+        checkEquals(
+            int_col_sums(x), colSums(x),
+            "integer / colSums / keep NA / dirty input"
+        )
+        checkEquals(
+            int_col_sums(x, TRUE), colSums(x, TRUE),
+            "integer / colSums / rm NA / dirty input"
+        )
+        
+        checkEquals(
+            int_row_means(x), rowMeans(x),
+            "integer / rowMeans / keep NA / dirty input"
+        )
+        checkEquals(
+            int_row_means(x, TRUE), rowMeans(x, TRUE),
+            "integer / rowMeans / rm NA / dirty input"
+        )
+        
+        checkEquals(
+            int_col_means(x), colMeans(x),
+            "integer / colMeans / keep NA / dirty input"
+        )
+        checkEquals(
+            int_col_means(x, TRUE), colMeans(x, TRUE),
+            "integer / colMeans / rm NA / dirty input"
+        )
+  
+    }
+    
+    
+    ## {row,col}{Sums,Means} logical tests
+    test.sugar.rowMeans_logical <- function() {
+        
+        x <- matrix(rbinom(9, 1, .5) > 0, 3)
+        
+        checkEquals(
+            lgl_row_sums(x), rowSums(x),
+            "logical / rowSums / keep NA / clean input"
+        )
+        checkEquals(
+            lgl_row_sums(x, TRUE), rowSums(x, TRUE),
+            "logical / rowSums / rm NA / clean input"
+        )
+        
+        checkEquals(
+            lgl_col_sums(x), colSums(x),
+            "logical / colSums / keep NA / clean input"
+        )
+        checkEquals(
+            lgl_col_sums(x, TRUE), colSums(x, TRUE),
+            "logical / colSums / rm NA / clean input"
+        )
+        
+        checkEquals(
+            lgl_row_means(x), rowMeans(x),
+            "logical / rowMeans / keep NA / clean input"
+        )
+        checkEquals(
+            lgl_row_means(x, TRUE), rowMeans(x, TRUE),
+            "logical / rowMeans / rm NA / clean input"
+        )
+        
+        checkEquals(
+            lgl_col_means(x), colMeans(x),
+            "logical / colMeans / keep NA / clean input"
+        )
+        checkEquals(
+            lgl_col_means(x, TRUE), colMeans(x, TRUE),
+            "logical / colMeans / rm NA / clean input"
+        )
+        
+        
+        x[sample(1:9, 4)] <- NA
+        
+        checkEquals(
+            lgl_row_sums(x), rowSums(x),
+            "logical / rowSums / keep NA / mixed input"
+        )
+        checkEquals(
+            lgl_row_sums(x, TRUE), rowSums(x, TRUE),
+            "logical / rowSums / rm NA / mixed input"
+        )
+        
+        checkEquals(
+            lgl_col_sums(x), colSums(x),
+            "logical / colSums / keep NA / mixed input"
+        )
+        checkEquals(
+            lgl_col_sums(x, TRUE), colSums(x, TRUE),
+            "logical / colSums / rm NA / mixed input"
+        )
+        
+        checkEquals(
+            lgl_row_means(x), rowMeans(x),
+            "logical / rowMeans / keep NA / mixed input"
+        )
+        checkEquals(
+            lgl_row_means(x, TRUE), rowMeans(x, TRUE),
+            "logical / rowMeans / rm NA / mixed input"
+        )
+        
+        checkEquals(
+            lgl_col_means(x), colMeans(x),
+            "logical / colMeans / keep NA / mixed input"
+        )
+        checkEquals(
+            lgl_col_means(x, TRUE), colMeans(x, TRUE),
+            "logical / colMeans / rm NA / mixed input"
+        )
+        
+        
+        x[] <- NA_integer_
+        
+        checkEquals(
+            lgl_row_sums(x), rowSums(x),
+            "logical / rowSums / keep NA / dirty input"
+        )
+        checkEquals(
+            lgl_row_sums(x, TRUE), rowSums(x, TRUE),
+            "logical / rowSums / rm NA / dirty input"
+        )
+        
+        checkEquals(
+            lgl_col_sums(x), colSums(x),
+            "logical / colSums / keep NA / dirty input"
+        )
+        checkEquals(
+            lgl_col_sums(x, TRUE), colSums(x, TRUE),
+            "logical / colSums / rm NA / dirty input"
+        )
+        
+        checkEquals(
+            lgl_row_means(x), rowMeans(x),
+            "logical / rowMeans / keep NA / dirty input"
+        )
+        checkEquals(
+            lgl_row_means(x, TRUE), rowMeans(x, TRUE),
+            "logical / rowMeans / rm NA / dirty input"
+        )
+        
+        checkEquals(
+            lgl_col_means(x), colMeans(x),
+            "logical / colMeans / keep NA / dirty input"
+        )
+        checkEquals(
+            lgl_col_means(x, TRUE), colMeans(x, TRUE),
+            "logical / colMeans / rm NA / dirty input"
+        )
+  
+    }
+    
+    
+    ## {row,col}{Sums,Means} complex tests
+    test.sugar.rowMeans_complex <- function() {
+        
+        x <- matrix(rnorm(9) + 2i, 3)
+        
+        checkEquals(
+            cx_row_sums(x), rowSums(x),
+            "complex / rowSums / keep NA / clean input"
+        )
+        checkEquals(
+            cx_row_sums(x, TRUE), rowSums(x, TRUE),
+            "complex / rowSums / rm NA / clean input"
+        )
+        
+        checkEquals(
+            cx_col_sums(x), colSums(x),
+            "complex / colSums / keep NA / clean input"
+        )
+        checkEquals(
+            cx_col_sums(x, TRUE), colSums(x, TRUE),
+            "complex / colSums / rm NA / clean input"
+        )
+        
+        checkEquals(
+            cx_row_means(x), rowMeans(x),
+            "complex / rowMeans / keep NA / clean input"
+        )
+        checkEquals(
+            cx_row_means(x, TRUE), rowMeans(x, TRUE),
+            "complex / rowMeans / rm NA / clean input"
+        )
+        
+        checkEquals(
+            cx_col_means(x), colMeans(x),
+            "complex / colMeans / keep NA / clean input"
+        )
+        checkEquals(
+            cx_col_means(x, TRUE), colMeans(x, TRUE),
+            "complex / colMeans / rm NA / clean input"
+        )
+        
+        
+        x[sample(1:9, 4)] <- NA
+        
+        checkEquals(
+            cx_row_sums(x), rowSums(x),
+            "complex / rowSums / keep NA / mixed input"
+        )
+        checkEquals(
+            cx_row_sums(x, TRUE), rowSums(x, TRUE),
+            "complex / rowSums / rm NA / mixed input"
+        )
+        
+        checkEquals(
+            cx_col_sums(x), colSums(x),
+            "complex / colSums / keep NA / mixed input"
+        )
+        checkEquals(
+            cx_col_sums(x, TRUE), colSums(x, TRUE),
+            "complex / colSums / rm NA / mixed input"
+        )
+        
+        checkEquals(
+            cx_row_means(x), rowMeans(x),
+            "complex / rowMeans / keep NA / mixed input"
+        )
+        checkEquals(
+            cx_row_means(x, TRUE), rowMeans(x, TRUE),
+            "complex / rowMeans / rm NA / mixed input"
+        )
+        
+        checkEquals(
+            cx_col_means(x), colMeans(x),
+            "complex / colMeans / keep NA / mixed input"
+        )
+        checkEquals(
+            cx_col_means(x, TRUE), colMeans(x, TRUE),
+            "complex / colMeans / rm NA / mixed input"
+        )
+        
+        
+        x[] <- NA_complex_
+        
+        checkEquals(
+            cx_row_sums(x), rowSums(x),
+            "complex / rowSums / keep NA / dirty input"
+        )
+        checkEquals(
+            cx_row_sums(x, TRUE), rowSums(x, TRUE),
+            "complex / rowSums / rm NA / dirty input"
+        )
+        
+        checkEquals(
+            cx_col_sums(x), colSums(x),
+            "complex / colSums / keep NA / dirty input"
+        )
+        checkEquals(
+            cx_col_sums(x, TRUE), colSums(x, TRUE),
+            "complex / colSums / rm NA / dirty input"
+        )
+        
+        checkEquals(
+            cx_row_means(x), rowMeans(x),
+            "complex / rowMeans / keep NA / dirty input"
+        )
+        checkEquals(
+            cx_row_means(x, TRUE), rowMeans(x, TRUE),
+            "complex / rowMeans / rm NA / dirty input"
+        )
+        
+        checkEquals(
+            cx_col_means(x), colMeans(x),
+            "complex / colMeans / keep NA / dirty input"
+        )
+        checkEquals(
+            cx_col_means(x, TRUE), colMeans(x, TRUE),
+            "complex / colMeans / rm NA / dirty input"
+        )
+  
+    }
+    
 }
 
