@@ -3,12 +3,12 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp version 0.12.7 (2016-09-??)}{
+\section{Changes in Rcpp version 0.12.7 (2016-09-04)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
       \item The \code{NORET} macro is now defined if it was not already defined
-      by R (Kevin fixing issue \ghit{512}). 
+      by R itself (Kevin fixing issue \ghit{512}). 
       \item Environment functions get() & find() now accept a Symbol
       (James Balamuta in \ghpr{513} addressing issue \ghit{326}).
       \item Several uses of \code{Rf_eval} were replaced by the preferred
@@ -17,7 +17,7 @@
       (James Balamuta in \ghpr{528} addressing issue \ghit{526}).
       \item Fixed invalid C++ prefix identifiers in auto-generated code 
       (James Balamuta in \ghpr{528} and \ghpr{531} addressing issue
-      \ghit{387}; Simon Dirmeier in \ghprP{548}). 
+      \ghit{387}; Simon Dirmeier in \ghpr{548}). 
       \item String constructors now set default UTF-8 encoding (Qiang Kou in
       \ghpr{529} fixing \ghit{263}).
       \item Add variadic variants of the \code{RCPP_RETURN_VECTOR} and
