@@ -48,37 +48,37 @@ inline bool check_na(Rcomplex x) {
 }
 
 
-inline void incr(double& lhs, double rhs) {
-    lhs += rhs;
+inline void incr(double* lhs, double rhs) {
+    *lhs += rhs;
 }
 
-inline void incr(int& lhs, int rhs) {
-    lhs += rhs;
+inline void incr(int* lhs, int rhs) {
+    *lhs += rhs;
 }
 
-inline void incr(Rcomplex& lhs, const Rcomplex& rhs) {
-    lhs.r += rhs.r;
-    lhs.i += rhs.i;
-}
-
-
-inline void div(double& lhs, R_xlen_t rhs) {
-    lhs /= rhs;
-}
-
-inline void div(Rcomplex& lhs, R_xlen_t rhs) {
-    lhs.r /= rhs;
-    lhs.i /= rhs;
+inline void incr(Rcomplex* lhs, const Rcomplex& rhs) {
+    lhs->r += rhs.r;
+    lhs->i += rhs.i;
 }
 
 
-inline void set_nan(double& x) {
-    x = R_NaN;
+inline void div(double* lhs, R_xlen_t rhs) {
+    *lhs /= rhs;
 }
 
-inline void set_nan(Rcomplex& x) {
-    x.r = R_NaN;
-    x.i = R_NaN;
+inline void div(Rcomplex* lhs, R_xlen_t rhs) {
+    lhs->r /= rhs;
+    lhs->i /= rhs;
+}
+
+
+inline void set_nan(double* x) {
+    *x = R_NaN;
+}
+
+inline void set_nan(Rcomplex* x) {
+    x->r = R_NaN;
+    x->i = R_NaN;
 }
 
 
@@ -145,7 +145,7 @@ public:
 
         for (j = 0; j < nc; j++) {
             for (i = 0; i < nr; i++) {
-                detail::incr(res[i], ref(i, j));
+                detail::incr(&res[i], ref(i, j));
             }
         }
 
@@ -198,7 +198,7 @@ public:                                                                         
                 if (detail::check_na(ref(i, j))) {                                                          \
                     na_flags[i].x |= 0x1;                                                                   \
                 }                                                                                           \
-                detail::incr(res[i], ref(i, j));                                                            \
+                detail::incr(&res[i], ref(i, j));                                                           \
             }                                                                                               \
         }                                                                                                   \
                                                                                                             \
@@ -215,6 +215,7 @@ public:                                                                         
 ROW_SUMS_IMPL_KEEPNA(LGLSXP) 
 ROW_SUMS_IMPL_KEEPNA(INTSXP) 
 
+#undef ROW_SUMS_IMPL_KEEPNA
 
 //  RowSums
 //      na.rm = TRUE
@@ -246,7 +247,7 @@ public:
             for (i = 0; i < nr; i++) {
                 current = ref(i, j);
                 if (!detail::check_na(current)) {
-                    detail::incr(res[i], current);
+                    detail::incr(&res[i], current);
                 }
             }
         }
@@ -287,7 +288,7 @@ public:                                                                         
             for (i = 0; i < nr; i++) {                                                                      \
                 current = ref(i, j);                                                                        \
                 if (!detail::check_na(current)) {                                                           \
-                    detail::incr(res[i], current);                                                          \
+                    detail::incr(&res[i], current);                                                         \
                 }                                                                                           \
             }                                                                                               \
         }                                                                                                   \
@@ -299,6 +300,7 @@ public:                                                                         
 ROW_SUMS_IMPL_RMNA(LGLSXP) 
 ROW_SUMS_IMPL_RMNA(INTSXP) 
 
+#undef ROW_SUMS_IMPL_RMNA
 
 //  RowSums
 //      Input with template parameter NA = false
@@ -335,7 +337,7 @@ public:
 
         for (j = 0; j < nc; j++) {
             for (i = 0; i < nr; i++) {
-                detail::incr(res[j], ref(i, j));
+                detail::incr(&res[j], ref(i, j));
             }
         }
 
@@ -380,7 +382,7 @@ public:                                                                         
                 if (detail::check_na(ref(i, j))) {                                                          \
                     na_flags[j].x |= 0x1;                                                                   \
                 }                                                                                           \
-                detail::incr(res[j], ref(i, j));                                                            \
+                detail::incr(&res[j], ref(i, j));                                                           \
             }                                                                                               \
         }                                                                                                   \
                                                                                                             \
@@ -397,7 +399,8 @@ public:                                                                         
 COL_SUMS_IMPL_KEEPNA(LGLSXP) 
 COL_SUMS_IMPL_KEEPNA(INTSXP) 
 
-
+#undef COL_SUMS_IMPL_KEEPNA
+    
 //  ColSums
 //      na.rm = TRUE
 //      default input
@@ -428,7 +431,7 @@ public:
             for (i = 0; i < nr; i++) {
                 current = ref(i, j);
                 if (!detail::check_na(current)) {
-                    detail::incr(res[j], current);
+                    detail::incr(&res[j], current);
                 }
             }
         }
@@ -469,7 +472,7 @@ public:                                                                         
             for (i = 0; i < nr; i++) {                                                                      \
                 current = ref(i, j);                                                                        \
                 if (!detail::check_na(current)) {                                                           \
-                    detail::incr(res[j], current);                                                          \
+                    detail::incr(&res[j], current);                                                         \
                 }                                                                                           \
             }                                                                                               \
         }                                                                                                   \
@@ -481,6 +484,7 @@ public:                                                                         
 COL_SUMS_IMPL_RMNA(LGLSXP) 
 COL_SUMS_IMPL_RMNA(INTSXP) 
 
+#undef COL_SUMS_IMPL_RMNA
 
 //  ColSums
 //      Input with template parameter NA = false
@@ -520,12 +524,12 @@ public:
 
         for (j = 0; j < nc; j++) {
             for (i = 0; i < nr; i++) {
-                detail::incr(res[i], ref(i, j));
+                detail::incr(&res[i], ref(i, j));
             }
         }
 
         for (i = 0; i < nr; i++) {
-            detail::div(res[i], nc);
+            detail::div(&res[i], nc);
         }
 
         return res;
@@ -569,13 +573,13 @@ public:                                                                         
                 if (detail::check_na(ref(i, j))) {                                                              \
                     na_flags[i].x |= 0x1;                                                                       \
                 }                                                                                               \
-                detail::incr(res[i], ref(i, j));                                                                \
+                detail::incr(&res[i], ref(i, j));                                                               \
             }                                                                                                   \
         }                                                                                                       \
                                                                                                                 \
         for (i = 0; i < nr; i++) {                                                                              \
             if (!na_flags[i].x) {                                                                               \
-                detail::div(res[i], nc);                                                                        \
+                detail::div(&res[i], nc);                                                                       \
             } else {                                                                                            \
                 res[i] = NA_REAL;                                                                               \
             }                                                                                                   \
@@ -588,7 +592,8 @@ public:                                                                         
 ROW_MEANS_IMPL_KEEPNA(LGLSXP) 
 ROW_MEANS_IMPL_KEEPNA(INTSXP) 
 
-
+#undef ROW_MEANS_IMPL_KEEPNA
+    
 // RowMeans
 //      na.rm = TRUE
 //      default input
@@ -621,7 +626,7 @@ public:
             for (i = 0; i < nr; i++) {
                 current = ref(i, j);
                 if (!detail::check_na(current)) {
-                    detail::incr(res[i], ref(i, j));
+                    detail::incr(&res[i], ref(i, j));
                     ++n_ok[i];
                 }
             }
@@ -629,9 +634,9 @@ public:
 
         for (i = 0; i < nr; i++) {
             if (n_ok[i]) {
-                detail::div(res[i], n_ok[i]);
+                detail::div(&res[i], n_ok[i]);
             } else {
-                detail::set_nan(res[i]);
+                detail::set_nan(&res[i]);
             }
         }
 
@@ -670,7 +675,7 @@ public:                                                                         
         for (j = 0; j < nc; j++) {                                                                              \
             for (i = 0; i < nr; i++) {                                                                          \
                 if (!detail::check_na(ref(i, j))) {                                                             \
-                    detail::incr(res[i], ref(i, j));                                                            \
+                    detail::incr(&res[i], ref(i, j));                                                           \
                     ++n_ok[i];                                                                                  \
                 }                                                                                               \
             }                                                                                                   \
@@ -678,9 +683,9 @@ public:                                                                         
                                                                                                                 \
         for (i = 0; i < nr; i++) {                                                                              \
             if (n_ok[i]) {                                                                                      \
-                detail::div(res[i], n_ok[i]);                                                                   \
+                detail::div(&res[i], n_ok[i]);                                                                  \
             } else {                                                                                            \
-                detail::set_nan(res[i]);                                                                        \
+                detail::set_nan(&res[i]);                                                                       \
             }                                                                                                   \
         }                                                                                                       \
                                                                                                                 \
@@ -691,6 +696,7 @@ public:                                                                         
 ROW_MEANS_IMPL_RMNA(LGLSXP) 
 ROW_MEANS_IMPL_RMNA(INTSXP) 
 
+#undef ROW_MEANS_IMPL_RMNA
 
 //  RowMeans
 //      Input with template parameter NA = false
@@ -727,12 +733,12 @@ public:
 
         for (j = 0; j < nc; j++) {
             for (i = 0; i < nr; i++) {
-                detail::incr(res[j], ref(i, j));
+                detail::incr(&res[j], ref(i, j));
             }
         }
 
         for (j = 0; j < nc; j++) {
-            detail::div(res[j], nr);
+            detail::div(&res[j], nr);
         }
 
         return res;
@@ -776,13 +782,13 @@ public:                                                                         
                 if (detail::check_na(ref(i, j))) {                                                              \
                     na_flags[j].x |= 0x1;                                                                       \
                 }                                                                                               \
-                detail::incr(res[j], ref(i, j));                                                                \
+                detail::incr(&res[j], ref(i, j));                                                               \
             }                                                                                                   \
         }                                                                                                       \
                                                                                                                 \
         for (j = 0; j < nc; j++) {                                                                              \
             if (!na_flags[j].x) {                                                                               \
-                detail::div(res[j], nr);                                                                        \
+                detail::div(&res[j], nr);                                                                       \
             } else {                                                                                            \
                 res[j] = NA_REAL;                                                                               \
             }                                                                                                   \
@@ -795,6 +801,7 @@ public:                                                                         
 COL_MEANS_IMPL_KEEPNA(LGLSXP) 
 COL_MEANS_IMPL_KEEPNA(INTSXP) 
 
+#undef COL_MEANS_IMPL_KEEPNA
 
 // ColMeans
 //      na.rm = TRUE
@@ -828,7 +835,7 @@ public:
             for (i = 0; i < nr; i++) {
                 current = ref(i, j);
                 if (!detail::check_na(current)) {
-                    detail::incr(res[j], ref(i, j));
+                    detail::incr(&res[j], ref(i, j));
                     ++n_ok[j];
                 }
             }
@@ -836,9 +843,9 @@ public:
 
         for (j = 0; j < nc; j++) {
             if (n_ok[j]) {
-                detail::div(res[j], n_ok[j]);
+                detail::div(&res[j], n_ok[j]);
             } else {
-                detail::set_nan(res[j]);
+                detail::set_nan(&res[j]);
             }
         }
 
@@ -877,7 +884,7 @@ public:                                                                         
         for (j = 0; j < nc; j++) {                                                                              \
             for (i = 0; i < nr; i++) {                                                                          \
                 if (!detail::check_na(ref(i, j))) {                                                             \
-                    detail::incr(res[j], ref(i, j));                                                            \
+                    detail::incr(&res[j], ref(i, j));                                                           \
                     ++n_ok[j];                                                                                  \
                 }                                                                                               \
             }                                                                                                   \
@@ -885,9 +892,9 @@ public:                                                                         
                                                                                                                 \
         for (j = 0; j < nc; j++) {                                                                              \
             if (n_ok[j]) {                                                                                      \
-                detail::div(res[j], n_ok[j]);                                                                   \
+                detail::div(&res[j], n_ok[j]);                                                                  \
             } else {                                                                                            \
-                detail::set_nan(res[j]);                                                                        \
+                detail::set_nan(&res[j]);                                                                       \
             }                                                                                                   \
         }                                                                                                       \
                                                                                                                 \
@@ -898,7 +905,8 @@ public:                                                                         
 COL_MEANS_IMPL_RMNA(LGLSXP) 
 COL_MEANS_IMPL_RMNA(INTSXP) 
 
-
+#undef COL_MEANS_IMPL_RMNA
+    
 //  ColMeans
 //      Input with template parameter NA = false
 //      ColMeansImpl<..., NA_RM = false>
@@ -946,16 +954,6 @@ colMeans(const MatrixBase<RTYPE, NA, T>& x, bool na_rm = false) {
     }
     return sugar::ColMeansImpl<RTYPE, NA, T, true>(x);
 }
-
-
-#undef ROW_SUMS_IMPL_KEEPNA
-#undef ROW_SUMS_IMPL_RMNA
-#undef COL_SUMS_IMPL_KEEPNA
-#undef COL_SUMS_IMPL_RMNA
-#undef ROW_MEANS_IMPL_KEEPNA
-#undef ROW_MEANS_IMPL_RMNA
-#undef COL_MEANS_IMPL_KEEPNA
-#undef COL_MEANS_IMPL_RMNA
 
 
 } // Rcpp
