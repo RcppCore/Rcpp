@@ -84,5 +84,7 @@
 
 #include <Rcpp/sugar/functions/cbind.h>
 
+#include <Rcpp/sugar/functions/rowSums.h>
+
 #endif
 

@@ -1,3 +1,11 @@
+2016-09-04  Nathan Russell  <russell.nr2012@gmail.com>
+
+        * inst/include/Rcpp/sugar/functions/rowSums.h: New functions 
+        rowSums(), colSums(), rowMeans(), and colMeans()
+        * inst/include/Rcpp/sugar/functions/functions.h: Idem
+        * inst/unitTests/cpp/sugar.cpp: Unit tests for new functions 
+        * inst/unitTests/runit.sugar.R: Idem
+
 2016-09-04  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.12.7
