@@ -25,7 +25,8 @@ rm -f confdefs.h config.log config.status \
 	src/symbols.rds \
 	inst/unitTests/testRcppClass/src/symbols.rds \
 	vignettes/*.aux vignettes/*.log vignettes/*.out \
-	vignettes/*.tex vignettes/*.bbl vignettes/*.blg 
+	vignettes/*.tex vignettes/*.bbl vignettes/*.blg \
+	vignettes/*.toc vignettes/*.tpt
 
 rm -rf	autom4te.cache inst/lib/ inst/doc/man/ inst/doc/html/ inst/doc/latex/ \
    	inst/doc/auto inst/doc/Rcpp-*/auto/ src-* vignettes/auto
