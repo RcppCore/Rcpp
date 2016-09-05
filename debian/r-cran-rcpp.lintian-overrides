@@ -83,3 +83,5 @@ r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.I
 r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.binary.package.R
 r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.sugar.var.R
 r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.algorithm.R
+r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.dispatch.R
+r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.quickanddirty.R
