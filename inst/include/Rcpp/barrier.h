@@ -22,14 +22,14 @@
 #ifndef Rcpp__barrier__h
 #define Rcpp__barrier__h
 
-SEXP get_string_elt(SEXP, int) ;
-const char* char_get_string_elt(SEXP, int) ;
-void set_string_elt(SEXP, int, SEXP) ;
-void char_set_string_elt(SEXP, int, const char*) ;
+SEXP get_string_elt(SEXP, R_xlen_t) ;
+const char* char_get_string_elt(SEXP, R_xlen_t) ;
+void set_string_elt(SEXP, R_xlen_t, SEXP) ;
+void char_set_string_elt(SEXP, R_xlen_t, const char*) ;
 SEXP* get_string_ptr(SEXP) ;
 
-SEXP get_vector_elt(SEXP, int) ;
-void set_vector_elt(SEXP, int, SEXP ) ;
+SEXP get_vector_elt(SEXP, R_xlen_t) ;
+void set_vector_elt(SEXP, R_xlen_t, SEXP ) ;
 SEXP* get_vector_ptr(SEXP) ;
 const char* char_nocheck( SEXP ) ;
 void* dataptr(SEXP) ;

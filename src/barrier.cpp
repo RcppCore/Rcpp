@@ -31,22 +31,22 @@
 namespace Rcpp { SEXP Rcpp_eval(SEXP, SEXP); }
 
 // [[Rcpp::register]]
-SEXP get_string_elt(SEXP x, int i) {
+SEXP get_string_elt(SEXP x, R_xlen_t i) {
     return STRING_ELT(x, i);
 }
 
 // [[Rcpp::register]]
-const char* char_get_string_elt(SEXP x, int i) {
+const char* char_get_string_elt(SEXP x, R_xlen_t i) {
     return CHAR(STRING_ELT(x, i));
 }
 
 // [[Rcpp::register]]
-void set_string_elt(SEXP x, int i, SEXP value) {
+void set_string_elt(SEXP x, R_xlen_t i, SEXP value) {
     SET_STRING_ELT(x, i, value);
 }
 
 // [[Rcpp::register]]
-void char_set_string_elt(SEXP x, int i, const char* value) {
+void char_set_string_elt(SEXP x, R_xlen_t i, const char* value) {
     SET_STRING_ELT(x, i, Rf_mkChar(value));
 }
 
@@ -56,12 +56,12 @@ SEXP* get_string_ptr(SEXP x) {
 }
 
 // [[Rcpp::register]]
-SEXP get_vector_elt(SEXP x, int i) {
+SEXP get_vector_elt(SEXP x, R_xlen_t i) {
     return VECTOR_ELT(x, i);
 }
 
 // [[Rcpp::register]]
-void set_vector_elt(SEXP x, int i, SEXP value) {
+void set_vector_elt(SEXP x, R_xlen_t i, SEXP value) {
     SET_VECTOR_ELT(x, i, value);
 }
 
