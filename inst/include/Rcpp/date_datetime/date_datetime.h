@@ -30,4 +30,12 @@
 #include <Rcpp/date_datetime/oldDatetimeVector.h>
 #include <Rcpp/date_datetime/newDatetimeVector.h>
 
+namespace Rcpp {
+
+    // for now default to the existing classes
+    typedef oldDateVector DateVector;
+    typedef oldDatetimeVector DatetimeVector;
+
+}
+
 #endif

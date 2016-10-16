@@ -28,10 +28,10 @@
 
 namespace Rcpp {
 
-    class DatetimeVector : public GreedyVector<Datetime, DatetimeVector> {
+    class oldDatetimeVector : public GreedyVector<Datetime, oldDatetimeVector> {
     public:
-        DatetimeVector(SEXP vec) : GreedyVector<Datetime, DatetimeVector>(vec) {}
-        DatetimeVector(int n) : GreedyVector<Datetime, DatetimeVector>(n) {}
+        oldDatetimeVector(SEXP vec) : GreedyVector<Datetime, oldDatetimeVector>(vec) {}
+        oldDatetimeVector(int n) :    GreedyVector<Datetime, oldDatetimeVector>(n) {}
 
         std::vector<Datetime> getDatetimes() const {
             return v;
