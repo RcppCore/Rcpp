@@ -32,9 +32,19 @@
 
 namespace Rcpp {
 
-    // for now default to the existing classes
-    typedef oldDateVector DateVector;
-    typedef oldDatetimeVector DatetimeVector;
+    // this will not be on by default 
+    #if defined(RCPP_NEW_DATE_DATETIME_VECTORS)
+
+        typedef oldDateVector DateVector;
+        typedef oldDatetimeVector DatetimeVector;
+
+    #else
+
+        // for now the fallback-default is to use the existing classes
+        typedef oldDateVector DateVector;
+        typedef oldDatetimeVector DatetimeVector;
+
+    #endif
 
 }
 

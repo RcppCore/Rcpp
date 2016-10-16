@@ -1,5 +1,10 @@
 2016-10-16  Dirk Eddelbuettel  <edd@debian.org>
 
+        * inst/include/Rcpp.h (RCPP_NEW_DATE_DATETIME_VECTORS): Add a new
+        compile-time #define to switch between 'old' (existing) and 'new'
+        DateVector and DatimeVector classes. Currently uses 'new' for testing
+        plan to switch to proper deprecation schedule.
+
         * inst/include/Rcpp/date_datetime/date_datetime.h: New header file (and
         directory) regrouping all Date and Datetime headers, scalar and vector
 
