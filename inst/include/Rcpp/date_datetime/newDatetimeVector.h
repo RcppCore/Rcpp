@@ -28,8 +28,14 @@ namespace Rcpp {
 
     class newDatetimeVector : public NumericVector {
     public:
-        newDatetimeVector(SEXP vec) : NumericVector(vec) { setClass(); }
-        newDatetimeVector(int n) : NumericVector(n) { setClass(); }
+        newDatetimeVector(SEXP vec, const char* tz = "") :
+            NumericVector(vec) {
+            setClass(tz);
+        }
+        newDatetimeVector(int n, const char* tz = "") :
+            NumericVector(n) {
+            setClass(tz);
+        }
 
         inline std::vector<Datetime> getDatetimes() const {
             int n = this->size();
@@ -41,11 +47,16 @@ namespace Rcpp {
 
     private:
 
-        void setClass() {
+        void setClass(const char *tz) {
             Shield<SEXP> datetimeclass(Rf_allocVector(STRSXP,2));
             SET_STRING_ELT(datetimeclass, 0, Rf_mkChar("POSIXct"));
             SET_STRING_ELT(datetimeclass, 1, Rf_mkChar("POSIXt"));
             Rf_setAttrib(*this, R_ClassSymbol, datetimeclass);
+
+            if (tz != "") {
+                Shield<SEXP> tzsexp(Rf_mkString(tz));
+                Rf_setAttrib(*this, Rf_install("tzone"), tzsexp);
+            }
         }
     };
 }

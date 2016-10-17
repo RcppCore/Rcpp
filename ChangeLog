@@ -1,3 +1,8 @@
+2016-10-17  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/date_datetime/newDatetimeVector.h (Rcpp): Allow
+        setting of timezone attribute; default not-set leads to local as in R
+
 2016-10-16  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp.h (RCPP_NEW_DATE_DATETIME_VECTORS): Add a new
