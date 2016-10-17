@@ -53,7 +53,7 @@ namespace Rcpp {
             SET_STRING_ELT(datetimeclass, 1, Rf_mkChar("POSIXt"));
             Rf_setAttrib(*this, R_ClassSymbol, datetimeclass);
 
-            if (tz != "") {
+            if (strcmp(tz, "") != 0) {
                 Shield<SEXP> tzsexp(Rf_mkString(tz));
                 Rf_setAttrib(*this, Rf_install("tzone"), tzsexp);
             }
