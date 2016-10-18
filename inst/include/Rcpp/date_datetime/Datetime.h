@@ -65,6 +65,8 @@ namespace Rcpp {
 
         inline int is_na() const { return traits::is_na<REALSXP>(m_dt); }
 
+        operator double()  const { return m_dt; }
+
     private:
         double m_dt;            // fractional seconds since epoch
         struct tm m_tm;         // standard time representation

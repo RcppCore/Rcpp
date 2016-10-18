@@ -98,6 +98,10 @@ namespace Rcpp {
            return traits::is_na<REALSXP>(m_d);
         }
 
+        operator double() const {
+            return m_d;
+        }
+
     private:
         double m_d;                 // (fractional) day number, relative to epoch of Jan 1, 1970
         struct tm m_tm;             // standard time representation

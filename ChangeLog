@@ -1,3 +1,8 @@
+2016-10-18  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/date_datetime/Date.h (Rcpp): Add operator double()
+        * inst/include/Rcpp/date_datetime/Datetime.h (Rcpp): Ditto
+
 2016-10-17  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/date_datetime/newDatetimeVector.h (Rcpp): Allow
