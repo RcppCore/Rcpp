@@ -35,8 +35,8 @@ namespace Rcpp {
     // this will not be on by default 
     #if defined(RCPP_NEW_DATE_DATETIME_VECTORS)
 
-        typedef oldDateVector DateVector;
-        typedef oldDatetimeVector DatetimeVector;
+        typedef newDateVector DateVector;
+        typedef newDatetimeVector DatetimeVector;
 
     #else
 

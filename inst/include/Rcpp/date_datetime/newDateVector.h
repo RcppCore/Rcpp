@@ -42,7 +42,8 @@ namespace Rcpp {
     private:
 
         void setClass() {
-            Rf_setAttrib(*this, R_ClassSymbol, Rf_mkString("Date"));
+            Shield<SEXP> dateclass(Rf_mkString("Date"));
+            Rf_setAttrib(*this, R_ClassSymbol, dateclass);
         }
     };
 }
