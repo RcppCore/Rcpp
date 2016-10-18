@@ -1,8 +1,8 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
-// DateVector.h: Rcpp R/C++ interface class library -- Date vector support
+// newDateVector.h: Rcpp R/C++ interface class library -- Date vector support
 //
-// Copyright (C) 2010 - 2015  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2016         Dirk Eddelbuettel
 //
 // This file is part of Rcpp.
 //
@@ -19,23 +19,32 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp__DateVector_h
-#define Rcpp__DateVector_h
+#ifndef Rcpp__newDateVector_h
+#define Rcpp__newDateVector_h
 
 #include <RcppCommon.h>
-#include <Rcpp/internal/GreedyVector.h>
 
 namespace Rcpp {
 
-    class DateVector : public GreedyVector<Date, DateVector> {
+    class newDateVector : public NumericVector {
     public:
-        DateVector(SEXP vec) : GreedyVector<Date, DateVector>(vec) {}
-        DateVector(int n) : GreedyVector<Date, DateVector>(n) {}
+        newDateVector(SEXP vec) : NumericVector(vec) { setClass(); }
+        newDateVector(int n) : NumericVector(n) { setClass(); }
 
         inline std::vector<Date> getDates() const {
-            return v ;
+            int n = this->size();
+            std::vector<Date> v(n);
+            for (int i=0; i<n; i++)
+                v[i] = (*this)[i];
+            return v;
         }
 
+    private:
+
+        void setClass() {
+            Shield<SEXP> dateclass(Rf_mkString("Date"));
+            Rf_setAttrib(*this, R_ClassSymbol, dateclass);
+        }
     };
 }
 

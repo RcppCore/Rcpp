@@ -1,6 +1,6 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
-// DatetimeVector.h: Rcpp R/C++ interface class library -- Datetime vector
+// DateVector.h: Rcpp R/C++ interface class library -- Date vector support
 //
 // Copyright (C) 2010 - 2015  Dirk Eddelbuettel and Romain Francois
 //
@@ -19,22 +19,21 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef Rcpp__DatetimeVector_h
-#define Rcpp__DatetimeVector_h
+#ifndef Rcpp__DateVector_h
+#define Rcpp__DateVector_h
 
 #include <RcppCommon.h>
-
 #include <Rcpp/internal/GreedyVector.h>
 
 namespace Rcpp {
 
-    class DatetimeVector : public GreedyVector<Datetime, DatetimeVector> {
+    class oldDateVector : public GreedyVector<Date, oldDateVector> {
     public:
-        DatetimeVector(SEXP vec) : GreedyVector<Datetime, DatetimeVector>(vec) {}
-        DatetimeVector(int n) : GreedyVector<Datetime, DatetimeVector>(n) {}
+        oldDateVector(SEXP vec) : GreedyVector<Date, oldDateVector>(vec) {}
+        oldDateVector(int n) :    GreedyVector<Date, oldDateVector>(n) {}
 
-        std::vector<Datetime> getDatetimes() const {
-            return v;
+        inline std::vector<Date> getDates() const {
+            return v ;
         }
 
     };

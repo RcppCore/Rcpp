@@ -1,3 +1,32 @@
+2016-10-18  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/date_datetime/Date.h (Rcpp): Add operator double()
+        * inst/include/Rcpp/date_datetime/Datetime.h (Rcpp): Ditto
+
+2016-10-17  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/date_datetime/newDatetimeVector.h (Rcpp): Allow
+        setting of timezone attribute; default not-set leads to local as in R
+
+2016-10-16  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp.h (RCPP_NEW_DATE_DATETIME_VECTORS): Add a new
+        compile-time #define to switch between 'old' (existing) and 'new'
+        DateVector and DatimeVector classes. Currently uses 'new' for testing
+        plan to switch to proper deprecation schedule.
+
+        * inst/include/Rcpp/date_datetime/date_datetime.h: New header file (and
+        directory) regrouping all Date and Datetime headers, scalar and vector
+
+        * inst/include/Rcpp/date_datetime/Date.h: Moved one directory down
+        * inst/include/Rcpp/date_datetime/Datetime.h: Ditto
+        * inst/include/Rcpp/date_datetime/oldDateVector.h: Moved and renamed
+        * inst/include/Rcpp/date_datetime/oldDatetimeVector.h: Ditto
+
+        * inst/include/Rcpp/date_datetime/newDateVector.h: New implementation
+        inheriting from NumericVector, still optional
+        * inst/include/Rcpp/date_datetime/newDatetimeVector.h: Ditto
+
 2016-09-05  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version): Roll minor version
