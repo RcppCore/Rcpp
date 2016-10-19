@@ -2,7 +2,7 @@
 //
 // Datetime.h: Rcpp R/C++ interface class library -- Datetime (POSIXct)
 //
-// Copyright (C) 2010 - 2015  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2016  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -55,6 +55,7 @@ namespace Rcpp {
 
         // Minimal set of date operations.
         friend Datetime  operator+( const Datetime &dt, double offset);
+        friend Datetime  operator+( const Datetime &dt, int offset);
         friend double    operator-( const Datetime &dt1, const Datetime& dt2);
         friend bool      operator<( const Datetime &dt1, const Datetime& dt2);
         friend bool      operator>( const Datetime &dt1, const Datetime& dt2);
@@ -106,6 +107,15 @@ namespace Rcpp {
     template<> SEXP wrap_extra_steps<Rcpp::Datetime>(SEXP x);
 
     inline Datetime operator+(const Datetime &datetime, double offset) {
+        Datetime newdt(datetime.m_dt);
+        newdt.m_dt += offset;
+        time_t t = static_cast<time_t>(std::floor(newdt.m_dt));
+        newdt.m_tm = *gmtime_(&t);
+        newdt.m_us = static_cast<int>(::Rf_fround( (newdt.m_dt - t) * 1.0e6, 0.0));
+        return newdt;
+    }
+
+    inline Datetime operator+(const Datetime &datetime, int offset) {
         Datetime newdt(datetime.m_dt);
         newdt.m_dt += offset;
         time_t t = static_cast<time_t>(std::floor(newdt.m_dt));
