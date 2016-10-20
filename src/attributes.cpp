@@ -1496,7 +1496,7 @@ namespace attributes {
         // Look for the signature termination ({ or ; not inside quotes)
         // on this line and then subsequent lines if necessary
         std::string signature;
-        for (int i = lineNumber; i<lines_.size(); i++) {
+        for (size_t i = lineNumber; i<lines_.size(); i++) {
             std::string line;
             line = lines_[i];
             bool insideQuotes = false;

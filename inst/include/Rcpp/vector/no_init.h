@@ -66,7 +66,7 @@ private:
     int nc;
 } ;
 
-inline no_init_vector no_init(int size) {
+inline no_init_vector no_init(R_xlen_t size) {
     return no_init_vector(size);
 }
 
