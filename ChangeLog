@@ -1,3 +1,8 @@
+2016-10-19  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/date_datetime/Datetime.h (Rcpp): Additional
+        operator+ for int argument
+
 2016-10-18  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/date_datetime/Date.h (Rcpp): Add operator double()
