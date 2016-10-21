@@ -44,13 +44,13 @@ std::string   demangle(const std::string& name);
 const char*   short_file_name(const char* );
 int*          get_cache(int n);
 SEXP          stack_trace( const char *file, int line);
-SEXP          get_string_elt(SEXP s, int i);
-const char*   char_get_string_elt(SEXP s, int i);
-void          set_string_elt(SEXP s, int i, SEXP v);
-void          char_set_string_elt(SEXP s, int i, const char* v);
+SEXP          get_string_elt(SEXP s, R_xlen_t i);
+const char*   char_get_string_elt(SEXP s, R_xlen_t i);
+void          set_string_elt(SEXP s, R_xlen_t i, SEXP v);
+void          char_set_string_elt(SEXP s, R_xlen_t i, const char* v);
 SEXP*         get_string_ptr(SEXP s);
-SEXP          get_vector_elt(SEXP v, int i);
-void          set_vector_elt(SEXP v, int i, SEXP x);
+SEXP          get_vector_elt(SEXP v, R_xlen_t i);
+void          set_vector_elt(SEXP v, R_xlen_t i, SEXP x);
 SEXP*         get_vector_ptr(SEXP v);
 const char*   char_nocheck(SEXP x);
 void*         dataptr(SEXP x);
@@ -149,26 +149,26 @@ inline attribute_hidden SEXP stack_trace( const char *file, int line){
     return fun(file, line);
 }
 
-inline attribute_hidden SEXP get_string_elt(SEXP s, int i){
-    typedef SEXP (*Fun)(SEXP, int);
+inline attribute_hidden SEXP get_string_elt(SEXP s, R_xlen_t i){
+    typedef SEXP (*Fun)(SEXP, R_xlen_t);
     static Fun fun = GET_CALLABLE("get_string_elt");
     return fun(s, i);
 }
 
-inline attribute_hidden const char* char_get_string_elt(SEXP s, int i){
-    typedef const char* (*Fun)(SEXP, int);
+inline attribute_hidden const char* char_get_string_elt(SEXP s, R_xlen_t i){
+    typedef const char* (*Fun)(SEXP, R_xlen_t);
     static Fun fun = GET_CALLABLE("char_get_string_elt");
     return fun(s, i);
 }
 
-inline attribute_hidden void set_string_elt(SEXP s, int i, SEXP v){
-    typedef void (*Fun)(SEXP,int,SEXP);
+inline attribute_hidden void set_string_elt(SEXP s, R_xlen_t i, SEXP v){
+    typedef void (*Fun)(SEXP, R_xlen_t, SEXP);
     static Fun fun = GET_CALLABLE("set_string_elt");
     fun(s, i, v);
 }
 
-inline attribute_hidden void char_set_string_elt(SEXP s, int i, const char* v){
-    typedef void (*Fun)(SEXP,int, const char*);
+inline attribute_hidden void char_set_string_elt(SEXP s, R_xlen_t i, const char* v){
+    typedef void (*Fun)(SEXP, R_xlen_t, const char*);
     static Fun fun = GET_CALLABLE("char_set_string_elt");
     fun(s, i, v );
 }
@@ -179,14 +179,14 @@ inline attribute_hidden SEXP* get_string_ptr(SEXP s){
     return fun(s);
 }
 
-inline attribute_hidden SEXP get_vector_elt(SEXP v, int i){
-    typedef SEXP (*Fun)(SEXP, int );
+inline attribute_hidden SEXP get_vector_elt(SEXP v, R_xlen_t i){
+    typedef SEXP (*Fun)(SEXP, R_xlen_t);
     static Fun fun = GET_CALLABLE("get_vector_elt");
     return fun(v, i);
 }
 
-inline attribute_hidden void set_vector_elt(SEXP v, int i, SEXP x){
-    typedef void (*Fun)(SEXP, int, SEXP);
+inline attribute_hidden void set_vector_elt(SEXP v, R_xlen_t i, SEXP x){
+    typedef void (*Fun)(SEXP, R_xlen_t, SEXP);
     static Fun fun = GET_CALLABLE("set_vector_elt");
     fun(v, i, x);
 }

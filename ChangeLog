@@ -1,3 +1,9 @@
+2016-10-21  Qiang Kou  <qkou@umail.iu.edu>
+
+        * inst/include/Rcpp/barrier.h: Change string_elt/vector_elt to accept R_xlen_t
+        * inst/include/Rcpp/routines.h: Ditto
+        * src/barrier.cpp: Ditto
+
 2016-10-19  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/date_datetime/Datetime.h (Rcpp): Additional
