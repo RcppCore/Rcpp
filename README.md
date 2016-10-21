@@ -1,8 +1,8 @@
-## Rcpp [![Build Status](https://travis-ci.org/RcppCore/Rcpp.svg)](https://travis-ci.org/RcppCore/Rcpp) [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html) [![CRAN](http://www.r-pkg.org/badges/version/Rcpp)](http://cran.r-project.org/package=Rcpp) [![Downloads](http://cranlogs.r-pkg.org/badges/Rcpp?color=brightgreen)](http://www.r-pkg.org/pkg/Rcpp)
+## Rcpp [![Build Status](https://travis-ci.org/RcppCore/Rcpp.svg)](https://travis-ci.org/RcppCore/Rcpp) [![License](http://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html) [![CRAN](http://www.r-pkg.org/badges/version/Rcpp)](https://cran.r-project.org/package=Rcpp) [![Downloads](http://cranlogs.r-pkg.org/badges/Rcpp?color=brightgreen)](http://www.r-pkg.org/pkg/Rcpp)
 
 ### Seamless R and C++ Integration
 
-The [Rcpp package](http://cran.r-project.org/package=Rcpp) provides R functions and a C++ library
+The [Rcpp package](https://cran.r-project.org/package=Rcpp) provides R functions and a C++ library
 facilitating the integration of R and C++.
 
 R data types (`SEXP`) are matched to C++ objects in a class hierarchy.  All R
@@ -12,7 +12,7 @@ represented as instances of the Rcpp::NumericVector class, environments are
 represented as instances of Rcpp::Environment, functions are represented as
 Rcpp::Function, etc ... 
 The
-[Rcpp-introduction](http://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-introduction.pdf)
+[Rcpp-introduction](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-introduction.pdf)
 vignette (also published as a [JSS paper](http://www.jstatsoft.org/v40/i08/)) provides a good
 entry point to Rcpp as do the [Rcpp website](http://www.rcpp.org), the
 [Rcpp page](http://dirk.eddelbuettel.com/code/rcpp.html) and the 
@@ -21,16 +21,16 @@ is provided by the [Rcpp book](http://www.rcpp.org/book/).
 
 Conversion from C++ to R and back is driven by the templates `Rcpp::wrap` 
 and `Rcpp::as` which are highly flexible and extensible, as documented
-in the [Rcpp-extending](http://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-extending.pdf) vignette.
+in the [Rcpp-extending](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-extending.pdf) vignette.
 
 Rcpp also provides Rcpp modules, a framework that allows exposing 
-C++ functions and classes to the R level. The [Rcpp-modules](http://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-modules.pdf) vignette
+C++ functions and classes to the R level. The [Rcpp-modules](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-modules.pdf) vignette
 details the current set of features of Rcpp-modules. 
 
 Rcpp includes a concept called Rcpp sugar that brings many R functions
 into C++. Sugar takes advantage of lazy evaluation and expression templates
 to achieve great performance while exposing a syntax that is much nicer
-to use than the equivalent low-level loop code. The [Rcpp-sugar](http://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-sugar.pdf)
+to use than the equivalent low-level loop code. The [Rcpp-sugar](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-sugar.pdf)
 gives an overview of the feature.
 
 Rcpp attributes provide a high-level syntax for declaring C++
@@ -39,7 +39,7 @@ required to invoke them.  Attributes are intended to facilitate both
 interactive use of C++ within R sessions as well as to support R
 package development. Attributes are built on top of Rcpp modules and
 their implementation is based on previous work in the inline package.
-See the [Rcpp-atttributes](http://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-attributes.pdf) vignettes for more details. 
+See the [Rcpp-atttributes](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-attributes.pdf) vignettes for more details. 
 
 ### Documentation 
 
@@ -66,7 +66,7 @@ available for code relying on the older interface. New development should
 always use this Rcpp package instead.
 
 Other usage examples are provided by packages using Rcpp. As of September 2016,
-there are 759 [CRAN](http://cran.r-project.org) packages using Rcpp, a further
+there are 759 [CRAN](https://cran.r-project.org) packages using Rcpp, a further
 76 [BioConductor](http://www.bioconductor.org) packages in its current release
 (with 84 in its devel version) as well as an unknown number of GitHub,
 Bitbucket, R-Forge, ... repositories using Rcpp.  All these packages provide
@@ -76,7 +76,7 @@ usage examples for Rcpp.
 ### Installation
 
 Released and tested versions of Rcpp are available via the
-[CRAN](http://cran.r-project.org) network, and can be installed from within R via 
+[CRAN](https://cran.r-project.org) network, and can be installed from within R via 
 
 ```R
 install.packages("Rcpp")
@@ -85,7 +85,7 @@ install.packages("Rcpp")
 To install from source, ensure you have a complete package development
 environment for R as discussed in the relevant documentation; also see
 questions 1.2 and 1.3 in the
-[Rcpp-FAQ](http://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-FAQ.pdf).
+[Rcpp-FAQ](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-FAQ.pdf).
 
 ### Authors
 

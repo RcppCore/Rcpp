@@ -5,11 +5,27 @@
 
 \section{Changes in Rcpp version 0.12.8 (2016-??-??)}{
   \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item String and vector elements now use extended \code{R_xlen_t} indices
+      (Qiang in PR \ghpr{560})
+    }
     \item Changes in Rcpp Sugar:
     \itemize{
       \item Added new Sugar functions \code{rowSums()}, \code{colSums()},
       \code{rowMeans()}, \code{colMeans()} (PR \ghpr{551} by Nathan Russell 
       fixing \ghit{549})
+    }
+    \item Updated Date and Datetime vector classes:
+    \itemize{
+      \item The \code{DateVector} and \code{DatetimeVector} classes were renamed
+      with a prefix \code{old}; they are currently \code{typedef}'ed to the
+      existing name (\ghpr{557})
+      \item New variants \code{newDateVector} and \code{newDatetimeVector} were
+      added based on \code{NumericVector} (also (\ghpr{557})
+      \item By defining \code{RCPP_NEW_DATE_DATETIME_VECTORS} the new classes
+      can activated. We intend to make the new classes the default no sooner
+      than twelve months from this release.
     }
   }
 }
