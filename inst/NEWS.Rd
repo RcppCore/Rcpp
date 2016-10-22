@@ -9,6 +9,7 @@
     \itemize{
       \item String and vector elements now use extended \code{R_xlen_t} indices
       (Qiang in PR \ghpr{560})
+      \item Hashing functions now return unsigned int (Qiang in PR \ghpr{561})
     }
     \item Changes in Rcpp Sugar:
     \itemize{

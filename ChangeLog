@@ -7,6 +7,11 @@
         * inst/unitTests/runit.sugar.R: Idem
         * inst/unitTests/runit.dispatch.R (test.ExpressionVector): Use
         expression rather than parse, correct typo
+2016-10-22  Qiang Kou  <qkou@umail.iu.edu>
+
+        * inst/include/Rcpp/hash/IndexHash.h: change hashing function to return unsigned int
+        * inst/include/Rcpp/hash/SelfHash.h: Ditto
+
 
 2016-10-21  Qiang Kou  <qkou@umail.iu.edu>
 

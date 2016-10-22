@@ -62,7 +62,7 @@ namespace sugar{
 
         int add_value_get_index(int i){
             STORAGE val = src[i++] ;
-            int addr = get_addr(val) ;
+            unsigned int addr = get_addr(val) ;
             while (data[addr] && src[data[addr] - 1] != val) {
               addr++;
               if (addr == m) addr = 0;
@@ -75,8 +75,8 @@ namespace sugar{
         }
 
         /* NOTE: we are returning a 1-based index ! */
-        int get_index(STORAGE value) const {
-            int addr = get_addr(value) ;
+        unsigned int get_index(STORAGE value) const {
+            unsigned int addr = get_addr(value) ;
             while (data[addr]) {
               if (src[data[addr] - 1] == value)
                 return data[addr];
@@ -87,16 +87,16 @@ namespace sugar{
         }
 
         // defined below
-        int get_addr(STORAGE value) const ;
+        unsigned int get_addr(STORAGE value) const ;
     } ;
 
     template <>
-    inline int SelfHash<INTSXP>::get_addr(int value) const {
+    inline unsigned int SelfHash<INTSXP>::get_addr(int value) const {
         return RCPP_HASH(value) ;
     }
     template <>
-    inline int SelfHash<REALSXP>::get_addr(double val) const {
-      int addr;
+    inline unsigned int SelfHash<REALSXP>::get_addr(double val) const {
+      unsigned int addr;
       union dint_u {
           double d;
           unsigned int u[2];
@@ -112,9 +112,9 @@ namespace sugar{
     }
 
     template <>
-    inline int SelfHash<STRSXP>::get_addr(SEXP value) const {
+    inline unsigned int SelfHash<STRSXP>::get_addr(SEXP value) const {
         intptr_t val = (intptr_t) value;
-        int addr;
+        unsigned int addr;
         #if (defined _LP64) || (defined __LP64__) || (defined WIN64)
           addr = RCPP_HASH((val & 0xffffffff) ^ (val >> 32));
         #else
