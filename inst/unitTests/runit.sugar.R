@@ -1633,9 +1633,13 @@ if (.runThisTest) {
             "eye - complex"
         )
         
+        ## diag(TRUE, 3, 3) was registering as 
+        ## a numeric matrix on Travis for some reason
+        mat <- matrix(FALSE, 3, 3)
+        diag(mat) <- TRUE
         checkEquals(
             lgl_eye(3),
-            diag(TRUE, 3, 3),
+            mat,
             "eye - logical"
         )
     }
