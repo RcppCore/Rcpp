@@ -1116,3 +1116,68 @@ Rcpp::ComplexVector cx_col_means(Rcpp::ComplexMatrix x, bool na_rm = false) {
     return colMeans(x, na_rm);
 }
 
+
+// 23 October 2016 
+// non-member eye, ones, and zeros functions
+
+// [[Rcpp::export]]
+Rcpp::NumericMatrix dbl_eye(int n) {
+    return Rcpp::eye(n);
+}
+
+// [[Rcpp::export]]
+Rcpp::IntegerMatrix int_eye(int n) {
+    return Rcpp::eye(n);
+}
+
+// [[Rcpp::export]]
+Rcpp::ComplexMatrix cx_eye(int n) {
+    return Rcpp::eye(n);
+}
+
+// [[Rcpp::export]]
+Rcpp::LogicalMatrix lgl_eye(int n) {
+    return Rcpp::eye(n);
+}
+
+
+// [[Rcpp::export]]
+Rcpp::NumericMatrix dbl_ones(int n) {
+    return Rcpp::ones(n);
+}
+
+// [[Rcpp::export]]
+Rcpp::IntegerMatrix int_ones(int n) {
+    return Rcpp::ones(n);
+}
+
+// [[Rcpp::export]]
+Rcpp::ComplexMatrix cx_ones(int n) {
+    return Rcpp::ones(n);
+}
+
+// [[Rcpp::export]]
+Rcpp::LogicalMatrix lgl_ones(int n) {
+    return Rcpp::ones(n);
+}
+
+
+// [[Rcpp::export]]
+Rcpp::NumericMatrix dbl_zeros(int n) {
+    return Rcpp::zeros(n);
+}
+
+// [[Rcpp::export]]
+Rcpp::IntegerMatrix int_zeros(int n) {
+    return Rcpp::zeros(n);
+}
+
+// [[Rcpp::export]]
+Rcpp::ComplexMatrix cx_zeros(int n) {
+    return Rcpp::zeros(n);
+}
+
+// [[Rcpp::export]]
+Rcpp::LogicalMatrix lgl_zeros(int n) {
+    return Rcpp::zeros(n);
+}

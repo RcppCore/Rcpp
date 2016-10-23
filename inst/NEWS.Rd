@@ -15,6 +15,8 @@
       \item Added new Sugar functions \code{rowSums()}, \code{colSums()},
       \code{rowMeans()}, \code{colMeans()} (PR \ghpr{551} by Nathan Russell 
       fixing \ghit{549})
+      \item Added new (matrix) Sugar functions \code{eye()}, 
+      \code{ones()}, \code{zeros()} (PR \ghpr{566} by Nathan Russell)
     }
     \item Changes in Rcpp unit tests
     \itemize{
