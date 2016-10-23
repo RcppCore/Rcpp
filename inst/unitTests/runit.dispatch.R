@@ -45,7 +45,7 @@ if (.runThisTest) {
     }
     
     test.ExpressionVector <- function() {
-        x <- expression(rnorm; rnrom(10); mean(1:10))
+        x <- expression(rnorms, rnrom(10), mean(1:10))
         checkEquals(first_el(x), x[1], msg = "RCPP_RETURN_VECTOR (expression)")
     }
     
