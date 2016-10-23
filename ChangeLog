@@ -5,6 +5,8 @@
         * inst/include/Rcpp/sugar/matrix/matrix_functions.h: Idem
         * inst/unitTests/cpp/sugar.cpp: Unit tests for new functions
         * inst/unitTests/runit.sugar.R: Idem
+        * inst/unitTests/runit.dispatch.R (test.ExpressionVector): Use
+        expression rather than parse, correct typo
 
 2016-10-21  Qiang Kou  <qkou@umail.iu.edu>
 

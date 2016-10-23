@@ -18,6 +18,10 @@
       \item Added new (matrix) Sugar functions \code{eye()}, 
       \code{ones()}, \code{zeros()} (PR \ghpr{566} by Nathan Russell)
     }
+    \item Changes in Rcpp unit tests
+    \itemize{
+      \item A test for expression vectors was corrected.
+    }
     \item Updated Date and Datetime vector classes:
     \itemize{
       \item The \code{DateVector} and \code{DatetimeVector} classes were renamed

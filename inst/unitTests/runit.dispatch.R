@@ -1,7 +1,8 @@
 #!/usr/bin/env r
 # -*- mode: R; tab-width: 4; -*-
 #
-# Copyright (C) 2009 - 2014  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2009 - 2016  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2016         Dirk Eddelbuettel, Romain Francois and Nathan Russell
 #
 # This file is part of Rcpp.
 #
@@ -44,8 +45,8 @@ if (.runThisTest) {
     }
     
     test.ExpressionVector <- function() {
-        x <- parse(text = "rnrom; rnrom(10); mean(1:10)")
-        checkEquals(first_el(x), x[1], msg = "RCPP_RETURN_VECTOR (numeric)")
+        x <- expression(rnorm, rnorm(10), mean(1:10))
+        checkEquals(first_el(x), x[1], msg = "RCPP_RETURN_VECTOR (expression)")
     }
     
     test.GenericVector <- function() {
