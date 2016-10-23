@@ -29,5 +29,6 @@
 #include <Rcpp/sugar/matrix/upper_tri.h>
 #include <Rcpp/sugar/matrix/diag.h>
 #include <Rcpp/sugar/matrix/as_vector.h>
+#include <Rcpp/sugar/matrix/eye.h>
 
 #endif

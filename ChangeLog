@@ -1,3 +1,11 @@
+2016-10-23  Nathan Russell  <russell.nr2012@gmail.com>
+
+        * inst/include/Rcpp/sugar/matrix/eye.h: New functions
+        eye(), ones(), and zeros()
+        * inst/include/Rcpp/sugar/matrix/matrix_functions.h: Idem
+        * inst/unitTests/cpp/sugar.cpp: Unit tests for new functions
+        * inst/unitTests/runit.sugar.R: Idem
+
 2016-10-21  Qiang Kou  <qkou@umail.iu.edu>
 
         * inst/include/Rcpp/barrier.h: Change string_elt/vector_elt to accept R_xlen_t
