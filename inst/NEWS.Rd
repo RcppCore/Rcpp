@@ -16,6 +16,10 @@
       \code{rowMeans()}, \code{colMeans()} (PR \ghpr{551} by Nathan Russell 
       fixing \ghit{549})
     }
+    \item Changes in Rcpp unit tests
+    \itemize{
+      \item A test for expression vectors was corrected.
+    }
     \item Updated Date and Datetime vector classes:
     \itemize{
       \item The \code{DateVector} and \code{DatetimeVector} classes were renamed
