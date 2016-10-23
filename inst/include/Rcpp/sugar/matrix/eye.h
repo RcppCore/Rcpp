@@ -26,10 +26,10 @@ namespace Rcpp {
 namespace traits {
 
 template<bool>
-struct static_assertion;
+struct allowed_matrix_type;
 
 template<>
-struct static_assertion<true> {};
+struct allowed_matrix_type<true> {};
 
 template <typename T>
 class one_type {
@@ -90,7 +90,7 @@ public:
             traits::is_arithmetic<stored_type>::value || 
             traits::same_type<stored_type, Rcomplex>::value;
 
-        traits::static_assertion<enabled> allowed_matrix_type;
+        (void)sizeof(traits::allowed_matrix_type<enabled>);
         
         typedef traits::one_type<stored_type> one_type;
 
@@ -115,7 +115,7 @@ public:
             traits::is_arithmetic<stored_type>::value || 
             traits::same_type<stored_type, Rcomplex>::value;
 
-        traits::static_assertion<enabled> allowed_matrix_type;
+        (void)sizeof(traits::allowed_matrix_type<enabled>);
         
         typedef traits::one_type<stored_type> one_type;
 
@@ -143,7 +143,7 @@ public:
             traits::is_arithmetic<stored_type>::value || 
             traits::same_type<stored_type, Rcomplex>::value;
 
-        traits::static_assertion<enabled> allowed_matrix_type;
+        (void)sizeof(traits::allowed_matrix_type<enabled>);
         
         typedef traits::zero_type<stored_type> zero_type;
 
