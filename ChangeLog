@@ -7,6 +7,7 @@
 	* inst/include/Rcpp/traits/traits.h: Idem 
 	* inst/unitTests/cpp/Matrix.cpp: Idem
 	* inst/unitTests/runit.Matrix.R: Idem 
+
 2016-10-24  Qiang Kou  <qkou@umail.iu.edu>
 
         * inst/include/Rcpp/sugar/Range.h: Range sugar uses R_xlen_t as start/end type
