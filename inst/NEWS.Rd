@@ -18,6 +18,8 @@
       fixing \ghit{549})
       \item Added new (matrix) Sugar functions \code{eye()}, 
       \code{ones()}, \code{zeros()} (PR \ghpr{566} by Nathan Russell)
+      \item \code{Range} Sugar now used \code{R_xlen_t} type for start/end
+      (PR \ghpr{568} by Qiang Kou)
     }
     \item Changes in Rcpp unit tests
     \itemize{

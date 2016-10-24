@@ -26,17 +26,17 @@ namespace Rcpp{
 
     class Range : public VectorBase<INTSXP,false, Range >{
     public:
-        Range( int start_, int end__ ) : start(start_), end_(end__){
+        Range( R_xlen_t start_, R_xlen_t end__ ) : start(start_), end_(end__){
             if( start_ > end__ ){
                 throw std::range_error( "upper value must be greater than lower value" ) ;
             }
         }
 
-        inline int size() const{
+        inline R_xlen_t size() const{
             return end_ - start + 1;
         }
 
-        inline int operator[]( int i) const {
+        inline R_xlen_t operator[]( R_xlen_t i) const {
             return start + i ;
         }
 
@@ -60,29 +60,31 @@ namespace Rcpp{
             return orig ;
         }
 
-        Range& operator+=(int n) {
+        Range& operator+=(R_xlen_t n) {
             start += n ; end_ += n ;
             return *this ;
         }
 
-        Range& operator-=(int n) {
+        Range& operator-=(R_xlen_t n) {
             start -= n ; end_ -= n ;
             return *this ;
         }
 
-        Range operator+( int n ){
+        Range operator+( R_xlen_t n ){
             return Range( start + n, end_ + n ) ;
         }
-        Range operator-( int n ){
+
+        Range operator-( R_xlen_t n ){
             return Range( start - n, end_ - n ) ;
         }
 
-        inline int get_start() const { return start ; }
-        inline int get_end() const { return end_ ; }
+        inline R_xlen_t get_start() const { return start ; }
+
+        inline R_xlen_t get_end() const { return end_ ; }
 
     private:
-        int start ;
-        int end_ ;
+        R_xlen_t start ;
+        R_xlen_t end_ ;
     } ;
 
 }
