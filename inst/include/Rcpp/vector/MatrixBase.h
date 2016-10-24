@@ -2,8 +2,9 @@
 //
 // MatrixBase.h: Rcpp R/C++ interface class library --
 //
-// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
-//
+// Copyright (C) 2010 - 2016 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2016        Dirk Eddelbuettel and Romain Francois and Nathan Russell
+//               
 // This file is part of Rcpp.
 //
 // Rcpp is free software: you can redistribute it and/or modify it
@@ -46,6 +47,38 @@ namespace Rcpp{
         inline R_xlen_t size() const { return static_cast<const MATRIX&>(*this).size() ; }
         inline R_xlen_t nrow() const { return static_cast<const MATRIX&>(*this).nrow() ; }
         inline R_xlen_t ncol() const { return static_cast<const MATRIX&>(*this).ncol() ; }
+
+        static MATRIX eye(int n) {
+            const bool enabled = 
+                traits::is_arithmetic<stored_type>::value || 
+                traits::same_type<stored_type, Rcomplex>::value;
+            (void)sizeof(traits::allowed_matrix_type<enabled>);
+            
+            return MATRIX::diag(n, traits::one_type<stored_type>());
+        }
+        
+        static MATRIX ones(int n) {
+            const bool enabled = 
+                traits::is_arithmetic<stored_type>::value || 
+                traits::same_type<stored_type, Rcomplex>::value;
+            (void)sizeof(traits::allowed_matrix_type<enabled>);
+            
+            MATRIX res(n, n);
+            std::fill(
+                res.begin(), res.end(), 
+                traits::one_type<stored_type>()
+            );
+            return res;
+        }
+        
+        static MATRIX zeros(int n) {
+            const bool enabled = 
+                traits::is_arithmetic<stored_type>::value || 
+                traits::same_type<stored_type, Rcomplex>::value;
+            (void)sizeof(traits::allowed_matrix_type<enabled>);
+            
+            return MATRIX(n, n);
+        }
 
         class iterator {
         public:

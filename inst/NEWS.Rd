@@ -9,15 +9,15 @@
     \itemize{
       \item String and vector elements now use extended \code{R_xlen_t} indices
       (Qiang in PR \ghpr{560})
-      \item Hashing functions now return unsigned int (Qiang in PR \ghpr{561})
+      \item Hashing functions now return unsigned int (Qiang in PR \ghpr{561}) 
+      \item Added static methods \code{eye()}, \code{ones()}, and \code{zeros()} 
+      for select matrix types (Nathan Russell in PR \ghpr{569})
     }
     \item Changes in Rcpp Sugar:
     \itemize{
       \item Added new Sugar functions \code{rowSums()}, \code{colSums()},
       \code{rowMeans()}, \code{colMeans()} (PR \ghpr{551} by Nathan Russell 
       fixing \ghit{549})
-      \item Added new (matrix) Sugar functions \code{eye()}, 
-      \code{ones()}, \code{zeros()} (PR \ghpr{566} by Nathan Russell)
     }
     \item Changes in Rcpp unit tests
     \itemize{
