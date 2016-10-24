@@ -1,3 +1,7 @@
+2016-10-24  Qiang Kou  <qkou@umail.iu.edu>
+
+        * inst/include/Rcpp/sugar/Range.h: Range sugar uses R_xlen_t as start/end type
+
 2016-10-23  Nathan Russell  <russell.nr2012@gmail.com>
 
         * inst/include/Rcpp/sugar/matrix/eye.h: New functions
@@ -7,11 +11,11 @@
         * inst/unitTests/runit.sugar.R: Idem
         * inst/unitTests/runit.dispatch.R (test.ExpressionVector): Use
         expression rather than parse, correct typo
+
 2016-10-22  Qiang Kou  <qkou@umail.iu.edu>
 
         * inst/include/Rcpp/hash/IndexHash.h: change hashing function to return unsigned int
         * inst/include/Rcpp/hash/SelfHash.h: Ditto
-
 
 2016-10-21  Qiang Kou  <qkou@umail.iu.edu>
 
