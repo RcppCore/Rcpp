@@ -60,21 +60,21 @@ namespace Rcpp{
             return orig ;
         }
 
-        Range& operator+=(R_xlen_t n) {
+        Range& operator+=( int n ) {
             start += n ; end_ += n ;
             return *this ;
         }
 
-        Range& operator-=(R_xlen_t n) {
+        Range& operator-=( int n ) {
             start -= n ; end_ -= n ;
             return *this ;
         }
 
-        Range operator+( R_xlen_t n ){
+        Range operator+( int n ){
             return Range( start + n, end_ + n ) ;
         }
 
-        Range operator-( R_xlen_t n ){
+        Range operator-( int n ){
             return Range( start - n, end_ - n ) ;
         }
 
