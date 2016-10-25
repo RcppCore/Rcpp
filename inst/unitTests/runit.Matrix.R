@@ -249,4 +249,94 @@ if (.runThisTest) {
         checkEquals(matrix_scalar_divide(M, 2), M / 2, msg="matrix / scalar")
         checkEquals(matrix_scalar_divide2(M, 2), 2 / M, msg="scalar / matrix")
     }
+
+    ## 23 October 2016
+    ## eye function
+    test.Matrix.eye <- function() {
+        
+        checkEquals(
+            dbl_eye(3),
+            diag(1.0, 3, 3),
+            "eye - numeric"
+        )
+        
+        checkEquals(
+            int_eye(3),
+            diag(1L, 3, 3),
+            "eye - integer"
+        )
+        
+        checkEquals(
+            cx_eye(3),
+            diag(1.0 + 0i, 3, 3),
+            "eye - complex"
+        )
+        
+        ## diag(TRUE, 3, 3) was registering as 
+        ## a numeric matrix on Travis for some reason
+        mat <- matrix(FALSE, 3, 3)
+        diag(mat) <- TRUE
+        checkEquals(
+            lgl_eye(3),
+            mat,
+            "eye - logical"
+        )
+    }
+    
+    ## ones function
+    test.Matrix.ones <- function() {
+        
+        checkEquals(
+            dbl_ones(3),
+            matrix(1.0, 3, 3),
+            "ones - numeric"
+        )
+        
+        checkEquals(
+            int_ones(3),
+            matrix(1L, 3, 3),
+            "ones - integer"
+        )
+        
+        checkEquals(
+            cx_ones(3),
+            matrix(1.0 + 0i, 3, 3),
+            "ones - complex"
+        )
+        
+        checkEquals(
+            lgl_ones(3),
+            matrix(TRUE, 3, 3),
+            "ones - logical"
+        )
+    }
+    
+    ## zeros function
+    test.Matrix.zeros <- function() {
+        
+        checkEquals(
+            dbl_zeros(3),
+            matrix(0.0, 3, 3),
+            "zeros - numeric"
+        )
+        
+        checkEquals(
+            int_zeros(3),
+            matrix(0L, 3, 3),
+            "zeros - integer"
+        )
+        
+        checkEquals(
+            cx_zeros(3),
+            matrix(0.0 + 0i, 3, 3),
+            "zeros - complex"
+        )
+        
+        checkEquals(
+            lgl_zeros(3),
+            matrix(FALSE, 3, 3),
+            "zeros - logical"
+        )
+    }
+
 }

@@ -76,5 +76,7 @@ struct int2type { enum { value = I }; };
 #include <Rcpp/traits/is_module_object.h>
 #include <Rcpp/traits/is_primitive.h>
 
+#include <Rcpp/traits/one_type.h>
+
 #endif
 

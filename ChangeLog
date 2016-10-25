@@ -1,3 +1,13 @@
+2016-10-24  Nathan Russell  <russell.nr2012@gmail.com>
+
+	* inst/include/Rcpp/vector/MatrixBase.h: Change sugar 
+	functions eye(), ones(), and zeros() into static methods 
+	in MatrixBase 
+	* inst/include/Rcpp/traits/one_type.h: Idem 
+	* inst/include/Rcpp/traits/traits.h: Idem 
+	* inst/unitTests/cpp/Matrix.cpp: Idem
+	* inst/unitTests/runit.Matrix.R: Idem 
+
 2016-10-24  Qiang Kou  <qkou@umail.iu.edu>
 
         * inst/include/Rcpp/sugar/Range.h: Range sugar uses R_xlen_t as start/end type
