@@ -360,6 +360,16 @@ if (.runThisTest) {
 	checkEquals(fx(), c( exp(seq_len(4)), exp(-seq_len(4))))
     }
 
+    test.sugar.Range.plus <- function( ){
+    fx <- runit_range_plus
+    checkEquals( fx(1, 10, 2), c(1:10) + 2 )
+    }
+
+    test.sugar.Range.minus <- function( ){
+    fx <- runit_range_minus
+    checkEquals( fx(1, 10, 2), c(1:10) - 2 )
+    }
+
     test.sugar.sapply <- function( ){
 	fx <- runit_sapply
 	checkEquals( fx(1:10) , (1:10)^2 )

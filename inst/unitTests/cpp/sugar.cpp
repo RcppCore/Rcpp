@@ -304,6 +304,18 @@ NumericVector runit_Range(){
 }
 
 // [[Rcpp::export]]
+IntegerVector runit_range_plus(int start, int end, int n) {
+    IntegerVector vec = Range(start, end) + n;
+    return vec;
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_range_minus(int start, int end, int n) {
+    IntegerVector vec = Range(start, end) - n;
+    return vec;
+}
+
+// [[Rcpp::export]]
 NumericVector runit_sapply( NumericVector xx ){
     NumericVector res = sapply( xx, square<double>() );
     return res ;
