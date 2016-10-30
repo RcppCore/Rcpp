@@ -170,6 +170,11 @@ if (.runThisTest) {
             vec <- c(now, -Inf, Inf, now+2.345)
             checkEquals(sum(is.finite(fun(vec))), 2, msg = "Datetime.ctor.Inf.finite.set")
             checkEquals(sum(is.infinite(fun(vec))), 2, msg = "Datetime.ctor.Inf.notfinite.set")
+            vec <- c(now, NA, NaN, Inf, now+2.345)
+            posixtNA <- as.POSIXct(NA, origin="1970-01-01")
+            posixtInf <- as.POSIXct(Inf, origin="1970-01-01")
+            checkEquals(fun(vec), c(now, rep(posixtNA, 2), posixtInf, now+2.345),
+                        msg = "Datetime.ctor.NA.NaN.Inf.set")
         } else {
             vec <- c(now, NA, NaN, Inf, now+2.345)
             posixtNA <- as.POSIXct(NA, origin="1970-01-01")
