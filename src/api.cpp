@@ -1,9 +1,8 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-// jedit: :folding=explicit:
 //
 // api.cpp: Rcpp R/C++ interface class library -- Rcpp api
 //
-// Copyright (C) 2012 - 2015  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2016  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -155,8 +154,8 @@ SEXP as_character_externalptr(SEXP xp) {
 
 // [[Rcpp::internal]]
 SEXP rcpp_capabilities() {
-    Shield<SEXP> cap(Rf_allocVector(LGLSXP, 12));
-    Shield<SEXP> names(Rf_allocVector(STRSXP, 12));
+    Shield<SEXP> cap(Rf_allocVector(LGLSXP, 13));
+    Shield<SEXP> names(Rf_allocVector(STRSXP, 13));
     #ifdef HAS_VARIADIC_TEMPLATES
         LOGICAL(cap)[0] = TRUE;
     #else
@@ -216,6 +215,13 @@ SEXP rcpp_capabilities() {
       LOGICAL(cap)[11] = FALSE;
     #endif
 
+    #ifdef RCPP_NEW_DATE_DATETIME_VECTORS
+      LOGICAL(cap)[12] = TRUE;
+    #else
+      LOGICAL(cap)[12] = FALSE;
+    #endif
+
+
     SET_STRING_ELT(names, 0, Rf_mkChar("variadic templates"));
     SET_STRING_ELT(names, 1, Rf_mkChar("initializer lists"));
     SET_STRING_ELT(names, 2, Rf_mkChar("exception handling"));
@@ -227,7 +233,8 @@ SEXP rcpp_capabilities() {
     SET_STRING_ELT(names, 8, Rf_mkChar("long long"));
     SET_STRING_ELT(names, 9, Rf_mkChar("C++0x unordered maps"));
     SET_STRING_ELT(names, 10, Rf_mkChar("C++0x unordered sets"));
-    SET_STRING_ELT(names, 11, Rf_mkChar("Full C++11 support"));
+    SET_STRING_ELT(names, 11, Rf_mkChar("full C++11 support")); // switched from 'Full' to 'full'
+    SET_STRING_ELT(names, 12, Rf_mkChar("new date(time) vectors"));
     Rf_setAttrib(cap, R_NamesSymbol, names);
     return cap;
 }

@@ -1,3 +1,11 @@
+2016-10-30  Dirk Eddelbuettel  <edd@debian.org>
+
+        * src/api.cpp: New capabilities field for new date(time) vectors
+        * inst/unitTests/runit.Date.R (test.DatetimeVector.ctor): Differentiate
+        in test as case of 'Inf' is handling differently by new and old datetime
+        classes (and passed through as is by new ones which is better)
+        * inst/unitTests/runit.InternalFunctionCPP11.R: Small cosmetic edit
+
 2016-10-24  Qiang Kou  <qkou@umail.iu.edu>
 
         * inst/include/Rcpp/sugar/Range.h : fix range sugar ambiguity
