@@ -233,7 +233,7 @@ SEXP rcpp_capabilities() {
     SET_STRING_ELT(names, 8, Rf_mkChar("long long"));
     SET_STRING_ELT(names, 9, Rf_mkChar("C++0x unordered maps"));
     SET_STRING_ELT(names, 10, Rf_mkChar("C++0x unordered sets"));
-    SET_STRING_ELT(names, 11, Rf_mkChar("full C++11 support")); // switched from 'Full' to 'full'
+    SET_STRING_ELT(names, 11, Rf_mkChar("Full C++11 support"));
     SET_STRING_ELT(names, 12, Rf_mkChar("new date(time) vectors"));
     Rf_setAttrib(cap, R_NamesSymbol, names);
     return cap;

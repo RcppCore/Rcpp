@@ -20,7 +20,7 @@
 
 .runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
 
-if( .runThisTest && Rcpp:::capabilities()[["full C++11 support"]] ) {
+if( .runThisTest && Rcpp:::capabilities()[["Full C++11 support"]] ) {
 
     .tearDown <- function(){
         gc()
