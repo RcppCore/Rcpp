@@ -24,6 +24,8 @@
     \item Changes in Rcpp unit tests
     \itemize{
       \item A test for expression vectors was corrected.
+      \item The constructor test for datetime vectors reflects the new classes
+      which treats Inf correctly (and still as a non-finite value)
     }
     \item Updated Date and Datetime vector classes:
     \itemize{
@@ -35,6 +37,7 @@
       \item By defining \code{RCPP_NEW_DATE_DATETIME_VECTORS} the new classes
       can activated. We intend to make the new classes the default no sooner
       than twelve months from this release.
+      \item The \code{capabilities()} function can also be tested for this feature
     }
   }
 }
