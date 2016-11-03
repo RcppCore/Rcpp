@@ -638,6 +638,50 @@ if (.runThisTest) {
         x <- sample( letters, 1000, replace = TRUE )
         checkEquals( runit_self_match(x), match(x,unique(x)) )
     }
+    
+    test.unique <- function() {
+        x <- sample(LETTERS[1:5], 10, TRUE)
+        checkEquals(
+            sort(unique(x)),
+            sort(runit_unique_ch(x)),
+            "unique / character / without NA"
+        )
+        
+        x <- c(x, NA, NA)
+        checkEquals(
+            sort(unique(x), na.last = TRUE),
+            sort(runit_unique_ch(x), na.last = TRUE),
+            "unique / character / with NA"
+        )
+        
+        x <- sample(1:5, 10, TRUE)
+        checkEquals(
+            sort(unique(x)),
+            sort(runit_unique_int(x)),
+            "unique / integer / without NA"
+        )
+        
+        x <- c(x, NA, NA)
+        checkEquals(
+            sort(unique(x), na.last = TRUE),
+            sort(runit_unique_int(x), na.last = TRUE),
+            "unique / integer / with NA"
+        )
+        
+        x <- sample(1:5 + 0.5, 10, TRUE)
+        checkEquals(
+            sort(unique(x)),
+            sort(runit_unique_dbl(x)),
+            "unique / numeric / without NA"
+        )
+        
+        x <- c(x, NA, NA)
+        checkEquals(
+            sort(unique(x), na.last = TRUE),
+            sort(runit_unique_dbl(x), na.last = TRUE),
+            "unique / numeric / with NA"
+        )
+    }
 
     test.table <- function(){
         x <- sample( letters, 1000, replace = TRUE )

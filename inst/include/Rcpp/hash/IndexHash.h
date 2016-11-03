@@ -170,7 +170,7 @@ namespace Rcpp{
             unsigned int addr = get_addr(val) ;
             while (data[addr] && not_equal( src[data[addr] - 1], val)) {
               addr++;
-              if (addr == m) {
+              if (addr == static_cast<unsigned int>(m)) {
                 addr = 0;
               }
             }
@@ -191,7 +191,7 @@ namespace Rcpp{
               if (src[data[addr] - 1] == value)
                 return data[addr];
               addr++;
-              if (addr == m) addr = 0;
+              if (addr == static_cast<unsigned int>(m)) addr = 0;
             }
             return NA_INTEGER;
         }
