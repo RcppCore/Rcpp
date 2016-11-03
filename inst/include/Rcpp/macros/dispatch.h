@@ -2,7 +2,8 @@
 //
 // dispatch.h: Rcpp R/C++ interface class library -- macros for dispatch
 //
-// Copyright (C) 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2016  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2016         Dirk Eddelbuettel, Romain Francois and Artem Klevtsov
 //
 // This file is part of Rcpp.
 //
