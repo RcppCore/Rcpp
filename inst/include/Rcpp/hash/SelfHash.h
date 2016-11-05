@@ -65,7 +65,7 @@ namespace sugar{
             unsigned int addr = get_addr(val) ;
             while (data[addr] && src[data[addr] - 1] != val) {
               addr++;
-              if (addr == m) addr = 0;
+              if (addr == static_cast<unsigned int>(m)) addr = 0;
             }
             if (!data[addr]) {
                 data[addr] = i ;
@@ -81,7 +81,7 @@ namespace sugar{
               if (src[data[addr] - 1] == value)
                 return data[addr];
               addr++;
-              if (addr == m) addr = 0;
+              if (addr == static_cast<unsigned int>(m)) addr = 0;
             }
             return NA_INTEGER;
         }

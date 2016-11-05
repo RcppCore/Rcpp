@@ -596,6 +596,21 @@ IntegerVector runit_self_match( CharacterVector x){
 }
 
 // [[Rcpp::export]]
+Rcpp::IntegerVector runit_unique_int(Rcpp::IntegerVector x) {
+    return Rcpp::unique(x);
+}
+
+// [[Rcpp::export]]
+Rcpp::NumericVector runit_unique_dbl(Rcpp::NumericVector x) {
+    return Rcpp::unique(x);
+}
+
+// [[Rcpp::export]]
+Rcpp::CharacterVector runit_unique_ch(Rcpp::CharacterVector x) {
+    return Rcpp::unique(x);
+}
+
+// [[Rcpp::export]]
 IntegerVector runit_table( CharacterVector x){
     return table( x ) ;
 }
