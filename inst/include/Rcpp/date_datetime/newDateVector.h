@@ -28,6 +28,9 @@ namespace Rcpp {
 
     class newDateVector : public NumericVector {
     public:
+        template <int RTYPE, bool NA, typename VEC>
+        newDateVector(const VectorBase<RTYPE,NA,VEC>& vec) : NumericVector(vec) {}
+
         newDateVector(SEXP vec) : NumericVector(vec) { setClass(); }
         newDateVector(int n) : NumericVector(n) { setClass(); }
 
