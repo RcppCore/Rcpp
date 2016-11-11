@@ -32,7 +32,8 @@ export(Module,
        sizeof,
        cpp_object_initializer,
        cpp_object_dummy, 
-       Rcpp.plugin.maker
+       Rcpp.plugin.maker,
+       str.Rcpp_stack_trace
        )
 S3method(print, bytes)
 exportClass(RcppClass)

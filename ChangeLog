@@ -28,6 +28,13 @@
 
         * inst/include/Rcpp/date_datetime/newDatetimeVector.h: Added constructor
         to instantiate newDatetimeVector from VectorBase.
+2016-11-11  Jim Hester  <james.f.hester@gmail.com>
+        * inst/include/rcpp/exceptions.h: Return stack trace even if no file
+        or line is specified. Fix R calls when using Rcpp_eval.
+        * inst/include/rcpp/routines.h:allow getting a cppstack without specifying a file and line.
+        * src/api.cpp: Add cppstack support for clang.
+        * r/exceptions.r:Add a str method for Rcpp_stack_trace objects.
+        * NAMESPACE: Idem
 
 2016-11-04  Nathan Russell     <russell.nr2012@gmail.com>
 

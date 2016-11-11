@@ -33,4 +33,6 @@
     warnings
 }
 
-
+`str.Rcpp_stack_trace` <- function(x, ...) {
+  cat("\n", paste(collapse = "\n   ", x$stack), "\n")
+}
