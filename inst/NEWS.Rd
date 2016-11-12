@@ -31,9 +31,9 @@
     \itemize{
       \item The \code{DateVector} and \code{DatetimeVector} classes were renamed
       with a prefix \code{old}; they are currently \code{typedef}'ed to the
-      existing name (\ghpr{557}, also \ghpr{577))
+      existing name (\ghpr{557}, also \ghpr{577})
       \item New variants \code{newDateVector} and \code{newDatetimeVector} were
-      added based on \code{NumericVector} (also (\ghpr{557}, \ghpr{577})
+      added based on \code{NumericVector} (also \ghpr{557}, \ghpr{577})
       \item By defining \code{RCPP_NEW_DATE_DATETIME_VECTORS} the new classes
       can activated. We intend to make the new classes the default no sooner
       than twelve months from this release.
