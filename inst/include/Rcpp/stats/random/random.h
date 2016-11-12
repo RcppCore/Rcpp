@@ -24,12 +24,6 @@
 
 namespace Rcpp{
 
-class RNGScope{
-public:
-    RNGScope(){ internal::enterRNGScope(); }
-    ~RNGScope(){ internal::exitRNGScope(); }
-};
-
 template <typename T>
 class Generator : public RNGScope {
 public:

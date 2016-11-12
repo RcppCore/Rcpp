@@ -247,6 +247,7 @@ inline std::ostream &operator<<(std::ostream & s, const Matrix<REALSXP, StorageP
     return s;
 }
 
+#ifndef RCPP_NO_SUGAR
 #define RCPP_GENERATE_MATRIX_SCALAR_OPERATOR(__OPERATOR__)                                                                    \
     template <int RTYPE, template <class> class StoragePolicy, typename T >                                                   \
     inline typename traits::enable_if< traits::is_convertible< typename traits::remove_const_and_reference< T >::type,        \
@@ -281,6 +282,7 @@ RCPP_GENERATE_SCALAR_MATRIX_OPERATOR(*)
 RCPP_GENERATE_SCALAR_MATRIX_OPERATOR(/)
 
 #undef RCPP_GENERATE_SCALAR_MATRIX_OPERATOR
+#endif
 
 template<template <class> class StoragePolicy >
 inline std::ostream &operator<<(std::ostream & s, const Matrix<INTSXP, StoragePolicy> & rhs) {

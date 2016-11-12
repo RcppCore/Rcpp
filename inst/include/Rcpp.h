@@ -66,6 +66,8 @@
 
 #include <Rcpp/Nullable.h>
 
+#include <Rcpp/RNGScope.h>
+
 #ifndef RCPP_NO_SUGAR
 #include <Rcpp/sugar/sugar.h>
 #include <Rcpp/stats/stats.h>
