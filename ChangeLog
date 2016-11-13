@@ -1,3 +1,12 @@
+2016-11-13  Daniel C. Dillon  <dcdillon@gmail.com>
+        * inst/include/Rcpp/RNGScope.h: Moved definition of RNGScope
+        to its own file
+        * inst/include/Rcpp.h: Unconditionally included RNGScope.h
+        * inst/include/Rcpp/stats/random/random.h: Removed definition
+        of RNGScope
+        * inst/include/Rcpp/vector/Matrix.h: Protected Matrix op Scalar
+        definitions with #ifndef RCPP_NO_SUGAR
+
 2016-11-10  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/date_datetime/newDateVector.h: Added constructor
