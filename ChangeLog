@@ -1,4 +1,4 @@
-2016-11-13  Daniel C. Dillon   <dcdillon@gmail.com>
+2016-11-13  Daniel C. Dillon  <dcdillon@gmail.com>
         * inst/include/Rcpp/RNGScope.h: Moved definition of RNGScope
         to its own file
         * inst/include/Rcpp.h: Unconditionally included RNGScope.h
