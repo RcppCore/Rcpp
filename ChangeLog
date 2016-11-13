@@ -1,3 +1,6 @@
+2016-11-13  Dirk Eddelbuettel  <edd@debian.org>
+
+        * R/Attributes.R (mergeIntoBuildEnv): Correct 'empty' return 
 2016-11-13  Daniel C. Dillon  <dcdillon@gmail.com>
         * inst/include/Rcpp/RNGScope.h: Moved definition of RNGScope
         to its own file

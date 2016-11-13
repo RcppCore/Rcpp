@@ -618,7 +618,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
 
         # protect against null or empty string
         if (is.null(value) || !nzchar(value))
-            return;
+            return(invisible(NULL))
 
         # if it doesn't exist already just set it
         if (is.null(buildEnv[[name]])) {
@@ -626,7 +626,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
         }
         # if it's not identical then append
         else if (!identical(buildEnv[[name]], value)) {
-            buildEnv[[name]] <<- paste(buildEnv[[name]], value);
+            buildEnv[[name]] <<- paste(buildEnv[[name]], value)
         }
         else {
             # it already exists and it's the same value, this
