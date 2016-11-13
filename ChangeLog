@@ -1,3 +1,7 @@
+2016-11-13  Dirk Eddelbuettel  <edd@debian.org>
+
+        * R/Attributes.R (mergeIntoBuildEnv): Correct 'empty' return 
+
 2016-11-10  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/date_datetime/newDateVector.h: Added constructor
