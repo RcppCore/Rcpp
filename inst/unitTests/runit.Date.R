@@ -181,5 +181,19 @@ if (.runThisTest) {
             checkEquals(fun(vec), c(now, rep(posixtNA, 3), now+2.345), msg = "Datetime.ctor.NA.NaN.Inf.set")
         }
     }
+    
+    test.DatetimeVector.assignment <- function() {
+        now <- Sys.time()
+        v1 <- c(now, now + 1, now + 2)
+        v2 <- c(now + 3, now + 4, now + 5)
+        checkEquals(v2, DatetimeVector_assignment(v1, v2))
+    }
+    
+    test.DateVector.assignment <- function() {
+        now <- Sys.Date()
+        v1 <- c(now, now + 1, now + 2)
+        v2 <- c(now + 3, now + 4, now + 5)
+        checkEquals(v2, DateVector_assignment(v1, v2))
+    }
 
 }
