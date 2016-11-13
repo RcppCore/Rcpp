@@ -20,6 +20,8 @@
       fixing \ghit{549})
       \item \code{Range} Sugar now used \code{R_xlen_t} type for start/end
       (PR \ghpr{568} by Qiang Kou)
+      \item Defining \code{RCPP_NO_SUGAR} no longer breaks the build.
+      (PR \ghpr{585} by Daniel C. Dillon)
     }
     \item Changes in Rcpp unit tests
     \itemize{
