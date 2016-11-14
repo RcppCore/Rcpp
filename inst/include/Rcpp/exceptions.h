@@ -135,7 +135,7 @@ namespace internal {
     // We want the call just prior to the call from Rcpp_eval
     // This conditional matches
     // tryCatch(evalq(sys.calls(), .GlobalEnv), error = identity, interrupt = identity)
-    bool is_Rcpp_eval_call(SEXP expr) {
+    inline bool is_Rcpp_eval_call(SEXP expr) {
         SEXP sys_calls_symbol = Rf_install("sys.calls");
         SEXP identity_symbol = Rf_install("identity");
         SEXP identity_fun = Rf_findFun(identity_symbol, R_BaseEnv);
