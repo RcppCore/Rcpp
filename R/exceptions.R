@@ -33,6 +33,16 @@
     warnings
 }
 
-str.Rcpp_stack_trace <- function(x, ...) {
-  cat("\n", paste(collapse = "\n   ", x$stack), "\n")
+print.Rcpp_stack_trace <- function(x, ...) {
+  cat(format(x, ...))
+}
+
+str.Rcpp_stack_trace <- function(object, ...) {
+  cat(format(object, ...))
+}
+
+format.Rcpp_stack_trace <- function(x, ...) {
+  paste0(
+    if (nzchar(x$file)) paste0(x$file, ":", x$line),
+    "\n  ", paste(collapse = "\n   ", seq_along(x$stack), ":", x$stack), "\n")
 }
