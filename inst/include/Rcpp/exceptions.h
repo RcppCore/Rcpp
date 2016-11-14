@@ -126,13 +126,42 @@ namespace Rcpp{
 
 } // namespace Rcpp
 
-inline SEXP get_last_call(){
-    SEXP sys_calls_symbol = Rf_install( "sys.call" ) ;
+inline SEXP nth(SEXP s, int n) {
+  return Rf_length(s) > n ? (n == 0 ? CAR(s) : CAR(Rf_nthcdr(s, n))) : R_NilValue;
+}
 
-    // -9 Skips the wrapped tryCatch from Rcpp_eval
-    Rcpp::Shield<SEXP> sys_calls_expr( Rf_lang2(sys_calls_symbol, Rf_ScalarInteger(-9)) );
-    Rcpp::Shield<SEXP> calls( Rcpp_eval( sys_calls_expr, R_GlobalEnv ) );
-    return calls;
+inline SEXP get_last_call(){
+    SEXP sys_calls_symbol = Rf_install("sys.calls");
+    SEXP identity_symbol = Rf_install("identity");
+    SEXP identity_fun = Rf_findFun(identity_symbol, R_BaseEnv);
+    SEXP tryCatch_symbol = Rf_install("tryCatch");
+    SEXP evalq_symbol = Rf_install("evalq");
+
+    Rcpp::Shield<SEXP> sys_calls_expr(Rf_lang1(sys_calls_symbol));
+    Rcpp::Shield<SEXP> calls(Rcpp_eval(sys_calls_expr, R_GlobalEnv));
+
+    SEXP cur, prev;
+    prev = cur = calls;
+    while(CDR(cur) != R_NilValue) {
+      SEXP expr = CAR(cur);
+
+      // We want the call just prior to the call from Rcpp_eval
+      // This conditional matches
+      // tryCatch(evalq(sys.calls(), .GlobalEnv), error = identity, interrupt = identity)
+      if (TYPEOF(expr) == LANGSXP &&
+          Rf_length(expr) == 4 &&
+          nth(expr, 0) == tryCatch_symbol &&
+          CAR(nth(expr, 1)) == evalq_symbol &&
+          CAR(nth(nth(expr, 1), 1)) == sys_calls_symbol &&
+          nth(nth(expr, 1), 2) == R_GlobalEnv &&
+          nth(expr, 2) == identity_fun &&
+          nth(expr, 3) == identity_fun) {
+        break;
+      }
+      prev = cur;
+      cur = CDR(cur);
+    }
+    return CAR(prev);
 }
 
 inline SEXP get_exception_classes( const std::string& ex_class) {
