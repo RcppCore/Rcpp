@@ -124,8 +124,6 @@ namespace Rcpp{
     #undef RCPP_SIMPLE_EXCEPTION_CLASS
 
 
-} // namespace Rcpp
-
 namespace internal {
 
     inline SEXP nth(SEXP s, int n) {
@@ -153,6 +151,8 @@ namespace internal {
     }
 }
 
+} // namespace Rcpp
+
 inline SEXP get_last_call(){
     SEXP sys_calls_symbol = Rf_install("sys.calls");
 
@@ -164,7 +164,7 @@ inline SEXP get_last_call(){
     while(CDR(cur) != R_NilValue) {
         SEXP expr = CAR(cur);
 
-        if (internal::is_Rcpp_eval_call(expr)) {
+        if (Rcpp::internal::is_Rcpp_eval_call(expr)) {
             break;
         }
         prev = cur;
