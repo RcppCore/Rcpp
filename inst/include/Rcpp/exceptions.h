@@ -126,16 +126,35 @@ namespace Rcpp{
 
 } // namespace Rcpp
 
-inline SEXP nth(SEXP s, int n) {
-  return Rf_length(s) > n ? (n == 0 ? CAR(s) : CAR(Rf_nthcdr(s, n))) : R_NilValue;
+namespace internal {
+
+    inline SEXP nth(SEXP s, int n) {
+        return Rf_length(s) > n ? (n == 0 ? CAR(s) : CAR(Rf_nthcdr(s, n))) : R_NilValue;
+    }
+
+    // We want the call just prior to the call from Rcpp_eval
+    // This conditional matches
+    // tryCatch(evalq(sys.calls(), .GlobalEnv), error = identity, interrupt = identity)
+    bool is_Rcpp_eval_call(SEXP expr) {
+        SEXP sys_calls_symbol = Rf_install("sys.calls");
+        SEXP identity_symbol = Rf_install("identity");
+        SEXP identity_fun = Rf_findFun(identity_symbol, R_BaseEnv);
+        SEXP tryCatch_symbol = Rf_install("tryCatch");
+        SEXP evalq_symbol = Rf_install("evalq");
+
+        return TYPEOF(expr) == LANGSXP &&
+            Rf_length(expr) == 4 &&
+            nth(expr, 0) == tryCatch_symbol &&
+            CAR(nth(expr, 1)) == evalq_symbol &&
+            CAR(nth(nth(expr, 1), 1)) == sys_calls_symbol &&
+            nth(nth(expr, 1), 2) == R_GlobalEnv &&
+            nth(expr, 2) == identity_fun &&
+            nth(expr, 3) == identity_fun;
+    }
 }
 
 inline SEXP get_last_call(){
     SEXP sys_calls_symbol = Rf_install("sys.calls");
-    SEXP identity_symbol = Rf_install("identity");
-    SEXP identity_fun = Rf_findFun(identity_symbol, R_BaseEnv);
-    SEXP tryCatch_symbol = Rf_install("tryCatch");
-    SEXP evalq_symbol = Rf_install("evalq");
 
     Rcpp::Shield<SEXP> sys_calls_expr(Rf_lang1(sys_calls_symbol));
     Rcpp::Shield<SEXP> calls(Rcpp_eval(sys_calls_expr, R_GlobalEnv));
@@ -143,23 +162,13 @@ inline SEXP get_last_call(){
     SEXP cur, prev;
     prev = cur = calls;
     while(CDR(cur) != R_NilValue) {
-      SEXP expr = CAR(cur);
+        SEXP expr = CAR(cur);
 
-      // We want the call just prior to the call from Rcpp_eval
-      // This conditional matches
-      // tryCatch(evalq(sys.calls(), .GlobalEnv), error = identity, interrupt = identity)
-      if (TYPEOF(expr) == LANGSXP &&
-          Rf_length(expr) == 4 &&
-          nth(expr, 0) == tryCatch_symbol &&
-          CAR(nth(expr, 1)) == evalq_symbol &&
-          CAR(nth(nth(expr, 1), 1)) == sys_calls_symbol &&
-          nth(nth(expr, 1), 2) == R_GlobalEnv &&
-          nth(expr, 2) == identity_fun &&
-          nth(expr, 3) == identity_fun) {
-        break;
-      }
-      prev = cur;
-      cur = CDR(cur);
+        if (internal::is_Rcpp_eval_call(expr)) {
+            break;
+        }
+        prev = cur;
+        cur = CDR(cur);
     }
     return CAR(prev);
 }
