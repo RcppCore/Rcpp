@@ -30,7 +30,9 @@ namespace Rcpp {
     public:
         template <int RTYPE, bool NA, typename VEC>
         newDatetimeVector(const VectorBase<RTYPE,NA,VEC>& other) :
-            NumericVector(other) {}
+            NumericVector(other) {
+                setClass(other.attr("tzone"));
+        }
 
         newDatetimeVector(SEXP vec, const char* tz = "") :
             NumericVector(vec) {
@@ -48,6 +50,15 @@ namespace Rcpp {
             for (int i=0; i<n; i++)
                 v[i] = (*this)[i];
             return v;
+        }
+        
+        inline newDatetimeVector &operator=(const newDatetimeVector &rhs) {
+            if (this != &rhs) {
+                NumericVector::operator=(rhs);
+                this->attr("tzone") = rhs.attr("tzone");
+            }
+            
+            return *this;
         }
 
     private:

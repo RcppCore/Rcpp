@@ -158,3 +158,17 @@ SEXP DatetimeVector_ctor(DatetimeVector d) {
     DatetimeVector dt = DatetimeVector(d);
     return wrap(dt);
 }
+
+// [[Rcpp::export]]
+DatetimeVector DatetimeVector_assignment(DatetimeVector v1,
+    DatetimeVector v2) {
+
+    v1 = v2;
+    return v1;
+}
+
+// [[Rcpp::export]]
+DateVector DateVector_assignment(DateVector v1, DateVector v2) {
+    v1 = v2;
+    return v1;
+}

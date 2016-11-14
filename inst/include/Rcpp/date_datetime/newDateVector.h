@@ -29,7 +29,9 @@ namespace Rcpp {
     class newDateVector : public NumericVector {
     public:
         template <int RTYPE, bool NA, typename VEC>
-        newDateVector(const VectorBase<RTYPE,NA,VEC>& vec) : NumericVector(vec) {}
+        newDateVector(const VectorBase<RTYPE,NA,VEC>& vec) : NumericVector(vec) {
+            setClass();
+        }
 
         newDateVector(SEXP vec) : NumericVector(vec) { setClass(); }
         newDateVector(int n) : NumericVector(n) { setClass(); }
@@ -40,6 +42,14 @@ namespace Rcpp {
             for (int i=0; i<n; i++)
                 v[i] = (*this)[i];
             return v;
+        }
+        
+        inline newDateVector &operator=(const newDateVector &rhs) {
+            if (this != &rhs) {
+                NumericVector::operator=(rhs);
+            }
+            
+            return *this;
         }
 
     private:

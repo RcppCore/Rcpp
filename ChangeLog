@@ -10,12 +10,21 @@
         * inst/include/Rcpp/vector/Matrix.h: Protected Matrix op Scalar
         definitions with #ifndef RCPP_NO_SUGAR
 
+        * inst/include/Rcpp/date_datetime/newDateVector.h: Fixed the copy
+        constructor and added assignment operator.
+        * inst/include/Rcpp/date_datetime/newDatetimeVector.h: Fixed the copy
+        constructor and added assignment operator.
+        * inst/unitTests/cpp/dates.cpp: Added assignment operator tests for
+        DatetimeVector and DateVector for both new and old.
+        * inst/unitTests/runit.Date.R: Added assignment operator tests for
+        DatetimeVector and DateVector for both new and old.
+
 2016-11-10  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/date_datetime/newDateVector.h: Added constructor
         using VectorBase<>
 
-2016-01-05  Daniel C. Dillon  <dcdillon@gmail.com>
+2016-11-05  Daniel C. Dillon  <dcdillon@gmail.com>
 
         * inst/include/Rcpp/date_datetime/newDatetimeVector.h: Added constructor
         to instantiate newDatetimeVector from VectorBase.
