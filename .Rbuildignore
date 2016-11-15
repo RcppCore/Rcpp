@@ -13,3 +13,4 @@ doxyfile
 .clang_format
 vignettes/getCurrentVersionsOfCitedPackages.R
 ^Contributing.md$
+^\.codecov\.yml$
