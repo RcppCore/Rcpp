@@ -56,7 +56,7 @@ see 'citation("Rcpp")' for details.
 The [Rcpp Gallery](http://gallery.rcpp.org) showcases over one hundred fully
 documented and working examples.
 
-A number of examples are included as are over 1160 unit tests in over 550 unit
+A number of examples are included as are over 1292 unit tests in over 573 unit
 test functions provide additional usage examples.
 
 An earlier version of Rcpp, containing what we now call the 'classic Rcpp
@@ -65,12 +65,11 @@ been factored out of Rcpp into the package RcppClassic, and it is still
 available for code relying on the older interface. New development should 
 always use this Rcpp package instead.
 
-Other usage examples are provided by packages using Rcpp. As of September 2016,
-there are 759 [CRAN](https://cran.r-project.org) packages using Rcpp, a further
-76 [BioConductor](http://www.bioconductor.org) packages in its current release
-(with 84 in its devel version) as well as an unknown number of GitHub,
-Bitbucket, R-Forge, ... repositories using Rcpp.  All these packages provide
-usage examples for Rcpp.
+Other usage examples are provided by packages using Rcpp. As of November 2016,
+there are 839 [CRAN](https://cran.r-project.org) packages using Rcpp, a further
+89 [BioConductor](http://www.bioconductor.org) packages in its current release
+as well as an unknown number of GitHub, Bitbucket, R-Forge, ... repositories
+using Rcpp.  All these packages provide usage examples for Rcpp.
 
 
 ### Installation

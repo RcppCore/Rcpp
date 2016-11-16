@@ -3,7 +3,7 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp version 0.12.8 (2016-??-??)}{
+\section{Changes in Rcpp version 0.12.8 (2016-11-16)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
@@ -12,6 +12,8 @@
       \item Hashing functions now return unsigned int (Qiang in PR \ghpr{561}) 
       \item Added static methods \code{eye()}, \code{ones()}, and \code{zeros()} 
       for select matrix types (Nathan Russell in PR \ghpr{569})
+      \item The exception call stack is again correctly reported; print methods
+      and tests added too (Jim Hester in PR \ghpr{582} fixing \ghit{579})
     }
     \item Changes in Rcpp Sugar:
     \itemize{
