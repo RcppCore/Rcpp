@@ -14,6 +14,10 @@
       for select matrix types (Nathan Russell in PR \ghpr{569})
       \item The exception call stack is again correctly reported; print methods
       and tests added too (Jim Hester in PR \ghpr{582} fixing \ghit{579})
+      \item Variatic macros no longer use a GNU extensions (Nathan in PR
+      \ghpr{575})
+      \item Hash index functions were standardized on returning unsigned
+      integers (Also PR \ghpr{575})
     }
     \item Changes in Rcpp Sugar:
     \itemize{
@@ -31,13 +35,19 @@
       \item The constructor test for datetime vectors reflects the new classes
       which treats Inf correctly (and still as a non-finite value)
     }
+    \item Changes in Rcpp Attributes
+    \itemize{
+      \item An 'empty' return was corrected (PR \ghpr{589} fixing issue
+      \ghit{588}, and with thanks to Duncan Murdoch for the heads-up)
+    }
     \item Updated Date and Datetime vector classes:
     \itemize{
       \item The \code{DateVector} and \code{DatetimeVector} classes were renamed
       with a prefix \code{old}; they are currently \code{typedef}'ed to the
-      existing name (\ghpr{557}, also \ghpr{577})
+      existing name (\ghpr{557})
       \item New variants \code{newDateVector} and \code{newDatetimeVector} were
-      added based on \code{NumericVector} (also \ghpr{557}, \ghpr{577})
+      added based on \code{NumericVector} (also \ghpr{557}, \ghpr{577},
+      \ghpr{581}, \ghpr{587})
       \item By defining \code{RCPP_NEW_DATE_DATETIME_VECTORS} the new classes
       can activated. We intend to make the new classes the default no sooner
       than twelve months from this release.
