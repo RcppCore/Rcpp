@@ -31,10 +31,13 @@ export(Module,
        demangle,
        sizeof,
        cpp_object_initializer,
-       cpp_object_dummy, 
+       cpp_object_dummy,
        Rcpp.plugin.maker
        )
 S3method(print, bytes)
+S3method(format, Rcpp_stack_trace)
+S3method(str, Rcpp_stack_trace)
+S3method(print, Rcpp_stack_trace)
 exportClass(RcppClass)
 
 

@@ -28,7 +28,7 @@ namespace Rcpp{
 
     class exception : public std::exception {
     public:
-        explicit exception(const char* message_) : message(message_){}
+        explicit exception(const char* message_) : message(message_){ rcpp_set_stack_trace(stack_trace()); }
         exception(const char* message_, const char* file, int line ) : message(message_){
             rcpp_set_stack_trace( stack_trace(file,line) ) ;
         }
@@ -124,20 +124,58 @@ namespace Rcpp{
     #undef RCPP_SIMPLE_EXCEPTION_CLASS
 
 
+namespace internal {
+
+    inline SEXP nth(SEXP s, int n) {
+        return Rf_length(s) > n ? (n == 0 ? CAR(s) : CAR(Rf_nthcdr(s, n))) : R_NilValue;
+    }
+
+    // We want the call just prior to the call from Rcpp_eval
+    // This conditional matches
+    // tryCatch(evalq(sys.calls(), .GlobalEnv), error = identity, interrupt = identity)
+    inline bool is_Rcpp_eval_call(SEXP expr) {
+        SEXP sys_calls_symbol = Rf_install("sys.calls");
+        SEXP identity_symbol = Rf_install("identity");
+        SEXP identity_fun = Rf_findFun(identity_symbol, R_BaseEnv);
+        SEXP tryCatch_symbol = Rf_install("tryCatch");
+        SEXP evalq_symbol = Rf_install("evalq");
+
+        return TYPEOF(expr) == LANGSXP &&
+            Rf_length(expr) == 4 &&
+            nth(expr, 0) == tryCatch_symbol &&
+            CAR(nth(expr, 1)) == evalq_symbol &&
+            CAR(nth(nth(expr, 1), 1)) == sys_calls_symbol &&
+            nth(nth(expr, 1), 2) == R_GlobalEnv &&
+            nth(expr, 2) == identity_fun &&
+            nth(expr, 3) == identity_fun;
+    }
+}
+
 } // namespace Rcpp
 
 inline SEXP get_last_call(){
-    SEXP sys_calls_symbol = Rf_install( "sys.calls" ) ;
-    Rcpp::Shield<SEXP> sys_calls_expr( Rf_lang1(sys_calls_symbol) );
-    Rcpp::Shield<SEXP> calls( Rcpp_eval( sys_calls_expr, R_GlobalEnv ) );
-    SEXP res = calls ;
-    while( !Rf_isNull(CDR(res)) ) res = CDR(res);
-    return CAR(res) ;
+    SEXP sys_calls_symbol = Rf_install("sys.calls");
+
+    Rcpp::Shield<SEXP> sys_calls_expr(Rf_lang1(sys_calls_symbol));
+    Rcpp::Shield<SEXP> calls(Rcpp_eval(sys_calls_expr, R_GlobalEnv));
+
+    SEXP cur, prev;
+    prev = cur = calls;
+    while(CDR(cur) != R_NilValue) {
+        SEXP expr = CAR(cur);
+
+        if (Rcpp::internal::is_Rcpp_eval_call(expr)) {
+            break;
+        }
+        prev = cur;
+        cur = CDR(cur);
+    }
+    return CAR(prev);
 }
 
 inline SEXP get_exception_classes( const std::string& ex_class) {
     Rcpp::Shield<SEXP> res( Rf_allocVector( STRSXP, 4 ) );
-    
+
     #ifndef RCPP_USING_UTF8_ERROR_STRING
     SET_STRING_ELT( res, 0, Rf_mkChar( ex_class.c_str() ) ) ;
     #else
@@ -184,7 +222,7 @@ inline SEXP exception_to_r_condition( const std::exception& ex){
 
 inline SEXP string_to_try_error( const std::string& str){
     using namespace Rcpp;
-    
+
     #ifndef RCPP_USING_UTF8_ERROR_STRING
         Rcpp::Shield<SEXP> simpleErrorExpr( Rf_lang2(::Rf_install("simpleError"), Rf_mkString(str.c_str())) );
         Rcpp::Shield<SEXP> tryError( Rf_mkString( str.c_str() ) );
@@ -193,7 +231,7 @@ inline SEXP string_to_try_error( const std::string& str){
         SET_STRING_ELT( tryError, 0, Rf_mkCharLenCE( str.c_str(), str.size(), CE_UTF8 ) );
         Rcpp::Shield<SEXP> simpleErrorExpr( Rf_lang2(::Rf_install("simpleError"), tryError ));
    #endif
-    
+
     Rcpp::Shield<SEXP> simpleError( Rf_eval(simpleErrorExpr, R_GlobalEnv) );
     Rf_setAttrib( tryError, R_ClassSymbol, Rf_mkString("try-error") ) ;
     Rf_setAttrib( tryError, Rf_install( "condition") , simpleError ) ;
@@ -267,52 +305,52 @@ namespace Rcpp{
     inline void NORET stop(const std::string& message) {
         throw Rcpp::exception(message.c_str());
     }
-    
+
     template <typename T1>
     inline void NORET stop(const char* fmt, const T1& arg1) {
         throw Rcpp::exception( tfm::format(fmt, arg1 ).c_str() );
     }
-    
+
     template <typename T1, typename T2>
     inline void NORET stop(const char* fmt, const T1& arg1, const T2& arg2) {
         throw Rcpp::exception( tfm::format(fmt, arg1, arg2 ).c_str() );
     }
-    
+
     template <typename T1, typename T2, typename T3>
     inline void NORET stop(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3) {
         throw Rcpp::exception( tfm::format(fmt, arg1, arg2, arg3).c_str() );
     }
-    
+
     template <typename T1, typename T2, typename T3, typename T4>
     inline void NORET stop(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4) {
         throw Rcpp::exception( tfm::format(fmt, arg1, arg2, arg3, arg4).c_str() );
     }
-    
+
     template <typename T1, typename T2, typename T3, typename T4, typename T5>
     inline void NORET stop(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5) {
         throw Rcpp::exception( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5).c_str() );
     }
-    
+
     template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
     inline void NORET stop(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5, const T6& arg6) {
         throw Rcpp::exception( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5, arg6).c_str() );
     }
-    
+
     template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
     inline void NORET stop(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5, const T6& arg6, const T7& arg7) {
         throw Rcpp::exception( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5, arg6, arg7).c_str() );
     }
-    
+
     template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
     inline void NORET stop(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5, const T6& arg6, const T7& arg7, const T8& arg8) {
         throw Rcpp::exception( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8).c_str() );
     }
-    
+
     template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9>
     inline void NORET stop(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5, const T6& arg6, const T7& arg7, const T8& arg8, const T9& arg9) {
         throw Rcpp::exception( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9).c_str() );
     }
-    
+
     template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10>
     inline void NORET stop(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5, const T6& arg6, const T7& arg7, const T8& arg8, const T9& arg9, const T10& arg10) {
         throw Rcpp::exception( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10).c_str() );

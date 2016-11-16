@@ -43,7 +43,7 @@ SEXP          rcpp_set_stack_trace(SEXP);
 std::string   demangle(const std::string& name);
 const char*   short_file_name(const char* );
 int*          get_cache(int n);
-SEXP          stack_trace( const char *file, int line);
+SEXP          stack_trace( const char *file = "", int line = -1);
 SEXP          get_string_elt(SEXP s, R_xlen_t i);
 const char*   char_get_string_elt(SEXP s, R_xlen_t i);
 void          set_string_elt(SEXP s, R_xlen_t i, SEXP v);
@@ -143,7 +143,7 @@ inline attribute_hidden const char* short_file_name(const char* file) {
     return fun(file);
 }
 
-inline attribute_hidden SEXP stack_trace( const char *file, int line){
+inline attribute_hidden SEXP stack_trace( const char *file = "", int line = -1){
     typedef SEXP (*Fun)(const char*, int);
     static Fun fun = GET_CALLABLE("stack_trace");
     return fun(file, line);
