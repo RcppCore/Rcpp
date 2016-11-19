@@ -91,8 +91,11 @@ These converters are often used implicitly, as in the following code chunk:
 
 <<echo=FALSE>>=
 code <- '
-// we get a list from R
-List input(input_) ;
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+List fx(List input){ // we get a list from R
 
 // pull std::vector<double> from R list
 // this is achieved through an implicit call to Rcpp::as
@@ -103,7 +106,8 @@ std::vector<double> x = input["x"] ;
 return List::create(
     _["front"] = x.front(),
     _["back"]  = x.back()
-    ) ;
+    );
+}
 '
 writeLines( code, "code.cpp" )
 @
@@ -112,10 +116,7 @@ external_highlight( "code.cpp", type = "LATEX", doc = FALSE )
 @
 
 <<>>=
-fx <- cxxfunction( signature( input_ = "list"),
-	paste( readLines( "code.cpp" ), collapse = "\n" ),
-	plugin = "Rcpp"
-	)
+Rcpp::sourceCpp(file= "code.cpp")
 input <- list( x = seq(1, 10, by = 0.5) )
 fx( input )
 @
@@ -227,8 +228,6 @@ will attempt to use the constructor of the target class taking a \texttt{SEXP}.
 <<lang=cpp>>=
 #include <RcppCommon.h>
 
-#include <RcppCommon.h>
-
 class Foo{
     public:
         Foo() ;
@@ -237,18 +236,16 @@ class Foo{
         Foo(SEXP) ;
 }
 
-#include <Rcpp.h>
-
 
 // this must appear after the specialization,
 // otherwise the specialization will not be seen by Rcpp types
 #include <Rcpp.h>
 @
 
-\subsection{Non intrusive extension}
+\subsection{Non-intrusive extension}
 
 It is also possible to fully specialize \texttt{Rcpp::as} to enable
-non intrusive implicit conversion capabilities.
+non-intrusive implicit conversion capabilities.
 
 <<lang=cpp>>=
 #include <RcppCommon.h>
