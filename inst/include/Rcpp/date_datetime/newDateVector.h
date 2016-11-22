@@ -43,12 +43,12 @@ namespace Rcpp {
                 v[i] = (*this)[i];
             return v;
         }
-        
+
         inline newDateVector &operator=(const newDateVector &rhs) {
             if (this != &rhs) {
                 NumericVector::operator=(rhs);
             }
-            
+
             return *this;
         }
 

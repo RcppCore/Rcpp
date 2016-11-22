@@ -1,3 +1,10 @@
+2016-11-22  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Date, Version): roll minor version
+
+        * inst/include/Rcpp/date_datetime/newDatetimeVector.h (Rcpp): Small
+        correction concerning timezone attribute to ctor from RTYPE
+
 2016-11-16  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.12.8
