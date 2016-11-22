@@ -38,15 +38,24 @@ using namespace Rcpp;
     #else
         #include <execinfo.h>
 
+        // Extract mangled name e.g. ./test(baz+0x14)[0x400962]
         static std::string demangler_one(const char* input) {
             static std::string buffer;
             buffer = input;
-            buffer.resize(buffer.find_last_of('+') - 1);
-            buffer.erase(
-                buffer.begin(),
-                buffer.begin() + buffer.find_last_of(' ') + 1
-            );
-            return demangle(buffer);
+            size_t last_open = buffer.find_last_of('(');
+            size_t last_close = buffer.find_last_of(')');
+            if (last_open == std::string::npos ||
+                last_close == std::string::npos) {
+              return input;
+            }
+            std::string function_name = buffer.substr(last_open + 1, last_close - last_open - 1);
+            // Strip the +0x14 (if it exists, which it does not in earlier versions of gcc)
+            size_t function_plus = function_name.find_last_of('+');
+            if (function_plus != std::string::npos) {
+              function_name.resize(function_plus);
+            }
+            buffer.replace(last_open + 1, function_name.size(), demangle(function_name));
+            return buffer;
         }
     #endif
 #endif
