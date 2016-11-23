@@ -1,3 +1,9 @@
+2016-11-22  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Date, Version): roll minor version
+
+        * inst/include/Rcpp/date_datetime/newDatetimeVector.h (Rcpp): Small
+        correction concerning timezone attribute to ctor from RTYPE
 2016-11-22  Jim Hester  <james.f.hester@gmail.com>
 
         * inst/src/api.cpp: Cleanup to stack message parseing

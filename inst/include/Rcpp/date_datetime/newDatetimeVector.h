@@ -29,9 +29,9 @@ namespace Rcpp {
     class newDatetimeVector : public NumericVector {
     public:
         template <int RTYPE, bool NA, typename VEC>
-        newDatetimeVector(const VectorBase<RTYPE,NA,VEC>& other) :
+        newDatetimeVector(const VectorBase<RTYPE,NA,VEC>& other, const char* tz = "") :
             NumericVector(other) {
-                setClass(other.attr("tzone"));
+            setClass(tz); 
         }
 
         newDatetimeVector(SEXP vec, const char* tz = "") :
@@ -51,13 +51,13 @@ namespace Rcpp {
                 v[i] = (*this)[i];
             return v;
         }
-        
+
         inline newDatetimeVector &operator=(const newDatetimeVector &rhs) {
             if (this != &rhs) {
                 NumericVector::operator=(rhs);
                 this->attr("tzone") = rhs.attr("tzone");
             }
-            
+
             return *this;
         }
 
