@@ -8,6 +8,11 @@
     \itemize{
       \item Added Environment::find unit tests and an Environment::get(Symbol)
       test (James Balamuta in \ghpr{595} addressing issue \ghit{594}).
+\section{Changes in Rcpp version 0.12.8 (2017-01-xx)}{
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item Exposed pointers macros were included in the Rcpp Extending vignette
+       (MathurinD; James Balamuta in \ghpr{592} addressing \ghit{418}).
     }
 }
 \section{Changes in Rcpp version 0.12.8 (2016-11-16)}{

@@ -91,8 +91,11 @@ These converters are often used implicitly, as in the following code chunk:
 
 <<echo=FALSE>>=
 code <- '
-// we get a list from R
-List input(input_) ;
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+List fx(List input){ // we get a list from R
 
 // pull std::vector<double> from R list
 // this is achieved through an implicit call to Rcpp::as
@@ -103,7 +106,8 @@ std::vector<double> x = input["x"] ;
 return List::create(
     _["front"] = x.front(),
     _["back"]  = x.back()
-    ) ;
+    );
+}
 '
 writeLines( code, "code.cpp" )
 @
@@ -112,10 +116,7 @@ external_highlight( "code.cpp", type = "LATEX", doc = FALSE )
 @
 
 <<>>=
-fx <- cxxfunction( signature( input_ = "list"),
-	paste( readLines( "code.cpp" ), collapse = "\n" ),
-	plugin = "Rcpp"
-	)
+Rcpp::sourceCpp(file= "code.cpp")
 input <- list( x = seq(1, 10, by = 0.5) )
 fx( input )
 @
@@ -186,6 +187,18 @@ It should be noted that only the declaration is required. The implementation
 can appear after the \texttt{Rcpp.h} file is included, and therefore take
 full advantage of the \pkg{Rcpp} type system.
 
+Another non-intrusive option is to expose an external pointer. The macro 
+\texttt{RCPP\_EXPORT\_WRAP} provides an easy way to expose a \proglang{C++} class 
+to \proglang{R} as an external pointer. It can be used instead of specializing
+\texttt{Rcpp::wrap}, and should not be used simultaneously. 
+
+<<lang=cpp>>=
+#include RcppCommon.h
+#include foobar.h
+
+RCPP_EXPORT_WRAP(Bar);
+@
+
 \subsection{Templates and partial specialization}
 
 It is perfectly valid to declare a partial specialization for the
@@ -227,8 +240,6 @@ will attempt to use the constructor of the target class taking a \texttt{SEXP}.
 <<lang=cpp>>=
 #include <RcppCommon.h>
 
-#include <RcppCommon.h>
-
 class Foo{
     public:
         Foo() ;
@@ -237,18 +248,16 @@ class Foo{
         Foo(SEXP) ;
 }
 
-#include <Rcpp.h>
-
 
 // this must appear after the specialization,
 // otherwise the specialization will not be seen by Rcpp types
 #include <Rcpp.h>
 @
 
-\subsection{Non intrusive extension}
+\subsection{Non-intrusive extension}
 
 It is also possible to fully specialize \texttt{Rcpp::as} to enable
-non intrusive implicit conversion capabilities.
+non-intrusive implicit conversion capabilities.
 
 <<lang=cpp>>=
 #include <RcppCommon.h>
@@ -265,6 +274,28 @@ namespace Rcpp {
 // otherwise the specialization will not be seen by Rcpp types
 #include <Rcpp.h>
 @
+
+Furthermore, another non-intrusive option is to opt for sharing an R 
+external pointer. The macro \texttt{RCPP\_EXPORT\_AS} provides an easy way to
+extend \texttt{Rcpp::as} to expose \proglang{R} external pointers to 
+\proglang{C++}. It can be used instead of specializing \texttt{Rcpp::as}, and 
+should not be used simultaneously.
+
+<<lang=cpp>>=
+#include RcppCommon.h
+#include foobar.h
+
+RCPP_EXPORT_AS(Bar);
+@
+
+With this being said, there is one additional macro that can be used to 
+simultaneously define both \texttt{Rcpp::wrap} and \texttt{Rcpp::as}
+specialization for an external pointer. The macro \texttt{RCPP\_EXPOSED\_CLASS} 
+can be use to transparently exchange a class between \proglang{R} and 
+\proglang{C++} as an external pointer. Do not simultaneously use it alongside
+\texttt{RCPP\_EXPOSED\_AS}, \texttt{RCPP\_EXPOSED\_WRAP}, \texttt{Rcpp::wrap}, or
+\texttt{Rcpp::as}.
+
 
 \subsection{Templates and partial specialization}
 

@@ -3,6 +3,9 @@
         * inst/unitTests/runit.environments.R: Added environment find unit tests
         as well as a symbol access test for environment get.
         * inst/unitTests/cpp/Environment.cpp: Idem
+2016-11-18  James J Balamuta  <balamut2@illinois.edu>
+        * vignettes/Rcpp-extending: Switched to attributes and
+          added external class pointer macro notes by MathurinD 
 
 2016-11-16  Dirk Eddelbuettel  <edd@debian.org>
 
