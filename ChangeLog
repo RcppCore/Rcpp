@@ -1,3 +1,9 @@
+2016-11-19  James J Balamuta  <balamut2@illinois.edu>
+
+        * inst/unitTests/runit.environments.R: Added environment find unit tests
+        as well as a symbol access test for environment get.
+        * inst/unitTests/cpp/Environment.cpp: Idem
+
 2016-11-16  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.12.8
