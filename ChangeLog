@@ -4,6 +4,21 @@
 
         * inst/include/Rcpp/date_datetime/newDatetimeVector.h (Rcpp): Small
         correction concerning timezone attribute to ctor from RTYPE
+2016-11-22  Jim Hester  <james.f.hester@gmail.com>
+
+        * inst/src/api.cpp: Cleanup to stack message parseing
+        * inst/unitTests/cpp/exceptions.cpp: Unit tests for cleanup
+        * inst/unitTests/runit.exceptions.R: Ditto
+
+2016-11-19  James J Balamuta  <balamut2@illinois.edu>
+
+        * inst/unitTests/runit.environments.R: Added environment find unit tests
+        as well as a symbol access test for environment get.
+        * inst/unitTests/cpp/Environment.cpp: Idem
+
+2016-11-18  James J Balamuta  <balamut2@illinois.edu>
+        * vignettes/Rcpp-extending: Switched to attributes and
+          added external class pointer macro notes by MathurinD 
 
 2016-11-16  Dirk Eddelbuettel  <edd@debian.org>
 

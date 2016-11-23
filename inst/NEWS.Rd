@@ -3,6 +3,24 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
+\section{Changes in Rcpp version 0.12.9 (2017-01-xx)}{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item The exception stack message is now correctly demangled on all
+      compiler versions (Jim Hester in \ghpr{598})
+    }
+    \item Changes in Rcpp unit tests
+    \itemize{
+      \item Added Environment::find unit tests and an Environment::get(Symbol)
+      test (James Balamuta in \ghpr{595} addressing issue \ghit{594}).
+    }	
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item Exposed pointers macros were included in the Rcpp Extending vignette
+       (MathurinD; James Balamuta in \ghpr{592} addressing \ghit{418}).
+    }
+}
+
 \section{Changes in Rcpp version 0.12.8 (2016-11-16)}{
   \itemize{
     \item Changes in Rcpp API:

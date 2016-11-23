@@ -38,6 +38,21 @@ SEXP runit_get( Environment env, std::string name){
 }
 
 // [[Rcpp::export]]
+SEXP runit_get_symbol( Environment env, Symbol name){
+    return env.get( name ) ;
+}
+
+// [[Rcpp::export]]
+SEXP runit_find( Environment env, std::string name){
+    return env.find( name ) ;
+}
+
+// [[Rcpp::export]]
+SEXP runit_find_symbol( Environment env, Symbol name){
+    return env.find( name ) ;
+}
+
+// [[Rcpp::export]]
 bool runit_exists( Environment env, std::string st){
     return env.exists( st ) ;
 }
