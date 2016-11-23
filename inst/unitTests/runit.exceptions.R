@@ -58,6 +58,24 @@ test.rcppException <- function() {
   checkEquals(condition$call, quote(takeLogRcpp(-1L)))
 }
 
+test.rcppStop <- function() {
+
+  # Code works normally without an exception
+  checkIdentical(takeLog(1L), log(1L))
+
+  # C++ exceptions are converted to R conditions
+  condition <- tryCatch(takeLogStop(-1L), error = identity)
+
+  checkIdentical(condition$message, "Inadmissible value")
+  checkIdentical(class(condition), c("Rcpp::exception", "C++Error", "error", "condition"))
+
+  checkTrue(!is.null(condition$cppstack))
+
+  checkIdentical(class(condition$cppstack), "Rcpp_stack_trace")
+
+  checkEquals(condition$call, quote(takeLogStop(-1L)))
+}
+
 test.rcppExceptionLocation <- function() {
 
   # Code works normally without an exception

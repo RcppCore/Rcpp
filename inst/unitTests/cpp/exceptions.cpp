@@ -39,6 +39,14 @@ double takeLogRcpp(double val) {
 }
 
 // [[Rcpp::export]]
+double takeLogStop(double val) {
+    if (val <= 0.0) {
+        Rcpp::stop("Inadmissible value");
+    }
+    return log(val);
+}
+
+// [[Rcpp::export]]
 double takeLogRcppLocation(double val) {
     if (val <= 0.0) {
         throw Rcpp::exception("Inadmissible value", "exceptions.cpp", 44);
