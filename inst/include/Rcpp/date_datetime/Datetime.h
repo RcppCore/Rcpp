@@ -77,10 +77,7 @@ namespace Rcpp {
             return std::string(txtsec);
         }
 
-        inline std::ostream &operator<<(std::ostream & s) const {
-            s << this->format() << std::endl;
-            return s;
-        }
+        friend inline std::ostream &operator<<(std::ostream & s, const Datetime d);
 
     private:
         double m_dt;            // fractional seconds since epoch
@@ -151,6 +148,10 @@ namespace Rcpp {
     inline bool    operator<=(const Datetime &d1, const Datetime& d2) { return d1.m_dt <= d2.m_dt; }
     inline bool    operator!=(const Datetime &d1, const Datetime& d2) { return d1.m_dt != d2.m_dt; }
 
+    inline std::ostream &operator<<(std::ostream & os, const Datetime d) {
+        os << d.format();
+        return os;
+    }
 
 }
 

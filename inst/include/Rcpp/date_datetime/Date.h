@@ -110,11 +110,7 @@ namespace Rcpp {
             return std::string(txt);
         }
 
-        inline std::ostream &operator<<(std::ostream & s) const {
-            s << this->format() << std::endl;
-            return s;
-        }
-
+        friend inline std::ostream &operator<<(std::ostream & os, const Date d);
 
     private:
         double m_d;                 // (fractional) day number, relative to epoch of Jan 1, 1970
@@ -166,6 +162,11 @@ namespace Rcpp {
     inline bool   operator>=(const Date &d1, const Date& d2) { return d1.m_d >= d2.m_d; }
     inline bool   operator<=(const Date &d1, const Date& d2) { return d1.m_d <= d2.m_d; }
     inline bool   operator!=(const Date &d1, const Date& d2) { return d1.m_d != d2.m_d; }
+
+    inline std::ostream &operator<<(std::ostream & os, const Date d) {
+        os << d.format();
+        return os;
+    }
 
     namespace internal {
 
