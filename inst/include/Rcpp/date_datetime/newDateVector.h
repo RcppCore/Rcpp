@@ -52,6 +52,8 @@ namespace Rcpp {
             return *this;
         }
 
+        friend inline std::ostream &operator<<(std::ostream & s, const newDateVector d);
+
     private:
 
         void setClass() {
@@ -59,6 +61,15 @@ namespace Rcpp {
             Rf_setAttrib(*this, R_ClassSymbol, dateclass);
         }
     };
+
+    inline std::ostream &operator<<(std::ostream & os, const newDateVector d) {
+        int n = d.size();
+        for (int i=0; i<n; i++) {
+            os << Date(d[i]).format() << " ";
+            if ((i+1) % 8 == 0) os << "\n";
+        }
+        return os;
+    }
 }
 
 #endif

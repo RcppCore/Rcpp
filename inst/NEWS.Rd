@@ -8,7 +8,8 @@
     \itemize{
       \item The exception stack message is now correctly demangled on all
       compiler versions (Jim Hester in \ghpr{598})
-      \item Date and Datetime object now have format methods
+      \item Date and Datetime object and vector now have format methods and
+      \code{operator<<} support (PR\ghpr{599})
     }
     \item Changes in Rcpp unit tests
     \itemize{

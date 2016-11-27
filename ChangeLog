@@ -2,6 +2,8 @@
 
         * inst/include/Rcpp/date_datetime/Date.h (format, operator<<): Added
         * inst/include/Rcpp/date_datetime/Datetime.h (format, operator<<): Ditto
+        * inst/include/Rcpp/date_datetime/newDateVector.h (operator<<): Ditto
+        * inst/include/Rcpp/date_datetime/newDatetimeVector.h (operator<<): Ditto
 
 2016-11-23  Dirk Eddelbuettel  <edd@debian.org>
 

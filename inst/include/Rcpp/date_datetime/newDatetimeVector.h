@@ -61,6 +61,8 @@ namespace Rcpp {
             return *this;
         }
 
+        friend inline std::ostream &operator<<(std::ostream & s, const newDatetimeVector d);
+
     private:
 
         void setClass(const char *tz) {
@@ -75,6 +77,16 @@ namespace Rcpp {
             }
         }
     };
+
+    inline std::ostream &operator<<(std::ostream & os, const newDatetimeVector d) {
+        int n = d.size();
+        for (int i=0; i<n; i++) {
+            os << Datetime(d[i]).format() << " ";
+            if ((i+1) % 4 == 0) os << "\n";
+        }
+        return os;
+    }
+
 }
 
 #endif
