@@ -102,6 +102,20 @@ namespace Rcpp {
             return m_d;
         }
 
+        inline std::string format(const char *fmt = "%Y-%m-%d") const {
+            char txt[32];
+            struct tm temp = m_tm;
+            temp.tm_year -= baseYear();    // adjust for fact that system has year rel. to 1900
+            ::strftime(txt, 31, fmt, &temp);
+            return std::string(txt);
+        }
+
+        inline std::ostream &operator<<(std::ostream & s) const {
+            s << this->format() << std::endl;
+            return s;
+        }
+
+
     private:
         double m_d;                 // (fractional) day number, relative to epoch of Jan 1, 1970
         struct tm m_tm;             // standard time representation

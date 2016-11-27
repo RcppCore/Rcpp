@@ -8,6 +8,7 @@
     \itemize{
       \item The exception stack message is now correctly demangled on all
       compiler versions (Jim Hester in \ghpr{598})
+      \item Date and Datetime object now have format methods
     }
     \item Changes in Rcpp unit tests
     \itemize{
