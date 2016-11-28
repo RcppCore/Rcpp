@@ -708,9 +708,9 @@ if (.runThisTest) {
         checkEquals(sort(runit_union( 1:10, 1:5 )), sort(union( 1:10, 1:5 )))
     }
 
-#    test.intersect <- function(){
-#        checkEquals( runit_intersect( 1:10, 1:5 ), intersect( 1:10, 1:5 ) )
-#    }
+    test.intersect <- function(){
+        checkEquals(sort(runit_intersect(1:10, 1:5)), intersect(1:10, 1:5))
+    }
 
     test.clamp <- function(){
         r_clamp <- function(a, x, b) pmax(a, pmin(x, b) )

@@ -4,6 +4,9 @@
         * inst/unitTests/runit.Date.R (test.Date.formating): Ditto
         (test.Datetime.formating): Ditto
 
+        * inst/unitTests/runit.sugar.R (test.intersect): Added sort() around
+        call to Sugar's intersect to ensure sorted output with g++-6.* 
+
 2016-11-27  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/date_datetime/Date.h (format, operator<<): Added
