@@ -102,6 +102,20 @@ namespace Rcpp {
             return m_d;
         }
 
+        inline std::string format(const char *fmt = "%Y-%m-%d") const {
+            char txt[32];
+            struct tm temp = m_tm;
+            temp.tm_year -= baseYear();    // adjust for fact that system has year rel. to 1900
+            int res = ::strftime(txt, 31, fmt, &temp);
+            if (res == 0) {
+                return std::string("");
+            } else {
+                return std::string(txt);
+            }
+        }
+
+        friend inline std::ostream &operator<<(std::ostream & os, const Date d);
+
     private:
         double m_d;                 // (fractional) day number, relative to epoch of Jan 1, 1970
         struct tm m_tm;             // standard time representation
@@ -152,6 +166,11 @@ namespace Rcpp {
     inline bool   operator>=(const Date &d1, const Date& d2) { return d1.m_d >= d2.m_d; }
     inline bool   operator<=(const Date &d1, const Date& d2) { return d1.m_d <= d2.m_d; }
     inline bool   operator!=(const Date &d1, const Date& d2) { return d1.m_d != d2.m_d; }
+
+    inline std::ostream &operator<<(std::ostream & os, const Date d) {
+        os << d.format();
+        return os;
+    }
 
     namespace internal {
 

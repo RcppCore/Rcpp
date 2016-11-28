@@ -638,7 +638,7 @@ if (.runThisTest) {
         x <- sample( letters, 1000, replace = TRUE )
         checkEquals( runit_self_match(x), match(x,unique(x)) )
     }
-    
+
     test.unique <- function() {
         x <- sample(LETTERS[1:5], 10, TRUE)
         checkEquals(
@@ -646,35 +646,35 @@ if (.runThisTest) {
             sort(runit_unique_ch(x)),
             "unique / character / without NA"
         )
-        
+
         x <- c(x, NA, NA)
         checkEquals(
             sort(unique(x), na.last = TRUE),
             sort(runit_unique_ch(x), na.last = TRUE),
             "unique / character / with NA"
         )
-        
+
         x <- sample(1:5, 10, TRUE)
         checkEquals(
             sort(unique(x)),
             sort(runit_unique_int(x)),
             "unique / integer / without NA"
         )
-        
+
         x <- c(x, NA, NA)
         checkEquals(
             sort(unique(x), na.last = TRUE),
             sort(runit_unique_int(x), na.last = TRUE),
             "unique / integer / with NA"
         )
-        
+
         x <- sample(1:5 + 0.5, 10, TRUE)
         checkEquals(
             sort(unique(x)),
             sort(runit_unique_dbl(x)),
             "unique / numeric / without NA"
         )
-        
+
         x <- c(x, NA, NA)
         checkEquals(
             sort(unique(x), na.last = TRUE),
@@ -708,9 +708,9 @@ if (.runThisTest) {
         checkEquals(sort(runit_union( 1:10, 1:5 )), sort(union( 1:10, 1:5 )))
     }
 
-    test.intersect <- function(){
-        checkEquals( runit_intersect( 1:10, 1:5 ), intersect( 1:10, 1:5 ) )
-    }
+#    test.intersect <- function(){
+#        checkEquals( runit_intersect( 1:10, 1:5 ), intersect( 1:10, 1:5 ) )
+#    }
 
     test.clamp <- function(){
         r_clamp <- function(a, x, b) pmax(a, pmin(x, b) )
@@ -778,8 +778,8 @@ if (.runThisTest) {
         checkEquals(mean(v1), meanLogical(v1), "mean of logical vector")
         checkEquals(mean(v2), meanLogical(v2), "mean of logical vector with NA")
     }
-    
-    
+
+
     ## 30 Oct 2015: cumprod, cummin, cummax
     # base::cumprod defined for numeric, integer, and complex vectors
     test.sugar.cumprod_nv <- function() {
@@ -789,7 +789,7 @@ if (.runThisTest) {
         x[4] <- NA
         checkEquals(fx(x), cumprod(x))
     }
-    
+
     test.sugar.cumprod_iv <- function() {
         fx <- runit_cumprod_iv
         x <- as.integer(rpois(10, 5))
@@ -797,7 +797,7 @@ if (.runThisTest) {
         x[4] <- NA
         checkEquals(fx(x), cumprod(x))
     }
-    
+
     test.sugar.cumprod_cv <- function() {
         fx <- runit_cumprod_cv
         x <- rnorm(10) + 2i
@@ -805,7 +805,7 @@ if (.runThisTest) {
         x[4] <- NA
         checkEquals(fx(x), cumprod(x))
     }
-    
+
     # base::cummin defined for numeric and integer vectors
     test.sugar.cummin_nv <- function() {
         fx <- runit_cummin_nv
@@ -814,7 +814,7 @@ if (.runThisTest) {
         x[4] <- NA
         checkEquals(fx(x), cummin(x))
     }
-    
+
     test.sugar.cummin_iv <- function() {
         fx <- runit_cummin_iv
         x <- as.integer(rpois(10, 5))
@@ -822,7 +822,7 @@ if (.runThisTest) {
         x[4] <- NA
         checkEquals(fx(x), cummin(x))
     }
-    
+
     # base::cummax defined for numeric and integer vectors
     test.sugar.cummax_nv <- function() {
         fx <- runit_cummax_nv
@@ -831,7 +831,7 @@ if (.runThisTest) {
         x[4] <- NA
         checkEquals(fx(x), cummax(x))
     }
-    
+
     test.sugar.cummax_iv <- function() {
         fx <- runit_cummax_iv
         x <- as.integer(rpois(10, 5))
@@ -839,349 +839,349 @@ if (.runThisTest) {
         x[4] <- NA
         checkEquals(fx(x), cummax(x))
     }
-    
-    
+
+
     ## 18 January 2016: median
     ## median of integer vector
     test.sugar.median_int <- function() {
         fx <- median_int
-        
+
         x <- as.integer(rpois(5, 20))
-        checkEquals(fx(x), median(x), 
+        checkEquals(fx(x), median(x),
                     "median_int / odd length / no NA / na.rm = FALSE")
-        
+
         x[4] <- NA
-        checkEquals(fx(x), median(x), 
+        checkEquals(fx(x), median(x),
                     "median_int / odd length / with NA / na.rm = FALSE")
-        
-        checkEquals(fx(x, TRUE), median(x, TRUE), 
+
+        checkEquals(fx(x, TRUE), median(x, TRUE),
                     "median_int / odd length / with NA / na.rm = TRUE")
-        
+
         ##
         x <- as.integer(rpois(6, 20))
-        checkEquals(fx(x), median(x), 
+        checkEquals(fx(x), median(x),
                     "median_int / even length / no NA / na.rm = FALSE")
-        
+
         x[4] <- NA
-        checkEquals(fx(x), median(x), 
+        checkEquals(fx(x), median(x),
                     "median_int / even length / with NA / na.rm = FALSE")
-        
-        checkEquals(fx(x, TRUE), median(x, TRUE), 
+
+        checkEquals(fx(x, TRUE), median(x, TRUE),
                     "median_int / even length / with NA / na.rm = TRUE")
     }
-    
+
     ## median of numeric vector
     test.sugar.median_dbl <- function() {
         fx <- median_dbl
-        
+
         x <- rnorm(5)
-        checkEquals(fx(x), median(x), 
+        checkEquals(fx(x), median(x),
                     "median_dbl / odd length / no NA / na.rm = FALSE")
-        
+
         x[4] <- NA
-        checkEquals(fx(x), median(x), 
+        checkEquals(fx(x), median(x),
                     "median_dbl / odd length / with NA / na.rm = FALSE")
-        
-        checkEquals(fx(x, TRUE), median(x, TRUE), 
+
+        checkEquals(fx(x, TRUE), median(x, TRUE),
                     "median_dbl / odd length / with NA / na.rm = TRUE")
-        
+
         ##
         x <- rnorm(6)
-        checkEquals(fx(x), median(x), 
+        checkEquals(fx(x), median(x),
                     "median_dbl / even length / no NA / na.rm = FALSE")
-        
+
         x[4] <- NA
-        checkEquals(fx(x), median(x), 
+        checkEquals(fx(x), median(x),
                     "median_dbl / even length / with NA / na.rm = FALSE")
-        
-        checkEquals(fx(x, TRUE), median(x, TRUE), 
+
+        checkEquals(fx(x, TRUE), median(x, TRUE),
                     "median_dbl / even length / with NA / na.rm = TRUE")
     }
-    
+
     ## median of complex vector
     test.sugar.median_cx <- function() {
         fx <- median_cx
-        
+
         x <- rnorm(5) + 2i
-        checkEquals(fx(x), median(x), 
+        checkEquals(fx(x), median(x),
                     "median_cx / odd length / no NA / na.rm = FALSE")
-        
+
         x[4] <- NA
-        checkEquals(fx(x), median(x), 
+        checkEquals(fx(x), median(x),
                     "median_cx / odd length / with NA / na.rm = FALSE")
-        
-        checkEquals(fx(x, TRUE), median(x, TRUE), 
+
+        checkEquals(fx(x, TRUE), median(x, TRUE),
                     "median_cx / odd length / with NA / na.rm = TRUE")
-        
+
         ##
         x <- rnorm(6) + 2i
-        checkEquals(fx(x), median(x), 
+        checkEquals(fx(x), median(x),
                     "median_cx / even length / no NA / na.rm = FALSE")
-        
+
         x[4] <- NA
-        checkEquals(fx(x), median(x), 
+        checkEquals(fx(x), median(x),
                     "median_cx / even length / with NA / na.rm = FALSE")
-        
-        checkEquals(fx(x, TRUE), median(x, TRUE), 
+
+        checkEquals(fx(x, TRUE), median(x, TRUE),
                     "median_cx / even length / with NA / na.rm = TRUE")
     }
-    
+
     ## median of character vector
     test.sugar.median_ch <- function() {
         fx <- median_ch
-        
+
         x <- sample(letters, 5)
-        checkEquals(fx(x), median(x), 
+        checkEquals(fx(x), median(x),
                     "median_ch / odd length / no NA / na.rm = FALSE")
-        
+
         x[4] <- NA
-        checkEquals(fx(x), median(x), 
+        checkEquals(fx(x), median(x),
                     "median_ch / odd length / with NA / na.rm = FALSE")
-        
-        ## median(x, TRUE) returns NA_real_ for character vector input 
-        ## which results in a warning; i.e. if the vector it passes to 
+
+        ## median(x, TRUE) returns NA_real_ for character vector input
+        ## which results in a warning; i.e. if the vector it passes to
         ## `mean.default(sort(x, partial = half + 0L:1L)[half + 0L:1L])`
         ## has ((length(x) %% 2) == 0)
-        
-        checkEquals(fx(x, TRUE), 
-                    as.character(suppressWarnings(median(x, TRUE))), 
+
+        checkEquals(fx(x, TRUE),
+                    as.character(suppressWarnings(median(x, TRUE))),
                     "median_ch / odd length / with NA / na.rm = TRUE")
-        
+
         ##
         x <- sample(letters, 6)
-        checkEquals(fx(x), 
-                    as.character(suppressWarnings(median(x))), 
+        checkEquals(fx(x),
+                    as.character(suppressWarnings(median(x))),
                     "median_ch / even length / no NA / na.rm = FALSE")
-        
+
         x[4] <- NA
-        checkEquals(fx(x), 
-                    as.character(suppressWarnings(median(x))), 
+        checkEquals(fx(x),
+                    as.character(suppressWarnings(median(x))),
                     "median_ch / even length / with NA / na.rm = FALSE")
-        
-        checkEquals(fx(x, TRUE), 
-                    as.character(suppressWarnings(median(x, TRUE))), 
+
+        checkEquals(fx(x, TRUE),
+                    as.character(suppressWarnings(median(x, TRUE))),
                     "median_ch / even length / with NA / na.rm = TRUE")
     }
-    
-    
+
+
     ## 12 March 2016
     ## cbind numeric tests
     test.sugar.cbind_numeric <- function() {
-        
+
         m1 <- matrix(rnorm(9), 3, 3); m2 <- matrix(rnorm(9), 3, 3)
         v1 <- rnorm(3); v2 <- rnorm(3)
         s1 <- rnorm(1); s2 <- rnorm(1)
-        
+
         cbind <- function(...) {
             base::cbind(..., deparse.level = 0)
         }
-        
+
         checkEquals(n_cbind_mm(m1, m2), cbind(m1, m2),
                     "numeric cbind / matrix matrix")
-        
+
         checkEquals(n_cbind_mv(m1, v1), cbind(m1, v1),
                     "numeric cbind / matrix vector")
-        
+
         checkEquals(n_cbind_ms(m1, s1), cbind(m1, s1),
                     "numeric cbind / matrix scalar")
-        
+
         checkEquals(n_cbind_vv(v1, v2), cbind(v1, v2),
                     "numeric cbind / vector vector")
-        
+
         checkEquals(n_cbind_vm(v1, m1), cbind(v1, m1),
                     "numeric cbind / vector matrix")
-        
+
         checkEquals(n_cbind_vs(v1, s1), cbind(v1, s1),
                     "numeric cbind / vector scalar")
-        
+
         checkEquals(n_cbind_ss(s1, s2), cbind(s1, s2),
                     "numeric cbind / scalar scalar")
-        
+
         checkEquals(n_cbind_sm(s1, m1), cbind(s1, m1),
                     "numeric cbind / scalar matrix")
-        
+
         checkEquals(n_cbind_sv(s1, v1), cbind(s1, v1),
                     "numeric cbind / scalar vector")
-        
+
         checkEquals(n_cbind9(m1, v1, s1, m2, v2, s2, m1, v1, s1),
                     cbind(m1, v1, s1, m2, v2, s2, m1, v1, s1),
                     "numeric cbind 9")
-  
+
     }
 
     ## cbind integer tests
     test.sugar.cbind_integer <- function() {
-        
+
         m1 <- matrix(rpois(9, 20), 3, 3); m2 <- matrix(rpois(9, 20), 3, 3)
         v1 <- rpois(3, 30); v2 <- rpois(3, 30)
         s1 <- rpois(1, 40); s2 <- rpois(1, 40)
-        
+
         cbind <- function(...) {
             base::cbind(..., deparse.level = 0)
         }
-        
+
         checkEquals(i_cbind_mm(m1, m2), cbind(m1, m2),
                     "integer cbind / matrix matrix")
-        
+
         checkEquals(i_cbind_mv(m1, v1), cbind(m1, v1),
                     "integer cbind / matrix vector")
-        
+
         checkEquals(i_cbind_ms(m1, s1), cbind(m1, s1),
                     "integer cbind / matrix scalar")
-        
+
         checkEquals(i_cbind_vv(v1, v2), cbind(v1, v2),
                     "integer cbind / vector vector")
-        
+
         checkEquals(i_cbind_vm(v1, m1), cbind(v1, m1),
                     "integer cbind / vector matrix")
-        
+
         checkEquals(i_cbind_vs(v1, s1), cbind(v1, s1),
                     "integer cbind / vector scalar")
-        
+
         checkEquals(i_cbind_ss(s1, s2), cbind(s1, s2),
                     "integer cbind / scalar scalar")
-        
+
         checkEquals(i_cbind_sm(s1, m1), cbind(s1, m1),
                     "integer cbind / scalar matrix")
-        
+
         checkEquals(i_cbind_sv(s1, v1), cbind(s1, v1),
                     "integer cbind / scalar vector")
-        
+
         checkEquals(i_cbind9(m1, v1, s1, m2, v2, s2, m1, v1, s1),
                     cbind(m1, v1, s1, m2, v2, s2, m1, v1, s1),
                     "integer cbind 9")
-  
+
     }
-    
+
     ## cbind complex tests
     test.sugar.cbind_complex <- function() {
-        
+
         m1 <- matrix(rnorm(9), 3, 3) + 2i
         m2 <- matrix(rnorm(9), 3, 3) + 5i
         v1 <- rnorm(3) + 3i; v2 <- rnorm(3) + 4i
         s1 <- rnorm(1) + 4i; s2 <- rnorm(1) + 5i
-        
+
         cbind <- function(...) {
             base::cbind(..., deparse.level = 0)
         }
-        
+
         checkEquals(cx_cbind_mm(m1, m2), cbind(m1, m2),
                     "complex cbind / matrix matrix")
-        
+
         checkEquals(cx_cbind_mv(m1, v1), cbind(m1, v1),
                     "complex cbind / matrix vector")
-        
+
         checkEquals(cx_cbind_ms(m1, s1), cbind(m1, s1),
                     "complex cbind / matrix scalar")
-        
+
         checkEquals(cx_cbind_vv(v1, v2), cbind(v1, v2),
                     "complex cbind / vector vector")
-        
+
         checkEquals(cx_cbind_vm(v1, m1), cbind(v1, m1),
                     "complex cbind / vector matrix")
-        
+
         checkEquals(cx_cbind_vs(v1, s1), cbind(v1, s1),
                     "complex cbind / vector scalar")
-        
+
         checkEquals(cx_cbind_ss(s1, s2), cbind(s1, s2),
                     "complex cbind / scalar scalar")
-        
+
         checkEquals(cx_cbind_sm(s1, m1), cbind(s1, m1),
                     "complex cbind / scalar matrix")
-        
+
         checkEquals(cx_cbind_sv(s1, v1), cbind(s1, v1),
                     "complex cbind / scalar vector")
-        
+
         checkEquals(cx_cbind9(m1, v1, s1, m2, v2, s2, m1, v1, s1),
                     cbind(m1, v1, s1, m2, v2, s2, m1, v1, s1),
                     "complex cbind 9")
-  
+
     }
-    
+
     ## cbind logical tests
     test.sugar.cbind_logical <- function() {
-        
-        m1 <- matrix(as.logical(rbinom(9, 1, .5)), 3, 3) 
-        m2 <- matrix(as.logical(rbinom(9, 1, .5)), 3, 3) 
-        v1 <- as.logical(rbinom(3, 1, .5)) 
+
+        m1 <- matrix(as.logical(rbinom(9, 1, .5)), 3, 3)
+        m2 <- matrix(as.logical(rbinom(9, 1, .5)), 3, 3)
+        v1 <- as.logical(rbinom(3, 1, .5))
         v2 <- as.logical(rbinom(3, 1, .5))
         s1 <- as.logical(rbinom(1, 1, .5))
         s2 <- as.logical(rbinom(1, 1, .5))
-        
+
         cbind <- function(...) {
             base::cbind(..., deparse.level = 0)
         }
-        
+
         checkEquals(l_cbind_mm(m1, m2), cbind(m1, m2),
                     "logical cbind / matrix matrix")
-        
+
         checkEquals(l_cbind_mv(m1, v1), cbind(m1, v1),
                     "logical cbind / matrix vector")
-        
+
         checkEquals(l_cbind_ms(m1, s1), cbind(m1, s1),
                     "logical cbind / matrix scalar")
-        
+
         checkEquals(l_cbind_vv(v1, v2), cbind(v1, v2),
                     "logical cbind / vector vector")
-        
+
         checkEquals(l_cbind_vm(v1, m1), cbind(v1, m1),
                     "logical cbind / vector matrix")
-        
+
         checkEquals(l_cbind_vs(v1, s1), cbind(v1, s1),
                     "logical cbind / vector scalar")
-        
+
         checkEquals(l_cbind_ss(s1, s2), cbind(s1, s2),
                     "logical cbind / scalar scalar")
-        
+
         checkEquals(l_cbind_sm(s1, m1), cbind(s1, m1),
                     "logical cbind / scalar matrix")
-        
+
         checkEquals(l_cbind_sv(s1, v1), cbind(s1, v1),
                     "logical cbind / scalar vector")
-        
+
         checkEquals(l_cbind9(m1, v1, s1, m2, v2, s2, m1, v1, s1),
                     cbind(m1, v1, s1, m2, v2, s2, m1, v1, s1),
                     "logical cbind 9")
-  
+
     }
-    
+
     ## cbind character tests
     test.sugar.cbind_character <- function() {
-        
-        m1 <- matrix(sample(letters, 9, TRUE), 3, 3) 
-        m2 <- matrix(sample(LETTERS, 9, TRUE), 3, 3) 
-        v1 <- sample(letters, 3, TRUE) 
+
+        m1 <- matrix(sample(letters, 9, TRUE), 3, 3)
+        m2 <- matrix(sample(LETTERS, 9, TRUE), 3, 3)
+        v1 <- sample(letters, 3, TRUE)
         v2 <- sample(LETTERS, 3, TRUE)
-        
+
         cbind <- function(...) {
             base::cbind(..., deparse.level = 0)
         }
-        
+
         checkEquals(c_cbind_mm(m1, m2), cbind(m1, m2),
                     "logical cbind / matrix matrix")
-        
+
         checkEquals(c_cbind_mv(m1, v1), cbind(m1, v1),
                     "logical cbind / matrix vector")
 
         checkEquals(c_cbind_vv(v1, v2), cbind(v1, v2),
                     "logical cbind / vector vector")
-        
+
         checkEquals(c_cbind_vm(v1, m1), cbind(v1, m1),
                     "logical cbind / vector matrix")
-        
+
         checkEquals(c_cbind6(m1, v1, m2, v2, m1, v1),
                     cbind(m1, v1, m2, v2, m1, v1),
                     "character cbind 6")
-  
+
     }
-    
+
 
     ## 04 September 2016
     ## {row,col}{Sums,Means} numeric tests
     test.sugar.rowMeans_numeric <- function() {
-        
+
         x <- matrix(rnorm(9), 3)
-        
+
         checkEquals(
             dbl_row_sums(x), rowSums(x),
             "numeric / rowSums / keep NA / clean input"
@@ -1190,7 +1190,7 @@ if (.runThisTest) {
             dbl_row_sums(x, TRUE), rowSums(x, TRUE),
             "numeric / rowSums / rm NA / clean input"
         )
-        
+
         checkEquals(
             dbl_col_sums(x), colSums(x),
             "numeric / colSums / keep NA / clean input"
@@ -1199,7 +1199,7 @@ if (.runThisTest) {
             dbl_col_sums(x, TRUE), colSums(x, TRUE),
             "numeric / colSums / rm NA / clean input"
         )
-        
+
         checkEquals(
             dbl_row_means(x), rowMeans(x),
             "numeric / rowMeans / keep NA / clean input"
@@ -1208,7 +1208,7 @@ if (.runThisTest) {
             dbl_row_means(x, TRUE), rowMeans(x, TRUE),
             "numeric / rowMeans / rm NA / clean input"
         )
-        
+
         checkEquals(
             dbl_col_means(x), colMeans(x),
             "numeric / colMeans / keep NA / clean input"
@@ -1217,10 +1217,10 @@ if (.runThisTest) {
             dbl_col_means(x, TRUE), colMeans(x, TRUE),
             "numeric / colMeans / rm NA / clean input"
         )
-        
-        
+
+
         x[sample(1:9, 4)] <- NA
-        
+
         checkEquals(
             dbl_row_sums(x), rowSums(x),
             "numeric / rowSums / keep NA / mixed input"
@@ -1229,7 +1229,7 @@ if (.runThisTest) {
             dbl_row_sums(x, TRUE), rowSums(x, TRUE),
             "numeric / rowSums / rm NA / mixed input"
         )
-        
+
         checkEquals(
             dbl_col_sums(x), colSums(x),
             "numeric / colSums / keep NA / mixed input"
@@ -1238,7 +1238,7 @@ if (.runThisTest) {
             dbl_col_sums(x, TRUE), colSums(x, TRUE),
             "numeric / colSums / rm NA / mixed input"
         )
-        
+
         checkEquals(
             dbl_row_means(x), rowMeans(x),
             "numeric / rowMeans / keep NA / mixed input"
@@ -1247,7 +1247,7 @@ if (.runThisTest) {
             dbl_row_means(x, TRUE), rowMeans(x, TRUE),
             "numeric / rowMeans / rm NA / mixed input"
         )
-        
+
         checkEquals(
             dbl_col_means(x), colMeans(x),
             "numeric / colMeans / keep NA / mixed input"
@@ -1256,10 +1256,10 @@ if (.runThisTest) {
             dbl_col_means(x, TRUE), colMeans(x, TRUE),
             "numeric / colMeans / rm NA / mixed input"
         )
-        
-        
+
+
         x[] <- NA_real_
-        
+
         checkEquals(
             dbl_row_sums(x), rowSums(x),
             "numeric / rowSums / keep NA / dirty input"
@@ -1268,7 +1268,7 @@ if (.runThisTest) {
             dbl_row_sums(x, TRUE), rowSums(x, TRUE),
             "numeric / rowSums / rm NA / dirty input"
         )
-        
+
         checkEquals(
             dbl_col_sums(x), colSums(x),
             "numeric / colSums / keep NA / dirty input"
@@ -1277,7 +1277,7 @@ if (.runThisTest) {
             dbl_col_sums(x, TRUE), colSums(x, TRUE),
             "numeric / colSums / rm NA / dirty input"
         )
-        
+
         checkEquals(
             dbl_row_means(x), rowMeans(x),
             "numeric / rowMeans / keep NA / dirty input"
@@ -1286,7 +1286,7 @@ if (.runThisTest) {
             dbl_row_means(x, TRUE), rowMeans(x, TRUE),
             "numeric / rowMeans / rm NA / dirty input"
         )
-        
+
         checkEquals(
             dbl_col_means(x), colMeans(x),
             "numeric / colMeans / keep NA / dirty input"
@@ -1295,15 +1295,15 @@ if (.runThisTest) {
             dbl_col_means(x, TRUE), colMeans(x, TRUE),
             "numeric / colMeans / rm NA / dirty input"
         )
-  
+
     }
-    
-    
+
+
     ## {row,col}{Sums,Means} integer tests
     test.sugar.rowMeans_integer <- function() {
-        
+
         x <- matrix(as.integer(rnorm(9) * 1e4), 3)
-        
+
         checkEquals(
             int_row_sums(x), rowSums(x),
             "integer / rowSums / keep NA / clean input"
@@ -1312,7 +1312,7 @@ if (.runThisTest) {
             int_row_sums(x, TRUE), rowSums(x, TRUE),
             "integer / rowSums / rm NA / clean input"
         )
-        
+
         checkEquals(
             int_col_sums(x), colSums(x),
             "integer / colSums / keep NA / clean input"
@@ -1321,7 +1321,7 @@ if (.runThisTest) {
             int_col_sums(x, TRUE), colSums(x, TRUE),
             "integer / colSums / rm NA / clean input"
         )
-        
+
         checkEquals(
             int_row_means(x), rowMeans(x),
             "integer / rowMeans / keep NA / clean input"
@@ -1330,7 +1330,7 @@ if (.runThisTest) {
             int_row_means(x, TRUE), rowMeans(x, TRUE),
             "integer / rowMeans / rm NA / clean input"
         )
-        
+
         checkEquals(
             int_col_means(x), colMeans(x),
             "integer / colMeans / keep NA / clean input"
@@ -1339,10 +1339,10 @@ if (.runThisTest) {
             int_col_means(x, TRUE), colMeans(x, TRUE),
             "integer / colMeans / rm NA / clean input"
         )
-        
-        
+
+
         x[sample(1:9, 4)] <- NA
-        
+
         checkEquals(
             int_row_sums(x), rowSums(x),
             "integer / rowSums / keep NA / mixed input"
@@ -1351,7 +1351,7 @@ if (.runThisTest) {
             int_row_sums(x, TRUE), rowSums(x, TRUE),
             "integer / rowSums / rm NA / mixed input"
         )
-        
+
         checkEquals(
             int_col_sums(x), colSums(x),
             "integer / colSums / keep NA / mixed input"
@@ -1360,7 +1360,7 @@ if (.runThisTest) {
             int_col_sums(x, TRUE), colSums(x, TRUE),
             "integer / colSums / rm NA / mixed input"
         )
-        
+
         checkEquals(
             int_row_means(x), rowMeans(x),
             "integer / rowMeans / keep NA / mixed input"
@@ -1369,7 +1369,7 @@ if (.runThisTest) {
             int_row_means(x, TRUE), rowMeans(x, TRUE),
             "integer / rowMeans / rm NA / mixed input"
         )
-        
+
         checkEquals(
             int_col_means(x), colMeans(x),
             "integer / colMeans / keep NA / mixed input"
@@ -1378,10 +1378,10 @@ if (.runThisTest) {
             int_col_means(x, TRUE), colMeans(x, TRUE),
             "integer / colMeans / rm NA / mixed input"
         )
-        
-        
+
+
         x[] <- NA_integer_
-        
+
         checkEquals(
             int_row_sums(x), rowSums(x),
             "integer / rowSums / keep NA / dirty input"
@@ -1390,7 +1390,7 @@ if (.runThisTest) {
             int_row_sums(x, TRUE), rowSums(x, TRUE),
             "integer / rowSums / rm NA / dirty input"
         )
-        
+
         checkEquals(
             int_col_sums(x), colSums(x),
             "integer / colSums / keep NA / dirty input"
@@ -1399,7 +1399,7 @@ if (.runThisTest) {
             int_col_sums(x, TRUE), colSums(x, TRUE),
             "integer / colSums / rm NA / dirty input"
         )
-        
+
         checkEquals(
             int_row_means(x), rowMeans(x),
             "integer / rowMeans / keep NA / dirty input"
@@ -1408,7 +1408,7 @@ if (.runThisTest) {
             int_row_means(x, TRUE), rowMeans(x, TRUE),
             "integer / rowMeans / rm NA / dirty input"
         )
-        
+
         checkEquals(
             int_col_means(x), colMeans(x),
             "integer / colMeans / keep NA / dirty input"
@@ -1417,15 +1417,15 @@ if (.runThisTest) {
             int_col_means(x, TRUE), colMeans(x, TRUE),
             "integer / colMeans / rm NA / dirty input"
         )
-  
+
     }
-    
-    
+
+
     ## {row,col}{Sums,Means} logical tests
     test.sugar.rowMeans_logical <- function() {
-        
+
         x <- matrix(rbinom(9, 1, .5) > 0, 3)
-        
+
         checkEquals(
             lgl_row_sums(x), rowSums(x),
             "logical / rowSums / keep NA / clean input"
@@ -1434,7 +1434,7 @@ if (.runThisTest) {
             lgl_row_sums(x, TRUE), rowSums(x, TRUE),
             "logical / rowSums / rm NA / clean input"
         )
-        
+
         checkEquals(
             lgl_col_sums(x), colSums(x),
             "logical / colSums / keep NA / clean input"
@@ -1443,7 +1443,7 @@ if (.runThisTest) {
             lgl_col_sums(x, TRUE), colSums(x, TRUE),
             "logical / colSums / rm NA / clean input"
         )
-        
+
         checkEquals(
             lgl_row_means(x), rowMeans(x),
             "logical / rowMeans / keep NA / clean input"
@@ -1452,7 +1452,7 @@ if (.runThisTest) {
             lgl_row_means(x, TRUE), rowMeans(x, TRUE),
             "logical / rowMeans / rm NA / clean input"
         )
-        
+
         checkEquals(
             lgl_col_means(x), colMeans(x),
             "logical / colMeans / keep NA / clean input"
@@ -1461,10 +1461,10 @@ if (.runThisTest) {
             lgl_col_means(x, TRUE), colMeans(x, TRUE),
             "logical / colMeans / rm NA / clean input"
         )
-        
-        
+
+
         x[sample(1:9, 4)] <- NA
-        
+
         checkEquals(
             lgl_row_sums(x), rowSums(x),
             "logical / rowSums / keep NA / mixed input"
@@ -1473,7 +1473,7 @@ if (.runThisTest) {
             lgl_row_sums(x, TRUE), rowSums(x, TRUE),
             "logical / rowSums / rm NA / mixed input"
         )
-        
+
         checkEquals(
             lgl_col_sums(x), colSums(x),
             "logical / colSums / keep NA / mixed input"
@@ -1482,7 +1482,7 @@ if (.runThisTest) {
             lgl_col_sums(x, TRUE), colSums(x, TRUE),
             "logical / colSums / rm NA / mixed input"
         )
-        
+
         checkEquals(
             lgl_row_means(x), rowMeans(x),
             "logical / rowMeans / keep NA / mixed input"
@@ -1491,7 +1491,7 @@ if (.runThisTest) {
             lgl_row_means(x, TRUE), rowMeans(x, TRUE),
             "logical / rowMeans / rm NA / mixed input"
         )
-        
+
         checkEquals(
             lgl_col_means(x), colMeans(x),
             "logical / colMeans / keep NA / mixed input"
@@ -1500,10 +1500,10 @@ if (.runThisTest) {
             lgl_col_means(x, TRUE), colMeans(x, TRUE),
             "logical / colMeans / rm NA / mixed input"
         )
-        
-        
+
+
         x[] <- NA_integer_
-        
+
         checkEquals(
             lgl_row_sums(x), rowSums(x),
             "logical / rowSums / keep NA / dirty input"
@@ -1512,7 +1512,7 @@ if (.runThisTest) {
             lgl_row_sums(x, TRUE), rowSums(x, TRUE),
             "logical / rowSums / rm NA / dirty input"
         )
-        
+
         checkEquals(
             lgl_col_sums(x), colSums(x),
             "logical / colSums / keep NA / dirty input"
@@ -1521,7 +1521,7 @@ if (.runThisTest) {
             lgl_col_sums(x, TRUE), colSums(x, TRUE),
             "logical / colSums / rm NA / dirty input"
         )
-        
+
         checkEquals(
             lgl_row_means(x), rowMeans(x),
             "logical / rowMeans / keep NA / dirty input"
@@ -1530,7 +1530,7 @@ if (.runThisTest) {
             lgl_row_means(x, TRUE), rowMeans(x, TRUE),
             "logical / rowMeans / rm NA / dirty input"
         )
-        
+
         checkEquals(
             lgl_col_means(x), colMeans(x),
             "logical / colMeans / keep NA / dirty input"
@@ -1539,15 +1539,15 @@ if (.runThisTest) {
             lgl_col_means(x, TRUE), colMeans(x, TRUE),
             "logical / colMeans / rm NA / dirty input"
         )
-  
+
     }
-    
-    
+
+
     ## {row,col}{Sums,Means} complex tests
     test.sugar.rowMeans_complex <- function() {
-        
+
         x <- matrix(rnorm(9) + 2i, 3)
-        
+
         checkEquals(
             cx_row_sums(x), rowSums(x),
             "complex / rowSums / keep NA / clean input"
@@ -1556,7 +1556,7 @@ if (.runThisTest) {
             cx_row_sums(x, TRUE), rowSums(x, TRUE),
             "complex / rowSums / rm NA / clean input"
         )
-        
+
         checkEquals(
             cx_col_sums(x), colSums(x),
             "complex / colSums / keep NA / clean input"
@@ -1565,7 +1565,7 @@ if (.runThisTest) {
             cx_col_sums(x, TRUE), colSums(x, TRUE),
             "complex / colSums / rm NA / clean input"
         )
-        
+
         checkEquals(
             cx_row_means(x), rowMeans(x),
             "complex / rowMeans / keep NA / clean input"
@@ -1574,7 +1574,7 @@ if (.runThisTest) {
             cx_row_means(x, TRUE), rowMeans(x, TRUE),
             "complex / rowMeans / rm NA / clean input"
         )
-        
+
         checkEquals(
             cx_col_means(x), colMeans(x),
             "complex / colMeans / keep NA / clean input"
@@ -1583,10 +1583,10 @@ if (.runThisTest) {
             cx_col_means(x, TRUE), colMeans(x, TRUE),
             "complex / colMeans / rm NA / clean input"
         )
-        
-        
+
+
         x[sample(1:9, 4)] <- NA
-        
+
         checkEquals(
             cx_row_sums(x), rowSums(x),
             "complex / rowSums / keep NA / mixed input"
@@ -1595,7 +1595,7 @@ if (.runThisTest) {
             cx_row_sums(x, TRUE), rowSums(x, TRUE),
             "complex / rowSums / rm NA / mixed input"
         )
-        
+
         checkEquals(
             cx_col_sums(x), colSums(x),
             "complex / colSums / keep NA / mixed input"
@@ -1604,7 +1604,7 @@ if (.runThisTest) {
             cx_col_sums(x, TRUE), colSums(x, TRUE),
             "complex / colSums / rm NA / mixed input"
         )
-        
+
         checkEquals(
             cx_row_means(x), rowMeans(x),
             "complex / rowMeans / keep NA / mixed input"
@@ -1613,7 +1613,7 @@ if (.runThisTest) {
             cx_row_means(x, TRUE), rowMeans(x, TRUE),
             "complex / rowMeans / rm NA / mixed input"
         )
-        
+
         checkEquals(
             cx_col_means(x), colMeans(x),
             "complex / colMeans / keep NA / mixed input"
@@ -1622,10 +1622,10 @@ if (.runThisTest) {
             cx_col_means(x, TRUE), colMeans(x, TRUE),
             "complex / colMeans / rm NA / mixed input"
         )
-        
-        
+
+
         x[] <- NA_complex_
-        
+
         checkEquals(
             cx_row_sums(x), rowSums(x),
             "complex / rowSums / keep NA / dirty input"
@@ -1634,7 +1634,7 @@ if (.runThisTest) {
             cx_row_sums(x, TRUE), rowSums(x, TRUE),
             "complex / rowSums / rm NA / dirty input"
         )
-        
+
         checkEquals(
             cx_col_sums(x), colSums(x),
             "complex / colSums / keep NA / dirty input"
@@ -1643,7 +1643,7 @@ if (.runThisTest) {
             cx_col_sums(x, TRUE), colSums(x, TRUE),
             "complex / colSums / rm NA / dirty input"
         )
-        
+
         checkEquals(
             cx_row_means(x), rowMeans(x),
             "complex / rowMeans / keep NA / dirty input"
@@ -1652,7 +1652,7 @@ if (.runThisTest) {
             cx_row_means(x, TRUE), rowMeans(x, TRUE),
             "complex / rowMeans / rm NA / dirty input"
         )
-        
+
         checkEquals(
             cx_col_means(x), colMeans(x),
             "complex / colMeans / keep NA / dirty input"
@@ -1661,7 +1661,7 @@ if (.runThisTest) {
             cx_col_means(x, TRUE), colMeans(x, TRUE),
             "complex / colMeans / rm NA / dirty input"
         )
-  
+
     }
-    
+
 }

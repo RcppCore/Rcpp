@@ -68,6 +68,25 @@ namespace Rcpp {
 
         operator double()  const { return m_dt; }
 
+        inline std::string format(const char *fmt = "%Y-%m-%d %H:%M:%S") const {
+            char txtiso[64], txtsec[64];
+            time_t t = static_cast<time_t>(std::floor(m_dt));
+            struct tm temp = *localtime(&t); // localtime, not gmtime
+            int res = ::strftime(txtiso, 63, fmt, &temp);
+            if (res == 0) {
+                return std::string("");
+            } else {
+                res = ::snprintf(txtsec, 63, "%s.%06d", txtiso, m_us);
+                if (res <= 0) {
+                    return std::string("");
+                } else {
+                    return std::string(txtsec);
+                }
+            }
+        }
+
+        friend inline std::ostream &operator<<(std::ostream & s, const Datetime d);
+
     private:
         double m_dt;            // fractional seconds since epoch
         struct tm m_tm;         // standard time representation
@@ -86,6 +105,11 @@ namespace Rcpp {
                 m_tm.tm_min = m_tm.tm_hour = m_tm.tm_mday = m_tm.tm_mon  = m_tm.tm_year = NA_INTEGER;
                 m_us = NA_INTEGER;
             }
+        }
+
+        // 1900 as per POSIX mktime() et al
+        static inline unsigned int baseYear() {
+            return 1900;
         }
 
     };
@@ -131,6 +155,11 @@ namespace Rcpp {
     inline bool    operator>=(const Datetime &d1, const Datetime& d2) { return d1.m_dt >= d2.m_dt; }
     inline bool    operator<=(const Datetime &d1, const Datetime& d2) { return d1.m_dt <= d2.m_dt; }
     inline bool    operator!=(const Datetime &d1, const Datetime& d2) { return d1.m_dt != d2.m_dt; }
+
+    inline std::ostream &operator<<(std::ostream & os, const Datetime d) {
+        os << d.format();
+        return os;
+    }
 
 }
 

@@ -181,19 +181,56 @@ if (.runThisTest) {
             checkEquals(fun(vec), c(now, rep(posixtNA, 3), now+2.345), msg = "Datetime.ctor.NA.NaN.Inf.set")
         }
     }
-    
+
     test.DatetimeVector.assignment <- function() {
         now <- Sys.time()
         v1 <- c(now, now + 1, now + 2)
         v2 <- c(now + 3, now + 4, now + 5)
         checkEquals(v2, DatetimeVector_assignment(v1, v2))
     }
-    
+
     test.DateVector.assignment <- function() {
         now <- Sys.Date()
         v1 <- c(now, now + 1, now + 2)
         v2 <- c(now + 3, now + 4, now + 5)
         checkEquals(v2, DateVector_assignment(v1, v2))
     }
+
+
+    ## formatting
+    test.Date.formating <- function() {
+        oldTZ <- Sys.getenv("TZ")
+        Sys.setenv(TZ="America/Chicago")
+        d <- as.Date("2011-12-13")
+
+        checkEquals(Date_format(d, "%Y-%m-%d"),
+                    format(d),
+                    msg="Date.formating.default")
+        checkEquals(Date_format(d, "%Y/%m/%d"),
+                    format(d, "%Y/%m/%d"),
+                    msg="Date.formating.given.format")
+
+        Sys.setenv(TZ=oldTZ)
+    }
+
+    test.Datetime.formating <- function() {
+        oldTZ <- Sys.getenv("TZ")
+        Sys.setenv(TZ="America/Chicago")
+
+        olddigits <- getOption("digits.secs")
+        options("digits.secs"=6)
+
+        d <- as.POSIXct("2016-12-13 14:15:16.123456")
+        checkEquals(Datetime_format(d,"%Y-%m-%d %H:%M:%S"),
+                    format(d, "%Y-%m-%d %H:%M:%OS"),
+                    msg="Datetime.formating.default")
+        checkEquals(Datetime_format(d, "%Y/%m/%d %H:%M:%S"),
+                    format(d, "%Y/%m/%d %H:%M:%OS"),
+                    msg="Datetime.formating.given.format")
+
+        Sys.setenv(TZ=oldTZ)
+        options("digits.secs"=olddigits)
+    }
+
 
 }
