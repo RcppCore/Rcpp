@@ -172,3 +172,13 @@ DateVector DateVector_assignment(DateVector v1, DateVector v2) {
     v1 = v2;
     return v1;
 }
+
+// [[Rcpp::export]]
+std::string Date_format(Date d, std::string fmt) {
+    return d.format(fmt.c_str());
+}
+
+// [[Rcpp::export]]
+std::string Datetime_format(Datetime d, std::string fmt) {
+    return d.format(fmt.c_str());
+}
