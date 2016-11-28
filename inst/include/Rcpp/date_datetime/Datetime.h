@@ -72,9 +72,17 @@ namespace Rcpp {
             char txtiso[64], txtsec[64];
             time_t t = static_cast<time_t>(std::floor(m_dt));
             struct tm temp = *localtime(&t); // localtime, not gmtime
-            ::strftime(txtiso, 63, fmt, &temp);
-            ::snprintf(txtsec, 63, "%s.%06d", txtiso, m_us);
-            return std::string(txtsec);
+            int res = ::strftime(txtiso, 63, fmt, &temp);
+            if (res == 0) {
+                return std::string("");
+            } else {
+                res = ::snprintf(txtsec, 63, "%s.%06d", txtiso, m_us);
+                if (res <= 0) {
+                    return std::string("");
+                } else {
+                    return std::string(txtsec);
+                }
+            }
         }
 
         friend inline std::ostream &operator<<(std::ostream & s, const Datetime d);

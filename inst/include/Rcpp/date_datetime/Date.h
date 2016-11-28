@@ -106,8 +106,12 @@ namespace Rcpp {
             char txt[32];
             struct tm temp = m_tm;
             temp.tm_year -= baseYear();    // adjust for fact that system has year rel. to 1900
-            ::strftime(txt, 31, fmt, &temp);
-            return std::string(txt);
+            int res = ::strftime(txt, 31, fmt, &temp);
+            if (res == 0) {
+                return std::string("");
+            } else {
+                return std::string(txt);
+            }
         }
 
         friend inline std::ostream &operator<<(std::ostream & os, const Date d);
