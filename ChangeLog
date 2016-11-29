@@ -1,3 +1,7 @@
+2016-11-29  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version, Date): Roll minor version to 0.12.8.2
+
 2016-11-28  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/unitTests/cpp/dates.cpp (Date_format, Datetime_format): New tests
@@ -5,7 +9,7 @@
         (test.Datetime.formating): Ditto
 
         * inst/unitTests/runit.sugar.R (test.intersect): Added sort() around
-        call to Sugar's intersect to ensure sorted output with g++-6.* 
+        call to Sugar's intersect to ensure sorted output with g++-6.*
 
 2016-11-27  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -20,7 +24,7 @@
 
 2016-11-22  Dirk Eddelbuettel  <edd@debian.org>
 
-        * DESCRIPTION (Date, Version): roll minor version
+        * DESCRIPTION (Date, Version): Roll minor version
 
         * inst/include/Rcpp/date_datetime/newDatetimeVector.h (Rcpp): Small
         correction concerning timezone attribute to ctor from RTYPE
@@ -38,8 +42,9 @@
         * inst/unitTests/cpp/Environment.cpp: Idem
 
 2016-11-18  James J Balamuta  <balamut2@illinois.edu>
+
         * vignettes/Rcpp-extending: Switched to attributes and
-          added external class pointer macro notes by MathurinD 
+          added external class pointer macro notes by MathurinD
 
 2016-11-16  Dirk Eddelbuettel  <edd@debian.org>
 

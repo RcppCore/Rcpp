@@ -88,8 +88,8 @@ questions 1.2 and 1.3 in the
 
 ### Authors
 
-Dirk Eddelbuettel, Romain Francois, JJ Allaire, Kevin Ushey, Qiang Kou, Doug
-Bates, and John Chambers 
+Dirk Eddelbuettel, Romain Francois, JJ Allaire, Kevin Ushey, Qiang Kou,
+Nathan Russell, Doug Bates, and John Chambers 
 
 ### License
 

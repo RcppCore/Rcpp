@@ -22,6 +22,11 @@
       \item Exposed pointers macros were included in the Rcpp Extending vignette
       (MathurinD; James Balamuta in \ghpr{592} addressing \ghit{418}).
     }
+    \item Changes in Rcpp build system
+    \itemize{
+      \item Travis CI now also calls \CRANpkg{covr} for coverage analysis (Jim
+      Hester in PR \ghpr{591})
+    }
   }
 }
 
