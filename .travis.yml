@@ -23,7 +23,7 @@ script:
   - ./run.sh run_tests
 
 after_success:
-  - R -e 'install.packages("covr")' -e 'covr::codecov()'
+  - ./run.sh coverage
 
 after_failure:
   - ./run.sh dump_logs
