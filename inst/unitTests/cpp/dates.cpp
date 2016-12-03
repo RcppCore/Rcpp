@@ -182,3 +182,17 @@ std::string Date_format(Date d, std::string fmt) {
 std::string Datetime_format(Datetime d, std::string fmt) {
     return d.format(fmt.c_str());
 }
+
+// [[Rcpp::export]]
+std::string Date_ostream(Date d) {
+    std::stringstream os;
+    os << d;
+    return os.str();
+}
+
+// [[Rcpp::export]]
+std::string Datetime_ostream(Datetime d) {
+    std::stringstream os;
+    os << d;
+    return os.str();
+}

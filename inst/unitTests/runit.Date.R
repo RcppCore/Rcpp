@@ -209,6 +209,9 @@ if (.runThisTest) {
         checkEquals(Date_format(d, "%Y/%m/%d"),
                     format(d, "%Y/%m/%d"),
                     msg="Date.formating.given.format")
+        checkEquals(Date_ostream(d),
+                    format(d),
+                    msg="Date.formating.ostream")
 
         Sys.setenv(TZ=oldTZ)
     }
@@ -227,6 +230,9 @@ if (.runThisTest) {
         checkEquals(Datetime_format(d, "%Y/%m/%d %H:%M:%S"),
                     format(d, "%Y/%m/%d %H:%M:%OS"),
                     msg="Datetime.formating.given.format")
+        checkEquals(Datetime_ostream(d),
+                    format(d, "%Y-%m-%d %H:%M:%OS"),
+                    msg="Datetime.formating.ostream")
 
         Sys.setenv(TZ=oldTZ)
         options("digits.secs"=olddigits)
