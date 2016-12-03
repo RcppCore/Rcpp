@@ -1,4 +1,4 @@
-# Copyright (C) 2010 - 2015  Dirk Eddelbuettel, Romain Francois and Kevin Ushey
+# Copyright (C) 2010 - 2016  Dirk Eddelbuettel, Romain Francois and Kevin Ushey
 #
 # This file is part of Rcpp.
 #
@@ -19,7 +19,7 @@ test <- function(output=if(file.exists("/tmp")) "/tmp" else getwd(),
                  gctorture=FALSE,
                  gctorture.exclude="runit.Module.client.package.R") {
     
-    if (requireNamespace("RUnit")) {
+    if (requireNamespace("RUnit")) {    			# nocov start
         
         if (gctorture) {
             
@@ -82,7 +82,7 @@ test <- function(output=if(file.exists("/tmp")) "/tmp" else getwd(),
         RUnit::printTextProtocol(tests)
 
         return(tests)
-    }
+    }                                   			# nocov end
   
     stop("Running unit tests requires the 'RUnit' package.")
 }
@@ -101,9 +101,9 @@ unitTestSetup <- function(file, packages=NULL,
 
 gctortureRUnitTest <- function(file) {
     
-    test <- readLines(file)
+    test <- readLines(file)             			# nocov start
     
-    ## TODO: handle '{', '}' within quotes
+    ## todo: handle '{', '}' within quotes
     findMatchingBrace <- function(test, start, balance=1) {
         line <- test[start]
         if (start > length(test)) {
@@ -135,6 +135,6 @@ gctortureRUnitTest <- function(file) {
         test[end] <- paste("gctorture(FALSE); }")
     }
     
-    cat(test, file=file, sep="\n")
+    cat(test, file=file, sep="\n")      			# nocov end
     
 }

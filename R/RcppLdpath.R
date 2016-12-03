@@ -37,7 +37,7 @@ RcppLdPath <- function() {
 RcppLdFlags <- function() { "" }
 
 # indicates if Rcpp was compiled with GCC >= 4.3
-canUseCXX0X <- function() .Call( "canUseCXX0X", PACKAGE = "Rcpp" )
+canUseCXX0X <- function() { TRUE }  # .Call( "canUseCXX0X", PACKAGE = "Rcpp" )
 
 ## Provide compiler flags -- i.e. -I/path/to/Rcpp.h
 RcppCxxFlags <- function(cxx0x=FALSE) {

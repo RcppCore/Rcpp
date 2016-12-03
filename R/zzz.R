@@ -1,4 +1,4 @@
-# Copyright (C) 2009 - 2013 Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2009 - 2016  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -20,7 +20,7 @@
 .classes_map <- new.env()
 
 .onLoad <- function(libname, pkgname){
-    new_dummyObject(.dummyInstancePointer);
+    new_dummyObject(.dummyInstancePointer)   # nocov
 }
 
 
