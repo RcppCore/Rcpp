@@ -1,7 +1,20 @@
+2016-12-04  Dirk Eddelbuettel  <edd@debian.org>
+
+        * .codecov.yml (comment): Enable more verbose codecov.io reports
+
 2016-12-03  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/unitTests/cpp/dates.cpp (Datetime_format): Additional ostream tests
         * inst/unitTests/runit.Date.R (test.Date.formating): Ditto
+
+        * inst/unitTests/runit.system.R (test.RcppCxx): New tests
+
+        * R/RcppLdpath.R (canUseCXX0X): Simplified as we can now rely on more
+        modern compilers;  underlying C++ code has not been present for a while
+
+        * R/compilerCheck.R (compilerCheck): Added some #nocov tags
+        * R/unit.tests.R (test, gctortureRUnitTest): Ditto
+        * R/zzz.R (.onLoad): Ditto
 
 2016-11-29  Dirk Eddelbuettel  <edd@debian.org>
 

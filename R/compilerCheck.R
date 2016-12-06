@@ -12,7 +12,7 @@
 ##' @return A boolean value is returned, indicating if the minimal version is
 ##'  being met
 ##' @author Dirk Eddelbuettel
-compilerCheck <- function(minVersion=package_version("4.6.0")) {
+compilerCheck <- function(minVersion=package_version("4.6.0")) { # nocov start
 
     binaries <- c("g++", Sys.getenv("CXX", unset=""), Sys.getenv("CXX1X", unset=""))
     binpaths <- lapply(binaries, function(b) { if (b=="") NULL else Sys.which(b) })
@@ -29,7 +29,7 @@ compilerCheck <- function(minVersion=package_version("4.6.0")) {
         package_version(ver) >= minVersion
     })
     all(do.call(c, rl))                 # drops NULLs
-}
+}                                       # nocov end
 
 ## TODO: maybe not limit to gcc/g++
 ## TODO: maybe be smarter about combination of path, CXX and CXX1X ?
