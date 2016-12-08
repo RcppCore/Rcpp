@@ -1,3 +1,7 @@
+2016-12-07  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/vector/Matrix.h: Add 'using ...' to disambiguate size()
+
 2016-12-04  Dirk Eddelbuettel  <edd@debian.org>
 
         * .codecov.yml (comment): Enable more verbose codecov.io reports
