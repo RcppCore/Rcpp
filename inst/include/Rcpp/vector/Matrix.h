@@ -2,7 +2,7 @@
 //
 // Matrix.h: Rcpp R/C++ interface class library -- matrices
 //
-// Copyright (C) 2010 - 2015  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2016  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -29,6 +29,8 @@ class Matrix : public Vector<RTYPE, StoragePolicy>, public MatrixBase<RTYPE, tru
     int nrows ;
 
 public:
+    using Vector<RTYPE, StoragePolicy>::size; 	// disambiguate diamond pattern for g++-6 and later
+
     struct r_type : traits::integral_constant<int,RTYPE>{} ;
     struct can_have_na : traits::true_type{} ;
     typedef MatrixRow<RTYPE> Row ;
