@@ -1,4 +1,4 @@
-# Copyright (C) 2010 - 2012 John Chambers, Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2016  John Chambers, Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -16,7 +16,7 @@
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 # anticipating a change in R 2.16.0
-setClass( "refClassGeneratorFunction" )
+setClass( "refClassGeneratorFunction" ) 	# #nocov start
 setClassUnion("refGenerator", c("refObjectGenerator", "refClassGeneratorFunction")) 
 
 ## "Module" class as an environment with "pointer", "moduleName",
@@ -106,4 +106,4 @@ setClass( "C++Function",
     fun
 }
 setGeneric( "formals<-" )
-setMethod( "formals<-", "C++Function", .cppfunction_formals_gets )
+setMethod( "formals<-", "C++Function", .cppfunction_formals_gets ) # #nocov end

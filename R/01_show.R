@@ -1,4 +1,4 @@
-# Copyright (C) 2010 - 2012 John Chambers, Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2016  John Chambers, Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-setMethod( "show", "C++Object", function(object){
+setMethod( "show", "C++Object", function(object){ 	# #nocov start
     env <- as.environment(object)
     pointer <- get(".pointer", envir = env)
     cppclass <- get(".cppclass", envir = env)
@@ -120,5 +120,5 @@ setMethod( "show", "Module", function( object ){
 	txt <- sprintf( "%15s ", names(info) )
 	writeLines( txt )
     }
-} )
+} )                                     # #nocov end
 

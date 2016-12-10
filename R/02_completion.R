@@ -1,4 +1,4 @@
-# Copyright (C) 2010 - 2011 John Chambers, Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2016  John Chambers, Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-setGeneric( ".DollarNames" )
+setGeneric( ".DollarNames" )            # #nocov start
 .DollarNames.Module <- function(x, pattern){    
     pointer <- .getModulePointer( x )
     if(identical(pointer, .badModulePointer)) {
@@ -40,4 +40,4 @@ setMethod( "complete", "C++Object", function(x){
 	grep( pattern, complete(x), value = TRUE )
 }
 setMethod( ".DollarNames", "C++Object", `.DollarNames.C++Object` )
-
+                                        # #nocov end

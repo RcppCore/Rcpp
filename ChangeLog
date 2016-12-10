@@ -1,3 +1,10 @@
+2016-12-09  Dirk Eddelbuettel  <edd@debian.org>
+
+        * R/00_classes.R: Added #nocov tags
+        * R/01_show.R: Ditto
+        * R/02_completion.R: Ditto
+        * R/03_prompt.R: Ditto
+
 2016-12-07  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/vector/Matrix.h: Add 'using ...' to disambiguate size()

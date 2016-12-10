@@ -1,4 +1,4 @@
-# Copyright (C) 2010 - 2011 John Chambers, Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2016  John Chambers, Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-setGeneric( "functions", function(object, ...) standardGeneric( "functions" ) )
+setGeneric( "functions", function(object, ...) standardGeneric( "functions" ) ) # #nocov start
 setMethod( "functions", "Module", function(object, ...){
     pointer <- .getModulePointer(object)
     if(identical(pointer, .badModulePointer))
@@ -59,5 +59,5 @@ setMethod( "prompt", "Module", function(object, filename = NULL, name = NULL, ..
 	
 	writeLines( lines, filename )
 	invisible(NULL)
-} )
+} )                                     # nocov end
 
