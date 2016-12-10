@@ -1,4 +1,4 @@
-# Copyright (C) 2010 - 2012 John Chambers, Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2016  John Chambers, Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-loadRcppModules <- function(direct=TRUE) {
+loadRcppModules <- function(direct=TRUE) { 		# #nocov start
     # deprecation added May 2016, 'loadModule' has been prefered for years
     .Deprecated("loadModule")
     
@@ -56,4 +56,4 @@ loadRcppModules <- function(direct=TRUE) {
             })
         }
    }
-}
+}							# #nocov end

@@ -28,7 +28,7 @@ isBotchedSession <- function()
     assignAs
 }
 
-.DummyModule <- function(name, what) {
+.DummyModule <- function(name, what) {  # #nocov start
     value <- new.env()
     storage <- new.env()
     assign("storage", storage, envir = value)
@@ -37,7 +37,7 @@ isBotchedSession <- function()
     for(el in allNames)
         assign(el, NULL, envir = storage)
     value
-}
+}					# #nocov end
 
 .moduleMetaName <- function(name)
     methods::methodsPackageMetaName("Mod",name)
@@ -54,9 +54,9 @@ loadModule <- function( module, what = character(), loadNow,
         if(exists(metaName, envir = env, inherits = FALSE))
             loadM <- get(metaName, envir = env)
     }
-    else if(is(module, "Module")) {
-        loadM <- as.environment(module)
-        module <- get(loadM, "moduleName")
+    else if(is(module, "Module")) {	
+        loadM <- as.environment(module)		# #nocov
+        module <- get(loadM, "moduleName")      # #nocov
     }
     else
         stop(gettextf("Argument \"module\" should be a module or the name of a module: got an object of class \"%s\"", class(module)))
@@ -74,10 +74,10 @@ loadModule <- function( module, what = character(), loadNow,
             loadM <- tryCatch(Module( module, mustStart = TRUE, where = env ),
                               error = function(e)e)
         if(is(loadM, "error")) {
-            if(.botched)
+            if(.botched)					# #nocov start
                return(.DummyModule(module, what))
             stop(gettextf("Unable to load module \"%s\": %s",
-                as(module, "character"), loadM$message))
+                as(module, "character"), loadM$message))	# #nocov end
         }
         if(!exists(metaName, envir = env, inherits =FALSE))
             assign(metaName, loadM, envir = env)
@@ -90,7 +90,7 @@ loadModule <- function( module, what = character(), loadNow,
             what <- objects(storage)
         missingObjs <- !sapply(what, function(symb) exists(symb, envir = storage, inherits = FALSE))
         if(any(missingObjs)) {
-            if(.botched) {
+            if(.botched) {					# #nocov start
                 for(el in what[missingObjs])
                     assign(el, NULL, envir = storage)
             }
@@ -99,7 +99,7 @@ loadModule <- function( module, what = character(), loadNow,
                              paste0('"', what[missingObjs], '"', collapse = ", "),
                              as.character(module)))
                 what <- what[!missingObjs]
-            }
+            }							# #nocov end
         }
         assignAs <- .moduleNames(what)
         for( i in seq_along(what) ) {
@@ -117,7 +117,7 @@ loadModule <- function( module, what = character(), loadNow,
         myCall$loadNow <- TRUE
         body(f, envir = env) <- myCall
         setLoadAction(f, where = env)
-        invisible(myCall)
+        invisible(myCall)					# #nocov
     }
 }
 

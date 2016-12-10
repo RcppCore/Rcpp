@@ -1,3 +1,10 @@
+2016-12-10  Dirk Eddelbuettel  <edd@debian.org>
+
+        * R/loadRcppModules.R: Added #nocov tags
+        * R/loadModule.R: Ditto
+
+        * R/unit.tests.R (test): Adjusted one #nocov tag
+
 2016-12-09  Dirk Eddelbuettel  <edd@debian.org>
 
         * R/00_classes.R: Added #nocov tags

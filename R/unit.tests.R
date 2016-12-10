@@ -82,9 +82,9 @@ test <- function(output=if(file.exists("/tmp")) "/tmp" else getwd(),
         RUnit::printTextProtocol(tests)
 
         return(tests)
-    }                                   			# nocov end
+    }
   
-    stop("Running unit tests requires the 'RUnit' package.")
+    stop("Running unit tests requires the 'RUnit' package.")	# nocov end
 }
 
 unitTestSetup <- function(file, packages=NULL,
