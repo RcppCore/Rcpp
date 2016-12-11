@@ -1,3 +1,11 @@
+2016-12-10  Nathan Russell  <russell.nr2012@gmail.com>
+
+        * inst/include/Rcpp/sugar/functions/sample.h: New function
+        sample()
+        * inst/include/Rcpp/sugar/functions/functions.h: Idem
+        * inst/unitTests/cpp/sugar.cpp: Unit tests for sample()
+        * inst/unitTests/runit.sugar.R: Idem
+
 2016-12-10  Dirk Eddelbuettel  <edd@debian.org>
 
         * R/loadRcppModules.R: Added #nocov tags
