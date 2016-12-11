@@ -12,6 +12,11 @@
       \item Date and Datetime object and vector now have format methods and
       \code{operator<<} support (PR\ghpr{599})
     }
+    \item Changes in Rcpp Sugar:
+    \itemize{
+      \item Added new Sugar function \code{sample()} (Nathan Russell in 
+      \ghpr{610}).
+    }
     \item Changes in Rcpp unit tests
     \itemize{
       \item Added Environment::find unit tests and an Environment::get(Symbol)

@@ -1143,3 +1143,47 @@ Rcpp::ComplexVector cx_col_means(Rcpp::ComplexMatrix x, bool na_rm = false) {
     return colMeans(x, na_rm);
 }
 
+
+// 10 December 2016: sample
+
+// [[Rcpp::export]]
+IntegerVector sample_dot_int(int n, int sz, bool rep = false, sugar::probs_t p = R_NilValue, bool one_based = true)
+{
+    return sample(n, sz, rep, p, one_based);
+}
+
+// [[Rcpp::export]]
+IntegerVector sample_int(IntegerVector x, int sz, bool rep = false, sugar::probs_t p = R_NilValue) 
+{
+    return sample(x, sz, rep, p);
+}
+
+// [[Rcpp::export]]
+NumericVector sample_dbl(NumericVector x, int sz, bool rep = false, sugar::probs_t p = R_NilValue) 
+{
+    return sample(x, sz, rep, p);
+}
+
+// [[Rcpp::export]]
+CharacterVector sample_chr(CharacterVector x, int sz, bool rep = false, sugar::probs_t p = R_NilValue) 
+{
+    return sample(x, sz, rep, p);
+}
+
+// [[Rcpp::export]]
+ComplexVector sample_cx(ComplexVector x, int sz, bool rep = false, sugar::probs_t p = R_NilValue) 
+{
+    return sample(x, sz, rep, p);
+}
+
+// [[Rcpp::export]]
+LogicalVector sample_lgl(LogicalVector x, int sz, bool rep = false, sugar::probs_t p = R_NilValue) 
+{
+    return sample(x, sz, rep, p);
+}
+
+// [[Rcpp::export]]
+List sample_list(List x, int sz, bool rep = false, sugar::probs_t p = R_NilValue) 
+{
+    return sample(x, sz, rep, p);
+}

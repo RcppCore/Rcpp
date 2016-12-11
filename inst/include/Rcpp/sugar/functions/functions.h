@@ -86,5 +86,7 @@
 
 #include <Rcpp/sugar/functions/rowSums.h>
 
+#include <Rcpp/sugar/functions/sample.h>
+
 #endif
 
