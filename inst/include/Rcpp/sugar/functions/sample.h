@@ -19,6 +19,10 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+// The sample() in RcppArmadillo came first, but is opt-in. In case someone did
+// in fact load it, we need to skip the declarations here to avoid a conflict
+#ifndef RCPPARMADILLO__EXTENSIONS__SAMPLE_H
+
 #ifndef Rcpp__sugar__sample_h
 #define Rcpp__sugar__sample_h
 
@@ -493,3 +497,4 @@ sample(const Vector<RTYPE>& x, int size, bool replace = false, sugar::probs_t pr
 } // Rcpp
 
 #endif // Rcpp__sugar__sample_h
+#endif // RCPPARMADILLO__EXTENSIONS__SAMPLE_H
