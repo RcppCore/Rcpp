@@ -22,6 +22,10 @@
 #ifndef Rcpp__Date_h
 #define Rcpp__Date_h
 
+#if defined(WIN32) || defined(__WIN32) || defined(__WIN32__)
+#include <time.h>
+#endif
+
 namespace Rcpp {
 
     class Date {
