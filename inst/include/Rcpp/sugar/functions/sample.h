@@ -26,7 +26,11 @@
 #ifndef Rcpp__sugar__sample_h
 #define Rcpp__sugar__sample_h
 
+#if defined(WIN32) || defined(__WIN32) || defined(__WIN32__)
+#include <malloc.h>
+#else
 #include <alloca.h>
+#endif 
 
 //  In order to mirror the behavior of `base::sample` 
 //  as closely as possible, this file contains adaptations 

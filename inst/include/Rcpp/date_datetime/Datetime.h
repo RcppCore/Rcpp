@@ -24,6 +24,10 @@
 
 #include <RcppCommon.h>
 
+#if defined(WIN32) || defined(__WIN32) || defined(__WIN32__)
+#include <time.h>
+#endif
+
 namespace Rcpp {
 
     class Datetime {
