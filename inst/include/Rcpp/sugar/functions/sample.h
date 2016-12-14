@@ -26,14 +26,10 @@
 #ifndef Rcpp__sugar__sample_h
 #define Rcpp__sugar__sample_h
 
-#if defined(WIN32) || defined(__WIN32) || defined(__WIN32__)
-#include <malloc.h>
-#else
-#include <alloca.h>
-#endif 
+#include <vector>
 
-//  In order to mirror the behavior of `base::sample` 
-//  as closely as possible, this file contains adaptations 
+//  In order to mirror the behavior of `base::sample`
+//  as closely as possible, this file contains adaptations
 //  of several functions in R/src/main/random.c:
 //
 //      * do_sample - general logic as well as the empirical sampling routine.
@@ -43,12 +39,12 @@
 //      * walker_ProbSampleReplace, ProbSampleReplace, and ProbSampleNoReplace -
 //        algorithms for sampling according to a supplied probability vector.
 //
-//  For each of the sampling routines, two signatures are provided: 
+//  For each of the sampling routines, two signatures are provided:
 //
-//      * A version that returns an integer vector, which can be used to 
-//        generate 0-based indices (one_based = false) or 1-based indices 
-//        (one_based = true) -- where the latter corresponds to the 
-//        bahavior of `base::sample.int`. 
+//      * A version that returns an integer vector, which can be used to
+//        generate 0-based indices (one_based = false) or 1-based indices
+//        (one_based = true) -- where the latter corresponds to the
+//        bahavior of `base::sample.int`.
 //
 //      * A version which takes an input Vector<> (rather than an integer 'n'),
 //        and samples its elements -- this corresponds to `base::sample`.
@@ -150,26 +146,19 @@ inline Vector<RTYPE> SampleReplace(Vector<REALSXP>& p, int k, const Vector<RTYPE
 
 // Adapted from `walker_ProbSampleReplace`
 // Index version
-#define SMALL 10000
 inline Vector<INTSXP> WalkerSample(const Vector<REALSXP>& p, int n, int nans, bool one_based)
 {
     Vector<INTSXP> a = no_init(n), ans = no_init(nans);
-    double *q, rU;
     int i, j, k;
-    int *HL, *H, *L;
+    std::vector<double> q(n);
+    double rU;
+
+    std::vector<int> HL(n);
+    std::vector<int>::iterator H, L;
 
     int adj = one_based ? 1 : 0;
 
-    if (n <= SMALL) {
-        R_CheckStack2(n * (sizeof(int) + sizeof(double)));
-        HL = static_cast<int*>(::alloca(n * sizeof(int)));
-        q = static_cast<double*>(::alloca(n * sizeof(double)));
-    } else {
-        HL = static_cast<int*>(Calloc(n, int));
-        q = static_cast<double*>(Calloc(n, double));
-    }
-
-    H = HL - 1; L = HL + n;
+    H = HL.begin() - 1; L = HL.begin() + n;
     for (i = 0; i < n; i++) {
         q[i] = p[i] * n;
         if (q[i] < 1.0) {
@@ -179,7 +168,7 @@ inline Vector<INTSXP> WalkerSample(const Vector<REALSXP>& p, int n, int nans, bo
         }
     }
 
-    if (H >= HL && L < HL + n) {
+    if (H >= HL.begin() && L < HL.begin() + n) {
         for (k = 0; k < n - 1; k++) {
             i = HL[k];
             j = *L;
@@ -188,7 +177,7 @@ inline Vector<INTSXP> WalkerSample(const Vector<REALSXP>& p, int n, int nans, bo
 
             L += (q[j] < 1.0);
 
-            if (L >= HL + n) {
+            if (L >= HL.begin() + n) {
                 break;
             }
         }
@@ -204,11 +193,6 @@ inline Vector<INTSXP> WalkerSample(const Vector<REALSXP>& p, int n, int nans, bo
         ans[i] = (rU < q[k]) ? k + adj : a[k] + adj;
     }
 
-    if (n > SMALL) {
-        Free(HL);
-        Free(q);
-    }
-
     return ans;
 }
 
@@ -221,20 +205,14 @@ inline Vector<RTYPE> WalkerSample(const Vector<REALSXP>& p, int nans, const Vect
     Vector<INTSXP> a = no_init(n);
     Vector<RTYPE> ans = no_init(nans);
 
-    double *q, rU;
     int i, j, k;
-    int *HL, *H, *L;
+    std::vector<double> q(n);
+    double rU;
 
-    if (n <= SMALL) {
-        R_CheckStack2(n * (sizeof(int) + sizeof(double)));
-        HL = static_cast<int*>(::alloca(n * sizeof(int)));
-        q = static_cast<double*>(::alloca(n * sizeof(double)));
-    } else {
-        HL = static_cast<int*>(Calloc(n, int));
-        q = static_cast<double*>(Calloc(n, double));
-    }
+    std::vector<int> HL(n);
+    std::vector<int>::iterator H, L;
 
-    H = HL - 1; L = HL + n;
+    H = HL.begin() - 1; L = HL.begin() + n;
     for (i = 0; i < n; i++) {
         q[i] = p[i] * n;
         if (q[i] < 1.0) {
@@ -244,7 +222,7 @@ inline Vector<RTYPE> WalkerSample(const Vector<REALSXP>& p, int nans, const Vect
         }
     }
 
-    if (H >= HL && L < HL + n) {
+    if (H >= HL.begin() && L < HL.begin() + n) {
         for (k = 0; k < n - 1; k++) {
             i = HL[k];
             j = *L;
@@ -253,7 +231,7 @@ inline Vector<RTYPE> WalkerSample(const Vector<REALSXP>& p, int nans, const Vect
 
             L += (q[j] < 1.0);
 
-            if (L >= HL + n) {
+            if (L >= HL.begin() + n) {
                 break;
             }
         }
@@ -269,14 +247,8 @@ inline Vector<RTYPE> WalkerSample(const Vector<REALSXP>& p, int nans, const Vect
         ans[i] = (rU < q[k]) ? ref[k] : ref[a[k]];
     }
 
-    if (n > SMALL) {
-        Free(HL);
-        Free(q);
-    }
-
     return ans;
 }
-#undef SMALL
 
 // Adapted from `ProbSampleNoReplace`
 // Index version
@@ -425,7 +397,7 @@ typedef Nullable< Vector<REALSXP> > probs_t;
 } // sugar
 
 // Adapted from `do_sample`
-inline Vector<INTSXP> 
+inline Vector<INTSXP>
 sample(int n, int size, bool replace = false, sugar::probs_t probs = R_NilValue, bool one_based = true)
 {
     if (probs.isNotNull()) {
@@ -461,7 +433,7 @@ sample(int n, int size, bool replace = false, sugar::probs_t probs = R_NilValue,
 }
 
 template <int RTYPE>
-inline Vector<RTYPE> 
+inline Vector<RTYPE>
 sample(const Vector<RTYPE>& x, int size, bool replace = false, sugar::probs_t probs = R_NilValue)
 {
     int n = x.size();
