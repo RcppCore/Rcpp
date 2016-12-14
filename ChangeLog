@@ -1,8 +1,13 @@
-2016-12-13  Nathan Russell     <russell.nr2012@gmail.com>
+2016-12-14  Nathan Russell  <russell.nr2012@gmail.com>
 
-        * inst/include/Rcpp/sugar/functions/sample.h: Use malloc.h instead of 
+        * inst/include/Rcpp/sugar/functions/sample.h: Use vector instead of
+        manual memory management.
+
+2016-12-13  Nathan Russell  <russell.nr2012@gmail.com>
+
+        * inst/include/Rcpp/sugar/functions/sample.h: Use malloc.h instead of
         alloca.h when building on Windows
-        * inst/include/Rcpp/date_datetime/Date.h: Include time.h when building 
+        * inst/include/Rcpp/date_datetime/Date.h: Include time.h when building
         on Windows
         * inst/include/Rcpp/date_datetime/Datetime.h: Idem
 
