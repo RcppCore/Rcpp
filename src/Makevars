@@ -1,2 +1,2 @@
-PKG_CPPFLAGS =	-I../inst/include/
+PKG_CPPFLAGS =	-I../inst/include/ -DSTRICT_R_HEADERS
 
