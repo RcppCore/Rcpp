@@ -23,6 +23,11 @@
 #ifndef Rcpp_hpp
 #define Rcpp_hpp
 
+#ifndef STRICT_R_HEADERS
+#define STRICT_R_HEADERS
+#define RCPP_TEMP_STRICT_R_HEADERS
+#endif
+
 /* it is important that this comes first */
 #include <RcppCommon.h>
 
@@ -84,4 +89,10 @@
 #include <Rcpp/api/meat/meat.h>
 
 #include <Rcpp/algorithm.h>
+
+#ifdef RCPP_TEMP_STRICT_R_HEADERS
+#undef STRICT_R_HEADERS
+#undef RCPP_TEMP_STRICT_R_HEADERS
+#endif
+
 #endif
