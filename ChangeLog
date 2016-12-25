@@ -1,3 +1,11 @@
+2016-12-25  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Date, Version): Roll minor version
+
+        * src/api.cpp: Added #nocov markers
+        * src/Rcpp_init.cpp: Idem
+        * src/Date.cpp: Date
+
 2016-12-14  Nathan Russell  <russell.nr2012@gmail.com>
 
         * inst/include/Rcpp/sugar/functions/sample.h: Use vector instead of
