@@ -395,7 +395,7 @@ struct tzhead {
 	return (*number < number0) != (delta < 0);
     }
 
-    static long detzcode(const char * const codep) {
+    static long detzcode(const char * const codep) { 		// #nocov start 
 	long result;
 	int	i;
 
@@ -1125,7 +1125,7 @@ struct tzhead {
 		       &sp->chars[bp->tt_abbrind]) == 0;
 	}
 	return result;
-    }
+    } 									// #nocov end 
 
     static int leaps_thru_end_of(const int y) {
 	return (y >= 0) ? (y / 4 - y / 100 + y / 400) :
