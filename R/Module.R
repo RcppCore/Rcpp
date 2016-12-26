@@ -263,7 +263,7 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
                     x
                 } , where = where )
             }
-        }                                                               # #nocov start
+        }                                                               # #nocov end
 
         # promoting show to S4
         if( any( grepl( "show", names(CLASS@methods) ) ) ){
