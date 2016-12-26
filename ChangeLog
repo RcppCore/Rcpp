@@ -1,6 +1,7 @@
 2016-12-26  Dirk Eddelbuettel  <edd@debian.org>
 
         * R/Module.R: Added #nocov markers
+        * R/exposeClass.R: Idem, added copyright header 
 
 2016-12-25  Dirk Eddelbuettel  <edd@debian.org>
 
