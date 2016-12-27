@@ -1,3 +1,17 @@
+2016-12-26  Dirk Eddelbuettel  <edd@debian.org>
+
+        * R/Attributes.R: Added #nocov markers
+        * R/Module.R: Idem
+        * R/exposeClass.R: Idem, added copyright header
+
+2016-12-25  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Date, Version): Roll minor version
+
+        * src/api.cpp: Added #nocov markers
+        * src/Rcpp_init.cpp: Idem
+        * src/Date.cpp: Date
+
 2016-12-14  Nathan Russell  <russell.nr2012@gmail.com>
 
         * inst/include/Rcpp/sugar/functions/sample.h: Use vector instead of

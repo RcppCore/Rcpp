@@ -2,7 +2,7 @@
 //
 // Rcpp_init.cpp : Rcpp R/C++ interface class library -- Initialize and register
 //
-// Copyright (C) 2010 - 2015  John Chambers, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2016  John Chambers, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -121,9 +121,9 @@ void registerFunctions(){
 }
 
 
-extern "C" void R_unload_Rcpp(DllInfo *info) {
+extern "C" void R_unload_Rcpp(DllInfo *info) {  // #nocov start
     // Release resources
-}
+} 						// #nocov end
 
 extern "C" void R_init_Rcpp(DllInfo* info) {
     setCurrentScope(0);

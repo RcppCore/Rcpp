@@ -1,4 +1,4 @@
-# Copyright (C) 2010 - 2014 John Chambers, Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2016  John Chambers, Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -41,12 +41,12 @@ setMethod("$", "C++Class", function(x, name) {
 
 .getModulePointer <- function(module, mustStart = TRUE) {
     pointer <- get("pointer", envir = as.environment(module))
-    if(is.null(pointer) && mustStart) {
+    if(is.null(pointer) && mustStart) {                         # #nocov start
         ## should be (except for bug noted in identical())
         ##    if(identical(pointer, .badModulePointer) && mustStart) {
         Module(module, mustStart = TRUE) # will either initialize pointer or throw error
         pointer <- get("pointer", envir = as.environment(module))
-    }
+    }                                                           # #nocov end
     pointer
 }
 
@@ -62,51 +62,51 @@ setMethod("initialize", "Module",
               assign("packageName", packageName, envir = env)
               assign("moduleName", moduleName, envir = env)
               if(length(list(...)) > 0) {
-                  .Object <- callNextMethod(.Object, ...)
+                  .Object <- callNextMethod(.Object, ...)       # #nocov
               }
               .Object
           })
 
 .get_Module_function <- function(x, name, pointer = .getModulePointer(x) ){
     pointer <- .getModulePointer(x)
-	info <- .Call( Module__get_function, pointer, name )
-	fun_ptr <- info[[1L]]
-	is_void <- info[[2L]]
-	doc     <- info[[3L]]
-	sign    <- info[[4L]]
-	formal_args <- info[[5L]]
-	nargs <- info[[6L]]
-	f <- function(...) NULL
-	if( nargs == 0L ) formals(f) <- NULL
-	stuff <- list( fun_pointer = fun_ptr, InternalFunction_invoke = InternalFunction_invoke )
-	body(f) <- if( nargs == 0L ){
-	    if( is_void ) {
-	        substitute( {
-	            .External( InternalFunction_invoke, fun_pointer)
-	            invisible(NULL)
-	        }, stuff )
-	    } else {
-	        substitute( {
-	            .External( InternalFunction_invoke, fun_pointer)
-	        }, stuff )
-	    }
-	} else {
-	    if( is_void ) {
-	        substitute( {
-	            .External( InternalFunction_invoke, fun_pointer, ... )
-	            invisible(NULL)
-	        }, stuff )
-	    } else {
-	        substitute( {
-	            .External( InternalFunction_invoke, fun_pointer, ... )
-	        }, stuff )
-	    }
-	}
-	out <- new( "C++Function", f, pointer = fun_ptr, docstring = doc, signature = sign )
-	if( ! is.null( formal_args ) ){
-	    formals( out ) <- formal_args
-	}
-	out
+        info <- .Call( Module__get_function, pointer, name )
+        fun_ptr <- info[[1L]]
+        is_void <- info[[2L]]
+        doc     <- info[[3L]]
+        sign    <- info[[4L]]
+        formal_args <- info[[5L]]
+        nargs <- info[[6L]]
+        f <- function(...) NULL
+        if( nargs == 0L ) formals(f) <- NULL
+        stuff <- list( fun_pointer = fun_ptr, InternalFunction_invoke = InternalFunction_invoke )
+        body(f) <- if( nargs == 0L ){
+            if( is_void ) {
+                substitute( {                                   # #nocov start
+                    .External( InternalFunction_invoke, fun_pointer)
+                    invisible(NULL)
+                }, stuff )                                      # #nocov end
+            } else {
+                substitute( {
+                    .External( InternalFunction_invoke, fun_pointer)
+                }, stuff )
+            }
+        } else {
+            if( is_void ) {
+                substitute( {                                   # #nocov start
+                    .External( InternalFunction_invoke, fun_pointer, ... )
+                    invisible(NULL)
+                }, stuff )                                      # #nocov end
+            } else {
+                substitute( {
+                    .External( InternalFunction_invoke, fun_pointer, ... )
+                }, stuff )
+            }
+        }
+        out <- new( "C++Function", f, pointer = fun_ptr, docstring = doc, signature = sign )
+        if( ! is.null( formal_args ) ){
+            formals( out ) <- formal_args                       # #nocov
+        }
+        out
 }
 
 .get_Module_Class <- function( x, name, pointer =  .getModulePointer(x) ){
@@ -115,18 +115,18 @@ setMethod("initialize", "Module",
     value
 }
 
-setMethod( "$", "Module", function(x, name){
+setMethod( "$", "Module", function(x, name){                    # #nocov start
     pointer <- .getModulePointer(x)
     storage <- get( "storage", envir = as.environment(x) )
     storage[[ name ]]
-} )
+} )                                                             # #nocov end
 
 new_CppObject_xp <- function(module, pointer, ...) {
-	.External( class__newInstance, module, pointer, ... )
+        .External( class__newInstance, module, pointer, ... )
 }
 
-new_dummyObject <- function(...)
-    .External( class__dummyInstance, ...)
+new_dummyObject <- function(...)                                # #nocov
+    .External( class__dummyInstance, ...)                       # #nocov
 
 
 # class method for $initialize
@@ -142,7 +142,7 @@ cpp_object_initializer <- function(.self, .refClassDef, ..., .object_pointer){
     .self
 }
 
-cpp_object_dummy <- function(.self, .refClassDef) {
+cpp_object_dummy <- function(.self, .refClassDef) {             # #nocov start
     selfEnv <- as.environment(.self)
     ## like initializer but a dummy for the case of no default
     ## constructor.  Will throw an error if the object is used.
@@ -152,7 +152,7 @@ cpp_object_dummy <- function(.self, .refClassDef) {
     assign(".pointer", pointer, envir = selfEnv)
     assign(".cppclass", fields$.pointer, envir = selfEnv)
     .self
-}
+}                                                               # #nocov end
 
 cpp_object_maker <- function(typeid, pointer){
     Class <- .classes_map[[ typeid ]]
@@ -178,10 +178,10 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
         ## perhaps keep a vector of all known module pointers
         ## [John]  One technique is to initialize the pointer to a known value
         ## and just check whether it's been reset from that (bad) value
-        xp <- module
+        xp <- module                                            # #nocov start
         moduleName <- .Call( Module__name, xp )
         module <- methods::new("Module", pointer = xp, packageName = PACKAGE,
-                      moduleName = moduleName)
+                      moduleName = moduleName)                  # #nocov end
     } else if(is.character(module)) {
         moduleName <- module
         xp <- .badModulePointer
@@ -250,7 +250,7 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
 
         # [romain] : should this be promoted to reference classes
         #            perhaps with better handling of j and ... arguments
-        if( any( grepl( "^[[]", names(CLASS@methods) ) ) ){
+        if( any( grepl( "^[[]", names(CLASS@methods) ) ) ){             # #nocov start
             if( "[[" %in% names( CLASS@methods ) ){
                 methods::setMethod( "[[", clname, function(x, i, j, ..., exact = TRUE){
                     x$`[[`( i )
@@ -263,11 +263,11 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
                     x
                 } , where = where )
             }
-        }
+        }                                                               # #nocov end
 
         # promoting show to S4
         if( any( grepl( "show", names(CLASS@methods) ) ) ){
-            setMethod( "show", clname, function(object) object$show(), where = where )
+            setMethod( "show", clname, function(object) object$show(), where = where )  # #nocov
         }
 
     }
@@ -284,11 +284,11 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
         # exposing enums values as CLASS.VALUE
         # (should really be CLASS$value but I don't know how to do it)
         if( length( CLASS@enums ) ){
-            for( enum in CLASS@enums ){
+            for( enum in CLASS@enums ){                                         # #nocov start
                 for( i in 1:length(enum) ){
                     storage[[ paste( demangled_name, ".", names(enum)[i], sep = "" ) ]] <- enum[i]
                 }
-            }
+            }                                                                   # #nocov end
         }
 
     }
@@ -300,7 +300,7 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
 
         # register as(FROM, TO) methods
         converter_rx <- "^[.]___converter___(.*)___(.*)$"
-        if( length( matches <- grep( converter_rx, functions ) ) ){
+        if( length( matches <- grep( converter_rx, functions ) ) ){             # #nocov start
             for( i in matches ){
                 fun <- functions[i]
                 from <- sub( converter_rx, "\\1", fun )
@@ -311,7 +311,7 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
                 )
                 setAs( from, to, converter, where = where )
             }
-        }
+        }                                                                       # #nocov end
 
     }
 
@@ -319,7 +319,7 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
     module
 }
 
-dealWith <- function( x ) if(isTRUE(x[[1]])) invisible(NULL) else x[[2]]
+dealWith <- function( x ) if(isTRUE(x[[1]])) invisible(NULL) else x[[2]]        # #nocov
 
 method_wrapper <- function( METHOD, where ){
         noargs <- all( METHOD$nargs == 0 )
@@ -357,11 +357,11 @@ method_wrapper <- function( METHOD, where ){
             } else {
                 # some are void, some are not, so the voidness is part of the result
                 # we get from internally and we need to deal with it
-                substitute(
-	            {
-	                docstring
-	                dealWith( .External(CppMethod__invoke, class_pointer, pointer, .pointer ) )
-                } , stuff )
+                substitute(                                                     # #nocov start
+                    {
+                        docstring
+                        dealWith( .External(CppMethod__invoke, class_pointer, pointer, .pointer ) )
+                } , stuff )                                                     # #nocov end
             }
         } else {
             if( all( METHOD$void ) ){
@@ -383,33 +383,33 @@ method_wrapper <- function( METHOD, where ){
             } else {
                 # some are void, some are not, so the voidness is part of the result
                 # we get from internally and we need to deal with it
-                substitute(
-	            {
-	                docstring
-	                dealWith( .External(CppMethod__invoke, class_pointer, pointer, .pointer, ...) )
-                } , stuff )
+                substitute(                                                     # #nocov start
+                    {
+                        docstring
+                        dealWith( .External(CppMethod__invoke, class_pointer, pointer, .pointer, ...) )
+                } , stuff )                                                     # #nocov end
             }
         }
         body(f, where) <- extCall
         f
-	}
+        }
 ## create a named list of the R methods to invoke C++ methods
 ## from the C++ class with pointer xp
 cpp_refMethods <- function(CLASS, where) {
     finalizer <- eval( substitute(
-	    function(){
-	        .Call( CppObject__finalize, class_pointer , .pointer )
-	    },
-	    list(
-	        CLASS = CLASS@pointer,
-	        CppObject__finalize = CppObject__finalize,
-	        class_pointer = CLASS@pointer
-	    )
-	) )
-	mets <- c(
-	    sapply( CLASS@methods, method_wrapper, where = where ),
-	    "finalize" = finalizer
-	)
+            function(){
+                .Call( CppObject__finalize, class_pointer , .pointer )
+            },
+            list(
+                CLASS = CLASS@pointer,
+                CppObject__finalize = CppObject__finalize,
+                class_pointer = CLASS@pointer
+            )
+        ) )
+        mets <- c(
+            sapply( CLASS@methods, method_wrapper, where = where ),
+            "finalize" = finalizer
+        )
     mets
 }
 
@@ -437,5 +437,5 @@ cpp_fields <- function( CLASS, where){
 }
 
 .CppClassName <- function(name) {
-    paste0("Rcpp_",name)
+    paste0("Rcpp_",name)                                                        # #nocov
 }
