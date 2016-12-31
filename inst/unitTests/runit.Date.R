@@ -239,4 +239,11 @@ if (.runThisTest) {
     }
 
 
+    test.mktime_gmtime <- function() {
+        d <- as.Date("2015-12-31")
+        checkEquals(d, gmtime_mktime(d), msg="Date.mktime_gmtime.2015")
+
+        d <- as.Date("1965-12-31")
+        checkEquals(d, gmtime_mktime(d), msg="Date.mktime_gmtime.1965")
+    }
 }

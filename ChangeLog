@@ -2,6 +2,9 @@
 
         * src/Date.cpp: Synchronized internal code with R
 
+        * inst/unitTests/cpp/dates.cpp (gmtime_mktime): New test
+        * inst/unitTests/runit.Date.R (test.mktime_gmtime): Idem
+
 2016-12-26  Dirk Eddelbuettel  <edd@debian.org>
 
         * R/Attributes.R: Added #nocov markers

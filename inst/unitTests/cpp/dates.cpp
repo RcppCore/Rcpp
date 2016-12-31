@@ -196,3 +196,19 @@ std::string Datetime_ostream(Datetime d) {
     os << d;
     return os.str();
 }
+
+// [[Rcpp::export]]
+Date gmtime_mktime(Date d) {
+    const int baseYear = 1900;
+    struct tm tm;
+    tm.tm_sec = tm.tm_min = tm.tm_hour = tm.tm_isdst = 0;
+
+    tm.tm_mday  = d.getDay();
+    tm.tm_mon   = d.getMonth() - 1;    // range 0 to 11
+    tm.tm_year  = d.getYear() - baseYear;
+    time_t tmp = mktime00(tm);    // use mktime() replacement borrowed from R
+
+    struct tm chk = *gmtime_(&tmp);
+    Date newd(chk.tm_year, chk.tm_mon + 1, chk.tm_mday);
+    return newd;
+}
