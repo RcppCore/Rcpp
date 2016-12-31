@@ -397,3 +397,16 @@ Rcpp::LogicalMatrix lgl_zeros(int n) {
     return Rcpp::LogicalMatrix::zeros(n);
 }
 
+// --- Diagonal Fill
+
+// [[Rcpp::export]]
+Rcpp::NumericMatrix num_diag_fill(Rcpp::NumericMatrix x, double diag_val) {
+    x.fill_diag(diag_val);
+    return x;
+}
+
+// [[Rcpp::export]]
+Rcpp::CharacterMatrix char_diag_fill(Rcpp::CharacterMatrix x, std::string diag_val) {
+    x.fill_diag(diag_val);
+    return x;
+}
