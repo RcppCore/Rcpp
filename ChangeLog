@@ -4,6 +4,17 @@
 
         * inst/unitTests/cpp/dates.cpp (gmtime_mktime): New test
         * inst/unitTests/runit.Date.R (test.mktime_gmtime): Idem
+2016-12-31  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/vector/Matrix.h: Minor simplification
+
+2016-12-31  James J Balamuta  <balamut2@illinois.edu>
+
+        * inst/include/Rcpp/vector/Matrix.h: Fixed non-symmetric case of matrix
+        fills by switching to a loop based solution from iterator.
+        * inst/unitTests/runit.Matrix.R: Added unit tests for diagonally
+        filling matrices.
+        * inst/unitTests/cpp/Matrix.cpp: Idem
 
 2016-12-26  Dirk Eddelbuettel  <edd@debian.org>
 

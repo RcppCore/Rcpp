@@ -338,5 +338,30 @@ if (.runThisTest) {
             "zeros - logical"
         )
     }
+    
+    
+    test.Matrix.diagfill <- function() {
+        
+        checkEquals(num_diag_fill(diag(1.0, 2, 4), 0.0),
+                    matrix(0.0, 2, 4),
+                    msg = "diagonal fill - case: n < p")
+        
+        checkEquals(num_diag_fill(diag(1.0, 4, 2), 0.0),
+                    matrix(0.0, 4, 2),
+                    msg = "diagonal fill - case: n > p")
+        
+        checkEquals(num_diag_fill(diag(1.0, 3, 3), 0.0),
+                    matrix(0.0, 3, 3),
+                    msg = "diagonal fill - case: n = p")
+        
+        m <- matrix("", 2, 4)
+        diag(m) <- letters[1:2]
+        
+        checkEquals(char_diag_fill(m, ""), 
+                    matrix("", 2, 4),
+                    msg = "diagonal fill - char")
+        
+        
+    }
 
 }

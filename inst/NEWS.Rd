@@ -11,6 +11,8 @@
       compiler versions (Jim Hester in \ghpr{598})
       \item Date and Datetime object and vector now have format methods and
       \code{operator<<} support (PR\ghpr{599})
+      \item Addressed improper diagonal fill for non-symmetric matrices
+      (James Balamuta in \ghpr{622} addressing \ghit{619})
     }
     \item Changes in Rcpp Sugar:
     \itemize{
@@ -21,7 +23,9 @@
     \itemize{
       \item Added Environment::find unit tests and an Environment::get(Symbol)
       test (James Balamuta in \ghpr{595} addressing issue \ghit{594}).
-    }	
+      \item Added diagonal matrix fill tests
+      (James Balamuta in \ghpr{622} addressing \ghit{619})
+    }
     \item Changes in Rcpp Documentation:
     \itemize{
       \item Exposed pointers macros were included in the Rcpp Extending vignette
