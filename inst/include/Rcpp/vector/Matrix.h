@@ -177,9 +177,7 @@ private:
     void fill_diag__dispatch( traits::false_type, const U& u) {
         Shield<SEXP> elem( converter_type::get( u ) );
 
-        R_xlen_t bounds = ( Matrix::nrow() < Matrix::ncol() ) ?
-                             Matrix::nrow() : Matrix::ncol();
-        
+        R_xlen_t bounds = std::min(Matrix::nrow(), Matrix::ncol());
         for (R_xlen_t i = 0; i < bounds; ++i) {
             (*this)(i, i) = elem;
         }
@@ -188,12 +186,11 @@ private:
     template <typename U>
     void fill_diag__dispatch( traits::true_type, const U& u) {
         stored_type elem = converter_type::get( u );
-		
-        R_xlen_t bounds = ( Matrix::nrow() < Matrix::ncol() ) ?
-		                 Matrix::nrow() : Matrix::ncol();
+
+        R_xlen_t bounds = std::min(Matrix::nrow(), Matrix::ncol());
 
         for (R_xlen_t i = 0; i < bounds; ++i) {
-			(*this)(i, i) = elem;
+            (*this)(i, i) = elem;
         }
     }
 
