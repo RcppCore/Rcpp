@@ -1315,7 +1315,10 @@ struct tzhead {
             if (increment_overflow(&y, 1))
                 return NULL;
         }
-        tmp->tm_year = y + TM_YEAR_BASE; // FIXME: Unclear why we need to add this here
+        // Previously we returned 'year + base', so keep behaviour
+        // It seems like R now returns just 'year - 1900' (as libc does)
+        // But better for continuity to do as before 
+        tmp->tm_year = y + TM_YEAR_BASE;
         if (increment_overflow(&tmp->tm_year, -TM_YEAR_BASE))
             return NULL;
         tmp->tm_yday = idays;
