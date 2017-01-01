@@ -212,3 +212,25 @@ Date gmtime_mktime(Date d) {
     Date newd(chk.tm_year, chk.tm_mon + 1, chk.tm_mday);
     return newd;
 }
+
+// [[Rcpp::export]]
+double test_mktime(Date d) {
+    const int baseYear = 1900;
+    struct tm tm;
+    tm.tm_sec = tm.tm_min = tm.tm_hour = tm.tm_isdst = 0;
+
+    tm.tm_mday  = d.getDay();
+    tm.tm_mon   = d.getMonth() - 1;    // range 0 to 11
+    tm.tm_year  = d.getYear() - baseYear;
+    time_t t = mktime00(tm);    // use mktime() replacement borrowed from R
+    return static_cast<double>(t);
+}
+
+// [[Rcpp::export]]
+Date test_gmtime(double d) {
+    time_t t = static_cast<time_t>(d);
+    struct tm tm = *gmtime_(&t);
+    tm.tm_sec = tm.tm_min = tm.tm_hour = tm.tm_isdst = 0;
+    Date nd(tm.tm_year, tm.tm_mon + 1, tm.tm_mday);
+    return nd;
+}

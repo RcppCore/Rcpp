@@ -246,4 +246,26 @@ if (.runThisTest) {
         d <- as.Date("1965-12-31")
         checkEquals(d, gmtime_mktime(d), msg="Date.mktime_gmtime.1965")
     }
+
+    test.mktime <- function() {
+        d <- as.Date("2015-12-31")
+        checkEquals(test_mktime(d), as.numeric(as.POSIXct(d)), msg="Date.test_mktime.2015")
+
+        d <- as.Date("1970-01-01")
+        checkEquals(test_mktime(d), as.numeric(as.POSIXct(d)), msg="Date.test_mktime.1970")
+
+        d <- as.Date("1954-07-04")
+        checkEquals(test_mktime(d), as.numeric(as.POSIXct(d)), msg="Date.test_mktime.1954")
+    }
+
+    test.gmtime <- function() {
+        oldTZ <- Sys.getenv("TZ")
+        Sys.setenv(TZ="UTC")
+        checkEquals(test_gmtime(1441065600), as.Date("2015-09-01"), msg="Date.test_gmtime.2015")
+
+        checkEquals(test_gmtime(0),          as.Date("1970-01-01"), msg="Date.test_gmtime.1970")
+
+        checkEquals(test_gmtime(-489024000), as.Date("1954-07-04"), msg="Date.test_gmtime.1954")
+        Sys.setenv(TZ=oldTZ)
+    }
 }

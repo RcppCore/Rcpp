@@ -1,3 +1,8 @@
+2017-01-01  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/unitTests/runit.Date.R (test.mktime, test.gmtime): New tests
+        * inst/unitTests/cpp/dates.cpp (test_mktime, test_gmtime): Idem
+
 2016-12-31  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/vector/Matrix.h: Minor simplification
