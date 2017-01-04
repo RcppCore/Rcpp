@@ -217,25 +217,27 @@ if (.runThisTest) {
     }
 
     test.Datetime.formating <- function() {
-        oldTZ <- Sys.getenv("TZ")
-        Sys.setenv(TZ="America/Chicago")
+        if (Sys.info()[["sysname"]] != "Windows") {
+            oldTZ <- Sys.getenv("TZ")
+            Sys.setenv(TZ="America/Chicago")
 
-        olddigits <- getOption("digits.secs")
-        options("digits.secs"=6)
+            olddigits <- getOption("digits.secs")
+            options("digits.secs"=6)
+            
+            d <- as.POSIXct("2016-12-13 14:15:16.123456")
+            checkEquals(Datetime_format(d,"%Y-%m-%d %H:%M:%S"),
+                        format(d, "%Y-%m-%d %H:%M:%OS"),
+                        msg="Datetime.formating.default")
+            checkEquals(Datetime_format(d, "%Y/%m/%d %H:%M:%S"),
+                        format(d, "%Y/%m/%d %H:%M:%OS"),
+                        msg="Datetime.formating.given.format")
+            checkEquals(Datetime_ostream(d),
+                        format(d, "%Y-%m-%d %H:%M:%OS"),
+                        msg="Datetime.formating.ostream")
 
-        d <- as.POSIXct("2016-12-13 14:15:16.123456")
-        checkEquals(Datetime_format(d,"%Y-%m-%d %H:%M:%S"),
-                    format(d, "%Y-%m-%d %H:%M:%OS"),
-                    msg="Datetime.formating.default")
-        checkEquals(Datetime_format(d, "%Y/%m/%d %H:%M:%S"),
-                    format(d, "%Y/%m/%d %H:%M:%OS"),
-                    msg="Datetime.formating.given.format")
-        checkEquals(Datetime_ostream(d),
-                    format(d, "%Y-%m-%d %H:%M:%OS"),
-                    msg="Datetime.formating.ostream")
-
-        Sys.setenv(TZ=oldTZ)
-        options("digits.secs"=olddigits)
+            Sys.setenv(TZ=oldTZ)
+            options("digits.secs"=olddigits)
+        }
     }
 
 
