@@ -1,3 +1,11 @@
+2017-01-04  Dirk Eddelbuettel  <edd@debian.org>
+
+        * src/Date.cpp (Rcpp): Protect assignment to tm_gmtoff to not being
+        under MinGW; could potentially bite other too-limited systems
+
+        * inst/unitTests/runit.Date.R (test.Datetime.formating): Do not set TZ
+        when running test, only set digits option
+
 2017-01-01  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/unitTests/runit.Date.R (test.mktime, test.gmtime): New tests

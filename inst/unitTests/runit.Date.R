@@ -217,9 +217,6 @@ if (.runThisTest) {
     }
 
     test.Datetime.formating <- function() {
-        oldTZ <- Sys.getenv("TZ")
-        Sys.setenv(TZ="America/Chicago")
-
         olddigits <- getOption("digits.secs")
         options("digits.secs"=6)
 
@@ -234,7 +231,6 @@ if (.runThisTest) {
                     format(d, "%Y-%m-%d %H:%M:%OS"),
                     msg="Datetime.formating.ostream")
 
-        Sys.setenv(TZ=oldTZ)
         options("digits.secs"=olddigits)
     }
 

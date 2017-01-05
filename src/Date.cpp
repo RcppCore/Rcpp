@@ -1347,9 +1347,10 @@ struct tzhead {
             idays -= ip[tmp->tm_mon];
         tmp->tm_mday = (int) (idays + 1);
         tmp->tm_isdst = 0;
-        //#ifdef HAVE_TM_GMTOFF
+#if ! (defined(__MINGW32__) || defined(__MINGW64__))
+//#ifdef HAVE_TM_GMTOFF
         tmp->tm_gmtoff = offset;
-        //#endif
+#endif
         return tmp;
     }
 
