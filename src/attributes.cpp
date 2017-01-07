@@ -2,7 +2,7 @@
 //
 // attributes.cpp: Rcpp R/C++ interface class library -- Rcpp attributes
 //
-// Copyright (C) 2012 - 2013 JJ Allaire, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2017  JJ Allaire, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -48,17 +48,17 @@ namespace attributes {
     // Utility class for getting file existence and last modified time
     class FileInfo {
     public:
-    
+
         // create from path
         explicit FileInfo(const std::string& path);
-        
+
         // create from R list
-        explicit FileInfo(const List& fileInfo) {
+        explicit FileInfo(const List& fileInfo) {		// #novov start
             path_ = as<std::string>(fileInfo["path"]);
             exists_ = as<bool>(fileInfo["exists"]);
             lastModified_ = as<double>(fileInfo["lastModified"]);
-        }
-    
+        }							// #nocov end
+
         // convert to R list
         List toList() const {
             List fileInfo;
@@ -77,7 +77,7 @@ namespace attributes {
             if (pos != std::string::npos)
                 return path_.substr(pos);
             else
-                return "";
+                return "";					// #novov
         }
 
         bool operator<(const FileInfo& other) const {
@@ -170,11 +170,11 @@ namespace attributes {
         }
         bool empty() const { return name().empty(); }
 
-        bool operator==(const Type& other) const {
+        bool operator==(const Type& other) const {		// #novov start
             return name_ == other.name_ &&
                    isConst_ == other.isConst_ &&
                    isReference_ == other.isReference_;
-        };
+        };							// #nocov end
 
         bool operator!=(const Type& other) const {
             return !(*this == other);
@@ -212,11 +212,11 @@ namespace attributes {
 
         bool empty() const { return type().empty(); }
 
-        bool operator==(const Argument& other) const {
+        bool operator==(const Argument& other) const {		// #novov start
             return name_ == other.name_ &&
                    type_ == other.type_ &&
                    defaultValue_ == other.defaultValue_;
-        };
+        };							// #nocov end
 
         bool operator!=(const Argument& other) const {
             return !(*this == other);
@@ -244,7 +244,7 @@ namespace attributes {
         {
         }
 
-        Function renamedTo(const std::string& name) const {
+        Function renamedTo(const std::string& name) const {	// #novov start
             return Function(type(), name, arguments());
         }
 
@@ -253,15 +253,15 @@ namespace attributes {
 
         bool isHidden() const {
             return name().find_first_of('.') == 0;
-        }
+        }							// #nocov end
 
         bool empty() const { return name().empty(); }
 
-        bool operator==(const Function& other) const {
+        bool operator==(const Function& other) const {		// #novov start
             return type_ == other.type_ &&
                    name_ == other.name_ &&
                    arguments_ == other.arguments_;
-        };
+        };							// #nocov end
 
         bool operator!=(const Function& other) const {
             return !(*this == other);
@@ -284,10 +284,10 @@ namespace attributes {
         explicit Param(const std::string& paramText);
         bool empty() const { return name().empty(); }
 
-        bool operator==(const Param& other) const {
+        bool operator==(const Param& other) const {		// #novov start
             return name_ == other.name_ &&
                    value_ == other.value_;
-        };
+        };							// #nocov end
 
         bool operator!=(const Param& other) const {
             return !(*this == other);
@@ -295,7 +295,7 @@ namespace attributes {
 
 
         const std::string& name() const { return name_; }
-        const std::string& value() const { return value_; }
+        const std::string& value() const { return value_; }	// #novov
 
     private:
         std::string name_;
@@ -314,14 +314,14 @@ namespace attributes {
         {
         }
 
-        bool empty() const { return name().empty(); }
+        bool empty() const { return name().empty(); }		// #novov start
 
         bool operator==(const Attribute& other) const {
             return name_ == other.name_ &&
                    params_ == other.params_ &&
                    function_ == other.function_ &&
                    roxygen_ == other.roxygen_;
-        };
+        };							// #nocov end
 
         bool operator!=(const Attribute& other) const {
             return !(*this == other);
@@ -349,30 +349,30 @@ namespace attributes {
             // check for explicit name parameter
             if (hasParameter(kExportName))
             {
-                return paramNamed(kExportName).value();
+                return paramNamed(kExportName).value();		// #novov
             }
             // otherwise un-named parameter in the first slot
             else if (!params().empty() && params()[0].value().empty())
             {
-                return params()[0].name();
+                return params()[0].name();			// #novov
             }
             // otherwise the actual function name
             {
                 return function().name();
             }
         }
-        
-        std::string exportedCppName() const {
+
+        std::string exportedCppName() const {			// #novov start
             std::string name = exportedName();
             std::replace(name.begin(), name.end(), '.', '_');
             return name;
-        }
+        }							// #nocov end
 
         bool rng() const {
             Param rngParam = paramNamed(kExportRng);
             if (!rngParam.empty())
-                return rngParam.value() == kParamValueTrue ||
-                       rngParam.value() == kParamValueTRUE;
+                return rngParam.value() == kParamValueTrue ||	// #novov
+                       rngParam.value() == kParamValueTRUE;  	// #novov
             else
                 return true;
         }
@@ -454,8 +454,8 @@ namespace attributes {
 
     public:
         // implemetnation of SourceFileAttributes interface
-        virtual const std::string& sourceFile() const {
-            return sourceFile_;
+        virtual const std::string& sourceFile() const {		// #novov
+            return sourceFile_;					// #nocov
         }
         virtual const_iterator begin() const { return attributes_.begin(); }
         virtual const_iterator end() const { return attributes_.end(); }
@@ -480,7 +480,7 @@ namespace attributes {
 
             for (const_iterator it=begin(); it != end(); ++it) {
                 if (it->name() == kInterfacesAttribute) {
-                    return it->hasParameter(name);
+                    return it->hasParameter(name);		// #novov
                 }
             }
 
@@ -601,8 +601,8 @@ namespace attributes {
         std::string exportValidationFunctionRegisteredName() {
             return packageCpp() + "_" + exportValidationFunction();
         }
-        std::string registerCCallableExportedName() {
-            return packageCpp() + "_RcppExport_registerCCallable";
+        std::string registerCCallableExportedName() {			// #novov
+            return packageCpp() + "_RcppExport_registerCCallable";	// #novov
         }
 
         // Commit the stream -- is a no-op if the existing code is identical
@@ -791,7 +791,7 @@ namespace attributes {
         void readFile(const std::string& file, Stream& os) {
             std::ifstream ifs(file.c_str());
             if (ifs.fail())
-                throw Rcpp::file_io_error(file);
+                throw Rcpp::file_io_error(file);		// #novov
             os << ifs.rdbuf();
             ifs.close();
         }
@@ -915,7 +915,7 @@ namespace attributes {
             Rcpp::Environment baseEnv = Rcpp::Environment::base_env();
             Rcpp::Function normalizePath = baseEnv["normalizePath"];
             sourceFile = Rcpp::as<std::string>(normalizePath(sourceFile, "/"));
-            
+
             // parse dependencies
             std::vector<FileInfo> dependencies;
             parseSourceDependencies(sourceFile, &dependencies);
@@ -953,13 +953,13 @@ namespace attributes {
 
                 // check state and do the right thing
                 if (beginRBlock) {
-                    withinRBlock = true;
+                    withinRBlock = true;				// #novov
                 }
                 else if (withinRBlock) {
-                    if (commentState.inComment())
+                    if (commentState.inComment())			// #novov start
                         embeddedR.push_back(line);
                     else
-                        withinRBlock = false;
+                        withinRBlock = false;				// #nocov end
                 }
             }
 
@@ -971,7 +971,7 @@ namespace attributes {
 
     // Generate a type signature for the function with the provided name
     // (type signature == function pointer declaration)
-    std::string Function::signature(const std::string& name) const {
+    std::string Function::signature(const std::string& name) const {	// #novov start
 
         std::ostringstream ostr;
 
@@ -985,7 +985,7 @@ namespace attributes {
         }
         ostr << ")";
 
-        return ostr.str();
+        return ostr.str();						// #nocov end
     }
 
 
@@ -996,12 +996,12 @@ namespace attributes {
         std::string::size_type pos = paramText.find("=") ;
         if ( pos != std::string::npos ) {
             // name
-            name_ = paramText.substr(0, pos);
+            name_ = paramText.substr(0, pos);				// #novov start
             trimWhitespace(&name_);
             // value
             value_ = paramText.substr(pos + 1) ;
             trimWhitespace(&value_);
-            stripQuotes(&value_);
+            stripQuotes(&value_);					// #nocov end
         }
         else {
             name_ = paramText;
@@ -1014,8 +1014,8 @@ namespace attributes {
     Param Attribute::paramNamed(const std::string& name) const {
         for (std::vector<Param>::const_iterator
           it = params_.begin(); it != params_.end(); ++it) {
-            if (it->name() == name)
-                return *it;
+            if (it->name() == name)					// #novov
+                return *it;						// #novov
         }
         return Param();
     }
@@ -1042,15 +1042,15 @@ namespace attributes {
                 os << " ";
                 os << argument.name();
                 if (printDefault && !argument.defaultValue().empty())
-                    os << " = " << argument.defaultValue();
+                    os << " = " << argument.defaultValue();		// #novov
             }
         }
     }
 
     // Argument operator <<
-    std::ostream& operator<<(std::ostream& os, const Argument& argument) {
+    std::ostream& operator<<(std::ostream& os, const Argument& argument) {// #novov start
         printArgument(os, argument);
-        return os;
+        return os;							// #nocov end
     }
 
     // Print function
@@ -1076,7 +1076,7 @@ namespace attributes {
     }
 
     // Function operator <<
-    std::ostream& operator<<(std::ostream& os, const Function& function) {
+    std::ostream& operator<<(std::ostream& os, const Function& function) {// #novov start
         printFunction(os, function);
         return os;
     }
@@ -1110,7 +1110,7 @@ namespace attributes {
             if (!attribute.function().empty())
                 os << " " << attribute.function();
         }
-        return os;
+        return os;							// #nocov end
     }
 
     // Parse the attributes from a source file
@@ -1158,7 +1158,7 @@ namespace attributes {
                     // elements). we don't ever expect this to occur but if it
                     // does let's not crash
                     if (match.size() != 3)
-                        continue;
+                        continue;					// #novov
 
                     // add the attribute
                     Attribute attr = parseAttribute(
@@ -1178,8 +1178,8 @@ namespace attributes {
 
                     // a non-roxygen line causes us to clear the roxygen buffer
                     else if (!roxygenBuffer_.empty()) {
-                        roxygenChunks_.push_back(roxygenBuffer_);
-                        roxygenBuffer_.clear();
+                        roxygenChunks_.push_back(roxygenBuffer_);	// #novov
+                        roxygenBuffer_.clear();				// #novov
                     }
                 }
             }
@@ -1223,10 +1223,10 @@ namespace attributes {
                     // copy to base attributes (if it's a new attribute)
                     for (SourceFileAttributesParser::const_iterator
                             it = parser.begin(); it != parser.end(); ++it) {
-                        if (std::find(attributes_.begin(),
+                        if (std::find(attributes_.begin(),		// #novov start
                                       attributes_.end(),
                                       *it) == attributes_.end()) {
-                            attributes_.push_back(*it);
+                            attributes_.push_back(*it);			// #nocov end
                         }
                     }
 
@@ -1249,8 +1249,8 @@ namespace attributes {
 
         // Warn if this is an unknown attribute
         if (!isKnownAttribute(name)) {
-            attributeWarning("Unrecognized attribute Rcpp::" + name,
-                             lineNumber);
+            attributeWarning("Unrecognized attribute Rcpp::" + name,	// #novov
+                             lineNumber);				// #novov
         }
 
         // Extract params if we've got them
@@ -1281,12 +1281,12 @@ namespace attributes {
             if ((lineNumber + 1) < lines_.size())
                 function = parseFunction(lineNumber + 1);
             else
-                rcppExportWarning("No function found", lineNumber);
+                rcppExportWarning("No function found", lineNumber);	// #novov
 
             // validate parameters
             for (std::size_t i=0; i<params.size(); i++) {
 
-                std::string name = params[i].name();
+                std::string name = params[i].name();			// #novov start
                 std::string value = params[i].value();
 
                 // un-named parameter that isn't the first parameter
@@ -1309,7 +1309,7 @@ namespace attributes {
                         value != kParamValueFALSE &&
                         value != kParamValueTRUE) {
                         rcppExportWarning("rng value must be true or false",
-                                          lineNumber);
+                                          lineNumber);			// #nocov end
                     }
                 }
             }
@@ -1317,8 +1317,8 @@ namespace attributes {
 
         // validate interfaces parameter
         else if (name == kInterfacesAttribute) {
-            if (params.empty()) {
-                rcppInterfacesWarning("No interfaces specified", lineNumber);
+            if (params.empty()) {					// #novov start
+                rcppInterfacesWarning("No interfaces specified", lineNumber);//
             }
             else {
                 for (std::size_t i=0; i<params.size(); i++) {
@@ -1326,7 +1326,7 @@ namespace attributes {
                     if (param != kInterfaceR && param != kInterfaceCpp) {
                         rcppInterfacesWarning(
                             "Unknown interface '" + param + "'", lineNumber);
-                    }
+                    }							// #nocov end
                 }
             }
 
@@ -1348,10 +1348,10 @@ namespace attributes {
         std::vector<Param> params;
         std::string::size_type current;
         std::string::size_type next = -1;
-        do {
+        do {								// #novov
             next = input.find_first_not_of(delimiters, next + 1);
             if (next == std::string::npos)
-                break;
+                break;							// #nocov
             next -= 1;
             current = next + 1;
             next = input.find_first_of(delimiters, current);
@@ -1367,8 +1367,8 @@ namespace attributes {
         // Establish the text to parse for the signature
         std::string signature = parseSignature(lineNumber);
         if (signature.empty()) {
-            rcppExportNoFunctionFoundWarning(lineNumber);
-            return Function();
+            rcppExportNoFunctionFoundWarning(lineNumber);		// #novov
+            return Function();						// #novov
         }
 
         // Start at the end and look for the () that deliniates the arguments
@@ -1404,7 +1404,7 @@ namespace attributes {
                     break;
                 }
                 else
-                    continue;
+                    continue;					// #novov
             } else {
                 name.insert(0U, 1U, ch);
             }
@@ -1412,14 +1412,14 @@ namespace attributes {
 
         // If we didn't find a name then bail
         if (name.empty()) {
-            rcppExportNoFunctionFoundWarning(lineNumber);
-            return Function();
+            rcppExportNoFunctionFoundWarning(lineNumber);	// #novov
+            return Function();					// #novov
         }
 
         // If we didn't find a type then bail
-        if (type.empty()) {
+        if (type.empty()) {					// #novov start
             rcppExportWarning("No function return type found", lineNumber);
-            return Function();
+            return Function();					// #nocov end
         }
 
         // Now scan for arguments
@@ -1460,26 +1460,26 @@ namespace attributes {
             // check for name
             std::string name;
             if (pos != std::string::npos) {
-                // insert whitespace if variables are joint with '&' 
+                // insert whitespace if variables are joint with '&'
                 std::string::size_type ref_pos = arg.substr(pos).find_last_of("&");
                 if (ref_pos != std::string::npos) {
-                    pos += ref_pos + 1;
-                    arg.insert(pos, " ");
+                    pos += ref_pos + 1;				// #novov
+                    arg.insert(pos, " ");			// #novov
                 }
 
                 name = arg.substr(pos);
                 trimWhitespace(&name);
             }
-            if (name.empty()) {
+            if (name.empty()) {					// #novov start
                 rcppExportInvalidParameterWarning(arg, lineNumber);
-                return Function();
+                return Function();				// #nocov end
             }
 
             // check for type string
             Type type = parseType(arg.substr(0, pos));
-            if (type.empty()) {
+            if (type.empty()) {					// #novov start
                 rcppExportInvalidParameterWarning(arg, lineNumber);
-                return Function();
+                return Function();				// #nocov end
             }
 
             // add argument
@@ -1504,7 +1504,7 @@ namespace attributes {
             // scan for { or ; not inside quotes
             for (size_t c = 0; c < line.length(); ++c) {
                 // alias character
-                char ch = line.at(c);  
+                char ch = line.at(c);
                 // update quotes state
                 if (ch == '"' && prevChar != '\\')
                     insideQuotes = !insideQuotes;
@@ -1516,7 +1516,7 @@ namespace attributes {
                 // record prev char (used to check for escaped quote i.e. \")
                 prevChar = ch;
             }
-            
+
             // if we didn't find a terminator on this line then just append the line
             // and move on to the next line
             signature.append(line);
@@ -1524,7 +1524,7 @@ namespace attributes {
         }
 
         // Not found
-        return std::string();
+        return std::string();						// #novov
     }
 
 
@@ -1565,11 +1565,11 @@ namespace attributes {
                         templateCount--;
                         break;
                     case '(':
-                        parenCount++;
-                        break;
+                        parenCount++;			// #novov
+                        break;				// #novov
                     case ')':
-                        parenCount--;
-                        break;
+                        parenCount--;			// #novov
+                        break;				// #novov
                 }
             }
 
@@ -1602,7 +1602,7 @@ namespace attributes {
         // if the type is now empty (because it was detected as only const)
         // then this is an invalid state so we bail
         if (type.empty())
-            return Type();
+            return Type();					// #novov
 
         if (type.find(referenceQualifier) ==
             (type.length() - referenceQualifier.length())) {
@@ -1613,7 +1613,7 @@ namespace attributes {
 
         // if the type is now empty because of some strange parse then bail
         if (type.empty())
-            return Type();
+            return Type();					// #novov
 
         return Type(type, isConst, isReference);
     }
@@ -1629,7 +1629,7 @@ namespace attributes {
     }
 
     // Print an attribute parsing related warning
-    void SourceFileAttributesParser::attributeWarning(
+    void SourceFileAttributesParser::attributeWarning(		// #novov start
                                                 const std::string& message,
                                                 const std::string& attribute,
                                                 size_t lineNumber) {
@@ -1676,7 +1676,7 @@ namespace attributes {
                                                     size_t lineNumber) {
         attributeWarning(message + " (valid interfaces are 'r' and 'cpp')",
                         "Rcpp::interfaces", lineNumber);
-    }
+    }							// #nocov end
 
 
     // Track /* */ comment state
@@ -1696,7 +1696,7 @@ namespace attributes {
 
                 // break if the line comment precedes the comment token
                 if (lineCommentPos != std::string::npos && lineCommentPos < pos)
-                    break;
+                    break;				// #novov
 
                 inComment_ = !inComment_;
                 pos += token.size();
@@ -1732,19 +1732,19 @@ namespace attributes {
 
         // read the existing target file if it exists
         if (FileInfo(targetFile_).exists()) {
-            std::ifstream ifs(targetFile_.c_str());
+            std::ifstream ifs(targetFile_.c_str());		// #novov start
             if (ifs.fail())
                 throw Rcpp::file_io_error(targetFile_);
             std::stringstream buffer;
             buffer << ifs.rdbuf();
-            existingCode_ = buffer.str();
+            existingCode_ = buffer.str();			// #nocov end
         }
 
         std::replace(packageCpp_.begin(), packageCpp_.end(), '.', '_');
 
         // see if this is safe to overwite and throw if it isn't
         if (!isSafeToOverwrite())
-            throw Rcpp::file_exists(targetFile_);
+            throw Rcpp::file_exists(targetFile_);		// #novov
     }
 
     void ExportsGenerator::writeFunctions(
@@ -1752,7 +1752,7 @@ namespace attributes {
                                 bool verbose) {
 
         if (attributes.hasInterface(kInterfaceCpp))
-            hasCppInterface_ = true;
+            hasCppInterface_ = true;				// #novov
 
         doWriteFunctions(attributes, verbose);
     }
@@ -1768,7 +1768,7 @@ namespace attributes {
         // if there is no generated code AND the exports file does not
         // currently exist then do nothing
         if (code.empty() && !FileInfo(targetFile_).exists())
-            return false;
+            return false;					// #novov
 
         // write header/preamble
         std::ostringstream headerStream;
@@ -1787,7 +1787,7 @@ namespace attributes {
             std::ofstream ofs(targetFile_.c_str(),
                               std::ofstream::out | std::ofstream::trunc);
             if (ofs.fail())
-                throw Rcpp::file_io_error(targetFile_);
+                throw Rcpp::file_io_error(targetFile_);		// #novov
 
             // write generated code and return
             ofs << generatedCode;
@@ -1795,7 +1795,7 @@ namespace attributes {
             return true;
         }
         else {
-            return false;
+            return false;					// #novov
         }
     }
 
@@ -1828,19 +1828,19 @@ namespace attributes {
         // track cppExports and signatures (we use these at the end to
         // generate the ValidateSignature and RegisterCCallable functions)
         if (attributes.hasInterface(kInterfaceCpp)) {
-            for (SourceFileAttributes::const_iterator
+            for (SourceFileAttributes::const_iterator		// #novov start
                        it = attributes.begin(); it != attributes.end(); ++it) {
                 if (it->isExportedFunction()) {
                     // add it to the list if it's not hidden
                     Function fun = it->function().renamedTo(it->exportedCppName());
                     if (!fun.isHidden())
-                        cppExports_.push_back(*it);
+                        cppExports_.push_back(*it);		// #nocov end
                 }
             }
         }
 
         // verbose if requested
-        if (verbose) {
+        if (verbose) {						// #novov start
             Rcpp::Rcout << "Exports from " << attributes.sourceFile() << ":"
                         << std::endl;
             for (std::vector<Attribute>::const_iterator
@@ -1848,7 +1848,7 @@ namespace attributes {
                 if (it->isExportedFunction())
                     Rcpp::Rcout << "   " << it->function() << std::endl;
             }
-            Rcpp::Rcout << std::endl;
+            Rcpp::Rcout << std::endl;				// #nocov end
         }
     }
 
@@ -1860,7 +1860,7 @@ namespace attributes {
         // client and library would cause a crash)
         if (hasCppInterface()) {
 
-            ostr() << std::endl;
+            ostr() << std::endl;				// #novov start
             ostr() << "// validate"
                    << " (ensure exported C++ functions exist before "
                    << "calling them)" << std::endl;
@@ -1914,7 +1914,7 @@ namespace attributes {
         ostr <<  indentStr << "R_RegisterCCallable(\"" << package() << "\", "
               << "\"" << packageCpp() << "_" << exportedName << "\", "
               << "(DL_FUNC)" << packageCpp() << "_" << name << ");";
-        return ostr.str();
+        return ostr.str();					// #nocov end
     }
 
     bool CppExportsGenerator::commit(const std::vector<std::string>& includes) {
@@ -1926,8 +1926,8 @@ namespace attributes {
                 ostr << includes[i] << std::endl;
         }
         if (hasCppInterface()) {
-            ostr << "#include <string>" << std::endl;
-            ostr << "#include <set>" << std::endl;
+            ostr << "#include <string>" << std::endl;		// #novov
+            ostr << "#include <set>" << std::endl;		// #novov
         }
         ostr << std::endl;
 
@@ -2008,7 +2008,7 @@ namespace attributes {
         if (!attributes.hasInterface(kInterfaceCpp))
             return;
 
-        for(std::vector<Attribute>::const_iterator
+        for(std::vector<Attribute>::const_iterator		// #novov start
             it = attributes.begin(); it != attributes.end(); ++it) {
 
             if (it->isExportedFunction()) {
@@ -2075,8 +2075,8 @@ namespace attributes {
                     ostr() << "        return Rcpp::as<" << function.type() << " >"
                            << "(rcpp_result_gen);" << std::endl;
                 }
-                
-                ostr() << "    }" << std::endl << std::endl;
+
+                ostr() << "    }" << std::endl << std::endl;	// #nocov end
             }
         }
     }
@@ -2093,7 +2093,7 @@ namespace attributes {
         if (hasCppInterface()) {
 
             // create the include dir if necessary
-            createDirectory(includeDir_);
+            createDirectory(includeDir_);			// #novov start
 
             // generate preamble
             std::ostringstream ostr;
@@ -2132,7 +2132,7 @@ namespace attributes {
             }
 
             // commit with preamble
-            return ExportsGenerator::commit(ostr.str());
+            return ExportsGenerator::commit(ostr.str());		// #nocov end
         }
         else {
             return ExportsGenerator::remove();
@@ -2168,7 +2168,7 @@ namespace attributes {
     void CppPackageIncludeGenerator::writeEnd() {
         if (hasCppInterface()) {
             // header guard
-            std::string guard = getHeaderGuard();
+            std::string guard = getHeaderGuard();			// #novov start
             ostr() << "#ifndef " << guard << std::endl;
             ostr() << "#define " << guard << std::endl << std::endl;
 
@@ -2176,7 +2176,7 @@ namespace attributes {
                    << "\"" << std::endl;
 
             ostr() << std::endl;
-            ostr() << "#endif // " << getHeaderGuard() << std::endl;
+            ostr() << "#endif // " << getHeaderGuard() << std::endl;	// #nocov end
         }
     }
 
@@ -2186,18 +2186,18 @@ namespace attributes {
         if (hasCppInterface()) {
 
             // create the include dir if necessary
-            createDirectory(includeDir_);
+            createDirectory(includeDir_);				// #novov
 
             // commit
-            return ExportsGenerator::commit();
+            return ExportsGenerator::commit();				// #nocov
         }
         else {
             return ExportsGenerator::remove();
         }
     }
 
-    std::string CppPackageIncludeGenerator::getHeaderGuard() const {
-        return "RCPP_" + packageCpp() + "_H_GEN_";
+    std::string CppPackageIncludeGenerator::getHeaderGuard() const {	// #novov
+        return "RCPP_" + packageCpp() + "_H_GEN_";			// #novov
     }
 
     RExportsGenerator::RExportsGenerator(const std::string& packageDir,
@@ -2218,10 +2218,10 @@ namespace attributes {
         const std::vector<std::vector<std::string> >& roxygenChunks =
                                                     attributes.roxygenChunks();
         for (std::size_t i = 0; i<roxygenChunks.size(); i++) {
-            const std::vector<std::string>& chunk = roxygenChunks[i];
+            const std::vector<std::string>& chunk = roxygenChunks[i];	// #novov start
             for (std::size_t l = 0; l < chunk.size(); l++)
                 ostr() << chunk[l] << std::endl;
-            ostr() << "NULL" << std::endl << std::endl;
+            ostr() << "NULL" << std::endl << std::endl;			// #nocov end
         }
 
         // write exported functions
@@ -2233,12 +2233,12 @@ namespace attributes {
                 // alias the attribute and function (bail if not export)
                 const Attribute& attribute = *it;
                 if (!attribute.isExportedFunction())
-                    continue;
+                    continue;					// #novov
                 const Function& function = attribute.function();
 
                 // print roxygen lines
                 for (size_t i=0; i<attribute.roxygen().size(); i++)
-                    ostr() << attribute.roxygen()[i] << std::endl;
+                    ostr() << attribute.roxygen()[i] << std::endl; // #novov
 
                 // build the parameter list
                 std::string args = generateRArgList(function);
@@ -2251,7 +2251,7 @@ namespace attributes {
                        << std::endl;
                 ostr() << "    ";
                 if (function.type().isVoid())
-                    ostr() << "invisible(";
+                    ostr() << "invisible(";			// #novov
                 ostr() << ".Call(";
                 ostr() << "'" << packageCpp() << "_" << function.name() << "', "
                        << "PACKAGE = '" << package() << "'";
@@ -2259,10 +2259,10 @@ namespace attributes {
                 // add arguments
                 const std::vector<Argument>& arguments = function.arguments();
                 for (size_t i = 0; i<arguments.size(); i++)
-                    ostr() << ", " << arguments[i].name();
+                    ostr() << ", " << arguments[i].name();	// #novov
                 ostr() << ")";
                 if (function.type().isVoid())
-                    ostr() << ")";
+                    ostr() << ")";				// #novov
                 ostr() << std::endl;
 
                 ostr() << "}" << std::endl << std::endl;
@@ -2271,14 +2271,14 @@ namespace attributes {
     }
 
     void RExportsGenerator::writeEnd() {
-        if (hasCppInterface()) {
+        if (hasCppInterface()) {				// #novov start
              // register all C-callable functions
             ostr() << "# Register entry points for exported C++ functions"
                    << std::endl;
             ostr() << "methods::setLoadAction(function(ns) {" << std::endl;
             ostr() << "    .Call('" << registerCCallableExportedName()
                    << "', PACKAGE = '" << package() << "')"
-                   << std::endl << "})" << std::endl;
+                   << std::endl << "})" << std::endl;		// #nocov end
         }
     }
 
@@ -2331,7 +2331,7 @@ namespace attributes {
     }
 
     // Remove and return a list of files that were removed
-    std::vector<std::string> ExportsGenerators::remove() {
+    std::vector<std::string> ExportsGenerators::remove() {	// #novov start
         std::vector<std::string> removed;
         for(Itr it = generators_.begin(); it != generators_.end(); ++it) {
             if ((*it)->remove())
@@ -2419,7 +2419,7 @@ namespace attributes {
             }
 
             std::string args = cppArg.substr(matrixLoc + matrix.length());
-            return "matrix" + args;
+            return "matrix" + args;				// #nocov end
         }
 
         // convert a C++ literal to an R argument (returns empty string
@@ -2873,12 +2873,12 @@ namespace {
             // regenerate the source code
             regenerateSource(cacheDir);
         }
-        
+
         // create from list
-        explicit SourceCppDynlib(const Rcpp::List& dynlib) 
+        explicit SourceCppDynlib(const Rcpp::List& dynlib)
         {
             using namespace Rcpp;
-            
+
             cppSourcePath_ = as<std::string>(dynlib["cppSourcePath"]);
             generatedCpp_ = as<std::string>(dynlib["generatedCpp"]);
             cppSourceFilename_ = as<std::string>(dynlib["cppSourceFilename"]);
@@ -2886,7 +2886,7 @@ namespace {
             buildDirectory_ = as<std::string>(dynlib["buildDirectory"]);
             fileSep_ = as<std::string>(dynlib["fileSep"]);
             dynlibFilename_ = as<std::string>(dynlib["dynlibFilename"]);
-            previousDynlibFilename_ = as<std::string>(dynlib["previousDynlibFilename"]);      
+            previousDynlibFilename_ = as<std::string>(dynlib["previousDynlibFilename"]);
             dynlibExt_ = as<std::string>(dynlib["dynlibExt"]);
             exportedFunctions_ = as<std::vector<std::string> >(dynlib["exportedFunctions"]);
             modules_ = as<std::vector<std::string> >(dynlib["modules"]);
@@ -2899,7 +2899,7 @@ namespace {
                 sourceDependencies_.push_back(FileInfo(fileInfo)); 
             }
         }
-        
+
         // convert to list
         Rcpp::List toList() const {
             using namespace Rcpp;
@@ -2924,10 +2924,10 @@ namespace {
                 sourceDependencies.push_back(fileInfo.toList());
             }
             dynlib["sourceDependencies"] = sourceDependencies;
-            
+
             return dynlib;
         }
-        
+
         bool isEmpty() const { return cppSourcePath_.empty(); }
 
         bool isBuilt() const { return FileInfo(dynlibPath()).exists(); };
@@ -2951,7 +2951,7 @@ namespace {
             // not dirty
             return false;
         }
-        
+
         void regenerateSource(const std::string& cacheDir) {
 
             // create new dynlib filename
@@ -3171,7 +3171,7 @@ namespace {
     };
 
     // Dynlib cache that allows lookup by either file path or code contents
-    
+
     void dynlibCacheInsert(const std::string& cacheDir,
                            const std::string& file,
                            const std::string& code,
@@ -3181,21 +3181,21 @@ namespace {
         Rcpp::Function dynlibInsertFunc = rcppEnv[".sourceCppDynlibInsert"];
         dynlibInsertFunc(cacheDir, file, code, dynlib.toList());
     }
-    
+
     void dynlibCacheInsertFile(const std::string& cacheDir,
                                const std::string& file,
                                const SourceCppDynlib& dynlib)
     {
         dynlibCacheInsert(cacheDir, file, "", dynlib);
     }
-    
+
     void dynlibCacheInsertCode(const std::string& cacheDir,
                                const std::string& code,
                                const SourceCppDynlib& dynlib)
     {
         dynlibCacheInsert(cacheDir, "", code, dynlib);
     }
-    
+
     SourceCppDynlib dynlibCacheLookup(const std::string& cacheDir,
                                       const std::string& file,
                                       const std::string& code)
@@ -3208,19 +3208,19 @@ namespace {
         else
             return SourceCppDynlib();
     }
-    
+
     SourceCppDynlib dynlibCacheLookupByFile(const std::string& cacheDir,
                                             const std::string& file)
     {
         return dynlibCacheLookup(cacheDir, file, "");
     }
-    
+
     SourceCppDynlib dynlibCacheLookupByCode(const std::string& cacheDir,
                                             const std::string& code)
     {
         return dynlibCacheLookup(cacheDir, "", code);
     }
-    
+
 } // anonymous namespace
 
 // Create temporary build directory, generate code as necessary, and return
@@ -3264,7 +3264,7 @@ BEGIN_RCPP
         dynlibCacheInsertCode(cacheDir, code, dynlib);
     else
         dynlibCacheInsertFile(cacheDir, file, dynlib);
-    
+
     // return context as a list
     using namespace Rcpp;
     return List::create(
