@@ -441,6 +441,7 @@ if (.runThisTest) {
                          Im    = Im(x),
                          Conj  = Conj(x),
                          Mod   = Mod(x),
+                         Arg   = Arg(x),
                          exp   = exp(x),
                          log   = log(x),
                          sqrt  = sqrt(x),

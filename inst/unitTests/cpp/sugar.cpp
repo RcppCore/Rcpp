@@ -402,6 +402,7 @@ List runit_complex( ComplexVector cx ){
     	_["Im"]    = Im( cx ),
     	_["Conj"]  = Conj( cx ),
     	_["Mod"]   = Mod( cx ),
+    	_["Arg"]   = Arg( cx ),
     	_["exp"]   = exp( cx ),
     	_["log"]   = log( cx ),
     	_["sqrt"]  = sqrt( cx ),
