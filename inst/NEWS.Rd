@@ -18,6 +18,8 @@
     \itemize{
       \item Added new Sugar function \code{sample()} (Nathan Russell in 
       \ghpr{610}).
+      \item Added new Sugar function \code{Arg()} (James Balamuta in 
+      \ghpr{626} addressing \ghit{625}).
     }
     \item Changes in Rcpp unit tests
     \itemize{

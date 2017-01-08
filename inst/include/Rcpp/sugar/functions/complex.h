@@ -68,6 +68,7 @@ inline double complex__Re( Rcomplex x){ return x.r ; }
 		y.i = -x.i ;
 		return y ;
 	}
+	inline double complex__Arg( Rcomplex x ){ return ::atan2(x.i, x.r); }
 	// TODO: this does not use HAVE_C99_COMPLEX as in R, perhaps it should
 	inline Rcomplex complex__exp( Rcomplex x){
 		Rcomplex y ;
@@ -249,6 +250,7 @@ inline Rcomplex complex__tanh(Rcomplex z)
 RCPP_SUGAR_COMPLEX( Re, double )
 RCPP_SUGAR_COMPLEX( Im, double )
 RCPP_SUGAR_COMPLEX( Mod, double )
+RCPP_SUGAR_COMPLEX( Arg, double )
 RCPP_SUGAR_COMPLEX( Conj, Rcomplex )
 RCPP_SUGAR_COMPLEX( exp, Rcomplex )
 RCPP_SUGAR_COMPLEX( log, Rcomplex )
