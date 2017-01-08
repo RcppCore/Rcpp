@@ -68,7 +68,7 @@ inline double complex__Re( Rcomplex x){ return x.r ; }
 		y.i = -x.i ;
 		return y ;
 	}
-    inline double complex__Arg( Rcomplex x ){ return ::atan2(x.i, x.r); }
+	inline double complex__Arg( Rcomplex x ){ return ::atan2(x.i, x.r); }
 	// TODO: this does not use HAVE_C99_COMPLEX as in R, perhaps it should
 	inline Rcomplex complex__exp( Rcomplex x){
 		Rcomplex y ;
