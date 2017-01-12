@@ -211,8 +211,7 @@ if (.runThisTest) {
     }
 
     test.bib <- function() {
-        checkTrue(nchar(system.file("bib", "Rcpp.bib", package="Rcpp")) > 0,
-                  msg="bib file")
+        checkTrue(nchar(Rcpp:::bib()) > 0, msg="bib file")
     }
 
 }
