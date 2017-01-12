@@ -2431,7 +2431,7 @@ namespace attributes {
                 return "FALSE";
             else if (cppArg == "R_NilValue")
                 return "NULL";
-            else if (cppArg == "NA_STRING")
+            else if (cppArg == "NA_STRING")			// #nocov start
                 return "NA_character_";
             else if (cppArg == "NA_INTEGER")
                 return "NA_integer_";
@@ -2466,7 +2466,7 @@ namespace attributes {
                 }
             }
 
-            return std::string();
+            return std::string();				// #nocov end
 
         }
 
@@ -2485,7 +2485,7 @@ namespace attributes {
                 return rArg;
 
             // try for a create arg
-            rArg = cppCreateArgToRArg(cppArg);
+            rArg = cppCreateArgToRArg(cppArg);	    		// #nocov start
             if (!rArg.empty())
                 return rArg;
 
@@ -2505,7 +2505,7 @@ namespace attributes {
                 return rArg;
 
             // couldn't parse the arg
-            return std::string();
+            return std::string();				// #nocov end
         }
 
     } // anonymous namespace
@@ -2523,10 +2523,10 @@ namespace attributes {
                 if (!rArg.empty()) {
                     argsOstr << " = " << rArg;
                 } else {
-                    showWarning("Unable to parse C++ default value '" +
+                    showWarning("Unable to parse C++ default value '" +		// #nocov start
                                 argument.defaultValue() + "' for argument "+
                                 argument.name() + " of function " +
-                                function.name());
+                                function.name());				// #nocov end
                 }
             }
 
@@ -2569,7 +2569,7 @@ namespace attributes {
             std::string funcName = contextId + "_" + function.name();
             ostr << funcName;
             if (cppInterface)
-                ostr << kTrySuffix;
+                ostr << kTrySuffix;				// #nocov
             ostr << "(";
             std::ostringstream ostrArgs;
             const std::vector<Argument>& arguments = function.arguments();
@@ -2622,7 +2622,7 @@ namespace attributes {
 
             // Now write an R wrapper that returns error via Rf_error
             if (cppInterface) {
-                ostr << "RcppExport SEXP " << funcName << "(" << args << ") {"
+                ostr << "RcppExport SEXP " << funcName << "(" << args << ") {"	// #nocov start
                      << std::endl;
                 ostr << "    SEXP rcpp_result_gen;" << std::endl;
                 ostr << "    {" << std::endl;
@@ -2653,7 +2653,7 @@ namespace attributes {
                      << "    }" << std::endl
                      << "    UNPROTECT(1);" << std::endl
                      << "    return rcpp_result_gen;" << std::endl
-                     << "}" << std::endl;
+                     << "}" << std::endl;				// #nocov end
             }
         }
     }
@@ -2684,7 +2684,7 @@ namespace attributes {
             if (errno == ENOENT)
                 exists_ = false;
             else
-                throw Rcpp::file_io_error(errno, path);
+                throw Rcpp::file_io_error(errno, path);				// #nocov
         } else {
             exists_ = true;
             lastModified_ = static_cast<double>(buffer.st_mtime);
@@ -2694,9 +2694,9 @@ namespace attributes {
     // Remove a file (call back into R for this)
     bool removeFile(const std::string& path) {
         if (FileInfo(path).exists()) {
-            Rcpp::Function rm = Rcpp::Environment::base_env()["file.remove"];
+            Rcpp::Function rm = Rcpp::Environment::base_env()["file.remove"];	// #nocov start
             rm(path);
-            return true;
+            return true;							// #nocov end
         }
         else {
             return false;
@@ -2704,12 +2704,12 @@ namespace attributes {
     }
 
     // Recursively create a directory (call back into R for this)
-    void createDirectory(const std::string& path) {
+    void createDirectory(const std::string& path) {				// #nocov start
         if (!FileInfo(path).exists()) {
             Rcpp::Function mkdir = Rcpp::Environment::base_env()["dir.create"];
             mkdir(path, Rcpp::Named("recursive") = true);
         }
-    }
+    }										// #nocov end
 
      // Known whitespace chars
     const char * const kWhitespaceChars = " \f\n\r\t\v";
@@ -2787,22 +2787,22 @@ namespace attributes {
             return;
         char quote = *(pStr->begin());
         if ( (quote == '\'' || quote == '\"') && (*(pStr->rbegin()) == quote) )
-            *pStr = pStr->substr(1, pStr->length()-2);
+            *pStr = pStr->substr(1, pStr->length()-2);			// #nocov
     }
 
     // is the passed string quoted?
     bool isQuoted(const std::string& str) {
         if (str.length() < 2)
-            return false;
+            return false;						// #nocov
         char quote = *(str.begin());
         return (quote == '\'' || quote == '\"') && (*(str.rbegin()) == quote);
     }
 
     // show a warning message
-    void showWarning(const std::string& msg) {
+    void showWarning(const std::string& msg) {				// #nocov start
         Rcpp::Function warning = Rcpp::Environment::base_env()["warning"];
         warning(msg, Rcpp::Named("call.") = false);
-    }
+    }									// #nocov end
 
     bool isRoxygenCpp(const std::string& str) {
         size_t len = str.length();
@@ -2850,7 +2850,7 @@ namespace {
             // get cpp source file info
             FileInfo cppSourceFilenameInfo(cppSourcePath_);
             if (!cppSourceFilenameInfo.exists())
-                throw Rcpp::file_not_found(cppSourcePath_);
+                throw Rcpp::file_not_found(cppSourcePath_);		// #nocov
 
             // record the base name of the source file
             Rcpp::Function basename = Rcpp::Environment::base_env()["basename"];
@@ -2895,8 +2895,8 @@ namespace {
             embeddedR_ = as<std::vector<std::string> >(dynlib["embeddedR"]);
             List sourceDependencies = as<List>(dynlib["sourceDependencies"]);
             for (R_xlen_t i = 0; i<sourceDependencies.length(); i++) {
-                List fileInfo = as<List>(sourceDependencies.at(i));
-                sourceDependencies_.push_back(FileInfo(fileInfo)); 
+                List fileInfo = as<List>(sourceDependencies.at(i));	// #nocov
+                sourceDependencies_.push_back(FileInfo(fileInfo)); 	// #nocov
             }
         }
 
@@ -2936,17 +2936,17 @@ namespace {
             // source file out of date means we're dirty
             if (FileInfo(cppSourcePath_).lastModified() >
                 FileInfo(generatedCppSourcePath()).lastModified())
-                return true;
+                return true;				// #nocov
 
             // no dynlib means we're dirty
             if (!FileInfo(dynlibPath()).exists())
-                return true;
+                return true;				// #nocov
 
             // variation in source dependencies means we're dirty
             std::vector<FileInfo> sourceDependencies = parseSourceDependencies(
                                                             cppSourcePath_);
             if (sourceDependencies != sourceDependencies_)
-                return true;
+                return true;				// #nocov
 
             // not dirty
             return false;
@@ -2975,7 +2975,7 @@ namespace {
             std::ofstream cppOfs(generatedCppSourcePath().c_str(),
                                  std::ofstream::out | std::ofstream::app);
             if (cppOfs.fail())
-                throw Rcpp::file_io_error(generatedCppSourcePath());
+                throw Rcpp::file_io_error(generatedCppSourcePath());	// #nocov
             cppOfs << generatedCpp_;
             cppOfs.close();
 
@@ -2983,7 +2983,7 @@ namespace {
             std::ofstream rOfs(generatedRSourcePath().c_str(),
                                std::ofstream::out | std::ofstream::trunc);
             if (rOfs.fail())
-                throw Rcpp::file_io_error(generatedRSourcePath());
+                throw Rcpp::file_io_error(generatedRSourcePath());	// #nocov
 
             // DLLInfo - hide using . and ensure uniqueness using contextId
             std::string dllInfo = "`." + contextId_ + "_DLLInfo`";
@@ -3010,8 +3010,8 @@ namespace {
                     exportedFunctions_.push_back(it->exportedName());
 
                  else if (it->name() == kDependsAttribute) {
-                     for (size_t i = 0; i<it->params().size(); ++i)
-                        depends_.push_back(it->params()[i].name());
+                     for (size_t i = 0; i<it->params().size(); ++i)	// #nocov
+                        depends_.push_back(it->params()[i].name());	// #nocov
                  }
 
                  else if (it->name() == kPluginsAttribute) {
@@ -3043,7 +3043,7 @@ namespace {
             for (size_t i = 0; i<sourceDependencies_.size(); ++i) {
                 FileInfo dep = sourceDependencies_[i];
                 if (dep.extension() == ".cc" || dep.extension() == ".cpp") {
-                    dependencies.push_back(dep.path());
+                    dependencies.push_back(dep.path());			// #nocov
                 }
             }
             return dependencies;
@@ -3075,7 +3075,7 @@ namespace {
 
         std::string previousDynlibPath() const {
             if (!previousDynlibFilename_.empty())
-                return buildDirectory_ + fileSep_ + previousDynlibFilename_;
+                return buildDirectory_ + fileSep_ + previousDynlibFilename_;	// #nocov
             else
                 return std::string();
         }
@@ -3250,13 +3250,13 @@ BEGIN_RCPP
 
     // if the cached dynlib is dirty then regenerate the source
     else if (rebuild || dynlib.isSourceDirty()) {
-        buildRequired = true;
-        dynlib.regenerateSource(cacheDir);
+        buildRequired = true;				// #nocov
+        dynlib.regenerateSource(cacheDir);		// #nocov
     }
 
     // if the dynlib hasn't yet been built then note that
     else if (!dynlib.isBuilt()) {
-        buildRequired = true;
+        buildRequired = true;				// #nocov
     }
 
     // save the dynlib to the cache
@@ -3359,7 +3359,7 @@ BEGIN_RCPP
         std::string cppFile = cppFiles[i];
         SourceFileAttributesParser attributes(cppFile, false);
         if (!attributes.hasGeneratorOutput())
-            continue;
+            continue;						// #nocov
 
         // confirm we have attributes
         haveAttributes = true;
@@ -3371,8 +3371,8 @@ BEGIN_RCPP
         for (SourceFileAttributesParser::const_iterator
                      it = attributes.begin(); it != attributes.end(); ++it) {
             if (it->name() == kDependsAttribute) {
-                for (size_t i = 0; i<it->params().size(); ++i)
-                    dependsAttribs.insert(it->params()[i].name());
+                for (size_t i = 0; i<it->params().size(); ++i)		// #nocov
+                    dependsAttribs.insert(it->params()[i].name());	// #nocov
             }
         }
     }
@@ -3385,7 +3385,7 @@ BEGIN_RCPP
     if (haveAttributes)
         updated = generators.commit(includes);
     else
-        updated = generators.remove();
+        updated = generators.remove();					// #nocov
 
     // print warning if there are depends attributes that don't have
     // corresponding entries in the DESCRIPTION file

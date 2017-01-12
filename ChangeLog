@@ -2,7 +2,7 @@
 
         * vignettes/Rcpp.bib: Updated references
 
-        * src/attributes.cpp (Rcpp): Correct typos in #nocov tags
+        * src/attributes.cpp (Rcpp): Correct typos in #nocov tags, added tags
 
 2017-01-07  James J Balamuta  <balamut2@illinois.edu>
 
