@@ -1,3 +1,7 @@
+2017-01-11  Dirk Eddelbuettel  <edd@debian.org>
+
+        * vignettes/Rcpp.bib: Updated references
+
 2017-01-07  James J Balamuta  <balamut2@illinois.edu>
 
         * inst/include/Rcpp/sugar/functions/complex.h: Added Arg() function
