@@ -470,7 +470,7 @@ package. The use of the \rdoc{Rcpp}{Rcpp.package.skeleton} was shown in
 detail, and references to further examples were provided.
 
 \bibliographystyle{plainnat}
-\bibliography{Rcpp}
+\bibliography{\Sexpr{Rcpp:::bib()}}
 
 \end{document}
 

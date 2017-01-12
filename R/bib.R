@@ -1,4 +1,4 @@
-# Copyright (C) 2010 - 2012  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2017  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -16,5 +16,5 @@
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 bib <- function() {
-    sub("\\.bib$", "", system.file( "doc", "Rcpp.bib", package = "Rcpp" ) )
+    sub("\\.bib$", "", system.file("bib", "Rcpp.bib", package = "Rcpp"))
 }

@@ -1,3 +1,16 @@
+2017-01-12  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/bib/Rcpp.bib: Moved from vignettes/ directory
+        * R/bib.R (bib): Idem
+
+        * vignettes/Rcpp-FAQ.Rnw: Evaluate \Sexpr{Rcpp:::bib()}
+        * vignettes/Rcpp-attributes.Rnw: Idem
+        * vignettes/Rcpp-extending.Rnw: Idem
+        * vignettes/Rcpp-introduction.Rnw: Idem
+        * vignettes/Rcpp-modules.Rnw: Idem
+        * vignettes/Rcpp-packages.Rnw: Idem
+        * vignettes/Rcpp-sugar.Rnw: Idem
+
 2017-01-11  Dirk Eddelbuettel  <edd@debian.org>
 
         * vignettes/Rcpp.bib: Updated references

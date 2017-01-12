@@ -367,7 +367,7 @@ to either user-defined or third-party classes via the \texttt{Rcpp::as} and
 approaches were discussed.
 
 \bibliographystyle{plainnat}
-\bibliography{Rcpp}
+\bibliography{\Sexpr{Rcpp:::bib()}}
 
 \end{document}
 

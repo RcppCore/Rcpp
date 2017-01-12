@@ -773,7 +773,7 @@ inline int size() const { return vec.size() ; }
 TBD
 
 \bibliographystyle{plainnat}
-\bibliography{Rcpp}
+\bibliography{\Sexpr{Rcpp:::bib()}}
 
 \end{document}
 
