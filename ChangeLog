@@ -2,6 +2,8 @@
 
         * vignettes/Rcpp.bib: Updated references
 
+        * src/attributes.cpp (Rcpp): Correct typos in #nocov tags
+
 2017-01-07  James J Balamuta  <balamut2@illinois.edu>
 
         * inst/include/Rcpp/sugar/functions/complex.h: Added Arg() function
