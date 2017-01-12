@@ -32,6 +32,8 @@
     \itemize{
       \item Exposed pointers macros were included in the Rcpp Extending vignette
       (MathurinD; James Balamuta in \ghpr{592} addressing \ghit{418}).
+      \item The file \code{Rcpp.bib} move to directory \code{bib} which is
+      guaranteed to be present.
     }
     \item Changes in Rcpp build system
     \itemize{

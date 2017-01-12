@@ -1329,7 +1329,6 @@ We have since switched to a \href{http://github.com/RcppCore/Rcpp}{Git
 \pkg{RcppEigen}).
 
 \bibliographystyle{plainnat}
-\bibliography{Rcpp}
-
+\bibliography{\Sexpr{Rcpp:::bib()}}
 \end{document}
 

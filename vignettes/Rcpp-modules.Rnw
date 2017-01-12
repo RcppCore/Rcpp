@@ -1047,7 +1047,7 @@ We hope that \proglang{R} and \proglang{C++} programmers
 find \textsl{Rcpp modules} useful.
 
 \bibliographystyle{plainnat}
-\bibliography{Rcpp}
+\bibliography{\Sexpr{Rcpp:::bib()}}
 
 \end{document}
 

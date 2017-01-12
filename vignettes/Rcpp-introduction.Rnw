@@ -1064,7 +1064,7 @@ Ligges, Brian Ripley and Simon Urbanek concerning the build systems for differen
 platforms.   Last but not least, several users provided very fruitful
 ideas for new or extended features via the \code{rcpp-devel} mailing list.
 
-\bibliography{Rcpp}
+\bibliography{\Sexpr{Rcpp:::bib()}}
 
 \vspace*{-0.35cm}
 

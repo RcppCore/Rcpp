@@ -1,6 +1,6 @@
 #!/usr/bin/env r
 #
-# Copyright (C) 2010 - 2015  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2017  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -98,70 +98,70 @@ if (.runThisTest) {
     }
 
     test.AreMacrosDefined <- function(){
-        checkTrue( Rcpp:::areMacrosDefined( "__cplusplus" ) )    
+        checkTrue( Rcpp:::areMacrosDefined( "__cplusplus" ) )
     }
-    
+
     test.rcout <- function(){
         ## define test string that is written to two files
         teststr <- "First line.\nSecond line."
 
         rcppfile <- tempfile()
         rfile <- tempfile()
-        
+
         ## write to test_rcpp.txt from Rcpp
         test_rcout(rcppfile,  teststr )
-        
+
         ## write to test_r.txt from R
         cat( teststr, file=rfile, sep='\n' )
-        
+
         ## compare whether the two files have the same data
-        checkEquals( readLines(rcppfile), readLines(rfile), msg="Rcout output")    
+        checkEquals( readLines(rcppfile), readLines(rfile), msg="Rcout output")
     }
 
     test.rcout.complex <- function(){
 
         rcppfile <- tempfile()
         rfile <- tempfile()
-        
+
         z <- complex(real=sample(1:10, 1), imaginary=sample(1:10, 1))
-        
+
         ## write to test_rcpp.txt from Rcpp
         test_rcout_rcomplex(rcppfile,  z )
-        
+
         ## write to test_r.txt from R
         cat( z, file=rfile, sep='\n' )
-        
+
         ## compare whether the two files have the same data
-        checkEquals( readLines(rcppfile), readLines(rfile), msg="Rcout Rcomplex")    
+        checkEquals( readLines(rcppfile), readLines(rfile), msg="Rcout Rcomplex")
     }
 
     test.na_proxy <- function(){
-        checkEquals( 
-            na_proxy(), 
-            rep(c(TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE) , 2), 
+        checkEquals(
+            na_proxy(),
+            rep(c(TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE) , 2),
             msg = "Na_Proxy NA == handling"
-            )    
+            )
     }
 
     test.StretchyList <- function(){
-        checkEquals( 
+        checkEquals(
             stretchy_list(),
             pairlist( "foo", 1L, 3.2 )
             )
     }
 
     test.named_StretchyList <- function(){
-        checkEquals( 
+        checkEquals(
             named_stretchy_list(),
             pairlist( a = "foo", b = 1L, c = 3.2 )
             )
     }
-    
+
     test.stop.variadic <- function(){
         m <- tryCatch( test_stop_variadic(), error = function(e){
-            conditionMessage(e)  
+            conditionMessage(e)
         })
-        checkEquals( m, "foo 3" ) 
+        checkEquals( m, "foo 3" )
     }
 
     test.NullableForNull <- function() {
@@ -169,7 +169,7 @@ if (.runThisTest) {
         checkTrue(   testNullableForNull(NULL) )
         checkTrue( ! testNullableForNull(M) )
     }
-    
+
     test.NullableForNotNull <- function() {
         M <- matrix(1:4, 2, 2)
         checkTrue( ! testNullableForNotNull(NULL) )
@@ -180,7 +180,7 @@ if (.runThisTest) {
         M <- matrix(1:4, 2, 2)
         checkEquals( testNullableOperator(M), M )
     }
-    
+
     test.NullableAccessGet <- function() {
         M <- matrix(1:4, 2, 2)
         checkEquals( testNullableGet(M), M )
@@ -209,4 +209,9 @@ if (.runThisTest) {
         checkEquals(testNullableString(), "")
         checkEquals(testNullableString("blah"), "blah")
     }
+
+    test.bib <- function() {
+        checkTrue(nchar(Rcpp:::bib()) > 0, msg="bib file")
+    }
+
 }

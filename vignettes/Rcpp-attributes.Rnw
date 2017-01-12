@@ -823,7 +823,7 @@ when headers in \texttt{inst/include} change, so you should be sure to perform a
 full rebuild of the package after making changes to these headers.
 
 \bibliographystyle{plainnat}
-\bibliography{Rcpp}
+\bibliography{\Sexpr{Rcpp:::bib()}}
 
 \end{document}
 
