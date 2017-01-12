@@ -11,6 +11,8 @@
         * vignettes/Rcpp-packages.Rnw: Idem
         * vignettes/Rcpp-sugar.Rnw: Idem
 
+        * inst/unitTests/runit.misc.R (test.bib): New test
+
 2017-01-11  Dirk Eddelbuettel  <edd@debian.org>
 
         * vignettes/Rcpp.bib: Updated references
