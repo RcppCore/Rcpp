@@ -1,3 +1,8 @@
+2017-01-13  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/exceptions.h: Added more #nocov tags
+        * inst/include/Rcpp/api/bones/wrap_extra_steps.h: Idem
+
 2017-01-12  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/bib/Rcpp.bib: Moved from vignettes/ directory

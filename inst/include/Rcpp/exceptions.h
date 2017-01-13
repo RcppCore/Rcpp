@@ -1,8 +1,8 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // exceptions.h: Rcpp R/C++ interface class library -- exceptions
 //
-// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2017  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -24,60 +24,69 @@
 
 #define GET_STACKTRACE() stack_trace( __FILE__, __LINE__ )
 
-namespace Rcpp{
+namespace Rcpp {
 
     class exception : public std::exception {
     public:
-        explicit exception(const char* message_) : message(message_){ rcpp_set_stack_trace(stack_trace()); }
-        exception(const char* message_, const char* file, int line ) : message(message_){
-            rcpp_set_stack_trace( stack_trace(file,line) ) ;
+        explicit exception(const char* message_) : message(message_) {	// #nocov start
+            rcpp_set_stack_trace(stack_trace());
         }
-        virtual ~exception() throw(){}
+        exception(const char* message_, const char* file, int line) : message(message_) {
+            rcpp_set_stack_trace(stack_trace(file,line));
+        }
+        virtual ~exception() throw() {}
         virtual const char* what() const throw() {
-            return message.c_str() ;
+            return message.c_str();					// #nocov end
         }
     private:
-        std::string message ;
-    } ;
+        std::string message;
+    };
 
     // simple helper
-    static std::string toString(const int i) {
+    static std::string toString(const int i) {				// #nocov start
         std::ostringstream ostr;
         ostr << i;
-        return ostr.str();
+        return ostr.str();						// #nocov end 
     }
 
-    class no_such_env : public std::exception{
+    class no_such_env : public std::exception {
     public:
-        no_such_env( const std::string& name ) throw() : message( std::string("no such environment: '") + name + "'" ){} ;
-        no_such_env( int pos ) throw() : message( "no environment in given position '" + toString(pos) + "'") {} ;
-        virtual ~no_such_env() throw(){} ;
-        virtual const char* what() const throw(){ return message.c_str() ; } ;
+        no_such_env(const std::string& name) throw() :
+            message(std::string("no such environment: '") + name + "'") {};
+        no_such_env(int pos) throw() :
+            message("no environment in given position '" + toString(pos) + "'") {};
+        virtual ~no_such_env() throw() {};
+        virtual const char* what() const throw() { return message.c_str(); };
     private:
-        std::string message ;
-    } ;
+        std::string message;
+    };
 
     class file_io_error : public std::exception {
     public:
-        file_io_error(const std::string& file) throw() : message( std::string("file io error: '") + file + "'" ), file(file) {} ;
-        file_io_error(int code, const std::string& file) throw() : message( "file io error " + toString(code) + ": '" + file + "'"), file(file) {} ;
-        file_io_error(const std::string& msg, const std::string& file) throw() : message( msg + ": '" + file + "'"), file(file) {} ;
-        virtual ~file_io_error() throw(){} ;
-        virtual const char* what() const throw(){ return message.c_str() ; } ;
-        std::string filePath() const throw(){ return file ; } ;
+        file_io_error(const std::string& file) throw() :	// #nocov start
+            message(std::string("file io error: '") + file + "'"), file(file) {};
+        file_io_error(int code, const std::string& file) throw() :
+            message("file io error " + toString(code) + ": '" + file + "'"), file(file) {};
+        file_io_error(const std::string& msg, const std::string& file) throw() :
+            message(msg + ": '" + file + "'"), file(file) {};
+        virtual ~file_io_error() throw() {};
+        virtual const char* what() const throw() { return message.c_str(); };
+        std::string filePath() const throw() { return file; };	// #nocov end
     private:
-        std::string message ;
+        std::string message;
         std::string file;
     } ;
 
-    class file_not_found : public file_io_error {
+    class file_not_found : public file_io_error {		// #nocov start
     public:
-        file_not_found(const std::string& file) throw() : file_io_error("file not found", file) {}
+        file_not_found(const std::string& file) throw() :
+            file_io_error("file not found", file) {}		// #nocov end
     };
 
-    class file_exists : public file_io_error {
+    class file_exists : public file_io_error {			// #nocov start
     public:
-        file_exists(const std::string& file) throw() : file_io_error("file already exists", file) {}
+        file_exists(const std::string& file) throw() :
+            file_io_error("file already exists", file) {}	// #nocov end
     };
 
     #define RCPP_EXCEPTION_CLASS(__CLASS__,__WHAT__)                               \
@@ -101,7 +110,7 @@ namespace Rcpp{
     RCPP_SIMPLE_EXCEPTION_CLASS(not_a_matrix, "not a matrix")
     RCPP_SIMPLE_EXCEPTION_CLASS(index_out_of_bounds, "index out of bounds")
     RCPP_SIMPLE_EXCEPTION_CLASS(parse_error, "parse error")
-    RCPP_SIMPLE_EXCEPTION_CLASS(not_s4, "not an S4 object")
+    RCPP_SIMPLE_EXCEPTION_CLASS(not_s4, "not an S4 object")	// #nocov start
     RCPP_SIMPLE_EXCEPTION_CLASS(not_reference, "not an S4 object of a reference class")
     RCPP_SIMPLE_EXCEPTION_CLASS(not_initialized, "C++ object not initialized (missing default constructor?)")
     RCPP_SIMPLE_EXCEPTION_CLASS(no_such_slot, "no such slot")
@@ -118,7 +127,7 @@ namespace Rcpp{
     RCPP_EXCEPTION_CLASS(binding_is_locked, std::string("binding is locked: '") + message + "'" )
     RCPP_EXCEPTION_CLASS(no_such_namespace, std::string("no such namespace: '") + message + "'" )
     RCPP_EXCEPTION_CLASS(function_not_exported, std::string("function not exported: ") + message)
-    RCPP_EXCEPTION_CLASS(eval_error, message )
+    RCPP_EXCEPTION_CLASS(eval_error, message )			// #nocov end 
 
     #undef RCPP_EXCEPTION_CLASS
     #undef RCPP_SIMPLE_EXCEPTION_CLASS
@@ -126,7 +135,7 @@ namespace Rcpp{
 
 namespace internal {
 
-    inline SEXP nth(SEXP s, int n) {
+    inline SEXP nth(SEXP s, int n) {				// #nocov start
         return Rf_length(s) > n ? (n == 0 ? CAR(s) : CAR(Rf_nthcdr(s, n))) : R_NilValue;
     }
 
@@ -236,7 +245,7 @@ inline SEXP string_to_try_error( const std::string& str){
     Rf_setAttrib( tryError, R_ClassSymbol, Rf_mkString("try-error") ) ;
     Rf_setAttrib( tryError, Rf_install( "condition") , simpleError ) ;
 
-    return tryError;
+    return tryError;					// #nocov end 
 }
 
 inline SEXP exception_to_try_error( const std::exception& ex){
@@ -302,9 +311,9 @@ namespace Rcpp{
         Rf_warning( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10).c_str() );
     }
 
-    inline void NORET stop(const std::string& message) {
+    inline void NORET stop(const std::string& message) {	// #nocov start
         throw Rcpp::exception(message.c_str());
-    }
+    }								// #nocov end 
 
     template <typename T1>
     inline void NORET stop(const char* fmt, const T1& arg1) {
