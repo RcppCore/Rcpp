@@ -10,14 +10,18 @@
       \item The exception stack message is now correctly demangled on all
       compiler versions (Jim Hester in \ghpr{598})
       \item Date and Datetime object and vector now have format methods and
-      \code{operator<<} support (PR\ghpr{599})
+      \code{operator<<} support (\ghpr{599}).
+      \item The \code{size} operator in \code{Matrix} is explicitly referenced
+      avoiding a g++-6 issues (\ghpr{607} fixing \ghit{605}).
+      \item The underlying date calculation code was updated (\ghpr{621},
+      \ghpr{623}).
       \item Addressed improper diagonal fill for non-symmetric matrices
       (James Balamuta in \ghpr{622} addressing \ghit{619})
     }
     \item Changes in Rcpp Sugar:
     \itemize{
       \item Added new Sugar function \code{sample()} (Nathan Russell in 
-      \ghpr{610}).
+      \ghpr{610} and \ghpr{616}).
       \item Added new Sugar function \code{Arg()} (James Balamuta in 
       \ghpr{626} addressing \ghit{625}).
     }
@@ -33,7 +37,7 @@
       \item Exposed pointers macros were included in the Rcpp Extending vignette
       (MathurinD; James Balamuta in \ghpr{592} addressing \ghit{418}).
       \item The file \code{Rcpp.bib} move to directory \code{bib} which is
-      guaranteed to be present.
+      guaranteed to be present (\ghpr{631}).
     }
     \item Changes in Rcpp build system
     \itemize{
