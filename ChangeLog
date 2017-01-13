@@ -2,6 +2,8 @@
 
         * inst/include/Rcpp/exceptions.h: Added more #nocov tags
         * inst/include/Rcpp/api/bones/wrap_extra_steps.h: Idem
+        * inst/include/Rcpp/iostream/Rstreambuf.h: Idem
+        * inst/include/Rcpp/r_cast.h: Idem
 
 2017-01-12  Dirk Eddelbuettel  <edd@debian.org>
 

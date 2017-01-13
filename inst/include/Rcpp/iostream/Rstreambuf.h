@@ -2,7 +2,7 @@
 //
 // Rstreambuf.h: Rcpp R/C++ interface class library -- stream buffer
 //
-// Copyright (C) 2011 - 2013    Dirk Eddelbuettel, Romain Francois and Jelmer Ypma
+// Copyright (C) 2011 - 2017  Dirk Eddelbuettel, Romain Francois and Jelmer Ypma
 //
 // This file is part of Rcpp.
 //
@@ -56,7 +56,7 @@ namespace Rcpp {
             }
         }
     };
-
+							// #nocov start
     template <> inline std::streamsize Rstreambuf<true>::xsputn(const char *s, std::streamsize num ) {
         Rprintf( "%.*s", num, s ) ;
         return num ;
@@ -82,7 +82,7 @@ namespace Rcpp {
     template <> inline int Rstreambuf<false>::sync(){
         ::R_FlushConsole() ;
         return 0 ;
-    }
+    }								// #nocov end
     static Rostream<true>  Rcout;
     static Rostream<false> Rcerr;
 
