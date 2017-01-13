@@ -57,7 +57,6 @@
 #include <Rcpp/DataFrame.h>
 
 //  #define RCPP_NEW_DATE_DATETIME_VECTORS 1
-#define RCPP_NEW_DATE_DATETIME_VECTORS 1
 #include <Rcpp/date_datetime/date_datetime.h>
 
 #include <Rcpp/Na_Proxy.h>
