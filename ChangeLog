@@ -13,6 +13,8 @@
 
         * inst/unitTests/runit.misc.R (test.bib): New test
 
+        * R/exceptions.R: Added #nocov
+
 2017-01-11  Dirk Eddelbuettel  <edd@debian.org>
 
         * vignettes/Rcpp.bib: Updated references

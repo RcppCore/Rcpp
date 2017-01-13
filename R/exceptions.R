@@ -1,4 +1,4 @@
-# Copyright (C) 2009 - 2012 Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2009 - 2017  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -15,34 +15,34 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.rcpp_error_recorder <- function(e){  
-    invisible( .Call( rcpp_error_recorder, e ) )
+.rcpp_error_recorder <- function(e) {
+    invisible(.Call(rcpp_error_recorder, e))		# #nocov
 }
 
 .warningsEnv <- new.env()
 .warningsEnv$warnings <- character()
 
 .rcpp_warning_recorder <- function(w){
-    .warningsEnv$warnings <- append(.warningsEnv$warnings, w$message)
-    invokeRestart("muffleWarning")
+    .warningsEnv$warnings <- append(.warningsEnv$warnings, w$message) 	# #nocov
+    invokeRestart("muffleWarning")					# #nocov
 }
 
 .rcpp_collect_warnings <- function() {
-    warnings <- .warningsEnv$warnings
+    warnings <- .warningsEnv$warnings			# #nocov start
     .warningsEnv$warnings <- character()
-    warnings
+    warnings						# #nocov end
 }
 
 print.Rcpp_stack_trace <- function(x, ...) {
-  cat(format(x, ...))
+  cat(format(x, ...))					# #nocov
 }
 
 str.Rcpp_stack_trace <- function(object, ...) {
-  cat(format(object, ...))
+  cat(format(object, ...))				# #nocov
 }
 
 format.Rcpp_stack_trace <- function(x, ...) {
-  paste0(
+  paste0(						# #nocov start
     if (nzchar(x$file)) paste0(x$file, ":", x$line),
     "\n  ", paste(collapse = "\n   ", seq_along(x$stack), ":", x$stack), "\n")
-}
+}							# #nocov end
