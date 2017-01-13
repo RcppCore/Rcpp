@@ -1,9 +1,9 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 /* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
 //
 // named_object.h: Rcpp R/C++ interface class library -- named SEXP
 //
-// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2017  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -32,36 +32,34 @@ template <typename T> struct needs_protection : false_type{} ;
 template <> struct needs_protection<SEXP> : true_type{} ;
 
 template <typename T> class named_object {
-	public:
-		named_object( const std::string& name_, const T& o_) :
-			name(name_), object(o_){}
-		const std::string& name ;
-		const T& object ;
-} ;
-template <> class named_object<SEXP> {
 public:
-	named_object( const std::string& name_, const SEXP& o_):
-		name(name_), object(o_)
-	{
-		R_PreserveObject(object) ;
-	}
+    named_object( const std::string& name_, const T& o_) :
+        name(name_), object(o_){}
+    const std::string& name;
+    const T& object;
+};
+template <> class named_object<SEXP> {
+public:                                              // #nocov start
+    named_object( const std::string& name_, const SEXP& o_):
+        name(name_), object(o_) {
+        R_PreserveObject(object);
+    }
 
-	named_object( const named_object<SEXP>& other ) :
-		name(other.name), object(other.object)
-	{
-		R_PreserveObject(object) ;
-	}
-	~named_object(){
-		R_ReleaseObject(object) ;
-	}
-	const std::string& name ;
-	SEXP object ;
-} ;
+    named_object( const named_object<SEXP>& other ) :
+        name(other.name), object(other.object) {
+        R_PreserveObject(object);
+    }
+    ~named_object() {
+        R_ReleaseObject(object) 
+    }                          	                     // #nocov end
+    const std::string& name;
+    SEXP object;
+};
 
 
-template <typename T> struct is_named : public false_type{} ;
-template <typename T> struct is_named< named_object<T> >   : public true_type {} ;
-template <> struct is_named< Rcpp::Argument >   : public true_type {} ;
+template <typename T> struct is_named : public false_type{};
+template <typename T> struct is_named< named_object<T> > : public true_type {};
+template <> struct is_named< Rcpp::Argument > : public true_type {};
 
 } // namespace traits
 } // namespace Rcpp
