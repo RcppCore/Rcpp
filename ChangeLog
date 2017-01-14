@@ -1,3 +1,14 @@
+2017-01-14  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.12.9
+        * inst/NEWS.Rd: Release 0.12.9
+        * inst/bib/Rcpp.bib: Release 0.12.9
+        * inst/include/Rcpp/config.h: Release 0.12.9
+
+        * README.md: Updated counts for dependents and tests
+
+        * debian/*: Changes for Debian release of 0.12.9
+
 2017-01-13  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/exceptions.h: Added more #nocov tags
