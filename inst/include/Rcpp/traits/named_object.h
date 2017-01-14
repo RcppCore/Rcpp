@@ -50,7 +50,7 @@ public:                                              // #nocov start
         R_PreserveObject(object);
     }
     ~named_object() {
-        R_ReleaseObject(object) 
+        R_ReleaseObject(object);
     }                          	                     // #nocov end
     const std::string& name;
     SEXP object;
