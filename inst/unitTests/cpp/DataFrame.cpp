@@ -85,7 +85,12 @@ DataFrame createTwoStringsAsFactors(){
 }
 
 // [[Rcpp::export]]
-int DataFrame_nrows( DataFrame df){
-    return df.nrows() ;
+IntegerVector DataFrame_nrow( DataFrame df){
+    return IntegerVector::create(df.nrow(), df.rows()) ;
 }
 
+
+// [[Rcpp::export]]
+IntegerVector DataFrame_ncol( DataFrame df){
+    return IntegerVector::create(df.ncol(), df.cols());
+}

@@ -66,7 +66,7 @@ namespace Rcpp{
         // getAttrib(df, R_RowNamesSymbol) will force an expansion of that
         // compact form thereby allocating a huge vector when we just want
         // the row.names. Hence this workaround.
-        inline int nrows() const {
+        inline int nrow() const {
             SEXP rn = R_NilValue ;
             SEXP att = ATTRIB( Parent::get__() )  ;
             while( att != R_NilValue ){
@@ -81,6 +81,26 @@ namespace Rcpp{
             if (TYPEOF(rn) == INTSXP && LENGTH(rn) == 2 && INTEGER(rn)[0] == NA_INTEGER)
                 return abs(INTEGER(rn)[1]);
             return LENGTH(rn);
+        }
+
+        // Leave in place for a year
+        // before making defunct
+        inline int nrows() const {
+            return DataFrame_Impl::nrow();
+        }
+
+        // Adds size attribute accessors that mimic
+        // those available in R and the Matrix class
+        inline int rows() const {
+            return DataFrame_Impl::nrow();
+        }
+
+        inline int ncol() const {
+            return DataFrame_Impl::length();
+        }
+
+        inline int cols() const {
+            return DataFrame_Impl::length();
         }
 
         static DataFrame_Impl create(){
