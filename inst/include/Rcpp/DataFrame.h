@@ -83,25 +83,12 @@ namespace Rcpp{
             return LENGTH(rn);
         }
 
-        // Leave in place for a year
-        // before making defunct
-        inline int nrows() const {
-            return DataFrame_Impl::nrow();
-        }
+        // Offer multiple variants to accomodate both old interface here and signatures in other classes
+        inline int nrows() const { return DataFrame_Impl::nrow(); }
+        inline int rows()  const { return DataFrame_Impl::nrow(); }
 
-        // Adds size attribute accessors that mimic
-        // those available in R and the Matrix class
-        inline int rows() const {
-            return DataFrame_Impl::nrow();
-        }
-
-        inline int ncol() const {
-            return DataFrame_Impl::length();
-        }
-
-        inline int cols() const {
-            return DataFrame_Impl::length();
-        }
+        inline int ncol()  const { return DataFrame_Impl::length(); }
+        inline int cols()  const { return DataFrame_Impl::length(); }
 
         static DataFrame_Impl create(){
             return DataFrame_Impl() ;
