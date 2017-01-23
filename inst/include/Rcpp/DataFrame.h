@@ -87,8 +87,8 @@ namespace Rcpp{
         inline int nrows() const { return DataFrame_Impl::nrow(); }
         inline int rows()  const { return DataFrame_Impl::nrow(); }
 
-        inline int ncol()  const { return DataFrame_Impl::length(); }
-        inline int cols()  const { return DataFrame_Impl::length(); }
+        inline R_xlen_t ncol()  const { return DataFrame_Impl::length(); }
+        inline R_xlen_t cols()  const { return DataFrame_Impl::length(); }
 
         static DataFrame_Impl create(){
             return DataFrame_Impl() ;

@@ -1,3 +1,11 @@
+2017-01-23  James J Balamuta  <balamut2@illinois.edu>
+
+        * inst/include/Rcpp/DataFrame.h: Corrected return type for column size.
+
+2017-01-22  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/DataFrame.h: Simplified and removed deprecation language.
+
 2017-01-21  James J Balamuta  <balamut2@illinois.edu>
 
         * inst/include/Rcpp/DataFrame.h: Added alias for column and row size
