@@ -66,7 +66,7 @@ namespace Rcpp{
         // getAttrib(df, R_RowNamesSymbol) will force an expansion of that
         // compact form thereby allocating a huge vector when we just want
         // the row.names. Hence this workaround.
-        inline int nrows() const {
+        inline int nrow() const {
             SEXP rn = R_NilValue ;
             SEXP att = ATTRIB( Parent::get__() )  ;
             while( att != R_NilValue ){
@@ -82,6 +82,13 @@ namespace Rcpp{
                 return abs(INTEGER(rn)[1]);
             return LENGTH(rn);
         }
+
+        // Offer multiple variants to accomodate both old interface here and signatures in other classes
+        inline int nrows() const { return DataFrame_Impl::nrow(); }
+        inline int rows()  const { return DataFrame_Impl::nrow(); }
+
+        inline R_xlen_t ncol()  const { return DataFrame_Impl::length(); }
+        inline R_xlen_t cols()  const { return DataFrame_Impl::length(); }
 
         static DataFrame_Impl create(){
             return DataFrame_Impl() ;

@@ -76,9 +76,14 @@ if (.runThisTest) {
         checkEquals( createTwoStringsAsFactors(), DF, msg = "DataFrame create2 stringsAsFactors = false")
     }
 
-    test.DataFrame.nrows <- function(){
+    test.DataFrame.nrow <- function(){
         df <- data.frame( x = 1:10, y = 1:10 )
-        checkEquals( DataFrame_nrows( df ), nrow(df) )
+        checkEquals( DataFrame_nrow( df ), rep(nrow(df), 2) )
+    }
+
+    test.DataFrame.ncol <- function(){
+        df <- data.frame( x = 1:10, y = 1:10 )
+        checkEquals( DataFrame_ncol( df ), rep(ncol(df), 2) )
     }
 
 
