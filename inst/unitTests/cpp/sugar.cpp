@@ -749,7 +749,7 @@ IntegerVector runit_cummax_iv(IntegerVector xx){
 }
 
 
-// 18 January 2016: median 
+// 18 January 2016: median
 
 // [[Rcpp::export]]
 double median_dbl(Rcpp::NumericVector x, bool na_rm = false) {
@@ -821,7 +821,7 @@ Rcpp::NumericMatrix n_cbind_ss(double s1, double s2) {
 }
 
 // [[Rcpp::export]]
-Rcpp::NumericMatrix 
+Rcpp::NumericMatrix
 n_cbind9(Rcpp::NumericMatrix m1, Rcpp::NumericVector v1, double s1,
          Rcpp::NumericMatrix m2, Rcpp::NumericVector v2, double s2,
          Rcpp::NumericMatrix m3, Rcpp::NumericVector v3, double s3) {
@@ -832,61 +832,61 @@ n_cbind9(Rcpp::NumericMatrix m1, Rcpp::NumericVector v1, double s1,
 // B. Integer*
 
 // [[Rcpp::export]]
-Rcpp::IntegerMatrix 
+Rcpp::IntegerMatrix
 i_cbind_mm(Rcpp::IntegerMatrix m1, Rcpp::IntegerMatrix m2) {
     return Rcpp::cbind(m1, m2);
 }
 
 // [[Rcpp::export]]
-Rcpp::IntegerMatrix 
+Rcpp::IntegerMatrix
 i_cbind_mv(Rcpp::IntegerMatrix m1, Rcpp::IntegerVector v1) {
     return Rcpp::cbind(m1, v1);
 }
 
 // [[Rcpp::export]]
-Rcpp::IntegerMatrix 
+Rcpp::IntegerMatrix
 i_cbind_ms(Rcpp::IntegerMatrix m1, int s1) {
     return Rcpp::cbind(m1, s1);
 }
 
 // [[Rcpp::export]]
-Rcpp::IntegerMatrix 
+Rcpp::IntegerMatrix
 i_cbind_vv(Rcpp::IntegerVector v1, Rcpp::IntegerVector v2) {
     return Rcpp::cbind(v1, v2);
 }
 
 // [[Rcpp::export]]
-Rcpp::IntegerMatrix 
+Rcpp::IntegerMatrix
 i_cbind_vm(Rcpp::IntegerVector v1, Rcpp::IntegerMatrix m1) {
     return Rcpp::cbind(v1, m1);
 }
 
 // [[Rcpp::export]]
-Rcpp::IntegerMatrix 
+Rcpp::IntegerMatrix
 i_cbind_vs(Rcpp::IntegerVector v1, int s1) {
     return Rcpp::cbind(v1, s1);
 }
 
 // [[Rcpp::export]]
-Rcpp::IntegerMatrix 
+Rcpp::IntegerMatrix
 i_cbind_sm(int s1, Rcpp::IntegerMatrix m1) {
     return Rcpp::cbind(s1, m1);
 }
 
 // [[Rcpp::export]]
-Rcpp::IntegerMatrix 
+Rcpp::IntegerMatrix
 i_cbind_sv(int s1, Rcpp::IntegerVector v1) {
     return Rcpp::cbind(s1, v1);
 }
 
 // [[Rcpp::export]]
-Rcpp::IntegerMatrix 
+Rcpp::IntegerMatrix
 i_cbind_ss(int s1, int s2) {
     return Rcpp::cbind(s1, s2);
 }
 
 // [[Rcpp::export]]
-Rcpp::IntegerMatrix 
+Rcpp::IntegerMatrix
 i_cbind9(Rcpp::IntegerMatrix m1, Rcpp::IntegerVector v1, int s1,
          Rcpp::IntegerMatrix m2, Rcpp::IntegerVector v2, int s2,
          Rcpp::IntegerMatrix m3, Rcpp::IntegerVector v3, int s3) {
@@ -897,61 +897,61 @@ i_cbind9(Rcpp::IntegerMatrix m1, Rcpp::IntegerVector v1, int s1,
 // C. Complex*
 
 // [[Rcpp::export]]
-Rcpp::ComplexMatrix 
+Rcpp::ComplexMatrix
 cx_cbind_mm(Rcpp::ComplexMatrix m1, Rcpp::ComplexMatrix m2) {
     return Rcpp::cbind(m1, m2);
 }
 
 // [[Rcpp::export]]
-Rcpp::ComplexMatrix 
+Rcpp::ComplexMatrix
 cx_cbind_mv(Rcpp::ComplexMatrix m1, Rcpp::ComplexVector v1) {
     return Rcpp::cbind(m1, v1);
 }
 
 // [[Rcpp::export]]
-Rcpp::ComplexMatrix 
+Rcpp::ComplexMatrix
 cx_cbind_ms(Rcpp::ComplexMatrix m1, Rcomplex s1) {
     return Rcpp::cbind(m1, s1);
 }
 
 // [[Rcpp::export]]
-Rcpp::ComplexMatrix 
+Rcpp::ComplexMatrix
 cx_cbind_vv(Rcpp::ComplexVector v1, Rcpp::ComplexVector v2) {
     return Rcpp::cbind(v1, v2);
 }
 
 // [[Rcpp::export]]
-Rcpp::ComplexMatrix 
+Rcpp::ComplexMatrix
 cx_cbind_vm(Rcpp::ComplexVector v1, Rcpp::ComplexMatrix m1) {
     return Rcpp::cbind(v1, m1);
 }
 
 // [[Rcpp::export]]
-Rcpp::ComplexMatrix 
+Rcpp::ComplexMatrix
 cx_cbind_vs(Rcpp::ComplexVector v1, Rcomplex s1) {
     return Rcpp::cbind(v1, s1);
 }
 
 // [[Rcpp::export]]
-Rcpp::ComplexMatrix 
+Rcpp::ComplexMatrix
 cx_cbind_sm(Rcomplex s1, Rcpp::ComplexMatrix m1) {
     return Rcpp::cbind(s1, m1);
 }
 
 // [[Rcpp::export]]
-Rcpp::ComplexMatrix 
+Rcpp::ComplexMatrix
 cx_cbind_sv(Rcomplex s1, Rcpp::ComplexVector v1) {
     return Rcpp::cbind(s1, v1);
 }
 
 // [[Rcpp::export]]
-Rcpp::ComplexMatrix 
+Rcpp::ComplexMatrix
 cx_cbind_ss(Rcomplex s1, Rcomplex s2) {
     return Rcpp::cbind(s1, s2);
 }
 
 // [[Rcpp::export]]
-Rcpp::ComplexMatrix 
+Rcpp::ComplexMatrix
 cx_cbind9(Rcpp::ComplexMatrix m1, Rcpp::ComplexVector v1, Rcomplex s1,
          Rcpp::ComplexMatrix m2, Rcpp::ComplexVector v2, Rcomplex s2,
          Rcpp::ComplexMatrix m3, Rcpp::ComplexVector v3, Rcomplex s3) {
@@ -962,61 +962,61 @@ cx_cbind9(Rcpp::ComplexMatrix m1, Rcpp::ComplexVector v1, Rcomplex s1,
 // D. Logical*
 
 // [[Rcpp::export]]
-Rcpp::LogicalMatrix 
+Rcpp::LogicalMatrix
 l_cbind_mm(Rcpp::LogicalMatrix m1, Rcpp::LogicalMatrix m2) {
     return Rcpp::cbind(m1, m2);
 }
 
 // [[Rcpp::export]]
-Rcpp::LogicalMatrix 
+Rcpp::LogicalMatrix
 l_cbind_mv(Rcpp::LogicalMatrix m1, Rcpp::LogicalVector v1) {
     return Rcpp::cbind(m1, v1);
 }
 
 // [[Rcpp::export]]
-Rcpp::LogicalMatrix 
+Rcpp::LogicalMatrix
 l_cbind_ms(Rcpp::LogicalMatrix m1, bool s1) {
     return Rcpp::cbind(m1, s1);
 }
 
 // [[Rcpp::export]]
-Rcpp::LogicalMatrix 
+Rcpp::LogicalMatrix
 l_cbind_vv(Rcpp::LogicalVector v1, Rcpp::LogicalVector v2) {
     return Rcpp::cbind(v1, v2);
 }
 
 // [[Rcpp::export]]
-Rcpp::LogicalMatrix 
+Rcpp::LogicalMatrix
 l_cbind_vm(Rcpp::LogicalVector v1, Rcpp::LogicalMatrix m1) {
     return Rcpp::cbind(v1, m1);
 }
 
 // [[Rcpp::export]]
-Rcpp::LogicalMatrix 
+Rcpp::LogicalMatrix
 l_cbind_vs(Rcpp::LogicalVector v1, bool s1) {
     return Rcpp::cbind(v1, s1);
 }
 
 // [[Rcpp::export]]
-Rcpp::LogicalMatrix 
+Rcpp::LogicalMatrix
 l_cbind_sm(bool s1, Rcpp::LogicalMatrix m1) {
     return Rcpp::cbind(s1, m1);
 }
 
 // [[Rcpp::export]]
-Rcpp::LogicalMatrix 
+Rcpp::LogicalMatrix
 l_cbind_sv(bool s1, Rcpp::LogicalVector v1) {
     return Rcpp::cbind(s1, v1);
 }
 
 // [[Rcpp::export]]
-Rcpp::LogicalMatrix 
+Rcpp::LogicalMatrix
 l_cbind_ss(bool s1, bool s2) {
     return Rcpp::cbind(s1, s2);
 }
 
 // [[Rcpp::export]]
-Rcpp::LogicalMatrix 
+Rcpp::LogicalMatrix
 l_cbind9(Rcpp::LogicalMatrix m1, Rcpp::LogicalVector v1, bool s1,
          Rcpp::LogicalMatrix m2, Rcpp::LogicalVector v2, bool s2,
          Rcpp::LogicalMatrix m3, Rcpp::LogicalVector v3, bool s3) {
@@ -1027,31 +1027,31 @@ l_cbind9(Rcpp::LogicalMatrix m1, Rcpp::LogicalVector v1, bool s1,
 // E. Character*
 
 // [[Rcpp::export]]
-Rcpp::CharacterMatrix 
+Rcpp::CharacterMatrix
 c_cbind_mm(Rcpp::CharacterMatrix m1, Rcpp::CharacterMatrix m2) {
     return Rcpp::cbind(m1, m2);
 }
 
 // [[Rcpp::export]]
-Rcpp::CharacterMatrix 
+Rcpp::CharacterMatrix
 c_cbind_mv(Rcpp::CharacterMatrix m1, Rcpp::CharacterVector v1) {
     return Rcpp::cbind(m1, v1);
 }
 
 // [[Rcpp::export]]
-Rcpp::CharacterMatrix 
+Rcpp::CharacterMatrix
 c_cbind_vv(Rcpp::CharacterVector v1, Rcpp::CharacterVector v2) {
     return Rcpp::cbind(v1, v2);
 }
 
 // [[Rcpp::export]]
-Rcpp::CharacterMatrix 
+Rcpp::CharacterMatrix
 c_cbind_vm(Rcpp::CharacterVector v1, Rcpp::CharacterMatrix m1) {
     return Rcpp::cbind(v1, m1);
 }
 
 // [[Rcpp::export]]
-Rcpp::CharacterMatrix 
+Rcpp::CharacterMatrix
 c_cbind6(Rcpp::CharacterMatrix m1, Rcpp::CharacterVector v1,
          Rcpp::CharacterMatrix m2, Rcpp::CharacterVector v2,
          Rcpp::CharacterMatrix m3, Rcpp::CharacterVector v3) {
@@ -1154,37 +1154,50 @@ IntegerVector sample_dot_int(int n, int sz, bool rep = false, sugar::probs_t p =
 }
 
 // [[Rcpp::export]]
-IntegerVector sample_int(IntegerVector x, int sz, bool rep = false, sugar::probs_t p = R_NilValue) 
+IntegerVector sample_int(IntegerVector x, int sz, bool rep = false, sugar::probs_t p = R_NilValue)
 {
     return sample(x, sz, rep, p);
 }
 
 // [[Rcpp::export]]
-NumericVector sample_dbl(NumericVector x, int sz, bool rep = false, sugar::probs_t p = R_NilValue) 
+NumericVector sample_dbl(NumericVector x, int sz, bool rep = false, sugar::probs_t p = R_NilValue)
 {
     return sample(x, sz, rep, p);
 }
 
 // [[Rcpp::export]]
-CharacterVector sample_chr(CharacterVector x, int sz, bool rep = false, sugar::probs_t p = R_NilValue) 
+CharacterVector sample_chr(CharacterVector x, int sz, bool rep = false, sugar::probs_t p = R_NilValue)
 {
     return sample(x, sz, rep, p);
 }
 
 // [[Rcpp::export]]
-ComplexVector sample_cx(ComplexVector x, int sz, bool rep = false, sugar::probs_t p = R_NilValue) 
+ComplexVector sample_cx(ComplexVector x, int sz, bool rep = false, sugar::probs_t p = R_NilValue)
 {
     return sample(x, sz, rep, p);
 }
 
 // [[Rcpp::export]]
-LogicalVector sample_lgl(LogicalVector x, int sz, bool rep = false, sugar::probs_t p = R_NilValue) 
+LogicalVector sample_lgl(LogicalVector x, int sz, bool rep = false, sugar::probs_t p = R_NilValue)
 {
     return sample(x, sz, rep, p);
 }
 
 // [[Rcpp::export]]
-List sample_list(List x, int sz, bool rep = false, sugar::probs_t p = R_NilValue) 
+List sample_list(List x, int sz, bool rep = false, sugar::probs_t p = R_NilValue)
 {
     return sample(x, sz, rep, p);
+}
+
+
+// 31 January 2017: upper_tri, lower_tri
+
+// [[Rcpp::export]]
+LogicalMatrix UpperTri(NumericMatrix x, bool diag = false) {
+    return upper_tri(x, diag);
+}
+
+// [[Rcpp::export]]
+LogicalMatrix LowerTri(NumericMatrix x, bool diag = false) {
+    return lower_tri(x, diag);
 }

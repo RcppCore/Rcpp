@@ -10,6 +10,11 @@
       \item Added new size attribute aliases for number of rows and columns in
       DataFrame (James Balamuta in \ghpr{638} addressing \ghit{630}).
     }
+    \item Changes in Rcpp Sugar:
+    \itemize{
+      \item Fixed sugar functions \code{upper_tri()} and \code{lower_tri()}
+      (Nathan Russell in \ghpr{642} addressing \ghit{641}).
+    }
   }
 }
 
