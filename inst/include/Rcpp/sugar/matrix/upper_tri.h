@@ -1,8 +1,9 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
-// upper_tri.h: Rcpp R/C++ interface class library -- lower.tri
+// upper_tri.h: Rcpp R/C++ interface class library -- upper.tri
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2017 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2017        Dirk Eddelbuettel, Romain Francois, and Nathan Russell
 //
 // This file is part of Rcpp.
 //
@@ -22,55 +23,47 @@
 #ifndef Rcpp__sugar__upper_tri_h
 #define Rcpp__sugar__upper_tri_h
 
-namespace Rcpp{
-namespace sugar{
+namespace Rcpp {
+namespace sugar {
 
-template <int RTYPE, bool LHS_NA, typename LHS_T>
-class UpperTri : public VectorBase<
-	LGLSXP ,
-	false ,
-	UpperTri<RTYPE,LHS_NA,LHS_T>
-> {
+template <int RTYPE, bool NA, typename T>
+class UpperTri : public MatrixBase<LGLSXP, false, UpperTri<RTYPE, NA, T> > {
 public:
-	typedef Rcpp::MatrixBase<RTYPE,LHS_NA,LHS_T> LHS_TYPE ;
+    typedef Rcpp::MatrixBase<RTYPE, NA, T> MatBase;
 
-	UpperTri( const LHS_TYPE& lhs, bool diag) :
-		nr( lhs.nrow() ), nc( lhs.ncol() ),
-		getter( diag ? (&UpperTri::get_diag_true) : (&UpperTri::get_diag_false) ){}
+    UpperTri(const T& lhs, bool diag)
+        : nr(lhs.nrow()),
+          nc(lhs.ncol()),
+          getter(diag ? (&UpperTri::get_diag_true) : (&UpperTri::get_diag_false))
+    {}
 
-	inline int operator()( int i, int j ) const {
-		return get(i,j) ;
-	}
+    inline int operator()(int i, int j) const { return get(i, j); }
 
-	inline R_xlen_t size() const { return static_cast<R_xlen_t>(nr) * nc ; }
-	inline int nrow() const { return nr; }
-	inline int ncol() const { return nc; }
+    inline R_xlen_t size() const { return static_cast<R_xlen_t>(nr) * nc; }
+    inline int nrow() const { return nr; }
+    inline int ncol() const { return nc; }
 
 private:
-	int nr, nc ;
-	typedef bool (UpperTri::*Method)(int,int) ;
+    typedef bool (UpperTri::*Method)(int, int) const;
 
-	Method getter ;
-	inline bool get_diag_true( int i, int j ){
-		return i >= j ;
-	}
-	inline bool get_diag_false( int i, int j ){
-		return i > j ;
-	}
-	inline bool get( int i, int j){
-		return (this->*getter)(i, j ) ;
-	}
+    int nr, nc;
+    Method getter;
 
-} ;
+    inline bool get_diag_true(int i, int j) const { return i <= j; }
+
+    inline bool get_diag_false(int i, int j) const { return i < j; }
+
+    inline bool get(int i, int j) const { return (this->*getter)(i, j); }
+};
 
 } // sugar
 
-template <int RTYPE, bool LHS_NA, typename LHS_T>
-inline sugar::UpperTri<RTYPE,LHS_NA,LHS_T>
-upper_tri( const Rcpp::MatrixBase<RTYPE,LHS_NA,LHS_T>& lhs, bool diag = false){
-	return sugar::UpperTri<RTYPE,LHS_NA,LHS_T>( lhs, diag ) ;
+template <int RTYPE, bool NA, typename T>
+inline sugar::UpperTri<RTYPE, NA, T>
+upper_tri(const Rcpp::MatrixBase<RTYPE, NA, T>& lhs, bool diag = false) {
+    return sugar::UpperTri<RTYPE, NA, T>(lhs, diag);
 }
 
 } // Rcpp
 
-#endif
+#endif // Rcpp__sugar__upper_tri_h

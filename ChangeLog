@@ -1,3 +1,12 @@
+2017-01-31  Nathan Russell  <russell.nr2012@gmail.com>
+
+        * inst/include/Rcpp/sugar/matrix/upper_tri.h: Inherit from MatrixBase
+        and use correct comparators in get() to fix segfault
+        * inst/include/Rcpp/sugar/matrix/lower_tri.h: Idem
+        * inst/unitTests/cpp/sugar.cpp: Added unit tests for upper_tri and
+        lower_tri
+        * inst/unitTests/runit.sugar.R: Idem
+
 2017-01-23  James J Balamuta  <balamut2@illinois.edu>
 
         * inst/include/Rcpp/DataFrame.h: Corrected return type for column size.

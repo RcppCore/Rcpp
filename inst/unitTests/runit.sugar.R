@@ -1664,260 +1664,260 @@ if (.runThisTest) {
         )
 
     }
-    
-    
+
+
     ## 10 December 2016
     ## sample.int tests
     test.sugar.sample_dot_int <- function() {
-        
+
         set.seed(123); s1 <- sample_dot_int(10, 5)
         set.seed(123); s2 <- sample(10, 5)
-        
+
         checkEquals(
             s1, s2,
             "sample.int / without replacement / without probability"
         )
-        
+
         set.seed(123); s1 <- sample_dot_int(10, 5, TRUE)
         set.seed(123); s2 <- sample(10, 5, TRUE)
-        
+
         checkEquals(
             s1, s2,
             "sample.int / with replacement / without probability"
         )
-        
+
 
         px <- rep(c(3, 2, 1), length.out = 10)
         set.seed(123); s1 <- sample_dot_int(10, 5, FALSE, px)
         set.seed(123); s2 <- sample(10, 5, FALSE, px)
-        
+
         checkEquals(
             s1, s2,
             "sample.int / without replacement / with probability"
         )
-        
+
         set.seed(123); s1 <- sample_dot_int(10, 5, TRUE, px)
         set.seed(123); s2 <- sample(10, 5, TRUE, px)
-        
+
         checkEquals(
             s1, s2,
             "sample.int / with replacement / with probability"
         )
-        
+
     }
-    
-    
+
+
     ## sample_int tests
     test.sugar.sample_int <- function() {
-        
+
         x <- as.integer(rpois(10, 10))
         px <- rep(c(3, 2, 1), length.out = 10)
-        
+
         set.seed(123); s1 <- sample_int(x, 6)
         set.seed(123); s2 <- sample(x, 6)
-        
+
         checkEquals(
             s1, s2,
             "sample_int / without replacement / without probability"
         )
-        
+
         set.seed(123); s1 <- sample_int(x, 6, TRUE)
         set.seed(123); s2 <- sample(x, 6, TRUE)
-        
+
         checkEquals(
             s1, s2,
             "sample_int / with replacement / without probability"
         )
-        
+
         set.seed(123); s1 <- sample_int(x, 6, FALSE, px)
         set.seed(123); s2 <- sample(x, 6, FALSE, px)
-        
+
         checkEquals(
             s1, s2,
             "sample_int / without replacement / with probability"
         )
-        
+
         set.seed(123); s1 <- sample_int(x, 6, TRUE, px)
         set.seed(123); s2 <- sample(x, 6, TRUE, px)
-        
+
         checkEquals(
             s1, s2,
             "sample_int / with replacement / with probability"
         )
-        
+
     }
-    
+
 
     ## sample_dbl tests
     test.sugar.sample_dbl <- function() {
-        
+
         x <- rnorm(10)
         px <- rep(c(3, 2, 1), length.out = 10)
-        
+
         set.seed(123); s1 <- sample_dbl(x, 6)
         set.seed(123); s2 <- sample(x, 6)
-        
+
         checkEquals(
             s1, s2,
             "sample_dbl / without replacement / without probability"
         )
-        
+
         set.seed(123); s1 <- sample_dbl(x, 6, TRUE)
         set.seed(123); s2 <- sample(x, 6, TRUE)
-        
+
         checkEquals(
             s1, s2,
             "sample_dbl / with replacement / without probability"
         )
-        
+
         set.seed(123); s1 <- sample_dbl(x, 6, FALSE, px)
         set.seed(123); s2 <- sample(x, 6, FALSE, px)
-        
+
         checkEquals(
             s1, s2,
             "sample_dbl / without replacement / with probability"
         )
-        
+
         set.seed(123); s1 <- sample_dbl(x, 6, TRUE, px)
         set.seed(123); s2 <- sample(x, 6, TRUE, px)
-        
+
         checkEquals(
             s1, s2,
             "sample_dbl / with replacement / with probability"
         )
-        
+
     }
-    
+
 
     ## sample_chr tests
     test.sugar.sample_chr <- function() {
-        
+
         x <- sample(letters, 10)
         px <- rep(c(3, 2, 1), length.out = 10)
-        
+
         set.seed(123); s1 <- sample_chr(x, 6)
         set.seed(123); s2 <- sample(x, 6)
-        
+
         checkEquals(
             s1, s2,
             "sample_chr / without replacement / without probability"
         )
-        
+
         set.seed(123); s1 <- sample_chr(x, 6, TRUE)
         set.seed(123); s2 <- sample(x, 6, TRUE)
-        
+
         checkEquals(
             s1, s2,
             "sample_chr / with replacement / without probability"
         )
-        
+
         set.seed(123); s1 <- sample_chr(x, 6, FALSE, px)
         set.seed(123); s2 <- sample(x, 6, FALSE, px)
-        
+
         checkEquals(
             s1, s2,
             "sample_chr / without replacement / with probability"
         )
-        
+
         set.seed(123); s1 <- sample_chr(x, 6, TRUE, px)
         set.seed(123); s2 <- sample(x, 6, TRUE, px)
-        
+
         checkEquals(
             s1, s2,
             "sample_chr / with replacement / with probability"
         )
-        
+
     }
-    
-    
+
+
     ## sample_cx tests
     test.sugar.sample_cx <- function() {
-        
+
         x <- rnorm(10) + 2i
         px <- rep(c(3, 2, 1), length.out = 10)
-        
+
         set.seed(123); s1 <- sample_cx(x, 6)
         set.seed(123); s2 <- sample(x, 6)
-        
+
         checkEquals(
             s1, s2,
             "sample_cx / without replacement / without probability"
         )
-        
+
         set.seed(123); s1 <- sample_cx(x, 6, TRUE)
         set.seed(123); s2 <- sample(x, 6, TRUE)
-        
+
         checkEquals(
             s1, s2,
             "sample_cx / with replacement / without probability"
         )
-        
+
         set.seed(123); s1 <- sample_cx(x, 6, FALSE, px)
         set.seed(123); s2 <- sample(x, 6, FALSE, px)
-        
+
         checkEquals(
             s1, s2,
             "sample_cx / without replacement / with probability"
         )
-        
+
         set.seed(123); s1 <- sample_cx(x, 6, TRUE, px)
         set.seed(123); s2 <- sample(x, 6, TRUE, px)
-        
+
         checkEquals(
             s1, s2,
             "sample_cx / with replacement / with probability"
         )
-        
+
     }
-    
-    
+
+
     ## sample_lgl tests
     test.sugar.sample_lgl <- function() {
-        
+
         x <- rbinom(10, 1, 0.5) > 0
         px <- rep(c(3, 2, 1), length.out = 10)
-        
+
         set.seed(123); s1 <- sample_lgl(x, 6)
         set.seed(123); s2 <- sample(x, 6)
-        
+
         checkEquals(
             s1, s2,
             "sample_lgl / without replacement / without probability"
         )
-        
+
         set.seed(123); s1 <- sample_lgl(x, 6, TRUE)
         set.seed(123); s2 <- sample(x, 6, TRUE)
-        
+
         checkEquals(
             s1, s2,
             "sample_lgl / with replacement / without probability"
         )
-        
+
         set.seed(123); s1 <- sample_lgl(x, 6, FALSE, px)
         set.seed(123); s2 <- sample(x, 6, FALSE, px)
-        
+
         checkEquals(
             s1, s2,
             "sample_lgl / without replacement / with probability"
         )
-        
+
         set.seed(123); s1 <- sample_lgl(x, 6, TRUE, px)
         set.seed(123); s2 <- sample(x, 6, TRUE, px)
-        
+
         checkEquals(
             s1, s2,
             "sample_lgl / with replacement / with probability"
         )
-        
+
     }
-    
-    
+
+
     ## sample_list tests
     test.sugar.sample_list <- function() {
-        
+
         x <- list(
             letters,
-            1:5, 
+            1:5,
             rnorm(10),
             state.abb,
             state.area,
@@ -1928,39 +1928,124 @@ if (.runThisTest) {
             BJsales
         )
         px <- rep(c(3, 2, 1), length.out = 10)
-        
+
         set.seed(123); s1 <- sample_list(x, 6)
         set.seed(123); s2 <- sample(x, 6)
-        
+
         checkEquals(
             s1, s2,
             "sample_list / without replacement / without probability"
         )
-        
+
         set.seed(123); s1 <- sample_list(x, 6, TRUE)
         set.seed(123); s2 <- sample(x, 6, TRUE)
-        
+
         checkEquals(
             s1, s2,
             "sample_list / with replacement / without probability"
         )
-        
+
         set.seed(123); s1 <- sample_list(x, 6, FALSE, px)
         set.seed(123); s2 <- sample(x, 6, FALSE, px)
-        
+
         checkEquals(
             s1, s2,
             "sample_list / without replacement / with probability"
         )
-        
+
         set.seed(123); s1 <- sample_list(x, 6, TRUE, px)
         set.seed(123); s2 <- sample(x, 6, TRUE, px)
-        
+
         checkEquals(
             s1, s2,
             "sample_list / with replacement / with probability"
         )
-        
+
+    }
+
+
+    ## 31 January 2017
+    ## upper_tri tests
+    test.sugar.upper_tri <- function() {
+
+        x <- matrix(rnorm(9), 3)
+
+        checkEquals(
+            UpperTri(x), upper.tri(x),
+            "upper_tri / symmetric / diag = FALSE"
+        )
+
+        checkEquals(
+            UpperTri(x, TRUE), upper.tri(x, TRUE),
+            "upper_tri / symmetric / diag = TRUE"
+        )
+
+        x <- matrix(rnorm(12), 3)
+
+        checkEquals(
+            UpperTri(x), upper.tri(x),
+            "upper_tri / [3 x 4] / diag = FALSE"
+        )
+
+        checkEquals(
+            UpperTri(x, TRUE), upper.tri(x, TRUE),
+            "upper_tri / [3 x 4] / diag = TRUE"
+        )
+
+        x <- matrix(rnorm(12), 4)
+
+        checkEquals(
+            UpperTri(x), upper.tri(x),
+            "upper_tri / [4 x 3] / diag = FALSE"
+        )
+
+        checkEquals(
+            UpperTri(x, TRUE), upper.tri(x, TRUE),
+            "upper_tri / [4 x 3] / diag = TRUE"
+        )
+
+    }
+
+
+    ## lower_tri tests
+    test.sugar.lower_tri <- function() {
+
+        x <- matrix(rnorm(9), 3)
+
+        checkEquals(
+            LowerTri(x), lower.tri(x),
+            "lower_tri / symmetric / diag = FALSE"
+        )
+
+        checkEquals(
+            LowerTri(x, TRUE), lower.tri(x, TRUE),
+            "lower_tri / symmetric / diag = TRUE"
+        )
+
+        x <- matrix(rnorm(12), 3)
+
+        checkEquals(
+            LowerTri(x), lower.tri(x),
+            "lower_tri / [3 x 4] / diag = FALSE"
+        )
+
+        checkEquals(
+            LowerTri(x, TRUE), lower.tri(x, TRUE),
+            "lower_tri / [3 x 4] / diag = TRUE"
+        )
+
+        x <- matrix(rnorm(12), 4)
+
+        checkEquals(
+            LowerTri(x), lower.tri(x),
+            "lower_tri / [4 x 3] / diag = FALSE"
+        )
+
+        checkEquals(
+            LowerTri(x, TRUE), lower.tri(x, TRUE),
+            "lower_tri / [4 x 3] / diag = TRUE"
+        )
+
     }
 
 }
