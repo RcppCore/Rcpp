@@ -3,7 +3,7 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp version 0.13.0 (2017-03-xx)}{
+\section{Changes in Rcpp version 0.12.10 (2017-03-xx)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
@@ -14,6 +14,8 @@
     \itemize{
       \item Fixed sugar functions \code{upper_tri()} and \code{lower_tri()}
       (Nathan Russell in \ghpr{642} addressing \ghit{641}).
+      \item The \code{algorithm.h} file now accomodates the Intel compiler
+      (Dirk in \ghpr{643} addressing isue \ghit{640})
     }
   }
 }
