@@ -3,7 +3,7 @@
 // lower_tri.h: Rcpp R/C++ interface class library -- lower.tri
 //
 // Copyright (C) 2010 - 2017 Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2017        Dirk Eddelbuettel, Romain Francois, and Nathan Russell
+// Copyright (C) 2017    Dirk Eddelbuettel, Romain Francois, and Nathan Russell
 //
 // This file is part of Rcpp.
 //
@@ -29,31 +29,31 @@ namespace sugar {
 template <int RTYPE, bool NA, typename T>
 class LowerTri : public MatrixBase<LGLSXP, false, LowerTri<RTYPE, NA, T> > {
 public:
-	typedef Rcpp::MatrixBase<RTYPE, NA, T> MatBase;
+    typedef Rcpp::MatrixBase<RTYPE, NA, T> MatBase;
 
-	LowerTri(const T& lhs, bool diag)
-	    : nr(lhs.nrow()),
+    LowerTri(const T& lhs, bool diag)
+        : nr(lhs.nrow()),
           nc(lhs.ncol()),
-		  getter(diag ? (&LowerTri::get_diag_true) : (&LowerTri::get_diag_false))
+          getter(diag ? (&LowerTri::get_diag_true) : (&LowerTri::get_diag_false))
     {}
 
-	inline int operator()(int i, int j) const { return get(i, j); }
+    inline int operator()(int i, int j) const { return get(i, j); }
 
-	inline R_xlen_t size() const { return static_cast<R_xlen_t>(nr) * nc; }
-	inline int nrow() const { return nr; }
-	inline int ncol() const { return nc; }
+    inline R_xlen_t size() const { return static_cast<R_xlen_t>(nr) * nc; }
+    inline int nrow() const { return nr; }
+    inline int ncol() const { return nc; }
 
 private:
-	typedef bool (LowerTri::*Method)(int, int) const;
+    typedef bool (LowerTri::*Method)(int, int) const;
 
-	int nr, nc;
-	Method getter;
+    int nr, nc;
+    Method getter;
 
-	inline bool get_diag_true(int i, int j) const { return i >= j; }
+    inline bool get_diag_true(int i, int j) const { return i >= j; }
 
-	inline bool get_diag_false(int i, int j) const { return i > j; }
+    inline bool get_diag_false(int i, int j) const { return i > j; }
 
-	inline bool get(int i, int j) const { return (this->*getter)(i, j); }
+    inline bool get(int i, int j) const { return (this->*getter)(i, j); }
 };
 
 } // sugar
@@ -61,7 +61,7 @@ private:
 template <int RTYPE, bool NA, typename T>
 inline sugar::LowerTri<RTYPE, NA, T>
 lower_tri(const Rcpp::MatrixBase<RTYPE, NA, T>& lhs, bool diag = false) {
-	return sugar::LowerTri<RTYPE, NA, T>(lhs, diag);
+    return sugar::LowerTri<RTYPE, NA, T>(lhs, diag);
 }
 
 } // Rcpp

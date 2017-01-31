@@ -29,31 +29,31 @@ namespace sugar {
 template <int RTYPE, bool NA, typename T>
 class UpperTri : public MatrixBase<LGLSXP, false, UpperTri<RTYPE, NA, T> > {
 public:
-	typedef Rcpp::MatrixBase<RTYPE, NA, T> MatBase;
+    typedef Rcpp::MatrixBase<RTYPE, NA, T> MatBase;
 
-	UpperTri(const T& lhs, bool diag)
-	    : nr(lhs.nrow()),
-		  nc(lhs.ncol()),
-		  getter(diag ? (&UpperTri::get_diag_true) : (&UpperTri::get_diag_false))
+    UpperTri(const T& lhs, bool diag)
+        : nr(lhs.nrow()),
+          nc(lhs.ncol()),
+          getter(diag ? (&UpperTri::get_diag_true) : (&UpperTri::get_diag_false))
     {}
 
-	inline int operator()(int i, int j) const { return get(i, j); }
+    inline int operator()(int i, int j) const { return get(i, j); }
 
-	inline R_xlen_t size() const { return static_cast<R_xlen_t>(nr) * nc; }
-	inline int nrow() const { return nr; }
-	inline int ncol() const { return nc; }
+    inline R_xlen_t size() const { return static_cast<R_xlen_t>(nr) * nc; }
+    inline int nrow() const { return nr; }
+    inline int ncol() const { return nc; }
 
 private:
-	typedef bool (UpperTri::*Method)(int, int) const;
+    typedef bool (UpperTri::*Method)(int, int) const;
 
-	int nr, nc;
-	Method getter;
+    int nr, nc;
+    Method getter;
 
-	inline bool get_diag_true(int i, int j) const { return i <= j; }
+    inline bool get_diag_true(int i, int j) const { return i <= j; }
 
-	inline bool get_diag_false(int i, int j) const { return i < j; }
+    inline bool get_diag_false(int i, int j) const { return i < j; }
 
-	inline bool get(int i, int j) const { return (this->*getter)(i, j); }
+    inline bool get(int i, int j) const { return (this->*getter)(i, j); }
 };
 
 } // sugar
@@ -61,7 +61,7 @@ private:
 template <int RTYPE, bool NA, typename T>
 inline sugar::UpperTri<RTYPE, NA, T>
 upper_tri(const Rcpp::MatrixBase<RTYPE, NA, T>& lhs, bool diag = false) {
-	return sugar::UpperTri<RTYPE, NA, T>(lhs, diag);
+    return sugar::UpperTri<RTYPE, NA, T>(lhs, diag);
 }
 
 } // Rcpp
