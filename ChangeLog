@@ -1,11 +1,6 @@
-2017-02-01  Dirk Eddelbuettel  <edd@debian.org>
-
-        * inst/include/Rcpp/algorithm.h (RCPP_CONSTEXPR): Further refinement for
-        Intel compiler without C++11
-
 2017-01-31  Dirk Eddelbuettel  <edd@debian.org>
 
-        * DESCRIPTION (Date, Version): Roll minor version
+        * DESCRIPTION (Date, Version): Roll minor version 
 
         * inst/include/Rcpp/algorithm.h: Allow algorithm.h to be compiler under
         Intel's compiler, add copyright header and include guard
