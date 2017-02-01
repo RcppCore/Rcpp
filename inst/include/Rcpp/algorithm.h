@@ -24,6 +24,8 @@
 
 #if __cplusplus >= 201103L || __INTEL_CXX11_MODE__ == 1
 #    define RCPP_CONSTEXPR constexpr
+#elif defined(__INTEL_COMPILER) 
+#    define RCPP_CONSTEXPR
 #else
 #    define RCPP_CONSTEXPR const
 #endif
