@@ -1,4 +1,28 @@
-#if __cplusplus >= 201103L
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
+//
+// algorithm.h: Rcpp R/C++ interface class library -- data frames
+//
+// Copyright (C) 2016 - 2017  Daniel C. Dillon
+//
+// This file is part of Rcpp.
+//
+// Rcpp is free software: you can redistribute it and/or modify it
+// under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 2 of the License, or
+// (at your option) any later version.
+//
+// Rcpp is distributed in the hope that it will be useful, but
+// WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
+
+#ifndef Rcpp__Algorithm_h
+#define Rcpp__Algorithm_h
+
+#if __cplusplus >= 201103L || __INTEL_CXX11_MODE__ == 1
 #    define RCPP_CONSTEXPR constexpr
 #else
 #    define RCPP_CONSTEXPR const
@@ -211,7 +235,7 @@ template< typename InputIterator >
 typename traits::enable_if< helpers::decays_to_ctype< typename std::iterator_traits< InputIterator >::value_type >::value,
     typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_type >::type >::type
         sum(InputIterator begin, InputIterator end) {
-    
+
     typedef typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_type >::type value_type;
     typedef typename helpers::rtype< value_type > rtype;
 
@@ -236,7 +260,7 @@ template< typename InputIterator >
 typename traits::enable_if< helpers::decays_to_ctype< typename std::iterator_traits< InputIterator >::value_type >::value,
     typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_type >::type >::type
         sum_nona(InputIterator begin, InputIterator end) {
-    
+
     typedef typename helpers::ctype< typename std::iterator_traits< InputIterator >::value_type >::type value_type;
     typedef typename helpers::rtype< value_type > rtype;
 
@@ -465,3 +489,5 @@ void sqrt(InputIterator begin, InputIterator end, OutputIterator out) {
 } // namespace Rcpp
 
 #undef RCPP_CONSTEXPR
+
+#endif
