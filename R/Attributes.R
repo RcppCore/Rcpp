@@ -35,7 +35,7 @@ sourceCpp <- function(file = "",
     cacheDir <- path.expand(cacheDir)
     cacheDir <- .sourceCppPlatformCacheDir(cacheDir)
     cacheDir <- normalizePath(cacheDir)
-    
+
     # resolve code into a file if necessary. also track the working
     # directory to source the R embedded code chunk within
     if (!missing(code)) {
@@ -59,12 +59,12 @@ sourceCpp <- function(file = "",
 
     # validate that there are no spaces in the path on windows
     if (.Platform$OS.type == "windows") {                       # #nocov start
-        if (grepl(' ', basename(file), fixed=TRUE)) {                   
+        if (grepl(' ', basename(file), fixed=TRUE)) {
             stop("The filename '", basename(file), "' contains spaces. This ",
                  "is not permitted.")
         }                                                       # #nocov end
     }
-    
+
     # get the context (does code generation as necessary)
     context <- .Call("sourceCppContext", PACKAGE="Rcpp",
                      file, code, rebuild, cacheDir, .Platform)
@@ -124,9 +124,9 @@ sourceCpp <- function(file = "",
                      "-o ", shQuote(context$dynlibFilename), " ",
                      ifelse(rebuild, "--preclean ", ""),
                      ifelse(dryRun, "--dry-run ", ""),
-                     paste(shQuote(context$cppDependencySourcePaths), 
+                     paste(shQuote(context$cppDependencySourcePaths),
                            collapse = " "), " ",
-                     shQuote(context$cppSourceFilename), " ", 
+                     shQuote(context$cppSourceFilename), " ",
                      sep="")
         if (showOutput)
             cat(cmd, "\n")
@@ -198,7 +198,7 @@ sourceCpp <- function(file = "",
         setwd(rWorkingDir) # will be reset by previous on.exit handler
         source(file=srcConn, echo=TRUE)
     }
-    
+
     # cleanup the cache dir if requested
     if (cleanupCacheDir)
         cleanupSourceCppCache(cacheDir, context$cppSourcePath, context$buildDirectory)
@@ -212,19 +212,19 @@ sourceCpp <- function(file = "",
 
 
 # Cleanup a directory used as the cache for a sourceCpp compilation. This will
-# remove all files from the cache directory that aren't a result of the 
-# compilation that yielded the passed buildDirectory. 
+# remove all files from the cache directory that aren't a result of the
+# compilation that yielded the passed buildDirectory.
 cleanupSourceCppCache <- function(cacheDir, cppSourcePath, buildDirectory) {
     # normalize cpp source path and build directory             # #nocov start
     cppSourcePath <- normalizePath(cppSourcePath)
     buildDirectory <- normalizePath(buildDirectory)
-    
+
     # determine the parent dir that was used for the compilation then collect all the
     # *.cpp files and subdirectories therein
     cacheFiles <- list.files(cacheDir, pattern = glob2rx("*.cpp"), recursive = FALSE, full.names = TRUE)
     cacheFiles <- c(cacheFiles, list.dirs(cacheDir, recursive = FALSE, full.names = TRUE))
     cacheFiles <- normalizePath(cacheFiles)
-    
+
     # determine the list of tiles that were not yielded by the passed sourceCpp
     # result and remove them
     oldCacheFiles <- cacheFiles[!cacheFiles %in% c(cppSourcePath, buildDirectory)]
@@ -339,7 +339,7 @@ print.bytes <- function( x, ...){                               # #nocov start
 # Evaluate a simple c++ expression
 evalCpp <- function(code,
                     depends = character(),
-                    plugins = character(), 
+                    plugins = character(),
                     includes = character(),
                     rebuild = FALSE,
                     cacheDir = getOption("rcpp.cache.dir", tempdir()),
@@ -403,7 +403,7 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
                  .readPkgDescField(pkgDesc, "LinkingTo", character()))
     depends <- unique(.splitDepends(depends))
     depends <- depends[depends != "R"]
-                 
+
     # determine source directory
     srcDir <- file.path(pkgdir, "src")
     if (!file.exists(srcDir))
@@ -458,11 +458,11 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
 
 # built-in C++11 plugin
 .plugins[["cpp11"]] <- function() {
-    if (getRversion() >= "3.1")
+    if (getRversion() >= "3.1")         # with recent R versions, R can decide
         list(env = list(USE_CXX1X = "yes"))
     else if (.Platform$OS.type == "windows")
         list(env = list(PKG_CXXFLAGS = "-std=c++0x"))
-    else
+    else                                # g++-4.8.1 or later
         list(env = list(PKG_CXXFLAGS ="-std=c++11"))
 }
 
@@ -471,7 +471,9 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     list(env = list(PKG_CXXFLAGS ="-std=c++0x"))
 }
 
-# built-in C++14 plugin for C++14 standard
+## built-in C++14 plugin for C++14 standard
+## this is the default in g++-6.1 and later
+## per https://gcc.gnu.org/projects/cxx-status.html#cxx14
 .plugins[["cpp14"]] <- function() {
     list(env = list(PKG_CXXFLAGS ="-std=c++14"))
 }
@@ -479,6 +481,18 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
 # built-in C++1y plugin for C++14 and C++17 standard under development
 .plugins[["cpp1y"]] <- function() {
     list(env = list(PKG_CXXFLAGS ="-std=c++1y"))
+}
+
+# built-in C++17 plugin for C++17 standard (g++-6 or later)
+.plugins[["cpp17"]] <- function() {
+    list(env = list(PKG_CXXFLAGS ="-std=c++17"))
+}
+
+## built-in C++1z plugin for C++17 standard under development
+## note that as of Feb 2017 this is taken to be a moving target
+## see https://gcc.gnu.org/projects/cxx-status.html
+.plugins[["cpp1z"]] <- function() {
+    list(env = list(PKG_CXXFLAGS ="-std=c++1z"))
 }
 
 ## built-in OpenMP++11 plugin
@@ -653,7 +667,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
     }
 
     # add packages to linkingTo and introspect for plugins
-    for (package in depends) {          
+    for (package in depends) {
                                                                 # #nocov start
         # add a LinkingTo for this package
         linkingToPackages <- unique(c(linkingToPackages, package))
@@ -682,14 +696,14 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
     srcDir <- dirname(sourceFile)
     srcDir <- asBuildPath(srcDir)
     buildDirs <- srcDir
-    
+
     # if the source file is in a package then add inst/include
     if (.isPackageSourceFile(sourceFile)) {                     # #nocov start
         incDir <- file.path(dirname(sourceFile), "..", "inst", "include")
         incDir <- asBuildPath(incDir)
         buildDirs <- c(buildDirs, incDir)                       # #nocov end
     }
-    
+
     # set CLINK_CPPFLAGS with directory flags
     dirFlags <- paste0('-I"', buildDirs, '"', collapse=" ")
     buildEnv$CLINK_CPPFLAGS <- paste(buildEnv$CLINK_CPPFLAGS,
@@ -755,7 +769,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
                     path <- file.path(rToolsPath, "bin", fsep="\\")
                     if (!isGcc49)
                         path <- c(path, file.path(rToolsPath, "gcc-4.6.3", "bin", fsep="\\"))
-                    
+
                     # if they all exist then return a list with modified
                     # environment variables for the compilation
                     if (all(file.exists(path))) {
@@ -777,11 +791,11 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
 }
 
 
-# Ensure that the path is suitable for passing as an RTOOLS 
+# Ensure that the path is suitable for passing as an RTOOLS
 # environment variable
 .rtoolsPath <- function(path) {
     path <- gsub("\\\\", "/", path)                             # #nocov start
-    ## R 3.2.0 or later only:  path <- trimws(path) 
+    ## R 3.2.0 or later only:  path <- trimws(path)
     .localsub <- function(re, x) sub(re, "", x, perl = TRUE)
     path <- .localsub("[ \t\r\n]+$", .localsub("^[ \t\r\n]+", path))
     if (substring(path, nchar(path)) != "/")
@@ -1056,7 +1070,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
     save(cache, file = index_file, compress = FALSE)
 }
 
-# read the cache from disk 
+# read the cache from disk
 .sourceCppDynlibReadCache <- function(cacheDir) {
     index_file <- file.path(cacheDir, "cache.rds")
     if (file.exists(index_file)) {
@@ -1069,7 +1083,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
 
 # search the cache for an entry that matches the file or code argument
 .sourceCppFindCacheEntryIndex <- function(cache, file, code) {
-    
+
     if (length(cache) > 0) {
         for (i in 1:length(cache)) {
             entry <- cache[[i]]
@@ -1080,14 +1094,14 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
             }
         }
     }
-    
+
     # none found
     NULL
 }
 
 # generate an R version / Rcpp version specific cache dir for dynlibs
 .sourceCppPlatformCacheDir <- function(cacheDir) {
-    
+
     dir <- file.path(cacheDir,
                      paste("sourceCpp",
                            R.version$platform,
@@ -1095,7 +1109,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
                            sep = "-"))
     if (!dir.exists(dir))
         dir.create(dir, recursive = TRUE)
-    
+
     dir
 }
 
@@ -1107,13 +1121,13 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
         load(file = token_file)
     else
         token <- 0
-    
+
     # increment
     token <- token + 1
-    
+
     # write it
     save(token, file = token_file)
-    
+
     # return it as a string
     as.character(token)
 }

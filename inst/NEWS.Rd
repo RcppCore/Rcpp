@@ -15,7 +15,12 @@
       \item Fixed sugar functions \code{upper_tri()} and \code{lower_tri()}
       (Nathan Russell in \ghpr{642} addressing \ghit{641}).
       \item The \code{algorithm.h} file now accomodates the Intel compiler
-      (Dirk in \ghpr{643} addressing isue \ghit{640})
+      (Dirk in \ghpr{643} and Dan in \ghpr{645} addressing issue \ghit{640}).
+    }
+    \item Changes in Rcpp Attributes
+    \itemize{
+      \item The C++17 standard is supported with a new plugin (used eg for
+      \code{g++-6.2}).
     }
   }
 }
