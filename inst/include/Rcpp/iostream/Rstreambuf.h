@@ -35,7 +35,7 @@ namespace Rcpp {
     protected:
         virtual std::streamsize xsputn(const char *s, std::streamsize n );
 
-        virtual int overflow(int c = EOF );
+        virtual int overflow(int c = traits_type::eof() );
 
         virtual int sync()  ;
     };
@@ -67,12 +67,18 @@ namespace Rcpp {
     }
 
     template <> inline int Rstreambuf<true>::overflow(int c ) {
-      if (c != EOF) Rprintf( "%.1s", &c ) ;
-      return c ;
+        if (c != traits_type::eof()) {
+            char_type ch = traits_type::to_char_type(c);
+            return xsputn(&ch, 1) == 1 ? c : traits_type::eof();
+        }
+        return c;
     }
     template <> inline int Rstreambuf<false>::overflow(int c ) {
-      if (c != EOF) REprintf( "%.1s", &c ) ;
-      return c ;
+        if (c != traits_type::eof()) {
+            char_type ch = traits_type::to_char_type(c);
+            return xsputn(&ch, 1) == 1 ? c : traits_type::eof();
+        }
+        return c;
     }
 
     template <> inline int Rstreambuf<true>::sync(){
