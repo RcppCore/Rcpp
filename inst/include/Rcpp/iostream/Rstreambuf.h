@@ -67,22 +67,18 @@ namespace Rcpp {
     }
 
     template <> inline int Rstreambuf<true>::overflow(int c ) {
-        if (c == traits_type::eof())
-            return traits_type::eof();
-        else
-        {
+        if (c != traits_type::eof()) {
             char_type ch = traits_type::to_char_type(c);
             return xsputn(&ch, 1) == 1 ? c : traits_type::eof();
         }
+        return c;
     }
     template <> inline int Rstreambuf<false>::overflow(int c ) {
-        if (c == traits_type::eof())
-            return traits_type::eof();
-        else
-        {
+        if (c != traits_type::eof()) {
             char_type ch = traits_type::to_char_type(c);
             return xsputn(&ch, 1) == 1 ? c : traits_type::eof();
         }
+        return c;
     }
 
     template <> inline int Rstreambuf<true>::sync(){
