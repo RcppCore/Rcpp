@@ -9,6 +9,8 @@
     \itemize{
       \item Added new size attribute aliases for number of rows and columns in
       DataFrame (James Balamuta in \ghpr{638} addressing \ghit{630}).
+      \item Fixed single-character handling in \code{Rstreambuf} (Iñaki Ucar in
+      \ghpr{649} addressing \ghit{647}).
     }
     \item Changes in Rcpp Sugar:
     \itemize{

@@ -1,3 +1,8 @@
+2017-02-14  Iñaki Ucar  <i.ucar86@gmail.com>
+
+        * inst/include/Rcpp/iostream/Rstreambuf.h: Fixed single-character handling
+        (pull request #649, fixes issue #647)
+
 2017-02-13  Dirk Eddelbuettel  <edd@debian.org>
 
         * R/Attributes.R (.plugins[["cpp17"]]): New plugin
