@@ -1,3 +1,7 @@
+2017-02-15  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version, Date): New minor version
+
 2017-02-14  Iñaki Ucar  <i.ucar86@gmail.com>
 
         * inst/include/Rcpp/iostream/Rstreambuf.h: Fixed single-character handling
