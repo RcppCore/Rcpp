@@ -1,3 +1,8 @@
+2017-02-17  Dirk Eddelbuettel  <edd@debian.org>
+
+        * R/tools.R: More #nocov
+        * inst/include/Rcpp/internal/r_vector.h: Idem
+
 2017-02-15  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): New minor version

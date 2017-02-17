@@ -1,9 +1,9 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 /* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
 //
 // r_vector.h: Rcpp R/C++ interface class library -- information about R vectors
 //
-// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2017  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -27,19 +27,19 @@ namespace Rcpp{
 namespace internal{
 
 template <int RTYPE>
-typename Rcpp::traits::storage_type<RTYPE>::type* r_vector_start(SEXP x){
-	typedef typename Rcpp::traits::storage_type<RTYPE>::type* pointer ;
-	return reinterpret_cast<pointer>( dataptr(x) ) ;
+typename Rcpp::traits::storage_type<RTYPE>::type* r_vector_start(SEXP x) {
+    typedef typename Rcpp::traits::storage_type<RTYPE>::type* pointer;
+    return reinterpret_cast<pointer>(dataptr(x));
 }
 
 /**
  * The value 0 statically casted to the appropriate type for
  * the given SEXP type
  */
-template <int RTYPE,typename CTYPE>
-inline CTYPE get_zero(){
-	return static_cast<CTYPE>(0) ;
-}
+template <int RTYPE,typename CTYPE>				// #nocov start
+inline CTYPE get_zero() {
+    return static_cast<CTYPE>(0);
+}								// #nocov end
 
 
 /**
@@ -47,10 +47,10 @@ inline CTYPE get_zero(){
  */
 template<>
 inline Rcomplex get_zero<CPLXSXP,Rcomplex>(){
-	Rcomplex x ;
-	x.r = 0.0 ;
-	x.i = 0.0 ;
-	return x ;
+    Rcomplex x;
+    x.r = 0.0;
+    x.i = 0.0;
+    return x;
 }
 
 /**
@@ -58,32 +58,31 @@ inline Rcomplex get_zero<CPLXSXP,Rcomplex>(){
  * vector with the value 0 of the appropriate type, for example
  * an INTSXP vector is initialized with (int)0, etc...
  */
-template<int RTYPE> void r_init_vector(SEXP x){
-	typedef typename ::Rcpp::traits::storage_type<RTYPE>::type CTYPE ;
-	CTYPE* start=r_vector_start<RTYPE>(x) ;
-	std::fill( start, start + Rf_xlength(x), get_zero<RTYPE,CTYPE>() ) ;
-}
+template<int RTYPE> void r_init_vector(SEXP x) {		// #nocov start
+    typedef typename ::Rcpp::traits::storage_type<RTYPE>::type CTYPE;
+    CTYPE* start=r_vector_start<RTYPE>(x);
+    std::fill(start, start + Rf_xlength(x), get_zero<RTYPE,CTYPE>());
+}								// #nocov end
 /**
  * Initializes a generic vector (VECSXP). Does nothing since
  * R already initializes all elements to NULL
  */
 template<>
-inline void r_init_vector<VECSXP>(SEXP /*x*/){}
+inline void r_init_vector<VECSXP>(SEXP /*x*/) {}
 
 /**
  * Initializes an expression vector (EXPRSXP). Does nothing since
  * R already initializes all elements to NULL
  */
 template<>
-inline void r_init_vector<EXPRSXP>(SEXP /*x*/){}
+inline void r_init_vector<EXPRSXP>(SEXP /*x*/) {}
 
 /**
  * Initializes a character vector (STRSXP). Does nothing since
  * R already initializes all elements to ""
  */
 template<>
-inline void r_init_vector<STRSXP>(SEXP /*x*/){}
-
+inline void r_init_vector<STRSXP>(SEXP /*x*/) {}
 
 
 /**
@@ -104,36 +103,31 @@ class Sort_is_not_allowed_for_this_type;
  * Specialization for CPLXSXP, INTSXP, LGLSXP, REALSXP, and STRSXP
  */
 template<>
-class Sort_is_not_allowed_for_this_type<CPLXSXP>
-{
+class Sort_is_not_allowed_for_this_type<CPLXSXP> {
 public:
     static void do_nothing() {}
 };
 
 template<>
-class Sort_is_not_allowed_for_this_type<INTSXP>
-{
+class Sort_is_not_allowed_for_this_type<INTSXP> {
 public:
     static void do_nothing() {}
 };
 
 template<>
-class Sort_is_not_allowed_for_this_type<LGLSXP>
-{
+class Sort_is_not_allowed_for_this_type<LGLSXP> {
 public:
     static void do_nothing() {}
 };
 
 template<>
-class Sort_is_not_allowed_for_this_type<REALSXP>
-{
+class Sort_is_not_allowed_for_this_type<REALSXP> {
 public:
     static void do_nothing() {}
 };
 
 template<>
-class Sort_is_not_allowed_for_this_type<STRSXP>
-{
+class Sort_is_not_allowed_for_this_type<STRSXP> {
 public:
     static void do_nothing() {}
 };
