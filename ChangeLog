@@ -1,3 +1,7 @@
+2017-02-25  Dirk Eddelbuettel  <edd@debian.org>
+
+        * vignettes/Rcpp-FAQ.Rnw: New subsection on C++11, C++14, C++17 
+
 2017-02-17  Dirk Eddelbuettel  <edd@debian.org>
 
         * R/tools.R: More #nocov
