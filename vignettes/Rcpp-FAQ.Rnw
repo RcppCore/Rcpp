@@ -1239,6 +1239,38 @@ Note: In \code{cpp}, the default \code{bool} values are \code{true} and
 \code{false} whereas in R the valid types are \code{TRUE} or \code{FALSE}.
 
 
+\subsection{Can I use C++11, C++14, C++17, ... with \pkg{Rcpp}?}
+
+But of course.  In a nutshell, this boils down to \emph{what your compiler
+  supports}, and also \emph{what R supports}.  We expanded a little on this in 
+\href{http://gallery.rcpp.org/articles/rcpp-and-c++11-c++14-c++17/}{Rcpp Gallery
+  article} providing more detail.  What follows in an abridged summary.
+
+You can always \emph{locally} set appropriate \code{PKG\_CXXFLAGS} as an
+environment variable, or via \code{~/.R/Makevars}. You can also plugins and/or R
+support from \code{src/Makevars}:
+
+\begin{itemize}
+
+\item[\emph{C++11}] has been supported since early 2013 via a plugin selecting
+  the language standard which is useful for \code{sourceCpp()} etc. For
+  packages, R has supported it since R 3.1.0 which added the option to select
+  the language standard via \code{CXX\_STD = CXX11}. As of early 2017, over 120
+  packages on CRAN use this.
+
+\item[\emph{C++14}] has been supported since early 2016 via a plugin selecting
+  the language standard which is useful for \code{sourceCpp()} etc. For
+  packages, R supports it since R 3.4.0 adding the option to select the language
+  standard via \code{CXX\_STD = CXX14}.
+
+\item[\emph{C++17}] is itself more experimental now, but if you have a compiler
+  supporting (at least parts of) it, you can use it via plugin (starting with
+  Rcpp 0.12.10) for use via \code{sourceCpp()}, or via \code{PKG\_CXXFLAGS} or
+  other means to set compiler options. R support may be available at a later
+  date.
+
+\end{itemize}
+
 
 \section{Support}
 
