@@ -2,7 +2,7 @@
 //
 // Rcpp_init.cpp : Rcpp R/C++ interface class library -- Initialize and register
 //
-// Copyright (C) 2010 - 2016  John Chambers, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2017  John Chambers, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -125,12 +125,14 @@ extern "C" void R_unload_Rcpp(DllInfo *info) {  // #nocov start
     // Release resources
 } 						// #nocov end
 
-extern "C" void R_init_Rcpp(DllInfo* info) {
+extern "C" void R_init_Rcpp(DllInfo* dllinfo) {
     setCurrentScope(0);
 
-    registerFunctions();
+    registerFunctions();        		// call wrapper to register export symbols 
 
-    init_Rcpp_cache();          // init the cache
+    R_useDynamicSymbols(dllinfo, FALSE);	// set up symbol symbol lookup (cf R 3.4.0)
 
-    init_Rcpp_routines(info);   // init routines
+    init_Rcpp_cache();          		// init the cache
+
+    init_Rcpp_routines(dllinfo);		// init routines
 }
