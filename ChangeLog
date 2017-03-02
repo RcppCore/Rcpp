@@ -1,6 +1,12 @@
+2017-02-28  Dirk Eddelbuettel  <edd@debian.org>
+
+        * src/Rcpp_init.cpp (R_init_Rcpp): Call R_useDynamicSymbols()
+
+        * DESCRIPTION (Version, Date): New minor version
+
 2017-02-25  Dirk Eddelbuettel  <edd@debian.org>
 
-        * vignettes/Rcpp-FAQ.Rnw: New subsection on C++11, C++14, C++17 
+        * vignettes/Rcpp-FAQ.Rnw: New subsection on C++11, C++14, C++17
 
 2017-02-17  Dirk Eddelbuettel  <edd@debian.org>
 
