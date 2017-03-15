@@ -1,3 +1,7 @@
+2017-03-15  Jeroen Ooms  <jeroenooms@gmail.com>
+
+        * inst/include/Rcpp/XPtr.h: added finalizeOnExit parameter
+
 2017-02-28  Dirk Eddelbuettel  <edd@debian.org>
 
         * src/Rcpp_init.cpp (R_init_Rcpp): Call R_useDynamicSymbols()
