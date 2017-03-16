@@ -11,6 +11,8 @@
       DataFrame (James Balamuta in \ghpr{638} addressing \ghit{630}).
       \item Fixed single-character handling in \code{Rstreambuf} (Iñaki Ucar in
       \ghpr{649} addressing \ghit{647}).
+      \item XPtr gains a parameter \code{finalizeOnExit} to enable running the
+       finalizer when R quits (Jeroen Ooms in \ghpr{656} addressing \ghit{655}).
     }
     \item Changes in Rcpp Sugar:
     \itemize{

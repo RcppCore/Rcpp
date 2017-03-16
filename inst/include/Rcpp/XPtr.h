@@ -43,15 +43,16 @@ void finalizer_wrapper(SEXP p){
 template <
     typename T,
     template <class> class StoragePolicy = PreserveStorage,
-    void Finalizer(T*) = standard_delete_finalizer<T>
+    void Finalizer(T*) = standard_delete_finalizer<T>,
+    bool finalizeOnExit = false
 >
 class XPtr :
-    public StoragePolicy< XPtr<T,StoragePolicy, Finalizer> >,
-    public SlotProxyPolicy< XPtr<T,StoragePolicy, Finalizer> >,
-    public AttributeProxyPolicy< XPtr<T,StoragePolicy, Finalizer> >,
-    public TagProxyPolicy< XPtr<T,StoragePolicy, Finalizer> >,
-    public ProtectedProxyPolicy< XPtr<T,StoragePolicy, Finalizer> >,
-    public RObjectMethods< XPtr<T,StoragePolicy, Finalizer> >
+    public StoragePolicy< XPtr<T,StoragePolicy, Finalizer, finalizeOnExit> >,
+    public SlotProxyPolicy< XPtr<T,StoragePolicy, Finalizer, finalizeOnExit> >,
+    public AttributeProxyPolicy< XPtr<T,StoragePolicy, Finalizer, finalizeOnExit> >,
+    public TagProxyPolicy< XPtr<T,StoragePolicy, Finalizer, finalizeOnExit> >,
+    public ProtectedProxyPolicy< XPtr<T,StoragePolicy, Finalizer, finalizeOnExit> >,
+    public RObjectMethods< XPtr<T,StoragePolicy, Finalizer, finalizeOnExit> >
 {
 public:
 
@@ -148,7 +149,7 @@ public:
     }
 
     void setDeleteFinalizer() {
-        R_RegisterCFinalizerEx( Storage::get__(), finalizer_wrapper<T,Finalizer> , FALSE) ;
+        R_RegisterCFinalizerEx( Storage::get__(), finalizer_wrapper<T,Finalizer> , (Rboolean) finalizeOnExit) ;
     }
 
     /**
