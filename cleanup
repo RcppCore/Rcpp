@@ -29,7 +29,7 @@ rm -f confdefs.h config.log config.status \
 	vignettes/*.toc vignettes/*.tpt
 
 rm -rf	autom4te.cache inst/lib/ inst/doc/man/ inst/doc/html/ inst/doc/latex/ \
-   	inst/doc/auto inst/doc/Rcpp-*/auto/ src-* vignettes/auto
+   	inst/doc/auto inst/bib/auto inst/doc/Rcpp-*/auto/ src-* vignettes/auto
 
 find . -name \*~ -exec rm {} \;
 find . -name \*.flc -exec rm {} \;

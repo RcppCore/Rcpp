@@ -1,3 +1,14 @@
+2017-03-17  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.12.10
+        * inst/NEWS.Rd: Release 0.12.10
+        * inst/bib/Rcpp.bib: Release 0.12.10
+        * inst/include/Rcpp/config.h: Release 0.12.10
+
+        * README.md: Updated counts for dependents and tests
+
+        * debian/*: Changes for Debian release of 0.12.10
+
 2017-03-15  Jeroen Ooms  <jeroenooms@gmail.com>
 
         * inst/include/Rcpp/XPtr.h: added finalizeOnExit parameter
