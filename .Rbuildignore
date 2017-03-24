@@ -16,3 +16,4 @@ vignettes/getCurrentVersionsOfCitedPackages.R
 ^\.codecov\.yml$
 inst/include/Rcpp.h.new
 inst/include/Rcpp.h.old
+LICENSE
