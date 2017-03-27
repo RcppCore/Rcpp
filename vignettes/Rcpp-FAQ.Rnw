@@ -47,6 +47,10 @@
 \newcommand{\faq}[1]{FAQ~\ref{#1}}
 \newcommand{\rdoc}[2]{\href{http://www.rdocumentation.org/packages/#1/functions/#2}{\code{#2}}}
 
+\newcommand{\ghpr}[1]{\href{https://github.com/RcppCore/Rcpp/pull/#1}{#1}}
+\newcommand{\ghit}[1]{\href{https://github.com/RcppCore/Rcpp/issues/#1}{#1}}
+
+
 <<echo=FALSE,print=FALSE>>=
 prettyVersion <- packageDescription("Rcpp")$Version
 prettyDate <- format(Sys.Date(), "%B %e, %Y")
@@ -1359,6 +1363,81 @@ history as well as number of support files.
 We have since switched to a \href{http://github.com/RcppCore/Rcpp}{Git
   repository at Github} for \pkg{Rcpp} (as well as for \pkg{RcppArmadillo} and
 \pkg{RcppEigen}).
+
+\section{Known Issues}
+
+Contained within this section is a list of known issues regarding \pkg{Rcpp}.
+The issues listed here are either not able to be fixed due to breaking 
+application binary interface (ABI) or would impact the ability to reproduce
+pre-existing results. Generally speaking, these issues come to light only when
+pushing the edge capabilities of \pkg{Rcpp}.
+
+\subsection{Corruption of Automatic RNG Scoping}
+
+\pkg{Rcpp} offers the ability to include R-based functions at a whim. However,
+the state of the random number generation (RNG) capabilities becomes problematic 
+when the RNG is distributed between function calls using both \proglang{R} and 
+\proglang{C++}. Take for instance a scenario where within an \proglang{R}
+function there is a call to an RNG library and this \proglang{R} gets called by
+\proglang{C++} function who later has its own call to an RNG. In this case, 
+the generation would operate on the \emph{same} random seed leading to a 
+correlation between generated numbers. The example in code would be as follows:
+
+<<lang=cpp>>=
+#include <Rcpp.h>
+using namespace Rcpp;
+// [[Rcpp::export]]
+List test_rnorm(){
+    Function r_rnorm("rnorm");    // function with RNG dependency in R
+
+    NumericVector x = rnorm(2);   // C++ function with RNG dependency
+    NumericVector y = r_rnorm(2); // Calling R function from C++
+
+    return List::create(x, y); 
+}
+/*** R 
+set.seed(111)
+test_rnorm()
+*/
+@
+
+Returns:
+
+<<lang=r>>=
+> set.seed(111)
+> test_rnorm()
+[[1]]
+[1]  0.2352207 -0.3307359
+
+[[2]]
+[1]  0.2352207 -0.3307359
+@
+
+Ideally, the second entry in the list should return alternative values. However,
+that is not the case as the call into \proglang{R} has not received the modified
+seed state after the generation call in \proglang{C++}. Thus, the RNG stream
+has been corrupted. 
+
+The reason for this is due to the need to save and later re-set the
+RNG state \emph{whenever} the RNGs of R are called via the scalar 
+generation \code{R::rdist()} or the sugar variant \code{Rcpp::rdist()}, where
+\code{rdist()} is a sampling function for a given distribution, e.g.
+\code{rnorm()}. Rcpp Attributes automates this process through a call to 
+\code{RNGScope}, which is auto inserted into \code{RcppExports.cpp} that governs
+the get, \code{GetRNGState}, and put, \code{PutRNGState}. Note, it doesn't
+matter what random generation function is used as the default behavior is to
+inject the \code{RNGScope}.
+
+The design decision was made to automatically build \code{RNGScope} in as
+\code{Rcpp} offers three different variants to access \proglang{R}'s RNG feed.
+Furthermore, there is a garbage collection (GC) operation that can be triggered
+by \code{PutRNGState} that must be protected against via a prior call to
+create an \code{RObject}, which had the potential to cause more grief than
+the above documented issue.
+
+This issue was first reported in \ghit{268} by Romain Francois.
+
+
 
 \bibliographystyle{plainnat}
 \bibliography{\Sexpr{Rcpp:::bib()}}

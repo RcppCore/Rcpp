@@ -1,0 +1,60 @@
+\contentsline {section}{\numberline {1}Getting started}{2}{section.1}
+\contentsline {subsection}{\numberline {1.1}How do I get started ?}{2}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}What do I need ?}{2}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}What compiler can I use ?}{3}{subsection.1.3}
+\contentsline {subsection}{\numberline {1.4}What other packages are useful ?}{3}{subsection.1.4}
+\contentsline {subsection}{\numberline {1.5}What licenses can I choose for my code?}{3}{subsection.1.5}
+\contentsline {section}{\numberline {2}Compiling and Linking}{4}{section.2}
+\contentsline {subsection}{\numberline {2.1}How do I use {\fontseries {b}\selectfont Rcpp} in my package ?}{4}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}How do I quickly prototype my code?}{4}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}Using inline}{4}{subsubsection.2.2.1}
+\contentsline {subsubsection}{\numberline {2.2.2}Using Rcpp Attributes}{4}{subsubsection.2.2.2}
+\contentsline {subsection}{\numberline {2.3}How do I convert my prototyped code to a package ?}{5}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}How do I quickly prototype my code in a package?}{5}{subsection.2.4}
+\contentsline {subsection}{\numberline {2.5}But I want to compile my code with R CMD SHLIB !}{5}{subsection.2.5}
+\contentsline {subsection}{\numberline {2.6}But R CMD SHLIB still does not work !}{6}{subsection.2.6}
+\contentsline {subsection}{\numberline {2.7}What about \texttt {LinkingTo} ?}{6}{subsection.2.7}
+\contentsline {subsection}{\numberline {2.8}Does {\fontseries {b}\selectfont Rcpp} work on windows ?}{6}{subsection.2.8}
+\contentsline {subsection}{\numberline {2.9}Can I use {\fontseries {b}\selectfont Rcpp} with Visual Studio ?}{6}{subsection.2.9}
+\contentsline {subsection}{\numberline {2.10}I am having problems building Rcpp on OS X, any help ?}{6}{subsection.2.10}
+\contentsline {subsubsection}{\numberline {2.10.1}Lack of a Compiler}{6}{subsubsection.2.10.1}
+\contentsline {subsubsection}{\numberline {2.10.2}Differing Mac OS X R Versions Leading to Binary Failures}{7}{subsubsection.2.10.2}
+\contentsline {subsubsection}{\numberline {2.10.3}No OpenMP Support}{7}{subsubsection.2.10.3}
+\contentsline {subsubsection}{\numberline {2.10.4}Additional Information / Help}{7}{subsubsection.2.10.4}
+\contentsline {subsection}{\numberline {2.11}Does {\fontseries {b}\selectfont Rcpp} work on solaris/suncc ?}{8}{subsection.2.11}
+\contentsline {subsection}{\numberline {2.12}Does {\fontseries {b}\selectfont Rcpp} work with Revolution R ?}{8}{subsection.2.12}
+\contentsline {subsection}{\numberline {2.13}Is it related to CXXR ?}{8}{subsection.2.13}
+\contentsline {subsection}{\numberline {2.14}How do I quickly prototype my code using Attributes?}{8}{subsection.2.14}
+\contentsline {subsection}{\numberline {2.15}What about the new 'no-linking' feature??}{8}{subsection.2.15}
+\contentsline {subsection}{\numberline {2.16}I am having problems building RcppArmadillo on OS X, any help ?}{8}{subsection.2.16}
+\contentsline {subsubsection}{\numberline {2.16.1}Fixed set of \texttt {gfortran} binaries}{8}{subsubsection.2.16.1}
+\contentsline {subsubsection}{\numberline {2.16.2}Pre-existing or latest \texttt {gfortran} binaries}{9}{subsubsection.2.16.2}
+\contentsline {section}{\numberline {3}Examples}{9}{section.3}
+\contentsline {subsection}{\numberline {3.1}Can I use templates with {\fontseries {b}\selectfont Rcpp} ? }{9}{subsection.3.1}
+\contentsline {subsubsection}{\numberline {3.1.1}Using inline}{9}{subsubsection.3.1.1}
+\contentsline {subsubsection}{\numberline {3.1.2}Using Rcpp Attributes}{10}{subsubsection.3.1.2}
+\contentsline {subsection}{\numberline {3.2}Can I do matrix algebra with {\fontseries {b}\selectfont Rcpp} ?}{10}{subsection.3.2}
+\contentsline {subsubsection}{\numberline {3.2.1}Using inline}{11}{subsubsection.3.2.1}
+\contentsline {subsubsection}{\numberline {3.2.2}Using Rcpp Attributes}{11}{subsubsection.3.2.2}
+\contentsline {subsection}{\numberline {3.3}Can I use code from the Rmath header and library with {\fontseries {b}\selectfont Rcpp} ?}{12}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Can I use NA and Inf with {\fontseries {b}\selectfont Rcpp} ?}{12}{subsection.3.4}
+\contentsline {subsection}{\numberline {3.5}Can I easily multiply matrices ?}{13}{subsection.3.5}
+\contentsline {subsection}{\numberline {3.6}How do I write a plugin for {\fontseries {b}\selectfont inline} and/or Rcpp Attributes?}{14}{subsection.3.6}
+\contentsline {subsection}{\numberline {3.7}How can I pass one additional flag to the compiler?}{14}{subsection.3.7}
+\contentsline {subsection}{\numberline {3.8}How can I set matrix row and column names ?}{15}{subsection.3.8}
+\contentsline {subsection}{\numberline {3.9}Why can long long types not be cast correctly?}{15}{subsection.3.9}
+\contentsline {subsection}{\numberline {3.10}What LaTeX packages do I need to typeset the vignettes ?}{16}{subsection.3.10}
+\contentsline {subsection}{\numberline {3.11}Why is there a limit of 20 on some constructors?}{16}{subsection.3.11}
+\contentsline {subsection}{\numberline {3.12}Can I use default function parameters with {\fontseries {b}\selectfont Rcpp}?}{16}{subsection.3.12}
+\contentsline {section}{\numberline {4}Support}{17}{section.4}
+\contentsline {subsection}{\numberline {4.1}Is the API documented ?}{17}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Does it really work ?}{17}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Where can I ask further questions ?}{17}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}Where can I read old questions and answers ?}{17}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.5}I like it. How can I help ?}{17}{subsection.4.5}
+\contentsline {subsection}{\numberline {4.6}I don't like it. How can I help ?}{18}{subsection.4.6}
+\contentsline {subsection}{\numberline {4.7}Can I have commercial support for {\fontseries {b}\selectfont Rcpp} ?}{18}{subsection.4.7}
+\contentsline {subsection}{\numberline {4.8}I want to learn quickly. Do you provide training courses ?}{18}{subsection.4.8}
+\contentsline {subsection}{\numberline {4.9}Where is the code repository ?}{18}{subsection.4.9}
+\contentsline {section}{\numberline {5}Known Issues}{18}{section.5}
+\contentsline {subsection}{\numberline {5.1}Corruption of Automatic RNG Scoping}{18}{subsection.5.1}
