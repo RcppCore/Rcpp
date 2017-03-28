@@ -3,6 +3,21 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
+\section{Changes in Rcpp version 0.12.11 (2017-05-??)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item ...
+    }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item Added a Known Issues section to the Rcpp FAQ vignette
+      (James Balamuta in \ghpr{661} addressing \ghit{628}, \ghit{563},
+      \ghit{552}, \ghit{460}, \ghit{419}, and \ghit{251}).
+    }
+  }
+}
+
 \section{Changes in Rcpp version 0.12.10 (2017-03-17)}{
   \itemize{
     \item Changes in Rcpp API:
@@ -30,7 +45,7 @@
     \itemize{
       \item An overdue explanation of how C++11, C++14, and C++17 can be used
       was added to the Rcpp FAQ.
-    }      
+    }
   }
 }
 

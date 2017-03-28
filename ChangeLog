@@ -1,3 +1,7 @@
+2017-03-28  James J Balamuta  <balamut2@illinois.edu>
+
+        * inst/vignettes/Rcpp-FAQ.Rnw: Added "Known Issues" section to FAQ
+
 2017-03-17  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.12.10
