@@ -1369,7 +1369,7 @@ application binary interface (ABI), would impact the ability to reproduce
 pre-existing results, or require significant work. Generally speaking, these
 issues come to light only when pushing the edge capabilities of \pkg{Rcpp}.
 
-\subsection{Rcpp changed the (const) object I passed by value}
+\subsection{\pkg{Rcpp} changed the (const) object I passed by value}
 
 \pkg{Rcpp} objects are wrappers around the underlying \Rs objects' \code{SEXP},
 or S-expression. The \code{SEXP} is a pointer variable that holds the location
@@ -1434,7 +1434,8 @@ from \code{seq()} or \code{a:b} reports a class of \code{"integer"} while the
 object is set to \code{NumericVector} or \code{NumericMatrix}.  In such cases,
 this would lead to a new \code{SEXP} object being created behind the scenes
 and, thus, there would \textit{not} be a link between the \pkg{Rcpp} object
-and \Rs object. So, any changes in \proglang{C++} would not be propagated to \Rs unless otherwise specified.
+and \Rs object. So, any changes in \proglang{C++} would not be propagated to
+\Rs unless otherwise specified.
 
 <<lang=cpp>>=
 #include<Rcpp.h>
@@ -1461,13 +1462,31 @@ b
 @
 
 With this being said, there is one last area of contention with the proxy model:
-the keyword \code{const}. Similar to the pass by value versus pass by reference
-conundrum, the \code{const} declaration that indicates an object cannot be
-modified is just cosmetic because of the underlying \Rs semantics and data
-structures. There is no ability to force the appropriate \proglang{C++} behavior
-that traditionally governs \code{const} declarations. In some cases, the
-compiler may provide warnings that a \code{const} object is being modified.
-However, it is best to not rely upon the \code{const} keyword.
+the keyword \code{const}. The \code{const} declaration indicates that an object
+is not allowed to be modified by any action. Due to the way the proxy
+model paradigm works, there is a way to ``override'' the \code{const} designation.
+Simply put, one can create a new \pkg{Rcpp} object without the \code{const}
+declaration from a pre-existing one. As a result, the new \pkg{Rcpp} object
+would be allowed to be modified by the compiler and, thus, modifying the initial
+\code{SEXP} object. Therefore, the initially secure \Rs object would be altered.
+To illustrate this phenomenon, consider the following scenario:
+
+<<lang=cpp>>=
+#include <Rcpp.h>
+
+// [[Rcpp::export]]
+Rcpp::NumericVector const_override_ex(const Rcpp::NumericVector& X) {
+  Rcpp::NumericVector Y(X); // Create object from SEXP
+  Y = Y * 2;                // Modify new object
+  return X;                 // Return old object
+}
+@
+
+<<eval=FALSE>>=
+x <- 1:10
+const_override_ex(x)
+x
+@
 
 \subsection{Issues with implicit conversion from an \pkg{Rcpp} object to a scalar or
 other \pkg{Rcpp} object}
@@ -1514,14 +1533,14 @@ and \code{is\_false()} for \code{any()} or \code{all()}.
 filling element-wise}
 
 Assignment using the \code{operator=} with either \code{Vector} and
-\code{Matrix} classes will not illicit an element-wise fill. If you seek an
+\code{Matrix} classes will not elicit an element-wise fill. If you seek an
 element-wise fill, then use the \code{.fill()} member method to propagate a
 single value throughout the object. With this being said, the behavior of
 \code{operator=} differs for the \code{Vector} and \code{Matrix} classes.
 
 The implementation of the \code{operator=} for the \code{Vector} class will
-replace the existing vector with the assignee value. This behavior is valid
-even if the assignee value is a scalar value such as 3.14 or 25 as the object
+replace the existing vector with the assigned value. This behavior is valid
+even if the assigned value is a scalar value such as 3.14 or 25 as the object
 is cast into the appropriate \pkg{Rcpp} object type. Therefore, if a
 \code{Vector} is initialized to have a length of 10 and a scalar is assigned
 via \code{operator=}, then the resulting \code{Vector} would have a length of
