@@ -28,11 +28,18 @@ namespace Rcpp {
 
     class exception : public std::exception {
     public:
-        explicit exception(const char* message_) : message(message_) {	// #nocov start
+        explicit exception(const char* message_, bool include_call = true) :	// #nocov start
+            message(message_),
+            include_call_(include_call){
             rcpp_set_stack_trace(stack_trace());
         }
-        exception(const char* message_, const char* file, int line) : message(message_) {
+        exception(const char* message_, const char* file, int line, bool include_call = true) :
+            message(message_),
+            include_call_(include_call){
             rcpp_set_stack_trace(stack_trace(file,line));
+        }
+        bool include_call() const {
+            return include_call_;
         }
         virtual ~exception() throw() {}
         virtual const char* what() const throw() {
@@ -40,13 +47,14 @@ namespace Rcpp {
         }
     private:
         std::string message;
+        bool include_call_;
     };
 
     // simple helper
     static std::string toString(const int i) {				// #nocov start
         std::ostringstream ostr;
         ostr << i;
-        return ostr.str();						// #nocov end 
+        return ostr.str();						// #nocov end
     }
 
     class no_such_env : public std::exception {
@@ -127,7 +135,7 @@ namespace Rcpp {
     RCPP_EXCEPTION_CLASS(binding_is_locked, std::string("binding is locked: '") + message + "'" )
     RCPP_EXCEPTION_CLASS(no_such_namespace, std::string("no such namespace: '") + message + "'" )
     RCPP_EXCEPTION_CLASS(function_not_exported, std::string("function not exported: ") + message)
-    RCPP_EXCEPTION_CLASS(eval_error, message )			// #nocov end 
+    RCPP_EXCEPTION_CLASS(eval_error, message )			// #nocov end
 
     #undef RCPP_EXCEPTION_CLASS
     #undef RCPP_SIMPLE_EXCEPTION_CLASS
@@ -217,6 +225,24 @@ inline SEXP make_condition(const std::string& ex_msg, SEXP call, SEXP cppstack, 
     return res ;
 }
 
+inline SEXP rcpp_exception_to_r_condition(const Rcpp::exception& ex) {
+    std::string ex_class = demangle( typeid(ex).name() ) ;
+    std::string ex_msg   = ex.what() ;
+
+    SEXP call, cppstack;
+    if (ex.include_call()) {
+        call = Rcpp::Shield<SEXP>(get_last_call());
+        cppstack = Rcpp::Shield<SEXP>( rcpp_get_stack_trace());
+    } else {
+        call = R_NilValue;
+        cppstack = R_NilValue;
+    }
+    Rcpp::Shield<SEXP> classes( get_exception_classes(ex_class) );
+    Rcpp::Shield<SEXP> condition( make_condition( ex_msg, call, cppstack, classes) );
+    rcpp_set_stack_trace( R_NilValue ) ;
+    return condition ;
+}
+
 inline SEXP exception_to_r_condition( const std::exception& ex){
     std::string ex_class = demangle( typeid(ex).name() ) ;
     std::string ex_msg   = ex.what() ;
@@ -245,7 +271,7 @@ inline SEXP string_to_try_error( const std::string& str){
     Rf_setAttrib( tryError, R_ClassSymbol, Rf_mkString("try-error") ) ;
     Rf_setAttrib( tryError, Rf_install( "condition") , simpleError ) ;
 
-    return tryError;					// #nocov end 
+    return tryError;					// #nocov end
 }
 
 inline SEXP exception_to_try_error( const std::exception& ex){
@@ -313,7 +339,7 @@ namespace Rcpp{
 
     inline void NORET stop(const std::string& message) {	// #nocov start
         throw Rcpp::exception(message.c_str());
-    }								// #nocov end 
+    }								// #nocov end
 
     template <typename T1>
     inline void NORET stop(const char* fmt, const T1& arg1) {
@@ -366,7 +392,14 @@ namespace Rcpp{
     }
 }
 
-inline void forward_exception_to_r( const std::exception& ex){
+inline void forward_exception_to_r(const std::exception& ex){
+    SEXP stop_sym  = Rf_install( "stop" ) ;
+    Rcpp::Shield<SEXP> condition( exception_to_r_condition(ex) );
+    Rcpp::Shield<SEXP> expr( Rf_lang2( stop_sym , condition ) ) ;
+    Rf_eval( expr, R_GlobalEnv ) ;
+}
+
+inline void forward_rcpp_exception_to_r(const Rcpp::exception& ex) {
     SEXP stop_sym  = Rf_install( "stop" ) ;
     Rcpp::Shield<SEXP> condition( exception_to_r_condition(ex) );
     Rcpp::Shield<SEXP> expr( Rf_lang2( stop_sym , condition ) ) ;

@@ -1,3 +1,11 @@
+2017-04-03  Jim Hester  <james.f.hester@gmail.com>
+
+        * inst/include/Rcpp/exceptions.h: Added support for throwing
+        exceptions without call stacks.
+        * inst/include/Rcpp/macros/macros.h: Idem
+        * inst/unitTests/cpp/exceptions.cpp: Idem
+        * inst/unitTests/runit.exceptions.R: Idem
+
 2017-03-28  James J Balamuta  <balamut2@illinois.edu>
 
         * inst/vignettes/Rcpp-FAQ.Rnw: Added "Known Issues" section to FAQ

@@ -62,3 +62,8 @@ double f1(double val) {
 double takeLogNested(double val) {
     return f1(val);
 }
+
+// [[Rcpp::export]]
+void noCall() {
+    throw Rcpp::exception("Testing", false);
+}
