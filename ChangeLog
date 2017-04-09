@@ -1,6 +1,32 @@
+2017-04-09  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/unitTests/testRcppModule/src/init.c (R_init_testRcppModule): Call
+        R_registerRoutines() and R_useDynamicSymbols(); also ensure
+        _rcpp_module_boot_* is registered for each module
+        * inst/unitTests/testRcppModule/NAMESPACE: Added registration
+
+        * inst/unitTests/testRcppModule/DESCRIPTION (Title): Title case
+
+        * inst/unitTests/testRcppModule/R/rcpp_hello_world.R (rcpp_hello_world):
+        Call the renamed C++ function
+        * inst/unitTests/testRcppModule/src/rcpp_hello_world.cpp (rcpp_hello_world_cpp):
+        Renamed C++ function to be distinct from R function calling it
+        * inst/unitTests/testRcppModule/src/rcpp_hello_world.h: Ditto
+        * inst/unitTests/testRcppModule/man/rcpp_hello_world.Rd: Alias renamed
+        C++ function
+
+        * inst/unitTests/testRcppModule/man/Rcpp_modules_examples.Rd: Alias
+        renamed modules
+        * inst/unitTests/testRcppModule/tests/modules.R: Call renamed module
+
 2017-03-28  James J Balamuta  <balamut2@illinois.edu>
 
         * inst/vignettes/Rcpp-FAQ.Rnw: Added "Known Issues" section to FAQ
+
+2017-03-25  Dirk Eddelbuettel  <edd@debian.org>
+
+        * LICENSE: Added
+        * .Rbuildignore: Do not include LICENSE in package
 
 2017-03-17  Dirk Eddelbuettel  <edd@debian.org>
 

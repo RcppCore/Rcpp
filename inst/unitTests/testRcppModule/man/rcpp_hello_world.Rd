@@ -1,5 +1,6 @@
 \name{rcpp_hello_world}
 \alias{rcpp_hello_world}
+\alias{rcpp_hello_world_cpp}
 \docType{package}
 \title{
 Simple function using Rcpp

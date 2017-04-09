@@ -15,9 +15,6 @@ stopifnot(all.equal(bar(2), 4))
 stopifnot(all.equal(foo(2,3), 6))
 
 ## properties (at one stage this seqfaulted, so beware)
-nn <- new(Num)
+nn <- new(RcppModuleNum)
 nn$x <- pi
 stopifnot(all.equal(nn$x, pi))
-
-
-
