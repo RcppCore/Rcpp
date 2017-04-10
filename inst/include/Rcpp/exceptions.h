@@ -46,7 +46,7 @@ namespace Rcpp {
     static std::string toString(const int i) {				// #nocov start
         std::ostringstream ostr;
         ostr << i;
-        return ostr.str();						// #nocov end 
+        return ostr.str();						// #nocov end
     }
 
     class no_such_env : public std::exception {
@@ -89,6 +89,48 @@ namespace Rcpp {
             file_io_error("file already exists", file) {}	// #nocov end
     };
 
+    #define RCPP_ADVANCED_EXCEPTION_CLASS(__CLASS__, __WHAT__)                                                                                                                                                     \
+    class __CLASS__ : public std::exception{                                                                                                                                                                       \
+        public:                                                                                                                                                                                                    \
+            __CLASS__( ) throw() : message( __WHAT__ ){} ;                                                                                                                                                         \
+            __CLASS__( const std::string& message ) throw() : message( message ){} ;                                                                                                                               \
+            template <typename T1>                                                                                                                                                                                 \
+            __CLASS__(const char* fmt, const T1& arg1) throw() :                                                                                                                                                   \
+             message( tfm::format(fmt, arg1 ) ){} ;                                                                                                                                                                \
+            template <typename T1, typename T2>                                                                                                                                                                    \
+            __CLASS__(const char* fmt, const T1& arg1, const T2& arg2) throw() :                                                                                                                                   \
+             message( tfm::format(fmt, arg1, arg2 ) ){} ;                                                                                                                                                          \
+            template <typename T1, typename T2, typename T3>                                                                                                                                                       \
+            __CLASS__(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3) throw() :                                                                                                                   \
+             message( tfm::format(fmt, arg1, arg2, arg3 ) ){} ;                                                                                                                                                    \
+            template <typename T1, typename T2, typename T3, typename T4>                                                                                                                                          \
+            __CLASS__(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4) throw() :                                                                                                   \
+             message( tfm::format(fmt, arg1, arg2, arg3, arg4 ) ){} ;                                                                                                                                              \
+            template <typename T1, typename T2, typename T3, typename T4, typename T5>                                                                                                                             \
+            __CLASS__(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5) throw() :                                                                                   \
+             message( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5 ) ){} ;                                                                                                                                        \
+            template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>                                                                                                                \
+            __CLASS__(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5, const T6& arg6) throw() :                                                                   \
+                message( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5, arg6 ) ){} ;                                                                                                                               \
+            template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>                                                                                                   \
+            __CLASS__(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5, const T6& arg6, const T7& arg7) throw() :                                                   \
+            message( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5, arg6, arg7 ) ){} ;                                                                                                                             \
+            template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>                                                                                      \
+            __CLASS__(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5, const T6& arg6, const T7& arg7, const T8& arg8) throw() :                                   \
+                message( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8 ) ){} ;                                                                                                                   \
+            template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9>                                                                         \
+            __CLASS__(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5, const T6& arg6, const T7& arg7, const T8& arg8, const T9& arg9) throw() :                   \
+                message( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9 ) ){} ;                                                                                                             \
+            template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10>                                                           \
+            __CLASS__(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5, const T6& arg6, const T7& arg7, const T8& arg8, const T9& arg9, const T10& arg10) throw() : \
+                message( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10 ) ){} ;                                                                                                      \
+            virtual ~__CLASS__() throw(){} ;                                                                                                                                                                       \
+            virtual const char* what() const throw() { return message.c_str() ; }                                                                                                                                  \
+            private:                                                                                                                                                                                               \
+                std::string message ;                                                                                                                                                                              \
+    } ;
+
+
     #define RCPP_EXCEPTION_CLASS(__CLASS__,__WHAT__)                               \
     class __CLASS__ : public std::exception{                                       \
     public:                                                                        \
@@ -108,29 +150,30 @@ namespace Rcpp {
     } ;
 
     RCPP_SIMPLE_EXCEPTION_CLASS(not_a_matrix, "not a matrix")
-    RCPP_SIMPLE_EXCEPTION_CLASS(index_out_of_bounds, "index out of bounds")
     RCPP_SIMPLE_EXCEPTION_CLASS(parse_error, "parse error")
     RCPP_SIMPLE_EXCEPTION_CLASS(not_s4, "not an S4 object")	// #nocov start
     RCPP_SIMPLE_EXCEPTION_CLASS(not_reference, "not an S4 object of a reference class")
     RCPP_SIMPLE_EXCEPTION_CLASS(not_initialized, "C++ object not initialized (missing default constructor?)")
-    RCPP_SIMPLE_EXCEPTION_CLASS(no_such_slot, "no such slot")
-    RCPP_SIMPLE_EXCEPTION_CLASS(no_such_field, "no such field")
-    RCPP_SIMPLE_EXCEPTION_CLASS(not_a_closure, "not a closure")
     RCPP_SIMPLE_EXCEPTION_CLASS(no_such_function, "no such function")
     RCPP_SIMPLE_EXCEPTION_CLASS(unevaluated_promise, "promise not yet evaluated")
 
-    RCPP_EXCEPTION_CLASS(not_compatible, message )
-    RCPP_EXCEPTION_CLASS(S4_creation_error, std::string("error creating object of S4 class : ") + message )
-    RCPP_EXCEPTION_CLASS(reference_creation_error, std::string("error creating object of reference class : ") + message )
-    RCPP_EXCEPTION_CLASS(no_such_binding, std::string("no such binding : '") + message + "'" )
+    RCPP_EXCEPTION_CLASS(no_such_slot, std::string("no such slot: ") + message )
+    RCPP_EXCEPTION_CLASS(S4_creation_error, std::string("error creating object of S4 class: ") + message )
+    RCPP_EXCEPTION_CLASS(reference_creation_error, std::string("error creating object of reference class: ") + message )
+    RCPP_EXCEPTION_CLASS(no_such_binding, std::string("no such binding: '") + message + "'" )
     RCPP_EXCEPTION_CLASS(binding_not_found, std::string("binding not found: '") + message + "'" )
     RCPP_EXCEPTION_CLASS(binding_is_locked, std::string("binding is locked: '") + message + "'" )
     RCPP_EXCEPTION_CLASS(no_such_namespace, std::string("no such namespace: '") + message + "'" )
     RCPP_EXCEPTION_CLASS(function_not_exported, std::string("function not exported: ") + message)
-    RCPP_EXCEPTION_CLASS(eval_error, message )			// #nocov end 
+    RCPP_EXCEPTION_CLASS(eval_error, message )
+    RCPP_EXCEPTION_CLASS(not_a_closure, std::string("not a closure. Object is of type ") + message + "." )
 
-    #undef RCPP_EXCEPTION_CLASS
+    RCPP_ADVANCED_EXCEPTION_CLASS(not_compatible, "not compatible")
+    RCPP_ADVANCED_EXCEPTION_CLASS(index_out_of_bounds, "index out of bounds") // #nocov end
+
     #undef RCPP_SIMPLE_EXCEPTION_CLASS
+    #undef RCPP_EXCEPTION_CLASS
+    #undef RCPP_ADVANCED_EXCEPTION_CLASS
 
 
 namespace internal {
@@ -245,7 +288,7 @@ inline SEXP string_to_try_error( const std::string& str){
     Rf_setAttrib( tryError, R_ClassSymbol, Rf_mkString("try-error") ) ;
     Rf_setAttrib( tryError, Rf_install( "condition") , simpleError ) ;
 
-    return tryError;					// #nocov end 
+    return tryError;					// #nocov end
 }
 
 inline SEXP exception_to_try_error( const std::exception& ex){
@@ -257,9 +300,11 @@ std::string demangle( const std::string& name) ;
 
 namespace Rcpp{
 
-    inline void warning(const std::string& message) {
+    // --- Start Rcpp::warning declaration
+
+    inline void warning(const std::string& message) {      // #nocov start
         Rf_warning(message.c_str());
-    }
+    }                                                      // #nocov end
 
     template <typename T1>
     inline void warning(const char* fmt, const T1& arg1) {
@@ -311,9 +356,13 @@ namespace Rcpp{
         Rf_warning( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10).c_str() );
     }
 
+    // --- End Rcpp::warning declaration
+
+    // --- Start Rcpp::stop declaration
+
     inline void NORET stop(const std::string& message) {	// #nocov start
         throw Rcpp::exception(message.c_str());
-    }								// #nocov end 
+    }								// #nocov end
 
     template <typename T1>
     inline void NORET stop(const char* fmt, const T1& arg1) {
@@ -364,6 +413,9 @@ namespace Rcpp{
     inline void NORET stop(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5, const T6& arg6, const T7& arg7, const T8& arg8, const T9& arg9, const T10& arg10) {
         throw Rcpp::exception( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10).c_str() );
     }
+
+    // -- End Rcpp::stop declaration
+
 }
 
 inline void forward_exception_to_r( const std::exception& ex){

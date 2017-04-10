@@ -7,7 +7,8 @@
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
-      \item ...
+      \item Error messages are now more informative
+      (James Balamuta in \ghpr{667} addressing \ghit{184}).
     }
     \item Changes in Rcpp Documentation:
     \itemize{

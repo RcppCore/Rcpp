@@ -72,7 +72,7 @@ namespace Rcpp {
             }
 
             if (::Rf_isString(data) && ::Rf_length(data) != 1)
-                throw ::Rcpp::not_compatible("expecting a single value");
+                throw ::Rcpp::not_compatible("Expecting a single string value. Received %s object with length %i.", Rf_type2char(TYPEOF(data)), ::Rf_length(data));
 
             valid = true;
             buffer_ready = false;

@@ -29,7 +29,7 @@ namespace Rcpp {
     namespace internal {
 
         template <typename T> T primitive_as(SEXP x) {
-            if (::Rf_length(x) != 1) throw ::Rcpp::not_compatible("expecting a single value");
+            if (::Rf_length(x) != 1) throw ::Rcpp::not_compatible("Expecting a single value. Object contained %i values.", ::Rf_length(x));
             const int RTYPE = ::Rcpp::traits::r_sexptype_traits<T>::rtype;
             Shield<SEXP> y(r_cast<RTYPE>(x));
             typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE;
@@ -44,9 +44,9 @@ namespace Rcpp {
         inline const char* check_single_string(SEXP x) {
             if (TYPEOF(x) == CHARSXP) return CHAR(x);
             if (! ::Rf_isString(x))
-                throw ::Rcpp::not_compatible("expecting a string");
+                throw ::Rcpp::not_compatible("Expecting a string. Received %s instead of CHARSXP or STRSXP.", Rf_type2char(TYPEOF(x)));
             if (Rf_length(x) != 1)
-                throw ::Rcpp::not_compatible("expecting a single value");
+                throw ::Rcpp::not_compatible("Expecting a single value. Object contained %i values.", ::Rf_length(x));
             return CHAR(STRING_ELT(::Rcpp::r_cast<STRSXP>(x), 0));
         }
 
@@ -66,10 +66,10 @@ namespace Rcpp {
 
         template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_RcppString_tag) {
             if (! ::Rf_isString(x)) {
-                throw ::Rcpp::not_compatible("expecting a string");
+                throw ::Rcpp::not_compatible("Expecting a string. Received %s instead of STRSXP.", Rf_type2char(TYPEOF(x)));
             }
             if (Rf_length(x) != 1) {
-                throw ::Rcpp::not_compatible("expecting a single value");
+                throw ::Rcpp::not_compatible("Expecting a single value. Object contained %i values.", ::Rf_length(x));
             }
             return STRING_ELT(::Rcpp::r_cast<STRSXP>(x), 0);
         }
