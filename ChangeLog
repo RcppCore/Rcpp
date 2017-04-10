@@ -43,6 +43,28 @@
         * inst/include/Rcpp/macros/macros.h: Idem
         * inst/unitTests/cpp/exceptions.cpp: Idem
         * inst/unitTests/runit.exceptions.R: Idem
+2017-04-10  James J Balamuta  <balamut2@illinois.edu>
+
+        * inst/include/Rcpp/exceptions.h: Added new exception class generation
+        macro, reworked existing macros, and removed two exceptions not used.
+        * inst/include/Rcpp/Environment.h: Improved error handling messages
+        * inst/include/Rcpp/Function.h: idem
+        * inst/include/Rcpp/Promise.h: idem
+        * inst/include/Rcpp/S4.h: idem
+        * inst/include/Rcpp/String.h: idem
+        * inst/include/Rcpp/Symbol.h: idem
+        * inst/include/Rcpp/XPtr.h: idem
+        * inst/include/Rcpp/as.h: idem
+        * inst/include/Rcpp/exceptions.h: idem
+        * inst/include/Rcpp/r_cast.h: idem
+        * inst/include/Rcpp/api/meat/DottedPairImpl.h: idem
+        * inst/include/Rcpp/internal/export.h: idem
+        * inst/include/Rcpp/proxy/DottedPairProxy.h: idem
+        * inst/include/Rcpp/proxy/SlotProxy.h: idem
+        * inst/include/Rcpp/vector/Matrix.h: idem
+        * inst/include/Rcpp/vector/MatrixColumn.h: idem
+        * inst/include/Rcpp/vector/MatrixRow.h: idem
+        * inst/include/Rcpp/vector/Vector.h: idem
 
 2017-03-28  James J Balamuta  <balamut2@illinois.edu>
 

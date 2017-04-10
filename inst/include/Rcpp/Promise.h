@@ -30,7 +30,7 @@ namespace Rcpp{
 
         Promise_Impl( SEXP x){
             if( TYPEOF(x) != PROMSXP)
-                throw not_compatible("not a promise") ;
+                throw not_compatible("Not a promise. Object is of type %s instead of PROMSXP.", Rf_type2char(TYPEOF(x))) ;
             Storage::set__(x) ;
         }
 

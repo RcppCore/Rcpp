@@ -107,7 +107,7 @@ public:
         parent_nrow(parent.nrow()),
         row(i)
     {
-        if( i < 0 || i >= parent.nrow() ) throw index_out_of_bounds() ;
+        if( i < 0 || i >= parent.nrow() ) throw index_out_of_bounds("index out of bounds. Requested row %i out of %i rows.", i, parent.nrow()) ;
     }
 
     MatrixRow( const MatrixRow& other ) :
@@ -245,7 +245,7 @@ public:
         const ConstMatrixRow& row ;
         int index ;
     } ;
-    
+
     typedef const_iterator iterator;
 
     ConstMatrixRow( const MATRIX& object, int i ) :
@@ -254,7 +254,7 @@ public:
         parent_nrow(parent.nrow()),
         row(i)
     {
-        if( i < 0 || i >= parent.nrow() ) throw index_out_of_bounds() ;
+        if( i < 0 || i >= parent.nrow() ) throw index_out_of_bounds("index out of bounds. Requested row %i out of %i rows.", i, parent.nrow()) ;
     }
 
     ConstMatrixRow( const ConstMatrixRow& other ) :

@@ -33,16 +33,16 @@ namespace Rcpp {
                 SEXP funSym = Rf_install(fun);
                 res = Rcpp_eval(Rf_lang2(funSym, x));
             } catch( eval_error& e){
-                throw not_compatible(std::string("could not convert using R function : ") + fun);
+                throw not_compatible("Could not convert using R function: %s.",  fun);
             }
-            return res;								// #nocov end 
+            return res;								// #nocov end
         }
 
         // r_true_cast is only meant to be used when the target SEXP type
         // is different from the SEXP type of x
         template <int TARGET>
         SEXP r_true_cast( SEXP x) {
-            throw not_compatible( "not compatible" );
+            throw not_compatible( "Not compatible target with SEXP (%s -> %s).", Rf_type2char(TYPEOF(x)), Rf_type2char(TARGET));
             return x; // makes solaris happy
         }
 
@@ -57,8 +57,8 @@ namespace Rcpp {
             case INTSXP:
                 return Rf_coerceVector(x, RTYPE);
             default:
-                throw ::Rcpp::not_compatible("not compatible with requested type");
-            }							// #nocov end 
+                throw ::Rcpp::not_compatible("Not compatible with requested type (%s -> %s).", Rf_type2char(TYPEOF(x)), Rf_type2char(RTYPE));
+            }							// #nocov end
             return R_NilValue; /* -Wall */
         }
 
@@ -72,7 +72,7 @@ namespace Rcpp {
         }
         template<>
         inline SEXP r_true_cast<RAWSXP>(SEXP x){
-            return  basic_cast<RAWSXP>(x);
+            return basic_cast<RAWSXP>(x);
         }
         template<>
         inline SEXP r_true_cast<CPLXSXP>(SEXP x){
@@ -103,13 +103,13 @@ namespace Rcpp {
             case SYMSXP:
                 return Rf_ScalarString( PRINTNAME( x ) );
             default:
-                throw ::Rcpp::not_compatible("not compatible with STRSXP");
+                throw ::Rcpp::not_compatible("Not compatible requested type (%s -> STRSXP).", Rf_type2char(TYPEOF(x)));
             }
             return R_NilValue; /* -Wall */
         }
         template<>
         inline SEXP r_true_cast<VECSXP>(SEXP x) {
-            return convert_using_rfunction(x, "as.list");	// #nocov end 
+            return convert_using_rfunction(x, "as.list");	// #nocov end
         }
         template<>
         inline SEXP r_true_cast<EXPRSXP>(SEXP x) {
@@ -141,9 +141,9 @@ namespace Rcpp {
         } else {
             #ifdef RCPP_WARN_ON_COERCE
             Shield<SEXP> result( internal::r_true_cast<TARGET>(x) );
-            Rf_warning("coerced object from '%s' to '%s'",
-                CHAR(Rf_type2str(TYPEOF(x))),
-                CHAR(Rf_type2str(TARGET))
+            ::Rcpp::warning("Coerced object from '%s' to '%s'.",
+                Rf_type2str(TYPEOF(x)),
+                Rf_type2str(TARGET)
             );
             return result;
             #else

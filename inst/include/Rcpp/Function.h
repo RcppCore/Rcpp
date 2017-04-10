@@ -44,7 +44,7 @@ namespace Rcpp{
                 Storage::set__(x);
                 break;
             default:
-                throw not_compatible("cannot convert to function") ;
+                throw not_compatible("cannot convert %s object to function", Rf_type2char(TYPEOF(x))) ;
             }
         }
 
@@ -87,7 +87,7 @@ namespace Rcpp{
         SEXP environment() const {
             SEXP fun = Storage::get__() ;
             if( TYPEOF(fun) != CLOSXP ) {
-                throw not_a_closure() ;
+                throw not_a_closure(Rf_type2char(TYPEOF(fun))) ;
             }
             return CLOENV(fun) ;
         }

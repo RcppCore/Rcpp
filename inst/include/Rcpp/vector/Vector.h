@@ -116,15 +116,15 @@ public:
         Storage::set__( Rf_allocVector( RTYPE, siz) ) ;
         std::generate( begin(), end(), gen );
     }
-    
+
     // Add template class T and then restict T to arithmetic.
     template <typename T>
-    Vector(T size, 
+    Vector(T size,
         typename Rcpp::traits::enable_if<traits::is_arithmetic<T>::value, void>::type* = 0) {
         Storage::set__( Rf_allocVector( RTYPE, size) ) ;
         init() ;
     }
-    
+
     Vector( const int& size ) {
         Storage::set__( Rf_allocVector( RTYPE, size) ) ;
         init() ;
@@ -163,7 +163,7 @@ public:
         RCPP_DEBUG_2( "Vector<%d>( const VectorBase<RTYPE,NA,VEC>& ) [VEC = %s]", RTYPE, DEMANGLE(VEC) )
         import_sugar_expression( other, typename traits::same_type<Vector,VEC>::type() ) ;
     }
-    
+
     template <typename T, typename U>
     Vector( const T& size, const U& u,
         typename Rcpp::traits::enable_if<traits::is_arithmetic<T>::value, void>::type* = 0) {
@@ -171,7 +171,7 @@ public:
         Storage::set__( Rf_allocVector( RTYPE, size) ) ;
         fill_or_generate( u ) ;
     }
-    
+
     template <bool NA, typename T>
     Vector( const sugar::SingleLogicalResult<NA,T>& obj ) {
         Storage::set__( r_cast<RTYPE>( const_cast<sugar::SingleLogicalResult<NA,T>&>(obj).get_sexp() ) ) ;
@@ -285,7 +285,7 @@ public:
         const int* dim = dims() ;
         const int nrow = dim[0] ;
         const int ncol = dim[1] ;
-        if(i < 0|| i >= nrow || j < 0 || j >= ncol ) throw index_out_of_bounds() ;
+        if(i < 0|| i >= nrow || j < 0 || j >= ncol ) throw index_out_of_bounds("index out of bounds. Requested row %i out of %i rows and %i column out of %i columns.", i, nrow, j, ncol) ;
         return i + static_cast<R_xlen_t>(nrow)*j ;
     }
 
@@ -294,20 +294,20 @@ public:
      * it is valid
      */
     R_xlen_t offset(const R_xlen_t& i) const {
-        if(i < 0 || i >= ::Rf_xlength(Storage::get__()) ) throw index_out_of_bounds() ;
+        if(i < 0 || i >= ::Rf_xlength(Storage::get__()) ) throw index_out_of_bounds("index out of bounds. Requested element %i out of %i elements.", i, ::Rf_xlength(Storage::get__()) ) ;
         return i ;
     }
-    
+
     R_xlen_t offset(const std::string& name) const {
         SEXP names = RCPP_GET_NAMES( Storage::get__() ) ;
-        if( Rf_isNull(names) ) throw index_out_of_bounds();
+        if( Rf_isNull(names) ) throw index_out_of_bounds("index out of bounds. Object was created without names.");
         R_xlen_t n=size() ;
         for( R_xlen_t i=0; i<n; ++i){
             if( ! name.compare( CHAR(STRING_ELT(names, i)) ) ){
                 return i ;
             }
         }
-        throw index_out_of_bounds() ;
+        throw index_out_of_bounds("index out of bounds. Unable to locate '%s'.", name) ;
         return -1 ; /* -Wall */
     }
 
@@ -389,21 +389,21 @@ public:
         // and is undefined for other types. Hence there will be a
         // compiler error when sorting List, RawVector or ExpressionVector.
         internal::Sort_is_not_allowed_for_this_type<RTYPE>::do_nothing();
-        
+
         typename traits::storage_type<RTYPE>::type* start = internal::r_vector_start<RTYPE>( Storage::get__() );
-        
+
         if (!decreasing) {
             std::sort(
                 start,
                 start + size(),
                 internal::NAComparator<typename traits::storage_type<RTYPE>::type>()
-            );            
+            );
         } else {
             std::sort(
                 start,
                 start + size(),
                 internal::NAComparatorGreater<typename traits::storage_type<RTYPE>::type>()
-            );     
+            );
         }
 
         return *this;
@@ -905,7 +905,20 @@ private:
     }
 
     iterator erase_single__impl( iterator position ) {
-              if( position < begin() || position > end() ) throw index_out_of_bounds( ) ;
+        if( position < begin() || position > end() ) {
+            R_xlen_t requested_loc;
+            R_xlen_t available_locs = std::distance(begin(), end());
+
+            if(position > end()){
+                requested_loc = std::distance(position, begin());
+            } else {
+                // This will be a negative number
+                requested_loc = std::distance(begin(), position);
+            }
+
+            throw index_out_of_bounds("index out of bounds. The iterator was set to begin at position %i with %i available.", requested_loc, available_locs ) ;
+        }
+
         R_xlen_t n = size() ;
         Vector target( n - 1 ) ;
         iterator target_it(target.begin()) ;
@@ -945,7 +958,22 @@ private:
 
     iterator erase_range__impl( iterator first, iterator last ) {
         if( first > last ) throw std::range_error("invalid range") ;
-        if( last > end() || first < begin() ) throw index_out_of_bounds() ;
+        if( last > end() || first < begin() ) {
+            R_xlen_t requested_loc;
+            R_xlen_t available_locs = std::distance(begin(), end());
+            std::string iter_problem;
+
+            if(last > end()){
+                requested_loc = std::distance(last, begin());
+                iter_problem = "last";
+            } else {
+                // This will be a negative number
+                requested_loc = std::distance(begin(), first);
+                iter_problem = "first";
+            }
+
+            throw index_out_of_bounds("index out of bounds. The '%s' iterator started at position %i with %i available.", iter_problem, requested_loc, available_locs ) ;
+        }
 
         iterator it = begin() ;
         iterator this_end = end() ;
