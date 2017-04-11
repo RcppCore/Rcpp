@@ -1,6 +1,6 @@
 #include "rcpp_hello_world.h"
 
-SEXP rcpp_hello_world(){
+SEXP rcpp_hello_world_cpp(){
     using namespace Rcpp ;
 
     CharacterVector x = CharacterVector::create( "foo", "bar" )  ;

@@ -1,4 +1,4 @@
-useDynLib(testRcppClass)
+useDynLib(testRcppClass, .registration=TRUE)
 import(Rcpp,methods)
 
 export(genWorld, stdNumeric, rcpp_hello_world,
