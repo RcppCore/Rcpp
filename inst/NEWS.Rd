@@ -14,6 +14,8 @@
       \item Added a Known Issues section to the Rcpp FAQ vignette
       (James Balamuta in \ghpr{661} addressing \ghit{628}, \ghit{563},
       \ghit{552}, \ghit{460}, \ghit{419}, and \ghit{251}).
+      \item Rcpp::exceptions can now be constructed without a call stack (Jim
+      Hester in \ghpr{663}).
     }
   }
 }

@@ -110,4 +110,14 @@ test.rcppExceptionLocation <- function() {
   checkEquals(nested$call, quote(takeLogNested(x)))
 }
 
+test.rcppExceptionNoCall <- function() {
+
+  # Can throw exceptions that don't include a call stack
+  e <- tryCatch(noCall(), error = identity)
+
+  checkIdentical(e$message, "Testing")
+  checkIdentical(e$call, NULL)
+  checkIdentical(e$cppstack, NULL)
+  checkIdentical(class(e), c("Rcpp::exception", "C++Error", "error", "condition"))
+}
 }
