@@ -1,6 +1,6 @@
 Package: testRcppModule
 Type: Package
-Title: Some test examples using Rcpp with the Module feature
+Title: Some Test Examples using Rcpp with the Module Feature
 Version: 0.1
 Date: 2010-09-06
 Author: John Chambers

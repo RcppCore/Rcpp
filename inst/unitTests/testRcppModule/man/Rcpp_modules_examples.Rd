@@ -1,6 +1,6 @@
 \name{Rcpp Modules Examples}
-\alias{Num}
-\alias{World}
+\alias{RcppModuleNum}
+\alias{RcppModuleWorld}
 \alias{bar}
 \alias{bla}
 \alias{bla1}
@@ -8,8 +8,8 @@
 \alias{foo}
 \alias{vec}
 \alias{hello}
-\alias{Rcpp_Num-class}
-\alias{Rcpp_World-class}
+\alias{Rcpp_RcppModuleNum-class}
+\alias{Rcpp_RcppModuleWorld-class}
 \alias{Rcpp_vec-class}
 \alias{C++Object-class}
 \title{
