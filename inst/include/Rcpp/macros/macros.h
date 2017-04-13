@@ -65,6 +65,11 @@
 #define END_RCPP VOID_END_RCPP return R_NilValue;
 #endif
 
+#ifndef BEGIN_RCPP_RETURN_ERROR
+#define BEGIN_RCPP_RETURN_ERROR                                                \
+    try {
+#endif
+
 #ifndef END_RCPP_RETURN_ERROR
 #define END_RCPP_RETURN_ERROR                                                  \
   }                                                                            \

@@ -43,7 +43,7 @@ namespace Rcpp{
         DataFrame_Impl(SEXP x) : Parent(x) {
             set__(x);
         }
-        DataFrame_Impl( const DataFrame_Impl& other){
+        DataFrame_Impl( const DataFrame_Impl& other) : Parent() {
             set__(other) ;
         }
 
