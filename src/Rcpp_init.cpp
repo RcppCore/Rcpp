@@ -122,6 +122,7 @@ void registerFunctions(){
 
 
 extern "C" void R_unload_Rcpp(DllInfo *info) {  // #nocov start
+    (void)info;
     // Release resources
 } 						// #nocov end
 
