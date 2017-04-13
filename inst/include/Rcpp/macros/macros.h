@@ -29,7 +29,9 @@
 #ifndef BEGIN_RCPP
 #define BEGIN_RCPP                                                                               \
     int rcpp_output_type = 0 ;                                                                   \
+    (void)rcpp_output_type;                                                                      \
     SEXP rcpp_output_condition = R_NilValue ;                                                    \
+    (void)rcpp_output_condition;                                                                 \
     try {
 #endif
 
@@ -63,11 +65,6 @@
 
 #ifndef END_RCPP
 #define END_RCPP VOID_END_RCPP return R_NilValue;
-#endif
-
-#ifndef BEGIN_RCPP_RETURN_ERROR
-#define BEGIN_RCPP_RETURN_ERROR                                                \
-    try {
 #endif
 
 #ifndef END_RCPP_RETURN_ERROR
