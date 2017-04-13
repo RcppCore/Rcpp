@@ -2581,7 +2581,8 @@ namespace attributes {
             }
             std::string args = ostrArgs.str();
             ostr << args << ") {" << std::endl;
-            ostr << "BEGIN_RCPP" << std::endl;
+            ostr << (cppInterface ? "BEGIN_RCPP_RETURN_ERROR" : "BEGIN_RCPP")
+                 << std::endl;
             if (!function.type().isVoid())
                 ostr << "    Rcpp::RObject rcpp_result_gen;" << std::endl;
             if (!cppInterface && attribute.rng())
