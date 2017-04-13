@@ -54,6 +54,7 @@ public:
         Rep_Single( const T& x_, R_xlen_t n_) : x(x_), n(n_){}
 
         inline T operator[]( R_xlen_t i ) const {
+		(void)i;
 		return x;
 	}
         inline R_xlen_t size() const { return n ; }

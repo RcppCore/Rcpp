@@ -697,7 +697,10 @@ namespace attributes {
 
     private:
         virtual void doWriteFunctions(const SourceFileAttributes& attributes,
-                                      bool verbose) {}
+                                      bool verbose) {
+            (void)attributes;
+            (void)verbose;
+        }
         std::string getHeaderGuard() const;
 
     private:
@@ -2003,6 +2006,7 @@ namespace attributes {
     void CppExportsIncludeGenerator::doWriteFunctions(
                                     const SourceFileAttributes& attributes,
                                     bool verbose) {
+        (void)verbose;
 
         // don't write anything if there is no C++ interface
         if (!attributes.hasInterface(kInterfaceCpp))
@@ -2182,6 +2186,7 @@ namespace attributes {
 
     bool CppPackageIncludeGenerator::commit(
                                 const std::vector<std::string>& includes) {
+        (void)includes;
 
         if (hasCppInterface()) {
 
@@ -2213,6 +2218,7 @@ namespace attributes {
     void RExportsGenerator::doWriteFunctions(
                                         const SourceFileAttributes& attributes,
                                         bool verbose) {
+        (void)verbose;
 
         // write standalone roxygen chunks
         const std::vector<std::vector<std::string> >& roxygenChunks =
@@ -2283,6 +2289,7 @@ namespace attributes {
     }
 
     bool RExportsGenerator::commit(const std::vector<std::string>& includes) {
+        (void)includes;
         return ExportsGenerator::commit();
     }
 
