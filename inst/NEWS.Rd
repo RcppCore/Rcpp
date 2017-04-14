@@ -7,15 +7,16 @@
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
-      \item ...
+      \item Rcpp::exceptions can now be constructed without a call stack (Jim
+      Hester in \ghpr{663} addressing \ghit{664}).
+      \item Somewhat spurious compiler messages under very verbose settings are
+      now suppressed (Kirill Mueller in \ghpr{670} and \ghpr{671}).
     }
     \item Changes in Rcpp Documentation:
     \itemize{
       \item Added a Known Issues section to the Rcpp FAQ vignette
       (James Balamuta in \ghpr{661} addressing \ghit{628}, \ghit{563},
       \ghit{552}, \ghit{460}, \ghit{419}, and \ghit{251}).
-      \item Rcpp::exceptions can now be constructed without a call stack (Jim
-      Hester in \ghpr{663}).
     }
   }
 }

@@ -1,3 +1,10 @@
+2017-04-14  Kirill Müller <krlmlr@mailbox.org>
+
+        * inst/include/Rcpp/macros/macros.h: Remove unused variable warning in
+        BEGIN_RCPP macro
+
+        * inst/include/Rcpp/DataFrame.h: Explicitly call parent constructor
+
 2017-04-11  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/inst/unitTests/testRcppClass/src/init.c (R_init_testRcppClass): Call
