@@ -64,8 +64,10 @@ public:
      * @param xp external pointer to wrap
      */
     explicit XPtr(SEXP x, SEXP tag = R_NilValue, SEXP prot = R_NilValue) {
-        if( TYPEOF(x) != EXTPTRSXP )
-            throw ::Rcpp::not_compatible( "expecting an external pointer" ) ;
+        if( TYPEOF(x) != EXTPTRSXP ) {
+            const char* fmt = "Expecting an external pointer: [type=%s].";
+            throw ::Rcpp::not_compatible(fmt, Rf_type2char(TYPEOF(x)) ) ;
+        }
         Storage::set__(x) ;
         R_SetExternalPtrTag( x, tag ) ;
         R_SetExternalPtrProtected( x, prot ) ;
@@ -128,7 +130,7 @@ public:
     inline T* checked_get() const {
         T* ptr = get();
         if (ptr == NULL)
-            throw ::Rcpp::exception("external pointer is not valid" ) ;
+            throw ::Rcpp::exception("External pointer is not valid." ) ;
         return ptr;
     }
 
