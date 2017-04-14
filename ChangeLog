@@ -1,3 +1,8 @@
+2017-04-14  James J Balamuta  <balamut2@illinois.edu>
+
+        * inst/include/Rcpp/utils/tinyformat.h: Refreshed tinyformat.h against
+        May 13, 2016 upstream, retained local mods.
+
 2017-04-14  Kirill Müller <krlmlr@mailbox.org>
 
         * inst/include/Rcpp/macros/macros.h: Remove unused variable warning in
