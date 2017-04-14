@@ -1,5 +1,8 @@
 2017-04-14  James J Balamuta  <balamut2@illinois.edu>
 
+        * inst/include/Rcpp/proxy/SlotProxy.h: Passed slot name to exception
+        throw.
+
         * inst/include/Rcpp/utils/tinyformat.h: Refreshed tinyformat.h against
         May 13, 2016 upstream, retained local mods.
 
