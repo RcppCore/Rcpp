@@ -5,6 +5,11 @@
 
         * inst/include/Rcpp/DataFrame.h: Explicitly call parent constructor
 
+        * inst/include/Rcpp/sugar/functions/rep.h: Remove variable name in
+        function declaration to suppress unused argument warning
+        * src/Rcpp_init.cpp: Ditto
+        * src/attributes.cpp: Ditto
+
 2017-04-11  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/inst/unitTests/testRcppClass/src/init.c (R_init_testRcppClass): Call

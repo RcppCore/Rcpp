@@ -10,7 +10,7 @@
       \item Rcpp::exceptions can now be constructed without a call stack (Jim
       Hester in \ghpr{663} addressing \ghit{664}).
       \item Somewhat spurious compiler messages under very verbose settings are
-      now suppressed (Kirill Mueller in \ghpr{670} and \ghpr{671}).
+      now suppressed (Kirill Mueller in \ghpr{670}, \ghpr{671} and \ghpr{672}).
     }
     \item Changes in Rcpp Documentation:
     \itemize{
