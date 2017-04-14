@@ -53,7 +53,7 @@ class Rep_Single : public Rcpp::VectorBase<
 public:
         Rep_Single( const T& x_, R_xlen_t n_) : x(x_), n(n_){}
 
-        inline T operator[]( R_xlen_t i ) const {
+        inline T operator[]( R_xlen_t ) const {
 		return x;
 	}
         inline R_xlen_t size() const { return n ; }
