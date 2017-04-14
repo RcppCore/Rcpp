@@ -696,11 +696,7 @@ namespace attributes {
         virtual bool commit(const std::vector<std::string>& includes);
 
     private:
-        virtual void doWriteFunctions(const SourceFileAttributes& attributes,
-                                      bool verbose) {
-            (void)attributes;
-            (void)verbose;
-        }
+        virtual void doWriteFunctions(const SourceFileAttributes&, bool) {}
         std::string getHeaderGuard() const;
 
     private:
@@ -2005,8 +2001,7 @@ namespace attributes {
 
     void CppExportsIncludeGenerator::doWriteFunctions(
                                     const SourceFileAttributes& attributes,
-                                    bool verbose) {
-        (void)verbose;
+                                    bool) {
 
         // don't write anything if there is no C++ interface
         if (!attributes.hasInterface(kInterfaceCpp))
@@ -2184,10 +2179,7 @@ namespace attributes {
         }
     }
 
-    bool CppPackageIncludeGenerator::commit(
-                                const std::vector<std::string>& includes) {
-        (void)includes;
-
+    bool CppPackageIncludeGenerator::commit(const std::vector<std::string>&) {
         if (hasCppInterface()) {
 
             // create the include dir if necessary
@@ -2217,9 +2209,7 @@ namespace attributes {
 
     void RExportsGenerator::doWriteFunctions(
                                         const SourceFileAttributes& attributes,
-                                        bool verbose) {
-        (void)verbose;
-
+                                        bool) {
         // write standalone roxygen chunks
         const std::vector<std::vector<std::string> >& roxygenChunks =
                                                     attributes.roxygenChunks();
@@ -2288,8 +2278,7 @@ namespace attributes {
         }
     }
 
-    bool RExportsGenerator::commit(const std::vector<std::string>& includes) {
-        (void)includes;
+    bool RExportsGenerator::commit(const std::vector<std::string>&) {
         return ExportsGenerator::commit();
     }
 
