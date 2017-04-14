@@ -1,5 +1,14 @@
 2017-04-14  James J Balamuta  <balamut2@illinois.edu>
 
+        * inst/include/Rcpp/exceptions.h: Split off macro generation and
+        variadic function into two separate headers.
+        * inst/include/Rcpp/Rcpp/exceptions/cpp98/exceptions.h: Contains
+        generated RCPP_ADVANCED_EXCEPTION_CLASS macro, stop & warning
+        * inst/include/Rcpp/Rcpp/exceptions/cpp11/exceptions.h: idem but
+        for variadic versions
+        * inst/include/Rcpp/utils/tinyformat.h: Enabled ability to use variadic
+        tinyformat function.
+
         * inst/include/Rcpp/proxy/SlotProxy.h: Passed slot name to exception
         throw.
 

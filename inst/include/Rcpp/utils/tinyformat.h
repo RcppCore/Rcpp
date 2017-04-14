@@ -130,10 +130,12 @@ namespace Rcpp {
 
 // Define for C++11 variadic templates which make the code shorter & more
 // general.  If you don't define this, C++11 support is autodetected below.
-// #define TINYFORMAT_USE_VARIADIC_TEMPLATES
-
+#if __cplusplus >= 201103L
+#define TINYFORMAT_USE_VARIADIC_TEMPLATES
+#else
 // don't use C++11 features (support older compilers)
 #define TINYFORMAT_NO_VARIADIC_TEMPLATES
+#endif
 
 //------------------------------------------------------------------------------
 // Implementation details.
@@ -367,6 +369,7 @@ TINYFORMAT_DEFINE_FORMATVALUE_CHAR(unsigned char)
 // Tools for emulating variadic templates in C++98.  The basic idea here is
 // stolen from the boost preprocessor metaprogramming library and cut down to
 // be just general enough for what we need.
+#ifdef TINYFORMAT_NO_VARIADIC_TEMPLATES
 
 #define TINYFORMAT_ARGTYPES(n) TINYFORMAT_ARGTYPES_ ## n
 #define TINYFORMAT_VARARGS(n) TINYFORMAT_VARARGS_ ## n
@@ -480,7 +483,7 @@ cog.outl('#define TINYFORMAT_FOREACH_ARGNUM(m) \\\n    ' +
 #define TINYFORMAT_FOREACH_ARGNUM(m) \
     m(1) m(2) m(3) m(4) m(5) m(6) m(7) m(8) m(9) m(10) m(11) m(12) m(13) m(14) m(15) m(16)
 //[[[end]]]
-
+#endif // macros for C++98 code
 
 
 namespace detail {
