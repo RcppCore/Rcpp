@@ -44,7 +44,10 @@ namespace Rcpp{
                 Storage::set__(x);
                 break;
             default:
-                throw not_compatible("cannot convert %s object to function", Rf_type2char(TYPEOF(x))) ;
+                const char* fmt =
+                    "Cannot convert object to a function:"
+                    "[type=%s; target=CLOSXP, SPECIALSXP, or BUILTINSXP].";
+                throw not_compatible(fmt, Rf_type2char(TYPEOF(x))) ;
             }
         }
 

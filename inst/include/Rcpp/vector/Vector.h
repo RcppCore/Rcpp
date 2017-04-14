@@ -285,7 +285,12 @@ public:
         const int* dim = dims() ;
         const int nrow = dim[0] ;
         const int ncol = dim[1] ;
-        if(i < 0|| i >= nrow || j < 0 || j >= ncol ) throw index_out_of_bounds("index out of bounds. Requested row %i out of %i rows and %i column out of %i columns.", i, nrow, j, ncol) ;
+        if(i < 0|| i >= nrow || j < 0 || j >= ncol ) {
+            const char* fmt = "Index out of bounds: "
+                              "[row index=%s; row extent=%s; "
+                              "column index=%s; column extent=%s].";
+            throw index_out_of_bounds(fmt, i, nrow, j, ncol) ;
+        }
         return i + static_cast<R_xlen_t>(nrow)*j ;
     }
 
@@ -294,20 +299,28 @@ public:
      * it is valid
      */
     R_xlen_t offset(const R_xlen_t& i) const {
-        if(i < 0 || i >= ::Rf_xlength(Storage::get__()) ) throw index_out_of_bounds("index out of bounds. Requested element %i out of %i elements.", i, ::Rf_xlength(Storage::get__()) ) ;
+        if(i < 0 || i >= ::Rf_xlength(Storage::get__()) ) {
+            const char* fmt = "Index out of bounds: [index=%s; extent=%s].";
+            throw index_out_of_bounds(fmt, i, ::Rf_xlength(Storage::get__()) ) ;
+        }
         return i ;
     }
 
     R_xlen_t offset(const std::string& name) const {
         SEXP names = RCPP_GET_NAMES( Storage::get__() ) ;
-        if( Rf_isNull(names) ) throw index_out_of_bounds("index out of bounds. Object was created without names.");
+        if( Rf_isNull(names) ) {
+            const char* fmt = "Index out of bounds: "
+                              "Object was created without names.";
+            throw index_out_of_bounds(fmt);
+        }
         R_xlen_t n=size() ;
         for( R_xlen_t i=0; i<n; ++i){
             if( ! name.compare( CHAR(STRING_ELT(names, i)) ) ){
                 return i ;
             }
         }
-        throw index_out_of_bounds("index out of bounds. Unable to locate '%s'.", name) ;
+        const char* fmt = "Index out of bounds: [index='%s'].";
+        throw index_out_of_bounds(fmt, name) ;
         return -1 ; /* -Wall */
     }
 
@@ -915,8 +928,9 @@ private:
                 // This will be a negative number
                 requested_loc = std::distance(begin(), position);
             }
-
-            throw index_out_of_bounds("index out of bounds. The iterator was set to begin at position %i with %i available.", requested_loc, available_locs ) ;
+            const char* fmt = "Index is out of bounds: "
+                              "[iterator index=%s; iterator extent=%s]";
+            throw index_out_of_bounds(fmt, requested_loc, available_locs ) ;
         }
 
         R_xlen_t n = size() ;
@@ -971,8 +985,10 @@ private:
                 requested_loc = std::distance(begin(), first);
                 iter_problem = "first";
             }
-
-            throw index_out_of_bounds("index out of bounds. The '%s' iterator started at position %i with %i available.", iter_problem, requested_loc, available_locs ) ;
+            const char* fmt = "Index is out of bounds: "
+                              "[iterator=%s; index=%s; extent=%s]";
+            throw index_out_of_bounds(fmt, iter_problem,
+                                      requested_loc, available_locs ) ;
         }
 
         iterator it = begin() ;

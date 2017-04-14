@@ -1,3 +1,22 @@
+2017-04-14  James J Balamuta  <balamut2@illinois.edu>
+
+        * inst/include/Rcpp/Environment.h: Modified formatting of new exception
+        messages to be more concise.
+        * inst/include/Rcpp/exceptions.h: idem
+        * inst/include/Rcpp/Function.h: idem
+        * inst/include/Rcpp/Promise.h: idem
+        * inst/include/Rcpp/String.h: idem
+        * inst/include/Rcpp/Symbol.h: idem
+        * inst/include/Rcpp/XPtr.h: idem
+        * inst/include/Rcpp/as.h: idem
+        * inst/include/Rcpp/r_cast.h: idem
+        * inst/include/Rcpp/api/meat/DottedPairImpl.h: idem
+        * inst/include/Rcpp/internal/export.h: idem
+        * inst/include/Rcpp/proxy/DottedPairProxy.h: idem
+        * inst/include/Rcpp/vector/MatrixColumn.h: idem
+        * inst/include/Rcpp/vector/MatrixRow.h: idem
+        * inst/include/Rcpp/vector/Vector.h: idem
+
 2017-04-11  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/inst/unitTests/testRcppClass/src/init.c (R_init_testRcppClass): Call
@@ -43,6 +62,7 @@
         * inst/include/Rcpp/macros/macros.h: Idem
         * inst/unitTests/cpp/exceptions.cpp: Idem
         * inst/unitTests/runit.exceptions.R: Idem
+
 2017-04-10  James J Balamuta  <balamut2@illinois.edu>
 
         * inst/include/Rcpp/exceptions.h: Added new exception class generation
@@ -55,7 +75,6 @@
         * inst/include/Rcpp/Symbol.h: idem
         * inst/include/Rcpp/XPtr.h: idem
         * inst/include/Rcpp/as.h: idem
-        * inst/include/Rcpp/exceptions.h: idem
         * inst/include/Rcpp/r_cast.h: idem
         * inst/include/Rcpp/api/meat/DottedPairImpl.h: idem
         * inst/include/Rcpp/internal/export.h: idem

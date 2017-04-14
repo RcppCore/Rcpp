@@ -157,27 +157,27 @@ namespace Rcpp {
         virtual const char* what() const throw() { return __MESSAGE__ ; }          \
     } ;
 
-    RCPP_SIMPLE_EXCEPTION_CLASS(not_a_matrix, "not a matrix")
-    RCPP_SIMPLE_EXCEPTION_CLASS(parse_error, "parse error")
-    RCPP_SIMPLE_EXCEPTION_CLASS(not_s4, "not an S4 object")	// #nocov start
-    RCPP_SIMPLE_EXCEPTION_CLASS(not_reference, "not an S4 object of a reference class")
-    RCPP_SIMPLE_EXCEPTION_CLASS(not_initialized, "C++ object not initialized (missing default constructor?)")
-    RCPP_SIMPLE_EXCEPTION_CLASS(no_such_function, "no such function")
-    RCPP_SIMPLE_EXCEPTION_CLASS(unevaluated_promise, "promise not yet evaluated")
+    RCPP_SIMPLE_EXCEPTION_CLASS(not_a_matrix, "Not a matrix.")
+    RCPP_SIMPLE_EXCEPTION_CLASS(parse_error, "Parse error.")
+    RCPP_SIMPLE_EXCEPTION_CLASS(not_s4, "Not an S4 object.")	// #nocov start
+    RCPP_SIMPLE_EXCEPTION_CLASS(not_reference, "Not an S4 object of a reference class.")
+    RCPP_SIMPLE_EXCEPTION_CLASS(not_initialized, "C++ object not initialized. (Missing default constructor?)")
+    RCPP_SIMPLE_EXCEPTION_CLASS(no_such_function, "No such function.")
+    RCPP_SIMPLE_EXCEPTION_CLASS(unevaluated_promise, "Promise not yet evaluated.")
 
-    RCPP_EXCEPTION_CLASS(no_such_slot, std::string("no such slot: ") + message )
-    RCPP_EXCEPTION_CLASS(S4_creation_error, std::string("error creating object of S4 class: ") + message )
-    RCPP_EXCEPTION_CLASS(reference_creation_error, std::string("error creating object of reference class: ") + message )
-    RCPP_EXCEPTION_CLASS(no_such_binding, std::string("no such binding: '") + message + "'" )
-    RCPP_EXCEPTION_CLASS(binding_not_found, std::string("binding not found: '") + message + "'" )
-    RCPP_EXCEPTION_CLASS(binding_is_locked, std::string("binding is locked: '") + message + "'" )
-    RCPP_EXCEPTION_CLASS(no_such_namespace, std::string("no such namespace: '") + message + "'" )
-    RCPP_EXCEPTION_CLASS(function_not_exported, std::string("function not exported: ") + message)
+    RCPP_EXCEPTION_CLASS(no_such_slot, std::string("No such slot: ") + message + "." )
+    RCPP_EXCEPTION_CLASS(S4_creation_error, std::string("Error creating object of S4 class: ") + message + "." )
+    RCPP_EXCEPTION_CLASS(reference_creation_error, std::string("Error creating object of reference class: ") + message + ".")
+    RCPP_EXCEPTION_CLASS(no_such_binding, std::string("No such binding: '") + message + "'." )
+    RCPP_EXCEPTION_CLASS(binding_not_found, std::string("Binding not found: '") + message + "'." )
+    RCPP_EXCEPTION_CLASS(binding_is_locked, std::string("Binding is locked: '") + message + "'." )
+    RCPP_EXCEPTION_CLASS(no_such_namespace, std::string("No such namespace: '") + message + "'." )
+    RCPP_EXCEPTION_CLASS(function_not_exported, std::string("Function not exported: ") + message + "." )
     RCPP_EXCEPTION_CLASS(eval_error, message )
-    RCPP_EXCEPTION_CLASS(not_a_closure, std::string("not a closure. Object is of type ") + message + "." )
+    RCPP_EXCEPTION_CLASS(not_a_closure, std::string("Not a closure: [type=") + message + "]." )
 
-    RCPP_ADVANCED_EXCEPTION_CLASS(not_compatible, "not compatible")
-    RCPP_ADVANCED_EXCEPTION_CLASS(index_out_of_bounds, "index out of bounds") // #nocov end
+    RCPP_ADVANCED_EXCEPTION_CLASS(not_compatible, "Not compatible.")
+    RCPP_ADVANCED_EXCEPTION_CLASS(index_out_of_bounds, "Index out of bounds.") // #nocov end
 
     #undef RCPP_SIMPLE_EXCEPTION_CLASS
     #undef RCPP_EXCEPTION_CLASS

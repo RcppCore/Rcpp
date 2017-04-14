@@ -40,7 +40,10 @@ namespace Rcpp{
                 Shield<SEXP> res( Rcpp_eval( Rf_lang2( asEnvironmentSym, x ) ) );
                 return res ;
             } catch( const eval_error& ex){
-                throw not_compatible( "Cannot convert to environment (%s -> ENVSXP).", Rf_type2char(TYPEOF(x))) ;
+                const char* fmt =
+                    "Cannot convert object to an environment: "
+                    "[type:%s; target=ENVSXP].";
+                throw not_compatible(fmt, Rf_type2char(TYPEOF(x))) ;
             }
         }
 

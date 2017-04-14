@@ -107,7 +107,11 @@ public:
         parent_nrow(parent.nrow()),
         row(i)
     {
-        if( i < 0 || i >= parent.nrow() ) throw index_out_of_bounds("index out of bounds. Requested row %i out of %i rows.", i, parent.nrow()) ;
+        if( i < 0 || i >= parent.nrow() ){
+            const char* fmt = "Index is out of bounds: "
+                              "[index=%s; row extent=%s].";
+            throw index_out_of_bounds(fmt, i, parent.nrow()) ;
+        }
     }
 
     MatrixRow( const MatrixRow& other ) :
@@ -254,7 +258,11 @@ public:
         parent_nrow(parent.nrow()),
         row(i)
     {
-        if( i < 0 || i >= parent.nrow() ) throw index_out_of_bounds("index out of bounds. Requested row %i out of %i rows.", i, parent.nrow()) ;
+        if( i < 0 || i >= parent.nrow() ) {
+            const char* fmt = "Index is out of bounds: "
+                              "[index=%s; row extent=%s].";
+            throw index_out_of_bounds(fmt, i, parent.nrow()) ;
+        }
     }
 
     ConstMatrixRow( const ConstMatrixRow& other ) :

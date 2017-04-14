@@ -39,7 +39,11 @@ public:
         start(parent.begin() + static_cast<R_xlen_t>(i) * n ),
         const_start(const_cast<const MATRIX&>(parent).begin() + static_cast<R_xlen_t>(i) * n)
     {
-        if( i < 0 || i >= parent.ncol() )  throw index_out_of_bounds("index out of bounds. Requested column %i out of %i columns.", i, parent.ncol()) ;
+        if( i < 0 || i >= parent.ncol() ) {
+            const char* fmt = "Index is out of bounds: "
+                              "[index=%s; column extent=%s].";
+            throw index_out_of_bounds(fmt, i, parent.ncol()) ;
+        }
     }
 
     MatrixColumn( const MATRIX& parent, int i ) :
@@ -47,7 +51,11 @@ public:
         start( const_cast<MATRIX&>(parent).begin() + static_cast<R_xlen_t>(i) * n ),
         const_start(parent.begin() + static_cast<R_xlen_t>(i) * n)
     {
-        if( i < 0 || i >= parent.ncol() ) throw index_out_of_bounds("index out of bounds. Requested column %i out of %i columns.", i, parent.ncol()) ;
+        if( i < 0 || i >= parent.ncol() ) {
+            const char* fmt = "Index is out of bounds: "
+                              "[index=%s; column extent=%s].";
+            throw index_out_of_bounds(fmt, i, parent.ncol()) ;
+        }
     }
 
     MatrixColumn( const MatrixColumn& other ) :
@@ -115,7 +123,11 @@ public:
         n(parent.nrow()),
         const_start(parent.begin() + i *n)
     {
-        if( i < 0 || i >= parent.ncol() ) throw index_out_of_bounds("index out of bounds. Requested column %i out of %i columns.", i, parent.ncol()) ;
+        if( i < 0 || i >= parent.ncol() ) {
+            const char* fmt = "Index is out of bounds: "
+                              "[index=%s; column extent=%s].";
+            throw index_out_of_bounds(fmt, i, parent.ncol()) ;
+        }
     }
 
     ConstMatrixColumn( const ConstMatrixColumn& other ) :

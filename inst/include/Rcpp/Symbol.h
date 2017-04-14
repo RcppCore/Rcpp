@@ -62,7 +62,9 @@ namespace Rcpp{
                 break ;
             }
             default:
-                throw not_compatible("Cannot object convert to symbol (%s -> SYMSXP)", Rf_type2char(type)) ;
+                const char* fmt =
+                    "Cannot convert object to a symbol (%s -> SYMSXP).";
+                throw not_compatible(fmt, Rf_type2char(type)) ;
             }
         }
 
