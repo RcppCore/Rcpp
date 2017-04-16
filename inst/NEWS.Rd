@@ -11,6 +11,8 @@
       Hester in \ghpr{663} addressing \ghit{664}).
       \item Somewhat spurious compiler messages under very verbose settings are
       now suppressed (Kirill Mueller in \ghpr{670}, \ghpr{671} and \ghpr{672}).
+      \item Refreshed the included \code{tinyformat} template library
+      (James Balamuta in \ghpr{674} addressing \ghit{673}).
     }
     \item Changes in Rcpp Documentation:
     \itemize{
