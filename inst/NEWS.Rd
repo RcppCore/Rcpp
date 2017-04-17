@@ -15,9 +15,9 @@
       (James Balamuta in \ghpr{674} addressing \ghit{673}).
       \item Added \code{printf}-like syntax support for exception classes and
       variadic templating for \code{Rcpp::stop} and \code{Rcpp::warning}
-      (James Balamuta in \ghpr{675}).
+      (James Balamuta in \ghpr{676}).
       \item Exception messages have been rewritten to provide additional
-      information. (James Balamuta in \ghpr{675}, ?? addressing \ghit{184}).
+      information. (James Balamuta in \ghpr{676}, ?? addressing \ghit{184}).
     }
     \item Changes in Rcpp Documentation:
     \itemize{

@@ -28,19 +28,19 @@
 namespace Rcpp {
 
 #define RCPP_ADVANCED_EXCEPTION_CLASS(__CLASS__, __WHAT__)                        \
-class __CLASS__ : public std::exception{                                          \
+class __CLASS__ : public std::exception {                                         \
     public:                                                                       \
-        __CLASS__( ) throw() : message( std::string(__WHAT__) + "." ){} ;         \
+        __CLASS__( ) throw() : message( std::string(__WHAT__) + "." ){}           \
         __CLASS__( const std::string& message ) throw() :                         \
-		message( std::string(__WHAT__) + ": " + message + "."){} ;                \
+		message( std::string(__WHAT__) + ": " + message + "."){}                  \
         template <typename... Args>                                               \
         __CLASS__( const char* fmt, Args&&... args ) throw() :                    \
-            message(  tfm::format(fmt, std::forward<Args>(args)...) ){} ;         \
-        virtual ~__CLASS__() throw(){} ;                                          \
-        virtual const char* what() const throw() { return message.c_str() ; }     \
+            message(  tfm::format(fmt, std::forward<Args>(args)... ) ){}          \
+        virtual ~__CLASS__() throw(){}                                            \
+        virtual const char* what() const throw() { return message.c_str(); }      \
         private:                                                                  \
-            std::string message ;                                                 \
-} ;
+            std::string message;                                                  \
+};
 
 template <typename... Args>
 inline void warning(const char* fmt, Args&&... args ) {
