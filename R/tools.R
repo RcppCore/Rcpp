@@ -48,3 +48,55 @@ asBuildPath <- function(path) {
 
     return(path)
 }
+
+updateChangeLog <- function(dir = getwd(), text = "") {
+    
+    clPath <- file.path(dir, "ChangeLog")
+    if (is.null(clPath))
+        return()
+    
+    if (!file.exists(clPath))
+        file.create(clPath)
+    
+    on.exit(file.edit(clPath))
+    
+    git <- Sys.which("git")
+    stopifnot(git != "")
+    
+    gitOutput <- system("git status --porcelain", intern = TRUE)
+    if (!length(gitOutput))
+        return()
+    
+    changedFiles <- sort(substr(gitOutput, 4, nchar(gitOutput)))
+    
+    userName <- getOption("devtools.name", default = Sys.getenv("USER"))
+    descOpt <- getOption("devtools.desc")
+    if (length(descOpt)) {
+        maintainer <- descOpt$Maintainer
+        if (length(maintainer))
+            mail <- sub(".*<\\s*(.*)\\s*>", "<\\1>", maintainer, perl = TRUE)
+    } else {
+        mail <- Sys.getenv("MAIL")
+    }
+    
+    date <- as.character(Sys.Date())
+    
+    header <- paste(date, userName, mail, sep = "  ")
+    body <- if (length(changedFiles)) {
+        paste(
+            sep = "", collapse = "\n",
+            "        * ", changedFiles, ": ", text
+        )
+    }
+    
+    all <- paste(header, "", body, sep = "\n")
+    
+    contents <- if (file.exists(clPath))
+        paste(readLines(clPath), collapse = "\n")
+    
+    amended <- paste(all, "", contents, sep = "\n")
+    amended <- sub("\\s*$", "", amended, perl = TRUE)
+    
+    cat(amended, file = clPath, sep = "\n")
+    
+}
