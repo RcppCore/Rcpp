@@ -97,10 +97,37 @@ namespace Rcpp {
             file_io_error("file already exists", file) {}	// #nocov end
     };
 
+    // Variadic / code generated version of the warning and stop functions
+    // can be found within the respective C++11 or C++98 exceptions.h
+    // included below
+    inline void warning(const std::string& message) {        // #nocov start
+        Rf_warning(message.c_str());
+    }                                                        // #nocov end
+
+    inline void NORET stop(const std::string& message) {     // #nocov start
+        throw Rcpp::exception(message.c_str());
+    }                                                        // #nocov end
+
+} // namespace Rcpp
+
+
+// Determine whether to use variadic templated RCPP_ADVANCED_EXCEPTION_CLASS,
+// warning, and stop exception functions or to use the generated argument macro
+// based on whether the compiler supports c++11 or not.
+#if __cplusplus >= 201103L
+# include <Rcpp/exceptions/cpp11/exceptions.h>
+#else
+# include <Rcpp/exceptions/cpp98/exceptions.h>
+#endif
+
+namespace Rcpp {
+
     #define RCPP_EXCEPTION_CLASS(__CLASS__,__WHAT__)                               \
     class __CLASS__ : public std::exception{                                       \
     public:                                                                        \
-        __CLASS__( const std::string& message ) throw() : message( __WHAT__ ){} ;  \
+        __CLASS__( ) throw() : message( std::string(__WHAT__) + "." ){} ;          \
+        __CLASS__( const std::string& message ) throw() :                          \
+        message( std::string(__WHAT__) + ": " + message + "." ){} ;                \
         virtual ~__CLASS__() throw(){} ;                                           \
         virtual const char* what() const throw() { return message.c_str() ; }      \
     private:                                                                       \
@@ -115,30 +142,35 @@ namespace Rcpp {
         virtual const char* what() const throw() { return __MESSAGE__ ; }          \
     } ;
 
-    RCPP_SIMPLE_EXCEPTION_CLASS(not_a_matrix, "not a matrix")
-    RCPP_SIMPLE_EXCEPTION_CLASS(index_out_of_bounds, "index out of bounds")
-    RCPP_SIMPLE_EXCEPTION_CLASS(parse_error, "parse error")
-    RCPP_SIMPLE_EXCEPTION_CLASS(not_s4, "not an S4 object")	// #nocov start
-    RCPP_SIMPLE_EXCEPTION_CLASS(not_reference, "not an S4 object of a reference class")
-    RCPP_SIMPLE_EXCEPTION_CLASS(not_initialized, "C++ object not initialized (missing default constructor?)")
-    RCPP_SIMPLE_EXCEPTION_CLASS(no_such_slot, "no such slot")
-    RCPP_SIMPLE_EXCEPTION_CLASS(no_such_field, "no such field")
-    RCPP_SIMPLE_EXCEPTION_CLASS(not_a_closure, "not a closure")
-    RCPP_SIMPLE_EXCEPTION_CLASS(no_such_function, "no such function")
-    RCPP_SIMPLE_EXCEPTION_CLASS(unevaluated_promise, "promise not yet evaluated")
+    RCPP_SIMPLE_EXCEPTION_CLASS(not_a_matrix, "Not a matrix.") // #nocov start
+    RCPP_SIMPLE_EXCEPTION_CLASS(parse_error, "Parse error.")
+    RCPP_SIMPLE_EXCEPTION_CLASS(not_s4, "Not an S4 object.")
+    RCPP_SIMPLE_EXCEPTION_CLASS(not_reference, "Not an S4 object of a reference class.")
+    RCPP_SIMPLE_EXCEPTION_CLASS(not_initialized, "C++ object not initialized. (Missing default constructor?)")
+    RCPP_SIMPLE_EXCEPTION_CLASS(no_such_field, "No such field.") // not used internally
+    RCPP_SIMPLE_EXCEPTION_CLASS(no_such_function, "No such function.")
+    RCPP_SIMPLE_EXCEPTION_CLASS(unevaluated_promise, "Promise not yet evaluated.")
 
-    RCPP_EXCEPTION_CLASS(not_compatible, message )
-    RCPP_EXCEPTION_CLASS(S4_creation_error, std::string("error creating object of S4 class : ") + message )
-    RCPP_EXCEPTION_CLASS(reference_creation_error, std::string("error creating object of reference class : ") + message )
-    RCPP_EXCEPTION_CLASS(no_such_binding, std::string("no such binding : '") + message + "'" )
-    RCPP_EXCEPTION_CLASS(binding_not_found, std::string("binding not found: '") + message + "'" )
-    RCPP_EXCEPTION_CLASS(binding_is_locked, std::string("binding is locked: '") + message + "'" )
-    RCPP_EXCEPTION_CLASS(no_such_namespace, std::string("no such namespace: '") + message + "'" )
-    RCPP_EXCEPTION_CLASS(function_not_exported, std::string("function not exported: ") + message)
-    RCPP_EXCEPTION_CLASS(eval_error, message )			// #nocov end
+    // Promoted
+    RCPP_EXCEPTION_CLASS(no_such_slot, "No such slot")
+    RCPP_EXCEPTION_CLASS(not_a_closure, "Not a closure")
 
-    #undef RCPP_EXCEPTION_CLASS
+    RCPP_EXCEPTION_CLASS(S4_creation_error, "Error creating object of S4 class")
+    RCPP_EXCEPTION_CLASS(reference_creation_error, "Error creating object of reference class") // not used internally
+    RCPP_EXCEPTION_CLASS(no_such_binding, "No such binding")
+    RCPP_EXCEPTION_CLASS(binding_not_found, "Binding not found")
+    RCPP_EXCEPTION_CLASS(binding_is_locked, "Binding is locked")
+    RCPP_EXCEPTION_CLASS(no_such_namespace, "No such namespace")
+    RCPP_EXCEPTION_CLASS(function_not_exported, "Function not exported")
+    RCPP_EXCEPTION_CLASS(eval_error, "Evaluation error")			     // #nocov end
+
+    // Promoted
+    RCPP_ADVANCED_EXCEPTION_CLASS(not_compatible, "Not compatible" )
+    RCPP_ADVANCED_EXCEPTION_CLASS(index_out_of_bounds, "Index is out of bounds")
+
     #undef RCPP_SIMPLE_EXCEPTION_CLASS
+    #undef RCPP_EXCEPTION_CLASS
+    #undef RCPP_ADVANCED_EXCEPTION_CLASS
 
 
 namespace internal {
@@ -166,7 +198,7 @@ namespace internal {
             nth(expr, 2) == identity_fun &&
             nth(expr, 3) == identity_fun;
     }
-}
+} // namespace internal
 
 } // namespace Rcpp
 
@@ -280,117 +312,6 @@ inline SEXP exception_to_try_error( const std::exception& ex){
 
 std::string demangle( const std::string& name) ;
 #define DEMANGLE(__TYPE__) demangle( typeid(__TYPE__).name() ).c_str()
-
-namespace Rcpp{
-
-    inline void warning(const std::string& message) {
-        Rf_warning(message.c_str());
-    }
-
-    template <typename T1>
-    inline void warning(const char* fmt, const T1& arg1) {
-        Rf_warning( tfm::format(fmt, arg1 ).c_str() );
-    }
-
-    template <typename T1, typename T2>
-    inline void warning(const char* fmt, const T1& arg1, const T2& arg2) {
-        Rf_warning( tfm::format(fmt, arg1, arg2 ).c_str() );
-    }
-
-    template <typename T1, typename T2, typename T3>
-    inline void warning(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3) {
-        Rf_warning( tfm::format(fmt, arg1, arg2, arg3).c_str() );
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4>
-    inline void warning(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4) {
-        Rf_warning( tfm::format(fmt, arg1, arg2, arg3, arg4).c_str() );
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4, typename T5>
-    inline void warning(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5) {
-        Rf_warning( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5).c_str() );
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
-    inline void warning(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5, const T6& arg6) {
-        Rf_warning( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5, arg6).c_str() );
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
-    inline void warning(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5, const T6& arg6, const T7& arg7) {
-        Rf_warning( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5, arg6, arg7).c_str() );
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
-    inline void warning(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5, const T6& arg6, const T7& arg7, const T8& arg8) {
-        Rf_warning( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8).c_str() );
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9>
-    inline void warning(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5, const T6& arg6, const T7& arg7, const T8& arg8, const T9& arg9) {
-        Rf_warning( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9).c_str() );
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10>
-    inline void warning(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5, const T6& arg6, const T7& arg7, const T8& arg8, const T9& arg9, const T10& arg10) {
-        Rf_warning( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10).c_str() );
-    }
-
-    inline void NORET stop(const std::string& message) {	// #nocov start
-        throw Rcpp::exception(message.c_str());
-    }								// #nocov end
-
-    template <typename T1>
-    inline void NORET stop(const char* fmt, const T1& arg1) {
-        throw Rcpp::exception( tfm::format(fmt, arg1 ).c_str() );
-    }
-
-    template <typename T1, typename T2>
-    inline void NORET stop(const char* fmt, const T1& arg1, const T2& arg2) {
-        throw Rcpp::exception( tfm::format(fmt, arg1, arg2 ).c_str() );
-    }
-
-    template <typename T1, typename T2, typename T3>
-    inline void NORET stop(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3) {
-        throw Rcpp::exception( tfm::format(fmt, arg1, arg2, arg3).c_str() );
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4>
-    inline void NORET stop(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4) {
-        throw Rcpp::exception( tfm::format(fmt, arg1, arg2, arg3, arg4).c_str() );
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4, typename T5>
-    inline void NORET stop(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5) {
-        throw Rcpp::exception( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5).c_str() );
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
-    inline void NORET stop(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5, const T6& arg6) {
-        throw Rcpp::exception( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5, arg6).c_str() );
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
-    inline void NORET stop(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5, const T6& arg6, const T7& arg7) {
-        throw Rcpp::exception( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5, arg6, arg7).c_str() );
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8>
-    inline void NORET stop(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5, const T6& arg6, const T7& arg7, const T8& arg8) {
-        throw Rcpp::exception( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8).c_str() );
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9>
-    inline void NORET stop(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5, const T6& arg6, const T7& arg7, const T8& arg8, const T9& arg9) {
-        throw Rcpp::exception( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9).c_str() );
-    }
-
-    template <typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7, typename T8, typename T9, typename T10>
-    inline void NORET stop(const char* fmt, const T1& arg1, const T2& arg2, const T3& arg3, const T4& arg4, const T5& arg5, const T6& arg6, const T7& arg7, const T8& arg8, const T9& arg9, const T10& arg10) {
-        throw Rcpp::exception( tfm::format(fmt, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10).c_str() );
-    }
-}
 
 inline void forward_exception_to_r(const std::exception& ex){
     SEXP stop_sym  = Rf_install( "stop" ) ;
