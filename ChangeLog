@@ -1,3 +1,17 @@
+2017-04-17  James J Balamuta  <balamut2@illinois.edu>
+
+        * inst/include/Rcpp/Rcpp/exceptions/cpp11/exceptions.h: Removed
+        semicolons from RCPP_ADVANCED_EXCEPTION_CLASS to quiet 'extra ;' -Wpedantic
+
+        * inst/include/Rcpp/exceptions.h: Modified exceptions macros to support
+        a default string and removed generated stop, warning from file.
+        * inst/include/Rcpp/Rcpp/exceptions/cpp98/exceptions.h: Contains
+        generated RCPP_ADVANCED_EXCEPTION_CLASS macro, stop & warning.
+        * inst/include/Rcpp/Rcpp/exceptions/cpp11/exceptions.h: idem but
+        for variadic versions.
+        * inst/include/Rcpp/utils/tinyformat.h: Enabled ability to use variadic
+        tinyformat function if c++11 is detected.
+
 2017-04-14  James J Balamuta  <balamut2@illinois.edu>
 
         * inst/include/Rcpp/utils/tinyformat.h: Refreshed tinyformat.h against
