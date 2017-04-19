@@ -1,3 +1,25 @@
+2017-04-18  James J Balamuta  <balamut2@illinois.edu>
+
+        * inst/include/Rcpp/vector/Matrix.h: Corrected exception throws from
+        not_compatible to not_a_matrix.
+        * inst/include/Rcpp/S4.h: Fixed documentation detailing exception class
+        throw.
+        * inst/include/Rcpp/Environment.h: Improved error handling messages
+        * inst/include/Rcpp/Function.h: idem
+        * inst/include/Rcpp/Promise.h: idem
+        * inst/include/Rcpp/String.h: idem
+        * inst/include/Rcpp/Symbol.h: idem
+        * inst/include/Rcpp/XPtr.h: idem
+        * inst/include/Rcpp/as.h: idem
+        * inst/include/Rcpp/r_cast.h: idem
+        * inst/include/Rcpp/api/meat/DottedPairImpl.h: idem
+        * inst/include/Rcpp/internal/export.h: idem
+        * inst/include/Rcpp/proxy/DottedPairProxy.h: idem
+        * inst/include/Rcpp/proxy/SlotProxy.h: idem
+        * inst/include/Rcpp/vector/MatrixColumn.h: idem
+        * inst/include/Rcpp/vector/MatrixRow.h: idem
+        * inst/include/Rcpp/vector/Vector.h: idem
+
 2017-04-17  James J Balamuta  <balamut2@illinois.edu>
 
         * inst/include/Rcpp/Rcpp/exceptions/cpp11/exceptions.h: Removed

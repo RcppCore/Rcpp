@@ -17,7 +17,7 @@
       variadic templating for \code{Rcpp::stop} and \code{Rcpp::warning}
       (James Balamuta in \ghpr{676}).
       \item Exception messages have been rewritten to provide additional
-      information. (James Balamuta in \ghpr{676}, ?? addressing \ghit{184}).
+      information. (James Balamuta in \ghpr{676} and \ghpr{677} addressing \ghit{184}).
     }
     \item Changes in Rcpp Documentation:
     \itemize{

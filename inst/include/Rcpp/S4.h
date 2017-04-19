@@ -52,7 +52,7 @@ namespace Rcpp{
          * Creates an S4 object of the requested class.
          *
          * @param klass name of the target S4 class
-         * @throw not_s4 if klass does not map to a known S4 class
+         * @throw S4_creation_error if klass does not map to a known S4 class
          */
         S4_Impl( const std::string& klass ){
             Shield<SEXP> x( R_do_new_object(R_do_MAKE_CLASS(klass.c_str())) );
@@ -66,6 +66,9 @@ namespace Rcpp{
          */
         bool is( const std::string& clazz) const ;
 
+        /**
+         * @throw not_s4 if x is not an S4 class
+         */
         void update(SEXP x){
             if( ! ::Rf_isS4(x) ) throw not_s4() ;
         }

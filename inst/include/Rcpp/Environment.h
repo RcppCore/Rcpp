@@ -39,8 +39,10 @@ namespace Rcpp{
             try {
                 Shield<SEXP> res( Rcpp_eval( Rf_lang2( asEnvironmentSym, x ) ) );
                 return res ;
-            } catch( const eval_error& ex){
-                throw not_compatible( "cannot convert to environment"  ) ;
+            } catch( const eval_error& ex) {
+                const char* fmt = "Cannot convert object to an environment: "
+                                  "[type=%s; target=ENVSXP].";
+                throw not_compatible(fmt, Rf_type2char(TYPEOF(x)));
             }
         }
 
@@ -115,7 +117,7 @@ namespace Rcpp{
             }
             return res ;
         }
-        
+
         /**
         * Get an object from the environment
         *
@@ -126,16 +128,16 @@ namespace Rcpp{
         SEXP get(Symbol name) const {
             SEXP env = Storage::get__() ;
             SEXP res = Rf_findVarInFrame( env, name ) ;
-            
+
             if( res == R_UnboundValue ) return R_NilValue ;
-            
+
             /* We need to evaluate if it is a promise */
             if( TYPEOF(res) == PROMSXP){
                 res = Rf_eval( res, env ) ;
             }
             return res ;
         }
-        
+
 
         /**
          * Get an object from the environment or one of its
@@ -157,7 +159,7 @@ namespace Rcpp{
             }
             return res ;
         }
-        
+
         /**
         * Get an object from the environment or one of its
         * parents
@@ -167,13 +169,13 @@ namespace Rcpp{
         SEXP find(Symbol name) const{
             SEXP env = Storage::get__() ;
             SEXP res = Rf_findVar( name, env ) ;
-            
+
             if( res == R_UnboundValue ) {
                 // Pass on the const char* to the RCPP_EXCEPTION_CLASS's
                 // const std::string& requirement
                 throw binding_not_found(name.c_str()) ;
             }
-            
+
             /* We need to evaluate if it is a promise */
             if( TYPEOF(res) == PROMSXP){
                 res = Rf_eval( res, env ) ;

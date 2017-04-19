@@ -29,8 +29,11 @@ namespace Rcpp{
         RCPP_GENERATE_CTOR_ASSIGN(Promise_Impl)
 
         Promise_Impl( SEXP x){
-            if( TYPEOF(x) != PROMSXP)
-                throw not_compatible("not a promise") ;
+            if( TYPEOF(x) != PROMSXP) {
+                const char* fmt = "Not a promise: [type = %s].";
+                throw not_compatible(fmt, Rf_type2char(TYPEOF(x)));
+            }
+
             Storage::set__(x) ;
         }
 

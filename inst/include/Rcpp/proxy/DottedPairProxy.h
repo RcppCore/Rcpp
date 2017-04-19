@@ -27,7 +27,12 @@ public:
     	class DottedPairProxy : public GenericProxy<DottedPairProxy> {
 	public:
 		DottedPairProxy( CLASS& v, int index_ ): node(R_NilValue){
-            if( index_ >= v.length() ) throw index_out_of_bounds() ;
+            if( index_ >= v.length() ) {
+                const char* fmt = "Dotted Pair index is out of bounds: "
+                                  "[index=%i; extent=%i].";
+                throw index_out_of_bounds(fmt, index_, v.length());
+            }
+
             SEXP x = v ; /* implicit conversion */
             for( int i = 0; i<index_; i++, x = CDR(x) ) ;
             node = x ;
@@ -72,7 +77,12 @@ public:
 	class const_DottedPairProxy : public GenericProxy<const_DottedPairProxy>{
 	public:
 		const_DottedPairProxy( const CLASS& v, int index_ ): node(R_NilValue){
-            if( index_ >= v.length() ) throw index_out_of_bounds() ;
+            if( index_ >= v.length() )  {
+                const char* fmt = "Dotted Pair index is out of bounds: "
+                                  "[index=%i; extent=%i].";
+                throw index_out_of_bounds(fmt, index_, v.length());
+            }
+
             SEXP x = v ; /* implicit conversion */
             for( int i = 0; i<index_; i++, x = CDR(x) ) ;
             node = x ;

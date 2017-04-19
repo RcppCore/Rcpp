@@ -53,7 +53,7 @@ public:
     Matrix(SEXP x) : VECTOR( r_cast<RTYPE>( x ) ), nrows( VECTOR::dims()[0] ) {}
 
     Matrix( const Dimension& dims) : VECTOR( Rf_allocMatrix( RTYPE, dims[0], dims[1] ) ), nrows(dims[0]) {
-        if( dims.size() != 2 ) throw not_compatible("not a matrix") ;
+        if( dims.size() != 2 ) throw not_a_matrix();
         VECTOR::init() ;
     }
     Matrix( const int& nrows_, const int& ncols) : VECTOR( Dimension( nrows_, ncols ) ),
@@ -82,7 +82,7 @@ public:
 
     Matrix& operator=(const Matrix& other) {
         SEXP x = other.get__() ;
-        if( ! ::Rf_isMatrix(x) ) not_compatible("not a matrix") ;
+        if( ! ::Rf_isMatrix(x) ) throw not_a_matrix();
         VECTOR::set__( x ) ;
         nrows = other.nrows ;
         return *this ;
