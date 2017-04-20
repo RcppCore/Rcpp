@@ -1,3 +1,9 @@
+2017-04-20  James J Balamuta  <balamut2@illinois.edu>
+
+        * inst/include/Rcpp/api/meat/DottedPairImpl.h: Corrected format specifier
+        from '%s' to '%i'.
+
+
 2017-04-18  James J Balamuta  <balamut2@illinois.edu>
 
         * inst/include/Rcpp/vector/Matrix.h: Corrected exception throws from

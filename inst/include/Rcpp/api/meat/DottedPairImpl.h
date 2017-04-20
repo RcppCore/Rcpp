@@ -57,7 +57,7 @@ namespace Rcpp{
 
 			if( static_cast<R_xlen_t>(index) > ::Rf_xlength(ref.get__()) ) {
 			    const char* fmt = "Dotted Pair index is out of bounds: "
-			                      "[index=%s; extent=%s].";
+			                      "[index=%i; extent=%i].";
 
 			    throw index_out_of_bounds(fmt,
                                           static_cast<R_xlen_t>(index),
