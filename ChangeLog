@@ -1,8 +1,12 @@
+2017-04-20  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version, Date): Roll minor version
+        * inst/include/Rcpp/config.h (RCPP_DEV_VERSION): Idem
+
 2017-04-20  James J Balamuta  <balamut2@illinois.edu>
 
-        * inst/include/Rcpp/api/meat/DottedPairImpl.h: Corrected format specifier
-        from '%s' to '%i'.
-
+        * inst/include/Rcpp/api/meat/DottedPairImpl.h: Corrected format
+        specifier from '%s' to '%i'.
 
 2017-04-18  James J Balamuta  <balamut2@illinois.edu>
 
@@ -29,9 +33,10 @@
 2017-04-17  James J Balamuta  <balamut2@illinois.edu>
 
         * inst/include/Rcpp/Rcpp/exceptions/cpp11/exceptions.h: Removed
-        semicolons from RCPP_ADVANCED_EXCEPTION_CLASS to quiet 'extra ;' -Wpedantic
+        semicolons from RCPP_ADVANCED_EXCEPTION_CLASS to quiet 'extra ;'
+        -Wpedantic
 
-        * inst/include/Rcpp/exceptions.h: Modified exceptions macros to support
+        OB* inst/include/Rcpp/exceptions.h: Modified exceptions macros to support
         a default string and removed generated stop, warning from file.
         * inst/include/Rcpp/Rcpp/exceptions/cpp98/exceptions.h: Contains
         generated RCPP_ADVANCED_EXCEPTION_CLASS macro, stop & warning.
