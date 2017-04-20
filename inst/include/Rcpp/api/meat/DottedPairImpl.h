@@ -51,9 +51,18 @@ namespace Rcpp{
         if( index == 0 ) {
 			push_front( object ) ;
 		} else {
-			if( ref.isNULL( ) ) throw index_out_of_bounds() ;
+			if( ref.isNULL( ) ) {
+			    throw index_out_of_bounds("Object being inserted into Dotted Pair is null.");
+			}
 
-                        if( static_cast<R_xlen_t>(index) > ::Rf_xlength(ref.get__()) ) throw index_out_of_bounds() ;
+			if( static_cast<R_xlen_t>(index) > ::Rf_xlength(ref.get__()) ) {
+			    const char* fmt = "Dotted Pair index is out of bounds: "
+			                      "[index=%i; extent=%i].";
+
+			    throw index_out_of_bounds(fmt,
+                                          static_cast<R_xlen_t>(index),
+                                          ::Rf_xlength(ref.get__()) ) ;
+			}
 
 			size_t i=1;
 			SEXP x = ref.get__() ;
@@ -70,7 +79,14 @@ namespace Rcpp{
     template <typename T>
 	void DottedPairImpl<CLASS>::replace( const int& index, const T& object ) {
 	    CLASS& ref = static_cast<CLASS&>(*this) ;
-        if( static_cast<R_xlen_t>(index) >= ::Rf_xlength(ref.get__()) ) throw index_out_of_bounds() ;
+        if( static_cast<R_xlen_t>(index) >= ::Rf_xlength(ref.get__()) ) {
+            const char* fmt = "Dotted Pair index is out of bounds: "
+                              "[index=%i; extent=%i].";
+
+            throw index_out_of_bounds(fmt,
+                                      static_cast<R_xlen_t>(index),
+                                      ::Rf_xlength(ref.get__()) ) ;
+        }
 
         Shield<SEXP> x( pairlist( object ) );
         SEXP y = ref.get__() ;
@@ -84,7 +100,15 @@ namespace Rcpp{
 	template <typename CLASS>
     void DottedPairImpl<CLASS>::remove( const size_t& index ) {
         CLASS& ref = static_cast<CLASS&>(*this) ;
-        if( static_cast<R_xlen_t>(index) >= Rf_xlength(ref.get__()) ) throw index_out_of_bounds() ;
+        if( static_cast<R_xlen_t>(index) >= Rf_xlength(ref.get__()) ) {
+            const char* fmt = "Dotted Pair index is out of bounds: "
+                              "[index=%i; extent=%i].";
+
+            throw index_out_of_bounds(fmt,
+                                      static_cast<R_xlen_t>(index),
+                                      ::Rf_xlength(ref.get__()) ) ;
+        }
+
         if( index == 0 ){
             ref.set__( CDR( ref.get__() ) ) ;
         } else{

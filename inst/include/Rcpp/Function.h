@@ -44,7 +44,10 @@ namespace Rcpp{
                 Storage::set__(x);
                 break;
             default:
-                throw not_compatible("cannot convert to function") ;
+                const char* fmt = "Cannot convert object to a function: "
+                                  "[type=%s; target=CLOSXP, SPECIALSXP, or "
+                                  "BUILTINSXP].";
+                throw not_compatible(fmt, Rf_type2char(TYPEOF(x)));
             }
         }
 
@@ -87,7 +90,7 @@ namespace Rcpp{
         SEXP environment() const {
             SEXP fun = Storage::get__() ;
             if( TYPEOF(fun) != CLOSXP ) {
-                throw not_a_closure() ;
+                throw not_a_closure(Rf_type2char(TYPEOF(fun)));
             }
             return CLOENV(fun) ;
         }

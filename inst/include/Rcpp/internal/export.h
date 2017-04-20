@@ -79,7 +79,12 @@ namespace Rcpp{
 
 		template <typename InputIterator, typename value_type>
 		void export_range__dispatch( SEXP x, InputIterator first, ::Rcpp::traits::r_type_string_tag ) {
-			if( ! ::Rf_isString( x) ) throw ::Rcpp::not_compatible( "expecting a string vector" ) ;
+			if( ! ::Rf_isString( x) ) {
+			    const char* fmt = "Expecting a string vector: "
+			                      "[type=%s; required=STRSXP].";
+			    throw ::Rcpp::not_compatible(fmt, Rf_type2char(TYPEOF(x)) );
+			}
+
 			R_xlen_t n = ::Rf_xlength(x) ;
 			for( R_xlen_t i=0; i<n; i++, ++first ){
 				*first = as_string_elt<typename std::iterator_traits<InputIterator>::value_type> ( x, i ) ;
@@ -133,7 +138,12 @@ namespace Rcpp{
 
 		template <typename T, typename value_type>
 		void export_indexing__dispatch( SEXP x, T& res, ::Rcpp::traits::r_type_string_tag ) {
-			if( ! ::Rf_isString( x) ) throw Rcpp::not_compatible( "expecting a string vector" ) ;
+			if( ! ::Rf_isString( x) ) {
+			    const char* fmt = "Expecting a string vector: "
+			                      "[type=%s; required=STRSXP].";
+			    throw ::Rcpp::not_compatible(fmt, Rf_type2char(TYPEOF(x)) );
+			}
+
 			R_xlen_t n = ::Rf_xlength(x) ;
 			for( R_xlen_t i=0; i<n; i++ ){
 				res[i] = as_string_elt< value_type >( x, i) ;
