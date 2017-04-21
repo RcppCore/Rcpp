@@ -299,7 +299,10 @@ public:
      * it is valid
      */
     R_xlen_t offset(const R_xlen_t& i) const {
-        if(i < 0 || i >= ::Rf_xlength(Storage::get__()) ) throw index_out_of_bounds() ;
+        if(i < 0 || i >= ::Rf_xlength(Storage::get__()) ) {
+            const char* fmt = "Index out of bounds: [index=%i; extent=%i].";
+            throw index_out_of_bounds(fmt, i, ::Rf_xlength(Storage::get__()) ) ;
+        }
         return i ;
     }
 
