@@ -3,6 +3,9 @@
         * DESCRIPTION (Version, Date): Roll minor version
         * inst/include/Rcpp/config.h (RCPP_DEV_VERSION): Idem
 
+        * inst/include/Rcpp/exceptions/cpp98/exceptions.h
+        (RCPP_ADVANCED_EXCEPTION_CLASS): Suppressing some warnings
+
 2017-04-20  James J Balamuta  <balamut2@illinois.edu>
 
         * inst/include/Rcpp/api/meat/DottedPairImpl.h: Corrected format
