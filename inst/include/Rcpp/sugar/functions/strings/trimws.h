@@ -38,22 +38,15 @@ inline bool isws(const char c) {
 }
 
 inline const char* trim_left(const char* str) {
-    static std::string buff;
-
     if (!str) {
         return "";
     }
 
-    buff.clear();
-    char c = *str;
-
-    while (isws(c)) {
+    while (isws(*str)) {
         ++str;
-        c = *str;
     }
 
-    buff.append(str);
-    return buff.c_str();
+    return str;
 }
 
 inline const char* trim_right(const char* str) {
@@ -67,11 +60,8 @@ inline const char* trim_right(const char* str) {
     std::size_t sz = std::strlen(str);
 
     const char* ptr = str + sz - 1;
-    char c = *ptr;
 
-    for (; ptr > str && isws(c); c = *ptr) {
-        --sz; --ptr;
-    }
+    for (; ptr > str && isws(*ptr); --sz, --ptr);
 
     buff.append(str, sz - isws(*ptr));
     return buff.c_str();
@@ -85,24 +75,17 @@ inline const char* trim_both(const char* str) {
     }
 
     buff.clear();
-    char c = *str;
 
-    while (isws(c)) {
+    while (isws(*str)) {
         ++str;
-        c = *str;
     }
 
     std::size_t sz = std::strlen(str);
     const char* ptr = str + sz - 1;
-    c = *ptr;
 
-    for (; ptr >= str; c = *ptr, --sz, --ptr) {
-        if (!isws(c)) {
-            break;
-        }
-    }
+    for (; ptr > str && isws(*ptr); --sz, --ptr);
 
-    buff.append(str, sz + 1);
+    buff.append(str, sz);
     return buff.c_str();
 }
 
