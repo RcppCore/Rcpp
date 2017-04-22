@@ -1,3 +1,11 @@
+2017-04-22  Nathan Russell  <russell.nr2012@gmail.com>
+
+        * inst/include/Rcpp/sugar/functions/strings/trimws.h: Added sugar
+        function trimws with unit tests
+        * inst/include/Rcpp/sugar/functions/strings/strings.h: Idem
+        * inst/unitTests/cpp/sugar.cpp: Idem
+        * inst/unitTests/runit.sugar.R: Idem
+
 2017-04-20  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll minor version
