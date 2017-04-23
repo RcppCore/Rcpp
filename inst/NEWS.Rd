@@ -25,6 +25,11 @@
       (James Balamuta in \ghpr{661} addressing \ghit{628}, \ghit{563},
       \ghit{552}, \ghit{460}, \ghit{419}, and \ghit{251}).
     }
+    \item Changes in Rcpp Sugar:
+    \itemize{
+      \item Added sugar function \code{trimws} (Nathan Russell in \ghpr{680}
+      addressing \ghit{679}).
+    }
   }
 }
 

@@ -2048,4 +2048,135 @@ if (.runThisTest) {
 
     }
 
+
+    ## 22 April 2017
+    ## trimws -- vector
+    test.sugar.vtrimws <- function() {
+
+        x <- c(
+            "  a b c", "a b c  ", "  a b c  ",
+            "\t\ta b c", "a b c\t\t", "\t\ta b c\t\t",
+            "\r\ra b c", "a b c\r\r", "\r\ra b c\r\r",
+            "\n\na b c", "a b c\n\n", "\n\na b c\n\n",
+            NA, "", " ", "  \t\r\n  ", "\n \t \r "
+        )
+
+        checkEquals(
+            vtrimws(x), trimws(x),
+            "vtrimws / which = 'both'"
+        )
+
+        checkEquals(
+            vtrimws(x, 'l'), trimws(x, 'l'),
+            "vtrimws / which = 'left'"
+        )
+
+        checkEquals(
+            vtrimws(x, 'r'), trimws(x, 'r'),
+            "vtrimws / which = 'right'"
+        )
+
+        checkException(
+            vtrimws(x, "invalid"),
+            msg = "vtrimws -- bad `which` argument"
+        )
+
+    }
+
+
+    ## trimws -- matrix
+    test.sugar.mtrimws <- function() {
+
+        x <- c(
+            "  a b c", "a b c  ", "  a b c  ",
+            "\t\ta b c", "a b c\t\t", "\t\ta b c\t\t",
+            "\r\ra b c", "a b c\r\r", "\r\ra b c\r\r",
+            "\n\na b c", "a b c\n\n", "\n\na b c\n\n",
+            NA, "", " ", "  \t\r\n  ", "\n \t \r "
+        )
+        x <- matrix(x, nrow = length(x), ncol = 4)
+
+        checkEquals(
+            mtrimws(x), trimws(x),
+            "mtrimws / which = 'both'"
+        )
+
+        checkEquals(
+            mtrimws(x, 'l'), trimws(x, 'l'),
+            "mtrimws / which = 'left'"
+        )
+
+        checkEquals(
+            mtrimws(x, 'r'), trimws(x, 'r'),
+            "mtrimws / which = 'right'"
+        )
+
+        checkException(
+            mtrimws(x, "invalid"),
+            msg = "mtrimws -- bad `which` argument"
+        )
+
+    }
+
+
+    ## trimws -- String
+    test.sugar.strimws <- function() {
+
+        x <- c(
+            "  a b c", "a b c  ", "  a b c  ",
+            "\t\ta b c", "a b c\t\t", "\t\ta b c\t\t",
+            "\r\ra b c", "a b c\r\r", "\r\ra b c\r\r",
+            "\n\na b c", "a b c\n\n", "\n\na b c\n\n",
+            NA, "", " ", "  \t\r\n  ", "\n \t \r "
+        )
+
+        lhs <- vapply(
+            x, strimws, character(1),
+            USE.NAMES = FALSE
+        )
+        rhs <- vapply(
+            x, trimws, character(1),
+            USE.NAMES = FALSE
+        )
+
+        checkEquals(
+            lhs, rhs,
+            "strimws / which = 'both'"
+        )
+
+        lhs <- vapply(
+            x, strimws, character(1),
+            which = 'l', USE.NAMES = FALSE
+        )
+        rhs <- vapply(
+            x, trimws, character(1),
+            which = 'l', USE.NAMES = FALSE
+        )
+
+        checkEquals(
+            lhs, rhs,
+            "strimws / which = 'left'"
+        )
+
+        lhs <- vapply(
+            x, strimws, character(1),
+            which = 'r', USE.NAMES = FALSE
+        )
+        rhs <- vapply(
+            x, trimws, character(1),
+            which = 'r', USE.NAMES = FALSE
+        )
+
+        checkEquals(
+            lhs, rhs,
+            "strimws / which = 'right'"
+        )
+
+        checkException(
+            strimws(x[1], "invalid"),
+            msg = "strimws -- bad `which` argument"
+        )
+
+    }
+
 }

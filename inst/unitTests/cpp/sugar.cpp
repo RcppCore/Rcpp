@@ -1201,3 +1201,21 @@ LogicalMatrix UpperTri(NumericMatrix x, bool diag = false) {
 LogicalMatrix LowerTri(NumericMatrix x, bool diag = false) {
     return lower_tri(x, diag);
 }
+
+
+// 22 April 2017: trimws
+
+// [[Rcpp::export]]
+CharacterVector vtrimws(CharacterVector x, const char* which = "both") {
+    return trimws(x, which);
+}
+
+// [[Rcpp::export]]
+CharacterMatrix mtrimws(CharacterMatrix x, const char* which = "both") {
+    return trimws(x, which);
+}
+
+// [[Rcpp::export]]
+String strimws(String x, const char* which = "both") {
+    return trimws(x, which);
+}
