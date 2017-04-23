@@ -95,58 +95,72 @@ inline const char* trim_both(const char* str) {
 
 
 inline Vector<STRSXP> trimws(const Vector<STRSXP>& x, const char* which = "both") {
-    typedef const char* (*trim_function)(const char*);
-    trim_function trim = NULL;
+    R_xlen_t i = 0, sz = x.size();
+    Vector<STRSXP> res = no_init(sz);
 
     if (*which == 'b') {
-        trim = sugar::detail::trim_both;
+        for (; i < sz; i++) {
+            if (traits::is_na<STRSXP>(x[i])) {
+                res[i] = x[i];
+            } else {
+                res[i] = sugar::detail::trim_both(x[i]);
+            }
+        }
     } else if (*which == 'l') {
-        trim = sugar::detail::trim_left;
+        for (; i < sz; i++) {
+            if (traits::is_na<STRSXP>(x[i])) {
+                res[i] = x[i];
+            } else {
+                res[i] = sugar::detail::trim_left(x[i]);
+            }
+        }
     } else if (*which == 'r') {
-        trim = sugar::detail::trim_right;
+        for (; i < sz; i++) {
+            if (traits::is_na<STRSXP>(x[i])) {
+                res[i] = x[i];
+            } else {
+                res[i] = sugar::detail::trim_right(x[i]);
+            }
+        }
     } else {
         stop("Invalid `which` argument '%s'!", which);
         return Vector<STRSXP>::create("Unreachable");
-    }
-
-    R_xlen_t i = 0, sz = x.size();
-    Vector<STRSXP> res(sz);
-
-    for (; i < sz; i++) {
-        if (traits::is_na<STRSXP>(x[i])) {
-            res[i] = x[i];
-        } else {
-            res[i] = (*trim)(x[i]);
-        }
     }
 
     return res;
 }
 
 inline Matrix<STRSXP> trimws(const Matrix<STRSXP>& x, const char* which = "both") {
-    typedef const char* (*trim_function)(const char*);
-    trim_function trim = NULL;
+    R_xlen_t i = 0, nr = x.nrow(), nc = x.ncol(), sz = x.size();
+    Matrix<STRSXP> res = no_init(nr, nc);
 
     if (*which == 'b') {
-        trim = sugar::detail::trim_both;
+        for (; i < sz; i++) {
+            if (traits::is_na<STRSXP>(x[i])) {
+                res[i] = x[i];
+            } else {
+                res[i] = sugar::detail::trim_both(x[i]);
+            }
+        }
     } else if (*which == 'l') {
-        trim = sugar::detail::trim_left;
+        for (; i < sz; i++) {
+            if (traits::is_na<STRSXP>(x[i])) {
+                res[i] = x[i];
+            } else {
+                res[i] = sugar::detail::trim_left(x[i]);
+            }
+        }
     } else if (*which == 'r') {
-        trim = sugar::detail::trim_right;
+        for (; i < sz; i++) {
+            if (traits::is_na<STRSXP>(x[i])) {
+                res[i] = x[i];
+            } else {
+                res[i] = sugar::detail::trim_right(x[i]);
+            }
+        }
     } else {
         stop("Invalid `which` argument '%s'!", which);
         return Matrix<STRSXP>();
-    }
-
-    R_xlen_t i = 0, sz = x.size();
-    Matrix<STRSXP> res(x.nrow(), x.ncol());
-
-    for (; i < sz; i++) {
-        if (traits::is_na<STRSXP>(x[i])) {
-            res[i] = x[i];
-        } else {
-            res[i] = (*trim)(x[i]);
-        }
     }
 
     return res;
