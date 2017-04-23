@@ -49,16 +49,12 @@ inline const char* trim_left(const char* str) {
     return str;
 }
 
-inline const char* trim_right(const char* str, std::string* buff) {
-    // static std::string buff;
-
+inline const char* trim_right(const char* str, R_len_t sz, std::string* buff) {
     if (!str) {
         return "";
     }
 
     buff->clear();
-    std::size_t sz = std::strlen(str);
-
     const char* ptr = str + sz - 1;
 
     for (; ptr > str && isws(*ptr); --sz, --ptr);
@@ -67,9 +63,7 @@ inline const char* trim_right(const char* str, std::string* buff) {
     return buff->c_str();
 }
 
-inline const char* trim_both(const char* str, std::string* buff) {
-    // static std::string buff;
-
+inline const char* trim_both(const char* str, R_len_t sz, std::string* buff) {
     if (!str) {
         return "";
     }
@@ -77,10 +71,8 @@ inline const char* trim_both(const char* str, std::string* buff) {
     buff->clear();
 
     while (isws(*str)) {
-        ++str;
+        ++str; --sz;
     }
-
-    std::size_t sz = std::strlen(str);
     const char* ptr = str + sz - 1;
 
     for (; ptr > str && isws(*ptr); --sz, --ptr);
@@ -104,7 +96,11 @@ inline Vector<STRSXP> trimws(const Vector<STRSXP>& x, const char* which = "both"
             if (traits::is_na<STRSXP>(x[i])) {
                 res[i] = x[i];
             } else {
-                res[i] = sugar::detail::trim_both(x[i], &buffer);
+                res[i] = sugar::detail::trim_both(
+                    x[i],
+                    LENGTH(x[i]),
+                    &buffer
+                );
             }
         }
     } else if (*which == 'l') {
@@ -120,7 +116,11 @@ inline Vector<STRSXP> trimws(const Vector<STRSXP>& x, const char* which = "both"
             if (traits::is_na<STRSXP>(x[i])) {
                 res[i] = x[i];
             } else {
-                res[i] = sugar::detail::trim_right(x[i], &buffer);
+                res[i] = sugar::detail::trim_right(
+                    x[i],
+                    LENGTH(x[i]),
+                    &buffer
+                );
             }
         }
     } else {
@@ -141,7 +141,11 @@ inline Matrix<STRSXP> trimws(const Matrix<STRSXP>& x, const char* which = "both"
             if (traits::is_na<STRSXP>(x[i])) {
                 res[i] = x[i];
             } else {
-                res[i] = sugar::detail::trim_both(x[i], &buffer);
+                res[i] = sugar::detail::trim_both(
+                    x[i],
+                    LENGTH(x[i]),
+                    &buffer
+                );
             }
         }
     } else if (*which == 'l') {
@@ -157,7 +161,11 @@ inline Matrix<STRSXP> trimws(const Matrix<STRSXP>& x, const char* which = "both"
             if (traits::is_na<STRSXP>(x[i])) {
                 res[i] = x[i];
             } else {
-                res[i] = sugar::detail::trim_right(x[i], &buffer);
+                res[i] = sugar::detail::trim_right(
+                    x[i],
+                    LENGTH(x[i]),
+                    &buffer
+                );
             }
         }
     } else {
@@ -175,7 +183,11 @@ inline String trimws(const String& str, const char* which = "both") {
         if (traits::is_na<STRSXP>(str.get_sexp())) {
             return String(str.get_sexp());
         }
-        return sugar::detail::trim_both(str.get_cstring(), &buffer);
+        return sugar::detail::trim_both(
+            str.get_cstring(),
+            LENGTH(str.get_sexp()),
+            &buffer
+        );
     }
 
     if (*which == 'l') {
@@ -189,7 +201,11 @@ inline String trimws(const String& str, const char* which = "both") {
         if (traits::is_na<STRSXP>(str.get_sexp())) {
             return String(str.get_sexp());
         }
-        return sugar::detail::trim_right(str.get_cstring(), &buffer);
+        return sugar::detail::trim_right(
+            str.get_cstring(),
+            LENGTH(str.get_sexp()),
+            &buffer
+        );
     }
 
     stop("Invalid `which` argument '%s'!", which);
