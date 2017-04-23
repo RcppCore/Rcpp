@@ -73,6 +73,7 @@ inline const char* trim_both(const char* str, R_len_t sz, std::string* buff) {
     while (isws(*str)) {
         ++str; --sz;
     }
+
     const char* ptr = str + sz - 1;
 
     for (; ptr > str && isws(*ptr); --sz, --ptr);
