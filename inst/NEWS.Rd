@@ -30,6 +30,12 @@
       \item Added sugar function \code{trimws} (Nathan Russell in \ghpr{680}
       addressing \ghit{679}).
     }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item The plugins for C++11, C++14, C++17 now set the values R 3.4.0 or
+      later expects; a plugin for C++98 was added (Dirk in \ghpr{684} addressing
+      \ghit{683}).
+    }
   }
 }
 
@@ -51,7 +57,7 @@
       \item The \code{algorithm.h} file now accomodates the Intel compiler
       (Dirk in \ghpr{643} and Dan in \ghpr{645} addressing issue \ghit{640}).
     }
-    \item Changes in Rcpp Attributes
+    \item Changes in Rcpp Attributes:
     \itemize{
       \item The C++17 standard is supported with a new plugin (used eg for
       \code{g++-6.2}).
