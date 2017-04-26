@@ -1,3 +1,11 @@
+2017-04-25  Dirk Eddelbuettel  <edd@debian.org>
+
+        * R/Attributes.R (.plugins[["cpp11"]]): If R 3.4.0 or newer is used, set
+        USE_CXX11 (instead of the older USE_CXX1X);
+        (.plugins[["cpp14"]]): similarly updated for C++14
+        (.plugins[["cpp17"]]): similarly updated for C++17
+        (.plugins[["cpp98"]]): added
+
 2017-04-22  Nathan Russell  <russell.nr2012@gmail.com>
 
         * inst/include/Rcpp/sugar/functions/strings/trimws.h: Added sugar

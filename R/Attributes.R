@@ -1,5 +1,5 @@
 
-# Copyright (C) 2012 - 2016  JJ Allaire, Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2012 - 2017  JJ Allaire, Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -456,9 +456,18 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
 # setup plugins environment
 .plugins <- new.env()
 
-# built-in C++11 plugin
+# built-in C++98 plugin 
+.plugins[["cpp98"]] <- function() {
+    if (getRversion() >= "3.4")         # with recent R versions, R can decide
+        list(env = list(USE_CXX98 = "yes"))
+    else
+        list(env = list(PKG_CXXFLAGS ="-std=c++98"))
+}
+                                        # built-in C++11 plugin
 .plugins[["cpp11"]] <- function() {
-    if (getRversion() >= "3.1")         # with recent R versions, R can decide
+    if (getRversion() >= "3.4")         # with recent R versions, R can decide
+        list(env = list(USE_CXX11 = "yes"))
+    else if (getRversion() >= "3.1")    # with recent R versions, R can decide
         list(env = list(USE_CXX1X = "yes"))
     else if (.Platform$OS.type == "windows")
         list(env = list(PKG_CXXFLAGS = "-std=c++0x"))
@@ -475,7 +484,10 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
 ## this is the default in g++-6.1 and later
 ## per https://gcc.gnu.org/projects/cxx-status.html#cxx14
 .plugins[["cpp14"]] <- function() {
-    list(env = list(PKG_CXXFLAGS ="-std=c++14"))
+    if (getRversion() >= "3.4")         # with recent R versions, R can decide
+        list(env = list(USE_CXX14 = "yes"))
+    else
+        list(env = list(PKG_CXXFLAGS ="-std=c++14"))
 }
 
 # built-in C++1y plugin for C++14 and C++17 standard under development
@@ -485,7 +497,10 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
 
 # built-in C++17 plugin for C++17 standard (g++-6 or later)
 .plugins[["cpp17"]] <- function() {
-    list(env = list(PKG_CXXFLAGS ="-std=c++17"))
+    if (getRversion() >= "3.4")         # with recent R versions, R can decide
+        list(env = list(USE_CXX17 = "yes"))
+    else
+        list(env = list(PKG_CXXFLAGS ="-std=c++17"))
 }
 
 ## built-in C++1z plugin for C++17 standard under development
