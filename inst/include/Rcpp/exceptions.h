@@ -291,7 +291,8 @@ inline SEXP string_to_try_error( const std::string& str){
     using namespace Rcpp;
 
     #ifndef RCPP_USING_UTF8_ERROR_STRING
-        Rcpp::Shield<SEXP> simpleErrorExpr( Rf_lang2(::Rf_install("simpleError"), Rf_mkString(str.c_str())) );
+        Rcpp::Shield<SEXP> txt(Rf_mkString(str.c_str()));
+        Rcpp::Shield<SEXP> simpleErrorExpr(Rf_lang2(::Rf_install("simpleError"), txt));
         Rcpp::Shield<SEXP> tryError( Rf_mkString( str.c_str() ) );
     #else
         Rcpp::Shield<SEXP> tryError( Rf_allocVector( STRSXP, 1 ) ) ;

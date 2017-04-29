@@ -1,3 +1,8 @@
+2017-04-26  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/exceptions.h (string_to_try_error): Protect result
+        from Rf_mkString
+
 2017-04-25  Dirk Eddelbuettel  <edd@debian.org>
 
         * R/Attributes.R (.plugins[["cpp11"]]): If R 3.4.0 or newer is used, set
