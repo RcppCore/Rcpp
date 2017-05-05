@@ -57,7 +57,7 @@ namespace sugar {
 inline void Normalize(Vector<REALSXP>& p, int require_k, bool replace)
 {
     double sum = 0.0;
-    int npos = 0, i = 0, n = p.size();
+    R_xlen_t npos = 0, i = 0, n = p.size();
 
     for ( ; i < n; i++) {
         if (!R_FINITE(p[i]) || (p[i] < 0)) {

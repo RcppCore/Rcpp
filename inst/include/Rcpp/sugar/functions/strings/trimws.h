@@ -133,7 +133,8 @@ inline Vector<STRSXP> trimws(const Vector<STRSXP>& x, const char* which = "both"
 }
 
 inline Matrix<STRSXP> trimws(const Matrix<STRSXP>& x, const char* which = "both") {
-    R_xlen_t i = 0, nr = x.nrow(), nc = x.ncol(), sz = x.size();
+    R_xlen_t i = 0, sz = x.size();
+    int nr = x.nrow(), nc = x.ncol();
     Matrix<STRSXP> res = no_init(nr, nc);
     std::string buffer;
 
