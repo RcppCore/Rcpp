@@ -45,9 +45,9 @@ namespace Rcpp {
         }
 
         inline std::vector<Datetime> getDatetimes() const {
-            int n = this->size();
+            size_t n = this->size();
             std::vector<Datetime> v(n);
-            for (int i=0; i<n; i++)
+            for (size_t i=0; i<n; i++)
                 v[i] = (*this)[i];
             return v;
         }
@@ -79,8 +79,8 @@ namespace Rcpp {
     };
 
     inline std::ostream &operator<<(std::ostream & os, const newDatetimeVector d) {
-        int n = d.size();
-        for (int i=0; i<n; i++) {
+        size_t n = d.size();
+        for (size_t i=0; i<n; i++) {
             os << Datetime(d[i]).format() << " ";
             if ((i+1) % 4 == 0) os << "\n";
         }

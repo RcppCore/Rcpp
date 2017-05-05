@@ -110,7 +110,7 @@ namespace Rcpp {
             char txt[32];
             struct tm temp = m_tm;
             temp.tm_year -= baseYear();    // adjust for fact that system has year rel. to 1900
-            int res = ::strftime(txt, 31, fmt, &temp);
+            size_t res = ::strftime(txt, 31, fmt, &temp);
             if (res == 0) {
                 return std::string("");
             } else {
@@ -127,7 +127,7 @@ namespace Rcpp {
         // update m_tm based on m_d
         void update_tm() {
             if (R_FINITE(m_d)) {
-                time_t t = 24*60*60 * m_d;      // (fractional) days since epoch to seconds since epoch
+                time_t t = static_cast<time_t>(24*60*60 * m_d);      // (fractional) days since epoch to seconds since epoch
                 m_tm = *gmtime_(&t);
             } else {
                 m_tm.tm_sec = m_tm.tm_min = m_tm.tm_hour = m_tm.tm_isdst = NA_INTEGER;
@@ -158,7 +158,7 @@ namespace Rcpp {
     inline Date operator+(const Date &date, int offset) {
         Date newdate(date.m_d);
         newdate.m_d += offset;
-        time_t t = 24*60*60 * newdate.m_d;  // days since epoch to seconds since epo
+        time_t t = static_cast<time_t>(24*60*60 * newdate.m_d);  // days since epoch to seconds since epo
         newdate.m_tm = *gmtime_(&t);
         return newdate;
     }
