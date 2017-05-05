@@ -37,9 +37,9 @@ namespace Rcpp {
         newDateVector(int n) : NumericVector(n) { setClass(); }
 
         inline std::vector<Date> getDates() const {
-            int n = this->size();
+            size_t n = this->size();
             std::vector<Date> v(n);
-            for (int i=0; i<n; i++)
+            for (size_t i=0; i<n; i++)
                 v[i] = (*this)[i];
             return v;
         }
@@ -63,8 +63,8 @@ namespace Rcpp {
     };
 
     inline std::ostream &operator<<(std::ostream & os, const newDateVector d) {
-        int n = d.size();
-        for (int i=0; i<n; i++) {
+        size_t n = d.size();
+        for (size_t i=0; i<n; i++) {
             os << Date(d[i]).format() << " ";
             if ((i+1) % 8 == 0) os << "\n";
         }

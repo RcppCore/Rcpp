@@ -76,7 +76,7 @@ namespace Rcpp {
             char txtiso[64], txtsec[64];
             time_t t = static_cast<time_t>(std::floor(m_dt));
             struct tm temp = *localtime(&t); // localtime, not gmtime
-            int res = ::strftime(txtiso, 63, fmt, &temp);
+            size_t res = ::strftime(txtiso, 63, fmt, &temp);
             if (res == 0) {
                 return std::string("");
             } else {
@@ -99,10 +99,11 @@ namespace Rcpp {
         // update m_tm based on m_dt
         void update_tm() {
             if (R_FINITE(m_dt)) {
-                time_t t = static_cast<time_t>(std::floor(m_dt));
+                double dt = std::floor(m_dt);
+                time_t t = static_cast<time_t>(dt);
                 m_tm = *gmtime_(&t);
                 // m_us is fractional (micro)secs as diff. between (fractional) m_dt and m_tm
-                m_us = static_cast<int>(::Rf_fround( (m_dt - t) * 1.0e6, 0.0));
+                m_us = static_cast<int>(::Rf_fround( (m_dt - dt) * 1.0e6, 0.0));
             } else {
                 m_dt = NA_REAL;         // NaN and Inf need it set
                 m_tm.tm_sec = m_tm.tm_min = m_tm.tm_hour = m_tm.tm_isdst = NA_INTEGER;
@@ -137,18 +138,20 @@ namespace Rcpp {
     inline Datetime operator+(const Datetime &datetime, double offset) {
         Datetime newdt(datetime.m_dt);
         newdt.m_dt += offset;
-        time_t t = static_cast<time_t>(std::floor(newdt.m_dt));
+        double dt = std::floor(newdt.m_dt);
+        time_t t = static_cast<time_t>(dt);
         newdt.m_tm = *gmtime_(&t);
-        newdt.m_us = static_cast<int>(::Rf_fround( (newdt.m_dt - t) * 1.0e6, 0.0));
+        newdt.m_us = static_cast<int>(::Rf_fround( (newdt.m_dt - dt) * 1.0e6, 0.0));
         return newdt;
     }
 
     inline Datetime operator+(const Datetime &datetime, int offset) {
         Datetime newdt(datetime.m_dt);
         newdt.m_dt += offset;
-        time_t t = static_cast<time_t>(std::floor(newdt.m_dt));
+        double dt = std::floor(newdt.m_dt);
+        time_t t = static_cast<time_t>(dt);
         newdt.m_tm = *gmtime_(&t);
-        newdt.m_us = static_cast<int>(::Rf_fround( (newdt.m_dt - t) * 1.0e6, 0.0));
+        newdt.m_us = static_cast<int>(::Rf_fround( (newdt.m_dt - dt) * 1.0e6, 0.0));
         return newdt;
     }
 
