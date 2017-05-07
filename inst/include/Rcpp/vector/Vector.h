@@ -615,6 +615,20 @@ protected:
         internal::r_init_vector<RTYPE>(Storage::get__()) ;
     }
 
+    // sugar
+    template <typename T>
+    inline void assign_object( const T& x, traits::true_type ) {
+        assign_sugar_expression( x.get_ref() ) ;
+    }
+
+    // anything else
+    template <typename T>
+    inline void assign_object( const T& x, traits::false_type ) {
+        Shield<SEXP> wrapped(wrap(x));
+        Shield<SEXP> casted(r_cast<RTYPE>(wrapped));
+        Storage::set__(casted);
+    }
+
 private:
 
     void push_back__impl(const stored_type& object, traits::true_type ) {
@@ -1041,20 +1055,6 @@ private:
             Shield<SEXP> casted(r_cast<RTYPE>(wrapped));
             Storage::set__(casted);
         }
-    }
-
-    // sugar
-    template <typename T>
-    inline void assign_object( const T& x, traits::true_type ) {
-        assign_sugar_expression( x.get_ref() ) ;
-    }
-
-    // anything else
-    template <typename T>
-    inline void assign_object( const T& x, traits::false_type ) {
-        Shield<SEXP> wrapped(wrap(x));
-        Shield<SEXP> casted(r_cast<RTYPE>(wrapped));
-        Storage::set__(casted);
     }
 
     // we are importing a real sugar expression, i.e. not a vector

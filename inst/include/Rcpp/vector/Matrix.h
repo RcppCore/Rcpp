@@ -87,7 +87,14 @@ public:
         nrows = other.nrows ;
         return *this ;
     }
+
     Matrix& operator=( const SubMatrix<RTYPE>& ) ;
+
+    template <typename T>
+    Matrix& operator=( const T& x) {
+        this->assign_object( x, typename traits::is_sugar_expression<T>::type() ) ;
+        return *this ;
+    }
 
     explicit Matrix( const no_init_matrix& obj) {
         Storage::set__( Rf_allocMatrix( RTYPE, obj.nrow(), obj.ncol() ) );
