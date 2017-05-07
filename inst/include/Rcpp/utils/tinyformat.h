@@ -849,6 +849,7 @@ class FormatList
                             const FormatList& list);
 
     private:
+        FormatList(const FormatList& other);
         const detail::FormatArg* m_formatters;
         int m_N;
 };
