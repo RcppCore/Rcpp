@@ -63,12 +63,12 @@ inline void incr(Rcomplex* lhs, const Rcomplex& rhs) {
 
 
 inline void div(double* lhs, R_xlen_t rhs) {
-    *lhs /= rhs;
+    *lhs /= static_cast<double>(rhs);
 }
 
 inline void div(Rcomplex* lhs, R_xlen_t rhs) {
-    lhs->r /= rhs;
-    lhs->i /= rhs;
+    lhs->r /= static_cast<double>(rhs);
+    lhs->i /= static_cast<double>(rhs);
 }
 
 
