@@ -1,3 +1,7 @@
+2017-05-07  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version, Date): Roll minor version again
+
 2017-04-26  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/exceptions.h (string_to_try_error): Protect result
