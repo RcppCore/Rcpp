@@ -2,6 +2,16 @@
 
         * DESCRIPTION (Version, Date): Roll minor version again
 
+2017-05-05  Kirill Müller <krlmlr@mailbox.org>
+
+        * inst/include/Rcpp/date_datetime/Date.h: Suppress -Wconversion warnings
+        * inst/include/Rcpp/date_datetime/Datetime.h: Idem
+        * inst/include/Rcpp/date_datetime/newDateVector.h: Idem
+        * inst/include/Rcpp/date_datetime/newDatetimeVector.h: Idem
+        * inst/include/Rcpp/sugar/functions/rowSums.h: Idem
+        * inst/include/Rcpp/sugar/functions/sample.h: Idem
+        * inst/include/Rcpp/sugar/functions/strings/trimws.h: Idem
+
 2017-04-26  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/exceptions.h (string_to_try_error): Protect result

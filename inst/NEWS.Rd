@@ -17,7 +17,12 @@
       variadic templating for \code{Rcpp::stop} and \code{Rcpp::warning}
       (James Balamuta in \ghpr{676}).
       \item Exception messages have been rewritten to provide additional
-      information. (James Balamuta in \ghpr{676} and \ghpr{677} addressing \ghit{184}).
+      information. (James Balamuta in \ghpr{676} and \ghpr{677} addressing
+      \ghit{184}).
+      \item One more instance of \code{Rf_mkString} is protected from garbage
+      collection (Dirk in \ghpr{684} addressing \ghit{683}).
+      \item Several compiler warnings for \code{-Wconversions} are no longer
+      generated (Kirill Mueller in \ghpr{687} and \ghpr{688})
     }
     \item Changes in Rcpp Documentation:
     \itemize{
