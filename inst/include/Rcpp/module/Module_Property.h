@@ -2,7 +2,7 @@
 //
 // Module_Property.h: Rcpp R/C++ interface class library -- Rcpp modules
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2017  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -100,7 +100,7 @@ public:
     SEXP get(Class* object) {
         return Rcpp::wrap( (object->*getter)() ) ;
     }
-    void set(Class* object, SEXP value) throw(std::range_error,Rcpp::not_compatible){
+    void set(Class* object, SEXP value) {
         (object->*setter)(
                           Rcpp::as< typename Rcpp::traits::remove_const_and_reference< PROP >::type >( value )
                            ) ;
@@ -158,7 +158,7 @@ public:
     SEXP get(Class* object) {
         return Rcpp::wrap( (object->*getter)() ) ;
     }
-    void set(Class* object, SEXP value) throw(std::range_error,Rcpp::not_compatible){
+    void set(Class* object, SEXP value) {
         setter( object,
                 Rcpp::as< typename Rcpp::traits::remove_const_and_reference< PROP >::type >( value )
                 ) ;

@@ -23,6 +23,9 @@
       collection (Dirk in \ghpr{684} addressing \ghit{683}).
       \item Several compiler warnings for \code{-Wconversions} are no longer
       generated (Kirill Mueller in \ghpr{687} and \ghpr{688})
+      \item Two exception specification that are no longer tolerated by
+      \code{g++-7.1} or later were removed (Dirk in \ghpr{690} addressing
+      \ghit{689})
     }
     \item Changes in Rcpp Documentation:
     \itemize{

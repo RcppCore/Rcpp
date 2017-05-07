@@ -2,6 +2,9 @@
 
         * DESCRIPTION (Version, Date): Roll minor version again
 
+        * inst/include/Rcpp/module/Module_Property.h: Remove two typed exception
+        specifications which upset g++ 7.1 or higher
+
 2017-05-05  Kirill Müller <krlmlr@mailbox.org>
 
         * inst/include/Rcpp/date_datetime/Date.h: Suppress -Wconversion warnings
