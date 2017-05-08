@@ -23,12 +23,12 @@
 namespace Rcpp {
 
     inline List Module::classes_info(){
-	    int n = classes.size() ;
+	    size_t n = classes.size() ;
 	    CharacterVector names(n) ;
 	    List info(n);
 	    CLASS_MAP::iterator it = classes.begin() ;
 	    std::string buffer ;
-	    for( int i=0; i<n; i++, ++it){
+	    for( size_t i=0; i<n; i++, ++it){
 	        names[i] = it->first ;
 	        info[i]  = CppClass( this , it->second, buffer ) ;
 	    }

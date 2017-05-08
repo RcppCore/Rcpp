@@ -71,11 +71,11 @@ namespace Rcpp {
          * vector of arity of all the functions exported by the module
          */
         IntegerVector functions_arity(){
-	        int n = functions.size() ;
+	        size_t n = functions.size() ;
 	        IntegerVector x( n ) ;
 	        CharacterVector names( n );
 	        MAP::iterator it = functions.begin() ;
-	        for( int i=0; i<n; i++, ++it){
+	        for( size_t i=0; i<n; i++, ++it){
 	            x[i] = (it->second)->nargs() ;
 	            names[i] = it->first ;
 	        }
@@ -87,10 +87,10 @@ namespace Rcpp {
          * vector of names of the functions
          */
         CharacterVector functions_names(){
-	        int n = functions.size() ;
+	        size_t n = functions.size() ;
 	        CharacterVector names( n );
 	        MAP::iterator it = functions.begin() ;
-	        for( int i=0; i<n; i++, ++it){
+	        for( size_t i=0; i<n; i++, ++it){
 	            names[i] = it->first ;
 	        }
 	        return names ;
@@ -100,10 +100,10 @@ namespace Rcpp {
          * exposed class names
          */
         inline CharacterVector class_names(){
-            int n = classes.size() ;
+            size_t n = classes.size() ;
             CharacterVector names( n );
             CLASS_MAP::iterator it = classes.begin() ;
-            for( int i=0; i<n; i++, ++it){
+            for( size_t i=0; i<n; i++, ++it){
                 names[i] = it->first ;
             }
             return names ;
@@ -118,11 +118,11 @@ namespace Rcpp {
          * completion information
          */
         CharacterVector complete(){
-            int nf = functions.size() ;
-            int nc = classes.size() ;
-            int n = nf + nc ;
+            size_t nf = functions.size() ;
+            size_t nc = classes.size() ;
+            size_t n = nf + nc ;
             CharacterVector res( n ) ;
-            int i=0;
+            size_t i=0;
             MAP::iterator it = functions.begin();
             std::string buffer ;
             for( ; i<nf; i++, ++it) {
@@ -135,7 +135,7 @@ namespace Rcpp {
                 res[i] = buffer ;
             }
             CLASS_MAP::iterator cit = classes.begin() ;
-            for( int j=0; j<nc; j++, i++, ++cit){
+            for( size_t j=0; j<nc; j++, i++, ++cit){
                 res[i] = cit->first ;
             }
             return res ;
@@ -154,9 +154,9 @@ namespace Rcpp {
          */
         inline SEXP get_function( const std::string& name_ ){
             MAP::iterator it = functions.begin() ;
-            int n = functions.size() ;
+            size_t n = functions.size() ;
             CppFunction* fun = 0 ;
-            for( int i=0; i<n; i++, ++it){
+            for( size_t i=0; i<n; i++, ++it){
                 if( name_.compare( it->first ) == 0){
                     fun = it->second ;
                     break ;
@@ -179,9 +179,9 @@ namespace Rcpp {
          */
         inline DL_FUNC get_function_ptr( const std::string& name_ ){
 	        MAP::iterator it = functions.begin() ;
-	        int n = functions.size() ;
+	        size_t n = functions.size() ;
 	        CppFunction* fun = 0 ;
-	        for( int i=0; i<n; i++, ++it){
+	        for( size_t i=0; i<n; i++, ++it){
 	            if( name_.compare( it->first ) == 0){
 	                fun = it->second ;
 	                break ;
