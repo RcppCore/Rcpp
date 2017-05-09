@@ -25,10 +25,10 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
                                                else author,
                                   email = "your@email.com",
                                   license = "GPL (>= 2)") {
-  
+
     havePkgKitten <- requireNamespace("pkgKitten", quietly=TRUE)
 
-    
+
     call <- match.call()
     call[[1]] <- as.name("package.skeleton")
     env <- parent.frame(1)
@@ -102,7 +102,11 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
     lines <- readLines(NAMESPACE)
     ns <- file(NAMESPACE, open="w")
     if (! grepl("useDynLib", lines)) {
-        lines <- c(sprintf( "useDynLib(%s)", name), lines)
+        if (getRversion() >= "3.4.0") {
+            lines <- c(sprintf( "useDynLib(%s, .registration=TRUE)", name), lines)
+        } else {
+            lines <- c(sprintf( "useDynLib(%s)", name), lines)
+        }
         writeLines(lines, con = ns)
         message(" >> added useDynLib directive to NAMESPACE" )
     }
@@ -119,16 +123,16 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
     if (havePkgKitten) {                # if pkgKitten is available, use it
         pkgKitten::playWithPerPackageHelpPage(name, path, maintainer, email)
     } else {
-        .playWithPerPackageHelpPage(name, path, maintainer, email) 
+        .playWithPerPackageHelpPage(name, path, maintainer, email)
     }
-    
+
     ## lay things out in the src directory
     src <- file.path(root, "src")
     if (!file.exists(src)) {
         dir.create(src)
     }
     skeleton <- system.file("skeleton", package = "Rcpp")
-    
+
     if (length(cpp_files) > 0L) {
         for (file in cpp_files) {
             file.copy(file, src)
@@ -181,6 +185,15 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
         message(" >> copied the example module file ")
     }
 
+    if (getRversion() >= "3.4.0") {
+        con <- file(file.path(src, "init.c"), "wt")
+        tools::package_native_routine_registration_skeleton(root, con=con)
+        close(con)
+        message(" >> created init.c for package registration")
+    } else {
+        message(" >> R version older than 3.4.0 detected, so NO file init.c created.")
+    }
+
     lines <- readLines(package.doc <- file.path( root, "man", sprintf("%s-package.Rd", name)))
     lines <- sub("~~ simple examples", "%% ~~ simple examples", lines)
 
@@ -209,7 +222,7 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
                                         path = ".",
                                         maintainer = "Your Name",
                                         email = "your@mail.com") {
-    root <- file.path(path, name)    
+    root <- file.path(path, name)
     helptgt <- file.path(root, "man", sprintf( "%s-package.Rd", name))
     helpsrc <- system.file("skeleton", "manual-page-stub.Rd", package="Rcpp")
     ## update the package description help page
