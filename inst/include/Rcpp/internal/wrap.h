@@ -116,9 +116,9 @@ namespace Rcpp {
             Shield<SEXP> x(Rf_allocVector(RTYPE, size));
 
             typedef typename ::Rcpp::traits::storage_type<RTYPE>::type STORAGE;
-            int __trip_count = size >> 2;
+            R_xlen_t __trip_count = size >> 2;
             STORAGE* start = r_vector_start<RTYPE>(x);
-            int i = 0;
+            R_xlen_t i = 0;
             for (; __trip_count > 0; --__trip_count) {
                 start[i] = first[i]; i++;
                 start[i] = first[i]; i++;

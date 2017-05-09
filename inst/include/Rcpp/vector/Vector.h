@@ -1075,7 +1075,7 @@ private:
 
 
     template <typename T>
-    inline void import_expression( const T& other, int n ) {
+    inline void import_expression( const T& other, R_xlen_t n ) {
         iterator start = begin() ;
         RCPP_LOOP_UNROLL(start,other)
     }
