@@ -44,6 +44,11 @@
       later expects; a plugin for C++98 was added (Dirk in \ghpr{684} addressing
       \ghit{683}).
     }
+    \item Changes in Rcpp support functions:
+    \itemize{
+      \item The \code{Rcpp.package.skeleton()} function now create a package
+      registration file provided R 3.4.0 or later is used
+    }
   }
 }
 

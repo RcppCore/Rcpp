@@ -1,3 +1,8 @@
+2017-05-09  Dirk Eddelbuettel  <edd@debian.org>
+
+        * R/Rcpp.package.skeleton.R (Rcpp.package.skeleton): Under R 3.4.0, run
+        tools::package_native_routine_registration_skeleton to create src/init.c
+
 2017-05-07  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll minor version again
