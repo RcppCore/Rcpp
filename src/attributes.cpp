@@ -129,6 +129,9 @@ namespace attributes {
     // is the passed string quoted?
     bool isQuoted(const std::string& str);
 
+    // does a string end with another string?
+    bool endsWith(const std::string& str, const std::string& suffix);
+
     // show a warning message
     void showWarning(const std::string& msg);
 
@@ -410,6 +413,8 @@ namespace attributes {
         virtual const std::vector<std::vector<std::string> >& roxygenChunks() const = 0;
 
         virtual bool hasGeneratorOutput() const = 0;
+
+        virtual bool hasPackageInit() const = 0;
     };
 
 
@@ -445,6 +450,7 @@ namespace attributes {
     class SourceFileAttributesParser : public SourceFileAttributes {
     public:
         explicit SourceFileAttributesParser(const std::string& sourceFile,
+                                            const std::string& packageFile,
                                             bool parseDependencies);
 
     private:
@@ -491,6 +497,11 @@ namespace attributes {
                 return false;
         }
 
+        // Was a package init function found?
+        bool hasPackageInit() const {
+            return hasPackageInit_;
+        }
+
         // Get lines of embedded R code
         const std::vector<std::string>& embeddedR() const {
             return embeddedR_;
@@ -530,6 +541,7 @@ namespace attributes {
         CharacterVector lines_;
         std::vector<Attribute> attributes_;
         std::vector<std::string> modules_;
+        bool hasPackageInit_;
         std::vector<std::string> embeddedR_;
         std::vector<FileInfo> sourceDependencies_;
         std::vector<std::vector<std::string> > roxygenChunks_;
@@ -571,7 +583,7 @@ namespace attributes {
         virtual void writeBegin() = 0;
         void writeFunctions(const SourceFileAttributes& attributes,
                             bool verbose); // see doWriteFunctions below
-        virtual void writeEnd() = 0;
+        virtual void writeEnd(bool hasPackageInit) = 0;
 
         virtual bool commit(const std::vector<std::string>& includes) = 0;
 
@@ -648,7 +660,7 @@ namespace attributes {
                                      const std::string& fileSep);
 
         virtual void writeBegin() {};
-        virtual void writeEnd();
+        virtual void writeEnd(bool hasPackageInit);
         virtual bool commit(const std::vector<std::string>& includes);
 
     private:
@@ -660,7 +672,11 @@ namespace attributes {
                                       const std::string& name) const;
 
     private:
+        // for generating C++ interfaces
         std::vector<Attribute> cppExports_;
+
+        // for generating native routine registration
+        std::vector<Attribute> nativeRoutines_;
     };
 
     // Class which manages generating PackageName_RcppExports.h header file
@@ -671,7 +687,7 @@ namespace attributes {
                                    const std::string& fileSep);
 
         virtual void writeBegin();
-        virtual void writeEnd();
+        virtual void writeEnd(bool hasPackageInit);
         virtual bool commit(const std::vector<std::string>& includes);
 
     private:
@@ -692,7 +708,7 @@ namespace attributes {
                                    const std::string& fileSep);
 
         virtual void writeBegin() {}
-        virtual void writeEnd();
+        virtual void writeEnd(bool hasPackageInit);
         virtual bool commit(const std::vector<std::string>& includes);
 
     private:
@@ -709,15 +725,18 @@ namespace attributes {
     public:
         RExportsGenerator(const std::string& packageDir,
                           const std::string& package,
+                          bool registration,
                           const std::string& fileSep);
 
         virtual void writeBegin() {}
-        virtual void writeEnd();
+        virtual void writeEnd(bool hasPackageInit);
         virtual bool commit(const std::vector<std::string>& includes);
 
     private:
         virtual void doWriteFunctions(const SourceFileAttributes& attributes,
                                       bool verbose);
+
+        bool registration_;
 
     };
 
@@ -734,7 +753,7 @@ namespace attributes {
         void writeBegin();
         void writeFunctions(const SourceFileAttributes& attributes,
                             bool verbose);
-        void writeEnd();
+        void writeEnd(bool hasPackageInit);
 
         // Commit and return a list of the files that were updated
         std::vector<std::string> commit(
@@ -1115,8 +1134,9 @@ namespace attributes {
     // Parse the attributes from a source file
     SourceFileAttributesParser::SourceFileAttributesParser(
                                              const std::string& sourceFile,
+                                             const std::string& packageName,
                                              bool parseDependencies)
-        : sourceFile_(sourceFile)
+        : sourceFile_(sourceFile), hasPackageInit_(false)
     {
         // First read the entire file into a std::stringstream so we can check
         // it for attributes (we don't want to do any of our more expensive
@@ -1127,7 +1147,8 @@ namespace attributes {
 
         // Check for attribute signature
         if (contents.find("[[Rcpp::") != std::string::npos ||
-            contents.find("RCPP_MODULE") != std::string::npos) {
+            contents.find("RCPP_MODULE") != std::string::npos ||
+            contents.find("R_init_" + packageName) != std::string::npos) {
 
             // Now read into a list of strings (which we can pass to regexec)
             // First read into a std::deque (which will handle lots of append
@@ -1203,6 +1224,27 @@ namespace attributes {
                 }
             }
 
+            // Scan for package init function
+            hasPackageInit_ = false;
+            commentState.reset();
+            std::string pkgInit = "R_init_" + packageName;
+            Rcpp::List initMatches = regexMatches(lines_, "^[^/]+" + pkgInit + ".*DllInfo.*$");
+            for (int i = 0; i<initMatches.size(); i++) {
+
+                // track whether we are in a comment and bail if we are in one
+                std::string line = lines[i];
+                commentState.submitLine(line);
+                if (commentState.inComment())
+                    continue;
+
+                // check for a match
+                Rcpp::CharacterVector match = initMatches[i];
+                if (match.size() > 0) {
+                    hasPackageInit_ = true;
+                    break;
+                }
+            }
+
             // Parse embedded R
             embeddedR_ = parseEmbeddedR(lines_, lines);
 
@@ -1217,7 +1259,7 @@ namespace attributes {
 
                     // perform parse
                     std::string dependency = sourceDependencies_[i].path();
-                    SourceFileAttributesParser parser(dependency, false);
+                    SourceFileAttributesParser parser(dependency, packageName, false);
 
                     // copy to base attributes (if it's a new attribute)
                     for (SourceFileAttributesParser::const_iterator
@@ -1824,19 +1866,28 @@ namespace attributes {
                     attributes.hasInterface(kInterfaceCpp),
                     packageCpp());
 
-        // track cppExports and signatures (we use these at the end to
-        // generate the ValidateSignature and RegisterCCallable functions)
-        if (attributes.hasInterface(kInterfaceCpp)) {
-            for (SourceFileAttributes::const_iterator		// #nocov start
-                       it = attributes.begin(); it != attributes.end(); ++it) {
-                if (it->isExportedFunction()) {
-                    // add it to the list if it's not hidden
+        // track cppExports, signatures, and native routines (we use these
+        // at the end to generate the ValidateSignature and RegisterCCallable
+        // functions, and to generate a package init function with native
+        // routine registration)
+        for (SourceFileAttributes::const_iterator		// #nocov start
+                   it = attributes.begin(); it != attributes.end(); ++it) {
+
+            if (it->isExportedFunction()) {
+
+                // add it to the cpp exports list if we are generating
+                // a C++ interface and it's not hidden
+                if (attributes.hasInterface(kInterfaceCpp)) {
                     Function fun = it->function().renamedTo(it->exportedCppName());
                     if (!fun.isHidden())
-                        cppExports_.push_back(*it);		// #nocov end
+                        cppExports_.push_back(*it);
                 }
+
+                // add it to the native routines list
+                nativeRoutines_.push_back(*it);
             }
-        }
+        }                                               // #nocov end
+
 
         // verbose if requested
         if (verbose) {						// #nocov start
@@ -1851,7 +1902,7 @@ namespace attributes {
         }
     }
 
-    void CppExportsGenerator::writeEnd()
+    void CppExportsGenerator::writeEnd(bool hasPackageInit)
     {
         // generate a function that can be used to validate exported
         // functions and their signatures prior to looking up with
@@ -1900,6 +1951,28 @@ namespace attributes {
                                         exportValidationFunction());
             ostr() << std::endl;
             ostr() << "    return R_NilValue;" << std::endl;
+            ostr() << "}" << std::endl;
+         }
+
+         // write native routines
+         if (!hasPackageInit && !nativeRoutines_.empty()) {
+            ostr() << std::endl;
+            ostr() << "static const R_CallMethodDef CallEntries[] = {" << std::endl;
+            for (std::size_t i=0;i<nativeRoutines_.size(); i++) {
+                const Attribute& attr = nativeRoutines_[i];
+                std::string routine = package() + "_" + attr.exportedName();
+                ostr() << "    {\"" << routine <<  "\", " <<
+                          "(DL_FUNC) &" << routine << ", " <<
+                           attr.function().arguments().size() <<  "}," << std::endl;
+            }
+            ostr() << "    {NULL, NULL, 0}" << std::endl;
+            ostr() << "};" << std::endl;
+
+            ostr() << std::endl;
+
+            ostr() << "extern \"C\" void R_init_" << package() << "(DllInfo *dll) {" << std::endl;
+            ostr() << "    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);" << std::endl;
+            ostr() << "    R_useDynamicSymbols(dll, FALSE);" << std::endl;
             ostr() << "}" << std::endl;
          }
     }
@@ -2080,7 +2153,7 @@ namespace attributes {
         }
     }
 
-    void CppExportsIncludeGenerator::writeEnd() {
+    void CppExportsIncludeGenerator::writeEnd(bool hasPackageInit) {
         ostr() << "}" << std::endl;
         ostr() << std::endl;
         ostr() << "#endif // " << getHeaderGuard() << std::endl;
@@ -2164,7 +2237,7 @@ namespace attributes {
         includeDir_ = packageDir +  fileSep + "inst" +  fileSep + "include";
     }
 
-    void CppPackageIncludeGenerator::writeEnd() {
+    void CppPackageIncludeGenerator::writeEnd(bool hasPackageInit) {
         if (hasCppInterface()) {
             // header guard
             std::string guard = getHeaderGuard();			// #nocov start
@@ -2199,11 +2272,13 @@ namespace attributes {
 
     RExportsGenerator::RExportsGenerator(const std::string& packageDir,
                                          const std::string& package,
+                                         bool registration,
                                          const std::string& fileSep)
         : ExportsGenerator(
             packageDir + fileSep + "R" +  fileSep + "RcppExports.R",
             package,
-            "#")
+            "#"),
+          registration_(registration)
     {
     }
 
@@ -2249,8 +2324,11 @@ namespace attributes {
                 if (function.type().isVoid())
                     ostr() << "invisible(";			// #nocov
                 ostr() << ".Call(";
-                ostr() << "'" << packageCpp() << "_" << function.name() << "', "
-                       << "PACKAGE = '" << package() << "'";
+                if (!registration_)
+                    ostr() << "'";
+                ostr() << packageCpp() << "_" << function.name();
+                if (!registration_)
+                    ostr() << "', " << "PACKAGE = '" << package() << "'";
 
                 // add arguments
                 const std::vector<Argument>& arguments = function.arguments();
@@ -2266,7 +2344,7 @@ namespace attributes {
         }
     }
 
-    void RExportsGenerator::writeEnd() {
+    void RExportsGenerator::writeEnd(bool hasPackageInit) {
         if (hasCppInterface()) {				// #nocov start
              // register all C-callable functions
             ostr() << "# Register entry points for exported C++ functions"
@@ -2307,9 +2385,9 @@ namespace attributes {
             (*it)->writeFunctions(attributes, verbose);
     }
 
-    void ExportsGenerators::writeEnd() {
+    void ExportsGenerators::writeEnd(bool hasPackageInit) {
         for(Itr it = generators_.begin(); it != generators_.end(); ++it)
-            (*it)->writeEnd();
+            (*it)->writeEnd(hasPackageInit);
     }
 
     // Commit and return a list of the files that were updated
@@ -2794,6 +2872,13 @@ namespace attributes {
         return (quote == '\'' || quote == '\"') && (*(str.rbegin()) == quote);
     }
 
+    // does a string end with another string?
+    bool endsWith(const std::string& str, const std::string& suffix)
+    {
+        return str.size() >= suffix.size() &&
+               str.compare(str.size() - suffix.size(), suffix.size(), suffix) == 0;
+    }
+
     // show a warning message
     void showWarning(const std::string& msg) {				// #nocov start
         Rcpp::Function warning = Rcpp::Environment::base_env()["warning"];
@@ -2959,7 +3044,7 @@ namespace {
             filecopy(cppSourcePath_, generatedCppSourcePath(), true);
 
             // parse attributes
-            SourceFileAttributesParser sourceAttributes(cppSourcePath_, true);
+            SourceFileAttributesParser sourceAttributes(cppSourcePath_, "", true);
 
             // generate cpp for attributes and append them
             std::ostringstream ostr;
@@ -3288,6 +3373,7 @@ END_RCPP
 RcppExport SEXP compileAttributes(SEXP sPackageDir,
                                   SEXP sPackageName,
                                   SEXP sDepends,
+                                  SEXP sRegistration,
                                   SEXP sCppFiles,
                                   SEXP sCppFileBasenames,
                                   SEXP sIncludes,
@@ -3305,6 +3391,8 @@ BEGIN_RCPP
         depends.insert(std::string(*it));
     }
 
+    bool registration = Rcpp::as<bool>(sRegistration);
+
     std::vector<std::string> cppFiles =
                     Rcpp::as<std::vector<std::string> >(sCppFiles);
     std::vector<std::string> cppFileBasenames =
@@ -3318,7 +3406,7 @@ BEGIN_RCPP
     // initialize generators
     ExportsGenerators generators;
     generators.add(new CppExportsGenerator(packageDir, packageName, fileSep));
-    generators.add(new RExportsGenerator(packageDir, packageName, fileSep));
+    generators.add(new RExportsGenerator(packageDir, packageName, registration, fileSep));
 
     // catch file exists exception if the include file already exists
     // and we are unable to overwrite it
@@ -3347,13 +3435,24 @@ BEGIN_RCPP
     generators.writeBegin();
 
     // Parse attributes from each file and generate code as required.
+    bool hasPackageInit = false;
     bool haveAttributes = false;
     std::set<std::string> dependsAttribs;
     for (std::size_t i=0; i<cppFiles.size(); i++) {
 
-        // parse file (continue if there is no generator output)
+        // don't process RcppExports.cpp
         std::string cppFile = cppFiles[i];
-        SourceFileAttributesParser attributes(cppFile, false);
+        if (endsWith(cppFile, "RcppExports.cpp"))
+            continue;
+
+        // parse file
+        SourceFileAttributesParser attributes(cppFile, packageName, false);
+
+        // note if we found a package init function
+        if (!hasPackageInit && attributes.hasPackageInit())
+            hasPackageInit = true;
+
+        // continue if no generator output
         if (!attributes.hasGeneratorOutput())
             continue;						// #nocov
 
@@ -3374,7 +3473,7 @@ BEGIN_RCPP
     }
 
     // write end
-    generators.writeEnd();
+    generators.writeEnd(hasPackageInit);
 
     // commit or remove
     std::vector<std::string> updated;

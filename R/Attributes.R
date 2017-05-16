@@ -404,6 +404,13 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     depends <- unique(.splitDepends(depends))
     depends <- depends[depends != "R"]
 
+    # check the NAMESPACE file to see if dynamic registration is enabled
+    namespaceFile <- file.path(pkgdir, "NAMESPACE")
+    if (!file.exists(namespaceFile))
+        stop("pkgdir must refer to the directory containing an R package")
+    pkgNamespace <- readLines(namespaceFile, warn = FALSE)
+    registration <- any(grepl("^\\s*useDynLib.*\\.registration\\s*=\\s*TRUE.*$", pkgNamespace))
+
     # determine source directory
     srcDir <- file.path(pkgdir, "src")
     if (!file.exists(srcDir))
@@ -449,7 +456,7 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
 
     # generate exports
     invisible(.Call("compileAttributes", PACKAGE="Rcpp",
-                    pkgdir, pkgname, depends, cppFiles, cppFileBasenames,
+                    pkgdir, pkgname, depends, registration, cppFiles, cppFileBasenames,
                     includes, verbose, .Platform))
 }
 

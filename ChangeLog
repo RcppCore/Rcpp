@@ -1,3 +1,10 @@
+2017-05-16  JJ Allaire  <jj@rstudio.com>
+
+        * R/Attributes.R: Automatically generate native routine registrations.
+        * src/attributes.cpp: Automatically generate native routine registrations.
+        * R/Rcpp.package.skeleton.R: Don't generate native routines when creating
+        a package using attributes.
+
 2017-05-09  Dirk Eddelbuettel  <edd@debian.org>
 
         * R/Rcpp.package.skeleton.R (Rcpp.package.skeleton): Under R 3.4.0, run

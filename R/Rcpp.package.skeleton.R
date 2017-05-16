@@ -185,7 +185,9 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
         message(" >> copied the example module file ")
     }
 
-    if (getRversion() >= "3.4.0") {
+    # generate native routines if we aren't using attributes (which already generate
+    # them automatically) and we have at least R 3.4
+    if (!attributes && getRversion() >= "3.4.0") {
         con <- file(file.path(src, "init.c"), "wt")
         tools::package_native_routine_registration_skeleton(root, con=con)
         close(con)

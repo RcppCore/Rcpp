@@ -40,6 +40,7 @@
     }
     \item Changes in Rcpp Attributes:
     \itemize{
+      \item Automatically generate native routine registrations.
       \item The plugins for C++11, C++14, C++17 now set the values R 3.4.0 or
       later expects; a plugin for C++98 was added (Dirk in \ghpr{684} addressing
       \ghit{683}).
