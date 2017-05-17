@@ -1958,6 +1958,11 @@ namespace attributes {
          if (!hasPackageInit && !nativeRoutines_.empty()) {
             ostr() << std::endl;
             ostr() << "static const R_CallMethodDef CallEntries[] = {" << std::endl;
+            if (hasCppInterface()) {
+                ostr() << "    {\"" << registerCCallableExportedName() << "\", " <<
+                    "(DL_FUNC) &" << registerCCallableExportedName()  << ", " <<
+                    0 <<  "}," << std::endl;
+            }
             for (std::size_t i=0;i<nativeRoutines_.size(); i++) {
                 const Attribute& attr = nativeRoutines_[i];
                 std::string routine = package() + "_" + attr.exportedName();
