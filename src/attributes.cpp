@@ -1979,7 +1979,7 @@ namespace attributes {
             // generate declarations
             if (declarations.size() > 0) {
                 ostr() << std::endl;
-                for (int i = 0; i<declarations.size(); i++)
+                for (std::size_t i = 0; i<declarations.size(); i++)
                     ostr() << declarations[i] << std::endl;
             }
 
@@ -1992,7 +1992,7 @@ namespace attributes {
                         routineArgs[i] <<  "}," << std::endl;
             }
             if (callEntries.size() > 0) {
-                for (int i = 0; i<callEntries.size(); i++)
+                for (std::size_t i = 0; i<callEntries.size(); i++)
                     ostr() << callEntries[i] << std::endl;
             }
             ostr() << "    {NULL, NULL, 0}" << std::endl;

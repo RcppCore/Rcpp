@@ -5,6 +5,8 @@
 
         * R/Attributes.R (.plugins[["openmp"]]): Fix typo in comment
 
+        * src/attributes.cpp (Rcpp): Use size_t (twice) to suppress nags from g++
+
 2017-05-16  JJ Allaire  <jj@rstudio.com>
 
         * R/Attributes.R: Automatically generate native routine registrations.
