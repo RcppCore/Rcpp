@@ -1154,3 +1154,43 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
     as.character(token)
 }
 
+.extraRoutineRegistrations <- function(routines) {
+
+    declarations = character()
+    call_entries = character()
+
+    # if we are running R 3.4 or higher we can use an internal utility function
+    # to automatically discover additional native routines that require registration
+    if (getRversion() >= "3.4") {
+
+        # get the generated code from R
+        con <- textConnection(object = NULL, open = "w")
+        on.exit(close(con), add = TRUE)
+        tools::package_native_routine_registration_skeleton(
+            dir = ".",
+            con = con,
+            character_only = FALSE
+        )
+        code <- textConnectionValue(con)
+
+        # look for lines containing call entries
+        matches <- regexec('^\\s+\\{"([^"]+)",.*$', code)
+        matches <- regmatches(code, matches)
+        matches <- Filter(x = matches, function(x) {
+            length(x) > 0
+        })
+        for (match in matches) {
+            routine <- match[[2]]
+            if (!routine %in% routines) {
+                declaration <- grep(sprintf("^extern .* %s\\(.*$", routine), code,
+                                    value = TRUE)
+                declarations <- c(declarations, sub("^extern", "RcppExport", declaration))
+                call_entries <- c(call_entries, match[[1]])
+            }
+        }
+    }
+
+    # return extra declaratiosn and call entries
+    list(declarations = declarations,
+         call_entries = call_entries)
+}

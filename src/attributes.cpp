@@ -1956,26 +1956,51 @@ namespace attributes {
 
          // write native routines
          if (!hasPackageInit && !nativeRoutines_.empty()) {
-            ostr() << std::endl;
-            ostr() << "static const R_CallMethodDef CallEntries[] = {" << std::endl;
-            if (hasCppInterface()) {
-                ostr() << "    {\"" << registerCCallableExportedName() << "\", " <<
-                    "(DL_FUNC) &" << registerCCallableExportedName()  << ", " <<
-                    0 <<  "}," << std::endl;
-            }
+
+            // build list of routines we will register
+            std::vector<std::string> routineNames;
+            std::vector<std::size_t> routineArgs;
             for (std::size_t i=0;i<nativeRoutines_.size(); i++) {
                 const Attribute& attr = nativeRoutines_[i];
-                std::string routine = package() + "_" + attr.exportedName();
-                ostr() << "    {\"" << routine <<  "\", " <<
-                          "(DL_FUNC) &" << routine << ", " <<
-                           attr.function().arguments().size() <<  "}," << std::endl;
+                routineNames.push_back(package() + "_" + attr.exportedName());
+                routineArgs.push_back(attr.function().arguments().size());
+            }
+            if (hasCppInterface()) {
+                routineNames.push_back(registerCCallableExportedName());
+                routineArgs.push_back(0);
+            }
+
+            // see if there are additional registrations to perform
+            Rcpp::Function extraRoutinesFunc = Environment::namespace_env("Rcpp")[".extraRoutineRegistrations"];
+            List extraRoutines = extraRoutinesFunc(routineNames);
+            std::vector<std::string> declarations = extraRoutines["declarations"];
+            std::vector<std::string> callEntries = extraRoutines["call_entries"];
+
+            // generate declarations
+            if (declarations.size() > 0) {
+                ostr() << std::endl;
+                for (int i = 0; i<declarations.size(); i++)
+                    ostr() << declarations[i] << std::endl;
+            }
+
+            // generate registration code
+            ostr() << std::endl;
+            ostr() << "static const R_CallMethodDef CallEntries[] = {" << std::endl;
+            for (std::size_t i=0;i<routineNames.size(); i++) {
+                ostr() << "    {\"" << routineNames[i] <<  "\", " <<
+                    "(DL_FUNC) &" << routineNames[i] << ", " <<
+                        routineArgs[i] <<  "}," << std::endl;
+            }
+            if (callEntries.size() > 0) {
+                for (int i = 0; i<callEntries.size(); i++)
+                    ostr() << callEntries[i] << std::endl;
             }
             ostr() << "    {NULL, NULL, 0}" << std::endl;
             ostr() << "};" << std::endl;
 
             ostr() << std::endl;
 
-            ostr() << "extern \"C\" void R_init_" << package() << "(DllInfo *dll) {" << std::endl;
+            ostr() << "RcppExport void R_init_" << package() << "(DllInfo *dll) {" << std::endl;
             ostr() << "    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);" << std::endl;
             ostr() << "    R_useDynamicSymbols(dll, FALSE);" << std::endl;
             ostr() << "}" << std::endl;
