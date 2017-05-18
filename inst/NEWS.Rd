@@ -10,7 +10,8 @@
       \item Rcpp::exceptions can now be constructed without a call stack (Jim
       Hester in \ghpr{663} addressing \ghit{664}).
       \item Somewhat spurious compiler messages under very verbose settings are
-      now suppressed (Kirill Mueller in \ghpr{670}, \ghpr{671} and \ghpr{672}).
+      now suppressed (Kirill Mueller in \ghpr{670}, \ghpr{671}, \ghpr{672},
+      \ghpr{687}, \ghpr{688}, \ghpr{691}).
       \item Refreshed the included \code{tinyformat} template library
       (James Balamuta in \ghpr{674} addressing \ghit{673}).
       \item Added \code{printf}-like syntax support for exception classes and
@@ -20,7 +21,7 @@
       information. (James Balamuta in \ghpr{676} and \ghpr{677} addressing
       \ghit{184}).
       \item One more instance of \code{Rf_mkString} is protected from garbage
-      collection (Dirk in \ghpr{684} addressing \ghit{683}).
+      collection (Dirk in \ghpr{686} addressing \ghit{685}).
       \item Several compiler warnings for \code{-Wconversions} are no longer
       generated (Kirill Mueller in \ghpr{687} and \ghpr{688})
       \item Two exception specification that are no longer tolerated by
@@ -40,15 +41,15 @@
     }
     \item Changes in Rcpp Attributes:
     \itemize{
-      \item Automatically generate native routine registrations.
+      \item Automatically generate native routine registrations (JJ in \ghpr{694})
       \item The plugins for C++11, C++14, C++17 now set the values R 3.4.0 or
       later expects; a plugin for C++98 was added (Dirk in \ghpr{684} addressing
       \ghit{683}).
     }
     \item Changes in Rcpp support functions:
     \itemize{
-      \item The \code{Rcpp.package.skeleton()} function now create a package
-      registration file provided R 3.4.0 or later is used
+      \item The \code{Rcpp.package.skeleton()} function now creates a package
+      registration file provided R 3.4.0 or later is used (Dirk in \ghpr{692})
     }
   }
 }

@@ -517,7 +517,7 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     list(env = list(PKG_CXXFLAGS ="-std=c++1z"))
 }
 
-## built-in OpenMP++11 plugin
+## built-in OpenMP plugin
 .plugins[["openmp"]] <- function() {
     list(env = list(PKG_CXXFLAGS="-fopenmp",
                     PKG_LIBS="-fopenmp"))

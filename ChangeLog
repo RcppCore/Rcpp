@@ -1,3 +1,10 @@
+2017-05-18  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version, Date): Roll Date and Version once more
+        * inst/NEWS.Rd: Updated
+
+        * R/Attributes.R (.plugins[["openmp"]]): Fix typo in comment
+
 2017-05-16  JJ Allaire  <jj@rstudio.com>
 
         * R/Attributes.R: Automatically generate native routine registrations.
