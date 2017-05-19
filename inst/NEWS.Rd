@@ -22,8 +22,6 @@
       \ghit{184}).
       \item One more instance of \code{Rf_mkString} is protected from garbage
       collection (Dirk in \ghpr{686} addressing \ghit{685}).
-      \item Several compiler warnings for \code{-Wconversions} are no longer
-      generated (Kirill Mueller in \ghpr{687} and \ghpr{688})
       \item Two exception specification that are no longer tolerated by
       \code{g++-7.1} or later were removed (Dirk in \ghpr{690} addressing
       \ghit{689})

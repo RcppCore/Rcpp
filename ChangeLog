@@ -1,3 +1,8 @@
+2017-05-19  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/NEWS.Rd: Removed one duplicate entry
+        * inst/include/Rcpp/api/meat/Rcpp_eval.h (Rcpp): Minor whitespace changes
+
 2017-05-18  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll Date and Version once more
