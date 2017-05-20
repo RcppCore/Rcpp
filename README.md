@@ -56,7 +56,7 @@ see 'citation("Rcpp")' for details.
 The [Rcpp Gallery](http://gallery.rcpp.org) showcases over one hundred fully
 documented and working examples.
 
-A number of examples are included as are 1373 unit tests in 595 unit
+A number of examples are included as are 1385 unit tests in 599 unit
 test functions provide additional usage examples.
 
 An earlier version of Rcpp, containing what we now call the 'classic Rcpp

@@ -1,3 +1,14 @@
+2017-05-20  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.12.11
+        * inst/NEWS.Rd: Release 0.12.11
+        * inst/bib/Rcpp.bib: Release 0.12.11
+        * inst/include/Rcpp/config.h: Release 0.12.11
+
+        * README.md: Updated counts for dependents and tests
+
+        * debian/*: Changes for Debian release of 0.12.10
+
 2017-05-19  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/NEWS.Rd: Removed one duplicate entry
