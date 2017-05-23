@@ -1154,7 +1154,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
     as.character(token)
 }
 
-.extraRoutineRegistrations <- function(routines) {
+.extraRoutineRegistrations <- function(targetFile, routines) {
 
     declarations = character()
     call_entries = character()
@@ -1163,11 +1163,14 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
     # to automatically discover additional native routines that require registration
     if (getRversion() >= "3.4") {
 
+        # determine the package directory
+        pkgdir <- dirname(dirname(targetFile))
+
         # get the generated code from R
         con <- textConnection(object = NULL, open = "w")
         on.exit(close(con), add = TRUE)
         tools::package_native_routine_registration_skeleton(
-            dir = ".",
+            dir = pkgdir,
             con = con,
             character_only = FALSE
         )
