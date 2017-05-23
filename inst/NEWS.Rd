@@ -3,6 +3,16 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
+\section{Changes in Rcpp version 0.12.12 (Unreleased)}{
+  \itemize{
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Execute tools::package_native_routine_registration_skeleton
+      within package rather than current working directory.
+    }
+  }
+}
+
 \section{Changes in Rcpp version 0.12.11 (2017-05-20)}{
   \itemize{
     \item Changes in Rcpp API:

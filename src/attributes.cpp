@@ -1972,7 +1972,7 @@ namespace attributes {
 
             // see if there are additional registrations to perform
             Rcpp::Function extraRoutinesFunc = Environment::namespace_env("Rcpp")[".extraRoutineRegistrations"];
-            List extraRoutines = extraRoutinesFunc(routineNames);
+            List extraRoutines = extraRoutinesFunc(targetFile(), routineNames);
             std::vector<std::string> declarations = extraRoutines["declarations"];
             std::vector<std::string> callEntries = extraRoutines["call_entries"];
 
