@@ -1,3 +1,7 @@
+2017-05-22  Dirk Eddelbuettel  <edd@debian.org>
+
+        * R/inline.R (Rcpp.plugin.maker): Whitespace changes
+
 2017-05-20  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.12.11

@@ -1,4 +1,4 @@
-# Copyright (C) 2009 - 2013 Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2009 - 2017  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -15,18 +15,17 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-Rcpp.plugin.maker <- function(
-	include.before = "",
-	include.after = "",
-	LinkingTo     = unique( c( package, "Rcpp" ) ),
-	Depends       = unique( c( package, "Rcpp" ) ),
-	libs          = "",
-	Makevars      = NULL ,
-	Makevars.win  = NULL,
-	package       = "Rcpp"
-){
-	function( ... ){
-includes <- sprintf( "%s
+Rcpp.plugin.maker <- function(include.before = "",
+                              include.after = "",
+                              LinkingTo     = unique(c(package, "Rcpp")),
+                              Depends       = unique(c(package, "Rcpp")),
+                              Imports       = unique(c(package, "Rcpp")),
+                              libs          = "",
+                              Makevars      = NULL ,
+                              Makevars.win  = NULL,
+                              package       = "Rcpp") {
+    function(...) {
+        includes <- sprintf("%s
 #include <Rcpp.h>
 %s
 
@@ -38,22 +37,20 @@ includes <- sprintf( "%s
 #define END_RCPP
 #endif
 
-using namespace Rcpp;
-", include.before, include.after )
+using namespace Rcpp;", include.before, include.after)
 
-  out <- list(
-		env = list( PKG_LIBS = libs ),
-		includes = includes,
-		LinkingTo = LinkingTo ,
-		body = function( x ){
-			sprintf( "BEGIN_RCPP\n%s\nEND_RCPP", x )
-		},
-		Depends = Depends
-	)
-	if( !is.null(Makevars ) ) out$Makevars <- Makevars
-  	if( !is.null(Makevars.win ) ) out$Makevars.win <- Makevars.win
+        out <- list(env = list( PKG_LIBS = libs ),
+                    includes = includes,
+                    LinkingTo = LinkingTo ,
+                    body = function( x ) {
+                        sprintf( "BEGIN_RCPP\n%s\nEND_RCPP", x )
+                    },
+                    Depends = Depends,
+                    Imports = Imports)
+	if (!is.null(Makevars))     out$Makevars <- Makevars
+  	if (!is.null(Makevars.win)) out$Makevars.win <- Makevars.win
   	out
-}
+    }
 }
 
 inlineCxxPlugin <- Rcpp.plugin.maker()
