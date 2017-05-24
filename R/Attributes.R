@@ -1129,7 +1129,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
                            R.version$platform,
                            utils::packageVersion("Rcpp"),
                            sep = "-"))
-    if (!dir.exists(dir))
+    if (!utils::file_test("-d", dir))
         dir.create(dir, recursive = TRUE)
 
     dir
