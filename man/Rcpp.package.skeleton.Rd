@@ -47,9 +47,7 @@ Rcpp.package.skeleton(name = "anRpackage", list = character(),
 	The \samp{NAMESPACE} gains a \code{useDynLib} directive as well
 	as an \code{importFrom(Rcpp, evalCpp} to ensure instantiation of Rcpp.
 	
-	The \samp{src} directory is created if it does not exists and 
-	a \samp{Makevars} file is added setting the environment variables
-	\samp{PKG_LIBS} to accomodate the necessary flags to link with the Rcpp library. 
+	The \samp{src} directory is created if it does not exists. 
 	
 	If \code{cpp_files} are provided then they will be copied to the \samp{src}
 	directory.
