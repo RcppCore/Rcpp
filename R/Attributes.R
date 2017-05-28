@@ -632,6 +632,11 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
 .findPlugin <- function(pluginName) {
 
     plugin <- .plugins[[pluginName]]
+    if (is.null(plugin)) {
+        plugin <- .getInlinePlugin(pluginName)
+        if (!is.null(plugin))
+            registerPlugin(pluginName, plugin)
+    }
     if (is.null(plugin))
         stop("Inline plugin '", pluginName, "' could not be found ",
              "within the Rcpp package. You should be ",
