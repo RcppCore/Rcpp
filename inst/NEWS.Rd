@@ -5,10 +5,16 @@
 
 \section{Changes in Rcpp version 0.12.12 (Unreleased)}{
   \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item The \code{tinyformat.h} header now ends in a newline (\ghit{701}).
+    }
     \item Changes in Rcpp Attributes:
     \itemize{
       \item Execute tools::package_native_routine_registration_skeleton
       within package rather than current working directory.
+      \item The R portion no longer uses \code{dir.exists} to no require R 3.2.0
+      or newer (Elias Pipping in \ghpr{698}).
     }
   }
 }
