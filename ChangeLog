@@ -1,3 +1,7 @@
+2017-06-01  JJ Allaire  <jj@rstudio.com>
+
+        * src/attributes.cpp: Fix registration for exports with name attribute.
+
 2017-05-30  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/utils/tinyformat.h: Added missing newline
@@ -8,9 +12,6 @@
           within package rather than current working directory.
         * src/attributes.cpp: Execute tools::package_native_routine_registration_skeleton
           within package rather than current working directory.
-2017-06-01  JJ Allaire  <jj@rstudio.com>
-
-        * src/attributes.cpp: Fix registration for exports with name attribute.
 
 2017-05-22  Dirk Eddelbuettel  <edd@debian.org>
 

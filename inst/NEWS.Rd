@@ -15,7 +15,8 @@
       within package rather than current working directory.
       \item The R portion no longer uses \code{dir.exists} to no require R 3.2.0
       or newer (Elias Pipping in \ghpr{698}).
-      \item Fix native registration for exports with name attribute (\ghit{702}).
+      \item Fix native registration for exports with name attribute (\ghpr{703}
+      addressing \ghit{702}).
     }
   }
 }
