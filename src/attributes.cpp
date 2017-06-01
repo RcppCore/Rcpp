@@ -1962,7 +1962,7 @@ namespace attributes {
             std::vector<std::size_t> routineArgs;
             for (std::size_t i=0;i<nativeRoutines_.size(); i++) {
                 const Attribute& attr = nativeRoutines_[i];
-                routineNames.push_back(package() + "_" + attr.exportedName());
+                routineNames.push_back(package() + "_" + attr.function().name());
                 routineArgs.push_back(attr.function().arguments().size());
             }
             if (hasCppInterface()) {
