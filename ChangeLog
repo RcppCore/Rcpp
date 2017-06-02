@@ -1,6 +1,7 @@
 2017-06-02  JJ Allaire  <jj@rstudio.com>
 
         * src/attributes.cpp: Automatically register init functions for RcppModules
+        * R/Rcpp.package.skeleton.R: compileAttributes only after all code is generated
 
 2017-06-01  JJ Allaire  <jj@rstudio.com>
 
