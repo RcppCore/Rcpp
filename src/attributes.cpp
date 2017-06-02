@@ -675,8 +675,11 @@ namespace attributes {
         // for generating C++ interfaces
         std::vector<Attribute> cppExports_;
 
-        // for generating native routine registration
+        // for generating Rcpp::export native routine registration
         std::vector<Attribute> nativeRoutines_;
+
+        // for generating module native routine registration
+        std::vector<std::string> modules_;
     };
 
     // Class which manages generating PackageName_RcppExports.h header file
@@ -1888,6 +1891,9 @@ namespace attributes {
             }
         }                                               // #nocov end
 
+        // record modules
+        const std::vector<std::string>& modules = attributes.modules();
+        modules_.insert(modules_.end(), modules.begin(), modules.end());
 
         // verbose if requested
         if (verbose) {						// #nocov start
@@ -1955,7 +1961,7 @@ namespace attributes {
          }
 
          // write native routines
-         if (!hasPackageInit && !nativeRoutines_.empty()) {
+         if (!hasPackageInit && (!nativeRoutines_.empty() || !modules_.empty())) {
 
             // build list of routines we will register
             std::vector<std::string> routineNames;
@@ -1964,6 +1970,11 @@ namespace attributes {
                 const Attribute& attr = nativeRoutines_[i];
                 routineNames.push_back(package() + "_" + attr.function().name());
                 routineArgs.push_back(attr.function().arguments().size());
+            }
+            std::string kRcppModuleBoot = "_rcpp_module_boot_";
+            for (std::size_t i=0;i<modules_.size(); i++) {
+                routineNames.push_back(kRcppModuleBoot + modules_[i]);
+                routineArgs.push_back(0);
             }
             if (hasCppInterface()) {
                 routineNames.push_back(registerCCallableExportedName());
@@ -1975,6 +1986,11 @@ namespace attributes {
             List extraRoutines = extraRoutinesFunc(targetFile(), routineNames);
             std::vector<std::string> declarations = extraRoutines["declarations"];
             std::vector<std::string> callEntries = extraRoutines["call_entries"];
+
+            // add declarations for modules
+            for (std::size_t i=0;i<modules_.size(); i++) {
+                declarations.push_back("RcppExport SEXP " + kRcppModuleBoot + modules_[i] + "();");
+            }
 
             // generate declarations
             if (declarations.size() > 0) {

@@ -138,7 +138,6 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
             file.copy(file, src)
             message(" >> copied ", file, " to src directory" )
         }
-        compileAttributes(root)
     }
 
     if (example_code) {
@@ -146,10 +145,6 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
             file.copy(file.path( skeleton, "rcpp_hello_world_attributes.cpp"),
                       file.path( src, "rcpp_hello_world.cpp"))
             message(" >> added example src file using Rcpp attributes")
-            compileAttributes(root)
-            message(" >> compiled Rcpp attributes")
-            message(" >> do NOT modify by hand either RcppExports.cpp or ",
-                    "RcppExports.R")
         } else {
             header <- readLines(file.path(skeleton, "rcpp_hello_world.h"))
             header <- gsub("@PKG@", name, header, fixed = TRUE)
@@ -216,6 +211,11 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
 
     if (isTRUE(remove_hello_world)) {
         rm("rcpp_hello_world", envir = env)
+    }
+
+    if (attributes) {
+        compileAttributes(root)
+        message(" >> compiled Rcpp attributes ")
     }
 
     invisible(NULL)
