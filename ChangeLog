@@ -1,3 +1,7 @@
+2017-06-02  JJ Allaire  <jj@rstudio.com>
+
+        * src/attributes.cpp: Automatically register init functions for RcppModules
+
 2017-06-01  JJ Allaire  <jj@rstudio.com>
 
         * src/attributes.cpp: Fix registration for exports with name attribute.

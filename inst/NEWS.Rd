@@ -17,6 +17,7 @@
       or newer (Elias Pipping in \ghpr{698}).
       \item Fix native registration for exports with name attribute (\ghpr{703}
       addressing \ghit{702}).
+      \item Automatically register init functions for RcppModules.
     }
   }
 }
