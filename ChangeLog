@@ -1,7 +1,16 @@
+2017-06-04  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version, Date): Roll minor version
+
+        * man/Rcpp.plugin.maker.Rd: Update manual page to additional Imports
+        argument
+
 2017-06-02  JJ Allaire  <jj@rstudio.com>
 
-        * src/attributes.cpp: Automatically register init functions for RcppModules
-        * R/Rcpp.package.skeleton.R: compileAttributes only after all code is generated
+        * src/attributes.cpp: Automatically register init functions for
+        RcppModules
+        * R/Rcpp.package.skeleton.R: compileAttributes only after all code is
+        generated
 
 2017-06-01  JJ Allaire  <jj@rstudio.com>
 
@@ -14,9 +23,9 @@
 2017-05-23  JJ Allaire  <jj@rstudio.com>
 
         * R/Attributes.R: Execute tools::package_native_routine_registration_skeleton
-          within package rather than current working directory.
+        within package rather than current working directory.
         * src/attributes.cpp: Execute tools::package_native_routine_registration_skeleton
-          within package rather than current working directory.
+         within package rather than current working directory.
 
 2017-05-22  Dirk Eddelbuettel  <edd@debian.org>
 
