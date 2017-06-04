@@ -8,6 +8,7 @@
     \item Changes in Rcpp API:
     \itemize{
       \item The \code{tinyformat.h} header now ends in a newline (\ghit{701}).
+      \item Fixed rare protection error that occurred when fetching stack traces during the construction of an Rcpp exception (Kirill Müller in \ghit{706}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{
