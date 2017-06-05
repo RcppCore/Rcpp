@@ -31,12 +31,12 @@ namespace Rcpp {
         explicit exception(const char* message_, bool include_call = true) :	// #nocov start
             message(message_),
             include_call_(include_call){
-            rcpp_set_stack_trace(stack_trace());
+            rcpp_set_stack_trace(Shield<SEXP>(stack_trace()));
         }
         exception(const char* message_, const char* file, int line, bool include_call = true) :
             message(message_),
             include_call_(include_call){
-            rcpp_set_stack_trace(stack_trace(file,line));
+            rcpp_set_stack_trace(Shield<SEXP>(stack_trace()));
         }
         bool include_call() const {
             return include_call_;

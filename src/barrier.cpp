@@ -121,7 +121,6 @@ SEXP rcpp_get_stack_trace() {
 
 // [[Rcpp::register]]
 SEXP rcpp_set_stack_trace(SEXP e) {
-    Rcpp::Shield<SEXP> ep(e);
     SET_VECTOR_ELT(get_rcpp_cache(), 3, e);
     return R_NilValue;
 }
