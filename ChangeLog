@@ -1,3 +1,7 @@
+2017-06-06  Yu Gong  <armgong@yahoo.com>
+
+        * src/api.cpp: Also permit compilation under Haiku-OS
+
 2017-06-04  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll minor version
