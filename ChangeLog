@@ -1,3 +1,7 @@
+2017-06-07  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Use alternates for img.shields.io GPL-2+ badges
+
 2017-06-06  Yu Gong  <armgong@yahoo.com>
 
         * src/api.cpp: Also permit compilation under Haiku-OS
