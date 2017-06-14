@@ -2172,7 +2172,7 @@ namespace attributes {
 
                 const std::vector<Argument>& args = function.arguments();
                 for (std::size_t i = 0; i<args.size(); i++) {
-                    ostr() << "Rcpp::wrap(" << args[i].name() << ")";
+                    ostr() << "Shield<SEXP>(Rcpp::wrap(" << args[i].name() << "))";
                     if (i != (args.size()-1))
                         ostr() << ", ";
                 }

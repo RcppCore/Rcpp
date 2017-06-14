@@ -24,6 +24,7 @@
       addressing \ghit{702}).
       \item Automatically register init functions for Rcpp Modules (\ghpr{705}
       addressing \ghit{704}).
+      \item Add Shield around parameters in Rcpp::interfaces (\ghit{712}).
     }
   }
 }
