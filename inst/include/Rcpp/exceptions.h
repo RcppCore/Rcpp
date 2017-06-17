@@ -33,7 +33,7 @@ namespace Rcpp {
             include_call_(include_call){
             rcpp_set_stack_trace(Shield<SEXP>(stack_trace()));
         }
-        exception(const char* message_, const char* file, int line, bool include_call = true) :
+        exception(const char* message_, const char*, int, bool include_call = true) :
             message(message_),
             include_call_(include_call){
             rcpp_set_stack_trace(Shield<SEXP>(stack_trace()));
