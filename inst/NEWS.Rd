@@ -13,18 +13,22 @@
       \ghit{706}).
       \item Compilation is now also possibly on Haiku-OS (Yo Gong \ghpr{708}
       addressing \ghit{707}).
+      \item Dimension attributes are explicitly cast to \code{int} (Kirill
+      Müller in \ghpr{715}).
+      \item Unused arguments are no longer declared (Kirill Müller in \ghpr{716})).
     }
     \item Changes in Rcpp Attributes:
     \itemize{
       \item Execute tools::package_native_routine_registration_skeleton
-      within package rather than current working directory.
+      within package rather than current working directory (JJ in \ghpr{697}).
       \item The R portion no longer uses \code{dir.exists} to no require R 3.2.0
       or newer (Elias Pipping in \ghpr{698}).
-      \item Fix native registration for exports with name attribute (\ghpr{703}
+      \item Fix native registration for exports with name attribute (JJ in \ghpr{703}
       addressing \ghit{702}).
-      \item Automatically register init functions for Rcpp Modules (\ghpr{705}
+      \item Automatically register init functions for Rcpp Modules (JJ in \ghpr{705}
       addressing \ghit{704}).
-      \item Add Shield around parameters in Rcpp::interfaces (\ghit{712}).
+      \item Add Shield around parameters in Rcpp::interfaces (JJ in \ghpr{713)
+        addressing \ghit{712}).
     }
   }
 }

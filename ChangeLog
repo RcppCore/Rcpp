@@ -1,3 +1,10 @@
+2017-06-17  Krill Müller  <krlmlr@mailbox.org>
+
+        * inst/include/Rcpp/Dimension.h: Explicit cast to int
+
+        * inst/include/Rcpp/exceptions.h: Don't declare unused arguments
+        * src/attributes.cpp: Ditto
+
 2017-06-14  JJ Allaire  <jj@rstudio.com>
 
         * src/attributes.cpp: Add Shield around parameters in Rcpp::interfaces
@@ -87,7 +94,7 @@
         * inst/include/Rcpp/module/Module_Property.h: Remove two typed exception
         specifications which upset g++ 7.1 or higher
 
-2017-05-05  Kirill Müller <krlmlr@mailbox.org>
+2017-05-05  Kirill Müller  <krlmlr@mailbox.org>
 
         * inst/include/Rcpp/date_datetime/Date.h: Suppress -Wconversion warnings
         * inst/include/Rcpp/date_datetime/Datetime.h: Idem
@@ -173,7 +180,7 @@
         * inst/include/Rcpp/utils/tinyformat.h: Refreshed tinyformat.h against
         May 13, 2016 upstream, retained local mods.
 
-2017-04-14  Kirill Müller <krlmlr@mailbox.org>
+2017-04-14  Kirill Müller  <krlmlr@mailbox.org>
 
         * inst/include/Rcpp/macros/macros.h: Remove unused variable warning in
         BEGIN_RCPP macro
@@ -874,7 +881,7 @@
         * inst/unitTests/cpp/sugar.cpp: Add unit test for the na_omit
         * inst/unitTests/runit.sugar.R: Ditto
 
-2016-06-02  Kirill Müller <krlmlr@mailbox.org>
+2016-06-02  Kirill Müller  <krlmlr@mailbox.org>
 
         * inst/include/Rcpp/algorithm.h: Use "long long" only if available
         * inst/include/Rcpp/exceptions.h: Annotate stop() with NORET
