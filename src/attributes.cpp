@@ -2199,7 +2199,7 @@ namespace attributes {
         }
     }
 
-    void CppExportsIncludeGenerator::writeEnd(bool hasPackageInit) {
+    void CppExportsIncludeGenerator::writeEnd(bool) {
         ostr() << "}" << std::endl;
         ostr() << std::endl;
         ostr() << "#endif // " << getHeaderGuard() << std::endl;
@@ -2283,7 +2283,7 @@ namespace attributes {
         includeDir_ = packageDir +  fileSep + "inst" +  fileSep + "include";
     }
 
-    void CppPackageIncludeGenerator::writeEnd(bool hasPackageInit) {
+    void CppPackageIncludeGenerator::writeEnd(bool) {
         if (hasCppInterface()) {
             // header guard
             std::string guard = getHeaderGuard();			// #nocov start
@@ -2390,7 +2390,7 @@ namespace attributes {
         }
     }
 
-    void RExportsGenerator::writeEnd(bool hasPackageInit) {
+    void RExportsGenerator::writeEnd(bool) {
         if (hasCppInterface()) {				// #nocov start
              // register all C-callable functions
             ostr() << "# Register entry points for exported C++ functions"
