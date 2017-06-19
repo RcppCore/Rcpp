@@ -9,13 +9,13 @@
     \itemize{
       \item The \code{tinyformat.h} header now ends in a newline (\ghit{701}).
       \item Fixed rare protection error that occurred when fetching stack traces
-      during the construction of an Rcpp exception (Kirill Müller in
+      during the construction of an Rcpp exception (Kirill Müller; 
       \ghit{706}).
-      \item Compilation is now also possibly on Haiku-OS (Yo Gong \ghpr{708}
+      \item Compilation is now also possibly on Haiku-OS (Yo Gong in \ghpr{708}
       addressing \ghit{707}).
       \item Dimension attributes are explicitly cast to \code{int} (Kirill
       Müller in \ghpr{715}).
-      \item Unused arguments are no longer declared (Kirill Müller in \ghpr{716})).
+      \item Unused arguments are no longer declared (Kirill Müller in \ghpr{716}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{
@@ -27,8 +27,8 @@
       addressing \ghit{702}).
       \item Automatically register init functions for Rcpp Modules (JJ in \ghpr{705}
       addressing \ghit{704}).
-      \item Add Shield around parameters in Rcpp::interfaces (JJ in \ghpr{713)
-        addressing \ghit{712}).
+      \item Add Shield around parameters in Rcpp::interfaces (JJ in \ghpr{713}
+      addressing \ghit{712}).
     }
   }
 }
