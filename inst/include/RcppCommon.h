@@ -126,7 +126,7 @@ namespace Rcpp {
 #include <Rcpp/complex.h>
 #include <Rcpp/barrier.h>
 
-#define RcppExport extern "C"
+#define RcppExport extern "C" attribute_visible
 
 #include <Rcpp/exceptions.h>
 
