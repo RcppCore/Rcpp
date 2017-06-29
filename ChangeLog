@@ -1,3 +1,8 @@
+2017-06-29  JJ Allaire  <jj@rstudio.com>
+
+        * src/attributes.cpp: Replace dot (".") with underscore ("_") in package
+        names when generating native routine registrations.
+
 2017-06-17  Krill Müller  <krlmlr@mailbox.org>
 
         * inst/include/Rcpp/Dimension.h: Explicit cast to int
