@@ -1141,6 +1141,11 @@ namespace attributes {
                                              bool parseDependencies)
         : sourceFile_(sourceFile), hasPackageInit_(false)
     {
+
+        // transform packageName to valid C++ symbol
+        std::string packageNameCpp = packageName;
+        std::replace(packageNameCpp.begin(), packageNameCpp.end(), '.', '_');
+
         // First read the entire file into a std::stringstream so we can check
         // it for attributes (we don't want to do any of our more expensive
         // processing steps if there are no attributes to parse)
@@ -1151,7 +1156,7 @@ namespace attributes {
         // Check for attribute signature
         if (contents.find("[[Rcpp::") != std::string::npos ||
             contents.find("RCPP_MODULE") != std::string::npos ||
-            contents.find("R_init_" + packageName) != std::string::npos) {
+            contents.find("R_init_" + packageNameCpp) != std::string::npos) {
 
             // Now read into a list of strings (which we can pass to regexec)
             // First read into a std::deque (which will handle lots of append
@@ -1230,7 +1235,7 @@ namespace attributes {
             // Scan for package init function
             hasPackageInit_ = false;
             commentState.reset();
-            std::string pkgInit = "R_init_" + packageName;
+            std::string pkgInit = "R_init_" + packageNameCpp;
             Rcpp::List initMatches = regexMatches(lines_, "^[^/]+" + pkgInit + ".*DllInfo.*$");
             for (int i = 0; i<initMatches.size(); i++) {
 
@@ -1968,7 +1973,7 @@ namespace attributes {
             std::vector<std::size_t> routineArgs;
             for (std::size_t i=0;i<nativeRoutines_.size(); i++) {
                 const Attribute& attr = nativeRoutines_[i];
-                routineNames.push_back(package() + "_" + attr.function().name());
+                routineNames.push_back(packageCpp() + "_" + attr.function().name());
                 routineArgs.push_back(attr.function().arguments().size());
             }
             std::string kRcppModuleBoot = "_rcpp_module_boot_";
@@ -2016,7 +2021,7 @@ namespace attributes {
 
             ostr() << std::endl;
 
-            ostr() << "RcppExport void R_init_" << package() << "(DllInfo *dll) {" << std::endl;
+            ostr() << "RcppExport void R_init_" << packageCpp() << "(DllInfo *dll) {" << std::endl;
             ostr() << "    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);" << std::endl;
             ostr() << "    R_useDynamicSymbols(dll, FALSE);" << std::endl;
             ostr() << "}" << std::endl;

@@ -29,6 +29,8 @@
       addressing \ghit{704}).
       \item Add Shield around parameters in Rcpp::interfaces (JJ in \ghpr{713}
       addressing \ghit{712}).
+      \item Replace dot (".") with underscore ("_") in package names when generating
+      native routine registrations (fixes \ghit{721}).
     }
   }
 }
