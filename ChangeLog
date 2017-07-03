@@ -1,3 +1,8 @@
+2017-06-02  JJ Allaire <jj@rstudio.com>
+
+        * src/attributes.cpp: Generate C++ native routines with underscore
+        prefix to avoid export when standard exportPattern is used in NAMESPACE
+
 2017-06-29  JJ Allaire  <jj@rstudio.com>
 
         * src/attributes.cpp: Replace dot (".") with underscore ("_") in package

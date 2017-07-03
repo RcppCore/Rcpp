@@ -9,7 +9,7 @@
     \itemize{
       \item The \code{tinyformat.h} header now ends in a newline (\ghit{701}).
       \item Fixed rare protection error that occurred when fetching stack traces
-      during the construction of an Rcpp exception (Kirill Müller; 
+      during the construction of an Rcpp exception (Kirill Müller;
       \ghit{706}).
       \item Compilation is now also possibly on Haiku-OS (Yo Gong in \ghpr{708}
       addressing \ghit{707}).
@@ -31,6 +31,8 @@
       addressing \ghit{712}).
       \item Replace dot (".") with underscore ("_") in package names when generating
       native routine registrations (fixes \ghit{721}).
+      \item Generate C++ native routines with underscore ("_") prefix to avoid
+      exporting when standard exportPattern is used in NAMESPACE
     }
   }
 }
