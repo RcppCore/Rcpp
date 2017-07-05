@@ -1,3 +1,8 @@
+2017-07-05  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version, Date): Roll minor version
+        * inst/include/Rcpp/config.h (RCPP_DEV_VERSION): Ditto
+
 2017-06-02  JJ Allaire <jj@rstudio.com>
 
         * src/attributes.cpp: Generate C++ native routines with underscore
