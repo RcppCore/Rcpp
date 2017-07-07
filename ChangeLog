@@ -3,7 +3,7 @@
         * DESCRIPTION (Version, Date): Roll minor version
         * inst/include/Rcpp/config.h (RCPP_DEV_VERSION): Ditto
 
-2017-06-02  JJ Allaire <jj@rstudio.com>
+2017-07-02  JJ Allaire  <jj@rstudio.com>
 
         * src/attributes.cpp: Generate C++ native routines with underscore
         prefix to avoid export when standard exportPattern is used in NAMESPACE
@@ -13,7 +13,7 @@
         * src/attributes.cpp: Replace dot (".") with underscore ("_") in package
         names when generating native routine registrations.
 
-2017-06-17  Krill Müller  <krlmlr@mailbox.org>
+2017-06-17  Kirill Müller  <krlmlr@mailbox.org>
 
         * inst/include/Rcpp/Dimension.h: Explicit cast to int
 
