@@ -2,7 +2,7 @@
 //
 // Vector.h: Rcpp R/C++ interface class library -- vectors
 //
-// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2017 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -1075,7 +1075,7 @@ private:
 
 
     template <typename T>
-    inline void import_expression( const T& other, int n ) {
+    inline void import_expression( const T& other, R_xlen_t n ) {
         iterator start = begin() ;
         RCPP_LOOP_UNROLL(start,other)
     }
