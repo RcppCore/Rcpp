@@ -9,13 +9,15 @@
     \itemize{
       \item The \code{tinyformat.h} header now ends in a newline (\ghit{701}).
       \item Fixed rare protection error that occurred when fetching stack traces
-      during the construction of an Rcpp exception (Kirill Müller;
-      \ghit{706}).
+      during the construction of an Rcpp exception (Kirill Müller in \ghpr{706}).
       \item Compilation is now also possibly on Haiku-OS (Yo Gong in \ghpr{708}
       addressing \ghit{707}).
       \item Dimension attributes are explicitly cast to \code{int} (Kirill
       Müller in \ghpr{715}).
       \item Unused arguments are no longer declared (Kirill Müller in \ghpr{716}).
+      \item The \code{no_init()} constructor accepts \code{R_xlen_t} (Kirill
+      Müller in \ghpr{730}).
+      \item Loop unrolling used \code{R_xlen_t} (Kirill Müller in \ghpr{731}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{
@@ -30,9 +32,10 @@
       \item Add Shield around parameters in Rcpp::interfaces (JJ in \ghpr{713}
       addressing \ghit{712}).
       \item Replace dot (".") with underscore ("_") in package names when generating
-      native routine registrations (fixes \ghit{721}).
+      native routine registrations (JJ in \ghpr{722} addressing \ghit{721}).
       \item Generate C++ native routines with underscore ("_") prefix to avoid
-      exporting when standard exportPattern is used in NAMESPACE
+      exporting when standard exportPattern is used in NAMESPACE (JJ in
+      \ghpr{725} addressing \ghit{723}).
     }
   }
 }

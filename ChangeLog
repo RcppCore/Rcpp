@@ -1,3 +1,18 @@
+2017-07-09  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version, Date): Roll minor version
+        * inst/include/Rcpp/config.h (RCPP_DEV_VERSION): Ditto
+
+        * inst/NEWS.Rd: Added missing entries
+
+2017-07-08  Kirill Müller  <krlmlr@mailbox.org>
+
+        * inst/include/Rcpp/vector/no_init.h: Accept R_xlen_t instead of int
+
+        * inst/include/Rcpp/internal/wrap.h: Use R_xlen_t not int in loop unroll
+        * inst/include/Rcpp/macros/unroll.h: Ditto
+        * inst/include/Rcpp/vector/Vector.h: Ditto
+
 2017-07-05  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll minor version
