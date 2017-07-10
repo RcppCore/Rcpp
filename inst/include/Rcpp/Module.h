@@ -100,7 +100,7 @@ namespace Rcpp{
         typedef Rcpp::XPtr<Class> XP ;
 
         CppMethod() {}
-        virtual SEXP operator()(Class* object, SEXP* args) { return R_NilValue ; }
+        virtual SEXP operator()(Class* /*object*/, SEXP* /*args*/) { return R_NilValue ; }
         virtual ~CppMethod(){}
         virtual int nargs(){ return 0 ; }
         virtual bool is_void(){ return false ; }
