@@ -3,7 +3,7 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp version 0.12.12 (Unreleased)}{
+\section{Changes in Rcpp version 0.12.12 (2017-07-13)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
@@ -14,10 +14,15 @@
       addressing \ghit{707}).
       \item Dimension attributes are explicitly cast to \code{int} (Kirill
       Müller in \ghpr{715}).
-      \item Unused arguments are no longer declared (Kirill Müller in \ghpr{716}).
+      \item Unused arguments are no longer declared (Kirill Müller in
+      \ghpr{716}).
+      \item Visibility of exported functions is now supported via the R macro
+      \code{atttribute_visible} (Jeroen Ooms in \ghpr{720}).
       \item The \code{no_init()} constructor accepts \code{R_xlen_t} (Kirill
       Müller in \ghpr{730}).
       \item Loop unrolling used \code{R_xlen_t} (Kirill Müller in \ghpr{731}).
+      \item Two unused-variables warnings are now avoided (Jeff Pollock in
+      \ghpr{732}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{
