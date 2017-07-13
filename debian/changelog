@@ -1,3 +1,11 @@
+rcpp (0.12.11-2) unstable; urgency=medium
+
+  * New upstream release
+
+  * debian/control: Set Build-Depends: to current R version
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Thu, 13 Jul 2017 06:01:18 -0500
+
 rcpp (0.12.11-1) unstable; urgency=medium
 
   * New upstream release

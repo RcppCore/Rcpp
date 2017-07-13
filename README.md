@@ -65,9 +65,9 @@ been factored out of Rcpp into the package RcppClassic, and it is still
 available for code relying on the older interface. New development should 
 always use this Rcpp package instead.
 
-Other usage examples are provided by packages using Rcpp. As of March 2017,
-there are 975 [CRAN](https://cran.r-project.org) packages using Rcpp, a further
-89 [BioConductor](http://www.bioconductor.org) packages in its current release
+Other usage examples are provided by packages using Rcpp. As of July 2017,
+there are 1092 [CRAN](https://cran.r-project.org) packages using Rcpp, a further
+91 [BioConductor](http://www.bioconductor.org) packages in its current release
 as well as an unknown number of GitHub, Bitbucket, R-Forge, ... repositories
 using Rcpp.  All these packages provide usage examples for Rcpp.
 
