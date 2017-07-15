@@ -8,7 +8,7 @@ Homepage: http://dirk.eddelbuettel.com/code/rcpp.html
 
 Package: r-cran-rcpp
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, ${R:Depends}, r-cran-littler, r-cran-pkgkitten
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${R:Depends}, littler, r-cran-pkgkitten
 Suggests: r-cran-inline
 Description: GNU R package for Seamless R and C++ Integration
  The Rcpp package provides R functions as well as C++ classes which
