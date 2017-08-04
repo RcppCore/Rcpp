@@ -714,7 +714,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
     # set CLINK_CPPFLAGS based on the LinkingTo dependencies
     buildEnv$CLINK_CPPFLAGS <- .buildClinkCppFlags(linkingToPackages)
 
-    # add the source file's directory to the compliation
+    # add the source file's directory to the compilation
     srcDir <- dirname(sourceFile)
     srcDir <- asBuildPath(srcDir)
     buildDirs <- srcDir

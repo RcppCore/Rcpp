@@ -20,7 +20,7 @@ cppFunction(code, depends = character(), plugins = character(), includes = chara
     Character vector of packages that the compilation depends on. Each package listed will first be queried for an \link[inline:plugins]{inline plugin} to determine header files to include. If no plugin is defined for the package then a header file based the package's name (e.g. \code{PkgName.h}) will be included.
 }
   \item{plugins}{
-    Character vector of \link[inline:plugins]{inline plugins} to use for the compliation.
+    Character vector of \link[inline:plugins]{inline plugins} to use for the compilation.
   }
   \item{includes}{
     Character vector of user includes (inserted after the includes provided by \code{depends}).
