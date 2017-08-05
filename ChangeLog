@@ -1,3 +1,7 @@
+2017-08-04  Lei Yu  <leiyu_1981@qq.com>
+
+        * inst/include/Rcpp/Module.h: Correct one closing parenthesis
+
 2017-07-13  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.12.12

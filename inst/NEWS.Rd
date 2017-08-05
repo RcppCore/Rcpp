@@ -3,6 +3,16 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
+\section{Changes in Rcpp version 0.12.13 [unreleased] (2017-09-xx)}{
+  \itemize{
+    \item Changes in Rcpp Modules:
+    \itemize{
+      \item Misplacement of one parenthesis in macro \code{LOAD_RCPP_MODULE}
+      was corrected (Lei Yu in \ghpr{737})
+    }
+  }
+}
+
 \section{Changes in Rcpp version 0.12.12 (2017-07-13)}{
   \itemize{
     \item Changes in Rcpp API:
