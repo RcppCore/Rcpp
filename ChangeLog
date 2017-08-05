@@ -1,3 +1,9 @@
+2017-08-05  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version, Date): Roll minor version and date
+
+        * inst/include/Rcpp/XPtr.h: Whitespace only-changes
+
 2017-08-04  Lei Yu  <leiyu_1981@qq.com>
 
         * inst/include/Rcpp/Module.h: Correct one closing parenthesis
