@@ -444,16 +444,6 @@ addressed separately in \faq{q:OSXArma} below.
 
 \subsubsection{Lack of a Compiler}
 
-\subsubsection{Differing Mac OS X R Versions Leading to Binary Failures}
-
-There are currently two distinct versions of R for OS X. The first version is a
-legacy version meant for Mac OS X 10.6 (Snow Leopard) - 10.8 (Mountain
-Lion). The second version is for more recent system Mac OS X 10.9 (Mavericks),
-10.10 (Yosemite), 10.11 (El Capitan). The distinction comes as a result of a
-change in the compilers shipped with the operating system. As a result, avoid
-sending package binaries if it is known that your collaborators are working on
-older systems as the R binaries for these two versions will not be able to mix.
-
 \subsubsection{No OpenMP Support}
 The OS X operating environment lacks the ability to parallelize sections of code
 using the \href{http://openmp.org/wp/}{OpenMP} standard. As a result, make sure
@@ -468,6 +458,19 @@ and \href{https://cran.r-project.org/doc/manuals/r-release/R-admin.html#macOS}{S
 of the \href{https://cran.r-project.org/doc/manuals/r-release/R-admin.html}{R Installation and Administration}
 manual.
 
+\subsubsection{Differing macOS R Versions Leading to Binary Failures}
+
+There are currently \textit{three} distinct versions of R for macOS.
+The first version is a legacy version meant for macOS 10.6 (Snow Leopard) -
+10.8 (Mountain Lion). The second version is for more recent system
+macOS 10.9 (Mavericks) and 10.10 (Yosemite). Finally, the third and most
+up-to-date version supports macOS 10.11 (El Capitan), 10.12 (Sierra), and 10.13 (High Sierra).
+The distinction comes as a result of a change in the compilers shipped with the
+operating system as highlighted previously. As a result, avoid sending
+\textbf{package binaries} to collaborators if they are working on older
+operating systems as the \proglang{R} binaries for these versions will not be
+able to mix. In such cases, it is better to provide collaborators with the
+\textbf{package source} and allow them to build the package locally.
 <<lang=cpp>>=
 #ifdef _OPENMP
   #include <omp.h>
