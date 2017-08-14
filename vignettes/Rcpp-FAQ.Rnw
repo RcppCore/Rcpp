@@ -443,46 +443,6 @@ building packages with RcppArmadillo, there is yet another issue that is
 addressed separately in \faq{q:OSXArma} below.
 
 \subsubsection{Lack of a Compiler}
-By default, OS X does not ship with an active compiler. To enable a compiler one
-must either install
-\href{https://itunes.apple.com/us/app/xcode/id497799835?mt=12}{Xcode} (OS X
-$\le 10.8$) or
-\href{https://developer.apple.com/library/ios/technotes/tn2339/_index.html}{Xcode
-  Command Line Tools} (OS X $\ge 10.9$). We will focus on the later as the
-installation requires the use of \texttt{Terminal} and the install size is
-significantly less than the prior, which is setup using an installer.
-
-To install XCode Command Line Tools, one must do the following:
-
-\begin{enumerate}
-    \item Open \texttt{Terminal} found in \texttt{/Applications/Utilities/}
-    \item Type the following:
-
-<<lang=bash>>=
-$ xcode-select --install
-@
-    \item Press "Install" on the window that pops up.
-    \item After the installation is complete, type the following in \texttt{Terminal} to ensure the installation was successful:
-
-<<lang=bash>>=
-$ gcc --version
-@
-\end{enumerate}
-
-After major system updates, e.g. going from version 10.11 to 10.12, you may need
-to accept the terms and licenses associated the the Xcode command line tools
-prior to being allowed to compile again.
-
-To do so, open the \texttt{Terminal} found in \texttt{/Applications/Utilities/} and type:
-
-<<lang=bash>>=
-$ git
-@
-
-Press spacebar to move down to the end of the file. There, you should see a
-prompt asking whether or not you accept the terms via either "Yes" or
-"No". Enter "Yes" if you agree to the terms to have the command line tools
-reactivated.
 
 \subsubsection{Differing Mac OS X R Versions Leading to Binary Failures}
 
@@ -499,6 +459,14 @@ The OS X operating environment lacks the ability to parallelize sections of code
 using the \href{http://openmp.org/wp/}{OpenMP} standard. As a result, make sure
 to protect any reference to OpenMP. In this case, protect the inclusion of
 headers with:
+By default, macOS does not ship with an active compiler. Depending on the
+\proglang{R} version being used, there are different development environment
+setup procedures. For the current \proglang{R} version, we recommend observing
+the official procedure used in
+\href{https://cran.r-project.org/doc/manuals/r-release/R-admin.html#macOS-packages}{Section 6.3.2 macOS}
+and \href{https://cran.r-project.org/doc/manuals/r-release/R-admin.html#macOS}{Section C.3 macOS}
+of the \href{https://cran.r-project.org/doc/manuals/r-release/R-admin.html}{R Installation and Administration}
+manual.
 
 <<lang=cpp>>=
 #ifdef _OPENMP
