@@ -587,71 +587,21 @@ symbols should be available.
 
 Odds are your build failures are due to the absence of \texttt{gfortran}
 and its associated libraries. The errors that you may receive are related to either:
+
 \begin{center}
 \textbf{``-lgfortran''} or \textbf{``-lquadmath''}
 \end{center}
 
-To rectify the root of these errors, there are two options available. The first option is to download and use a fixed set of \texttt{gfortran} binaries that are used to compile R for OS X (e.g. given by the maintainers of the OS X build). The second option is to either use pre-existing \texttt{gfortran} binaries on your machine or download the latest.
-
-\subsubsection{Fixed set of \texttt{gfortran} binaries}
-
-Within this option, you will install a pre-compiled \code{gfortran} binary from
-\href{http://r.research.att.com/libs/}{\texttt{r.research.att.com/libs/}}. The binary listed here was compiled by Simon Urbanek the maintainer of the OS X R versions.
-
-To install the pre-compiled \code{gfortran} binary, do the following:
-\begin{enumerate}
-    \item Open \texttt{Terminal} found in \texttt{/Applications/Utilities/}
-    \item Type the following:
-
-<<lang=bash>>=
-curl -O http://r.research.att.com/libs/gfortran-4.8.2-darwin13.tar.bz2
-sudo tar fvxz gfortran-4.8.2-darwin13.tar.bz2 -C /
-@
-
-\end{enumerate}
-
-For more information on this error, please see TheCoatlessProfessor's  \href{http://thecoatlessprofessor.com/programming/rcpp-rcpparmadillo-and-os-x-mavericks-lgfortran-and-lquadmath-error/}{Rcpp, RcppArmadillo and OS X Mavericks "-lgfortran" and "-lquadmath" error}.
-
-\subsubsection{Pre-existing or latest \texttt{gfortran} binaries}
-
-Most OS X users that have a pre-existing \texttt{gfortran} binaries or want the latest version, typically use a custom packaging solution to install \texttt{gfortran};
-\href{https://www.macports.org/}{\texttt{macports}},
-\href{http://brew.sh/}{\texttt{homebrew}}, and
-\href{http://www.finkproject.org/}{\texttt{fink}} are the usual suspects
-here. In general, we recommend using homebrew, and we provide a short
-set of instructions for installing \texttt{gfortran} below.
-
-After installing \texttt{homebrew} by
-\href{http://brew.sh/}{following the instructions here},
-you can install the latest version of \texttt{gfortran} with:
-
-    \code{brew install gcc}
-
-Note that \texttt{gfortran} is available as part of the \texttt{gcc}
-'formula' by default and cannot be downloaded separately, but one can
-freely use \texttt{gfortran} with Apple (or LLVM) \texttt{clang}
-compilers (as used by default on OS X since Mavericks).
-
-You may need to set the \code{FLIBS} variable in your
-\texttt{~/.R/Makevars} to point to the location of the \texttt{gfortran}
-library paths. A solution is outlined
-\href{http://stackoverflow.com/questions/29992066/rccp-warning-directory-not-found-for-option-l-usr-local-cellar-gfortran-4-8/29993906#29993906}{on
-  StackOverflow}, but the relevant details are copied in brief here.
-
-In short, you want to add this entry to your \texttt{~/.R/Makevars}:
-
-<<lang=bash>>=
-FLIBS=`gfortran -print-search-dirs | grep ^libraries: | sed 's|libraries: =||' | sed 's|:| -L|g' | sed 's|^|-L|'`
-@
-
-This invocation explicitly asks and constructs the library link paths
-from the \texttt{gfortran}'s reported search paths, and produces a set
-of paths suitable to be passed to \code{FLIBS}. \R will then search
-these paths when attempting to locate e.g \code{libgfortran} when
-compiling \pkg{RcppArmadillo} or other FORTRAN-dependent code.
-
-Also see \faq{q:OSX} above, and the links provided in that answer. In the event
-the above solution does not satisfy all the OS X build problems.
+To rectify the root of these errors, there are two options available. The first
+option is to download and use a fixed set of \texttt{gfortran} binaries that are
+used to compile R for macOS (e.g. given by the maintainers of the macOS build).
+The second option is to either use pre-existing \texttt{gfortran} binaries on
+your machine or download the latest. These options are described in-depth
+in \href{https://cran.r-project.org/doc/manuals/r-release/R-admin.html#macOS}{Section C.3 macOS}
+of the \href{https://cran.r-project.org/doc/manuals/r-release/R-admin.html}{R Installation and Administration}
+manual. Please consult this manual for up-to-date information regarding \texttt{gfortran}
+binaries on macOS. We have also documented \textit{other} common macOS compile
+issues in Section \faq{q:OSX}.
 
 \section{Examples}
 
