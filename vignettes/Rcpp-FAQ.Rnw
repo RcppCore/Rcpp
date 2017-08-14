@@ -444,11 +444,6 @@ addressed separately in \faq{q:OSXArma} below.
 
 \subsubsection{Lack of a Compiler}
 
-\subsubsection{No OpenMP Support}
-The OS X operating environment lacks the ability to parallelize sections of code
-using the \href{http://openmp.org/wp/}{OpenMP} standard. As a result, make sure
-to protect any reference to OpenMP. In this case, protect the inclusion of
-headers with:
 By default, macOS does not ship with an active compiler. Depending on the
 \proglang{R} version being used, there are different development environment
 setup procedures. For the current \proglang{R} version, we recommend observing
@@ -471,13 +466,28 @@ operating system as highlighted previously. As a result, avoid sending
 operating systems as the \proglang{R} binaries for these versions will not be
 able to mix. In such cases, it is better to provide collaborators with the
 \textbf{package source} and allow them to build the package locally.
+
+\subsubsection{OpenMP Support}
+
+By default, the macOS operating environment lacks the ability to parallelize
+sections of code using the  \proglang{\href{http://openmp.org/wp/}{OpenMP}}
+standard. Within \proglang{R} 3.4.*, the default developer environment was
+\textit{changed} to allow for \proglang{OpenMP} to be used on macOS by using
+a non-default toolchain provided by R Core Team maintainers for macOS.
+Having said this, it is still important to protect any reference to
+\proglang{OpenMP} as some users may not yet have the ability to
+use \proglang{OpenMP}.
+
+To setup the appropriate protection for using \proglang{OpenMP}, the process
+is two-fold. First, protect the inclusion of headers with:
+
 <<lang=cpp>>=
 #ifdef _OPENMP
   #include <omp.h>
 #endif
 @
 
-And when one goes to parallelize portions of code use:
+Second, when parallelizing portions of code use:
 
 <<lang=cpp>>=
 #ifdef _OPENMP
@@ -487,18 +497,8 @@ And when one goes to parallelize portions of code use:
 #endif
 @
 
-Doing so will enable the parallelization of the process on Linux and Windows. In
-the event that Apple enables OpenMP later on, this code will also allow for
-parallelization to occur.
-
-The reason for the lack of OpenMP support is because under OS X, you are not
-using the \texttt{gcc} compiler. Instead, all the requests are being redirected
-to \texttt{llvm}. As of LLVM 3.7, the
-\href{https://clang-omp.github.io/}{community initiative} to enable OpenMP has
-been merged into the \href{http://openmp.llvm.org/}{official branch}. Thus,
-there is hope in the next release of Xcode (around WWDC in June 2016) that
-OpenMP will work on OS X.
-
+Under this approach, the code will be \textit{safely} parallelized when
+support exists for \proglang{OpenMP} on Windows, macOS, and Linux.
 
 \subsubsection{Additional Information and Help}
 
