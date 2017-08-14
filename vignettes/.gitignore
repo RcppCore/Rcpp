@@ -1,3 +1,6 @@
+Rcpp-*.aux
+Rcpp-*.out
+Rcpp-*.toc
 Rcpp-*.bbl
 Rcpp-*.blg
 Rcpp-*.log

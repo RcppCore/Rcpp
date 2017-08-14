@@ -1,3 +1,9 @@
+2017-08-14  James J Balamuta  <balamut2@illinois.edu>
+
+        * vignettes/Rcpp-FAQ.Rnw: Sunset macOS documentation dealing with
+        toolchains by redirecting to the R Installation and Administration manual
+        * vignettes/.gitignore: Added various LaTeX build artifacts to ignore.
+
 2017-08-05  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll minor version and date

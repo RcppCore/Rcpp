@@ -435,70 +435,51 @@ Studio simply do not get along. As \pkg{Rcpp} is all about extending
 toolchain.  And \proglang{R} simply does not compile with Visual Studio. Go
 complain to its vendor if you are still upset.
 
-\subsection{I am having problems building Rcpp on OS X, any help ?}
+\subsection{I am having problems building Rcpp on macOS, any help ?}
 \label{q:OSX}
 
-There are three known issues regarding Rcpp build problems on OS X.  If you are
+There are three known issues regarding Rcpp build problems on macOS.  If you are
 building packages with RcppArmadillo, there is yet another issue that is
 addressed separately in \faq{q:OSXArma} below.
 
 \subsubsection{Lack of a Compiler}
-By default, OS X does not ship with an active compiler. To enable a compiler one
-must either install
-\href{https://itunes.apple.com/us/app/xcode/id497799835?mt=12}{Xcode} (OS X
-$\le 10.8$) or
-\href{https://developer.apple.com/library/ios/technotes/tn2339/_index.html}{Xcode
-  Command Line Tools} (OS X $\ge 10.9$). We will focus on the later as the
-installation requires the use of \texttt{Terminal} and the install size is
-significantly less than the prior, which is setup using an installer.
 
-To install XCode Command Line Tools, one must do the following:
+By default, macOS does not ship with an active compiler. Depending on the
+\proglang{R} version being used, there are different development environment
+setup procedures. For the current \proglang{R} version, we recommend observing
+the official procedure used in
+\href{https://cran.r-project.org/doc/manuals/r-release/R-admin.html#macOS-packages}{Section 6.3.2 macOS}
+and \href{https://cran.r-project.org/doc/manuals/r-release/R-admin.html#macOS}{Section C.3 macOS}
+of the \href{https://cran.r-project.org/doc/manuals/r-release/R-admin.html}{R Installation and Administration}
+manual.
 
-\begin{enumerate}
-    \item Open \texttt{Terminal} found in \texttt{/Applications/Utilities/}
-    \item Type the following:
+\subsubsection{Differing macOS R Versions Leading to Binary Failures}
 
-<<lang=bash>>=
-$ xcode-select --install
-@
-    \item Press "Install" on the window that pops up.
-    \item After the installation is complete, type the following in \texttt{Terminal} to ensure the installation was successful:
+There are currently \textit{three} distinct versions of R for macOS.
+The first version is a legacy version meant for macOS 10.6 (Snow Leopard) -
+10.8 (Mountain Lion). The second version is for more recent system
+macOS 10.9 (Mavericks) and 10.10 (Yosemite). Finally, the third and most
+up-to-date version supports macOS 10.11 (El Capitan), 10.12 (Sierra), and 10.13 (High Sierra).
+The distinction comes as a result of a change in the compilers shipped with the
+operating system as highlighted previously. As a result, avoid sending
+\textbf{package binaries} to collaborators if they are working on older
+operating systems as the \proglang{R} binaries for these versions will not be
+able to mix. In such cases, it is better to provide collaborators with the
+\textbf{package source} and allow them to build the package locally.
 
-<<lang=bash>>=
-$ gcc --version
-@
-\end{enumerate}
+\subsubsection{OpenMP Support}
 
-After major system updates, e.g. going from version 10.11 to 10.12, you may need
-to accept the terms and licenses associated the the Xcode command line tools
-prior to being allowed to compile again.
+By default, the macOS operating environment lacks the ability to parallelize
+sections of code using the  \proglang{\href{http://openmp.org/wp/}{OpenMP}}
+standard. Within \proglang{R} 3.4.*, the default developer environment was
+\textit{changed} to allow for \proglang{OpenMP} to be used on macOS by using
+a non-default toolchain provided by R Core Team maintainers for macOS.
+Having said this, it is still important to protect any reference to
+\proglang{OpenMP} as some users may not yet have the ability to
+use \proglang{OpenMP}.
 
-To do so, open the \texttt{Terminal} found in \texttt{/Applications/Utilities/} and type:
-
-<<lang=bash>>=
-$ git
-@
-
-Press spacebar to move down to the end of the file. There, you should see a
-prompt asking whether or not you accept the terms via either "Yes" or
-"No". Enter "Yes" if you agree to the terms to have the command line tools
-reactivated.
-
-\subsubsection{Differing Mac OS X R Versions Leading to Binary Failures}
-
-There are currently two distinct versions of R for OS X. The first version is a
-legacy version meant for Mac OS X 10.6 (Snow Leopard) - 10.8 (Mountain
-Lion). The second version is for more recent system Mac OS X 10.9 (Mavericks),
-10.10 (Yosemite), 10.11 (El Capitan). The distinction comes as a result of a
-change in the compilers shipped with the operating system. As a result, avoid
-sending package binaries if it is known that your collaborators are working on
-older systems as the R binaries for these two versions will not be able to mix.
-
-\subsubsection{No OpenMP Support}
-The OS X operating environment lacks the ability to parallelize sections of code
-using the \href{http://openmp.org/wp/}{OpenMP} standard. As a result, make sure
-to protect any reference to OpenMP. In this case, protect the inclusion of
-headers with:
+To setup the appropriate protection for using \proglang{OpenMP}, the process
+is two-fold. First, protect the inclusion of headers with:
 
 <<lang=cpp>>=
 #ifdef _OPENMP
@@ -506,7 +487,7 @@ headers with:
 #endif
 @
 
-And when one goes to parallelize portions of code use:
+Second, when parallelizing portions of code use:
 
 <<lang=cpp>>=
 #ifdef _OPENMP
@@ -516,26 +497,16 @@ And when one goes to parallelize portions of code use:
 #endif
 @
 
-Doing so will enable the parallelization of the process on Linux and Windows. In
-the event that Apple enables OpenMP later on, this code will also allow for
-parallelization to occur.
+Under this approach, the code will be \textit{safely} parallelized when
+support exists for \proglang{OpenMP} on Windows, macOS, and Linux.
 
-The reason for the lack of OpenMP support is because under OS X, you are not
-using the \texttt{gcc} compiler. Instead, all the requests are being redirected
-to \texttt{llvm}. As of LLVM 3.7, the
-\href{https://clang-omp.github.io/}{community initiative} to enable OpenMP has
-been merged into the \href{http://openmp.llvm.org/}{official branch}. Thus,
-there is hope in the next release of Xcode (around WWDC in June 2016) that
-OpenMP will work on OS X.
+\subsubsection{Additional Information and Help}
 
-
-\subsubsection{Additional Information / Help}
-
-Below are additional resources that provide information regarding compiling Rcpp code on OS X.
+Below are additional resources that provide information regarding compiling Rcpp code on macOS.
 
 \begin{enumerate}
     \item A helpful post was provided by Brian Ripley regarding the use of
-      compiling R code with OS X in April 2014
+      compiling R code with macOS in April 2014
       \href{https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010835.html}{on
         the \code{r-sig-mac} list}, which is generally recommended for OS
       X-specific questions and further consultation.
@@ -546,7 +517,7 @@ Below are additional resources that provide information regarding compiling Rcpp
       \url{http://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-os-x/}.
 \end{enumerate}
 
-\textbf{Note:} If you are running into trouble compiling code with RcppArmadillo, please also see \faq{q:OSXArma} listed below.
+\textbf{Note:} If you are running into trouble compiling code with \pkg{RcppArmadillo}, please also see \faq{q:OSXArma} listed below.
 
 %At the time of writing this paragraph (in the spring of 2011), \pkg{Rcpp}
 %(just like CRAN) supports all OS X releases greater or equal to 10.5.
@@ -611,76 +582,26 @@ But for most packages using \pkg{Rcpp}, only two things are required:
 The name of the symbol does not really matter; once one symbol is imported all
 symbols should be available.
 
-\subsection{I am having problems building RcppArmadillo on OS X, any help ?}
+\subsection{I am having problems building RcppArmadillo on macOS, any help ?}
 \label{q:OSXArma}
 
 Odds are your build failures are due to the absence of \texttt{gfortran}
 and its associated libraries. The errors that you may receive are related to either:
+
 \begin{center}
 \textbf{``-lgfortran''} or \textbf{``-lquadmath''}
 \end{center}
 
-To rectify the root of these errors, there are two options available. The first option is to download and use a fixed set of \texttt{gfortran} binaries that are used to compile R for OS X (e.g. given by the maintainers of the OS X build). The second option is to either use pre-existing \texttt{gfortran} binaries on your machine or download the latest.
-
-\subsubsection{Fixed set of \texttt{gfortran} binaries}
-
-Within this option, you will install a pre-compiled \code{gfortran} binary from
-\href{http://r.research.att.com/libs/}{\texttt{r.research.att.com/libs/}}. The binary listed here was compiled by Simon Urbanek the maintainer of the OS X R versions.
-
-To install the pre-compiled \code{gfortran} binary, do the following:
-\begin{enumerate}
-    \item Open \texttt{Terminal} found in \texttt{/Applications/Utilities/}
-    \item Type the following:
-
-<<lang=bash>>=
-curl -O http://r.research.att.com/libs/gfortran-4.8.2-darwin13.tar.bz2
-sudo tar fvxz gfortran-4.8.2-darwin13.tar.bz2 -C /
-@
-
-\end{enumerate}
-
-For more information on this error, please see TheCoatlessProfessor's  \href{http://thecoatlessprofessor.com/programming/rcpp-rcpparmadillo-and-os-x-mavericks-lgfortran-and-lquadmath-error/}{Rcpp, RcppArmadillo and OS X Mavericks "-lgfortran" and "-lquadmath" error}.
-
-\subsubsection{Pre-existing or latest \texttt{gfortran} binaries}
-
-Most OS X users that have a pre-existing \texttt{gfortran} binaries or want the latest version, typically use a custom packaging solution to install \texttt{gfortran};
-\href{https://www.macports.org/}{\texttt{macports}},
-\href{http://brew.sh/}{\texttt{homebrew}}, and
-\href{http://www.finkproject.org/}{\texttt{fink}} are the usual suspects
-here. In general, we recommend using homebrew, and we provide a short
-set of instructions for installing \texttt{gfortran} below.
-
-After installing \texttt{homebrew} by
-\href{http://brew.sh/}{following the instructions here},
-you can install the latest version of \texttt{gfortran} with:
-
-    \code{brew install gcc}
-
-Note that \texttt{gfortran} is available as part of the \texttt{gcc}
-'formula' by default and cannot be downloaded separately, but one can
-freely use \texttt{gfortran} with Apple (or LLVM) \texttt{clang}
-compilers (as used by default on OS X since Mavericks).
-
-You may need to set the \code{FLIBS} variable in your
-\texttt{~/.R/Makevars} to point to the location of the \texttt{gfortran}
-library paths. A solution is outlined
-\href{http://stackoverflow.com/questions/29992066/rccp-warning-directory-not-found-for-option-l-usr-local-cellar-gfortran-4-8/29993906#29993906}{on
-  StackOverflow}, but the relevant details are copied in brief here.
-
-In short, you want to add this entry to your \texttt{~/.R/Makevars}:
-
-<<lang=bash>>=
-FLIBS=`gfortran -print-search-dirs | grep ^libraries: | sed 's|libraries: =||' | sed 's|:| -L|g' | sed 's|^|-L|'`
-@
-
-This invocation explicitly asks and constructs the library link paths
-from the \texttt{gfortran}'s reported search paths, and produces a set
-of paths suitable to be passed to \code{FLIBS}. \R will then search
-these paths when attempting to locate e.g \code{libgfortran} when
-compiling \pkg{RcppArmadillo} or other FORTRAN-dependent code.
-
-Also see \faq{q:OSX} above, and the links provided in that answer. In the event
-the above solution does not satisfy all the OS X build problems.
+To rectify the root of these errors, there are two options available. The first
+option is to download and use a fixed set of \texttt{gfortran} binaries that are
+used to compile R for macOS (e.g. given by the maintainers of the macOS build).
+The second option is to either use pre-existing \texttt{gfortran} binaries on
+your machine or download the latest. These options are described in-depth
+in \href{https://cran.r-project.org/doc/manuals/r-release/R-admin.html#macOS}{Section C.3 macOS}
+of the \href{https://cran.r-project.org/doc/manuals/r-release/R-admin.html}{R Installation and Administration}
+manual. Please consult this manual for up-to-date information regarding \texttt{gfortran}
+binaries on macOS. We have also documented \textit{other} common macOS compile
+issues in Section \faq{q:OSX}.
 
 \section{Examples}
 
@@ -1209,7 +1130,7 @@ This is what is currently supported:
 \item Matrix types instantiated using the rows, cols constructor \code{Rcpp::<Type>Matrix n(rows,cols)}
 \begin{itemize}
 \item \code{CharacterMatrix}, \code{IntegerMatrix}, and
-\code{NumericMatrix})
+\code{NumericMatrix}
 \end{itemize}
 \end{itemize}
 
