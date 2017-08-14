@@ -435,10 +435,10 @@ Studio simply do not get along. As \pkg{Rcpp} is all about extending
 toolchain.  And \proglang{R} simply does not compile with Visual Studio. Go
 complain to its vendor if you are still upset.
 
-\subsection{I am having problems building Rcpp on OS X, any help ?}
+\subsection{I am having problems building Rcpp on macOS, any help ?}
 \label{q:OSX}
 
-There are three known issues regarding Rcpp build problems on OS X.  If you are
+There are three known issues regarding Rcpp build problems on macOS.  If you are
 building packages with RcppArmadillo, there is yet another issue that is
 addressed separately in \faq{q:OSXArma} below.
 
@@ -529,13 +529,13 @@ there is hope in the next release of Xcode (around WWDC in June 2016) that
 OpenMP will work on OS X.
 
 
-\subsubsection{Additional Information / Help}
+\subsubsection{Additional Information and Help}
 
-Below are additional resources that provide information regarding compiling Rcpp code on OS X.
+Below are additional resources that provide information regarding compiling Rcpp code on macOS.
 
 \begin{enumerate}
     \item A helpful post was provided by Brian Ripley regarding the use of
-      compiling R code with OS X in April 2014
+      compiling R code with macOS in April 2014
       \href{https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010835.html}{on
         the \code{r-sig-mac} list}, which is generally recommended for OS
       X-specific questions and further consultation.
@@ -611,7 +611,7 @@ But for most packages using \pkg{Rcpp}, only two things are required:
 The name of the symbol does not really matter; once one symbol is imported all
 symbols should be available.
 
-\subsection{I am having problems building RcppArmadillo on OS X, any help ?}
+\subsection{I am having problems building RcppArmadillo on macOS, any help ?}
 \label{q:OSXArma}
 
 Odds are your build failures are due to the absence of \texttt{gfortran}
