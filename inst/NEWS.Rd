@@ -10,6 +10,12 @@
       \item Misplacement of one parenthesis in macro \code{LOAD_RCPP_MODULE}
       was corrected (Lei Yu in \ghpr{737})
     }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item Rewrote the macOS sections to depend on official documentation due
+      to large changes in the macOS toolchain. (James Balamuta in \ghpr{742}
+      addressing issue \ghit{682}).
+    }
   }
 }
 
