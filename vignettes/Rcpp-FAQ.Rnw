@@ -517,7 +517,7 @@ Below are additional resources that provide information regarding compiling Rcpp
       \url{http://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-os-x/}.
 \end{enumerate}
 
-\textbf{Note:} If you are running into trouble compiling code with RcppArmadillo, please also see \faq{q:OSXArma} listed below.
+\textbf{Note:} If you are running into trouble compiling code with \pkg{RcppArmadillo}, please also see \faq{q:OSXArma} listed below.
 
 %At the time of writing this paragraph (in the spring of 2011), \pkg{Rcpp}
 %(just like CRAN) supports all OS X releases greater or equal to 10.5.
@@ -1130,7 +1130,7 @@ This is what is currently supported:
 \item Matrix types instantiated using the rows, cols constructor \code{Rcpp::<Type>Matrix n(rows,cols)}
 \begin{itemize}
 \item \code{CharacterMatrix}, \code{IntegerMatrix}, and
-\code{NumericMatrix})
+\code{NumericMatrix}
 \end{itemize}
 \end{itemize}
 
