@@ -1,3 +1,15 @@
+2017-08-15  James J Balamuta  <balamut2@illinois.edu>
+
+        * inst/include/Rcpp/internal/GreedyVector.h: Prefix const keyword before
+        const_iterator
+        * inst/include/Rcpp/vector/ListOf.h: idem
+        * inst/include/Rcpp/vector/Matrix.h: idem
+        * inst/include/Rcpp/vector/MatrixColumn.h: idem
+        * inst/include/Rcpp/vector/MatrixRow.h: idem
+        * inst/include/Rcpp/vector/Vector.h: idem
+        * inst/include/Rcpp/vector/VectorBase.h: idem
+        * inst/include/Rcpp/vector/traits.h: idem
+
 2017-08-14  James J Balamuta  <balamut2@illinois.edu>
 
         * vignettes/Rcpp-FAQ.Rnw: Sunset macOS documentation dealing with

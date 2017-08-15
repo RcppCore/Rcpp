@@ -60,8 +60,8 @@ namespace Rcpp {
         inline iterator begin(){ return v.begin(); }
         inline iterator end(){ return v.end(); }
 
-        inline const_iterator begin() const { return v.begin(); }
-        inline const_iterator end() const { return v.end(); }
+        inline const const_iterator begin() const { return v.begin(); }
+        inline const const_iterator end() const { return v.end(); }
 
         inline operator SEXP() const {
             return wrap( v ) ;

@@ -111,8 +111,8 @@ public:
     inline Column column( int i ){ return Column(*this, i ) ; }
     inline ConstColumn column( int i ) const{ return ConstColumn( *this, i ) ; }
 
-    inline const_iterator begin() const{ return VECTOR::begin() ; }
-    inline const_iterator end() const{ return VECTOR::end() ; }
+    inline const const_iterator begin() const{ return VECTOR::begin() ; }
+    inline const const_iterator end() const{ return VECTOR::end() ; }
     inline iterator begin() { return VECTOR::begin() ; }
     inline iterator end() { return VECTOR::end() ; }
 

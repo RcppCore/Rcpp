@@ -87,11 +87,11 @@ public:
         return list.end();
     }
 
-    inline const_iterator begin() const {
+    inline const const_iterator begin() const {
         return list.begin();
     }
 
-    inline const_iterator end() const {
+    inline const const_iterator end() const {
         return list.end();
     }
 

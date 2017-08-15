@@ -276,11 +276,11 @@ public:
         return parent[ row + i * parent_nrow ] ;
     }
 
-    inline const_iterator begin() const {
+    inline const const_iterator begin() const {
         return const_iterator( *this, 0 ) ;
     }
 
-    inline const_iterator end() const {
+    inline const const_iterator end() const {
         return const_iterator( *this, size() ) ;
     }
 
