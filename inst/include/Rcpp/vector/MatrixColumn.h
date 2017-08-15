@@ -84,11 +84,11 @@ public:
         return const_start[i] ;
     }
 
-    inline const const_iterator begin() const {
+    inline const_iterator begin() const {
         return const_start ;
     }
 
-    inline const const_iterator end() const {
+    inline const_iterator end() const {
         return const_start + n ;
     }
 

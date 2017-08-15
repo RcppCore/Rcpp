@@ -240,7 +240,7 @@ namespace traits {
 	};
 	template <int RTYPE>
 	struct r_vector_const_iterator {
-		typedef const typename storage_type<RTYPE>::type* type ;
+		typedef typename storage_type<RTYPE>::type* const type ;
 	};
 
 	template <int RTYPE> struct proxy_based_iterator{
