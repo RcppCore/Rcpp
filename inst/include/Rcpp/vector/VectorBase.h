@@ -69,6 +69,11 @@ public:
 	template< typename TRAITS >
 	class iter_base {
 	public:
+	    // TODO: This is a hack to make things compile and needs to be taken
+	    // out in the final version
+	    template< typename T >
+	    friend class iter_base;
+	    
 		typedef typename TRAITS::reference reference;
 		typedef typename TRAITS::pointer pointer;
 		typedef typename TRAITS::difference_type difference_type;
@@ -76,7 +81,11 @@ public:
 		typedef typename TRAITS::iterator_category iterator_category;
 
 		iter_base( const VectorBase& object_, R_xlen_t index_ ) : object(object_.get_ref()), index(index_){}
-		iter_base( const iter_base& other) : object(other.object), index(other.index){};
+		
+		// TODO: This is a hack to make things compile and needs to be taken
+	    // out in the final version
+		template< typename T >
+		iter_base( const iter_base< T > &other) : object(other.object), index(other.index) {};
 
 		inline iter_base& operator++(){
 			index++ ;
