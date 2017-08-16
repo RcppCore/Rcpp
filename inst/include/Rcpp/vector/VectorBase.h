@@ -50,7 +50,7 @@ public:
 	
 	struct iter_traits
 	{
-	    typedef stored_type reference ;
+	    typedef stored_type & reference ;
 		typedef stored_type* pointer ;
 		typedef R_xlen_t difference_type ;
 		typedef stored_type value_type;
@@ -59,7 +59,7 @@ public:
 	
 	struct const_iter_traits
 	{
-	    typedef const stored_type reference ;
+	    typedef stored_type reference ;
 		typedef stored_type * const pointer ;
 		typedef R_xlen_t difference_type ;
 		typedef const stored_type value_type;
@@ -69,11 +69,6 @@ public:
 	template< typename TRAITS >
 	class iter_base {
 	public:
-	    // TODO: This is a hack to make things compile and needs to be taken
-	    // out in the final version
-	    template< typename T >
-	    friend class iter_base;
-	    
 		typedef typename TRAITS::reference reference;
 		typedef typename TRAITS::pointer pointer;
 		typedef typename TRAITS::difference_type difference_type;
@@ -82,11 +77,6 @@ public:
 
 		iter_base( const VectorBase& object_, R_xlen_t index_ ) : object(object_.get_ref()), index(index_){}
 		
-		// TODO: This is a hack to make things compile and needs to be taken
-	    // out in the final version
-		template< typename T >
-		iter_base( const iter_base< T > &other) : object(other.object), index(other.index) {};
-
 		inline iter_base& operator++(){
 			index++ ;
 			return *this ;
@@ -166,14 +156,14 @@ public:
     typedef iter_base< iter_traits > iterator;
     typedef iter_base< const_iter_traits > const_iterator;
     
-    inline iterator begin() { return iterator(*this, 0) ; }
-	inline iterator end() { return iterator(*this, size() ) ; }
+    //inline iterator begin() { return iterator(*this, 0) ; }
+	//inline iterator end() { return iterator(*this, size() ) ; }
 	
-	inline const_iterator begin() const { return iterator(*this, 0) ; }
-	inline const_iterator end() const { return iterator(*this, size() ) ; }
+	inline const_iterator begin() const { return const_iterator(*this, 0) ; }
+	inline const_iterator end() const { return const_iterator(*this, size() ) ; }
 	
-	inline const_iterator cbegin() const { return iterator(*this, 0) ; }
-	inline const_iterator cend() const { return iterator(*this, size() ) ; }
+	inline const_iterator cbegin() const { return const_iterator(*this, 0) ; }
+	inline const_iterator cend() const { return const_iterator(*this, size() ) ; }
 
 } ;
 

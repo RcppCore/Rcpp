@@ -333,6 +333,8 @@ public:
     inline iterator end() { return cache.get() + size() ; }
     inline const_iterator begin() const{ return cache.get_const() ; }
     inline const_iterator end() const{ return cache.get_const() + size() ; }
+    inline const_iterator cbegin() const{ return cache.get_const() ; }
+    inline const_iterator cend() const{ return cache.get_const() + size() ; }
 
     inline Proxy operator[]( R_xlen_t i ){ return cache.ref(i) ; }
     inline const_Proxy operator[]( R_xlen_t i ) const { return cache.ref(i) ; }
