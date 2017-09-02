@@ -9,6 +9,9 @@
         * inst/include/Rcpp/vector/Vector.h: idem
         * inst/include/Rcpp/vector/VectorBase.h: idem
         * inst/include/Rcpp/vector/traits.h: idem
+2017-08-26  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .travis.yml (before_install): Use https for curl fetch
 
 2017-08-14  James J Balamuta  <balamut2@illinois.edu>
 
