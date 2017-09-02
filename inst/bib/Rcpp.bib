@@ -146,7 +146,7 @@
   crossref =     {CRAN:Rcpp},
   author = 	 {Dirk Eddelbuettel and Romain Fran\c{c}ois},
   title = 	 {Exposing {C++} functions and classes with {Rcpp} modules},
-  year = 	 2015,
+  year = 	 2017,
   note = 	 {Vignette included in R package Rcpp},
   url =		 CRAN # "package=Rcpp"
 }
@@ -281,6 +281,14 @@
   url =          CRAN # "package=littler"
 }
 
+@Manual{CRAN:microbenchmark,
+  title =        {microbenchmark: Accurate Timing Functions},
+  author =       {Olaf Mersmann},
+  year =         2015,
+  note =         {R package version 1.4-2.1},
+  url =          {https://CRAN.R-project.org/package=microbenchmark}
+}
+
 @Manual{CRAN:minqa,
   title =	 {minqa: Derivative-free optimization algorithms by
                   quadratic approximation},
@@ -291,12 +299,12 @@
   url =		 CRAN # "package=minqa"
 }
 
-@Manual{CRAN:microbenchmark,
-  title =        {microbenchmark: Accurate Timing Functions},
-  author =       {Olaf Mersmann},
-  year =         2015,
-  note =         {R package version 1.4-2.1},
-  url =          {https://CRAN.R-project.org/package=microbenchmark}
+@Manual{CRAN:profvis,
+  title =        {profvis: Interactive Visualizations for Profiling R Code},
+  author =       {Winston Chang and Javier Luraschi},
+  year =         2017,
+  note =         {R package version 0.3.3},
+  url =          {https://CRAN.R-project.org/package=profvis},
 }
 
 @Manual{CRAN:rbenchmark,
@@ -322,14 +330,6 @@
   year =         2011,
   volume =       3,
   pages =        {5--10},
-}
-
-@Manual{CRAN:profvis,
-  title =        {profvis: Interactive Visualizations for Profiling R Code},
-  author =       {Winston Chang and Javier Luraschi},
-  year =         2017,
-  note =         {R package version 0.3.3},
-  url =          {https://CRAN.R-project.org/package=profvis},
 }
 
 @Book{Chambers:1998:PwD,
@@ -425,14 +425,14 @@
   year =         {1979}
 }
 
-; see http://eigen.tuxfamily.org/index.php?title=BibTeX
-; replaced 'howpublished' with 'url' and updated year to 2011, and again to 2012
 @MISC{Eigen:Web,
   author =	 {Ga\"{e}l Guennebaud and Beno\^{i}t Jacob and others},
   title =	 {Eigen v3},
   year =	 2012,
   url =		 {http://eigen.tuxfamily.org},
 }
+; see http://eigen.tuxfamily.org/index.php?title=BibTeX
+; replaced 'howpublished' with 'url' and updated year to 2011, and again to 2012
 
 @Manual{GSL,
   title = 	{{GNU} {S}cientific {L}ibrary {R}eference {M}anual},
@@ -625,6 +625,17 @@
   edition =	 {3rd},
 }
 
+@Article{PeerJ:Rcpp,
+  author =       {Dirk Eddelbuettel and James Joseph Balamuta},
+  title =        {Extending R with C++: A Brief Introduction to Rcpp},
+  journal =      {PeerJ Preprints},
+  volume =       5,
+  issue =        {e3188v1},
+  year =         2017,
+  month =        {August},
+  doi =          {10.7287/peerj.preprints.3188v1/},
+}
+
 @Book{Plauger+Et+Al:2000:STL,
   author =	 {P.J. Plauger and Alexander Stepanov and Meng Lee and
                   David R. Musser},
@@ -701,16 +712,6 @@
   url =		 CRAN # "/src/contrib/Archive/RcppTemplate"
 }
 
-@TechReport{Sanderson:2010:Armadillo,
-  author =	 {Conrad Sanderson},
-  title =	 {{Armadillo}: {An} open source {C++} Algebra Library
-                  for Fast Prototyping and Computationally Intensive
-                  Experiments },
-  institution =	 {{NICTA}},
-  year =	 2010,
-  url =		 "http://arma.sf.net"
-}
-
 @article{Sanderson+Curtin:2016,
   doi =          {10.21105/joss.00026},
   url =          {http://dx.doi.org/10.21105/joss.00026},
@@ -723,6 +724,16 @@
   title =        {Armadillo: {A Template-Based C++ Library for Linear
                   Algebra}},
   journal =      {{JOSS}}
+}
+
+@TechReport{Sanderson:2010:Armadillo,
+  author =	 {Conrad Sanderson},
+  title =	 {{Armadillo}: {An} open source {C++} Algebra Library
+                  for Fast Prototyping and Computationally Intensive
+                  Experiments },
+  institution =	 {{NICTA}},
+  year =	 2010,
+  url =		 "http://arma.sf.net"
 }
 
 @Book{Stroustrup:1997:Cpp,

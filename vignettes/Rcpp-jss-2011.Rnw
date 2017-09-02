@@ -1,7 +1,7 @@
 %% use JSS class -- use 'nojss' to turn off header
 \documentclass[shortnames,nojss,article]{jss}
 \usepackage{booktabs,flafter,thumbpdf}
-%\VignetteIndexEntry{Rcpp-introduction}
+%\VignetteIndexEntry{Rcpp-JSS-2011}
 %\VignetteKeywords{Rcpp, foreign function interface, .Call, C++, R}
 %\VignetteDepends{Rcpp}
 \SweaveOpts{concordance=FALSE}
@@ -106,9 +106,12 @@ at \url{http://CRAN.R-project.org/package=Rcpp}.
 \makeatletter
 \if@nojss
   This vignette corresponds to the paper published in the \textsl{Journal of
-    Statistical Software}. It is currently still identical to
-  the published paper.  Over time, this vignette version may receive minor
-  updates. For citations, please use the \cite{JSS:Rcpp} or
+    Statistical Software} (and is still mostly identical to the published paper).
+  It had been distributed with the \pkg{Rcpp} package as file
+  \textsf{Rcpp-introduction.pdf} for several years but has now been superceded by
+  an updated introduction \citep{PeerJ:Rcpp}.
+
+  For citations, please use the \cite{JSS:Rcpp} or
   \cite{Eddelbuettel:2013:Rcpp}; details are also provided in \proglang{R} via
   \texttt{citation("Rcpp")}.
 
