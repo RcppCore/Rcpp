@@ -60,7 +60,7 @@ public:
 	struct const_iter_traits
 	{
 	    typedef stored_type reference ;
-		typedef stored_type * const pointer ;
+		typedef stored_type const * pointer ;
 		typedef R_xlen_t difference_type ;
 		typedef const stored_type value_type;
 		typedef std::random_access_iterator_tag iterator_category ;
@@ -155,9 +155,6 @@ public:
 	
     typedef iter_base< iter_traits > iterator;
     typedef iter_base< const_iter_traits > const_iterator;
-    
-    //inline iterator begin() { return iterator(*this, 0) ; }
-	//inline iterator end() { return iterator(*this, size() ) ; }
 	
 	inline const_iterator begin() const { return const_iterator(*this, 0) ; }
 	inline const_iterator end() const { return const_iterator(*this, size() ) ; }
