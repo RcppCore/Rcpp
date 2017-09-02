@@ -1,3 +1,26 @@
+2017-09-02  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version): Roll minor version
+
+        * vignettes/Rcpp-jss-2011.Rnw: Renamed again from Rcpp-introduction-2011,
+        added reference to new Rcpp-introduction
+
+        * inst/bib/Rcpp.bib: Merged bibliography from new vignette; also added
+        PeerJ Preprint with new Rcpp Introduction
+
+2017-09-01  Dirk Eddelbuettel  <edd@debian.org>
+
+        * vignettes/Rcpp-introduction.Rnw: New introductory vignette from PeerJ
+        preprints but typeset 'more nicely'
+
+        * vignettes/rcpp-docs.cls: New LaTeX style file derived from pnas-new
+        and its supporting files
+
+        * vignettes/figures/: Three support figures for new vignette
+        * vignettes/intro2Rcpp.bib: New bibliography
+
+        * vignettes/Rcpp-introduction-2011.Rnw: Renamed from from Rcpp-introduction
+
 2017-08-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .travis.yml (before_install): Use https for curl fetch

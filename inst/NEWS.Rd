@@ -15,6 +15,8 @@
       \item Rewrote the macOS sections to depend on official documentation due
       to large changes in the macOS toolchain. (James Balamuta in \ghpr{742}
       addressing issue \ghit{682}).
+      \item Added a new vignette \sQuote{Rcpp-introduction} based on new PeerJ
+      preprint, renamed existing introduction to \sQuote{Rcpp-jss-2011}.
     }
   }
 }
