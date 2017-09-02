@@ -54,7 +54,7 @@ eases the transition of objects between \rlang and \cpp code.
 
 \section{Introduction}\label{introduction}
 
-The \rlang language and environment \citep{R} has established itself as
+The \rlang language and environment \citep{R:Main} has established itself as
 both an increasingly dominant facility for data analysis, and the
 \emph{lingua franca} for statistical computing in both research and
 application settings.
@@ -74,7 +74,7 @@ A \clang interface will generally also be accessible to other languages.
 Particularly noteworthy here is the \cpp language, developed originally
 as a `better \clangns', which is by its design very interoperable with
 \clangns. And with the introduction of the \rcpp package
-\citep{rcpp2011,rcpp2013,CRAN:Rcpp}, and its later refinements, this
+\citep{JSS:Rcpp,Eddelbuettel:2013:Rcpp,CRAN:Rcpp}, and its later refinements, this
 process of extending \rlang has become considerably easier yet also more
 robust. To date, \rcpp has become the most popular extension system for
 \rlangns. This article introduces \rcppns, and illustrates with several
@@ -796,7 +796,7 @@ where \(\boldsymbol{A}\) is a \(m \times n\) matrix,
 \({\boldsymbol{Y}} \sim N_{m}\left({\boldsymbol{\mu} = \boldsymbol{b}, \boldsymbol{\Sigma} = \boldsymbol{A}\boldsymbol{A}^T}\right)\).
 To obtain the matrix \(\boldsymbol{A}\) from \(\boldsymbol{\Sigma}\),
 either a Cholesky or Eigen decomposition is required. As noted in
-\citet{mass2002}, the Eigen decomposition is more stable in addition to
+\citet{Venables+Ripley:2002:MASS}, the Eigen decomposition is more stable in addition to
 being more computationally demanding compared to the Cholesky
 decomposition. For simplicity and speed, we have opted to implement the
 sampling procedure using a Cholesky decomposition. Regardless, there is
@@ -1041,7 +1041,7 @@ improved \cpp  annotated function graphic provided by Bob Rudis.}
 
 \pnasbreak
 
-\bibliography{intro2Rcpp}
+\bibliography{\Sexpr{Rcpp:::bib()}}
 
 \end{document}
 

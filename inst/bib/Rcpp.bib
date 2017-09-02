@@ -4,16 +4,6 @@
 @String{RFoundation = "R Foundation for Statistical Computing" }
 @String{R-Forge = "http://R-Forge.R-Project.org/" }
 
-@Misc{Cpp11,
-  author =       "ISO/IEC",
-  organization = "{International Organization for Standardization}",
-  title =        "\proglang{C++} 2011 Standard Document 14882:2011",
-  howpublished = {ISO/IEC Standard Group for Information Technology / Programming Languages / C++},
-  year =         2011,
-  url =         "http://www.iso.org/iso/iso_catalogue/catalogue_tc/catalogue_detail.htm?csnumber=50372",
-  urlansi =     "http://webstore.ansi.org/RecordDetail.aspx?sku=ISO/IEC%2014882:2011"
-}
-
 @manual{Abrahams+Grosse-Kunstleve:2003:Boost.Python,
   author =	 { David Abrahams and Ralf W. Grosse-Kunstleve },
   organization = "Boost Consulting",
@@ -29,6 +19,19 @@
   publisher =	 {Addison-Wesley},
   year =	 2004,
   address =	 {Boston}
+}
+
+@book{Anderson:1990:UGLAPACK,
+  author =       {Anderson, E. and Bai, Z. and Bischof, C. and
+                  Blackford, S. and Demmel, J. and Dongarra, J. and Du
+                  Croz, J. and Greenbaum, A. and Hammarling, S. and
+                  McKenney, A. and Sorensen, D.},
+  title =        {{LAPACK} Users' Guide},
+  edition =      {Third},
+  publisher =    {Society for Industrial and Applied Mathematics},
+  year =         1999,
+  address =      {Philadelphia, PA},
+  isbn =         {0-89871-447-8 (paperback)}
 }
 
 @Manual{Armstrong:2009:RAbstraction,
@@ -69,23 +72,12 @@
   url =          {http://www.icce.rug.nl/documents/cplusplus/}
 }
 
-@Book{Chambers:2008:SoDA,
-  author = 	 {John M. Chambers},
-  title = 	 {Software for Data Analysis: Programming with {R}},
-  publisher = 	 {Springer-Verlag},
-  year = 	 2008,
-  series = 	 {Statistics and Computing},
-  address = 	 {Heidelberg},
-  note = 	 {{ISBN} 978-0-387-75935-7}
-}
-
-@Book{Chambers:1998:PwD,
-  author = 	 {John M. Chambers},
-  title = 	 {Programming with Data: {A} Guide to the {S} Language},
-  publisher = 	 {Springer-Verlag},
-  year = 	 1998,
-  address = 	 {Heidelberg},
-  note = 	 {{ISBN} 978-0387985039}
+@Manual{CRAN:Matrix,
+  title =	 {\pkg{Matrix}: Sparse and Dense Matrix Classes and Methods},
+  author =	 {Douglas Bates and Martin Maechler},
+  year =	 2016,
+  note =	 {R package version 1.2-7.1},
+  url =		 CRAN # "package=Matrix"
 }
 
 @Manual{CRAN:RInside,
@@ -112,23 +104,13 @@
   url =		 CRAN # "package=RQuantLib"
 }
 
-@Manual{CRAN:rbenchmark,
-  title =	 {\pkg{rbenchmark}: Benchmarking routine for \proglang{R}},
-  author =	 {Wacek Kusnierczyk},
-  year =	 2012,
-  note =	 {R package version 1.0.0},
-  url =		 CRAN # "package=rbenchmark"
-}
-
-@Article{JSS:Rcpp,
-  title =	 {{Rcpp}: Seamless {R} and {C++} Integration},
-  author =	 {Dirk Eddelbuettel and Romain Fran\c{c}ois},
-  journal =	 {Journal of Statistical Software},
-  year =	 2011,
-  volume =	 40,
-  number =	 8,
-  pages =	 {1--18},
-  url =		 {http://www.jstatsoft.org/v40/i08/},
+@Manual{CRAN:RUnit,
+  title =        {RUnit: R Unit Test Framework},
+  author =       {Matthias Burger and Klaus Juenemann and Thomas
+                  Koenig},
+  year =         2015,
+  note =         {R package version 0.4.31},
+  url =          {https://CRAN.R-project.org/package=RUnit},
 }
 
 @Manual{CRAN:Rcpp,
@@ -143,11 +125,21 @@
 
 @Manual{CRAN:Rcpp:Attributes,
   crossref =     {CRAN:Rcpp},
-  author = 	 {J. J. Allaire and Dirk Eddelbuettel and Romain Fran\c{c}ois},
-  title = 	 {{Rcpp} Attributes},
-  year = 	 2015,
-  note = 	 {Vignette included in R package Rcpp},
-  url =		 CRAN # "package=Rcpp"
+  author =       {J. J. Allaire and Dirk Eddelbuettel and Romain
+                  Fran\c{c}ois},
+  title =        {{Rcpp} Attributes},
+  year =         2017,
+  note =         {Vignette included in R package Rcpp},
+  url =          CRAN # "package=Rcpp"
+}
+
+@Manual{CRAN:Rcpp:FAQ,
+  crossref =     {CRAN:Rcpp},
+  author =       {Dirk Eddelbuettel and Romain Fran\c{c}ois},
+  title =        {Frequently Asked Questions About {Rcpp}},
+  year =         2017,
+  note =         {Vignette included in R package {Rcpp}},
+  url =          CRAN # "package=Rcpp"
 }
 
 @Manual{CRAN:Rcpp:Modules,
@@ -159,13 +151,22 @@
   url =		 CRAN # "package=Rcpp"
 }
 
+@Manual{CRAN:Rcpp:Package,
+  crossref =     {CRAN:Rcpp},
+  author =       {Dirk Eddelbuettel and Romain Fran\c{c}ois},
+  title =        {Writing a package that uses {Rcpp}},
+  year =         2017,
+  note =         {Vignette included in R package {Rcpp}},
+  url =          CRAN # "package=Rcpp"
+}
+
 @Manual{CRAN:Rcpp:Sugar,
   crossref =     {CRAN:Rcpp},
-  author = 	 {Dirk Eddelbuettel and Romain Fran\c{c}ois},
-  title = 	 {{Rcpp} syntactic sugar},
-  year = 	 2015,
-  note = 	 {Vignette included in R package Rcpp},
-  url =		 CRAN # "package=Rcpp"
+  author =       {Dirk Eddelbuettel and Romain Fran\c{c}ois},
+  title =        {Rcpp syntactic sugar},
+  year =         2017,
+  note =         {Vignette included in R package {Rcpp}},
+  url =          CRAN # "package=Rcpp"
 }
 
 @Manual{CRAN:RcppArmadillo,
@@ -201,30 +202,6 @@
   year =	 2016,
   note =	 {{R} package version 0.3.2.9.0},
   url =		 CRAN # "package=RcppEigen"
-}
-
-@Article{JSS:RcppEigen,
-  title =	 {Fast and Elegant Numerical Linear Algebra Using the
-                  {RcppEigen} Package},
-  author =	 {Douglas Bates and Dirk Eddelbuettel},
-  journal =	 {Journal of Statistical Software},
-  year =	 {2013},
-  volume =	 {52},
-  number =	 {5},
-  pages =	 {1--24},
-  url =		 {http://www.jstatsoft.org/v52/i05/},
-}
-
-@Article{JSS:RProtoBuf,
-  title =        {{RProtoBuf}: Efficient Cross-Language Data Serialization in
-                  {R}},
-  author =       {Dirk Eddelbuettel and Murray Stokely and Jeroen Ooms},
-  journal =      {Journal of Statistical Software},
-  year =         {2016},
-  volume =       {71},
-  number =       {2},
-  pages =        {1--24},
-  doi =          {10.18637/jss.v071.i02},
 }
 
 @Manual{CRAN:RcppExamples,
@@ -269,6 +246,15 @@
   url =		 CRAN # "package=cxxPack"
 }
 
+@Manual{CRAN:devtools,
+  title =        {devtools: Tools to Make Developing R Packages
+                  Easier},
+  author =       {Hadley Wickham and Winston Chang},
+  year =         2016,
+  note =         {R package version 1.12.0},
+  url =          {https://CRAN.R-project.org/package=devtools},
+}
+
 @Manual{CRAN:highlight,
   title =	 {highlight: Syntax highlighter},
   author =	 {Romain Fran\c{c}ois},
@@ -287,12 +273,12 @@
   url =		 CRAN # "package=inline"
 }
 
-@Manual{CRAN:Matrix,
-  title =	 {\pkg{Matrix}: Sparse and Dense Matrix Classes and Methods},
-  author =	 {Douglas Bates and Martin Maechler},
-  year =	 2016,
-  note =	 {R package version 1.2-7.1},
-  url =		 CRAN # "package=Matrix"
+@Manual{CRAN:littler,
+  title =        {littler: {R} at the {Command-Line} via r},
+  author =       {Dirk Eddelbuettel and Jeffrey Horner},
+  year =         2017,
+  note =         {R package version 0.3.2},
+  url =          CRAN # "package=littler"
 }
 
 @Manual{CRAN:minqa,
@@ -305,6 +291,22 @@
   url =		 CRAN # "package=minqa"
 }
 
+@Manual{CRAN:microbenchmark,
+  title =        {microbenchmark: Accurate Timing Functions},
+  author =       {Olaf Mersmann},
+  year =         2015,
+  note =         {R package version 1.4-2.1},
+  url =          {https://CRAN.R-project.org/package=microbenchmark}
+}
+
+@Manual{CRAN:rbenchmark,
+  title =	 {\pkg{rbenchmark}: Benchmarking routine for R},
+  author =	 {Wacek Kusnierczyk},
+  year =	 2012,
+  note =	 {R package version 1.0.0},
+  url =		 CRAN # "package=rbenchmark"
+}
+
 @Manual{CRAN:roxygen2,
   title =	 {roxygen2: In-source documentation for R},
   author =	 {Hadley Wickham and Peter Danenberg and Manuel Eugster},
@@ -313,14 +315,68 @@
   url =		 CRAN # "package=roxygen2"
 }
 
-@Book{Eddelbuettel:2013:Rcpp,
-  author =	 {Dirk Eddelbuettel},
-  title =	 {Seamless R and C++ Integration with Rcpp},
-  publisher =	 {Springer},
-  series =	 {Use R!},
-  year =	 2013,
-  address =	 {New York},
-  isbn =	 {978-1-4614-6867-7}
+@Article{CRAN:testthat,
+  author =       {Hadley Wickham},
+  title =        {testthat: Get Started with Testing},
+  journal =      {The R Journal},
+  year =         2011,
+  volume =       3,
+  pages =        {5--10},
+}
+
+@Manual{CRAN:profvis,
+  title =        {profvis: Interactive Visualizations for Profiling R Code},
+  author =       {Winston Chang and Javier Luraschi},
+  year =         2017,
+  note =         {R package version 0.3.3},
+  url =          {https://CRAN.R-project.org/package=profvis},
+}
+
+@Book{Chambers:1998:PwD,
+  author = 	 {John M. Chambers},
+  title = 	 {Programming with Data: {A} Guide to the {S} Language},
+  publisher = 	 {Springer-Verlag},
+  year = 	 1998,
+  address = 	 {Heidelberg},
+  note = 	 {{ISBN} 978-0387985039}
+}
+
+@Book{Chambers:2008:SoDA,
+  author = 	 {John M. Chambers},
+  title = 	 {Software for Data Analysis: Programming with {R}},
+  publisher = 	 {Springer-Verlag},
+  year = 	 2008,
+  series = 	 {Statistics and Computing},
+  address = 	 {Heidelberg},
+  note = 	 {{ISBN} 978-0-387-75935-7}
+}
+
+@Book{Chambers:2016:ExtR,
+  author =       {John M. Chambers},
+  title =        {Extending R},
+  publisher =    {Chapman and Hall/CRC},
+  year =         2016,
+  series =       {{The R Series}},
+  address =      {London},
+  note =         {{ISBN} 9781498775717}
+}
+
+@Misc{Cpp11,
+  author =       "ISO/IEC",
+  organization = "{International Organization for Standardization}",
+  title =        "\proglang{C++} 2011 Standard Document 14882:2011",
+  howpublished = {ISO/IEC Standard Group for Information Technology / Programming Languages / C++},
+  year =         2011,
+  url =         "http://www.iso.org/iso/iso_catalogue/catalogue_tc/catalogue_detail.htm?csnumber=50372",
+  urlansi =     "http://webstore.ansi.org/RecordDetail.aspx?sku=ISO/IEC%2014882:2011"
+}
+
+@book{Dongarra:1979:UGLINPACK,
+  title =        {LINPACK users' guide},
+  author =       {Dongarra, Jack J and Moler, Cleve B and Bunch, James
+                  R and Stewart, Gilbert W},
+  year =         1979,
+  publisher =    {SIAM}
 }
 
 @Article{Eddelbuettel+Sanderson:2013:RcppArmadillo,
@@ -347,6 +403,28 @@
   url =          {http://dx.doi.org/10.1016/j.csda.2013.02.005}
 }
 
+@Book{Eddelbuettel:2013:Rcpp,
+  author =	 {Dirk Eddelbuettel},
+  title =	 {Seamless R and C++ Integration with Rcpp},
+  publisher =	 {Springer},
+  series =	 {Use R!},
+  year =	 2013,
+  address =	 {New York},
+  isbn =	 {978-1-4614-6867-7}
+}
+
+@article{Efron:1979:Bootstrap,
+  URL =          {http://www.jstor.org/stable/2958830},
+  author =       {Efron, B.},
+  journal =      {The Annals of Statistics},
+  number =       {1},
+  pages =        {1-26},
+  publisher =    {Institute of Mathematical Statistics},
+  title =        {Bootstrap Methods: Another Look at the Jackknife},
+  volume =       {7},
+  year =         {1979}
+}
+
 ; see http://eigen.tuxfamily.org/index.php?title=BibTeX
 ; replaced 'howpublished' with 'url' and updated year to 2011, and again to 2012
 @MISC{Eigen:Web,
@@ -356,6 +434,15 @@
   url =		 {http://eigen.tuxfamily.org},
 }
 
+@Manual{GSL,
+  title = 	{{GNU} {S}cientific {L}ibrary {R}eference {M}anual},
+  author = 	{Mark Galassi and Jim Davies and James Theiler and Brian Gough and Gerard Jungman and Patrick Alken and Michael Booth and Fabrice Rossi},
+  year = 	{2010},
+  edition =     {3rd},
+  note = 	{Version 1.14. {ISBN} 0954612078},
+  url = 	{http://www.gnu.org/software/gsl}
+}
+
 @Book{Gentleman:2009:RProgramming,
   author = 	 {Robert Gentleman},
   title = 	 {R Programming for Bioinformatics},
@@ -363,6 +450,13 @@
   year = 	 2009,
   series = 	 {Computer Science and Data Analysis},
   address = 	 {Boca Raton, FL}
+}
+
+@Manual{GitHub:Rperform,
+  title =        {Rperform: Rperform - Performance testing for R packages},
+  author =       {Akash Tandon and Toby Dylan Hocking},
+  year =         {2015},
+  note =         {R package version 0.0.0.9000},
 }
 
 @Article{Gropp+Lusk+Doss+Skjellum:1996:MPI,
@@ -384,15 +478,52 @@
   series = 	 {Scientific and Engineering Computation Series},
   edition = 	 {2nd},
   month = 	 {November},
-  note = 	 {{ISBN} 978-0-262-57132-6}}
+  note = 	 {{ISBN} 978-0-262-57132-6}
+}
 
-@Manual{GSL,
-  title = 	{{GNU} {S}cientific {L}ibrary {R}eference {M}anual},
-  author = 	{Mark Galassi and Jim Davies and James Theiler and Brian Gough and Gerard Jungman and Patrick Alken and Michael Booth and Fabrice Rossi},
-  year = 	{2010},
-  edition =     {3rd},
-  note = 	{Version 1.14. {ISBN} 0954612078},
-  url = 	{http://www.gnu.org/software/gsl}
+@article{Ihaka:1996,
+  Author =       {Ihaka, Ross and Gentleman, Robert},
+  Journal =      {Journal of Computational and Graphical Statistics},
+  Number =       3,
+  Pages =        {299--314},
+  Title =        {R: A Language for Data Analysis and Graphics},
+  Volume =       5,
+  Year =         1996
+}
+
+@Article{JSS:RProtoBuf,
+  title =        {{RProtoBuf}: Efficient Cross-Language Data Serialization in
+                  {R}},
+  author =       {Dirk Eddelbuettel and Murray Stokely and Jeroen Ooms},
+  journal =      {Journal of Statistical Software},
+  year =         {2016},
+  volume =       {71},
+  number =       {2},
+  pages =        {1--24},
+  doi =          {10.18637/jss.v071.i02},
+}
+
+@Article{JSS:Rcpp,
+  title =	 {{Rcpp}: Seamless {R} and {C++} Integration},
+  author =	 {Dirk Eddelbuettel and Romain Fran\c{c}ois},
+  journal =	 {Journal of Statistical Software},
+  year =	 2011,
+  volume =	 40,
+  number =	 8,
+  pages =	 {1--18},
+  url =		 {http://www.jstatsoft.org/v40/i08/},
+}
+
+@Article{JSS:RcppEigen,
+  title =	 {Fast and Elegant Numerical Linear Algebra Using the
+                  {RcppEigen} Package},
+  author =	 {Douglas Bates and Dirk Eddelbuettel},
+  journal =	 {Journal of Statistical Software},
+  year =	 {2013},
+  volume =	 {52},
+  number =	 {5},
+  pages =	 {1--24},
+  url =		 {http://www.jstatsoft.org/v52/i05/},
 }
 
 @Unpublished{Java+Gaile+Manly:2007:RCpp,
@@ -405,6 +536,14 @@
                   {http://sphhp.buffalo.edu/biostat/research/techreports/UB_Biostatistics_TR0702.pdf},
   month =	 {July},
   year =	 2007
+}
+
+@misc{KDE-TechBase:2012,
+  author =       {KDE-TechBase},
+  title =        {Binary Compatibility Issues With {C++}},
+  url  =         "http://techbase.kde.org/Policies/Binary_Compatibility_Issues_With_C++",
+  year =         2012,
+  note =         "[Online; accessed 24-November-2012]"
 }
 
 @InProceedings{Leisch:2008:Tutorial,
@@ -442,6 +581,17 @@
   publisher = 	 {No Starch Press},
   address =	 {San Francisco, CA},
   year = 	 2011
+}
+
+@InProceedings{Maurer+Wong:2008:AttributesInC++,
+  author =       {Jens Maurer and Michael Wong},
+  title =        {Towards support for attributes in {C++} (Revision
+                  6)},
+  booktitle =    {JTC1/SC22/WG21 - The C++ Standards Committee},
+  year =         {2008},
+  url =
+                  {http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2008/n2761.pdf},
+  note =         {{N2761=08-0271}}
 }
 
 @book{Meyers:1995:MoreEffectiveC++,
@@ -488,7 +638,7 @@
   author =	 RCoreTeam,
   organization = RFoundation,
   address =	 {Vienna, Austria},
-  year =	 2015,
+  year =	 2017,
   title =	 "R Installation and Administration",
   annote =	 {{ISBN} 3-900051-09-7},
   url =		 manuals # "R-admin.html"
@@ -498,7 +648,7 @@
   author =	 RCoreTeam,
   organization = RFoundation,
   address =	 {Vienna, Austria},
-  year =	 2015,
+  year =	 2017,
   title =	 "Writing R extensions",
   annote =	 {{ISBN} 3-900051-11-9},
   url =		 manuals # "R-exts.html"
@@ -508,39 +658,30 @@
   author =	 RCoreTeam,
   organization = RFoundation,
   address =	 {Vienna, Austria},
-  year =	 2015,
+  year =	 2017,
   title =	 "R internals",
   annote =	 {{ISBN} 3-900051-14-3},
   url =		 manuals # "R-ints.html"
-}
-
-@manual{R:Main,
-  title =	 {R: A Language and Environment for Statistical
-                  Computing},
-  author =	 RCoreTeam,
-  organization = RFoundation,
-  address =	 {Vienna, Austria},
-  year =	 2015,
-  url =		 {http://www.R-project.org/},
 }
 
 @manual{R:Language,
   author =	 RCoreTeam,
   organization = RFoundation,
   address =	 {Vienna, Austria},
-  year =	 2015,
+  year =	 2017,
   title =	 "R language",
   annote =	 {{ISBN} 3-900051-13-5},
   url =		 manuals # "R-lang.html"
 }
 
-@Book{Venables+Ripley:2000:SProgramming,
-  author = 	 {Willian N. Venables and Brian D. Ripley},
-  title = 	 {S Programming},
-  publisher = 	 {Springer-Verlag},
-  year = 	 2000,
-  series = 	 {Statistics and Computing},
-  address = 	 {New York}
+@Manual{R:Main,
+  title =        {R: A Language and Environment for Statistical
+                  Computing},
+  author =       RCoreTeam,
+  organization = RFoundation,
+  address =      {Vienna, Austria},
+  year =         2017,
+  url =          {https://www.R-project.org/}
 }
 
 @InProceedings{Runnalls:2009:CXXR,
@@ -568,6 +709,20 @@
   institution =	 {{NICTA}},
   year =	 2010,
   url =		 "http://arma.sf.net"
+}
+
+@article{Sanderson+Curtin:2016,
+  doi =          {10.21105/joss.00026},
+  url =          {http://dx.doi.org/10.21105/joss.00026},
+  year =         2016,
+  month =        {{June}},
+  publisher =    {The Open Journal},
+  volume =       1,
+  number =       2,
+  author =       {Conrad Sanderson and Ryan Curtin},
+  title =        {Armadillo: {A Template-Based C++ Library for Linear
+                  Algebra}},
+  journal =      {{JOSS}}
 }
 
 @Book{Stroustrup:1997:Cpp,
@@ -613,17 +768,6 @@
   month =	 {May}
 }
 
-@InProceedings{Maurer+Wong:2008:AttributesInC++,
-  author =       {Jens Maurer and Michael Wong},
-  title =        {Towards support for attributes in {C++} (Revision
-                  6)},
-  booktitle =    {JTC1/SC22/WG21 - The C++ Standards Committee},
-  year =         {2008},
-  url =
-                  {http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2008/n2761.pdf},
-  note =         {{N2761=08-0271}}
-}
-
 @InProceedings{Urbanek:2003:Rserve,
   author =	 {Simon Urbanek},
   title =	 {{Rserve}: A Fast Way to Provide {R} Functionality to
@@ -657,10 +801,22 @@
   address =	 {London},
 }
 
-@misc{KDE-TechBase:2012,
-  author =       {KDE-TechBase},
-  title =        {Binary Compatibility Issues With {C++}},
-  url  =         "http://techbase.kde.org/Policies/Binary_Compatibility_Issues_With_C++",
-  year =         2012,
-  note =         "[Online; accessed 24-November-2012]"
+@Book{Venables+Ripley:2000:SProgramming,
+  author = 	 {Willian N. Venables and Brian D. Ripley},
+  title = 	 {S Programming},
+  publisher = 	 {Springer-Verlag},
+  year = 	 2000,
+  series = 	 {Statistics and Computing},
+  address = 	 {New York}
+}
+
+@Book{Venables+Ripley:2002:MASS,
+  title =        {Modern Applied Statistics with S},
+  author =       {W. N. Venables and B. D. Ripley},
+  publisher =    {Springer},
+  edition =      {Fourth},
+  address =      {New York},
+  year =         2002,
+  note =         {ISBN 0-387-95457-0},
+  url =          {http://www.stats.ox.ac.uk/pub/MASS4},
 }
