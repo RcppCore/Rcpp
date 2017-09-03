@@ -5,6 +5,13 @@
 
 \section{Changes in Rcpp version 0.12.13 [unreleased] (2017-09-xx)}{
   \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item New const iterators functions \code{cbegin()} and \code{cend()} have
+      been added to several vector and matrix classes (Dan Dillon and James
+      Balamuta in \ghpr{748}) starting to address \ghit{741}).
+      The \code{tinyformat.h} header now ends in a newline (\ghit{701}).
+    }
     \item Changes in Rcpp Modules:
     \itemize{
       \item Misplacement of one parenthesis in macro \code{LOAD_RCPP_MODULE}
