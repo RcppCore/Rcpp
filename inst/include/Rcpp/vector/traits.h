@@ -51,7 +51,7 @@ namespace traits{
 		private:
 			iterator start ;
 	} ;
-	template <int RTYPE, template <class> class StoragePolicy = PreserveStorage> 
+	template <int RTYPE, template <class> class StoragePolicy = PreserveStorage>
 	class proxy_cache{
 	public:
 		typedef typename ::Rcpp::Vector<RTYPE, StoragePolicy> VECTOR ;
@@ -80,23 +80,23 @@ namespace traits{
 	} ;
 
 	// regular types for INTSXP, REALSXP, ...
-	template <int RTYPE, template <class> class StoragePolicy = PreserveStorage> 
-	struct r_vector_cache_type { 
-	    typedef r_vector_cache<RTYPE, StoragePolicy> type ;  
+	template <int RTYPE, template <class> class StoragePolicy = PreserveStorage>
+	struct r_vector_cache_type {
+	    typedef r_vector_cache<RTYPE, StoragePolicy> type ;
 	} ;
 
 	// proxy types for VECSXP, STRSXP and EXPRSXP
-	template <template <class> class StoragePolicy> 
-	struct r_vector_cache_type<VECSXP, StoragePolicy>  { 
-	    typedef proxy_cache<VECSXP, StoragePolicy> type ;  
+	template <template <class> class StoragePolicy>
+	struct r_vector_cache_type<VECSXP, StoragePolicy>  {
+	    typedef proxy_cache<VECSXP, StoragePolicy> type ;
 	} ;
-	template <template <class> class StoragePolicy> 
-	struct r_vector_cache_type<EXPRSXP, StoragePolicy> { 
-	    typedef proxy_cache<EXPRSXP, StoragePolicy> type ; 
+	template <template <class> class StoragePolicy>
+	struct r_vector_cache_type<EXPRSXP, StoragePolicy> {
+	    typedef proxy_cache<EXPRSXP, StoragePolicy> type ;
 	} ;
-	template <template <class> class StoragePolicy> 
-	struct r_vector_cache_type<STRSXP, StoragePolicy>  { 
-	    typedef proxy_cache<STRSXP, StoragePolicy> type ;  
+	template <template <class> class StoragePolicy>
+	struct r_vector_cache_type<STRSXP, StoragePolicy>  {
+	    typedef proxy_cache<STRSXP, StoragePolicy> type ;
 	} ;
 
 } // traits

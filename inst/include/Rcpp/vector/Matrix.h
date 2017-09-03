@@ -113,6 +113,8 @@ public:
 
     inline const_iterator begin() const{ return VECTOR::begin() ; }
     inline const_iterator end() const{ return VECTOR::end() ; }
+    inline const_iterator cbegin() const{ return VECTOR::begin() ; }
+    inline const_iterator cend() const{ return VECTOR::end() ; }
     inline iterator begin() { return VECTOR::begin() ; }
     inline iterator end() { return VECTOR::end() ; }
 

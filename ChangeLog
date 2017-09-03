@@ -1,3 +1,21 @@
+2017-09-02  James J Balamuta  <balamut2@illinois.edu>
+        * inst/include/Rcpp/vector/VectorBase.h: Defined both iterator AND
+        const_iterator for future considerations.  Currently, as before,
+        only const_iterator is available (though it used to be called iterator).
+        Added cbegin() and cend() functions.  We should revisit whether there
+        should be a non-const iterator on VectorBase in the future.
+        * inst/include/Rcpp/vector/Matrix.h: Added cbegin() and cend()
+        functions.  Iterator defintions inherited from Vector are appropriate.
+        * inst/include/Rcpp/vector/MatrixColumn.h: Added cbegin() and cend()
+        functions.  Iterator definitions inherited from Vector are appropriate
+        because Matrix is column-major.
+        * inst/include/Rcpp/vector/Vector.h: Added cbegin() and cend()
+        functions.  Iterators are appropriate minus the problem with the const
+        proxy class of objects (which may or may not actually be const depending
+        on which one).
+        * inst/include/Rcpp/vector/traits.h: Removed (accidentally) some
+        some trailing whitespace on lines.
+        
 2017-09-02  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version): Roll minor version
@@ -23,7 +41,7 @@
 
 2017-08-26  Dirk Eddelbuettel  <edd@debian.org>
 
-	* .travis.yml (before_install): Use https for curl fetch
+        * .travis.yml (before_install): Use https for curl fetch
 
 2017-08-14  James J Balamuta  <balamut2@illinois.edu>
 
