@@ -48,6 +48,11 @@ public:
 
 	inline R_xlen_t size() const { return static_cast<const VECTOR*>(this)->size() ; }
 	
+	// We now have the structure to correct const-correctness, but without
+    // major changes to the proxy mechanism, we cannot do it correctly.  As
+    // a result, it turns out that both Vector iterators are effectively
+    // const, but this has always been the way it is so we won't break any
+    // compatibility.  TODO: Fix proxies and make this const correct.
 	struct iter_traits
 	{
 	    typedef stored_type & reference ;
