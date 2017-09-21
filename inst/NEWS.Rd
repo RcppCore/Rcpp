@@ -24,9 +24,11 @@
       addressing issue \ghit{682}).
       \item Added a new vignette \sQuote{Rcpp-introduction} based on new PeerJ
       preprint, renamed existing introduction to \sQuote{Rcpp-jss-2011}.
-      \item Transitioned all vignettes to the pinp RMarkdown template
+      \item Transitioned all vignettes to the 'pinp' RMarkdown template
       (James Balamuta and Dirk Eddelbuettel in \ghpr{755} addressing
       issue \ghit{604}).
+      \item Added an entry on running `compileAttributes()` twice to the
+      Rcpp-FAQ (\ghit{#745}).
     }
   }
 }

@@ -1,8 +1,11 @@
+2017-09-21  Dirk Eddelbuettel  <edd@debian.org>
+
+        * vignettes/Rcpp-FAQ.Rmd (Rcpp): Add entry for 'symbols not found' error
+        requiring two runs of compileAttributes
+
 2017-09-20  James J Balamuta  <balamut2@illinois.edu>
 
-        * DESCRIPTION (Version, Date): Roll minor version
-        * vignettes/jss.bst: Removed
-        * vignettes/rcpp-docs.cls: idem
+        * vignettes/rcpp-docs.cls: Removed
 
 2017-09-20  Dirk Eddelbuettel  <edd@debian.org>
 
