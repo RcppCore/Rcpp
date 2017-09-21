@@ -1,5 +1,7 @@
 2017-09-21  Dirk Eddelbuettel  <edd@debian.org>
 
+        * DESCRIPTION (Version, Date): Roll minor version
+
         * vignettes/Rcpp-FAQ.Rmd (Rcpp): Add entry for 'symbols not found' error
         requiring two runs of compileAttributes
 

@@ -10,7 +10,7 @@
       \item New const iterators functions \code{cbegin()} and \code{cend()} have
       been added to several vector and matrix classes (Dan Dillon and James
       Balamuta in \ghpr{748}) starting to address \ghit{741}).
-      The \code{tinyformat.h} header now ends in a newline (\ghit{701}).
+      \item The \code{tinyformat.h} header now ends in a newline (\ghit{701}).
     }
     \item Changes in Rcpp Modules:
     \itemize{
