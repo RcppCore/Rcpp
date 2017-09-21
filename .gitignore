@@ -6,6 +6,7 @@ src/*.dll
 src/symbols.rds
 .Rhistory
 .RData
+.DS_Store
 
 ## QtCreator
 Rcpp.pro
