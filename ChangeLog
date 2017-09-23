@@ -1,3 +1,8 @@
+2017-09-23  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/bib/Rcpp.bib: Updated references
+        * viignettes/Rcpp.bib: Idem
+
 2017-09-21  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll minor version
