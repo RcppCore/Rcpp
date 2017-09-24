@@ -181,19 +181,19 @@ public:
     }
 
     inline const_iterator begin() const {
-        return iterator( const_cast<MatrixRow&>(*this), 0 ) ;
+        return const_iterator( const_cast<MatrixRow&>(*this), 0 ) ;
     }
 
     inline const_iterator end() const {
-        return iterator( const_cast<MatrixRow&>(*this), size() ) ;
+        return const_iterator( const_cast<MatrixRow&>(*this), size() ) ;
     }
     
     inline const_iterator cbegin() const {
-        return iterator( const_cast<MatrixRow&>(*this), 0 ) ;
+        return const_iterator( const_cast<MatrixRow&>(*this), 0 ) ;
     }
 
     inline const_iterator cend() const {
-        return iterator( const_cast<MatrixRow&>(*this), size() ) ;
+        return const_iterator( const_cast<MatrixRow&>(*this), size() ) ;
     }
 
     inline int size() const {
