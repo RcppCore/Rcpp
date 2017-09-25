@@ -3,14 +3,13 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp version 0.12.13 [unreleased] (2017-09-xx)}{
+\section{Changes in Rcpp version 0.12.13 (2017-09-24)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
       \item New const iterators functions \code{cbegin()} and \code{cend()} have
       been added to several vector and matrix classes (Dan Dillon and James
       Balamuta in \ghpr{748}) starting to address \ghit{741}).
-      The \code{tinyformat.h} header now ends in a newline (\ghit{701}).
     }
     \item Changes in Rcpp Modules:
     \itemize{
@@ -24,6 +23,11 @@
       addressing issue \ghit{682}).
       \item Added a new vignette \sQuote{Rcpp-introduction} based on new PeerJ
       preprint, renamed existing introduction to \sQuote{Rcpp-jss-2011}.
+      \item Transitioned all vignettes to the 'pinp' RMarkdown template
+      (James Balamuta and Dirk Eddelbuettel in \ghpr{755} addressing
+      issue \ghit{604}).
+      \item Added an entry on running `compileAttributes()` twice to the
+      Rcpp-FAQ (\ghit{#745}).
     }
   }
 }

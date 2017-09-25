@@ -17,7 +17,7 @@ before_install:
   - ./run.sh bootstrap
 
 install:
-  - ./run.sh install_aptget r-cran-runit r-cran-inline r-cran-rbenchmark r-cran-highlight r-cran-pkgkitten
+  - ./run.sh install_aptget r-cran-runit r-cran-inline r-cran-rbenchmark r-cran-rmarkdown r-cran-knitr r-cran-pinp r-cran-pkgkitten
 
 script: 
   - ./run.sh run_tests
