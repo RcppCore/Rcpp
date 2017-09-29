@@ -1,6 +1,10 @@
 2017-09-29  Dirk Eddelbuettel  <edd@debian.org>
 
+        * DESCRIPTION (Version, Date): Roll minor version
+
         * DESCRIPTION (Description): Add <doi:...> per suggestion by CRAN
+
+        * inst/CITATION: Add PeerJ article, add doi info, reindent
 
 2017-09-26  Daniel C. Dillon  <dcdillon@gmail.com>
 

@@ -1,7 +1,7 @@
 Package: Rcpp
 Title: Seamless R and C++ Integration
-Version: 0.12.13
-Date: 2017-09-24
+Version: 0.12.13.1
+Date: 2017-09-29
 Author: Dirk Eddelbuettel, Romain Francois, JJ Allaire, Kevin Ushey, Qiang Kou,
  Nathan Russell, Douglas Bates and John Chambers
 Maintainer: Dirk Eddelbuettel <edd@debian.org>
@@ -11,8 +11,9 @@ Description: The 'Rcpp' package provides R functions as well as C++ classes whic
  code as well as easier integration of third-party libraries. Documentation 
  about 'Rcpp' is provided by several vignettes included in this package, via the 
  'Rcpp Gallery' site at <http://gallery.rcpp.org>, the paper by Eddelbuettel and 
- Francois (2011, JSS), the book by Eddelbuettel (2013, Springer) and the paper
- by Eddelbuettel and Balamuta (2017, PeerJ); see 'citation("Rcpp")' for details.
+ Francois (2011, <doi:10.18637/jss.v040.i08), the book by Eddelbuettel (2013,
+ <doi:10.1007/978-1-4614-6868-4>) and the paper by Eddelbuettel and Balamuta (2017,
+ <doi:10.7287/peerj.preprints.3188v1>); see 'citation("Rcpp")' for details.
 Depends: R (>= 3.0.0)
 Imports: methods, utils
 Suggests: RUnit, inline, rbenchmark, knitr, rmarkdown, pinp, pkgKitten (>= 0.1.2)
