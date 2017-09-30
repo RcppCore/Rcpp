@@ -1,3 +1,13 @@
+rcpp (0.12.13-1) unstable; urgency=medium
+
+  * New upstream release
+
+  * debian/control: Set Build-Depends: to current R version
+  * debian/control: Set Standards-Version: to current version 
+  * debian/compat: Increase level to 9
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Sat, 30 Sep 2017 07:59:04 -0500
+
 rcpp (0.12.12-1) unstable; urgency=medium
 
   * New upstream release
