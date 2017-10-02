@@ -40,6 +40,13 @@ namespace Rcpp{
             return Rf_isS4( static_cast<const Class&>(*this) ) ;
         }
 
+        inline R_xlen_t length() const {
+            return ::Rf_xlength( static_cast<const Class&>(*this) ) ;
+        }
+
+        inline R_xlen_t size() const {
+            return ::Rf_xlength( static_cast<const Class&>(*this) ) ;
+        }
     } ;
 
 }
