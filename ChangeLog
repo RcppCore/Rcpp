@@ -1,3 +1,12 @@
+2017-10-03  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/iostream/Rstreambuf.h: White-space edits
+
+2017-10-02  Kirill Müller  <krlmlr@mailbox.org>
+
+        * inst/include/Rcpp/iostream/Rstreambuf.h: Embed buffer class instance
+        in Rostream to not require run-time allocation, and please Coverity
+
 2017-09-29  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll minor version

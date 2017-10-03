@@ -9,6 +9,8 @@
     \itemize{
       \item New const iterators functions \code{cbegin()} and \code{cend()}
       added to \code{MatrixRow} as well (Dan Dillon in \ghpr{750}).
+      \item The \code{Rostream} object now contains a \code{Buffer} rather than
+      allocating one (Kirill Müller in \ghpr{763}).
     }
     \item Changes in Rcpp Package:
     \itemize{
