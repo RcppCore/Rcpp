@@ -43,18 +43,11 @@ namespace Rcpp {
     template <bool OUTPUT>
     class Rostream : public std::ostream {
         typedef Rstreambuf<OUTPUT> Buffer ;
-        Buffer* buf ;
+        Buffer buf ;
     public:
         Rostream() :
-            std::ostream( new Buffer ),
-            buf( static_cast<Buffer*>( rdbuf() ) )
+            std::ostream( &buf )
         {}
-        ~Rostream() {
-            if (buf != NULL) {
-                delete buf;
-                buf = NULL;
-            }
-        }
     };
 							// #nocov start
     template <> inline std::streamsize Rstreambuf<true>::xsputn(const char *s, std::streamsize num ) {
