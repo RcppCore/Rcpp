@@ -489,3 +489,5 @@ detail, and references to further examples were provided.
     does not cover the behavior of `Rcpp.package.skeleton` when `attributes` is set
     to `FALSE` as we try to encourage package developpers to use
     attributes. 
+
+\pnasbreak

@@ -4,6 +4,9 @@
         defined, define RCPP_NEW_DATE_DATETIME_VECTORS to switch to new date and
         datetime vector as announced in release 0.12.8 one year ago
 
+        * vignettes/Rcpp-package.Rmd: Added \pnasbreak at end
+        * vignettes/Rcpp-quickref.Rmd: Idem
+
 2017-10-03  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/iostream/Rstreambuf.h: White-space edits
