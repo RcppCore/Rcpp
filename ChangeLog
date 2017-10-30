@@ -1,3 +1,9 @@
+2017-10-30  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp.h: Unless RCPP_FORCE_OLD_DATE_DATETIME_VECTORS is
+        defined, define RCPP_NEW_DATE_DATETIME_VECTORS to switch to new date and
+        datetime vector as announced in release 0.12.8 one year ago
+
 2017-10-03  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/iostream/Rstreambuf.h: White-space edits
