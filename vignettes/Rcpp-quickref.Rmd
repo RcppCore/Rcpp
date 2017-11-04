@@ -551,5 +551,3 @@ b_persist <- list(stats=b$stats(), x=b$x)
 rm(b)
 */
 ```
-
-\pnasbreak

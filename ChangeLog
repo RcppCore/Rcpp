@@ -1,11 +1,16 @@
+2017-11-04  Dirk Eddelbuettel  <edd@debian.org>
+
+        * vignettes/Rcpp-FAQ.Rmd: Add 'skip_final_break: true' toggle
+        * vignettes/Rcpp-attributes.Rmd: Idem
+        * vignettes/Rcpp-extending.Rmd: Idem
+        * vignettes/Rcpp-modules.Rmd: Idem
+        * vignettes/Rcpp-sugar.Rmd: Idem
+
 2017-10-30  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp.h: Unless RCPP_FORCE_OLD_DATE_DATETIME_VECTORS is
         defined, define RCPP_NEW_DATE_DATETIME_VECTORS to switch to new date and
         datetime vector as announced in release 0.12.8 one year ago
-
-        * vignettes/Rcpp-package.Rmd: Added \pnasbreak at end
-        * vignettes/Rcpp-quickref.Rmd: Idem
 
 2017-10-03  Dirk Eddelbuettel  <edd@debian.org>
 
