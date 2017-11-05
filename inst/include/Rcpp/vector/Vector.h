@@ -373,6 +373,67 @@ public:
     inline NameProxy operator()( const std::string& name ) const {
         return NameProxy( const_cast<Vector&>(*this), name ) ;
     }
+    
+    template< typename T >
+    inline typename traits::enable_if<
+        traits::is_arithmetic< stored_type >::value
+        && sizeof(T) <= sizeof(stored_type), void >::type
+    inject(R_xlen_t i, const T &val)
+    {
+        memcpy(&cache.ref(offset(i)), &val, sizeof(T));
+    }
+    
+    template< typename T >
+    inline typename traits::enable_if<
+        traits::is_arithmetic< stored_type >::value
+        && sizeof(T) == sizeof(stored_type), void >::type
+    inject(R_xlen_t start, const T *val, std::size_t len)
+    {
+        memcpy(&cache.ref(offset(start)), val, sizeof(T) * len);
+    }
+    
+    template< typename T >
+    inline typename traits::enable_if<
+        traits::is_arithmetic< stored_type >::value
+        && sizeof(T) < sizeof(stored_type), void >::type
+    inject(R_xlen_t start, const T *val, std::size_t len)
+    {
+        for (std::size_t i = 0; i < len; ++i)
+        {
+            inject(start + i, *(val + i));
+        }
+    }
+    
+    template< typename T >
+    inline typename traits::enable_if<
+        traits::is_arithmetic< stored_type >::value
+        && sizeof(stored_type) >= sizeof(T), void >::type
+    extract(R_xlen_t i, T &val)
+    {
+        memcpy(&val, &cache.ref(offset(i)), sizeof(T));
+    }
+    
+    template< typename T >
+    inline typename traits::enable_if<
+        traits::is_arithmetic< stored_type >::value
+        && sizeof(stored_type) == sizeof(T), void >::type
+    extract(R_xlen_t start, T *val, std::size_t len)
+    {
+        memcpy(val, &cache.ref(offset(start)),
+            sizeof(stored_type) * len);
+    }
+    
+    template< typename T >
+    inline typename traits::enable_if<
+        traits::is_arithmetic< stored_type >::value
+        && sizeof(T) < sizeof(stored_type), void >::type
+    extract(R_xlen_t start, T *val, std::size_t len)
+    {
+        for (std::size_t i = 0; i < len; ++i)
+        {
+            extract(start + i, *(val + i));
+        }
+    }
 
     inline operator RObject() const {
         return RObject( Storage::get__() );
