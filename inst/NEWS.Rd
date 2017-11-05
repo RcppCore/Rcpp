@@ -11,6 +11,9 @@
       added to \code{MatrixRow} as well (Dan Dillon in \ghpr{750}).
       \item The \code{Rostream} object now contains a \code{Buffer} rather than
       allocating one (Kirill Müller in \ghpr{763}).
+      \item New \code{DateVector} and \code{DatetimeVector} classes are now the
+      default fully deprecating the old classes as announced one year ago.
+      
     }
     \item Changes in Rcpp Package:
     \itemize{
