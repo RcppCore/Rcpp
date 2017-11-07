@@ -755,5 +755,37 @@ if (.runThisTest) {
         gctorture(FALSE)
         checkEquals(x[y], z)
     }
+    
+    test.numeric.vector.inject <- function() {
+        v <- vec_inject()
+        checkIdentical(v, c(6.0992403979101885879e-320,
+                            4.8796606997276282938e-314))
+    }
+    
+    test.numeric.vector.inject.array <- function() {
+        v <- vec_inject_array()
+        checkIdentical(v, c(6.0992403979101885879e-320,
+                            4.8796606997276282938e-314))
+    }
+    
+    test.numeric.vector.inject.extract.array.smaller <- function() {
+        v <- vec_inject_array_smaller()
+        v2 <- vec_extract_array_smaller(v)
+        checkIdentical(v, v2)
+    }
+    
+    test.numeric.vector.extract <- function() {
+        v <- c(6.0992403979101885879e-320, 4.8796606997276282938e-314)
+        
+        res <- vec_extract(v)
+        checkIdentical(v, res)
+    }
+    
+    test.numeric.vector.extract_array <- function() {
+        v <- c(6.0992403979101885879e-320, 4.8796606997276282938e-314)
+        
+        res <- vec_extract_array(v)
+        checkIdentical(v, res)
+    }
 }
 

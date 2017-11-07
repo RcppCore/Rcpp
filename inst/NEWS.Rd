@@ -13,7 +13,9 @@
       allocating one (Kirill Müller in \ghpr{763}).
       \item New \code{DateVector} and \code{DatetimeVector} classes are now the
       default fully deprecating the old classes as announced one year ago.
-      
+      \item New \code{Vector::inject()} and \code{Vector::extract()} functions
+      for copying raw byte data from C++ into an element or elements in
+      \code{Vector}.
     }
     \item Changes in Rcpp Package:
     \itemize{
