@@ -3,7 +3,7 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp version 0.12.14 [unreleased] (2017-11-xx)}{
+\section{Changes in Rcpp version 0.12.14 (2017-11-17)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
@@ -13,7 +13,6 @@
       allocating one (Kirill Müller in \ghpr{763}).
       \item New \code{DateVector} and \code{DatetimeVector} classes are now the
       default fully deprecating the old classes as announced one year ago.
-      
     }
     \item Changes in Rcpp Package:
     \itemize{
