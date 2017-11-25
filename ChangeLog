@@ -1,7 +1,15 @@
+2017-11-25  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version, Date): Roll minor version
+
+        * inst/include/Rcpp/exceptions/cpp11/exceptions.h: Ensure Rf_format gets
+        a format string
+        * inst/include/Rcpp/exceptions/cpp98/exceptions.h (Rcpp): Ditto
+
 2017-11-18  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll minor version
-        
+
         * vignettes/Rcpp-FAQ.Rmd: Use Rcpp::Rcpp.plugin.maker(), not ':::'
 
 2017-11-17  Dirk Eddelbuettel  <edd@debian.org>
