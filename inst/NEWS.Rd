@@ -5,6 +5,10 @@
 
 \section{Changes in Rcpp version 0.12.15 (2018-0x-yy)}{
   \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Calls from exception handling to `Rf_warning()` now correctly set an
+      initial format string (Dirk in \ghpr{777} fixing \ghit{776}).
     \item Changes in Rcpp Documentation:
     \itemize{
       \item The Rcpp FAQ now shows \code{Rcpp::Rcpp.plugin.maker()}m not the

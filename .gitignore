@@ -13,3 +13,5 @@ Rcpp.pro
 Rcpp.pro.user
 *.autosave
 .#*
+
+*.tar.gz
