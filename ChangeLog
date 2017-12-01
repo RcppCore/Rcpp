@@ -1,3 +1,8 @@
+2017-11-30  James J Balamuta  <balamut2@illinois.edu>
+
+        * src/attributes.cpp: Fixed missing Rcpp namespace in export interface
+        generation
+
 2017-11-25  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll minor version

@@ -2192,7 +2192,7 @@ namespace attributes {
                        << std::endl;
                 ostr() << "        if (rcpp_result_gen.inherits(\"try-error\"))"
                        << std::endl
-                       << "            throw Rcpp::exception(as<std::string>("
+                       << "            throw Rcpp::exception(Rcpp::as<std::string>("
                        << "rcpp_result_gen).c_str());"
                        << std::endl;
                 if (!function.type().isVoid()) {
