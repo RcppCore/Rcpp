@@ -9,6 +9,12 @@
     \itemize{
       \item Calls from exception handling to `Rf_warning()` now correctly set an
       initial format string (Dirk in \ghpr{777} fixing \ghit{776}).
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Addressed a missing Rcpp namespace prefix when generating a C++
+      interface (James Balamuta in \ghpr{779}).
+    }
     \item Changes in Rcpp Documentation:
     \itemize{
       \item The Rcpp FAQ now shows \code{Rcpp::Rcpp.plugin.maker()}m not the
