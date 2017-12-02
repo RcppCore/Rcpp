@@ -115,7 +115,7 @@ public:
      * Retrieve the tag value as an SEXP
      */
     inline SEXP tag() const {
-        return R_ExternalPtrTag(Storage::get__()));
+        return R_ExternalPtrTag(Storage::get__());
     }
         
     /**
