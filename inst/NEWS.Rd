@@ -7,8 +7,10 @@
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
-      \item Calls from exception handling to `Rf_warning()` now correctly set an
-      initial format string (Dirk in \ghpr{777} fixing \ghit{776}).
+      \item Calls from exception handling to \code{Rf_warning()} now correctly
+      set an initial format string (Dirk in \ghpr{777} fixing \ghit{776}).
+      \item The 'new' Date and Datetime vectors now have \code{is_na} methods
+      too. (Dirk in \ghpr{783} fixing \ghit{781}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{
@@ -17,8 +19,8 @@
     }
     \item Changes in Rcpp Documentation:
     \itemize{
-      \item The Rcpp FAQ now shows \code{Rcpp::Rcpp.plugin.maker()}m not the
-      \code{:::} use.
+      \item The Rcpp FAQ now shows \code{Rcpp::Rcpp.plugin.maker()} and not the
+      outdated \code{:::} use applicable non-exported functions.
     }
   }
 }
