@@ -1,3 +1,9 @@
+2017-12-04  Kevin Ushey  <kevinushey@gmail.com>
+
+        * inst/include/Rcpp/api/meat/proxy.h: Protect temporary SEXP
+        * inst/include/Rcpp/proxy/ProtectedProxy.h: Idem
+        * inst/include/Rcpp/vector/generic_proxy.h: Idem
+
 2017-12-03  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): New minor version

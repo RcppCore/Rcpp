@@ -47,7 +47,7 @@ namespace internal{
 
 			template <typename T>
 			generic_proxy& operator=( const T& rhs){
-				set(wrap(rhs)) ;
+				set(Shield<SEXP>(wrap(rhs))) ;
 				return *this;
 			}
 
