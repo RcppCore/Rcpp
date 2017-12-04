@@ -184,9 +184,7 @@ template <typename CLASS>
 template <typename T>
 typename FieldProxyPolicy<CLASS>::FieldProxy&
 FieldProxyPolicy<CLASS>::FieldProxy::operator=(const T& rhs) {
-    SEXP tmp = PROTECT(wrap(rhs));
-    set(tmp);
-    UNPROTECT(1);
+    set(Shield<SEXP>(wrap(rhs)));
     return *this;
 }
 
