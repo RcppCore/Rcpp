@@ -215,6 +215,10 @@ namespace Rcpp{
             return true ;
         }
 
+        bool assign(const std::string& name, const Shield<SEXP>& x) const {
+            return assign(name, (SEXP) x);
+        }
+
         /**
          * wrap and assign. If there is a wrap method taking an object
          * of WRAPPABLE type, then it is wrapped and the corresponding SEXP
