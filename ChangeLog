@@ -1,5 +1,7 @@
 2017-12-03  Dirk Eddelbuettel  <edd@debian.org>
 
+        * DESCRIPTION (Version, Date): New minor version
+
         * inst/include/Rcpp/sugar/functions/is_na.h: Correct test for NA to work
         with new as well as old Date(time)Vectors
 
