@@ -45,12 +45,12 @@ Environment_Impl<StoragePolicy>::Environment_Impl( int pos ){
 }
 
 inline Environment new_env(int size = 29) {
-    Function newEnv("new.env");
+    Function newEnv("new.env", R_BaseNamespace);
     return newEnv(_["size"] = size, _["parent"] = R_EmptyEnv);
 }
 
 inline Environment new_env(SEXP parent, int size = 29) {
-    Function newEnv("new.env");
+    Function newEnv("new.env", R_BaseNamespace);
     return newEnv(_["size"] = size, _["parent"] = parent);
 }
 
