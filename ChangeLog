@@ -1,3 +1,8 @@
+2017-12-05  Kevin Ushey  <kevinushey@gmail.com>
+
+        * inst/include/Rcpp/Environment.h: Use public R APIs
+        * inst/include/Rcpp/api/meat/Environment.h: Idem
+
 2017-12-03  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): New minor version
