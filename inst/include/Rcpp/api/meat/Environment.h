@@ -27,7 +27,7 @@ namespace Rcpp{
 template <template <class> class StoragePolicy>
 template <typename WRAPPABLE>
 bool Environment_Impl<StoragePolicy>::assign( const std::string& name, const WRAPPABLE& x) const {
-    return assign( name, wrap( x ) ) ;
+    return assign(name, Shield<SEXP>(wrap(x)));
 }
 
 template <template <class> class StoragePolicy>
