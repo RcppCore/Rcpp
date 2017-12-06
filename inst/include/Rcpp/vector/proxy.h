@@ -151,7 +151,7 @@ namespace internal{
 
 		template <typename T>
 		generic_name_proxy& operator=( const T& rhs ){
-			set( ::Rcpp::wrap(rhs) ) ;
+		    set(Shield<SEXP>(wrap(rhs)));
 			return *this ;
 		}
 
@@ -249,7 +249,7 @@ namespace traits {
 	template<> struct r_vector_iterator<VECSXP> : proxy_based_iterator<VECSXP>{} ;
 	template<> struct r_vector_iterator<EXPRSXP> : proxy_based_iterator<EXPRSXP>{} ;
 	template<> struct r_vector_iterator<STRSXP> : proxy_based_iterator<STRSXP>{} ;
-	
+
 	template <int RTYPE> struct proxy_based_const_iterator{
 		typedef ::Rcpp::internal::Proxy_Iterator< typename r_vector_const_proxy<RTYPE>::type > type ;
 	} ;
