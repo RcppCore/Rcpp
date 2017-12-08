@@ -111,6 +111,13 @@ public:
         return (T*)(R_ExternalPtrAddr(Storage::get__()));
     }
 
+     /**
+     * Retrieve the tag value as an SEXP
+     */
+    inline SEXP tag() const {
+        return R_ExternalPtrTag(Storage::get__());
+    }
+        
     /**
      * Boolean operator wrapper for get() using the "safe bool idiom", see:
      * http://www.boost.org/doc/libs/1_57_0/boost/smart_ptr/detail/operator_bool.hpp
