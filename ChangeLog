@@ -39,6 +39,9 @@
         * inst/include/RcppCommon.h: Add Rcpp_fast_eval() to the public API and
         internal::Rcpp_eval_impl() to the private API.
 
+        * inst/include/Rcpp/Environment.h: Use safe evaluation
+        * inst/include/Rcpp/Language.h: idem
+
 2017-12-05  Kevin Ushey  <kevinushey@gmail.com>
 
         * inst/include/Rcpp/Environment.h: Use public R APIs
