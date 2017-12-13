@@ -22,6 +22,9 @@
 #ifndef Rcpp__exceptions__h
 #define Rcpp__exceptions__h
 
+#include <Rversion.h>
+
+
 #define GET_STACKTRACE() stack_trace( __FILE__, __LINE__ )
 
 namespace Rcpp {
@@ -107,6 +110,21 @@ namespace Rcpp {
     inline void NORET stop(const std::string& message) {     // #nocov start
         throw Rcpp::exception(message.c_str());
     }                                                        // #nocov end
+
+    namespace internal {
+
+        struct LongjumpException {
+            SEXP token;
+            LongjumpException(SEXP token_) : token(token_) { }
+        };
+
+        inline void resumeJump(SEXP token) {
+#if (defined(R_VERSION) && R_VERSION >= R_Version(3, 5, 0))
+            ::R_ContinueUnwind(token);
+#endif
+        }
+
+    } // namespace internal
 
 } // namespace Rcpp
 

@@ -19,8 +19,70 @@
 #define Rcpp_api_meat_Rcpp_eval_h
 
 #include <Rcpp/Interrupt.h>
+#include <Rversion.h>
+
+#if (defined(R_VERSION) && R_VERSION >= R_Version(3, 5, 0))
+#define R_HAS_UNWIND
+#endif
+
 
 namespace Rcpp {
+namespace internal {
+
+#ifdef R_HAS_UNWIND
+
+    struct EvalData {
+        SEXP expr;
+        SEXP env;
+        EvalData(SEXP expr_, SEXP env_) : expr(expr_), env(env_) { }
+    };
+
+    inline void Rcpp_maybe_throw(void* data, Rboolean jump) {
+        if (jump) {
+            throw LongjumpException(static_cast<SEXP>(data));
+        }
+    }
+
+    inline SEXP Rcpp_protected_eval(void* eval_data) {
+        EvalData* data = static_cast<EvalData*>(eval_data);
+        return ::Rf_eval(data->expr, data->env);
+    }
+
+    // This is used internally instead of Rf_eval() to make evaluation safer
+    inline SEXP Rcpp_eval_impl(SEXP expr, SEXP env) {
+        return Rcpp_fast_eval(expr, env);
+    }
+
+#else // R < 3.5.0
+
+    // Fall back to Rf_eval() when the protect-unwind API is unavailable
+    inline SEXP Rcpp_eval_impl(SEXP expr, SEXP env) {
+        return ::Rf_eval(expr, env);
+    }
+
+#endif
+
+} // namespace internal
+
+
+#ifdef R_HAS_UNWIND
+
+    inline SEXP Rcpp_fast_eval(SEXP expr, SEXP env) {
+        internal::EvalData data(expr, env);
+        Shield<SEXP> token(::R_MakeUnwindCont());
+        return ::R_UnwindProtect(internal::Rcpp_protected_eval, &data,
+                                 internal::Rcpp_maybe_throw, token,
+                                 token);
+    }
+
+#else
+
+    inline SEXP Rcpp_fast_eval(SEXP expr, SEXP env) {
+        return Rcpp_eval(expr, env);
+    }
+
+#endif
+
 
 inline SEXP Rcpp_eval(SEXP expr, SEXP env) {
 
@@ -39,8 +101,7 @@ inline SEXP Rcpp_eval(SEXP expr, SEXP env) {
     SET_TAG(CDDR(call), ::Rf_install("error"));
     SET_TAG(CDDR(CDR(call)), ::Rf_install("interrupt"));
 
-    // execute the call
-    Shield<SEXP> res(::Rf_eval(call, R_GlobalEnv));
+    Shield<SEXP> res(internal::Rcpp_eval_impl(call, R_GlobalEnv));
 
     // check for condition results (errors, interrupts)
     if (Rf_inherits(res, "condition")) {
@@ -49,7 +110,7 @@ inline SEXP Rcpp_eval(SEXP expr, SEXP env) {
             
             Shield<SEXP> conditionMessageCall(::Rf_lang2(::Rf_install("conditionMessage"), res));
             
-            Shield<SEXP> conditionMessage(::Rf_eval(conditionMessageCall, R_GlobalEnv));
+            Shield<SEXP> conditionMessage(internal::Rcpp_eval_impl(conditionMessageCall, R_GlobalEnv));
             throw eval_error(CHAR(STRING_ELT(conditionMessage, 0)));
         }
         
