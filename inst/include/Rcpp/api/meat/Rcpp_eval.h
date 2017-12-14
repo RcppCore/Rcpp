@@ -39,7 +39,15 @@ namespace internal {
 
     inline void Rcpp_maybe_throw(void* data, Rboolean jump) {
         if (jump) {
-            throw LongjumpException(static_cast<SEXP>(data));
+            SEXP token = static_cast<SEXP>(data);
+
+            // Keep the token protected while unwinding because R code might run
+            // in C++ destructors. Can't use PROTECT() for this because
+            // UNPROTECT() might be called in a destructor, for instance if a
+            // Shield<SEXP> is on the stack.
+            ::R_PreserveObject(token);
+
+            throw LongjumpException(token);
         }
     }
 

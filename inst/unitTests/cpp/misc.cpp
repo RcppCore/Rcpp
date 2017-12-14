@@ -250,12 +250,6 @@ SEXP testEvalUnwindImpl(RObject expr, Environment env, LogicalVector indicator) 
 }
 
 // [[Rcpp::export]]
-SEXP testLongjumpException() {
-    throw Rcpp::internal::LongjumpException(R_NilValue);
-    return R_NilValue;
-}
-
-// [[Rcpp::export]]
 SEXP testSendInterrupt() {
   Rf_onintr();
   return R_NilValue;
