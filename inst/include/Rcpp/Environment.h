@@ -109,7 +109,7 @@ namespace Rcpp{
 
             /* We need to evaluate if it is a promise */
             if( TYPEOF(res) == PROMSXP){
-                res = Rf_eval( res, env ) ;
+                res = internal::Rcpp_eval_impl( res, env ) ;
             }
             return res ;
         }
@@ -129,7 +129,7 @@ namespace Rcpp{
 
             /* We need to evaluate if it is a promise */
             if( TYPEOF(res) == PROMSXP){
-                res = Rf_eval( res, env ) ;
+                res = internal::Rcpp_eval_impl( res, env ) ;
             }
             return res ;
         }
@@ -151,7 +151,7 @@ namespace Rcpp{
 
             /* We need to evaluate if it is a promise */
             if( TYPEOF(res) == PROMSXP){
-                res = Rf_eval( res, env ) ;
+                res = internal::Rcpp_eval_impl( res, env ) ;
             }
             return res ;
         }
@@ -174,7 +174,7 @@ namespace Rcpp{
 
             /* We need to evaluate if it is a promise */
             if( TYPEOF(res) == PROMSXP){
-                res = Rf_eval( res, env ) ;
+                res = internal::Rcpp_eval_impl( res, env ) ;
             }
             return res ;
         }

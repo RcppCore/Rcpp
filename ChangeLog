@@ -1,3 +1,48 @@
+
+2017-12-13  Lionel Henry  <lionel@rstudio.com>
+
+        * inst/include/Rcpp/api/meat/Rcpp_eval.h: Add Rcpp_fast_eval() for safe
+        and fast evaluation of R code using the new protect-unwind API in R 3.5.
+        Unlike Rcpp_eval(), this does not evaluate R code within tryCatch() in
+        order to avoid the catching overhead. R longjumps are now correctly
+        intercepted and rethrown. Following this change the C++ stack is now
+        safely unwound when a longjump is detected while calling into R code.
+        This includes the following cases: caught condition of any class, long
+        return, restart jump, debugger exit.
+
+        Rcpp_eval() also uses the protect-unwind API in order to gain safety.
+        To maintain compatibility it still catches errors and interrupts in
+        order to rethrow them as typed C++ exceptions. If you don't need to
+        catch those, consider using Rcpp_fast_eval() instead to avoid the
+        overhead.
+
+        These improvements are only available for R 3.5.0 and greater. You also
+        need to explicitly define `RCPP_PROTECTED_EVAL` before including Rcpp.h.
+        When compiled with old versions of R, Rcpp_fast_eval() always falls back
+        to Rcpp_eval(). This is in contrast to internal::Rcpp_eval_impl() which
+        falls back to Rf_eval() and which is used in performance-sensititive
+        places.
+
+        Note that with this change, Rcpp_eval() now behaves like the C function
+        Rf_eval() whereas it used to behave like the R function base::eval().
+        This has subtle implications for control flow. For instance evaluating a
+        return() expression within a frame environment now returns from that
+        frame rather than from the Rcpp_eval() call. The old semantics were a
+        consequence of using evalq() internally and were not documented.
+
+        * inst/include/Rcpp/exceptions.h: Add LongjumpException and
+        resumeJump() to support Rcpp_fast_eval().
+
+        * inst/include/Rcpp/macros/macros.h: Catch LongjumpException and call
+        resumeJump(). If resumeJump() doesn't jump (on old R versions), throw an
+        R error (this normally should not happen).
+
+        * inst/include/RcppCommon.h: Add Rcpp_fast_eval() to the public API and
+        internal::Rcpp_eval_impl() to the private API.
+
+        * inst/include/Rcpp/Environment.h: Use safe evaluation
+        * inst/include/Rcpp/Language.h: idem
+
 2017-12-05  Kevin Ushey  <kevinushey@gmail.com>
 
         * inst/include/Rcpp/Environment.h: Use public R APIs

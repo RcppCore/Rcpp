@@ -145,10 +145,10 @@ namespace Rcpp{
         }
 
         SEXP fast_eval() const {
-            return Rf_eval( Storage::get__(), R_GlobalEnv) ;
+            return internal::Rcpp_eval_impl( Storage::get__(), R_GlobalEnv) ;
         }
         SEXP fast_eval(SEXP env ) const {
-            return Rf_eval( Storage::get__(), env) ;
+            return internal::Rcpp_eval_impl( Storage::get__(), env) ;
         }
 
         void update( SEXP x){
