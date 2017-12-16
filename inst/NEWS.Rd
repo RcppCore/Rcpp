@@ -15,7 +15,8 @@
       3.5 (you also need to explicitly define \code{RCPP_PROTECTED_EVAL}
       before including \code{Rcpp.h}). Longjumps of all kinds (condition
       catching, returns, restarts, debugger exit) are appropriately
-      detected and handled, e.g. the C++ stack unwinds correctly.
+      detected and handled, e.g. the C++ stack unwinds correctly
+      (Lionel in \ghpr{789}).
       \item The new function \code{Rcpp_fast_eval()} can be used for
       performance-sensitive evaluation of R code. Unlike
       \code{Rcpp_eval()}, it does not try to catch errors with
@@ -25,7 +26,7 @@
       you are relying on error rethrowing, you have to use the slower
       \code{Rcpp_eval()}. On old R versions \code{Rcpp_fast_eval()}
       falls back to \code{Rcpp_eval()} so it is safe to use against any
-      versions of R.
+      versions of R  (Lionel in \ghpr{789}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{
