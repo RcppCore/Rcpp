@@ -138,6 +138,10 @@ namespace tfm = tinyformat;
 #include <iostream>
 #include <sstream>
 
+#ifndef TINYFORMAT_ASSERT
+#   define TINYFORMAT_ASSERT(cond) assert(cond)
+#endif
+
 #ifndef TINYFORMAT_ERROR
 #   define TINYFORMAT_ERROR(reason) assert(0 && reason)
 #endif
@@ -211,7 +215,7 @@ template<int n> struct is_wchar<wchar_t[n]> {};
 template<typename T, typename fmtT, bool convertible = is_convertible<T, fmtT>::value>
 struct formatValueAsType
 {
-    static void invoke(std::ostream& /*out*/, const T& /*value*/) { assert(0); }
+    static void invoke(std::ostream& /*out*/, const T& /*value*/) { TINYFORMAT_ASSERT(0); }
 };
 // Specialized version for types that can actually be converted to fmtT, as
 // indicated by the "convertible" template parameter.
@@ -488,7 +492,11 @@ namespace detail {
 class FormatArg
 {
     public:
-        FormatArg() {}
+        FormatArg()
+            : m_value(NULL),
+            m_formatImpl(NULL),
+            m_toIntImpl(NULL)
+        { }
 
         template<typename T>
         FormatArg(const T& value)
@@ -500,11 +508,15 @@ class FormatArg
         void format(std::ostream& out, const char* fmtBegin,
                     const char* fmtEnd, int ntrunc) const
         {
+            TINYFORMAT_ASSERT(m_value);
+            TINYFORMAT_ASSERT(m_formatImpl);
             m_formatImpl(out, fmtBegin, fmtEnd, ntrunc, m_value);
         }
 
         int toInt() const
         {
+            TINYFORMAT_ASSERT(m_value);
+            TINYFORMAT_ASSERT(m_toIntImpl);
             return m_toIntImpl(m_value);
         }
 
@@ -705,23 +717,27 @@ inline const char* streamStateFromFormat(std::ostream& out, bool& spacePadPositi
             break;
         case 'X':
             out.setf(std::ios::uppercase);
+            // Falls through
         case 'x': case 'p':
             out.setf(std::ios::hex, std::ios::basefield);
             intConversion = true;
             break;
         case 'E':
             out.setf(std::ios::uppercase);
+            // Falls through
         case 'e':
             out.setf(std::ios::scientific, std::ios::floatfield);
             out.setf(std::ios::dec, std::ios::basefield);
             break;
         case 'F':
             out.setf(std::ios::uppercase);
+            // Falls through
         case 'f':
             out.setf(std::ios::fixed, std::ios::floatfield);
             break;
         case 'G':
             out.setf(std::ios::uppercase);
+            // Falls through
         case 'g':
             out.setf(std::ios::dec, std::ios::basefield);
             // As in boost::format, let stream decide float format.
@@ -866,18 +882,18 @@ class FormatListN : public FormatList
         { static_assert(sizeof...(args) == N, "Number of args must be N"); }
 #else // C++98 version
         void init(int) {}
-#       define TINYFORMAT_MAKE_FORMATLIST_CONSTRUCTOR(n)       \
-                                                               \
-        template<TINYFORMAT_ARGTYPES(n)>                       \
-        FormatListN(TINYFORMAT_VARARGS(n))                     \
-            : FormatList(&m_formatterStore[0], n)              \
-        { assert(n == N); init(0, TINYFORMAT_PASSARGS(n)); }   \
-                                                               \
-        template<TINYFORMAT_ARGTYPES(n)>                       \
-        void init(int i, TINYFORMAT_VARARGS(n))                \
-        {                                                      \
-            m_formatterStore[i] = FormatArg(v1);               \
-            init(i+1 TINYFORMAT_PASSARGS_TAIL(n));             \
+#       define TINYFORMAT_MAKE_FORMATLIST_CONSTRUCTOR(n)                \
+                                                                        \
+        template<TINYFORMAT_ARGTYPES(n)>                                \
+        FormatListN(TINYFORMAT_VARARGS(n))                              \
+            : FormatList(&m_formatterStore[0], n)                       \
+        { TINYFORMAT_ASSERT(n == N); init(0, TINYFORMAT_PASSARGS(n)); } \
+                                                                        \
+        template<TINYFORMAT_ARGTYPES(n)>                                \
+        void init(int i, TINYFORMAT_VARARGS(n))                         \
+        {                                                               \
+            m_formatterStore[i] = FormatArg(v1);                        \
+            init(i+1 TINYFORMAT_PASSARGS_TAIL(n));                      \
         }
 
         TINYFORMAT_FOREACH_ARGNUM(TINYFORMAT_MAKE_FORMATLIST_CONSTRUCTOR)
