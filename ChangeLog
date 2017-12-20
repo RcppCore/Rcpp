@@ -2,6 +2,12 @@
 
         * inst/include/Rcpp/internal/na.h: Remove 'clever' NA / NaN checks
 
+2017-12-20  Kirill Müller  <krlmlr@mailbox.org>
+
+        * inst/include/Rcpp/utils/tinyformat.h: Update to
+        c42f/tinyformat@8f60162, simplify future updates by separating
+        Rcpp-specific changes (issue #786).
+
 2017-12-16  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Date, Version): Updated minor version and date
