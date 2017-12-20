@@ -1,3 +1,7 @@
+2017-12-19  Kevin Ushey  <kevinushey@gmail.com>
+
+        * inst/include/Rcpp/internal/na.h: Remove 'clever' NA / NaN checks
+
 2017-12-16  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Date, Version): Updated minor version and date
