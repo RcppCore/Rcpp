@@ -10,4 +10,6 @@ void stop(const std::string& message);
 #define TINYFORMAT_NO_VARIADIC_TEMPLATES
 #endif
 
+#define TINYFORMAT_ASSERT(cond) do if (!(cond)) ::Rcpp::stop("Assertion failed"); while(0)
+
 #include "tinyformat/tinyformat.h"
