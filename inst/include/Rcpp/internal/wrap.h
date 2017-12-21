@@ -128,10 +128,13 @@ namespace Rcpp {
             switch (size - i) {
             case 3:
                 start[i] = first[i]; i++;
+                // fallthrough
             case 2:
                 start[i] = first[i]; i++;
+                // fallthrough
             case 1:
                 start[i] = first[i]; i++;
+                // fallthrough
             case 0:
             default:
                 {}
