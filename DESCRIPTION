@@ -17,6 +17,7 @@ Description: The 'Rcpp' package provides R functions as well as C++ classes whic
 Depends: R (>= 3.0.0)
 Imports: methods, utils
 Suggests: RUnit, inline, rbenchmark, knitr, rmarkdown, pinp, pkgKitten (>= 0.1.2)
+SystemRequirements: A C++ compiler and any libraries it needs for proper operation
 VignetteBuilder: knitr
 URL: http://www.rcpp.org, http://dirk.eddelbuettel.com/code/rcpp.html, https://github.com/RcppCore/Rcpp
 License: GPL (>= 2)
