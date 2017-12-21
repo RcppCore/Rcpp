@@ -27,6 +27,12 @@
       \code{Rcpp_eval()}. On old R versions \code{Rcpp_fast_eval()}
       falls back to \code{Rcpp_eval()} so it is safe to use against any
       versions of R  (Lionel in \ghpr{789}).
+      \item Overly-clever checks for \code{NA} have been removed (Kevin in
+      \ghpr{790}).
+      \item The included tinyformat has been updated to the current version,
+      Rcpp-specific changes are now more isolated (Kirill in \ghpr{791}).
+      \item Overly picky \emph{fall-through} warnings by gcc-7 regarding
+      \code{switch} statements are now pre-empted (Kirill in \ghpr{792}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{

@@ -1,12 +1,21 @@
-2017-12-19  Kevin Ushey  <kevinushey@gmail.com>
+2017-12-21  Dirk Eddelbuettel  <edd@debian.org>
 
-        * inst/include/Rcpp/internal/na.h: Remove 'clever' NA / NaN checks
+        * DESCRIPTION (Date, Version): Updated minor version and date
+
+2017-12-21  Kirill Müller  <krlmlr@mailbox.org>
+
+        * inst/include/Rcpp/internal/wrap.h: Appease gcc-7 with fall-through
+        * inst/include/Rcpp/macros/unroll.h: Idem
 
 2017-12-20  Kirill Müller  <krlmlr@mailbox.org>
 
-        * inst/include/Rcpp/utils/tinyformat.h: Update to
+        * inst/include/Rcpp/utils/tinyformat.h: Update to new upstream
         c42f/tinyformat@8f60162, simplify future updates by separating
         Rcpp-specific changes (issue #786).
+
+2017-12-19  Kevin Ushey  <kevinushey@gmail.com>
+
+        * inst/include/Rcpp/internal/na.h: Remove 'clever' NA / NaN checks
 
 2017-12-16  Dirk Eddelbuettel  <edd@debian.org>
 
