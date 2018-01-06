@@ -33,6 +33,7 @@
       Rcpp-specific changes are now more isolated (Kirill in \ghpr{791}).
       \item Overly picky \emph{fall-through} warnings by gcc-7 regarding
       \code{switch} statements are now pre-empted (Kirill in \ghpr{792}).
+      \item Permit compilation on ANDROID (Kenny Bell in \ghpr{796}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{

@@ -1,3 +1,7 @@
+2018-01-06  Kendon Bell  <kmb56@berkeley.edu>
+
+        * src/api.cpp: Allow for compilation on ANDROID
+
 2017-12-21  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Date, Version): Updated minor version and date
