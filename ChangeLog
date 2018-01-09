@@ -1,3 +1,8 @@
+2018-01-09  Iñaki Ucar  <i.ucar86@gmail.com>
+
+        * inst/include/Rcpp/vector/proxy.h: Improve support for NVCC, the CUDA
+        compiler (pull request #798, fixed issue #797)
+
 2018-01-06  Kendon Bell  <kmb56@berkeley.edu>
 
         * src/api.cpp: Allow for compilation on ANDROID

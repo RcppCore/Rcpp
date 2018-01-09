@@ -34,6 +34,8 @@
       \item Overly picky \emph{fall-through} warnings by gcc-7 regarding
       \code{switch} statements are now pre-empted (Kirill in \ghpr{792}).
       \item Permit compilation on ANDROID (Kenny Bell in \ghpr{796}).
+      \item Improve support for NVCC, the CUDA compiler (Iñaki Ucar in
+      \ghpr{798} addressing \ghit{797}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{
