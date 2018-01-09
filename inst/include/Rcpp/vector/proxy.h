@@ -100,11 +100,11 @@ namespace internal{
 			return *this ;
 		}
 
-		operator char* (){
+		operator char* () const {
 			 return get() ;
 		}
 
-		operator SEXP(){
+		operator SEXP() const {
 			return ::Rf_mkString(get()) ;
 		}
 
@@ -125,7 +125,7 @@ namespace internal{
 				parent.push_back( rhs, name );
 			}
 		}
-		char* get(){
+		char* get() const {
 			return parent[ parent.offset(name) ];
 		}
 
