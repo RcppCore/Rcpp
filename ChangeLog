@@ -1,3 +1,8 @@
+2018-01-11  Kirill Müller  <krlmlr@mailbox.org>
+
+        * inst/include/Rcpp/traits/is_na.h: Speed up Rcpp::is_na<double>()
+        (pull request #799)
+
 2018-01-09  Iñaki Ucar  <i.ucar86@gmail.com>
 
         * inst/include/Rcpp/vector/proxy.h: Improve support for NVCC, the CUDA
