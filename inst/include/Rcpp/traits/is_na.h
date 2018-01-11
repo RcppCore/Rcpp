@@ -39,7 +39,7 @@ namespace Rcpp{
 
         template <>
         inline bool is_na<REALSXP>(double x) {
-            return internal::Rcpp_IsNA(x) || internal::Rcpp_IsNaN(x);
+            return R_isnancpp(x);
         }
 
         template <>
