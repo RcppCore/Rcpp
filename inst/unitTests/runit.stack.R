@@ -20,7 +20,7 @@
 .runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
 
 
-if (.runThisTest) {
+if (FALSE && .runThisTest) {
 
     .setUp <- Rcpp:::unitTestSetup("stack.cpp")
 
