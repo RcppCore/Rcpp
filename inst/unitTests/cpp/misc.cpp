@@ -19,8 +19,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#define RCPP_PROTECTED_EVAL
-
 #include <Rcpp.h>
 using namespace Rcpp;
 using namespace std;
@@ -225,32 +223,4 @@ String testNullableString(Rcpp::Nullable<Rcpp::String> param = R_NilValue) {
     return String(param);
   else
     return String("");
-}
-
-// Class that indicates to R caller whether C++ stack was unwound
-struct unwindIndicator {
-    unwindIndicator(LogicalVector indicator_) {
-        // Reset the indicator to FALSE
-        indicator = indicator_;
-        *LOGICAL(indicator) = 0;
-    }
-
-    // Set indicator to TRUE when stack unwinds
-    ~unwindIndicator() {
-        *LOGICAL(indicator) = 1;
-    }
-
-    LogicalVector indicator;
-};
-
-// [[Rcpp::export]]
-SEXP testEvalUnwindImpl(RObject expr, Environment env, LogicalVector indicator) {
-    unwindIndicator my_data(indicator);
-    return Rcpp::Rcpp_fast_eval(expr, env);
-}
-
-// [[Rcpp::export]]
-SEXP testSendInterrupt() {
-  Rf_onintr();
-  return R_NilValue;
 }
