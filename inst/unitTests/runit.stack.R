@@ -24,64 +24,76 @@ if (.runThisTest) {
 
     .setUp <- Rcpp:::unitTestSetup("stack.cpp")
 
-    test.stackUnwinds <- function() {
-        # On old versions of R, Rcpp_fast_eval() falls back to Rcpp_eval() and
-        # leaks on longjumps
-        hasUnwind <- getRversion() >= "3.5.0"
-        checkUnwound <- if (hasUnwind) checkTrue else function(x) checkTrue(!x)
-        testEvalUnwind <- function(expr, indicator) {
-            testFastEval(expr, parent.frame(), indicator)
-        }
+    # On old versions of R, Rcpp_fast_eval() falls back to Rcpp_eval() and
+    # leaks on longjumps
+    hasUnwind <- getRversion() >= "3.5.0"
+    checkUnwound <- if (hasUnwind) checkTrue else function(x) checkTrue(!x)
+    EvalUnwind <- function(expr, indicator) {
+        testFastEval(expr, parent.frame(), indicator)
+    }
 
-        # On errors - Always unwound
+    # Stack is always unwound on errors and interrupts
+    test.stackUnwindsOnErrors <- function() {
         unwound <- FALSE
-        out <- tryCatch(testEvalUnwind(quote(stop("err")), unwound), error = identity)
+        out <- tryCatch(EvalUnwind(quote(stop("err")), unwound), error = identity)
         checkTrue(unwound)
         msg <- if (hasUnwind) "err" else "Evaluation error: err."
         checkIdentical(out$message, msg)
+    }
 
-        # On interrupts - Always unwound
+    test.stackUnwindsOnInterrupts <- function() {
         unwound <- FALSE
         expr <- quote({
             repeat testSendInterrupt()
             "returned"
         })
-        out <- tryCatch(testEvalUnwind(expr, unwound), interrupt = function(c) "onintr")
+        out <- tryCatch(EvalUnwind(expr, unwound), interrupt = function(c) "onintr")
         checkTrue(unwound)
         checkIdentical(out, "onintr")
 
-        # On caught conditions
+    }
+
+    test.stackUnwindsOnCaughtConditions <- function() {
         unwound <- FALSE
         expr <- quote(signalCondition(simpleCondition("cnd")))
-        cnd <- tryCatch(testEvalUnwind(expr, unwound), condition = identity)
+        cnd <- tryCatch(EvalUnwind(expr, unwound), condition = identity)
         checkTrue(inherits(cnd, "simpleCondition"))
         checkUnwound(unwound)
 
-        # On restart jumps
+    }
+
+    test.stackUnwindsOnRestartJumps <- function() {
         unwound <- FALSE
         expr <- quote(invokeRestart("rst"))
-        out <- withRestarts(testEvalUnwind(expr, unwound), rst = function(...) "restarted")
+        out <- withRestarts(EvalUnwind(expr, unwound), rst = function(...) "restarted")
         checkIdentical(out, "restarted")
         checkUnwound(unwound)
 
-        # On returns
+    }
+
+    test.stackUnwindsOnReturns <- function() {
         unwound <- FALSE
         expr <- quote(signalCondition(simpleCondition(NULL)))
         out <- callCC(function(k) {
-            withCallingHandlers(testEvalUnwind(expr, unwound),
+            withCallingHandlers(EvalUnwind(expr, unwound),
                 simpleCondition = function(e) k("jumped")
             )
         })
         checkIdentical(out, "jumped")
         checkUnwound(unwound)
 
-        # On returned condition
+    }
+
+    test.stackUnwindsOnReturnedConditions <- function() {
         unwound <- FALSE
         cnd <- simpleError("foo")
-        out <- tryCatch(testEvalUnwind(quote(cnd), unwound),
+        out <- tryCatch(EvalUnwind(quote(cnd), unwound),
             error = function(c) "abort"
         )
         checkTrue(unwound)
+
+        # The old mechanism cannot differentiate between a returned error and a
+        # thrown error
         if (hasUnwind) {
             checkIdentical(out, cnd)
         } else {
