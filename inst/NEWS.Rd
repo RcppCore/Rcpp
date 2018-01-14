@@ -11,6 +11,9 @@
       set an initial format string (Dirk in \ghpr{777} fixing \ghit{776}).
       \item The 'new' Date and Datetime vectors now have \code{is_na} methods
       too. (Dirk in \ghpr{783} fixing \ghit{781}).
+      \item Protect more temporary \code{SEXP} objects produced by \code{wrap}
+      (Kevin in \ghpr{784}).
+      \item Use public R APIs for \code{new_env} (Kevin in \ghpr{785}).
       \item Evaluation of R code is now safer when compiled against R
       3.5 (you also need to explicitly define \code{RCPP_PROTECTED_EVAL}
       before including \code{Rcpp.h}). Longjumps of all kinds (condition
