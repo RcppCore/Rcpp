@@ -36,6 +36,10 @@
       \item Permit compilation on ANDROID (Kenny Bell in \ghpr{796}).
       \item Improve support for NVCC, the CUDA compiler (Iñaki Ucar in
       \ghpr{798} addressing \ghit{797}).
+      \item Speed up tests for NA and NaN (Kirill and Dirk in \ghpr{799} and
+      \ghpr{800}).
+      \item Rearrange stack unwind test code, keep test disabled for now (Lionel
+      in \ghpr{801}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{

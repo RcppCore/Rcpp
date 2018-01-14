@@ -1,7 +1,15 @@
 2018-01-14  Dirk Eddelbuettel  <edd@debian.org>
 
+        * DESCRIPTION (Version, Date): New minor version 0.12.14.8
+
         * inst/include/Rcpp/traits/is_na.h (Rcpp): Also speed up
         Rcpp::is_na<Rcomplex>
+
+2018-01-14  Lionel Henry  <lionel@rstudio.com>
+
+        * inst/unitTests/cpp/stack.cpp: Move stack unwinding tests from misc.cpp
+        * inst/unitTests/runit.stack.R: Move stack unwinding tests from misc.R;
+        disaggregate stack unwinding tests; also disable for now
 
 2018-01-11  Kirill Müller  <krlmlr@mailbox.org>
 
