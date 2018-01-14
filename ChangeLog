@@ -1,12 +1,15 @@
+2018-01-14  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/traits/is_na.h (Rcpp): Also speed up
+        Rcpp::is_na<Rcomplex>
+
 2018-01-11  Kirill Müller  <krlmlr@mailbox.org>
 
         * inst/include/Rcpp/traits/is_na.h: Speed up Rcpp::is_na<double>()
-        (pull request #799)
 
 2018-01-09  Iñaki Ucar  <i.ucar86@gmail.com>
 
         * inst/include/Rcpp/vector/proxy.h: Improve support for NVCC, the CUDA
-        compiler (pull request #798, fixed issue #797)
 
 2018-01-06  Kendon Bell  <kmb56@berkeley.edu>
 
