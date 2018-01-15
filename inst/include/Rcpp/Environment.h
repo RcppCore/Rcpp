@@ -109,7 +109,11 @@ namespace Rcpp{
 
             /* We need to evaluate if it is a promise */
             if( TYPEOF(res) == PROMSXP){
-                res = internal::Rcpp_eval_impl( res, env ) ;
+#if defined(RCPP_USE_UNWIND_PROTECT)
+                res = internal::Rcpp_eval_impl(res, env);
+#else
+                res = Rf_eval(res, env);
+#endif
             }
             return res ;
         }
@@ -129,7 +133,11 @@ namespace Rcpp{
 
             /* We need to evaluate if it is a promise */
             if( TYPEOF(res) == PROMSXP){
-                res = internal::Rcpp_eval_impl( res, env ) ;
+#if defined(RCPP_USE_UNWIND_PROTECT)
+                res = internal::Rcpp_eval_impl(res, env);
+#else
+                res = Rf_eval(res, env);
+#endif
             }
             return res ;
         }
@@ -151,7 +159,11 @@ namespace Rcpp{
 
             /* We need to evaluate if it is a promise */
             if( TYPEOF(res) == PROMSXP){
-                res = internal::Rcpp_eval_impl( res, env ) ;
+#if defined(RCPP_USE_UNWIND_PROTECT)
+                res = internal::Rcpp_eval_impl(res, env);
+#else
+                res = Rf_eval(res, env);
+#endif
             }
             return res ;
         }
@@ -174,7 +186,11 @@ namespace Rcpp{
 
             /* We need to evaluate if it is a promise */
             if( TYPEOF(res) == PROMSXP){
-                res = internal::Rcpp_eval_impl( res, env ) ;
+#if defined(RCPP_USE_UNWIND_PROTECT)
+                res = internal::Rcpp_eval_impl(res, env);
+#else
+                res = Rf_eval(res, env);
+#endif
             }
             return res ;
         }

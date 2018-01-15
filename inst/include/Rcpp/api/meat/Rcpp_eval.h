@@ -21,10 +21,13 @@
 #include <Rcpp/Interrupt.h>
 #include <Rversion.h>
 
-#if (defined(RCPP_PROTECTED_EVAL) && defined(R_VERSION) && R_VERSION >= R_Version(3, 5, 0))
-#define RCPP_USE_PROTECT_UNWIND
+// outer definition from RcppCommon.h
+#if defined(RCPP_USE_UNWIND_PROTECT)
+  #if (defined(RCPP_PROTECTED_EVAL) && defined(R_VERSION) && R_VERSION >= R_Version(3, 5, 0))
+     // file-local and only used here 
+     #define RCPP_USE_PROTECT_UNWIND
+  #endif
 #endif
-
 
 namespace Rcpp {
 namespace internal {
@@ -96,39 +99,48 @@ inline SEXP Rcpp_eval(SEXP expr, SEXP env) {
 
     // 'identity' function used to capture errors, interrupts
     SEXP identity = Rf_findFun(::Rf_install("identity"), R_BaseNamespace);
-    
+
     if (identity == R_UnboundValue) {
         stop("Failed to find 'base::identity()'");
     }
 
     // define the evalq call -- the actual R evaluation we want to execute
     Shield<SEXP> evalqCall(Rf_lang3(::Rf_install("evalq"), expr, env));
-    
+
     // define the call -- enclose with `tryCatch` so we can record and forward error messages
     Shield<SEXP> call(Rf_lang4(::Rf_install("tryCatch"), evalqCall, identity, identity));
     SET_TAG(CDDR(call), ::Rf_install("error"));
     SET_TAG(CDDR(CDR(call)), ::Rf_install("interrupt"));
 
+#if defined(RCPP_USE_UNWIND_PROTECT)
+    Shield<SEXP> res(::Rf_eval(call, R_GlobalEnv))			// execute the call
+#else
     Shield<SEXP> res(internal::Rcpp_eval_impl(call, R_GlobalEnv));
+#endif
 
     // check for condition results (errors, interrupts)
     if (Rf_inherits(res, "condition")) {
-        
+
         if (Rf_inherits(res, "error")) {
-            
+
             Shield<SEXP> conditionMessageCall(::Rf_lang2(::Rf_install("conditionMessage"), res));
-            
-            Shield<SEXP> conditionMessage(internal::Rcpp_eval_impl(conditionMessageCall, R_GlobalEnv));
+
+#if defined(RCPP_USE_UNWIND_PROTECT)
+            Shield<SEXP> conditionMessage(internal::Rcpp_eval_impl(conditionMessageCall,
+                                                                   R_GlobalEnv));
+#else
+            Shield<SEXP> conditionMessage(::Rf_eval(conditionMessageCall, R_GlobalEnv));
+#endif
             throw eval_error(CHAR(STRING_ELT(conditionMessage, 0)));
         }
-        
+
         // check for interrupt
         if (Rf_inherits(res, "interrupt")) {
             throw internal::InterruptedException();
         }
-        
+
     }
-    
+
     return res;
 }
 

@@ -26,6 +26,15 @@
 // #define RCPP_DEBUG_LEVEL 1
 // #define RCPP_DEBUG_MODULE_LEVEL 1
 
+// PR #798 by Lionel seems to have created some side-effects possibly related to
+// UnwinProtect is currently implement in R-devel.  This #define needs to be set to
+// enable it, in most cases you want to be disabled.
+//   #define RCPP_USE_UNWIND_PROTECT 1
+// so here _explicitly_ disable it for now
+#ifdef RCPP_USE_UNWIND_PROTECT
+  #undef RCPP_USE_UNWIND_PROTECT
+#endif
+
 #include <Rcpp/r/headers.h>
 
 /**
@@ -74,9 +83,10 @@ namespace Rcpp {
 
 namespace Rcpp {
 
-    SEXP Rcpp_fast_eval(SEXP expr_, SEXP env = R_GlobalEnv);
     SEXP Rcpp_eval(SEXP expr_, SEXP env = R_GlobalEnv);
 
+    // from PR#789 
+    SEXP Rcpp_fast_eval(SEXP expr_, SEXP env = R_GlobalEnv);
     namespace internal {
         SEXP Rcpp_eval_impl(SEXP expr, SEXP env = R_GlobalEnv);
     }

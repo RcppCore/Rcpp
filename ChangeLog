@@ -1,3 +1,15 @@
+2018-01-15  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/RcppCommon.h: Check for new #define RCPP_USE_UNWIND_PROTECT
+        and unset if defined, this is being be used to "park" code from #789
+        * inst/include/Rcpp/Environment.h: Ifdef #789 via RCPP_USE_UNWIND_PROTECT
+        * inst/include/Rcpp/Language.h: Idem
+        * inst/include/Rcpp/api/meat/Rcpp_eval.h: Idem
+        * inst/include/Rcpp/exceptions.h: Idem
+        * inst/include/Rcpp/macros/macros.h: Idem
+
+        * inst/unitTests/runit.stack.R: Ensure test is not running
+
 2018-01-14  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): New minor version 0.12.14.8
@@ -50,32 +62,7 @@
 
         * inst/include/Rcpp/api/meat/Rcpp_eval.h: Add Rcpp_fast_eval() for safe
         and fast evaluation of R code using the new protect-unwind API in R 3.5.
-        Unlike Rcpp_eval(), this does not evaluate R code within tryCatch() in
-        order to avoid the catching overhead. R longjumps are now correctly
-        intercepted and rethrown. Following this change the C++ stack is now
-        safely unwound when a longjump is detected while calling into R code.
-        This includes the following cases: caught condition of any class, long
-        return, restart jump, debugger exit.
-
-        Rcpp_eval() also uses the protect-unwind API in order to gain safety.
-        To maintain compatibility it still catches errors and interrupts in
-        order to rethrow them as typed C++ exceptions. If you don't need to
-        catch those, consider using Rcpp_fast_eval() instead to avoid the
-        overhead.
-
-        These improvements are only available for R 3.5.0 and greater. You also
-        need to explicitly define `RCPP_PROTECTED_EVAL` before including Rcpp.h.
-        When compiled with old versions of R, Rcpp_fast_eval() always falls back
-        to Rcpp_eval(). This is in contrast to internal::Rcpp_eval_impl() which
-        falls back to Rf_eval() and which is used in performance-sensititive
-        places.
-
-        Note that with this change, Rcpp_eval() now behaves like the C function
-        Rf_eval() whereas it used to behave like the R function base::eval().
-        This has subtle implications for control flow. For instance evaluating a
-        return() expression within a frame environment now returns from that
-        frame rather than from the Rcpp_eval() call. The old semantics were a
-        consequence of using evalq() internally and were not documented.
+        [ This is however disabled for release 0.12.15. ]
 
         * inst/include/Rcpp/exceptions.h: Add LongjumpException and
         resumeJump() to support Rcpp_fast_eval().

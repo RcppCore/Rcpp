@@ -48,6 +48,6 @@ SEXP testFastEval(RObject expr, Environment env, LogicalVector indicator) {
 
 // [[Rcpp::export]]
 SEXP testSendInterrupt() {
-  Rf_onintr();
-  return R_NilValue;
+    Rf_onintr();
+    return R_NilValue;
 }
