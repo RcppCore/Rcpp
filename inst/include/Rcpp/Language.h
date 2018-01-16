@@ -145,10 +145,18 @@ namespace Rcpp{
         }
 
         SEXP fast_eval() const {
-            return internal::Rcpp_eval_impl( Storage::get__(), R_GlobalEnv) ;
+#if defined(RCPP_USE_UNWIND_PROTECT)
+            return internal::Rcpp_eval_impl( Storage::get__(), R_GlobalEnv);
+#else
+            return Rf_eval(Storage::get__(), R_GlobalEnv);
+#endif
         }
         SEXP fast_eval(SEXP env ) const {
+#if defined(RCPP_USE_UNWIND_PROTECT)
             return internal::Rcpp_eval_impl( Storage::get__(), env) ;
+#else
+            return Rf_eval(Storage::get__(), env);
+#endif
         }
 
         void update( SEXP x){

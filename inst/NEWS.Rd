@@ -19,7 +19,8 @@
       before including \code{Rcpp.h}). Longjumps of all kinds (condition
       catching, returns, restarts, debugger exit) are appropriately
       detected and handled, e.g. the C++ stack unwinds correctly
-      (Lionel in \ghpr{789}).
+      (Lionel in \ghpr{789}). [ Committed but subsequently disabled in release
+      0.12.15 ]  
       \item The new function \code{Rcpp_fast_eval()} can be used for
       performance-sensitive evaluation of R code. Unlike
       \code{Rcpp_eval()}, it does not try to catch errors with
@@ -29,7 +30,8 @@
       you are relying on error rethrowing, you have to use the slower
       \code{Rcpp_eval()}. On old R versions \code{Rcpp_fast_eval()}
       falls back to \code{Rcpp_eval()} so it is safe to use against any
-      versions of R  (Lionel in \ghpr{789}).
+      versions of R  (Lionel in \ghpr{789}). [ Committed but subsequently
+      disabled in release 0.12.15 ]  
       \item Overly-clever checks for \code{NA} have been removed (Kevin in
       \ghpr{790}).
       \item The included tinyformat has been updated to the current version,

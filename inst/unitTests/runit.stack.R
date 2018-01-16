@@ -18,9 +18,15 @@
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 .runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
+.onLinux <- .Platform$OS.type == "unix" && unname(Sys.info()["sysname"]) == "Linux"
+
+## As of release 0.12.15, the stack unwinding is experimental and not used
+## See the #define in RcppCommon.h to change it
+
+.runThisTest <- FALSE
 
 
-if (FALSE && .runThisTest) {
+if (.runThisTest) {
 
     .setUp <- Rcpp:::unitTestSetup("stack.cpp")
 
