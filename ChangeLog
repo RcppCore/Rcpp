@@ -1,3 +1,13 @@
+2018-01-16  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.12.15
+        * inst/NEWS.Rd: Release 0.12.15
+        * inst/bib/Rcpp.bib: Release 0.12.15
+        * vignettes/Rcpp.bib: Release 0.12.15
+        * inst/include/Rcpp/config.h: Release 0.12.15
+
+        * debian/*: Changes for Debian release of 0.12.15
+
 2018-01-15  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/RcppCommon.h: Check for new #define RCPP_USE_UNWIND_PROTECT
@@ -30,6 +40,7 @@
 2018-01-09  Iñaki Ucar  <i.ucar86@gmail.com>
 
         * inst/include/Rcpp/vector/proxy.h: Improve support for NVCC, the CUDA
+        compiler, by making three more methods const
 
 2018-01-06  Kendon Bell  <kmb56@berkeley.edu>
 

@@ -3,7 +3,7 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp version 0.12.15 (2018-0x-yy)}{
+\section{Changes in Rcpp version 0.12.15 (2018-01-16)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
@@ -45,6 +45,8 @@
       \ghpr{800}).
       \item Rearrange stack unwind test code, keep test disabled for now (Lionel
       in \ghpr{801}).
+      \item Further condition away protect unwind behind #define (Dirk in
+      \ghpr{802}). 
     }
     \item Changes in Rcpp Attributes:
     \itemize{
