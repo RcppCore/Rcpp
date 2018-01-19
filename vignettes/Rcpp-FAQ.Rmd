@@ -1202,6 +1202,17 @@ support from `src/Makevars`:
   other means to set compiler options. R support may be available at a later
   date.
 
+## How do I use it within (Python's) Conda setup?
+
+In a comment to [issue ticket #770](https://github.com/RcppCore/Rcpp/issues/770#issuecomment-346716808) it is stated that running
+
+```sh
+conda install gxx_linux-64
+```
+
+helps within this enivronment as it installs the corresponding
+`x86_64-conda_cos6-linux-gnu-c++` compiler.
+
 # Support
 
 ## Is the API documented

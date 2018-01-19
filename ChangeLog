@@ -1,3 +1,8 @@
+2018-01-19  Dirk Eddelbuettel  <edd@debian.org>
+
+        * vignettes/Rcpp-FAQ.Rmd (Note): Document the conda package
+        `gxx_linux-64` as helpful in that environment
+
 2018-01-16  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.12.15
