@@ -71,7 +71,6 @@ there are 1092 [CRAN](https://cran.r-project.org) packages using Rcpp, a further
 as well as an unknown number of GitHub, Bitbucket, R-Forge, ... repositories
 using Rcpp.  All these packages provide usage examples for Rcpp.
 
-
 ### Installation
 
 Released and tested versions of Rcpp are available via the
@@ -85,6 +84,25 @@ To install from source, ensure you have a complete package development
 environment for R as discussed in the relevant documentation; also see
 questions 1.2 and 1.3 in the
 [Rcpp-FAQ](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-FAQ.pdf).
+
+### Support
+
+The best place for questions is the
+[Rcpp-devel](https://lists.r-forge.r-project.org/cgi-bin/mailman/listinfo/rcpp-devel)
+mailing list hosted at R-forge.  Note that in order to keep spam down, you must
+be a subscriber in order to post.  One can also consult the list archives to see
+if your question has been asked before.
+
+Another option is to use
+[StackOverflow and its 'rcpp' tag](http://stackoverflow.com/questions/tagged/rcpp).
+Search functionality (use `[rcpp] my question terms` to tag
+the query) is very valuable as many questions have indeed been asked, and
+answered, before.
+
+The [issue tickets at the GitHub repo](https://github.com/RcppCore/Rcpp/issues)
+are the primary bug reporting interface.  As with the other web resources,
+previous issues can be searched as well.
+
 
 ### Authors
 

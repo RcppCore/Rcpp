@@ -1,3 +1,4 @@
+#!/bin/bash
 
 #cd inst/doc && rm -f index.html *.tex *.bbl *.blg *.aux *.out *.log && cd -
 

@@ -1250,9 +1250,8 @@ mailing list hosting at R-forge contains an archive, which can be
 [searched via swish](http://lists.r-forge.r-project.org/mailman/swish.cgi?query=listname=rcpp-devel).
 
 Alternatively, one can also use
-[Gmane on Rcpp-devel](http://thread.gmane.org/gmane.comp.lang.r.rcpp/) as well as
 [Mail-Archive on Rcpp-devel](http://www.mail-archive.com/rcpp-devel@lists.r-forge.r-project.org/info.html)
-both of which offer web-based interfaces, including searching.
+which offers web-based interfaces, including searching.
 
 ## I like it. How can I help {#helping}
 

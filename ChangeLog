@@ -1,6 +1,9 @@
 2018-01-21  Dirk Eddelbuettel  <edd@debian.org>
 
-        * vignettes/Rcpp-FAQ.Rmd (vignette): Uppercase index to 'Rcpp-FAQ'
+        * README.md: Added new section 'Support'
+
+        * vignettes/Rcpp-FAQ.Rmd (vignette): Uppercase index to 'Rcpp-FAQ';
+        removed reference to Gmane which sadly is no more
 
 2018-01-19  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -10,7 +13,7 @@
 2018-01-16  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.12.15
-        * inst/NEWS.Rd: Release 0.12.15
+        * inst/NEWS.Rd: Release 0.12.15 
         * inst/bib/Rcpp.bib: Release 0.12.15
         * vignettes/Rcpp.bib: Release 0.12.15
         * inst/include/Rcpp/config.h: Release 0.12.15

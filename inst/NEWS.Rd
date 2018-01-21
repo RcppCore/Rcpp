@@ -3,6 +3,17 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
+\section{Changes in Rcpp version 0.12.16 (2018-03-xx)}{
+  \itemize{
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item The Rcpp FAQ vignette is now indexed as `Rcpp-FAQ`; a stale Gmane
+      reference was removed and entry for getting compilers under Conda was added.
+      \item The top-level README.md now has a _Support_ section.
+    }
+  }
+}
+
 \section{Changes in Rcpp version 0.12.15 (2018-01-16)}{
   \itemize{
     \item Changes in Rcpp API:
