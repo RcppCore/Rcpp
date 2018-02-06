@@ -1210,7 +1210,7 @@ In a comment to [issue ticket #770](https://github.com/RcppCore/Rcpp/issues/770#
 conda install gxx_linux-64
 ```
 
-helps within this enivronment as it installs the corresponding
+helps within this environment as it installs the corresponding
 `x86_64-conda_cos6-linux-gnu-c++` compiler.
 
 # Support
