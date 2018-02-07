@@ -38,4 +38,11 @@ __extension__ typedef unsigned long long int rcpp_ulong_long_type;
 #endif
 #endif
 
+// The Rtools toolchain provides long long on 64bit Windows
+#ifdef _WIN64
+typedef long long rcpp_long_long_type;
+typedef unsigned long long rcpp_ulong_long_type;
+#define RCPP_HAS_LONG_LONG_TYPES
+#endif
+
 #endif
