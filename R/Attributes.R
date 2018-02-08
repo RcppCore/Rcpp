@@ -539,7 +539,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
     for (i in seq(along.with = args))
         body[[i+2]] <- as.symbol(args[i])
 
-    body[[1L]] <- .Call
+    body[[1L]] <- quote(.Call)
     body[[2L]] <- getNativeSymbolInfo(symbol, dll)$address
 
     if (isVoid)
