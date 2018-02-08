@@ -1,3 +1,7 @@
+2018-02-07  Kevin Ushey  <kevinushey@gmail.com>
+
+        * inst/include/Rcpp/longlong.h: Allow long long on 64bit Windows
+
 2018-01-21  Dirk Eddelbuettel  <edd@debian.org>
 
         * README.md: Added new section 'Support'
