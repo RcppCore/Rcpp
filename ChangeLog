@@ -1,3 +1,8 @@
+2018-02-14  Kirill Müller  <krlmlr@mailbox.org>
+
+        * R/Attributes.R: Code compiled with cppFunction() uses .Call instead
+        of .Primitive(".Call"), #795
+
 2018-02-07  Kevin Ushey  <kevinushey@gmail.com>
 
         * inst/include/Rcpp/longlong.h: Allow long long on 64bit Windows
