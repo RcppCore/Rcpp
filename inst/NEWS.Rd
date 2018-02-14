@@ -5,6 +5,16 @@
 
 \section{Changes in Rcpp version 0.12.16 (2018-03-xx)}{
   \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item The \code{long long} type can now be used on 64-bit Windows (Kevin
+      in \ghpr{811})
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Code generated with \code{cppFunction()} now uses \code{.Call()}
+      directly (Kirill Mueller in \ghpr{813} addressing \ghit{795}).
+    }
     \item Changes in Rcpp Documentation:
     \itemize{
       \item The Rcpp FAQ vignette is now indexed as `Rcpp-FAQ`; a stale Gmane

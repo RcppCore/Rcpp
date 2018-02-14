@@ -1,3 +1,7 @@
+2018-02-14  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version, Date): New minor version
+
 2018-02-14  Kirill Müller  <krlmlr@mailbox.org>
 
         * R/Attributes.R: Code compiled with cppFunction() uses .Call instead
@@ -22,7 +26,7 @@
 2018-01-16  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.12.15
-        * inst/NEWS.Rd: Release 0.12.15 
+        * inst/NEWS.Rd: Release 0.12.15
         * inst/bib/Rcpp.bib: Release 0.12.15
         * vignettes/Rcpp.bib: Release 0.12.15
         * inst/include/Rcpp/config.h: Release 0.12.15
