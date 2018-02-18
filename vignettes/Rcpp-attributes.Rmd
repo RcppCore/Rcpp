@@ -443,7 +443,7 @@ inline double timesTwo(double x) {
 #endif // __UTILITIES__
 ```
 
-Note the use of the `#ifndef` include guard, this is import to ensure
+Note the use of the `#ifndef` include guard, this is important to ensure
 that code is not included more than once in a source file. You should 
 use an include guard and be sure to pick a unique name for the corresponding
 `#define`. 
