@@ -1211,7 +1211,9 @@ conda install gxx_linux-64
 ```
 
 helps within this environment as it installs the corresponding
-`x86_64-conda_cos6-linux-gnu-c++` compiler.
+`x86_64-conda_cos6-linux-gnu-c++` compiler. Documentation for this and other
+systems is provided 
+[at this page](https://conda.io/docs/user-guide/tasks/build-packages/compiler-tools.html).
 
 # Support
 

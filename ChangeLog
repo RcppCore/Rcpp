@@ -1,3 +1,7 @@
+2018-02-25  Dirk Eddelbuettel  <edd@debian.org>
+
+        * vignettes/Rcpp-FAQ.Rmd (Note): Expand conda answer by adding link
+
 2018-02-14  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): New minor version
