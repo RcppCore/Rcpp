@@ -70,7 +70,7 @@ namespace Rcpp {
 
         // [[Rcpp::register]]
         unsigned long enterRNGScope() {
-            if (RNGScopeCounter == 0) GetRNGstate();
+            GetRNGstate();
             RNGScopeCounter++;
             return RNGScopeCounter;
         }
@@ -78,7 +78,7 @@ namespace Rcpp {
         // [[Rcpp::register]]
         unsigned long exitRNGScope() {
             RNGScopeCounter--;
-            if (RNGScopeCounter == 0) PutRNGstate();
+            PutRNGstate();
             return RNGScopeCounter;
         }
 
