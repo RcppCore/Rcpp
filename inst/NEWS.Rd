@@ -20,6 +20,7 @@
       \item The Rcpp FAQ vignette is now indexed as `Rcpp-FAQ`; a stale Gmane
       reference was removed and entry for getting compilers under Conda was added.
       \item The top-level README.md now has a _Support_ section.
+      \item The Rcpp.bib reference file was refreshed to current versions.
     }
   }
 }
