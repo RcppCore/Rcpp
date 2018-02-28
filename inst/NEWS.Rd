@@ -7,6 +7,11 @@
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
+      \item Rcpp now sets and puts the RNG state upon each entry to an Rcpp
+      function, ensuring that nested invocations of Rcpp functions manage the
+      RNG state as expected
+    }
+    \itemize{
       \item The \code{long long} type can now be used on 64-bit Windows (Kevin
       in \ghpr{811})
     }

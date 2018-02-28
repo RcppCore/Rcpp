@@ -1,3 +1,8 @@
+2018-02-26  Kevin Ushey  <kevinushey@gmail.com>
+
+        * src/api.cpp: Always set / put RNG state when calling Rcpp function
+
+
 2018-02-25  Dirk Eddelbuettel  <edd@debian.org>
 
         * vignettes/Rcpp.bib: Updated

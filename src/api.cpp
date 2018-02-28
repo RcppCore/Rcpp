@@ -64,22 +64,17 @@ using namespace Rcpp;
 namespace Rcpp {
 
     namespace internal {
-        namespace {
-            unsigned long RNGScopeCounter = 0;
-        }
 
         // [[Rcpp::register]]
         unsigned long enterRNGScope() {
-            if (RNGScopeCounter == 0) GetRNGstate();
-            RNGScopeCounter++;
-            return RNGScopeCounter;
+            GetRNGstate();
+            return 0;
         }
 
         // [[Rcpp::register]]
         unsigned long exitRNGScope() {
-            RNGScopeCounter--;
-            if (RNGScopeCounter == 0) PutRNGstate();
-            return RNGScopeCounter;
+            PutRNGstate();
+            return 0;
         }
 
         // [[Rcpp::register]]
