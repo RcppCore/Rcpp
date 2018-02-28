@@ -1,7 +1,11 @@
+2018-02-28  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/Rmath.h (R): Rf_pythag has been remove in R 2.14.0
+        so comment-out the R::pythag wrapper (per request of Brian Ripley)
+
 2018-02-26  Kevin Ushey  <kevinushey@gmail.com>
 
         * src/api.cpp: Always set / put RNG state when calling Rcpp function
-
 
 2018-02-25  Dirk Eddelbuettel  <edd@debian.org>
 
