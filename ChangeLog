@@ -1,3 +1,9 @@
+2018-03-05  Michael Weylandt  <michael.weylandt@gmail.com>
+
+        * inst/include/Rcpp/exceptions/cpp{98,11}/exceptions.h: Add
+        include_call argument to Rcpp::stop and Rcpp::warning to suppress
+        inclusion of call stack in resulting error / warning.
+
 2018-03-01  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/sugar/functions/complex.h (Rcpp): Remove RCPP_HYPOT

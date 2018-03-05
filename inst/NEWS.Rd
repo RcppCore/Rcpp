@@ -13,6 +13,10 @@
       \item The \code{R::pythag} wrapper has been commented out; the underlying
       function has been gone from R since 2.14.0, and \code{::hypot()} (part of
       C99) is now used unconditionally for complex numbers.
+      \item \code{Rcpp::stop} and \code{Rcpp::warning} gain a new \code{include_call}
+      argument which functions similarly to the \code{call.} argument to
+      \code{base::stop} and \code{base::warning} at the R level. By default,
+      this is \code{true} for back-compatability.
     }
     \itemize{
       \item The \code{long long} type can now be used on 64-bit Windows (Kevin
