@@ -43,13 +43,22 @@ class __CLASS__ : public std::exception {                                       
 };
 
 template <typename... Args>
-inline void warning(const char* fmt, Args&&... args ) {
+inline void warning(const char* fmt, Args&&... args) {
     Rf_warning("%s", tfm::format(fmt, std::forward<Args>(args)... ).c_str());
 }
 
 template <typename... Args>
-inline void NORET stop(const char* fmt, Args&&... args) {
-    throw Rcpp::exception( tfm::format(fmt, std::forward<Args>(args)... ).c_str() );
+inline void warning(const char* fmt, Args&&... args, bool include_call = true) {
+    if(include_call){
+        Rf_warning("%s", tfm::format(fmt, std::forward<Args>(args)... ).c_str());
+    } else {
+        Rf_warningcall(R_NilValue, "%s", tfm::format(fmt, std::forward<Args>(args)... ).c_str());
+    }
+}
+
+template <typename... Args>
+inline void NORET stop(const char* fmt, Args&&... args, bool include_call = true) {
+    throw Rcpp::exception( tfm::format(fmt, std::forward<Args>(args)... ).c_str(), include_call);
 }
 
 } // namespace Rcpp

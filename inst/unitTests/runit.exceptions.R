@@ -120,4 +120,26 @@ test.rcppExceptionNoCall <- function() {
   checkIdentical(e$cppstack, NULL)
   checkIdentical(class(e), c("Rcpp::exception", "C++Error", "error", "condition"))
 }
+
+test.rcppExceptionNoCall_stop <- function() {
+
+    # Can throw exceptions that don't include a call stack
+    e <- tryCatch(noCall_stop(), error = identity)
+
+    checkIdentical(e$message, "Testing")
+    checkIdentical(e$call, NULL)
+    checkIdentical(e$cppstack, NULL)
+    checkIdentical(class(e), c("Rcpp::exception", "C++Error", "error", "condition"))
+}
+
+test.rcppExceptionNoCall_warning <- function() {
+
+    # Can throw exceptions that don't include a call stack
+    w <- tryCatch(noCall_warning(), warning = identity)
+
+    checkIdentical(w$message, "Testing")
+    checkIdentical(w$call, NULL)
+    checkIdentical(w$cppstack, NULL)
+    checkIdentical(class(w), c("Rcpp::exception", "C++Error", "error", "condition"))
+}
 }
