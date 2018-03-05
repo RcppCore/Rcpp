@@ -68,6 +68,14 @@ class __CLASS__ : public std::exception{                                        
 
 // -- Start Rcpp::warning declaration
 
+inline void warning(const char* fmt, bool include_call = true) {
+    if(include_call){
+        Rf_warning("%s", tfm::format(fmt).c_str());
+    } else {
+        Rf_warningcall(R_NilValue, "%s", tfm::format(fmt).c_str());
+    }
+}
+
 template <typename T1>
 inline void warning(const char* fmt, const T1& arg1, bool include_call = true) {
     if(include_call){
@@ -161,6 +169,10 @@ inline void warning(const char* fmt, const T1& arg1, const T2& arg2, const T3& a
 // -- End Rcpp::warning declaration
 
 // -- Start Rcpp::stop declaration
+
+inline void NORET stop(const char* fmt, bool include_call = true) {
+    throw Rcpp::exception(tfm::format(fmt).c_str(), include_call);
+}
 
 template <typename T1>
 inline void NORET stop(const char* fmt, const T1& arg1, bool include_call = true) {
