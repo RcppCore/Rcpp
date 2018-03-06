@@ -67,3 +67,13 @@ double takeLogNested(double val) {
 void noCall() {
     throw Rcpp::exception("Testing", false);
 }
+
+// [[Rcpp::export]]
+void noCall_stop() {
+    Rcpp::stop("Testing", false);
+}
+
+// [[Rcpp::export]]
+void noCall_warning() {
+    Rcpp::warning("Testing", false);
+}
