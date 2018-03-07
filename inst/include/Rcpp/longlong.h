@@ -43,8 +43,8 @@ typedef uint64_t rcpp_ulong_long_type;
 // check to see if this is an older C++ compiler, but extensions are enabled
 # elif defined(__GXX_EXPERIMENTAL_CXX0X__) || (defined(__clang__) && defined(__LP64__))
 #  if defined(__LONG_LONG_MAX__)
-typedef long long int rcpp_long_long_type;
-typedef unsigned long long int rcpp_ulong_long_type;
+__extension__ typedef long long int rcpp_long_long_type;
+__extension__ typedef unsigned long long int rcpp_ulong_long_type;
 #   define RCPP_HAS_LONG_LONG_TYPES
 #  endif
 # endif
