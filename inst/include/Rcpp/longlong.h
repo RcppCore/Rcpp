@@ -33,22 +33,22 @@ typedef unsigned long long int rcpp_ulong_long_type;
 // (note that __GNUC__ also implies clang, MinGW)
 #elif defined(__GNUC__)
 
-// check to see if 'long long' can be used as an extension
-# if defined(_GLIBCXX_USE_LONG_LONG)
-
-__extension__ typedef long long int rcpp_long_long_type;
-__extension__ typedef unsigned long long int rcpp_ulong_long_type;
-#  define RCPP_HAS_LONG_LONG_TYPES
-
 // check to see if 'long long' is an alias for 'int64_t'
-# elif defined(_GLIBCXX_HAVE_INT64_T) && defined(_GLIBCXX_HAVE_INT64_T_LONG_LONG)
+# if defined(_GLIBCXX_HAVE_INT64_T) && defined(_GLIBCXX_HAVE_INT64_T_LONG_LONG)
 #  include <stdint.h>
 typedef int64_t rcpp_long_long_type;
 typedef uint64_t rcpp_ulong_long_type;
 #  define RCPP_HAS_LONG_LONG_TYPES
 
+// check to see if this is an older C++ compiler, but extensions are enabled
+# elif defined(__GXX_EXPERIMENTAL_CXX0X__) || (defined(__clang__) && defined(__LP64__))
+#  if defined(__LONG_LONG_MAX__)
+typedef long long int rcpp_long_long_type;
+typedef unsigned long long int rcpp_ulong_long_type;
+#   define RCPP_HAS_LONG_LONG_TYPES
+#  endif
 # endif
-#endif
 
+#endif
 
 #endif
