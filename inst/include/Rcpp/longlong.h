@@ -38,10 +38,18 @@ __extension__ typedef unsigned long long int rcpp_ulong_long_type;
 #endif
 #endif
 
-// The Rtools toolchain provides long long on 64bit Windows
-#ifdef _WIN64
-typedef long long rcpp_long_long_type;
-typedef unsigned long long rcpp_ulong_long_type;
+// The Rtools toolchain provides long long on 64bit Windows,
+// but using those types directly in C++98 mode can trigger
+// compiler warnings:
+//
+//   warning: ISO C++ 1998 does not support 'long long' [-Wlong-long]
+//
+// fortunately, glibc provides these types as aliases for int64_t
+// and uint64_t, which we can use as extensions in C++98 mode
+#if defined(_WIN32) && defined(_GLIBCXX_HAVE_INT64_T) && defined(_GLIBCXX_HAVE_INT64_T_LONG_LONG)
+# include <stdint.h>
+typedef int64_t rcpp_long_long_type;
+typedef uint64_t rcpp_ulong_long_type;
 #define RCPP_HAS_LONG_LONG_TYPES
 #endif
 
