@@ -56,7 +56,7 @@ see 'citation("Rcpp")' for details.
 The [Rcpp Gallery](http://gallery.rcpp.org) showcases over one hundred fully
 documented and working examples.
 
-A number of examples are included as are 1385 unit tests in 599 unit
+A number of examples are included as are 1394 unit tests in 606 unit
 test functions provide additional usage examples.
 
 An earlier version of Rcpp, containing what we now call the 'classic Rcpp
@@ -65,8 +65,8 @@ been factored out of Rcpp into the package RcppClassic, and it is still
 available for code relying on the older interface. New development should 
 always use this Rcpp package instead.
 
-Other usage examples are provided by packages using Rcpp. As of July 2017,
-there are 1092 [CRAN](https://cran.r-project.org) packages using Rcpp, a further
+Other usage examples are provided by packages using Rcpp. As of March 2018,
+there are 1309 [CRAN](https://cran.r-project.org) packages using Rcpp, a further
 91 [BioConductor](http://www.bioconductor.org) packages in its current release
 as well as an unknown number of GitHub, Bitbucket, R-Forge, ... repositories
 using Rcpp.  All these packages provide usage examples for Rcpp.
@@ -88,15 +88,16 @@ questions 1.2 and 1.3 in the
 ### Support
 
 The best place for questions is the
-[Rcpp-devel](https://lists.r-forge.r-project.org/cgi-bin/mailman/listinfo/rcpp-devel)
+[Rcpp-devel](http://lists.r-forge.r-project.org/cgi-bin/mailman/listinfo/rcpp-devel)
 mailing list hosted at R-forge.  Note that in order to keep spam down, you must
 be a subscriber in order to post.  One can also consult the list archives to see
 if your question has been asked before.
 
 Another option is to use
 [StackOverflow and its 'rcpp' tag](http://stackoverflow.com/questions/tagged/rcpp).
-Search functionality (use `[rcpp] my question terms` to tag
-the query) is very valuable as many questions have indeed been asked, and
+Search functionality (use `rcpp` in squared brackets as in 
+[[rcpp] my question terms](https://stackoverflow.com/search?q=[rcpp]%20my%20question%20terms)
+to tag the query) is very valuable as many questions have indeed been asked, and
 answered, before.
 
 The [issue tickets at the GitHub repo](https://github.com/RcppCore/Rcpp/issues)

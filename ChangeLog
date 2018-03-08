@@ -1,3 +1,18 @@
+2018-03-08  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.12.16
+        * inst/NEWS.Rd: Release 0.12.16
+        * inst/bib/Rcpp.bib: Release 0.12.16
+        * vignettes/Rcpp.bib: Release 0.12.16
+        * inst/include/Rcpp/config.h: Release 0.12.16
+
+        * debian/*: Changes for Debian release of 0.12.16
+
+2018-02-07  Kevin Ushey  <kevinushey@gmail.com>
+
+        * inst/include/Rcpp/longlong.h: Revised and more general logic for long
+        long on 64bit Windows etc via C++11 and as int64_t alias where possible
+
 2018-03-01  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/sugar/functions/complex.h (Rcpp): Remove RCPP_HYPOT

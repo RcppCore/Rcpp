@@ -3,20 +3,20 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp version 0.12.16 (2018-03-xx)}{
+\section{Changes in Rcpp version 0.12.16 (2018-03-08)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
       \item Rcpp now sets and puts the RNG state upon each entry to an Rcpp
       function, ensuring that nested invocations of Rcpp functions manage the
-      RNG state as expected
+      RNG state as expected (Kevin in \ghpr{825} addressing \ghit{823}).
       \item The \code{R::pythag} wrapper has been commented out; the underlying
       function has been gone from R since 2.14.0, and \code{::hypot()} (part of
-      C99) is now used unconditionally for complex numbers.
+      C99) is now used unconditionally for complex numbers (Dirk in \ghpr{826}).
     }
     \itemize{
       \item The \code{long long} type can now be used on 64-bit Windows (Kevin
-      in \ghpr{811})
+      in \ghpr{811} and again in \ghpr{829} addressing \ghit{804}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{
