@@ -221,7 +221,7 @@ errors. Within \proglang{R} extensions written in \proglang{C} the `Rf_error` fu
 safely use `Rf_error` because it results in a `longjmp` over
 any \proglang{C++} destructors on the stack.
 
-The correct way to signal errors within \proglang{C++} functions is to throw an \\`Rcpp::exception`. For example:
+The correct way to signal errors within \proglang{C++} functions is to throw an `Rcpp::exception`. For example:
 
 ```{Rcpp, eval = FALSE}
 if (unexpectedCondition)
