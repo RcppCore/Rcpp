@@ -1403,7 +1403,7 @@ b
 With this being said, there is one last area of contention with the proxy model:
 the keyword `const`. The `const` declaration indicates that an object
 is not allowed to be modified by any action. Due to the way the proxy
-model paradigm works, there is a way to ``override'' the `const` designation.
+model paradigm works, there is a way to "override" the `const` designation.
 Simply put, one can create a new \pkg{Rcpp} object without the `const`
 declaration from a pre-existing one. As a result, the new \pkg{Rcpp} object
 would be allowed to be modified by the compiler and, thus, modifying the initial
