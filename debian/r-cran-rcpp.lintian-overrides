@@ -90,3 +90,4 @@ r-cran-rcpp: missing-dep-for-interpreter r => littler (usr/lib/R/site-library/Rc
 r-cran-rcpp: missing-dep-for-interpreter r => littler (usr/lib/R/site-library/Rcpp/examples/FastLM/benchmarkLongley.r)
 r-cran-rcpp: missing-dep-for-interpreter ... use --no-tag-display-limit to see all (or pipe to a file/program)
 r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.system.R
+r-cran-rcpp: script-not-executable usr/lib/R/site-library/Rcpp/unitTests/runit.stack.R
