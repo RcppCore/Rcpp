@@ -33,6 +33,7 @@ public:
 
     virtual Rcpp::List fields(const XP_Class& ){ return Rcpp::List(0); }
     virtual Rcpp::List getMethods(const XP_Class&, std::string&){ return Rcpp::List(0); }
+    virtual Rcpp::List getMethodsNamedArgs(const XP_Class&, std::string&){ return Rcpp::List(0); }
     virtual Rcpp::List getConstructors(const XP_Class&, std::string&){ return Rcpp::List(0); }
 
     virtual void run_finalizer(SEXP){ }
@@ -54,6 +55,15 @@ public:
         return R_NilValue ;
     }
     virtual SEXP invoke_notvoid( SEXP, SEXP, SEXP *, int ){
+        return R_NilValue ;
+    }
+    virtual SEXP invoke_pairlist( SEXP, SEXP, SEXP ){
+        return R_NilValue ;
+    }
+    virtual SEXP invoke_void_pairlist( SEXP, SEXP, SEXP ){
+        return R_NilValue ;
+    }
+    virtual SEXP invoke_notvoid_pairlist( SEXP, SEXP, SEXP ){
         return R_NilValue ;
     }
 

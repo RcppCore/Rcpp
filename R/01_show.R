@@ -80,6 +80,19 @@ setMethod( "show", "C++Class", function(object){
 	} else {
 	    writeLines( "\nMethods: no methods exposed by this class" )
 	}
+
+	mets <- object@methods_named
+	nmethods <- length(mets)
+	if( nmethods ){
+	    writeLines( "\nNamed-Arguments-Methods: " )
+	    txt <- character( nmethods )
+	    for( i in seq_len(nmethods) ){
+	        txt[i] <- mets[[i]]$info("    ")
+	    }
+	    writeLines( paste( txt, collapse = "\n" ) ) 
+	} else {
+	    writeLines( "\nNamed-Arguments-Methods: no methods exposed by this class" )
+	}
 } )
 
 setMethod( "show", "C++Function", function(object){

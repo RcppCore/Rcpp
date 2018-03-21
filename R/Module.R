@@ -393,6 +393,48 @@ method_wrapper <- function( METHOD, where ){
         body(f, where) <- extCall
         f
         }
+method_named_args_wrapper <- function( METHOD, where ){
+        stuff <- list(
+            class_pointer = METHOD$class_pointer,
+            pointer = METHOD$pointer,
+            CppMethod__invoke_pairlist = CppMethod__invoke_pairlist,
+            CppMethod__invoke_void_pairlist = CppMethod__invoke_void_pairlist,
+            CppMethod__invoke_notvoid_pairlist = CppMethod__invoke_notvoid_pairlist,
+            dealWith = dealWith,
+            docstring = METHOD$info("")
+        )
+        f <- function(...) NULL
+
+        extCall <- {
+            if( all( METHOD$void ) ){
+                # all methods are void, so we know we want to return invisible(NULL)
+                substitute(
+                {
+                    docstring
+                    .External(CppMethod__invoke_void_pairlist, class_pointer, pointer, .pointer, ...)
+                    invisible(NULL)
+                } , stuff )
+            } else if( all( ! METHOD$void ) ){
+                # none of the methods are void so we always return the result of
+                # .External
+                substitute(
+                {
+                    docstring
+                   .External(CppMethod__invoke_notvoid_pairlist, class_pointer, pointer, .pointer, ...)
+                } , stuff )
+            } else {
+                # some are void, some are not, so the voidness is part of the result
+                # we get from internally and we need to deal with it
+                substitute(                                                     # #nocov start
+                    {
+                        docstring
+                        dealWith( .External(CppMethod__invoke_pairlist, class_pointer, pointer, .pointer, ...) )
+                } , stuff )                                                     # #nocov end
+            }
+        }
+        body(f, where) <- extCall
+        f
+        }
 ## create a named list of the R methods to invoke C++ methods
 ## from the C++ class with pointer xp
 cpp_refMethods <- function(CLASS, where) {
@@ -408,6 +450,7 @@ cpp_refMethods <- function(CLASS, where) {
         ) )
         mets <- c(
             sapply( CLASS@methods, method_wrapper, where = where ),
+            sapply( CLASS@methods_named, method_named_args_wrapper, where = where ),
             "finalize" = finalizer
         )
     mets

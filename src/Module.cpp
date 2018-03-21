@@ -220,6 +220,55 @@ SEXP CppMethod__invoke_notvoid(SEXP args) {
     return clazz->invoke_notvoid(met, obj, cargs, nargs);
 }
 
+SEXP CppMethod__invoke_pairlist(SEXP args) {						// #nocov start
+    SEXP p = CDR(args);
+
+    // the external pointer to the class
+    XP_Class clazz(CAR(p)); p = CDR(p);
+
+    // the external pointer to the method
+    SEXP met = CAR(p); p = CDR(p);
+
+    // the external pointer to the object
+    SEXP obj = CAR(p); p = CDR(p);
+    CHECK_DUMMY_OBJ(obj);
+
+    return clazz->invoke_pairlist(met, obj, p);
+}														// #nocov end 
+
+SEXP CppMethod__invoke_void_pairlist(SEXP args) {
+    SEXP p = CDR(args);
+
+    // the external pointer to the class
+    XP_Class clazz(CAR(p)); p = CDR(p);
+
+    // the external pointer to the method
+    SEXP met = CAR(p); p = CDR(p);
+
+    // the external pointer to the object
+    SEXP obj = CAR(p); p = CDR(p);
+    CHECK_DUMMY_OBJ(obj);
+
+    clazz->invoke_void_pairlist(met, obj, p);
+    return R_NilValue;
+}
+
+SEXP CppMethod__invoke_notvoid_pairlist(SEXP args) {
+    SEXP p = CDR(args);
+
+    // the external pointer to the class
+    XP_Class clazz(CAR(p)); p = CDR(p);
+
+    // the external pointer to the method
+    SEXP met = CAR(p); p = CDR(p);
+
+    // the external pointer to the object
+    SEXP obj = CAR(p); p = CDR(p);
+    CHECK_DUMMY_OBJ(obj);
+
+    return clazz->invoke_notvoid_pairlist(met, obj, p);
+}
+
 namespace Rcpp{
     static Module* current_scope ;
 }

@@ -48,11 +48,19 @@ public:
     RcppModuleWorld() : msg("hello"){}
     void set(std::string msg) { this->msg = msg; }
     std::string greet() { return msg; }
+    
+    std::string named_args(Rcpp::map_named_args args) 
+    { 
+        std::string out = (args.count("hello") > 0 ? Rcpp::as<std::string>(args["hello"]) : "") + " ";
+        out += args.count("world") > 0 ?  Rcpp::as<std::string>(args["world"]) : (args.count("1") > 0 ?  Rcpp::as<std::string>(args["1"]) : ""); //first check named argument world and otherwise use first unnamed arg ("1") if it exists
+        return out;
+    }
 
 private:
     std::string msg;
 };
 
+std::string free_named_args(RcppModuleWorld * modworld, Rcpp::map_named_args args) { return modworld->named_args(args); }
 
 
 RCPP_MODULE(RcppModuleWorld) {
@@ -66,8 +74,10 @@ RCPP_MODULE(RcppModuleWorld) {
 
     class_<RcppModuleWorld>( "RcppModuleWorld")
         .default_constructor()
-        .method("greet", &RcppModuleWorld::greet)
-        .method("set", &RcppModuleWorld::set)
+        .method("greet",                    &RcppModuleWorld::greet)
+        .method("set",                      &RcppModuleWorld::set)
+        .method_named_args("named_args",    &RcppModuleWorld::named_args)
+        .method_named_args("free_named_args",    &free_named_args)
 	;
 }
 

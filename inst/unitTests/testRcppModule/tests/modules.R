@@ -18,3 +18,7 @@ stopifnot(all.equal(foo(2,3), 6))
 nn <- new(RcppModuleNum)
 nn$x <- pi
 stopifnot(all.equal(nn$x, pi))
+
+worldtest <- new(RcppModuleWorld)
+stopifnot(all.equal(worldtest$named_args(hello="hallo", world="wereld"), worldtest$free_named_args(world="wereld", hello="hallo")))
+stopifnot(all.equal(worldtest$named_args(hello="hallo", "wereld"), worldtest$free_named_args("wereld", hello="hallo")))

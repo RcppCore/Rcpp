@@ -93,6 +93,7 @@ namespace Rcpp{
 #include <Rcpp/module/Module.h>
 
 namespace Rcpp{
+    typedef std::map<std::string, Rcpp::RObject> map_named_args;
 
     template <typename Class>
     class CppMethod {
@@ -101,6 +102,7 @@ namespace Rcpp{
 
         CppMethod() {}
         virtual SEXP operator()(Class* /*object*/, SEXP* /*args*/) { return R_NilValue ; }
+        virtual SEXP operator()(Class* /*object*/, map_named_args /*named_args for named args methods*/) { return R_NilValue ; }
         virtual ~CppMethod(){}
         virtual int nargs(){ return 0 ; }
         virtual bool is_void(){ return false ; }
@@ -120,6 +122,10 @@ namespace Rcpp{
 
         SEXP operator()( Class* object, SEXP* args){
 			return (*parent_method_pointer)( (Parent*)object, args ) ;
+		}
+
+        virtual SEXP operator()(Class* object, map_named_args named_args) {
+			return (*parent_method_pointer)( (Parent*)object, named_args ) ;
 		}
 		inline int nargs(){ return parent_method_pointer->nargs() ; }
 		inline bool is_void(){ return parent_method_pointer->is_void() ; }
@@ -200,6 +206,22 @@ namespace Rcpp{
     } ;
 
     template <typename Class>
+    class NamedArgsMethod {
+    public:
+        typedef CppMethod<Class> METHOD ;
+        NamedArgsMethod( METHOD* m, const char* doc ) : method(m), docstring(doc == 0 ? "" : doc) {}
+
+        METHOD* method ;
+        std::string docstring ;
+
+        inline bool is_void(){ return method->is_void() ; }
+        inline bool is_const(){ return method->is_const() ; }
+        inline void signature(std::string& s, const char* name){
+            method->signature(s, name);
+        }
+    } ;
+
+    template <typename Class>
     class S4_CppConstructor : public Reference {
         typedef Reference Base;
     public:
@@ -227,14 +249,15 @@ namespace Rcpp{
         typedef Rcpp::XPtr<class_Base> XP_Class ;
         typedef SignedMethod<Class> signed_method_class ;
         typedef std::vector<signed_method_class*> vec_signed_method ;
+        typedef NamedArgsMethod<Class> named_args_method_class;
 
         S4_CppOverloadedMethods( vec_signed_method* m, const XP_Class& class_xp, const char* name, std::string& buffer ) : Reference( "C++OverloadedMethods" ){
-            int n = m->size() ;
+            int n = m->size();
             Rcpp::LogicalVector voidness(n), constness(n) ;
             Rcpp::CharacterVector docstrings(n), signatures(n) ;
             Rcpp::IntegerVector nargs(n) ;
             signed_method_class* met ;
-            for( int i=0; i<n; i++){
+            for( int i=0; i<m->size(); i++){
                 met = m->at(i) ;
                 nargs[i] = met->nargs() ;
                 voidness[i] = met->is_void() ;
@@ -255,10 +278,37 @@ namespace Rcpp{
 
         }
 
+        S4_CppOverloadedMethods(named_args_method_class* pm, const XP_Class& class_xp, const char* name, std::string& buffer ) : Reference( "C++OverloadedMethods" ){
+
+            int n = 1;
+            Rcpp::LogicalVector voidness(n), constness(n) ;
+            Rcpp::CharacterVector docstrings(n), signatures(n) ;
+            Rcpp::IntegerVector nargs(n) ;
+
+            nargs[0] = 1;
+            voidness[0] = pm->is_void() ;
+            constness[0] = pm->is_const() ;
+            docstrings[0] = pm->docstring ;
+            pm->signature(buffer, name) ;
+            signatures[0] = buffer ;
+        
+
+            field( "pointer" )       = Rcpp::XPtr< named_args_method_class >( pm, false ) ;
+            field( "class_pointer" ) = class_xp ;
+            field( "size" )          = n ;
+            field( "void" )          = voidness ;
+            field( "const" )         = constness ;
+            field( "docstrings" )    = docstrings ;
+            field( "signatures" )    = signatures ;
+            field( "nargs" )         = nargs ;
+
+        }
+
         RCPP_CTOR_ASSIGN_WITH_BASE(S4_CppOverloadedMethods)
 
     } ;
 
+#include <Rcpp/module/Module_CppMethods_named_args.h>
 #include <Rcpp/module/Module_generated_CppMethod.h>
 #include <Rcpp/module/Module_generated_Pointer_CppMethod.h>
 
@@ -387,7 +437,7 @@ namespace Rcpp {
         CppClass( SEXP x) : S4(x){};
 
         CppClass( Module* p, class_Base* cl, std::string& buffer ) : S4("C++Class") {
-	        XP_Class clxp( cl, false, R_NilValue, R_NilValue ) ;
+            XP_Class clxp( cl, false, R_NilValue, R_NilValue ) ;
 	        slot( "module"  ) = XP( p, false ) ;
 	        slot( "pointer" ) = clxp ;
 
@@ -395,14 +445,15 @@ namespace Rcpp {
 	        buffer += cl->name ;
 	        slot( ".Data" ) = buffer ;
 
-	        slot( "fields" )      = cl->fields( clxp ) ;
+	        slot( "fields" )        = cl->fields( clxp ) ;
 
-	        slot( "methods" )     = cl->getMethods( clxp, buffer ) ;
-	        slot( "constructors") = cl->getConstructors( clxp, buffer ) ;
-	        slot( "docstring"   ) = cl->docstring ;
-	        slot( "typeid" )      = cl->get_typeinfo_name() ;
-	        slot( "enums"  )      = cl->enums ;
-	        slot( "parents" )     = cl->parents ;
+	        slot( "methods" )       = cl->getMethods( clxp, buffer ) ;
+            slot( "methods_named" ) = cl->getMethodsNamedArgs( clxp, buffer ) ;
+	        slot( "constructors")   = cl->getConstructors( clxp, buffer ) ;
+	        slot( "docstring"   )   = cl->docstring ;
+	        slot( "typeid" )        = cl->get_typeinfo_name() ;
+	        slot( "enums"  )        = cl->enums ;
+	        slot( "parents" )       = cl->parents ;
 	    }
 
 	    RCPP_CTOR_ASSIGN_WITH_BASE(CppClass)
