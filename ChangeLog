@@ -1,3 +1,11 @@
+2018-03-21  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version, Date): Roll minor version
+
+2018-03-18  Kevin Ushey  <kevinushey@gmail.com>
+
+        * inst/include/Rcpp/stats/random/random.h: No inheritance from RNGScope
+
 2018-03-14  Dirk Eddelbuettel  <edd@debian.org>
 
         * vignettes/Rcpp-FAQ.Rmd: Correct a double-quote (thanks, Joris Meys)
