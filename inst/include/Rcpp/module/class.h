@@ -276,7 +276,16 @@ class class_ : public class_Base
         int unnamedArgs = 0;
         while(!it.isNULL())
         {
-            std::string argName = !Rf_isNull(TAG(it)) ? Rcpp::Symbol(TAG(it)).c_str() : std::to_string(++unnamedArgs); //1-based like R likes
+            std::string argName;
+            if(!Rf_isNull(TAG(it))) 
+                argName = Rcpp::Symbol(TAG(it)).c_str();
+            else
+            {
+                std::stringstream unnamedArgStr;
+                unnamedArgStr << ++unnamedArgs; //1-based like R likes
+                argName = unnamedArgStr.str();
+            }
+
             Rcpp::RObject val = CAR(it);
             out[argName] = val;
             it = CDR(it);
