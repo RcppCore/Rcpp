@@ -10,6 +10,11 @@
       \item The random number \code{Generator} class no longer inhreits from
       \code{RNGScope} (Kevin in \ghpr{837} fixing \ghit{836}).
     }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item Two internal links to the introduction published in JSS have been
+      updated to the changed filename given the newer TAS introduction.
+    }
   }
 }
 

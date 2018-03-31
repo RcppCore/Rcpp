@@ -1,3 +1,10 @@
+2018-03-31  Dirk Eddelbuettel  <edd@debian.org>
+
+        * inst/include/Rcpp/sprintf.h (Rcpp): Remove parens [gcc8 warning]
+
+        * vignettes/Rcpp-attributes.Rmd: Update link to JSS intro vignette
+        * vignettes/Rcpp-modules.Rmd: Idem
+
 2018-03-21  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll minor version
