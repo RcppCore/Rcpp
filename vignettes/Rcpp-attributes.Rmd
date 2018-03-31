@@ -326,7 +326,7 @@ requirements to be correctly handled:
 - Be defined in the global namespace (i.e. not within a C++ namespace declaration)
 - Have a return type that is either void or compatible with `Rcpp::wrap`
   and parameter types that are compatible with `Rcpp::as` (see sections
-  3.1 and 3.2 of the '\textsl{Rcpp-introduction}' vignette for more details).
+  3.1 and 3.2 of the '\textsl{Rcpp-jss-2011}' vignette for more details).
 - Use fully qualified type names for the return value and all parameters.
   Rcpp types may however appear without a namespace qualifier (i.e.
   `DataFrame` is okay as a type name but `std::string` must be
