@@ -354,7 +354,7 @@ Note that this example assumed that the previous code segment defining the
 module was returned by the `cxxfunction()` (from the \pkg{inline}
 package) as callable R function `fx` from which we can extract the
 relevant pointer using `getDynLib()`.  In the case of using Rcpp modules
-via a package (which is detailed in Section~\ref{sec:package} below), modules
+via a package (which is detailed in Section \ref{sec:package} below), modules
 are actually loaded differently and we would have used
 
 ```{r, eval=FALSE}
