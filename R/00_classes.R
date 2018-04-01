@@ -67,16 +67,17 @@ setRefClass( "C++Constructor",
 
 setClass( "C++Class", 
 	representation( 
-	    pointer      = "externalptr", 
-	    module       = "externalptr", 
-	    fields       = "list",
-	    methods      = "list",
-	    constructors = "list",
-	    generator    = "refGenerator", 
-	    docstring    = "character", 
-	    typeid       = "character", 
-	    enums        = "list", 
-	    parents      = "character"
+	    pointer       = "externalptr", 
+	    module        = "externalptr", 
+	    fields        = "list",
+	    methods       = "list",
+        methods_named = "list",
+	    constructors  = "list",
+	    generator     = "refGenerator", 
+	    docstring     = "character", 
+	    typeid        = "character", 
+	    enums         = "list", 
+	    parents       = "character"
 	), 
 	contains = "character"
 	)
