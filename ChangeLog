@@ -1,3 +1,9 @@
+2018-04-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .editorconfig: Added support for editorconfig.org
+	* .clang_format: Removed
+	* .dir-locals.el: Removed
+
 2018-03-31  Dirk Eddelbuettel  <edd@debian.org>
 
         * inst/include/Rcpp/sprintf.h (Rcpp): Remove parens [gcc8 warning]
