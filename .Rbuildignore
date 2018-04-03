@@ -8,9 +8,9 @@ vignettes/jss.bst
 ^\.Rproj\.user$
 vignettes/notyet
 doxyfile
-.travis.yml
-.dir-locals.el
-.clang_format
+\.travis\.yml
+\.dir-locals\.el
+\.clang_format
 vignettes/getCurrentVersionsOfCitedPackages.R
 ^Contributing.md$
 ^\.codecov\.yml$
@@ -18,3 +18,4 @@ inst/include/Rcpp.h.new
 inst/include/Rcpp.h.old
 LICENSE
 .*.tar.gz
+\.editorconfig
