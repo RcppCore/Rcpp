@@ -557,7 +557,7 @@ moving code from a standalone \proglang{C++} source file to a package:
 ## Package Creation 
 
 To create a package that is based on \pkg{Rcpp} you should follow the
-guidelines in the `\textsl{Rcpp-package}' vignette. For a new package this
+guidelines in the '\textsl{Rcpp-package}' vignette. For a new package this
 is most conveniently done using  the `Rcpp.package.skeleton` function.
 
 To generate a new package with a simple hello, world function that uses
@@ -686,7 +686,7 @@ inst/include/fastcode.h
 This header file will also automatically be included in 
 `RcppExports.cpp`. Note that the convention of using `.h` for
 header files containing C++ code may seem unnatural, but this comes from the
-recommended practices described in `\textsl{Writing R Extensions}' 
+recommended practices described in '\textsl{Writing R Extensions}' 
 \citep{R:Extensions}.
 
 ## Roxygen Comments 
@@ -726,7 +726,7 @@ The interface exposed from \proglang{R} packages is most typically a set of
 a mechanism to allow the exporting of \proglang{C} and \proglang{C++}
 interfaces using package header files.  This is based on the
 `R_RegisterCCallable` and `R_GetCCallable` functions described in
-`\textsl{Writing R Extensions}' \citep{R:Extensions}.
+'\textsl{Writing R Extensions}' \citep{R:Extensions}.
 
 \proglang{C++} interfaces to a package are published within the
 top level `include` directory of the package (which within the package
