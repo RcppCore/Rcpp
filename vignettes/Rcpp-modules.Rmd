@@ -96,7 +96,7 @@ by the \pkg{Rcpp} package and its underlying \proglang{C++} library
 \citep{CRAN:Rcpp,JSS:Rcpp}. \pkg{Rcpp} smoothes many of the rough edges in
 \proglang{R} and \proglang{C++} integration by replacing the traditional
 \proglang{R} Application Programming Interface (API) described in
-`\textsl{Writing R Extensions}' \citep{R:Extensions} with a consistent set of \proglang{C++}
+'\textsl{Writing R Extensions}' \citep{R:Extensions} with a consistent set of \proglang{C++}
 classes. The '\textsl{Rcpp-jss-2011}' vignette \citep{CRAN:Rcpp,JSS:Rcpp} describes the API and
 provides an introduction to using \pkg{Rcpp}.
 
