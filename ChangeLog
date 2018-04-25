@@ -1,3 +1,16 @@
+2018-04-25  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version, Date): Roll minor version
+
+2018-04-25  Romain Francois  <romain@purrple.cat>
+
+	* inst/include/Rcpp/Benchmark/Timer.h: If defined, undefine FALSE
+
+2018-04-17  Ralf Stubner  <ralf.stubner@daqana.com>
+
+	* vignettes/Rcpp-attributes.Rmd: Replace back-quote with straight quote
+	* vignettes/Rcpp-modules.Rmd: Idem
+
 2018-04-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .editorconfig: Added support for editorconfig.org

@@ -9,11 +9,16 @@
     \itemize{
       \item The random number \code{Generator} class no longer inhreits from
       \code{RNGScope} (Kevin in \ghpr{837} fixing \ghit{836}).
+      \item The optional \code{Timer} class header now undefines
+      \code{FALSE} which was seen to have side-effects on some platforms
+      (Romain in \ghpr{847} fixing \ghpr{846}).
     }
     \item Changes in Rcpp Documentation:
     \itemize{
       \item Two internal links to the introduction published in JSS have been
       updated to the changed filename given the newer TAS introduction.
+      \item Some remaining backticks were replaced with straight quotes
+      (Ralf Stubner in \ghpr{845}).
     }
   }
 }
@@ -63,7 +68,7 @@
       catching, returns, restarts, debugger exit) are appropriately
       detected and handled, e.g. the C++ stack unwinds correctly
       (Lionel in \ghpr{789}). [ Committed but subsequently disabled in release
-      0.12.15 ]  
+      0.12.15 ]
       \item The new function \code{Rcpp_fast_eval()} can be used for
       performance-sensitive evaluation of R code. Unlike
       \code{Rcpp_eval()}, it does not try to catch errors with
@@ -74,7 +79,7 @@
       \code{Rcpp_eval()}. On old R versions \code{Rcpp_fast_eval()}
       falls back to \code{Rcpp_eval()} so it is safe to use against any
       versions of R  (Lionel in \ghpr{789}). [ Committed but subsequently
-      disabled in release 0.12.15 ]  
+      disabled in release 0.12.15 ]
       \item Overly-clever checks for \code{NA} have been removed (Kevin in
       \ghpr{790}).
       \item The included tinyformat has been updated to the current version,
@@ -89,7 +94,7 @@
       \item Rearrange stack unwind test code, keep test disabled for now (Lionel
       in \ghpr{801}).
       \item Further condition away protect unwind behind #define (Dirk in
-      \ghpr{802}). 
+      \ghpr{802}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{
