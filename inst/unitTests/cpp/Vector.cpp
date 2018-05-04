@@ -855,3 +855,16 @@ int CharacterVectorNoProtect(Vector<STRSXP, NoProtectStorage> s){
     return s.size();
 }
 
+// [[Rcpp::export]]
+CharacterVector CharacterVectorNoProtect_crosspolicy(Vector<STRSXP, NoProtectStorage> s){
+    CharacterVector s2(1) ;
+    s2[0] = s[0];
+    return s;
+}
+
+// [[Rcpp::export]]
+List ListNoProtect_crosspolicy(Vector<VECSXP, NoProtectStorage> data){
+    List data2(1) ;
+    data2[0] = data[0];
+    return data2;
+}

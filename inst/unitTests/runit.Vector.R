@@ -761,5 +761,15 @@ if (.runThisTest) {
         checkEquals(CharacterVectorNoProtect(s), 1L)
         checkEquals(s, "")
     }
-}
 
+    test.CharacterVectorNoProtect_crosspolicy <- function(){
+        s <- "foo"
+        checkEquals(CharacterVectorNoProtect_crosspolicy(s), s)
+    }
+
+    test.ListNoProtect_crosspolicy <- function(){
+        data <- list(1:10)
+        data2 <- ListNoProtect_crosspolicy(data)
+        checkEquals(data, data2)
+    }
+}
