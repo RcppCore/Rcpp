@@ -44,7 +44,8 @@ namespace internal{
 		string_proxy( VECTOR& v, R_xlen_t index_ ) : parent(&v), index(index_){}
 
 		string_proxy( const string_proxy& other ) :
-			parent(other.parent), index(other.index){} ;
+			parent(other.parent), index(other.index)
+		{} ;
 
 		/**
 		 * lhs use. Assign the value of the referred element to
@@ -53,6 +54,11 @@ namespace internal{
 		 *
 		 * @param rhs another proxy, possibly from another vector
 		 */
+		string_proxy& operator=( const string_proxy<RTYPE, StoragePolicy>& other) {
+		    set( other.get() ) ;
+		    return *this ;
+		}
+
 		template <template <class> class StoragePolicy2>
 		string_proxy& operator=( const string_proxy<RTYPE, StoragePolicy2>& other) {
 		    set( other.get() ) ;
