@@ -2,7 +2,7 @@
 //
 // Vector.cpp: Rcpp R/C++ interface class library -- Vector unit tests
 //
-// Copyright (C) 2012 - 2015    Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2018    Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -848,3 +848,10 @@ String vec_print_integer(IntegerVector v) {
 IntegerVector vec_subset(IntegerVector x, IntegerVector y) {
     return x[y - 1];
 }
+
+// [[Rcpp::export]]
+int CharacterVectorNoProtect(Vector<STRSXP, NoProtectStorage> s){
+    s[0] = "";
+    return s.size();
+}
+
