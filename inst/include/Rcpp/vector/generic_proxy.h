@@ -1,6 +1,6 @@
 // generic_proxy.h: Rcpp R/C++ interface class library --
 //
-// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2018 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -23,10 +23,10 @@
 namespace Rcpp{
 namespace internal{
 
-	template <int RTYPE>
-	class generic_proxy : public GenericProxy< generic_proxy<RTYPE> > {
+	template <int RTYPE, template <class> class StoragePolicy>
+	class generic_proxy : public GenericProxy< generic_proxy<RTYPE, StoragePolicy> > {
 		public:
-			typedef typename ::Rcpp::Vector<RTYPE> VECTOR ;
+			typedef typename ::Rcpp::Vector<RTYPE, StoragePolicy> VECTOR ;
 
 			generic_proxy(): parent(0), index(-1){}
 

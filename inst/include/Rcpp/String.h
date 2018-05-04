@@ -2,7 +2,7 @@
 //
 // String.h: Rcpp R/C++ interface class library -- single string
 //
-// Copyright (C) 2012 - 2015  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2018  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -483,8 +483,8 @@ namespace Rcpp {
     }
 
     namespace internal {
-        template <int RTYPE>
-        string_proxy<RTYPE>& string_proxy<RTYPE>::operator=(const String& s) {
+        template <int RTYPE, template <class> class StoragePolicy>
+        string_proxy<RTYPE, StoragePolicy>& string_proxy<RTYPE, StoragePolicy>::operator=(const String& s) {
             set(s.get_sexp());
             return *this;
         }
@@ -500,9 +500,9 @@ namespace Rcpp {
             return s.get_sexp();
         }
 
-        template <int RTYPE>
+        template <int RTYPE, template <class> class StoragePolicy>
         template <typename T>
-        string_proxy<RTYPE>& string_proxy<RTYPE>::operator+=(const T& rhs) {
+        string_proxy<RTYPE, StoragePolicy>& string_proxy<RTYPE, StoragePolicy>::operator+=(const T& rhs) {
             String tmp = get();
             tmp += rhs;
             set(tmp);

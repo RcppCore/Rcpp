@@ -2,7 +2,7 @@
 //
 // string_proxy.h: Rcpp R/C++ interface class library --
 //
-// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2018 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -25,10 +25,11 @@
 namespace Rcpp{
 namespace internal{
 
-	template<int RTYPE> class string_proxy {
+	template<int RTYPE, template <class> class StoragePolicy>
+	class string_proxy {
 	public:
 
-		typedef typename ::Rcpp::Vector<RTYPE> VECTOR ;
+		typedef typename ::Rcpp::Vector<RTYPE, StoragePolicy> VECTOR ;
 		typedef const char* iterator ;
 		typedef const char& reference ;
 
@@ -57,7 +58,8 @@ namespace internal{
 			return *this ;
 		}
 
-		string_proxy& operator=( const const_string_proxy<RTYPE>& other) ;
+		template <template <class> class StoragePolicy2>
+		string_proxy& operator=( const const_string_proxy<RTYPE, StoragePolicy2>& other) ;
 
 		string_proxy& operator=( const String& s) ;
 
@@ -238,7 +240,7 @@ namespace internal{
 			) <= 0 ;
 	}
 
-	template<int RTYPE> std::string string_proxy<RTYPE>::buffer ;
+	template<int RTYPE, template <class> class StoragePolicy> std::string string_proxy<RTYPE, StoragePolicy>::buffer ;
 
 	inline std::ostream& operator<<(std::ostream& os, const string_proxy<STRSXP>& proxy) {
 	    os << static_cast<const char*>(proxy) ;

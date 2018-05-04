@@ -2,7 +2,7 @@
 //
 // traits.h: Rcpp R/C++ interface class library -- support traits for vector
 //
-// Copyright (C) 2010 - 2015 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2018 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -57,8 +57,8 @@ namespace traits{
 		typedef typename ::Rcpp::Vector<RTYPE, StoragePolicy> VECTOR ;
 		typedef typename r_vector_iterator<RTYPE>::type iterator ;
 		typedef typename r_vector_const_iterator<RTYPE>::type const_iterator ;
-		typedef typename r_vector_proxy<RTYPE>::type proxy ;
-		typedef typename r_vector_const_proxy<RTYPE>::type const_proxy ;
+		typedef typename r_vector_proxy<RTYPE, StoragePolicy>::type proxy ;
+		typedef typename r_vector_const_proxy<RTYPE, StoragePolicy>::type const_proxy ;
 
 		proxy_cache(): p(0){}
 		~proxy_cache(){}
