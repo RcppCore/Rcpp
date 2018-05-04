@@ -2,7 +2,7 @@
 //
 // Vector.h: Rcpp R/C++ interface class library -- vectors
 //
-// Copyright (C) 2010 - 2017 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2018 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -40,12 +40,12 @@ public:
     typedef StoragePolicy<Vector> Storage ;
 
     typename traits::r_vector_cache_type<RTYPE, StoragePolicy>::type cache ;
-    typedef typename traits::r_vector_proxy<RTYPE>::type Proxy ;
-    typedef typename traits::r_vector_const_proxy<RTYPE>::type const_Proxy ;
-    typedef typename traits::r_vector_name_proxy<RTYPE>::type NameProxy ;
-    typedef typename traits::r_vector_proxy<RTYPE>::type value_type ;
-    typedef typename traits::r_vector_iterator<RTYPE>::type iterator ;
-    typedef typename traits::r_vector_const_iterator<RTYPE>::type const_iterator ;
+    typedef typename traits::r_vector_proxy<RTYPE, StoragePolicy>::type Proxy ;
+    typedef typename traits::r_vector_const_proxy<RTYPE, StoragePolicy>::type const_Proxy ;
+    typedef typename traits::r_vector_name_proxy<RTYPE, StoragePolicy>::type NameProxy ;
+    typedef typename traits::r_vector_proxy<RTYPE, StoragePolicy>::type value_type ;
+    typedef typename traits::r_vector_iterator<RTYPE, StoragePolicy>::type iterator ;
+    typedef typename traits::r_vector_const_iterator<RTYPE, StoragePolicy>::type const_iterator ;
     typedef typename traits::init_type<RTYPE>::type init_type ;
     typedef typename traits::r_vector_element_converter<RTYPE>::type converter_type ;
     typedef typename traits::storage_type<RTYPE>::type stored_type ;
@@ -936,6 +936,7 @@ private:
         }
 
         R_xlen_t n = size() ;
+
         Vector target( n - 1 ) ;
         iterator target_it(target.begin()) ;
         iterator it(begin()) ;
