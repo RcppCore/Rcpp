@@ -222,11 +222,11 @@ namespace traits {
 	} ;
 	template<template <class> class StoragePolicy>
 	struct r_vector_proxy<EXPRSXP, StoragePolicy> {
-		typedef ::Rcpp::internal::generic_proxy<EXPRSXP> type ;
+		typedef ::Rcpp::internal::generic_proxy<EXPRSXP, StoragePolicy> type ;
 	} ;
 	template<template <class> class StoragePolicy>
 	struct r_vector_proxy<VECSXP, StoragePolicy> {
-		typedef ::Rcpp::internal::generic_proxy<VECSXP> type ;
+		typedef ::Rcpp::internal::generic_proxy<VECSXP, StoragePolicy> type ;
 	} ;
 
 	template <int RTYPE, template <class> class StoragePolicy>

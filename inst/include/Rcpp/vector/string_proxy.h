@@ -53,9 +53,10 @@ namespace internal{
 		 *
 		 * @param rhs another proxy, possibly from another vector
 		 */
-		string_proxy& operator=(const string_proxy& other){
-			set( other.get() ) ;
-			return *this ;
+		template <template <class> class StoragePolicy2>
+		string_proxy& operator=( const string_proxy<RTYPE, StoragePolicy2>& other) {
+		    set( other.get() ) ;
+		    return *this ;
 		}
 
 		template <template <class> class StoragePolicy2>

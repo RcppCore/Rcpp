@@ -31,17 +31,26 @@ namespace internal{
 			generic_proxy(): parent(0), index(-1){}
 
 			generic_proxy( const generic_proxy& other ) :
-				parent(other.parent), index(other.index){} ;
+				parent(other.parent), index(other.index)
+			{}
 
-			generic_proxy( VECTOR& v, R_xlen_t i ) : parent(&v), index(i){} ;
+			generic_proxy( VECTOR& v, R_xlen_t i ) :
+			    parent(&v), index(i)
+			{}
 
 			generic_proxy& operator=(SEXP rhs) {
 				set(rhs) ;
 				return *this ;
 			}
 
-			generic_proxy& operator=(const generic_proxy& rhs) {
-				set(rhs.get());
+			generic_proxy& operator=(const generic_proxy& rhs){
+			    set(rhs.get());
+    		    return *this ;
+			}
+
+			template <template <class> class StoragePolicy2>
+			generic_proxy& operator=(const generic_proxy<RTYPE,StoragePolicy2>& rhs) {
+			    set(rhs.get());
 				return *this ;
 			}
 
@@ -78,13 +87,15 @@ namespace internal{
 				index  = other.index ;
 			}
 
+			inline SEXP get() const {
+			    return VECTOR_ELT(*parent, index );
+			}
+
 		private:
 			inline void set(SEXP x) {
 			    SET_VECTOR_ELT( *parent, index, x ) ;
 			}
-			inline SEXP get() const {
-			    return VECTOR_ELT(*parent, index );
-			}
+
 
 	}  ;
 

@@ -936,6 +936,7 @@ private:
         }
 
         R_xlen_t n = size() ;
+
         Vector target( n - 1 ) ;
         iterator target_it(target.begin()) ;
         iterator it(begin()) ;
