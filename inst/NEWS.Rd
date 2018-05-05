@@ -12,6 +12,8 @@
       \item The optional \code{Timer} class header now undefines
       \code{FALSE} which was seen to have side-effects on some platforms
       (Romain in \ghpr{847} fixing \ghpr{846}).
+      \item Optional \code{StoragePolicy} attributes now also work for
+      string vectors (Romain in \ghpr{850} fixing \ghit{849}).
     }
     \item Changes in Rcpp Documentation:
     \itemize{
@@ -19,6 +21,8 @@
       updated to the changed filename given the newer TAS introduction.
       \item Some remaining backticks were replaced with straight quotes
       (Ralf Stubner in \ghpr{845}).
+      \item A citation to the Rcpp introducion in the The American
+      Statistician has been added to the introductory and FAQ vignettes.
     }
   }
 }

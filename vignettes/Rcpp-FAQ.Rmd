@@ -87,11 +87,11 @@ vignette: >
 
 # Getting started
 
-## How do I get started 
+## How do I get started
 
 If you have \pkg{Rcpp} installed, please execute the following command
 in \proglang{R} to access the introductory vignette (which is a
-variant of the \citet{JSS:Rcpp} and \citet{PeerJ:Rcpp} papers) for a
+variant of the \citet{JSS:Rcpp} and \citet{PeerJ:Rcpp,TAS:Rcpp} papers) for a
 detailed introduction, ideally followed by at least the Rcpp
 Attributes \citep{CRAN:Rcpp:Attributes} vignette:
 
@@ -104,7 +104,7 @@ vignette("Rcpp-attributes")
 If you do not have \pkg{Rcpp} installed, these documents should also be available
 whereever you found this document, \textsl{i.e.,} on every mirror site of CRAN.
 
-## What do I need 
+## What do I need
 
 Obviously, \proglang{R} must be installed. \pkg{Rcpp} provides a
 \proglang{C++} API as an extension to the \proglang{R} system.  As such, it
@@ -125,7 +125,7 @@ means one needs:
 Also see the [RStudio documentation](http://www.rstudio.com/ide/docs/packages/prerequisites)
 on pre-requisites for R package development.
 
-## What compiler can I use 
+## What compiler can I use
 
 On almost all platforms, the GNU Compiler Collection (or `gcc`, which
 is also the name of its \proglang{C} language compiler) has to be used along
@@ -250,7 +250,7 @@ Template Library to sum the elements of a numeric vector.
 fx <- cxxfunction(signature(x = "numeric"),
     'NumericVector xx(x);
      return wrap(
-              std::accumulate(xx.begin(), 
+              std::accumulate(xx.begin(),
                               xx.end(),
                               0.0)
             );',
@@ -277,7 +277,7 @@ the code in a character string in R. This is easily achieved by using
 
 ```{r, eval=FALSE}
 fx <- cxxfunction(signature(),
-                  paste(readLines("myfile.cpp"), 
+                  paste(readLines("myfile.cpp"),
                         collapse="\n"),
                   plugin = "Rcpp")
 ```
@@ -411,7 +411,7 @@ either approach takes care of a lot of these tedious and error-prone manual
 steps.
 
 
-## But R CMD SHLIB still does not work 
+## But R CMD SHLIB still does not work
 
 We have had reports in the past where build failures occurred when users had
 non-standard code in their `~/.Rprofile` or `Rprofile.site` (or
@@ -422,7 +422,7 @@ invocation of `Rscript -e "..."` (as in \faq{using-r-cmd-shlib}
 above) to retrieve settings directly from \pkg{Rcpp} will fail.
 
 You may need to uncomment such non-standard code, or protect it by wrapping
-it inside `if (interactive())`, or possibly try to use 
+it inside `if (interactive())`, or possibly try to use
 `Rscript --vanilla` instead of plain `Rscript`.
 
 ## What about `LinkingTo `
@@ -688,7 +688,7 @@ will even run the R part at the end.
 template <typename T> class square :
     public std::unary_function<T,T> {
       public:
-      T operator()( T t) const { 
+      T operator()( T t) const {
         return t*t ;
       }
 };
@@ -757,7 +757,7 @@ writeLines(a, file = "myfile.cpp")
 If stored in a file `myfile.cpp`, we can use it via \pkg{inline}:
 
 ```{r, eval = FALSE}
-fx <- cxxfunction(signature(x_="numeric", 
+fx <- cxxfunction(signature(x_="numeric",
                             Y_="matrix",
                             z_="numeric" ),
                   paste(readLines("myfile.cpp"),
@@ -838,7 +838,7 @@ random variable distributed as $N(m,s)$.
 Using Rcpp Attributes, this can be as simple as
 
 ```{r, eval = FALSE}
-cppFunction('Rcpp::NumericVector ff(int n) { 
+cppFunction('Rcpp::NumericVector ff(int n) {
               return rnorm(n, 0, 100);  }')
 set.seed(42)
 ff(5)
@@ -992,10 +992,10 @@ values instead.
 ```{r, eval=FALSE}
 myplugin <- getPlugin("Rcpp")
 myplugin$env$PKG_CXXFLAGS <- "-std=c++11"
-f <- cxxfunction(signature(), 
+f <- cxxfunction(signature(),
                  settings = myplugin, body = '
     // fails without -std=c++0x
-    std::vector<double> x = { 1.0, 2.0, 3.0 }; 
+    std::vector<double> x = { 1.0, 2.0, 3.0 };
     return Rcpp::wrap(x);
 ')
 f()
@@ -1025,7 +1025,7 @@ src <- '
   x.attr("dimnames") = dimnms;
   return(x);
 '
-fun <- cxxfunction(signature(), 
+fun <- cxxfunction(signature(),
                    body=src, plugin="Rcpp")
 fun()
 ```
@@ -1156,13 +1156,13 @@ void sample_defaults(
         NumericVector x =
         NumericVector::create(), // Size 0 vector
         bool bias = true,        // Set to true
-        std::string method = 
+        std::string method =
             "rcpp rules!") {     // Set string
-    
+
     Rcpp::Rcout << "x size: " << x.size() << ", ";
     Rcpp::Rcout << "bias value: " << bias << ", ";
     Rcpp::Rcout << "method value: " << ".";
-    
+
 }
 
 /*** R
@@ -1212,7 +1212,7 @@ conda install gxx_linux-64
 
 helps within this environment as it installs the corresponding
 `x86_64-conda_cos6-linux-gnu-c++` compiler. Documentation for this and other
-systems is provided 
+systems is provided
 [at this page](https://conda.io/docs/user-guide/tasks/build-packages/compiler-tools.html).
 
 # Support
@@ -1416,12 +1416,12 @@ To illustrate this phenomenon, consider the following scenario:
 // [[Rcpp::export]]
 Rcpp::NumericVector const_override_ex(
         const Rcpp::NumericVector& X) {
-    
+
   Rcpp::NumericVector Y(X); // Create object
                             // from SEXP
-                            
+
   Y = Y * 2;                // Modify new object
-  
+
   return X;                 // Return old object
 }
 ```
@@ -1454,10 +1454,10 @@ the aforementioned approach is emphasized:
 // [[Rcpp::export]]
 std::string explicit_string_conv(
         Rcpp::CharacterVector X) {
-    
+
     std::string s;  // define storage
     s = X[0];       // assign from CharacterVector
-    
+
     return s;
 }
 ```
@@ -1467,8 +1467,8 @@ e.g. `std::string s = X[0]`, this would result in the compiler triggering
 a conversion error on _some_ platforms. The error would be similar to:
 
 ```{bash, eval = FALSE}
-error: no viable conversion from 'Proxy' 
-(aka 'string_proxy<16>') to 'std::string' 
+error: no viable conversion from 'Proxy'
+(aka 'string_proxy<16>') to 'std::string'
 (aka 'basic_string<char, char_traits<char>,
 allocator<char> >')
 ```
@@ -1501,14 +1501,14 @@ via `operator=`, then the resulting `Vector` would have a length of
 // [[Rcpp::export]]
 void vec_scalar_assign(int n, double fill_val) {
   Rcpp::NumericVector X(n);
-  Rcpp::Rcout << "Value of Vector " << 
-      "on Creation: " << 
-      std::endl << X << std::endl;
-  
-  X = fill_val;
-  
   Rcpp::Rcout << "Value of Vector " <<
-      "after Assignment: " << 
+      "on Creation: " <<
+      std::endl << X << std::endl;
+
+  X = fill_val;
+
+  Rcpp::Rcout << "Value of Vector " <<
+      "after Assignment: " <<
       std::endl << X << std::endl;
 }
 ```
@@ -1535,9 +1535,9 @@ void mat_scalar_assign(int n, double fill_val) {
   Rcpp::Rcout << "Value of Matrix " <<
       "on Creation: " <<
       std::endl << X << std::endl;
-  
+
   X = fill_val;
-  
+
   Rcpp::Rcout << "Value of Matrix " <<
       "after Assignment: " <<
       std::endl << X << std::endl;
@@ -1612,7 +1612,7 @@ adequately for the majority of \pkg{Rcpp} data types. The notable exception
 that makes what would otherwise be a universal quantifier into an existential
 quantifier is the `CharacterVector` data type. Chiefly, the issue with
 sorting strings is related to how the `CharacterVector` relies upon the
-use of `Rcpp::internal::string_proxy`. 
+use of `Rcpp::internal::string_proxy`.
 In particular, `Rcpp::internal::string_proxy` is _not_ MoveAssignable since the
 left hand side of `operator=(const string_proxy \&rhs)` is _not_
 viewed as equivalent to the right hand side before the
@@ -1633,20 +1633,20 @@ approach alongside the problematic STL approach:
 // [[Rcpp::export]]
 Rcpp::CharacterVector preferred_sort(
         Rcpp::CharacterVector x) {
-    
+
   Rcpp::CharacterVector y = Rcpp::clone(x);
   y.sort();
-  
+
   return y;
 }
 
 // [[Rcpp::export]]
 Rcpp::CharacterVector stl_sort(
         Rcpp::CharacterVector x) {
-    
+
   Rcpp::CharacterVector y = Rcpp::clone(x);
   std::sort(y.begin(), y.end());
-  
+
   return y;
 }
 ```
@@ -1699,7 +1699,7 @@ sort(x)
 rcpp_sort(x)
 ```
 
-## Package building fails with 'symbols not found' 
+## Package building fails with 'symbols not found'
 
 R 3.4.0 and later strongly encourage registering dynamically loadable
 symbols. In the stronger form (where `.registration=TRUE` is added to the
@@ -1722,4 +1722,3 @@ elsewhere.
 So if your autogenerated file fails, and a `symbols not found` error is reported
 by the linker, consider running `compileAttributes()` twice. Deleting
 `R/RcppExports.R` and `src/RcppExports.cpp` may also work.
- 

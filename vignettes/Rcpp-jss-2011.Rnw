@@ -109,7 +109,7 @@ at \url{http://CRAN.R-project.org/package=Rcpp}.
     Statistical Software} (and is still mostly identical to the published paper).
   It had been distributed with the \pkg{Rcpp} package as file
   \textsf{Rcpp-introduction.pdf} for several years but has now been superceded by
-  an updated introduction \citep{PeerJ:Rcpp}.
+  an updated introduction \citep{PeerJ:Rcpp,TAS:Rcpp}.
 
   For citations, please use the \cite{JSS:Rcpp} or
   \cite{Eddelbuettel:2013:Rcpp}; details are also provided in \proglang{R} via
@@ -1077,4 +1077,3 @@ ideas for new or extended features via the \code{rcpp-devel} mailing list.
 %%% mode: latex
 %%% TeX-master: t
 %%% End:
-
