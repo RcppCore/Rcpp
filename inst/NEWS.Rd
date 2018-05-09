@@ -3,12 +3,14 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp version 0.12.17 (2018-05-xx)}{
+\section{Changes in Rcpp version 0.12.17 (2018-05-09)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
       \item The random number \code{Generator} class no longer inhreits from
       \code{RNGScope} (Kevin in \ghpr{837} fixing \ghit{836}).
+      \item A spurious parenthesis was removed to please gcc8 (Dirk
+      fixing \ghit{841})
       \item The optional \code{Timer} class header now undefines
       \code{FALSE} which was seen to have side-effects on some platforms
       (Romain in \ghpr{847} fixing \ghpr{846}).
@@ -17,6 +19,8 @@
     }
     \item Changes in Rcpp Documentation:
     \itemize{
+      \item A few old typesetting conventions from the prior Rnw format
+      have been corrected (Peter Hickey in \ghpr{831}; Joris Meys; Dirk)
       \item Two internal links to the introduction published in JSS have been
       updated to the changed filename given the newer TAS introduction.
       \item Some remaining backticks were replaced with straight quotes

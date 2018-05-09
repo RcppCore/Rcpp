@@ -1,3 +1,15 @@
+rcpp (0.12.17-1) unstable; urgency=medium
+
+  * debian/control: Set Build-Depends: to current R version
+  * debian/control: Set Standards-Version: to current version
+  * debian/control: Add Vcs-Browser: and Vcs-Git:
+  * debian/control: Switch from cdbs to dh-r
+  * debian/rules: Idem
+
+  * debian/control: Change Depends to r-cran-littler   (Closes: #897973)
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Wed, 09 May 2018 06:37:14 -0500
+
 rcpp (0.12.16-1) unstable; urgency=medium
 
   * New upstream release
@@ -8,7 +20,7 @@ rcpp (0.12.15-1) unstable; urgency=medium
 
   * New upstream release
 
-  * debian/control: Set Standards-Version: to current version 
+  * debian/control: Set Standards-Version: to current version
 
  -- Dirk Eddelbuettel <edd@debian.org>  Tue, 16 Jan 2018 06:04:40 -0600
 
@@ -17,7 +29,7 @@ rcpp (0.12.14-1) unstable; urgency=medium
   * New upstream release
 
   * debian/control: Set Build-Depends: to current R version
-  * debian/control: Set Standards-Version: to current version 
+  * debian/control: Set Standards-Version: to current version
 
  -- Dirk Eddelbuettel <edd@debian.org>  Sun, 03 Dec 2017 18:50:23 -0600
 
@@ -26,7 +38,7 @@ rcpp (0.12.13-1) unstable; urgency=medium
   * New upstream release
 
   * debian/control: Set Build-Depends: to current R version
-  * debian/control: Set Standards-Version: to current version 
+  * debian/control: Set Standards-Version: to current version
   * debian/compat: Increase level to 9
 
  -- Dirk Eddelbuettel <edd@debian.org>  Sat, 30 Sep 2017 07:59:04 -0500
@@ -74,33 +86,33 @@ rcpp (0.12.7-1) unstable; urgency=medium
 rcpp (0.12.6-1) unstable; urgency=medium
 
   * New upstream release
- 
+
   * debian/control: Set Build-Depends: to current R version
-  * debian/control: Set Standards-Version: to current version 
+  * debian/control: Set Standards-Version: to current version
 
  -- Dirk Eddelbuettel <edd@debian.org>  Mon, 18 Jul 2016 20:16:27 -0500
 
 rcpp (0.12.5-1) unstable; urgency=medium
 
   * New upstream release
-  
-  * debian/control: Set Build-Depends: to current R version 
+
+  * debian/control: Set Build-Depends: to current R version
 
  -- Dirk Eddelbuettel <edd@debian.org>  Sat, 14 May 2016 10:56:27 -0500
 
 rcpp (0.12.4-1) unstable; urgency=medium
 
   * New upstream release
-  
-  * debian/control: Set Build-Depends: to current R version 
+
+  * debian/control: Set Build-Depends: to current R version
 
  -- Dirk Eddelbuettel <edd@debian.org>  Tue, 22 Mar 2016 06:24:28 -0500
 
 rcpp (0.12.3-1) unstable; urgency=low
 
   * New upstream release
-  
-  * debian/control: Set Build-Depends: to current R version 
+
+  * debian/control: Set Build-Depends: to current R version
 
  -- Dirk Eddelbuettel <edd@debian.org>  Sun, 10 Jan 2016 08:43:36 -0600
 
@@ -113,16 +125,16 @@ rcpp (0.12.2-1) unstable; urgency=low
 rcpp (0.12.1-1) unstable; urgency=low
 
   * New upstream release
-  
-  * debian/control: Set Build-Depends: to current R version 
+
+  * debian/control: Set Build-Depends: to current R version
 
  -- Dirk Eddelbuettel <edd@debian.org>  Thu, 10 Sep 2015 05:14:40 -0500
 
 rcpp (0.12.0-1) unstable; urgency=low
 
   * New upstream release
-  
-  * debian/control: Set Build-Depends: to current R version 
+
+  * debian/control: Set Build-Depends: to current R version
 
  -- Dirk Eddelbuettel <edd@debian.org>  Fri, 24 Jul 2015 08:42:26 -0500
 
@@ -142,7 +154,7 @@ rcpp (0.11.4-1) unstable; urgency=low
 
   * New upstream release
 
-  * debian/control: Set Build-Depends: to current R version 
+  * debian/control: Set Build-Depends: to current R version
 
  -- Dirk Eddelbuettel <edd@debian.org>  Sat, 24 Jan 2015 14:52:51 -0600
 
@@ -152,16 +164,16 @@ rcpp (0.11.3-1) unstable; urgency=low
 
   * debian/control: New (Build-)Depends: on r-cran-pkgkitten
 
-  * debian/control: Set Build-Depends: to current R version 
+  * debian/control: Set Build-Depends: to current R version
   * debian/control: Set Standards-Version: to current version
-  
+
  -- Dirk Eddelbuettel <edd@debian.org>  Mon, 29 Sep 2014 19:54:50 -0500
 
 rcpp (0.11.2-1) unstable; urgency=low
 
   * New release
 
-  * debian/control: Set Build-Depends: to current R version 
+  * debian/control: Set Build-Depends: to current R version
 
  -- Dirk Eddelbuettel <edd@debian.org>  Fri, 06 Jun 2014 18:09:54 -0500
 
@@ -169,7 +181,7 @@ rcpp (0.11.1-1) unstable; urgency=low
 
   * New release
 
-  * debian/control: Set Build-Depends: to current R version 
+  * debian/control: Set Build-Depends: to current R version
 
  -- Dirk Eddelbuettel <edd@debian.org>  Thu, 13 Mar 2014 20:20:11 -0500
 
@@ -182,18 +194,18 @@ rcpp (0.11.0-1) unstable; urgency=low
 rcpp (0.10.6-1) unstable; urgency=low
 
   * New release
-  * debian/control: Set Build-Depends: to current R version 
-  * debian/control: Set Standards-Version: to current version 
-  * debian/control: Add 'r-cran-codetools' to Build-Depends (as it is 
-    used at preparation for LazyLoading stage) 
-  
+  * debian/control: Set Build-Depends: to current R version
+  * debian/control: Set Standards-Version: to current version
+  * debian/control: Add 'r-cran-codetools' to Build-Depends (as it is
+    used at preparation for LazyLoading stage)
+
  -- Dirk Eddelbuettel <edd@debian.org>  Tue, 29 Oct 2013 09:42:30 -0500
 
 rcpp (0.10.5-1) unstable; urgency=low
 
   * New release
 
-  * debian/control: Set Build-Depends: to current R version 
+  * debian/control: Set Build-Depends: to current R version
 
  -- Dirk Eddelbuettel <edd@debian.org>  Sat, 28 Sep 2013 07:28:48 -0500
 
@@ -201,14 +213,14 @@ rcpp (0.10.4-1) unstable; urgency=low
 
   * New release
 
-  * debian/control: Set Build-Depends: to current R version 
+  * debian/control: Set Build-Depends: to current R version
 
  -- Dirk Eddelbuettel <edd@debian.org>  Sun, 23 Jun 2013 09:02:24 -0500
 
 rcpp (0.10.3-2) unstable; urgency=low
 
-  * debian/control: Set Build-Depends: to current R version 
-  
+  * debian/control: Set Build-Depends: to current R version
+
   * (Re-)building with R 3.0.0 (beta)
 
  -- Dirk Eddelbuettel <edd@debian.org>  Sat, 30 Mar 2013 18:04:44 -0500
@@ -230,7 +242,7 @@ rcpp (0.10.2-1) unstable; urgency=low
 rcpp (0.10.1-1) unstable; urgency=low
 
   * New release
-  
+
   * inst/include/Rcpp/iostream/Rostream.h: Additional fix that didn't make
     it into 0.10.1
 
@@ -272,7 +284,7 @@ rcpp (0.9.11-1) unstable; urgency=low
 
   * debian/control: Set Build-Depends: to current R version
   * debian/control: Change Depends to ${R:Depends}
-  * debian/control: Set Standards-Version: to current version 
+  * debian/control: Set Standards-Version: to current version
 
  -- Dirk Eddelbuettel <edd@debian.org>  Fri, 22 Jun 2012 06:22:00 -0500
 
@@ -281,7 +293,7 @@ rcpp (0.9.10-1) unstable; urgency=low
   * New release
 
   * debian/control: Updated (Build-)Depends: to current R version
-  
+
  -- Dirk Eddelbuettel <edd@debian.org>  Wed, 15 Feb 2012 07:10:16 -0600
 
 rcpp (0.9.9-1) unstable; urgency=low
@@ -296,7 +308,7 @@ rcpp (0.9.8-1) unstable; urgency=low
 
   * debian/control: Updated Standard-Versions: to current version
   * debian/control: Updated (Build-)Depends: to current R version
-  
+
  -- Dirk Eddelbuettel <edd@debian.org>  Wed, 21 Dec 2011 10:50:09 -0600
 
 rcpp (0.9.7-1) unstable; urgency=low
@@ -412,7 +424,7 @@ rcpp (0.7.12-1) unstable; urgency=low
    * New release
 
  -- Dirk Eddelbuettel <edd@debian.org>  Fri, 16 Apr 2010 06:23:46 -0500
-  
+
 rcpp (0.7.11-1) unstable; urgency=low
 
   * New release
@@ -484,7 +496,7 @@ rcpp (0.7.0-1) unstable; urgency=low
   * New release
 
   * debian/control: Added littler to Depends: as examples use it [lintian]
-  
+
  -- Dirk Eddelbuettel <edd@debian.org>  Sat, 19 Dec 2009 14:18:32 -0600
 
 rcpp (0.6.8-1) unstable; urgency=low
@@ -496,7 +508,7 @@ rcpp (0.6.8-1) unstable; urgency=low
 rcpp (0.6.7-1) unstable; urgency=low
 
   * New release
-  
+
   * debian/control: Updated Standard-Versions: to current version
   * debian/control: Updated (Build-)Depends: to current R version
 
@@ -505,7 +517,7 @@ rcpp (0.6.7-1) unstable; urgency=low
 rcpp (0.6.6-1) unstable; urgency=low
 
   * New release
-  
+
   * debian/control: Updated Standard-Versions: to current version
   * debian/control: Updated (Build-)Depends: to current R version
 
@@ -514,7 +526,7 @@ rcpp (0.6.6-1) unstable; urgency=low
 rcpp (0.6.5-1) unstable; urgency=low
 
   * New release
-  
+
   * COPYING: Added license file 			(Closes: #522202)
 
  -- Dirk Eddelbuettel <edd@debian.org>  Wed, 01 Apr 2009 21:34:33 -0500
@@ -531,13 +543,11 @@ rcpp (0.6.4-1) unstable; urgency=low
 rcpp (0.6.3-1) unstable; urgency=low
 
   * New release
-  
+
  -- Dirk Eddelbuettel <edd@debian.org>  Fri, 09 Jan 2009 20:41:35 -0600
 
 rcpp (0.6.2-1) unstable; urgency=low
 
   * Initial Debian release 				(Closes: #507941)
-  
+
  -- Dirk Eddelbuettel <edd@debian.org>  Fri, 05 Dec 2008 19:58:31 -0600
-
-

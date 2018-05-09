@@ -1,3 +1,13 @@
+2018-05-09  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION: Release 0.12.17
+        * inst/NEWS.Rd: Release 0.12.17
+        * inst/bib/Rcpp.bib: Release 0.12.17
+        * vignettes/Rcpp.bib: Release 0.12.17
+        * inst/include/Rcpp/config.h: Release 0.12.17
+
+        * debian/*: Changes for Debian release of 0.12.16
+
 2018-05-05  Dirk Eddelbuettel  <edd@debian.org>
 
 	* vignettes/Rcpp-FAQ.Rmd: Also mention TAS paper
@@ -56,6 +66,10 @@
 2018-03-14  Dirk Eddelbuettel  <edd@debian.org>
 
         * vignettes/Rcpp-FAQ.Rmd: Correct a double-quote (thanks, Joris Meys)
+
+2018-03-08  Peter Hickey  <peter.hickey@gmail.com>
+
+	* vignettes/Rcpp-attributes.Rmd: Correct stray backslash
 
 2018-03-08  Dirk Eddelbuettel  <edd@debian.org>
 
