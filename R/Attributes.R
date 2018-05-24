@@ -196,7 +196,7 @@ sourceCpp <- function(file = "",
     if (embeddedR && (length(context$embeddedR) > 0)) {
         srcConn <- textConnection(context$embeddedR)
         setwd(rWorkingDir) # will be reset by previous on.exit handler
-        source(file=srcConn, echo=TRUE)
+        source(file = srcConn, local = env, echo = TRUE)
     }
 
     # cleanup the cache dir if requested
