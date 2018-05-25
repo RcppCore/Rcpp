@@ -18,20 +18,23 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.runThisTest <- TRUE # Sys.getenv("RunAllRcppTests") == "yes"
+.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
 
 if (.runThisTest) {
 
     test.embeddedR <- function() {
-
-        path <- system.file("unitTests", package = "Rcpp")
+        path <- file.path(system.file("unitTests", package = "Rcpp"), "cpp")
         expectedVars <- c("foo", "x")
+
+        # embeddedR.cpp exposes the function foo, R snippet calls foo
         newEnv <- new.env()
-        Rcpp::sourceCpp(file.path(path, "cpp", "embeddedR.cpp"), env = newEnv)
-        checkEquals(ls(newEnv), expectedVars, msg = " sourcing code in other env")
+        Rcpp::sourceCpp(file.path(path, "embeddedR.cpp"),
+                        env = newEnv)
+        checkEquals(ls(newEnv), expectedVars, msg = " sourcing code in custom env")
+
+        # R snippet in embeddedR2.cpp also contains a call to foo from previous cpp
+        newEnv2 <- new.env()
+        checkException(Rcpp::sourceCpp(file.path(path, "embeddedR2.cpp"), env = newEnv2),
+                                       " not available in other env")
     }
-
 }
-
-
-
