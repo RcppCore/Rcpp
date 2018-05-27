@@ -868,3 +868,12 @@ List ListNoProtect_crosspolicy(Vector<VECSXP, NoProtectStorage> data){
     data2[0] = data[0];
     return data2;
 }
+
+// [[Rcpp::export]]
+bool CharacterVector_test_equality(CharacterVector x, CharacterVector y) {
+    if (x.length() != y.length()) {
+        return false;
+    }
+
+    return std::equal(x.begin(), x.end(), y.begin());
+}

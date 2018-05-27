@@ -187,31 +187,30 @@ namespace internal{
 			std::for_each( begin(), end(), op );
 		}
 
-		bool operator==( const char* other){
+		bool operator==( const char* other) const {
 			return strcmp( begin(), other ) == 0 ;
 		}
-		bool operator!=( const char* other){
+		bool operator!=( const char* other) const {
 			return strcmp( begin(), other ) != 0 ;
 		}
 
-		bool operator==( const string_proxy& other){
+		bool operator==( const string_proxy& other) const {
 			return strcmp( begin(), other.begin() ) == 0 ;
 		}
-		bool operator!=( const string_proxy& other){
+		bool operator!=( const string_proxy& other) const {
 			return strcmp( begin(), other.begin() ) != 0 ;
 		}
 
-                bool operator==( SEXP other ) const {
-                    return get() == other;
-                }
+        bool operator==( SEXP other ) const {
+            return get() == other;
+        }
 
-                bool operator!=( SEXP other ) const {
-                    return get() != other;
-                }
+        bool operator!=( SEXP other ) const {
+            return get() != other;
+        }
 
-
-		private:
-			static std::string buffer ;
+	private:
+		static std::string buffer ;
 
 	} ;
 
