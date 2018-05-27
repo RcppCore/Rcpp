@@ -877,3 +877,12 @@ bool CharacterVector_test_equality(CharacterVector x, CharacterVector y) {
 
     return std::equal(x.begin(), x.end(), y.begin());
 }
+
+// [[Rcpp::export]]
+bool CharacterVector_test_equality_crosspolicy(CharacterVector x, Vector<STRSXP,NoProtectStorage> y) {
+    if (x.length() != y.length()) {
+        return false;
+    }
+
+    return std::equal(x.begin(), x.end(), y.begin());
+}

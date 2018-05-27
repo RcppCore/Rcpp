@@ -194,10 +194,13 @@ namespace internal{
 			return strcmp( begin(), other ) != 0 ;
 		}
 
-		bool operator==( const string_proxy& other) const {
+		template<template <class> class SP>
+		bool operator==( const string_proxy<STRSXP, SP>& other) const {
 			return strcmp( begin(), other.begin() ) == 0 ;
 		}
-		bool operator!=( const string_proxy& other) const {
+
+		template<template <class> class SP>
+		bool operator!=( const string_proxy<STRSXP,SP>& other) const {
 			return strcmp( begin(), other.begin() ) != 0 ;
 		}
 

@@ -774,6 +774,7 @@ if (.runThisTest) {
     }
 
     test.CharacterVector_test_equality <- function(){
-       checkTrue( !CharacterVector_test_equality("foo", "bar") )
+        checkTrue( !CharacterVector_test_equality("foo", "bar") )
+        checkTrue( !CharacterVector_test_equality_crosspolicy("foo", "bar") )
     }
 }
