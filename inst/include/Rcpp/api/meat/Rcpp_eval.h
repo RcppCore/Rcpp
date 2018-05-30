@@ -21,13 +21,10 @@
 #include <Rcpp/Interrupt.h>
 #include <Rversion.h>
 
-// outer definition from RcppCommon.h
-#if defined(RCPP_USE_UNWIND_PROTECT)
-  #if (defined(RCPP_PROTECTED_EVAL) && defined(R_VERSION) && R_VERSION >= R_Version(3, 5, 0))
-     // file-local and only used here 
-     #define RCPP_USE_PROTECT_UNWIND
-  #endif
+#if (defined(RCPP_PROTECTED_EVAL) && defined(R_VERSION) && R_VERSION >= R_Version(3, 5, 0))
+#define RCPP_USE_PROTECT_UNWIND
 #endif
+
 
 namespace Rcpp {
 namespace internal {
@@ -112,11 +109,7 @@ inline SEXP Rcpp_eval(SEXP expr, SEXP env) {
     SET_TAG(CDDR(call), ::Rf_install("error"));
     SET_TAG(CDDR(CDR(call)), ::Rf_install("interrupt"));
 
-#if defined(RCPP_USE_UNWIND_PROTECT)
-    Shield<SEXP> res(::Rf_eval(call, R_GlobalEnv))			// execute the call
-#else
     Shield<SEXP> res(internal::Rcpp_eval_impl(call, R_GlobalEnv));
-#endif
 
     // check for condition results (errors, interrupts)
     if (Rf_inherits(res, "condition")) {
@@ -125,12 +118,7 @@ inline SEXP Rcpp_eval(SEXP expr, SEXP env) {
 
             Shield<SEXP> conditionMessageCall(::Rf_lang2(::Rf_install("conditionMessage"), res));
 
-#if defined(RCPP_USE_UNWIND_PROTECT)
-            Shield<SEXP> conditionMessage(internal::Rcpp_eval_impl(conditionMessageCall,
-                                                                   R_GlobalEnv));
-#else
-            Shield<SEXP> conditionMessage(::Rf_eval(conditionMessageCall, R_GlobalEnv));
-#endif
+            Shield<SEXP> conditionMessage(internal::Rcpp_eval_impl(conditionMessageCall, R_GlobalEnv));
             throw eval_error(CHAR(STRING_ELT(conditionMessage, 0)));
         }
 

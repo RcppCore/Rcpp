@@ -111,7 +111,6 @@ namespace Rcpp {
         throw Rcpp::exception(message.c_str());
     }                                                        // #nocov end
 
-#if defined(RCPP_USE_UNWIND_PROTECT)
     namespace internal {
 
         struct LongjumpException {
@@ -127,7 +126,6 @@ namespace Rcpp {
         }
 
     } // namespace internal
-#endif
 
 } // namespace Rcpp
 

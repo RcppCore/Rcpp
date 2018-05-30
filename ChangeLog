@@ -1,3 +1,35 @@
+
+2018-05-31  Lionel Henry  <lionel@rstudio.com>
+
+	* inst/include/Rcpp/api/meat/Rcpp_eval.h: Unguard Rcpp_fast_eval().
+
+        Unlike Rcpp_eval(), Rcpp_fast_eval() does not evaluate R code within
+        tryCatch() in order to avoid the catching overhead. R longjumps are now
+        correctly intercepted and rethrown. Following this change the C++ stack
+        is now safely unwound when a longjump is detected while calling into R
+        code. This includes the following cases: caught condition of any class,
+        long return, restart jump, debugger exit.
+
+        Rcpp_eval() also uses the protect-unwind API under the hood in order to
+        gain safety. It is fully backward-compatibile and still catches errors
+        and interrupts to rethrow them as typed C++ exceptions. If you don't
+        need to catch those, consider using Rcpp_fast_eval() instead to avoid
+        the catching overhead.
+
+        These improvements are only available for R 3.5.0 and greater. You also
+        need to explicitly define `RCPP_PROTECTED_EVAL` before including Rcpp.h.
+        When compiled with old versions of R, Rcpp_fast_eval() always falls back
+        to Rcpp_eval(). This is in contrast to internal::Rcpp_eval_impl() which
+        falls back to Rf_eval() and which is used in performance-sensititive
+        places.
+
+        Note that Rcpp_fast_eval() behaves a bit differently to Rcpp_eval(). The
+        former has the semantics of the C function Rf_eval() whereas the latter
+        behaves like the R function base::eval(). This has subtle implications
+        for control flow. For instance evaluating a return() expression within a
+        frame environment returns from that frame rather than from the
+        Rcpp_eval() call.
+
 2018-05-09  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.12.17
