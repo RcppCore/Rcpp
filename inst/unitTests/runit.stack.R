@@ -42,6 +42,9 @@ if (.runThisTest) {
     }
 
     test.stackUnwindsOnInterrupts <- function() {
+        if (.Platform$OS.type == "windows") {
+            return(NULL)
+        }
         unwound <- FALSE
         expr <- quote({
             repeat testSendInterrupt()
