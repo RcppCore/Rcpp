@@ -30,6 +30,9 @@
         frame environment returns from that frame rather than from the
         Rcpp_eval() call.
 
+        * inst/include/Rcpp/macros/macros.h: Leave the try/catch scope before
+        resuming jump to ensure proper destruction of the exception reference.
+
 2018-05-09  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.12.17
