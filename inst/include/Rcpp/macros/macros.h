@@ -67,7 +67,6 @@
     }                                                                                            \
     if (rcpp_output_type == 3) {                                                                 \
         Rcpp::internal::resumeJump(rcpp_output_condition);                                       \
-        Rf_error("Internal error: Rcpp longjump failed to resume");                              \
     }
 #endif
 

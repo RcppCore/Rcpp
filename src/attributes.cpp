@@ -2782,7 +2782,6 @@ namespace attributes {
                      << "    if (rcpp_isLongjump_gen) {" << std::endl
                                  // No need to unprotect before jump
                      << "        Rcpp::internal::resumeJump(rcpp_result_gen);" << std::endl
-                     << "        Rf_error(\"Internal error: Rcpp longjump failed to resume\");" << std::endl
                      << "    }" << std::endl
                      << "    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, \"try-error\");"
                      << std::endl
