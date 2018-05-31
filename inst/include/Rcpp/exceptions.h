@@ -149,7 +149,7 @@ namespace Rcpp {
                 token = getLongjumpToken(token);
             }
             ::R_ReleaseObject(token);
-#if (defined(RCPP_PROTECTED_EVAL) && defined(R_VERSION) && R_VERSION >= R_Version(3, 5, 0))
+#if (defined(R_VERSION) && R_VERSION >= R_Version(3, 5, 0))
             ::R_ContinueUnwind(token);
 #endif
             Rf_error("Internal error: Rcpp longjump failed to resume");
