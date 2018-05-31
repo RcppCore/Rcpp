@@ -113,12 +113,41 @@ namespace Rcpp {
 
     namespace internal {
 
+        inline SEXP longjumpSentinel(SEXP token) {
+            SEXP sentinel = PROTECT(Rf_allocVector(VECSXP, 1));
+            SET_VECTOR_ELT(sentinel, 0, token);
+
+            SEXP sentinelClass = PROTECT(Rf_mkString("Rcpp:longjumpSentinel"));
+            Rf_setAttrib(sentinel, R_ClassSymbol, sentinelClass) ;
+
+            UNPROTECT(2);
+            return sentinel;
+        }
+
+        inline bool isLongjumpSentinel(SEXP x) {
+            return
+                Rf_inherits(x, "Rcpp:longjumpSentinel") &&
+                TYPEOF(x) == VECSXP &&
+                Rf_length(x) == 1;
+        }
+
+        inline SEXP getLongjumpToken(SEXP sentinel) {
+            return VECTOR_ELT(sentinel, 0);
+        }
+
         struct LongjumpException {
             SEXP token;
-            LongjumpException(SEXP token_) : token(token_) { }
+            LongjumpException(SEXP token_) : token(token_) {
+                if (isLongjumpSentinel(token)) {
+                    token = getLongjumpToken(token);
+                }
+            }
         };
 
         inline void resumeJump(SEXP token) {
+            if (isLongjumpSentinel(token)) {
+                token = getLongjumpToken(token);
+            }
             ::R_ReleaseObject(token);
 #if (defined(RCPP_PROTECTED_EVAL) && defined(R_VERSION) && R_VERSION >= R_Version(3, 5, 0))
             ::R_ContinueUnwind(token);

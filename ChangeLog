@@ -33,6 +33,16 @@
         * inst/include/Rcpp/macros/macros.h: Leave the try/catch scope before
         resuming jump to ensure proper destruction of the exception reference.
 
+        * inst/include/Rcpp/exceptions.h: Functions to create and check a
+        longjump sentinel. This sentinel is used as return value in contexts
+        where it is not safe to resume a jump (i.e. in the glue code of cpp
+        interfaces).
+
+        * inst/include/Rcpp/macros/macros.h: Return a longjump sentinel in
+        END_RCPP_RETURN_ERROR.
+
+        * src/attributes.cpp: Detect longjump sentinels and resume jump.
+
 2018-05-09  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.12.17

@@ -2190,6 +2190,10 @@ namespace attributes {
                        << std::endl
                        << "            throw Rcpp::internal::InterruptedException();"
                        << std::endl;
+                ostr() << "        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))"
+                       << std::endl
+                       << "            throw Rcpp::internal::LongjumpException(rcpp_result_gen);"
+                       << std::endl;
                 ostr() << "        if (rcpp_result_gen.inherits(\"try-error\"))"
                        << std::endl
                        << "            throw Rcpp::exception(Rcpp::as<std::string>("
@@ -2773,6 +2777,12 @@ namespace attributes {
                      << "    if (rcpp_isInterrupt_gen) {" << std::endl
                      << "        UNPROTECT(1);" << std::endl
                      << "        Rf_onintr();" << std::endl
+                     << "    }" << std::endl
+                     << "    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);" << std::endl
+                     << "    if (rcpp_isLongjump_gen) {" << std::endl
+                                 // No need to unprotect before jump
+                     << "        Rcpp::internal::resumeJump(rcpp_result_gen);" << std::endl
+                     << "        Rf_error(\"Internal error: Rcpp longjump failed to resume\");" << std::endl
                      << "    }" << std::endl
                      << "    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, \"try-error\");"
                      << std::endl

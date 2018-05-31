@@ -85,18 +85,13 @@
     return Rcpp::internal::interruptedError();                                 \
   }                                                                            \
   catch (Rcpp::internal::LongjumpException& __ex__) {                          \
-    rcpp_output_type = 3 ;                                                     \
-    rcpp_output_condition = __ex__.token;                                      \
+    return Rcpp::internal::longjumpSentinel(__ex__.token);                     \
   }                                                                            \
   catch (std::exception &__ex__) {                                             \
     return exception_to_try_error(__ex__);                                     \
   }                                                                            \
   catch (...) {                                                                \
     return string_to_try_error("c++ exception (unknown reason)");              \
-  }                                                                            \
-  if (rcpp_output_type == 3) {                                                 \
-    Rcpp::internal::resumeJump(rcpp_output_condition);                         \
-    Rf_error("Internal error: Rcpp longjump failed to resume");                \
   }                                                                            \
   return R_NilValue;
 #endif
