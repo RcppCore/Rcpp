@@ -1,4 +1,13 @@
 
+2018-06-01  Lionel Henry  <lionel@rstudio.com>
+
+        * inst/unitTests/runit.interface.R: New tests for interfaces and unwind.
+        These tests build two packages, and that exports a function via
+        Rcpp::interfaces(cpp) and the other that calls it. The attributes are
+        regenerated and the packages rebuilt each time the tests are run. The
+        tests check in particular that the C++ stack is properly unwound when a
+        long jump occurs.
+
 2018-05-31  Lionel Henry  <lionel@rstudio.com>
 
         * inst/include/Rcpp/api/meat/Rcpp_eval.h: Fix protected evaluation.
