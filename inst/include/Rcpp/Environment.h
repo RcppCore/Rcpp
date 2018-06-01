@@ -407,7 +407,7 @@ namespace Rcpp{
         /**
          * creates a new environment whose this is the parent
          */
-        Environment_Impl new_child(bool hashed) {
+        Environment_Impl new_child(bool hashed) const {
             SEXP newEnvSym = Rf_install("new.env");
             return Environment_Impl( Rcpp_eval(Rf_lang3( newEnvSym, Rf_ScalarLogical(hashed), Storage::get__() )) );
         }
