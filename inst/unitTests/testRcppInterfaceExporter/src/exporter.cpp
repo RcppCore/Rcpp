@@ -7,7 +7,11 @@
 
 //' @export
 // [[Rcpp::export]]
-SEXP test_cpp_interface(SEXP x) {
+SEXP test_cpp_interface(SEXP x, bool fast = false) {
   unwound_t stack_obj("cpp_interface_upstream");
-  return Rcpp::Rcpp_fast_eval(x, R_GlobalEnv);
+  if (fast) {
+      return Rcpp::Rcpp_fast_eval(x, R_GlobalEnv);
+  } else {
+      return Rcpp::Rcpp_eval(x, R_GlobalEnv);
+  }
 }

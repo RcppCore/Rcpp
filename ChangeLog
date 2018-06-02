@@ -7,6 +7,9 @@
         functions are still caught and dealt with properly by the client
         package.
 
+        * inst/unitTests/runit.interface.R: Test both Rcpp_eval() and
+        Rcpp_fast_eval().
+
 2018-06-01  Lionel Henry  <lionel@rstudio.com>
 
         * inst/unitTests/runit.interface.R: New tests for interfaces and unwind.
