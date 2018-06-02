@@ -1,4 +1,5 @@
 
+# This tests errors converted to exceptions by Rcpp_eval()
 x <- tryCatch(
   error = identity,
   testRcppInterfaceUser::use_cpp_interface(quote(stop("jump!")))
@@ -17,6 +18,7 @@ if (getRversion() >= "3.5.0") {
 testRcppInterfaceUser::reset_flags()
 testRcppInterfaceExporter::reset_flags()
 
+# This tests longjumps not caught by Rcpp_eval()
 x <- withRestarts(
   here = identity,
   testRcppInterfaceUser::use_cpp_interface(quote(invokeRestart("here", "value")))

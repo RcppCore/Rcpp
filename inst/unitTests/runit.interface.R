@@ -21,6 +21,25 @@
 
 if (.runThisTest) {
 
+    build_package <- function(name, lib_path, tempdir = getwd(),
+                              config = character()) {
+        file.copy(system.file("unitTests", name, package = "Rcpp"),
+                  getwd(),
+                  recursive = TRUE)
+
+        src_path <- file.path(tempdir, name)
+        Rcpp::compileAttributes(src_path)
+        writeLines(config, file.path(src_path, "src", "config.h"))
+
+        install.packages(
+            src_path,
+            lib_path,
+            repos = NULL,
+            type = "source",
+            INSTALL_opts = "--install-tests"
+        )
+    }
+
     test.interface.unwind <- function() {
         exporter_name <- "testRcppInterfaceExporter"
         user_name <- "testRcppInterfaceUser"
@@ -33,37 +52,12 @@ if (.runThisTest) {
             unlink(tempdir, recursive = TRUE)
         })
 
-        file.copy(system.file("unitTests", exporter_name, package = "Rcpp"),
-                  tempdir,
-                  recursive = TRUE)
-        file.copy(system.file("unitTests", user_name, package = "Rcpp"),
-                  tempdir,
-                  recursive = TRUE)
-
-        exporter_path <- file.path(tempdir, exporter_name)
-        user_path <- file.path(tempdir, user_name)
-
-        Rcpp::compileAttributes(exporter_path)
-        Rcpp::compileAttributes(user_path)
-
         lib_path <- file.path(tempdir, "templib")
         dir.create(lib_path)
 
-        install <- function(path, lib_path) {
-            install.packages(
-                path,
-                lib_path,
-                repos = NULL,
-                type = "source",
-                INSTALL_opts = "--install-tests"
-            )
-        }
-        install(exporter_path, lib_path)
-        install(user_path, lib_path)
-
         old_lib_paths <- .libPaths()
-        on.exit(.libPaths(old_lib_paths))
-        .libPaths(lib_path)
+        on.exit(.libPaths(old_lib_paths), add = TRUE)
+        .libPaths(c(lib_path, old_lib_paths))
 
         # Without this testInstalledPackage() won't find installed
         # packages even though we've passed `lib.loc`
@@ -73,12 +67,31 @@ if (.runThisTest) {
         sys_sep <- if (.Platform$OS.type == "windows") ";" else ":"
         Sys.setenv(R_LIBS = paste(c(lib_path, old_lib_paths), collapse = sys_sep))
 
+        cfg <- "#define RCPP_PROTECTED_EVAL"
+        build_package(exporter_name, lib_path, config = cfg)
+        build_package(user_name, lib_path, config = cfg)
+
         result <- tools::testInstalledPackage(user_name, lib.loc = lib_path, types = "test")
 
         # Be verbose if tests were not successful
         if (result) {
             log <- file.path(paste0(user_name, "-tests"), "tests.Rout.fail")
-            cat(">> tests.Rout.fail", readLines(log), sep = "\n", file = stderr())
+            cat(">> PROTECTED tests.Rout.fail", readLines(log), sep = "\n", file = stderr())
+        }
+
+        checkEquals(result, 0L)
+
+
+        # Now test client package without protected evaluation
+        unlink(user_name, recursive = TRUE)
+        unlink(paste0(user_name, "-tests"), recursive = TRUE)
+        build_package(user_name, lib_path, config = character())
+
+        result <- tools::testInstalledPackage(user_name, lib.loc = lib_path, types = "test")
+
+        if (result) {
+            log <- file.path(paste0(user_name, "-tests"), "tests.Rout.fail")
+            cat(">> UNPROTECTED tests.Rout.fail", readLines(log), sep = "\n", file = stderr())
         }
 
         checkEquals(result, 0L)

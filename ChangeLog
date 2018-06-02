@@ -1,4 +1,12 @@
 
+2018-06-02  Lionel Henry  <lionel@rstudio.com>
+
+        * inst/unitTests/runit.interface.R: New test for the case where
+        the client package was compiled without protected evaluation
+        enabled. On R 3.5, longjump exceptions thrown from imported
+        functions are still caught and dealt with properly by the client
+        package.
+
 2018-06-01  Lionel Henry  <lionel@rstudio.com>
 
         * inst/unitTests/runit.interface.R: New tests for interfaces and unwind.

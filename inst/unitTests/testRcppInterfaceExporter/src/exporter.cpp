@@ -1,4 +1,4 @@
-#define RCPP_PROTECTED_EVAL
+#include "config.h"
 
 #include <Rcpp.h>
 #include "unwound.h"
