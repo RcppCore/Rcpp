@@ -28,6 +28,12 @@ if (.runThisTest) {
     # leaks on longjumps
     hasUnwind <- getRversion() >= "3.5.0"
     checkUnwound <- if (hasUnwind) checkTrue else function(x) checkTrue(!x)
+    checkErrorMessage <- function(x, msg) {
+        if (!hasUnwind) {
+            msg <- paste0("Evaluation error: ", msg, ".")
+        }
+        checkIdentical(x$message, msg)
+    }
     EvalUnwind <- function(expr, indicator) {
         testFastEval(expr, parent.frame(), indicator)
     }
@@ -37,8 +43,7 @@ if (.runThisTest) {
         unwound <- FALSE
         out <- tryCatch(EvalUnwind(quote(stop("err")), unwound), error = identity)
         checkTrue(unwound)
-        msg <- if (hasUnwind) "err" else "Evaluation error: err."
-        checkIdentical(out$message, msg)
+        checkErrorMessage(out, "err")
     }
 
     test.stackUnwindsOnInterrupts <- function() {
@@ -103,4 +108,38 @@ if (.runThisTest) {
             checkIdentical(out, "abort")
         }
     }
+
+    # Longjump from the inner protected eval
+    test.stackUnwindsOnNestedEvalsInner <- function() {
+        unwound1 <- FALSE
+        unwound2 <- FALSE
+        innerUnwindExpr <- quote(EvalUnwind(quote(invokeRestart("here", "jump")), unwound2))
+        out <- withRestarts(
+            here = identity,
+            EvalUnwind(innerUnwindExpr, unwound1)
+        )
+
+        checkIdentical(out, "jump")
+        checkUnwound(unwound1)
+        checkUnwound(unwound2)
+    }
+
+    # Longjump from the outer protected eval
+    test.stackUnwindsOnNestedEvalsOuter <- function() {
+        unwound1 <- FALSE
+        unwound2 <- FALSE
+        innerUnwindExpr <- quote({
+            EvalUnwind(NULL, unwound2)
+            invokeRestart("here", "jump")
+        })
+        out <- withRestarts(
+            here = identity,
+            EvalUnwind(innerUnwindExpr, unwound1)
+        )
+
+        checkIdentical(out, "jump")
+        checkUnwound(unwound1)
+        checkTrue(unwound2) # Always unwound
+    }
+
 }

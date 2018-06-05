@@ -32,25 +32,22 @@ namespace internal {
 
 #ifdef RCPP_USE_PROTECT_UNWIND
 
-    // Store the jump buffer as a static variable in function scope
-    // because inline variables are a C++17 extension.
-    inline std::jmp_buf* get_jmpbuf_ptr() {
-        static std::jmp_buf jmpbuf;
-        return &jmpbuf;
-    }
-
     struct EvalData {
         SEXP expr;
         SEXP env;
         EvalData(SEXP expr_, SEXP env_) : expr(expr_), env(env_) { }
     };
+    struct EvalUnwindData {
+        std::jmp_buf jmpbuf;
+    };
 
     // First jump back to the protected context with a C longjmp because
     // `Rcpp_protected_eval()` is called from C and we can't safely throw
     // exceptions across C frames.
-    inline void Rcpp_maybe_throw(void* data, Rboolean jump) {
+    inline void Rcpp_maybe_throw(void* unwind_data, Rboolean jump) {
         if (jump) {
-            longjmp(*internal::get_jmpbuf_ptr(), 1);
+            EvalUnwindData* data = static_cast<EvalUnwindData*>(unwind_data);
+            longjmp(data->jmpbuf, 1);
         }
     }
 
@@ -80,9 +77,10 @@ namespace internal {
 
     inline SEXP Rcpp_fast_eval(SEXP expr, SEXP env) {
         internal::EvalData data(expr, env);
+        internal::EvalUnwindData unwind_data;
         Shield<SEXP> token(::R_MakeUnwindCont());
 
-        if (setjmp(*internal::get_jmpbuf_ptr())) {
+        if (setjmp(unwind_data.jmpbuf)) {
             // Keep the token protected while unwinding because R code might run
             // in C++ destructors. Can't use PROTECT() for this because
             // UNPROTECT() might be called in a destructor, for instance if a
@@ -93,7 +91,7 @@ namespace internal {
         }
 
         return ::R_UnwindProtect(internal::Rcpp_protected_eval, &data,
-                                 internal::Rcpp_maybe_throw, token,
+                                 internal::Rcpp_maybe_throw, &unwind_data,
                                  token);
     }
 
