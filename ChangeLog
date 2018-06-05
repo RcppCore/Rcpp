@@ -1,3 +1,6 @@
+2018-06-05  Jack Wasey <jack@jackwasey.com>
+        * inst/include/Rcpp/r_cast.h: Error and abort if debugging
+
 2018-05-09  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.12.17
