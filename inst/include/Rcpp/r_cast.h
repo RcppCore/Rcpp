@@ -73,7 +73,7 @@ namespace Rcpp {
                         Rf_type2char(TYPEOF(x)),
                         Rf_type2char(RTYPE));
                 abort();
-#elif
+#else
                 throw ::Rcpp::not_compatible(fmt,
                                              Rf_type2char(TYPEOF(x)),
                                              Rf_type2char(RTYPE));
