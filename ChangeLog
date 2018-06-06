@@ -1,3 +1,10 @@
+2018-06-06  Kevin Ushey  <kevinushey@gmail.com>
+
+	* inst/include/Rcpp/RNGScope.h: Allow suspension of RNG synchronization
+	* inst/include/Rcpp/routines.h: Idem
+	* src/Rcpp_init.cpp: Idem
+	* src/api.cpp: Idem
+
 2018-05-09  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.12.17

@@ -94,6 +94,8 @@ void registerFunctions(){
     RCPP_REGISTER(demangle)
     RCPP_REGISTER(enterRNGScope)
     RCPP_REGISTER(exitRNGScope)
+    RCPP_REGISTER(beginSuspendRNGSynchronization);
+    RCPP_REGISTER(endSuspendRNGSynchronization);
     RCPP_REGISTER(get_Rcpp_namespace)
     RCPP_REGISTER(get_cache)
     RCPP_REGISTER(stack_trace)

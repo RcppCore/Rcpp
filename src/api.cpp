@@ -65,16 +65,32 @@ namespace Rcpp {
 
     namespace internal {
 
+        int rngSynchronizationSuspended = 0;
+
         // [[Rcpp::register]]
         unsigned long enterRNGScope() {
-            GetRNGstate();
+            if (rngSynchronizationSuspended == 0)
+                GetRNGstate();
             return 0;
         }
 
         // [[Rcpp::register]]
         unsigned long exitRNGScope() {
-            PutRNGstate();
+            if (rngSynchronizationSuspended == 0)
+                PutRNGstate();
             return 0;
+        }
+
+        // [[Rcpp::register]]
+        unsigned long beginSuspendRNGSynchronization() {
+            ++rngSynchronizationSuspended;
+            return rngSynchronizationSuspended;
+        }
+
+        // [[Rcpp::register]]
+        unsigned long endSuspendRNGSynchronization() {
+            --rngSynchronizationSuspended;
+            return rngSynchronizationSuspended;
         }
 
         // [[Rcpp::register]]
