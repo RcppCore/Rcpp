@@ -113,9 +113,9 @@ inline SEXP Rcpp_eval(SEXP expr, SEXP env) {
     SET_TAG(CDDR(CDR(call)), ::Rf_install("interrupt"));
 
 #if defined(RCPP_USE_UNWIND_PROTECT)
-    Shield<SEXP> res(::Rf_eval(call, R_GlobalEnv))			// execute the call
+    Shield<SEXP> res(::Rf_eval(call, R_BaseEnv))			// execute the call
 #else
-    Shield<SEXP> res(internal::Rcpp_eval_impl(call, R_GlobalEnv));
+    Shield<SEXP> res(internal::Rcpp_eval_impl(call, R_BaseEnv));
 #endif
 
     // check for condition results (errors, interrupts)

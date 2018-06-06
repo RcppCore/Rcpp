@@ -1,3 +1,7 @@
+2018-06-06  Kevin Ushey  <kevinushey@gmail.com>
+
+	* inst/include/Rcpp/api/meat/Rcpp_eval.h: Evaluate in base env
+
 2018-05-09  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.12.17
