@@ -1,3 +1,71 @@
+
+2018-06-02  Lionel Henry  <lionel@rstudio.com>
+
+        * inst/unitTests/runit.interface.R: New test for the case where
+        the client package was compiled without protected evaluation
+        enabled. On R 3.5, longjump exceptions thrown from imported
+        functions are still caught and dealt with properly by the client
+        package.
+
+        * inst/unitTests/runit.interface.R: Test both Rcpp_eval() and
+        Rcpp_fast_eval().
+
+2018-06-01  Lionel Henry  <lionel@rstudio.com>
+
+        * inst/unitTests/runit.interface.R: New tests for interfaces and unwind.
+        These tests build two packages, and that exports a function via
+        Rcpp::interfaces(cpp) and the other that calls it. The attributes are
+        regenerated and the packages rebuilt each time the tests are run. The
+        tests check in particular that the C++ stack is properly unwound when a
+        long jump occurs.
+
+2018-05-31  Lionel Henry  <lionel@rstudio.com>
+
+        * inst/include/Rcpp/api/meat/Rcpp_eval.h: Fix protected evaluation.
+
+        Setting `RCPP_PROTECTED_EVAL` before including Rcpp.h enables a new R
+        3.5 API for safe evaluation of R code. R longjumps are now correctly
+        intercepted and rethrown. Thanks to this the C++ stack is now safely
+        unwound when a longjump is detected while calling into R code. This
+        includes the following cases: thrown errors, caught condition of any
+        class, long return, restart invokation, debugger exit. Note that this is
+        still experimental!
+
+        When `RCPP_PROTECTED_EVAL` is enabled, Rcpp_eval() uses the
+        protect-unwind API under the hood in order to gain safety. It is fully
+        backward-compatibile and still catches errors and interrupts to rethrow
+        them as typed C++ exceptions. If you don't need to catch those, consider
+        using Rcpp_fast_eval() instead to avoid the catching overhead.
+
+        Rcpp_fast_eval() is a wrapper around Rf_eval(). Unlike Rcpp_eval(), it
+        does not evaluate R code within tryCatch() and thus avoids the overhead
+        of wrapping and evaluating the expression in a tryCatch() call. When
+        Rcpp is compiled with a lower version than R 3.5, Rcpp_fast_eval() falls
+        back to Rf_eval() without any protection from long jumps, even when
+        `RCPP_PROTECTED_EVAL` is set. Either add R 3.5 to your `Depends` or make
+        sure the legacy Rcpp_eval() function is called instead of Rcpp_fast_eval()
+        when your package is compiled with an older version of R.
+
+        Note that Rcpp_fast_eval() behaves a bit differently to Rcpp_eval(). The
+        former has the semantics of the C function Rf_eval() whereas the latter
+        behaves like the R function base::eval(). This has subtle implications
+        for control flow. For instance evaluating a return() expression within a
+        frame environment returns from that frame rather than from the
+        Rcpp_eval() call.
+
+        * inst/include/Rcpp/macros/macros.h: Leave the try/catch scope before
+        resuming jump to ensure proper destruction of the exception reference.
+
+        * inst/include/Rcpp/exceptions.h: Functions to create and check a
+        longjump sentinel. This sentinel is used as return value in contexts
+        where it is not safe to resume a jump (i.e. in the glue code of cpp
+        interfaces).
+
+        * inst/include/Rcpp/macros/macros.h: Return a longjump sentinel in
+        END_RCPP_RETURN_ERROR.
+
+        * src/attributes.cpp: Detect longjump sentinels and resume jump.
+
 2018-05-09  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.12.17
