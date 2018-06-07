@@ -1,3 +1,7 @@
+2018-06-07  Kevin Ushey  <kevinushey@gmail.com>
+
+	* inst/include/Rcpp/config.h: bump dev version
+
 2018-06-06  Kevin Ushey  <kevinushey@gmail.com>
 
 	* inst/include/Rcpp/RNGScope.h: Allow suspension of RNG synchronization
