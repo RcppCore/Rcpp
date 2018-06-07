@@ -1,3 +1,9 @@
+2018-06-06  Kevin Ushey  <kevinushey@gmail.com>
+
+	* inst/include/Rcpp/RNGScope.h: Allow suspension of RNG synchronization
+	* inst/include/Rcpp/routines.h: Idem
+	* src/Rcpp_init.cpp: Idem
+	* src/api.cpp: Idem
 
 2018-06-02  Lionel Henry  <lionel@rstudio.com>
 
