@@ -11,6 +11,9 @@
 
 	* inst/include/Rcpp/api/meat/Rcpp_eval.h: Evaluate in base env
 
+2018-06-05  Jack Wasey <jack@jackwasey.com>
+        * inst/include/Rcpp/r_cast.h: Error and abort if debugging
+
 2018-06-02  Lionel Henry  <lionel@rstudio.com>
 
         * inst/unitTests/runit.interface.R: New test for the case where

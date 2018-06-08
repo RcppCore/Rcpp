@@ -67,9 +67,16 @@ namespace Rcpp {
             default:
                 const char* fmt = "Not compatible with requested type: "
                                   "[type=%s; target=%s].";
+#ifndef NDEBUG
+                REprintf(fmt,
+                         Rf_type2char(TYPEOF(x)),
+                         Rf_type2char(RTYPE));
+                abort();
+#else
                 throw ::Rcpp::not_compatible(fmt,
                                              Rf_type2char(TYPEOF(x)),
                                              Rf_type2char(RTYPE));
+#endif
             }							// #nocov end
             return R_NilValue; /* -Wall */
         }
