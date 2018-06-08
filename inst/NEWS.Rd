@@ -9,6 +9,10 @@
     \itemize{
       \item The random number \code{Generator} class no longer inhreits from
       \code{RNGScope} (Kevin in \ghpr{837} fixing \ghit{836}).
+	  \item A new class, \code{SuspendRNGSynchronizationScope}, can be created
+	  and used to ensure that calls to Rcpp functions do not attempt to call
+	  \code{::GetRNGstate()} or \code{::PutRNGstate()} for the duration of
+	  some code block.
       \item A spurious parenthesis was removed to please gcc8 (Dirk
       fixing \ghit{841})
       \item The optional \code{Timer} class header now undefines

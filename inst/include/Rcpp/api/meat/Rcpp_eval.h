@@ -21,13 +21,11 @@
 #include <Rcpp/Interrupt.h>
 #include <Rversion.h>
 
-// outer definition from RcppCommon.h
-#if defined(RCPP_USE_UNWIND_PROTECT)
-  #if (defined(RCPP_PROTECTED_EVAL) && defined(R_VERSION) && R_VERSION >= R_Version(3, 5, 0))
-     // file-local and only used here 
-     #define RCPP_USE_PROTECT_UNWIND
-  #endif
+#if (defined(RCPP_PROTECTED_EVAL) && defined(R_VERSION) && R_VERSION >= R_Version(3, 5, 0))
+#define RCPP_USE_PROTECT_UNWIND
+#include <csetjmp>
 #endif
+
 
 namespace Rcpp {
 namespace internal {
@@ -39,18 +37,17 @@ namespace internal {
         SEXP env;
         EvalData(SEXP expr_, SEXP env_) : expr(expr_), env(env_) { }
     };
+    struct EvalUnwindData {
+        std::jmp_buf jmpbuf;
+    };
 
-    inline void Rcpp_maybe_throw(void* data, Rboolean jump) {
+    // First jump back to the protected context with a C longjmp because
+    // `Rcpp_protected_eval()` is called from C and we can't safely throw
+    // exceptions across C frames.
+    inline void Rcpp_maybe_throw(void* unwind_data, Rboolean jump) {
         if (jump) {
-            SEXP token = static_cast<SEXP>(data);
-
-            // Keep the token protected while unwinding because R code might run
-            // in C++ destructors. Can't use PROTECT() for this because
-            // UNPROTECT() might be called in a destructor, for instance if a
-            // Shield<SEXP> is on the stack.
-            ::R_PreserveObject(token);
-
-            throw LongjumpException(token);
+            EvalUnwindData* data = static_cast<EvalUnwindData*>(unwind_data);
+            longjmp(data->jmpbuf, 1);
         }
     }
 
@@ -80,9 +77,21 @@ namespace internal {
 
     inline SEXP Rcpp_fast_eval(SEXP expr, SEXP env) {
         internal::EvalData data(expr, env);
+        internal::EvalUnwindData unwind_data;
         Shield<SEXP> token(::R_MakeUnwindCont());
+
+        if (setjmp(unwind_data.jmpbuf)) {
+            // Keep the token protected while unwinding because R code might run
+            // in C++ destructors. Can't use PROTECT() for this because
+            // UNPROTECT() might be called in a destructor, for instance if a
+            // Shield<SEXP> is on the stack.
+            ::R_PreserveObject(token);
+
+            throw internal::LongjumpException(token);
+        }
+
         return ::R_UnwindProtect(internal::Rcpp_protected_eval, &data,
-                                 internal::Rcpp_maybe_throw, token,
+                                 internal::Rcpp_maybe_throw, &unwind_data,
                                  token);
     }
 
@@ -112,11 +121,7 @@ inline SEXP Rcpp_eval(SEXP expr, SEXP env) {
     SET_TAG(CDDR(call), ::Rf_install("error"));
     SET_TAG(CDDR(CDR(call)), ::Rf_install("interrupt"));
 
-#if defined(RCPP_USE_UNWIND_PROTECT)
-    Shield<SEXP> res(::Rf_eval(call, R_BaseEnv))			// execute the call
-#else
-    Shield<SEXP> res(internal::Rcpp_eval_impl(call, R_BaseEnv));
-#endif
+    Shield<SEXP> res(internal::Rcpp_eval_impl(call, R_GlobalEnv));
 
     // check for condition results (errors, interrupts)
     if (Rf_inherits(res, "condition")) {
@@ -125,12 +130,7 @@ inline SEXP Rcpp_eval(SEXP expr, SEXP env) {
 
             Shield<SEXP> conditionMessageCall(::Rf_lang2(::Rf_install("conditionMessage"), res));
 
-#if defined(RCPP_USE_UNWIND_PROTECT)
-            Shield<SEXP> conditionMessage(internal::Rcpp_eval_impl(conditionMessageCall,
-                                                                   R_GlobalEnv));
-#else
-            Shield<SEXP> conditionMessage(::Rf_eval(conditionMessageCall, R_GlobalEnv));
-#endif
+            Shield<SEXP> conditionMessage(internal::Rcpp_eval_impl(conditionMessageCall, R_GlobalEnv));
             throw eval_error(CHAR(STRING_ELT(conditionMessage, 0)));
         }
 
