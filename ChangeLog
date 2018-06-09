@@ -1,17 +1,25 @@
+2018-06-08  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version, Date): Roll minor version
+        * inst/include/Rcpp/config.h: Idem
+
+	* Contributing.md: Minor update coding style
+
 2018-06-07  Kevin Ushey  <kevinushey@gmail.com>
 
-	* inst/include/Rcpp/config.h: bump dev version
+        * inst/include/Rcpp/config.h: bump dev version
 
 2018-06-06  Kevin Ushey  <kevinushey@gmail.com>
 
-	* inst/include/Rcpp/RNGScope.h: Allow suspension of RNG synchronization
-	* inst/include/Rcpp/routines.h: Idem
-	* src/Rcpp_init.cpp: Idem
-	* src/api.cpp: Idem
+        * inst/include/Rcpp/RNGScope.h: Allow suspension of RNG synchronization
+        * inst/include/Rcpp/routines.h: Idem
+        * src/Rcpp_init.cpp: Idem
+        * src/api.cpp: Idem
 
-	* inst/include/Rcpp/api/meat/Rcpp_eval.h: Evaluate in base env
+        * inst/include/Rcpp/api/meat/Rcpp_eval.h: Evaluate in base env
 
 2018-06-05  Jack Wasey <jack@jackwasey.com>
+
         * inst/include/Rcpp/r_cast.h: Error and abort if debugging
 
 2018-06-02  Lionel Henry  <lionel@rstudio.com>
@@ -93,24 +101,24 @@
 
 2018-05-05  Dirk Eddelbuettel  <edd@debian.org>
 
-	* vignettes/Rcpp-FAQ.Rmd: Also mention TAS paper
-	* vignettes/Rcpp-introduction.Rmd: Idem
-	* vignettes/Rcpp-jss-2011.Rnw: Idem
+        * vignettes/Rcpp-FAQ.Rmd: Also mention TAS paper
+        * vignettes/Rcpp-introduction.Rmd: Idem
+        * vignettes/Rcpp-jss-2011.Rnw: Idem
 
 2018-05-04  Romain Francois  <romain@purrple.cat>
 
-	* inst/include/Rcpp/String.h: Extend StoragePolicy support
-	* inst/include/Rcpp/vector/00_forward_proxy.h: Idem
-	* inst/include/Rcpp/vector/Vector.h: Idem
-	* inst/include/Rcpp/vector/const_generic_proxy.h: Idem
-	* inst/include/Rcpp/vector/const_string_proxy.h: Idem
-	* inst/include/Rcpp/vector/generic_proxy.h: Idem
-	* inst/include/Rcpp/vector/proxy.h: Idem
-	* inst/include/Rcpp/vector/string_proxy.h: Idem
-	* inst/include/Rcpp/vector/traits.h: Idem
+        * inst/include/Rcpp/String.h: Extend StoragePolicy support
+        * inst/include/Rcpp/vector/00_forward_proxy.h: Idem
+        * inst/include/Rcpp/vector/Vector.h: Idem
+        * inst/include/Rcpp/vector/const_generic_proxy.h: Idem
+        * inst/include/Rcpp/vector/const_string_proxy.h: Idem
+        * inst/include/Rcpp/vector/generic_proxy.h: Idem
+        * inst/include/Rcpp/vector/proxy.h: Idem
+        * inst/include/Rcpp/vector/string_proxy.h: Idem
+        * inst/include/Rcpp/vector/traits.h: Idem
 
-	* inst/unitTests/cpp/Vector.cpp: New test
-	* inst/unitTests/runit.Vector.R: Idem
+        * inst/unitTests/cpp/Vector.cpp: New test
+        * inst/unitTests/runit.Vector.R: Idem
 
 2018-04-25  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -118,18 +126,18 @@
 
 2018-04-25  Romain Francois  <romain@purrple.cat>
 
-	* inst/include/Rcpp/Benchmark/Timer.h: If defined, undefine FALSE
+        * inst/include/Rcpp/Benchmark/Timer.h: If defined, undefine FALSE
 
 2018-04-17  Ralf Stubner  <ralf.stubner@daqana.com>
 
-	* vignettes/Rcpp-attributes.Rmd: Replace back-quote with straight quote
-	* vignettes/Rcpp-modules.Rmd: Idem
+        * vignettes/Rcpp-attributes.Rmd: Replace back-quote with straight quote
+        * vignettes/Rcpp-modules.Rmd: Idem
 
 2018-04-02  Dirk Eddelbuettel  <edd@debian.org>
 
-	* .editorconfig: Added support for editorconfig.org
-	* .clang_format: Removed
-	* .dir-locals.el: Removed
+        * .editorconfig: Added support for editorconfig.org
+        * .clang_format: Removed
+        * .dir-locals.el: Removed
 
 2018-03-31  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -152,7 +160,7 @@
 
 2018-03-08  Peter Hickey  <peter.hickey@gmail.com>
 
-	* vignettes/Rcpp-attributes.Rmd: Correct stray backslash
+        * vignettes/Rcpp-attributes.Rmd: Correct stray backslash
 
 2018-03-08  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -589,7 +597,7 @@
 
 2017-06-07  Dirk Eddelbuettel  <edd@debian.org>
 
-	* README.md: Use alternates for img.shields.io GPL-2+ badges
+        * README.md: Use alternates for img.shields.io GPL-2+ badges
 
 2017-06-06  Yu Gong  <armgong@yahoo.com>
 
@@ -1193,13 +1201,13 @@
 
 2016-10-24  Nathan Russell  <russell.nr2012@gmail.com>
 
-	* inst/include/Rcpp/vector/MatrixBase.h: Change sugar
-	functions eye(), ones(), and zeros() into static methods
-	in MatrixBase
-	* inst/include/Rcpp/traits/one_type.h: Idem
-	* inst/include/Rcpp/traits/traits.h: Idem
-	* inst/unitTests/cpp/Matrix.cpp: Idem
-	* inst/unitTests/runit.Matrix.R: Idem
+        * inst/include/Rcpp/vector/MatrixBase.h: Change sugar
+        functions eye(), ones(), and zeros() into static methods
+        in MatrixBase
+        * inst/include/Rcpp/traits/one_type.h: Idem
+        * inst/include/Rcpp/traits/traits.h: Idem
+        * inst/unitTests/cpp/Matrix.cpp: Idem
+        * inst/unitTests/runit.Matrix.R: Idem
 
 2016-10-24  Qiang Kou  <qkou@umail.iu.edu>
 
@@ -1294,7 +1302,7 @@
 
 2016-08-11  Dirk Eddelbuettel  <edd@debian.org>
 
-	* .travis.yml: Switch to using run.sh for Travis CI
+        * .travis.yml: Switch to using run.sh for Travis CI
 
 2016-08-09  Artem Klevtsov <a.a.klevtsov@gmail.com>
 

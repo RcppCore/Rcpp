@@ -3,6 +3,32 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
+\section{Changes in Rcpp version 0.12.18 (2018-07-xx)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item The \code{sourceCpp()} function now evaluates R code in the
+      correct local environment in which a function was compiled (Filip
+      Schouwenaars in \ghpr{852} fixing \ghit{851}).
+      \item The \code{StringProxy::operator==} is now \code{const}
+      correct (Romain in \ghpr{855} fixing \ghit{854}).
+      \item The \code{Environment::new_child()} is now \code{const}
+      (Romain in \ghpr{858} fixing \ghit{854}).
+      \item Next \code{eval} codes now properly unwind (Lionel in the large
+      and careful \ghpr{859}).
+      \item In debugging mode, more type information is shown on
+      \code{abort()} (Jack Waseyin \ghpr{860}).
+      \item A new class was added which allow suspension of the RNG
+      synchronisation to address an issue seen in \CRANpkg{RcppDE}
+      (Kevin in \ghpr{862}).
+      \item Evaluation calls now happen in the \code{base} environment
+      (which may fix an issue seen between \CRANpkg{conflicted} and some
+      BioConductor packages) (Kevn \ghpr{863} fixing \ghit{861}).
+    }
+  }
+}
+
+
 \section{Changes in Rcpp version 0.12.17 (2018-05-09)}{
   \itemize{
     \item Changes in Rcpp API:

@@ -3,7 +3,7 @@
 
 Interested in contributing? Great!  We really welcome bug reports and pull
 requests that expand and improve the functionality of Rcpp from all
-contributors. 
+contributors.
 
 ### Reporting an Issue
 
@@ -39,6 +39,12 @@ Please note that C++ code in Rcpp must adhere to the C++98 standard. C++11 (and
 above) extensions are allowed, but must be appropriately guarded so that such
 code still successfully compiles under the C++98 standard.
 
+### Coding Style
+
+It would be nice if the contributed code followed existing conventions for
+whitespace and indentation.  We mostly follow the R Core style for with four
+spaces, and curlies where K&R would put them.
+
 ### Asking Questions
 
 Please direct general questions to the
@@ -46,7 +52,7 @@ Please direct general questions to the
 mailing list (preferred, note that only subscribers can post), or alternatively
 post a question on
 [Stack Overflow](http://stackoverflow.com/questions/tagged/rcpp) using the
-`[Rcpp]` tag. 
+`[Rcpp]` tag.
 
 Are you a new user of Rcpp? You might find the
 [vignettes](https://cran.r-project.org/package=Rcpp) helpful in getting
