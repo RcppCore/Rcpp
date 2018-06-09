@@ -15,9 +15,9 @@
       \item The \code{Environment::new_child()} is now \code{const}
       (Romain in \ghpr{858} fixing \ghit{854}).
       \item Next \code{eval} codes now properly unwind (Lionel in the large
-      and careful \ghpr{859}).
+      and careful \ghpr{859} fixing \ghit{807}).
       \item In debugging mode, more type information is shown on
-      \code{abort()} (Jack Waseyin \ghpr{860}).
+      \code{abort()} (Jack Waseyin \ghpr{860} fixing \ghit{857}).
       \item A new class was added which allow suspension of the RNG
       synchronisation to address an issue seen in \CRANpkg{RcppDE}
       (Kevin in \ghpr{862}).

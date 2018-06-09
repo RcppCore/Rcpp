@@ -1,3 +1,7 @@
+2018-06-09  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/unitTests/runit.embeddedR.R: Suspend test for now
+
 2018-06-08  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll minor version
@@ -41,6 +45,10 @@
         regenerated and the packages rebuilt each time the tests are run. The
         tests check in particular that the C++ stack is properly unwound when a
         long jump occurs.
+
+2018-06-01  Romain Francois  <romain@purrple.cat>
+
+	* inst/include/Rcpp/Environment.h: Make Environment::new_child() const
 
 2018-05-31  Lionel Henry  <lionel@rstudio.com>
 
@@ -88,6 +96,19 @@
         END_RCPP_RETURN_ERROR.
 
         * src/attributes.cpp: Detect longjump sentinels and resume jump.
+
+2018-05-27  Romain Francois  <romain@purrple.cat>
+
+	* inst/include/Rcpp/vector/string_proxy.h: Make
+	StringProxy::operator== const
+	* inst/unitTests/cpp/Vector.cpp: New test
+	* inst/unitTests/runit.Vector.R: Idem
+
+2018-05-09  Filip Schouwenaars  <filip@datacamp.com>
+
+	* R/Attributes.R: Set local environment in source()
+	* inst/unitTests/cpp/embeddedR.cpp: New test
+	* inst/unitTests/runit.embeddedR.R: Idem
 
 2018-05-09  Dirk Eddelbuettel  <edd@debian.org>
 
