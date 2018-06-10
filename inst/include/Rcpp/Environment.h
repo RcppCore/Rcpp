@@ -33,7 +33,7 @@ namespace Rcpp{
             if( Rf_isEnvironment(x) ) return x ;
             SEXP asEnvironmentSym = Rf_install("as.environment");
             try {
-                Shield<SEXP> res( Rcpp_eval( Rf_lang2( asEnvironmentSym, x ) ) );
+                Shield<SEXP> res( Rcpp_fast_eval( Rf_lang2( asEnvironmentSym, x ) ) );
                 return res ;
             } catch( const eval_error& ex) {
                 const char* fmt = "Cannot convert object to an environment: "
@@ -249,7 +249,7 @@ namespace Rcpp{
                     Shield<SEXP> call( Rf_lang2(internalSym,
                             Rf_lang4(removeSym, Rf_mkString(name.c_str()), Storage::get__(), Rf_ScalarLogical( FALSE ))
                         ) );
-                    Rcpp_eval( call, R_GlobalEnv ) ;
+                    Rcpp_fast_eval( call, R_GlobalEnv ) ;
                 }
             } else{
                 throw no_such_binding(name) ;
@@ -374,7 +374,7 @@ namespace Rcpp{
             try{
                 SEXP getNamespaceSym = Rf_install("getNamespace");
                 Shield<SEXP> package_str( Rf_mkString(package.c_str()) );
-                env = Rcpp_eval( Rf_lang2(getNamespaceSym, package_str) ) ;
+                env = Rcpp_fast_eval( Rf_lang2(getNamespaceSym, package_str) ) ;
             } catch( ... ){
                 throw no_such_namespace( package  ) ;
             }
@@ -393,7 +393,7 @@ namespace Rcpp{
          */
         Environment_Impl new_child(bool hashed) const {
             SEXP newEnvSym = Rf_install("new.env");
-            return Environment_Impl( Rcpp_eval(Rf_lang3( newEnvSym, Rf_ScalarLogical(hashed), Storage::get__() )) );
+            return Environment_Impl( Rcpp_fast_eval(Rf_lang3( newEnvSym, Rf_ScalarLogical(hashed), Storage::get__() )) );
         }
 
 
