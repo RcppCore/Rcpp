@@ -31,7 +31,7 @@ if (.runThisTest) {
     }
 
     test.eval_error <- function() {
-        tryCatch(eval_error(), error = function(e){
+        tryCatch(eval_error_no_call(), error = function(e){
             checkTrue(is.null(e$call))
             checkTrue(is.null(e$cppstack))
         })

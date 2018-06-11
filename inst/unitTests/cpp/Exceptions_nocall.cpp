@@ -8,6 +8,6 @@ void Rcpp_exception(){
 }
 
 // [[Rcpp::export]]
-void eval_error(){
+void eval_error_no_call(){
     Rcpp_eval(Rf_lang1(Rf_install("ouch")), R_EmptyEnv);
 }
