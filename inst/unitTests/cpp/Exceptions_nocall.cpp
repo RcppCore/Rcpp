@@ -1,5 +1,6 @@
 #define RCPP_DEFAULT_INCLUDE_CALL false
 #include <Rcpp.h>
+using namespace Rcpp;
 
 // [[Rcpp::export]]
 void Rcpp_exception(){
