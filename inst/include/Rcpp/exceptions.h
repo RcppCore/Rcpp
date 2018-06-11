@@ -24,6 +24,9 @@
 
 #include <Rversion.h>
 
+#ifndef RCPP_DEFAULT_INCLUDE_CALL
+#define RCPP_DEFAULT_INCLUDE_CALL true
+#endif
 
 #define GET_STACKTRACE() stack_trace( __FILE__, __LINE__ )
 
@@ -31,12 +34,12 @@ namespace Rcpp {
 
     class exception : public std::exception {
     public:
-        explicit exception(const char* message_, bool include_call = true) :	// #nocov start
+        explicit exception(const char* message_, bool include_call = RCPP_DEFAULT_INCLUDE_CALL) :	// #nocov start
             message(message_),
             include_call_(include_call){
             rcpp_set_stack_trace(Shield<SEXP>(stack_trace()));
         }
-        exception(const char* message_, const char*, int, bool include_call = true) :
+        exception(const char* message_, const char*, int, bool include_call = RCPP_DEFAULT_INCLUDE_CALL) :
             message(message_),
             include_call_(include_call){
             rcpp_set_stack_trace(Shield<SEXP>(stack_trace()));
