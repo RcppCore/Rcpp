@@ -24,6 +24,9 @@
 
 #include <Rversion.h>
 
+#ifndef RCPP_DEFAULT_INCLUDE_CALL
+#define RCPP_DEFAULT_INCLUDE_CALL true
+#endif
 
 #define GET_STACKTRACE() stack_trace( __FILE__, __LINE__ )
 
@@ -31,12 +34,12 @@ namespace Rcpp {
 
     class exception : public std::exception {
     public:
-        explicit exception(const char* message_, bool include_call = true) :	// #nocov start
+        explicit exception(const char* message_, bool include_call = RCPP_DEFAULT_INCLUDE_CALL) :	// #nocov start
             message(message_),
             include_call_(include_call){
             rcpp_set_stack_trace(Shield<SEXP>(stack_trace()));
         }
-        exception(const char* message_, const char*, int, bool include_call = true) :
+        exception(const char* message_, const char*, int, bool include_call = RCPP_DEFAULT_INCLUDE_CALL) :
             message(message_),
             include_call_(include_call){
             rcpp_set_stack_trace(Shield<SEXP>(stack_trace()));
@@ -306,34 +309,32 @@ inline SEXP make_condition(const std::string& ex_msg, SEXP call, SEXP cppstack, 
     return res ;
 }
 
-inline SEXP rcpp_exception_to_r_condition(const Rcpp::exception& ex) {
-    std::string ex_class = demangle( typeid(ex).name() ) ;
-    std::string ex_msg   = ex.what() ;
+template <typename Exception>
+inline SEXP exception_to_condition_template( const Exception& ex, bool include_call) {
+  std::string ex_class = demangle( typeid(ex).name() ) ;
+  std::string ex_msg   = ex.what() ;
 
-    SEXP call, cppstack;
-    if (ex.include_call()) {
-        call = Rcpp::Shield<SEXP>(get_last_call());
-        cppstack = Rcpp::Shield<SEXP>( rcpp_get_stack_trace());
-    } else {
-        call = R_NilValue;
-        cppstack = R_NilValue;
-    }
-    Rcpp::Shield<SEXP> classes( get_exception_classes(ex_class) );
-    Rcpp::Shield<SEXP> condition( make_condition( ex_msg, call, cppstack, classes) );
-    rcpp_set_stack_trace( R_NilValue ) ;
-    return condition ;
+  Rcpp::Shelter<SEXP> shelter;
+  SEXP call, cppstack;
+  if (include_call) {
+      call = shelter(get_last_call());
+      cppstack = shelter(rcpp_get_stack_trace());
+  } else {
+      call = R_NilValue;
+      cppstack = R_NilValue;
+  }
+  SEXP classes = shelter( get_exception_classes(ex_class) );
+  SEXP condition = shelter( make_condition( ex_msg, call, cppstack, classes) );
+  rcpp_set_stack_trace( R_NilValue ) ;
+  return condition ;
+}
+
+inline SEXP rcpp_exception_to_r_condition(const Rcpp::exception& ex) {
+  return exception_to_condition_template(ex, ex.include_call());
 }
 
 inline SEXP exception_to_r_condition( const std::exception& ex){
-    std::string ex_class = demangle( typeid(ex).name() ) ;
-    std::string ex_msg   = ex.what() ;
-
-    Rcpp::Shield<SEXP> cppstack( rcpp_get_stack_trace() );
-    Rcpp::Shield<SEXP> call( get_last_call() );
-    Rcpp::Shield<SEXP> classes( get_exception_classes(ex_class) );
-    Rcpp::Shield<SEXP> condition( make_condition( ex_msg, call, cppstack, classes) );
-    rcpp_set_stack_trace( R_NilValue ) ;
-    return condition ;
+  return exception_to_condition_template(ex, RCPP_DEFAULT_INCLUDE_CALL);
 }
 
 inline SEXP string_to_try_error( const std::string& str){
