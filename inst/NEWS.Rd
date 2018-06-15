@@ -9,7 +9,7 @@
     \itemize{
       \item The \code{sourceCpp()} function now evaluates R code in the
       correct local environment in which a function was compiled (Filip
-      Schouwenaars in \ghpr{852} fixing \ghit{851}).
+      Schouwenaars in \ghpr{852} and \ghpr{869} fixing \ghit{851}).
       \item The \code{StringProxy::operator==} is now \code{const}
       correct (Romain in \ghpr{855} fixing \ghit{854}).
       \item The \code{Environment::new_child()} is now \code{const}
@@ -24,6 +24,8 @@
       \item Evaluation calls now happen in the \code{base} environment
       (which may fix an issue seen between \CRANpkg{conflicted} and some
       BioConductor packages) (Kevn \ghpr{863} fixing \ghit{861}).
+      \item Call stack display on error can now be controlled more
+      finely (Romain in \ghpr{868}).
     }
   }
 }

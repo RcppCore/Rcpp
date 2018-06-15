@@ -1,3 +1,20 @@
+2018-06-15  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version, Date): Roll minor version
+        * inst/include/Rcpp/config.h: Idem
+
+2018-05-13  Filip Schouwenaars  <filip@datacamp.com>
+
+	* inst/unitTests/runit.embeddedR.R: Evaluate in environment derived
+	of baseenv
+
+2018-06-11  Romain Francois  <romain@purrple.cat>
+
+	* inst/include/Rcpp/exceptions.h: Control call and stack display
+	after exception / stop
+	* inst/unitTests/cpp/Exceptions_nocall.cpp: new test
+	* inst/unitTests/runit.Exceptions_nocall.R: idem
+
 2018-06-09  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/unitTests/runit.embeddedR.R: Suspend test for now
