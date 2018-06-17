@@ -258,7 +258,7 @@ inline SEXP get_last_call(){
     SEXP sys_calls_symbol = Rf_install("sys.calls");
 
     Rcpp::Shield<SEXP> sys_calls_expr(Rf_lang1(sys_calls_symbol));
-    Rcpp::Shield<SEXP> calls(Rcpp_eval(sys_calls_expr, R_GlobalEnv));
+    Rcpp::Shield<SEXP> calls(Rcpp_fast_eval(sys_calls_expr, R_GlobalEnv));
 
     SEXP cur, prev;
     prev = cur = calls;

@@ -28,8 +28,6 @@
 #include <algorithm>
 #include <Rcpp/protection/Shield.h>
 
-namespace Rcpp { SEXP Rcpp_eval(SEXP, SEXP); }
-
 // [[Rcpp::register]]
 SEXP get_string_elt(SEXP x, R_xlen_t i) {
     return STRING_ELT(x, i);
@@ -97,7 +95,7 @@ SEXP get_rcpp_cache() {
         SEXP getNamespaceSym = Rf_install("getNamespace"); // cannot be gc()'ed  once in symbol table
         Rcpp::Shield<SEXP> RcppString(Rf_mkString("Rcpp"));
         Rcpp::Shield<SEXP> call(Rf_lang2(getNamespaceSym, RcppString));
-        Rcpp::Shield<SEXP> RCPP(Rcpp_eval(call, R_GlobalEnv));
+        Rcpp::Shield<SEXP> RCPP(Rf_eval(call, R_GlobalEnv));
 
         Rcpp_cache = Rf_findVarInFrame(RCPP, Rf_install(".rcpp_cache"));
         Rcpp_cache_know = true;
@@ -139,7 +137,7 @@ SEXP init_Rcpp_cache() {
     SEXP getNamespaceSym = Rf_install("getNamespace"); // cannot be gc()'ed  once in symbol table
     Rcpp::Shield<SEXP> RcppString(Rf_mkString("Rcpp"));
     Rcpp::Shield<SEXP> call(Rf_lang2(getNamespaceSym, RcppString));
-    Rcpp::Shield<SEXP> RCPP(Rcpp_eval(call, R_GlobalEnv));
+    Rcpp::Shield<SEXP> RCPP(Rf_eval(call, R_GlobalEnv));
     Rcpp::Shield<SEXP> cache(Rf_allocVector(VECSXP, RCPP_CACHE_SIZE));
 
     // the Rcpp namespace
