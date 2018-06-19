@@ -1,6 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-/* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
-//
 // r_vector.h: Rcpp R/C++ interface class library -- information about R vectors
 //
 // Copyright (C) 2010 - 2017  Dirk Eddelbuettel and Romain Francois

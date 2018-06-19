@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // as.h: Rcpp R/C++ interface class library -- convert SEXP to C++ objects
 //
 // Copyright (C) 2009 - 2015  Dirk Eddelbuettel and Romain Francois

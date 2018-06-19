@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-//
 // sugar.cpp: Rcpp R/C++ interface class library -- sugar unit tests
 //
 // Copyright (C) 2012 - 2015  Dirk Eddelbuettel and Romain Francois

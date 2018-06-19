@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
-//
 // complex.h: Rcpp R/C++ interface class library -- binary operators for Rcomplex
 //
 // Copyright (C) 2010 - 2015  Dirk Eddelbuettel and Romain Francois

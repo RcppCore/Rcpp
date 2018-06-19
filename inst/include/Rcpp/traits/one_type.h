@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // one_type.h: Rcpp R/C++ interface class library -- traits functions for eye, ones, zeros
 //
 // Copyright (C) 2016 Nathan Russell

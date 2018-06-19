@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-//
 // which_max.h: Rcpp R/C++ interface class library -- which.max
 //
 // Copyright (C) 2012   Dirk Eddelbuettel and Romain Francois

@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // meat.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2012 - 2013    Dirk Eddelbuettel and Romain Francois

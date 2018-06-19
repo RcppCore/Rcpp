@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // XPtr.h: Rcpp R/C++ interface class library -- smart external pointers
 //
 // Copyright (C) 2009 - 2017  Dirk Eddelbuettel and Romain Francois

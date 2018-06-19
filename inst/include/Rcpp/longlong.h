@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // longlong.h: Rcpp R/C++ interface class library -- long long support
 //
 // Copyright (C) 2013 - 2017 Dirk Eddelbuettel and Romain Francois

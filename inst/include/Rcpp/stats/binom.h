@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // binom.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2016  Dirk Eddelbuettel and Romain Francois

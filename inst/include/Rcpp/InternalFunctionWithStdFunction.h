@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // InternalFunction_with_std_function.h: Rcpp R/C++ interface class library -- exposing C++ std::function's
 //
 // Copyright (C) 2014  Christian Authmann

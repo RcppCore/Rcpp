@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // is_na.h: Rcpp R/C++ interface class library -- vector operators
 //
 // Copyright (C) 2010 - 2018 Dirk Eddelbuettel and Romain Francois

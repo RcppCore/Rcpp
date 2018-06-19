@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // Subsetter.h: Rcpp R/C++ interface class library -- vector subsetting
 //
 // Copyright (C) 2014  Dirk Eddelbuettel, Romain Francois and Kevin Ushey

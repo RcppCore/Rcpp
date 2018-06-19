@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-//
 // as_vector.h: Rcpp R/C++ interface class library -- as_vector( sugar matrix expression )
 //
 // Copyright (C) 2010 - 2014 Dirk Eddelbuettel and Romain Francois

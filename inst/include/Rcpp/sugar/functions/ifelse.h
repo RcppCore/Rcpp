@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-//
 // ifelse.h: Rcpp R/C++ interface class library -- ifelse
 //
 // Copyright (C) 2010 - 2014 Dirk Eddelbuettel and Romain Francois

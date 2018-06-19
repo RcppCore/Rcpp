@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-
 #include <Rcpp.h>
 
 #ifdef _OPENMP

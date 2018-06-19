@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-//
 // language.cpp: Rcpp R/C++ interface class library -- Language unit tests
 //
 // Copyright (C) 2012 Dirk Eddelbuettel and Romain Francois

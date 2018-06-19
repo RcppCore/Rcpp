@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
-//
 // hash.h: Rcpp R/C++ interface class library -- hashing utility, inspired
 // from Simon's fastmatch package
 //

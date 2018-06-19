@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // WeakReference.h: Rcpp R/C++ interface class library -- weak references
 //
 // Copyright (C) 2009 - 2013    Dirk Eddelbuettel and Romain Francois

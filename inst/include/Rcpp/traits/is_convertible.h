@@ -1,6 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-/* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
-//
 // is_convertible.h: Rcpp R/C++ interface class library -- type conversion detection
 //
 // Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois

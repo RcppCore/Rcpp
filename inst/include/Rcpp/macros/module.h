@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-//
 // macros.h: Rcpp R/C++ interface class library -- helper macros for Rcpp modules
 //
 // Copyright (C) 2012-2013  Dirk Eddelbuettel and Romain Francois

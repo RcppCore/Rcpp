@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-//
 // Module_generated_PointerCppMethod.h: -- generated helper code for Modules
 //                                         see rcpp-scripts repo for generator script
 //

@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // Module_generated_method.h: -- generated helper code for Modules
 //                               see rcpp-scripts repo for generator script
 //

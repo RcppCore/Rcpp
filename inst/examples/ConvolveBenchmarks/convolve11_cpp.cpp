@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-
 // This version uses nona to indicate that xb does not contain any missing
 // value. This is the assumption that all other versions do.
 

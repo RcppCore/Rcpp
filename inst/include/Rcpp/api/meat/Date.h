@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // Copyright (C) 2013 - 2015  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.

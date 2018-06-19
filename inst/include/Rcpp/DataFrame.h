@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // DataFrame.h: Rcpp R/C++ interface class library -- data frames
 //
 // Copyright (C) 2010 - 2015  Dirk Eddelbuettel and Romain Francois

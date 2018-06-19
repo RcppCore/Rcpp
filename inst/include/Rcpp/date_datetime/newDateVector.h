@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // newDateVector.h: Rcpp R/C++ interface class library -- Date vector support
 //
 // Copyright (C) 2016         Dirk Eddelbuettel

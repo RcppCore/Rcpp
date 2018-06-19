@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // Reference.h: Rcpp R/C++ interface class library -- Reference class objects
 //
 // Copyright (C) 2010 - 2015  Dirk Eddelbuettel and Romain Francois

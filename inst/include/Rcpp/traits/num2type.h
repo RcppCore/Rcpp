@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-//
 // num2type.h: Rcpp R/C++ interface class library -- convert number to type
 //
 // Copyright (C) 2014 Dirk Eddelbuettel, Romain Francois and Kevin Ushey

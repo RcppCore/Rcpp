@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // outer.h: Rcpp R/C++ interface class library -- outer
 //
 // Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois

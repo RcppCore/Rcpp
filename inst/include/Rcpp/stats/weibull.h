@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // auto generated file (from script/stats.R)
 //
 // weibull.h: Rcpp R/C++ interface class library --

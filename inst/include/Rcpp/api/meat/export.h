@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // export.h: Rcpp R/C++ interface class library -- export implementations
 //
 // Copyright (C) 2013    Dirk Eddelbuettel and Romain Francois
