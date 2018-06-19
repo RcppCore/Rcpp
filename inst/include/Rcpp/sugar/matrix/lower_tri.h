@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // lower_tri.h: Rcpp R/C++ interface class library -- lower.tri
 //
 // Copyright (C) 2010 - 2017 Dirk Eddelbuettel and Romain Francois

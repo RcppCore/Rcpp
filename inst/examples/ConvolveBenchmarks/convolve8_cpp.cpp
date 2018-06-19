@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-
 // this version is between the Rcpp_New_ptr and the Rcpp_New_std version
 //                          test elapsed  relative user.self sys.self
 // 5    Rcpp_New_ptr(REPS, a, b)   0.214  1.000000     0.213    0.001

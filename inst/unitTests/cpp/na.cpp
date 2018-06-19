@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-//
 // na.cpp: Rcpp R/C++ interface class library -- na unit tests
 //
 // Copyright (C) 2014 Kevin Ushey

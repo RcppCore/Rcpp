@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // Nullable.h: Rcpp R/C++ interface class library -- SEXP container which can be NULL
 //
 // Copyright (C) 2015         Dirk Eddelbuettel and Daniel C. Dillon

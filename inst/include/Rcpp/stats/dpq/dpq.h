@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // dpq.h: Rcpp R/C++ interface class library -- normal distribution
 //
 // Copyright (C) 2010 - 2016  Dirk Eddelbuettel and Romain Francois

@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // tinyformat.h: Rcpp R/C++ interface class library -- tinyformat.h wrapper
 //
 // Copyright (C) 2008 - 2009  Dirk Eddelbuettel

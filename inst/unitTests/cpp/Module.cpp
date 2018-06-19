@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-// jedit: :folding=explicit:
 //
 // Module.cpp: Rcpp R/C++ interface class library -- module unit tests
 //

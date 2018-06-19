@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
-//
 // Module_generated_ctor_signature.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois

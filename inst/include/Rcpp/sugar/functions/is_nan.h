@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-//
 // is_nan.h: Rcpp R/C++ interface class library -- is_nan
 //
 // Copyright (C) 2013 Dirk Eddelbuettel and Romain Francois

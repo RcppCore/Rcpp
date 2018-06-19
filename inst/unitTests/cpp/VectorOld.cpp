@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-//
 // Vector-old.cpp: Rcpp R/C++ interface class library -- Vector unit tests
 //
 // Copyright (C) 2014    Dirk Eddelbuettel, Romain Francois and Kevin Ushey

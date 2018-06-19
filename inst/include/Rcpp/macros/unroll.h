@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-//
 // unroll.h: Rcpp R/C++ interface class library -- loop unrolling macro
 //
 // Copyright (C) 2010 - 2017 Dirk Eddelbuettel and Romain Francois

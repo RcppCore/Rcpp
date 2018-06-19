@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-
 // this version expands convolve8_cpp by making Vec mimic the structure of
 // NumericVector. It peforms well, so this is is not the structure of
 // NumericVector that is the problem. So what is it then ?

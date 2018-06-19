@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-//
 // self_match.h: Rcpp R/C++ interface class library -- self match
 //
 // Copyright (C) 2012   Dirk Eddelbuettel and Romain Francois

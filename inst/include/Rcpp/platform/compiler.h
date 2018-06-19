@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // compiler.h: Rcpp R/C++ interface class library -- check compiler
 //
 // Copyright (C) 2012 - 2013  Dirk Eddelbuettel, Romain Francois, and Kevin Ushey

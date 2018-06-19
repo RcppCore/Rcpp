@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // is.h: Rcpp R/C++ interface class library -- test if an R Object can be seen
 //                                             as one type
 //

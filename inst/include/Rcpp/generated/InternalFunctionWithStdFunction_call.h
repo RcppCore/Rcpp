@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // InternalFunctionWithStdFunction_call.h -- generated helper code for
 //                                  InternalFunctionWithStdFunction.h
 //                                  see rcpp-scripts repo for generator script

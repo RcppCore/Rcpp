@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-//
 // InternalFunction.cpp: Rcpp R/C++ interface class library -- InternalFunction unit tests
 //
 // Copyright (C) 2014 Christian Authmann

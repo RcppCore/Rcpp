@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // proxy.h: Rcpp R/C++ interface class library -- proxy meat
 //
 // Copyright (C) 2014    Dirk Eddelbuettel, Romain Francois, and Kevin Ushey

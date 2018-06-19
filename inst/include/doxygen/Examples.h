@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
-//
 // doxygen/Examples.h: R/C++ interface class library --- Examples definitions for Doxygen
 //
 // Copyright (C) 2009 - 2011 Dirk Eddelbuettel and Romain Francois

@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // Interrupt.h: Rcpp R/C++ interface class library -- check for interrupts
 //
 // Copyright (C) 2009 - 2013    Dirk Eddelbuettel and Romain Francois

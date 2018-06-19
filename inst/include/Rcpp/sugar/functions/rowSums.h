@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // rowSums.h: Rcpp R/C++ interface class library -- rowSums, colSums, rowMeans, colMeans 
 //
 // Copyright (C) 2016 Nathan Russell

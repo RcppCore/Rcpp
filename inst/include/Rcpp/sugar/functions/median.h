@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // median.h: Rcpp R/C++ interface class library -- median
 //
 // Copyright (C) 2016 Dirk Eddelbuettel, Romain Francois, and Nathan Russell

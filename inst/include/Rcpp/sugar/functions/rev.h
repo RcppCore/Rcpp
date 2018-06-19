@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-//
 // rev.h: Rcpp R/C++ interface class library -- rev
 //
 // Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois

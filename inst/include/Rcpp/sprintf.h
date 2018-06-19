@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-//
 // sprintf.h: Rcpp R/C++ interface class library -- string formatting
 //
 // Copyright (C) 2010 - 2018  Dirk Eddelbuettel and Romain Francois

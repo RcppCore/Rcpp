@@ -1,5 +1,3 @@
-// -*- mode: c++; compile-command: "g++ -Wall -O3 -o Timertest Timertest.cpp"; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-
 // from http://www.cs.uiowa.edu/~sriram/30/fall03/
 
 #include <iostream>

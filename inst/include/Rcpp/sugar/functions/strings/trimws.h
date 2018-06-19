@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // trimws.h: Rcpp R/C++ interface class library -- trimws
 //
 // Copyright (C) 2017 Nathan Russell

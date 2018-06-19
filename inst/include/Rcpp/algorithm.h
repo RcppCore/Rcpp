@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // algorithm.h: Rcpp R/C++ interface class library -- data frames
 //
 // Copyright (C) 2016 - 2017  Daniel C. Dillon

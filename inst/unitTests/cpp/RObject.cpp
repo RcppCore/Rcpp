@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-//
 // RObject.cpp: Rcpp R/C++ interface class library -- RObject unit tests
 //
 // Copyright (C) 2013 Dirk Eddelbuettel and Romain Francois

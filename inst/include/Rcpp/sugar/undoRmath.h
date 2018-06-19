@@ -1,5 +1,3 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-//
 // undoRmath.h: Rcpp R/C++ interface class library -- undo the macros set by Rmath.h
 //
 // Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
