@@ -26,6 +26,10 @@
       BioConductor packages) (Kevn \ghpr{863} fixing \ghit{861}).
       \item Call stack display on error can now be controlled more
       finely (Romain in \ghpr{868}).
+      \item The new \code{Rcpp_fast_eval} is used instead of
+      \code{Rcpp_eval} though this still requires setting
+      \code{RCPP_PROTECTED_EVAL} before including \code{Rcpp.h} (Qiang
+      Kou in \ghpr{867} closing \ghit{866}).
     }
   }
 }

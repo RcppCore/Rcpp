@@ -3,7 +3,7 @@
         * DESCRIPTION (Version, Date): Roll minor version
         * inst/include/Rcpp/config.h: Idem
 
-2018-05-13  Filip Schouwenaars  <filip@datacamp.com>
+2018-06-13  Filip Schouwenaars  <filip@datacamp.com>
 
 	* inst/unitTests/runit.embeddedR.R: Evaluate in environment derived
 	of baseenv
@@ -14,6 +14,25 @@
 	after exception / stop
 	* inst/unitTests/cpp/Exceptions_nocall.cpp: new test
 	* inst/unitTests/runit.Exceptions_nocall.R: idem
+
+2018-06-09  Qiang Kou  <qkou@umail.iu.edu>
+
+	* inst/include/Rcpp/DataFrame.h: Use Rcpp_fast_eval, not Rcpp_eval
+	* inst/include/Rcpp/Environment.h: Idem
+	* inst/include/Rcpp/Function.h: Idem
+	* inst/include/Rcpp/Language.h: Idem
+	* inst/include/Rcpp/Module.h: Idem
+	* inst/include/Rcpp/Reference.h: Idem
+	* inst/include/Rcpp/exceptions.h: Idem
+	* inst/include/Rcpp/generated/Function__operator.h: Idem
+	* inst/include/Rcpp/proxy/FieldProxy.h: Idem
+	* inst/include/Rcpp/proxy/NamesProxy.h: Idem
+	* inst/include/Rcpp/r_cast.h: Idem
+	* inst/include/Rcpp/vector/Vector.h: Idem
+	* inst/examples/SugarPerformance/sugarBenchmarks.R: Idem
+	* inst/unitTests/cpp/language.c: Idem
+	* inst/unitTests/cpp/misc.c: Idem
+	* src/barrier.c: Idem
 
 2018-06-09  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -789,8 +808,7 @@
         * inst/include/Rcpp/Rcpp/exceptions/cpp11/exceptions.h: Removed
         semicolons from RCPP_ADVANCED_EXCEPTION_CLASS to quiet 'extra ;'
         -Wpedantic
-
-        OB* inst/include/Rcpp/exceptions.h: Modified exceptions macros to support
+        * inst/include/Rcpp/exceptions.h: Modified exceptions macros to support
         a default string and removed generated stop, warning from file.
         * inst/include/Rcpp/Rcpp/exceptions/cpp98/exceptions.h: Contains
         generated RCPP_ADVANCED_EXCEPTION_CLASS macro, stop & warning.
