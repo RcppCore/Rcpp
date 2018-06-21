@@ -52,38 +52,44 @@ SEXP testSendInterrupt() {
     return R_NilValue;
 }
 
-SEXP willThrow(void* data) {
-    Rf_error("throw!");
-    return R_NilValue;
+SEXP maybeThrow(void* data) {
+    bool* fail = (bool*) data;
+    if (*fail)
+        Rf_error("throw!");
+    else
+        return NumericVector::create(42);
 }
 
 // [[Rcpp::export]]
-SEXP testUnwindProtect(LogicalVector indicator) {
+SEXP testUnwindProtect(LogicalVector indicator, bool fail) {
     unwindIndicator my_data(indicator);
+    SEXP out = R_NilValue;
+
 #if defined(R_VERSION) && R_VERSION >= R_Version(3, 5, 0)
-    Rcpp::unwindProtect(&willThrow, NULL);
+    out = Rcpp::unwindProtect(&maybeThrow, &fail);
 #endif
-    return R_NilValue; // Should never reach this
+    return out;
 }
 
 
 // [[Rcpp::plugins("cpp11")]]
 
 // [[Rcpp::export]]
-SEXP testUnwindProtectLambda(LogicalVector indicator) {
+SEXP testUnwindProtectLambda(LogicalVector indicator, bool fail) {
     unwindIndicator my_data(indicator);
+    SEXP out = R_NilValue;
+
 #if defined(R_VERSION) && R_VERSION >= R_Version(3, 5, 0)
-    Rcpp::unwindProtect([] () { return willThrow(NULL); });
+    out = Rcpp::unwindProtect([&] () { return maybeThrow(&fail); });
 #endif
-    return R_NilValue; // Should never reach this
+
+    return out;
 }
 
 struct FunctionObj {
     FunctionObj(int data_, bool fail_) : data(data_), fail(fail_) { }
     SEXP operator() () {
-        if (fail)
-            willThrow(NULL);
-        NumericVector x = NumericVector::create(2);
+        NumericVector x = maybeThrow(&fail);
         x[0] = x[0] * data;
         return x;
     }
@@ -92,10 +98,13 @@ struct FunctionObj {
 };
 
 // [[Rcpp::export]]
-SEXP testUnwindProtectFunctionObject(LogicalVector indicator) {
+SEXP testUnwindProtectFunctionObject(LogicalVector indicator, bool fail) {
     unwindIndicator my_data(indicator);
+    SEXP out = R_NilValue;
+
 #if defined(R_VERSION) && R_VERSION >= R_Version(3, 5, 0)
-    Rcpp::unwindProtect(FunctionObj(10, true));
+    out = Rcpp::unwindProtect(FunctionObj(10, fail));
 #endif
-    return R_NilValue; // Should never reach this
+
+    return out;
 }
