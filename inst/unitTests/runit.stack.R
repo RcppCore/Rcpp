@@ -147,6 +147,14 @@ if (.runThisTest) {
             unwound <- FALSE
             checkException(testUnwindProtect(unwound))
             checkTrue(unwound)
+
+            unwound <- FALSE
+            checkException(testUnwindProtectLambda(unwound))
+            checkTrue(unwound)
+
+            unwound <- FALSE
+            checkException(testUnwindProtectFunctionObject(unwound))
+            checkTrue(unwound)
         }
     }
 }

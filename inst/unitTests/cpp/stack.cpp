@@ -65,3 +65,37 @@ SEXP testUnwindProtect(LogicalVector indicator) {
 #endif
     return R_NilValue; // Should never reach this
 }
+
+
+// [[Rcpp::plugins("cpp11")]]
+
+// [[Rcpp::export]]
+SEXP testUnwindProtectLambda(LogicalVector indicator) {
+    unwindIndicator my_data(indicator);
+#if defined(R_VERSION) && R_VERSION >= R_Version(3, 5, 0)
+    Rcpp::unwindProtect([] () { return willThrow(NULL); });
+#endif
+    return R_NilValue; // Should never reach this
+}
+
+struct FunctionObj {
+    FunctionObj(int data_, bool fail_) : data(data_), fail(fail_) { }
+    SEXP operator() () {
+        if (fail)
+            willThrow(NULL);
+        NumericVector x = NumericVector::create(2);
+        x[0] = x[0] * data;
+        return x;
+    }
+    int data;
+    bool fail;
+};
+
+// [[Rcpp::export]]
+SEXP testUnwindProtectFunctionObject(LogicalVector indicator) {
+    unwindIndicator my_data(indicator);
+#if defined(R_VERSION) && R_VERSION >= R_Version(3, 5, 0)
+    Rcpp::unwindProtect(FunctionObj(10, true));
+#endif
+    return R_NilValue; // Should never reach this
+}

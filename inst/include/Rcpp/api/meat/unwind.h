@@ -22,6 +22,10 @@
 
 #include <csetjmp>
 
+#ifdef RCPP_USING_CXX11
+#include <functional>
+#endif
+
 
 namespace Rcpp { namespace internal {
 
@@ -38,6 +42,13 @@ inline void maybeJump(void* unwind_data, Rboolean jump) {
         longjmp(data->jmpbuf, 1);
     }
 }
+
+#ifdef RCPP_USING_CXX11
+SEXP unwindProtectUnwrap(void* data) {
+    std::function<SEXP(void)>* callback = (std::function<SEXP(void)>*) data;
+    return (*callback)();
+}
+#endif
 
 }} // namespace Rcpp::internal
 
@@ -62,6 +73,12 @@ SEXP unwindProtect(SEXP (*callback)(void* data), void* data) {
                              internal::maybeJump, &unwind_data,
                              token);
 }
+
+#ifdef RCPP_USING_CXX11
+SEXP unwindProtect(std::function<SEXP(void)> callback) {
+    return unwindProtect(&internal::unwindProtectUnwrap, &callback);
+}
+#endif
 
 } // namespace Rcpp
 
