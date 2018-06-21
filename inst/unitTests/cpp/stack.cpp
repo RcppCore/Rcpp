@@ -51,3 +51,17 @@ SEXP testSendInterrupt() {
     Rf_onintr();
     return R_NilValue;
 }
+
+SEXP willThrow(void* data) {
+    Rf_error("throw!");
+    return R_NilValue;
+}
+
+// [[Rcpp::export]]
+SEXP testUnwindProtect(LogicalVector indicator) {
+    unwindIndicator my_data(indicator);
+#if defined(R_VERSION) && R_VERSION >= R_Version(3, 5, 0)
+    Rcpp::unwindProtect(&willThrow, NULL);
+#endif
+    return R_NilValue; // Should never reach this
+}

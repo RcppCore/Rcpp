@@ -23,12 +23,11 @@
 
 #if (defined(RCPP_PROTECTED_EVAL) && defined(R_VERSION) && R_VERSION >= R_Version(3, 5, 0))
 #define RCPP_USE_PROTECT_UNWIND
-#include <csetjmp>
+#include <Rcpp/api/meat/unwind.h>
 #endif
 
 
-namespace Rcpp {
-namespace internal {
+namespace Rcpp { namespace internal {
 
 #ifdef RCPP_USE_PROTECT_UNWIND
 
@@ -37,19 +36,6 @@ namespace internal {
         SEXP env;
         EvalData(SEXP expr_, SEXP env_) : expr(expr_), env(env_) { }
     };
-    struct EvalUnwindData {
-        std::jmp_buf jmpbuf;
-    };
-
-    // First jump back to the protected context with a C longjmp because
-    // `Rcpp_protected_eval()` is called from C and we can't safely throw
-    // exceptions across C frames.
-    inline void Rcpp_maybe_throw(void* unwind_data, Rboolean jump) {
-        if (jump) {
-            EvalUnwindData* data = static_cast<EvalUnwindData*>(unwind_data);
-            longjmp(data->jmpbuf, 1);
-        }
-    }
 
     inline SEXP Rcpp_protected_eval(void* eval_data) {
         EvalData* data = static_cast<EvalData*>(eval_data);
@@ -70,29 +56,16 @@ namespace internal {
 
 #endif
 
-} // namespace internal
+}} // namespace Rcpp::internal
 
+
+namespace Rcpp {
 
 #ifdef RCPP_USE_PROTECT_UNWIND
 
     inline SEXP Rcpp_fast_eval(SEXP expr, SEXP env) {
         internal::EvalData data(expr, env);
-        internal::EvalUnwindData unwind_data;
-        Shield<SEXP> token(::R_MakeUnwindCont());
-
-        if (setjmp(unwind_data.jmpbuf)) {
-            // Keep the token protected while unwinding because R code might run
-            // in C++ destructors. Can't use PROTECT() for this because
-            // UNPROTECT() might be called in a destructor, for instance if a
-            // Shield<SEXP> is on the stack.
-            ::R_PreserveObject(token);
-
-            throw internal::LongjumpException(token);
-        }
-
-        return ::R_UnwindProtect(internal::Rcpp_protected_eval, &data,
-                                 internal::Rcpp_maybe_throw, &unwind_data,
-                                 token);
+        return unwindProtect(&internal::Rcpp_protected_eval, &data);
     }
 
 #else

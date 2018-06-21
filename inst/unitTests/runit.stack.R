@@ -142,4 +142,11 @@ if (.runThisTest) {
         checkTrue(unwound2) # Always unwound
     }
 
+    test.unwindProtect <- function() {
+        if (hasUnwind) {
+            unwound <- FALSE
+            checkException(testUnwindProtect(unwound))
+            checkTrue(unwound)
+        }
+    }
 }
