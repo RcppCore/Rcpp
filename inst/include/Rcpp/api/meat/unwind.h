@@ -44,7 +44,7 @@ inline void maybeJump(void* unwind_data, Rboolean jump) {
 }
 
 #ifdef RCPP_USING_CXX11
-SEXP unwindProtectUnwrap(void* data) {
+inline SEXP unwindProtectUnwrap(void* data) {
     std::function<SEXP(void)>* callback = (std::function<SEXP(void)>*) data;
     return (*callback)();
 }
@@ -55,7 +55,7 @@ SEXP unwindProtectUnwrap(void* data) {
 
 namespace Rcpp {
 
-SEXP unwindProtect(SEXP (*callback)(void* data), void* data) {
+inline SEXP unwindProtect(SEXP (*callback)(void* data), void* data) {
     internal::UnwindData unwind_data;
     Shield<SEXP> token(::R_MakeUnwindCont());
 
@@ -75,7 +75,7 @@ SEXP unwindProtect(SEXP (*callback)(void* data), void* data) {
 }
 
 #ifdef RCPP_USING_CXX11
-SEXP unwindProtect(std::function<SEXP(void)> callback) {
+inline SEXP unwindProtect(std::function<SEXP(void)> callback) {
     return unwindProtect(&internal::unwindProtectUnwrap, &callback);
 }
 #endif
