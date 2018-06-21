@@ -31,28 +31,28 @@ namespace Rcpp { namespace internal {
 
 #ifdef RCPP_USE_PROTECT_UNWIND
 
-    struct EvalData {
-        SEXP expr;
-        SEXP env;
-        EvalData(SEXP expr_, SEXP env_) : expr(expr_), env(env_) { }
-    };
+struct EvalData {
+    SEXP expr;
+    SEXP env;
+    EvalData(SEXP expr_, SEXP env_) : expr(expr_), env(env_) { }
+};
 
-    inline SEXP Rcpp_protected_eval(void* eval_data) {
-        EvalData* data = static_cast<EvalData*>(eval_data);
-        return ::Rf_eval(data->expr, data->env);
-    }
+inline SEXP Rcpp_protected_eval(void* eval_data) {
+    EvalData* data = static_cast<EvalData*>(eval_data);
+    return ::Rf_eval(data->expr, data->env);
+}
 
-    // This is used internally instead of Rf_eval() to make evaluation safer
-    inline SEXP Rcpp_eval_impl(SEXP expr, SEXP env) {
-        return Rcpp_fast_eval(expr, env);
-    }
+// This is used internally instead of Rf_eval() to make evaluation safer
+inline SEXP Rcpp_eval_impl(SEXP expr, SEXP env) {
+    return Rcpp_fast_eval(expr, env);
+}
 
 #else // R < 3.5.0
 
-    // Fall back to Rf_eval() when the protect-unwind API is unavailable
-    inline SEXP Rcpp_eval_impl(SEXP expr, SEXP env) {
-        return ::Rf_eval(expr, env);
-    }
+// Fall back to Rf_eval() when the protect-unwind API is unavailable
+inline SEXP Rcpp_eval_impl(SEXP expr, SEXP env) {
+    return ::Rf_eval(expr, env);
+}
 
 #endif
 
@@ -63,16 +63,16 @@ namespace Rcpp {
 
 #ifdef RCPP_USE_PROTECT_UNWIND
 
-    inline SEXP Rcpp_fast_eval(SEXP expr, SEXP env) {
-        internal::EvalData data(expr, env);
-        return unwindProtect(&internal::Rcpp_protected_eval, &data);
-    }
+inline SEXP Rcpp_fast_eval(SEXP expr, SEXP env) {
+    internal::EvalData data(expr, env);
+    return unwindProtect(&internal::Rcpp_protected_eval, &data);
+}
 
 #else
 
-    inline SEXP Rcpp_fast_eval(SEXP expr, SEXP env) {
-        return Rcpp_eval(expr, env);
-    }
+inline SEXP Rcpp_fast_eval(SEXP expr, SEXP env) {
+    return Rcpp_eval(expr, env);
+}
 
 #endif
 
