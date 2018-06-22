@@ -94,7 +94,7 @@ inline SEXP Rcpp_eval(SEXP expr, SEXP env) {
     SET_TAG(CDDR(call), ::Rf_install("error"));
     SET_TAG(CDDR(CDR(call)), ::Rf_install("interrupt"));
 
-    Shield<SEXP> res(internal::Rcpp_eval_impl(call, R_GlobalEnv));
+    Shield<SEXP> res(internal::Rcpp_eval_impl(call, R_BaseEnv));
 
     // check for condition results (errors, interrupts)
     if (Rf_inherits(res, "condition")) {
@@ -103,7 +103,7 @@ inline SEXP Rcpp_eval(SEXP expr, SEXP env) {
 
             Shield<SEXP> conditionMessageCall(::Rf_lang2(::Rf_install("conditionMessage"), res));
 
-            Shield<SEXP> conditionMessage(internal::Rcpp_eval_impl(conditionMessageCall, R_GlobalEnv));
+            Shield<SEXP> conditionMessage(internal::Rcpp_eval_impl(conditionMessageCall, R_BaseEnv));
             throw eval_error(CHAR(STRING_ELT(conditionMessage, 0)));
         }
 
