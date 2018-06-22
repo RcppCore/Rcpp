@@ -142,4 +142,31 @@ if (.runThisTest) {
         checkTrue(unwound2) # Always unwound
     }
 
+    test.unwindProtect <- function() {
+        if (hasUnwind) {
+            unwound <- FALSE
+            checkException(testUnwindProtect(unwound, fail = TRUE))
+            checkTrue(unwound)
+
+            unwound <- FALSE
+            checkException(testUnwindProtectLambda(unwound, fail = TRUE))
+            checkTrue(unwound)
+
+            unwound <- FALSE
+            checkException(testUnwindProtectFunctionObject(unwound, fail = TRUE))
+            checkTrue(unwound)
+
+            unwound <- FALSE
+            checkEquals(testUnwindProtect(unwound, fail = FALSE), 42)
+            checkTrue(unwound)
+
+            unwound <- FALSE
+            checkEquals(testUnwindProtectLambda(unwound, fail = FALSE), 42)
+            checkTrue(unwound)
+
+            unwound <- FALSE
+            checkEquals(testUnwindProtectFunctionObject(unwound, fail = FALSE), 420)
+            checkTrue(unwound)
+        }
+    }
 }

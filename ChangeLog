@@ -1,3 +1,22 @@
+
+2018-06-21  Lionel Henry  <lionel@rstudio.com>
+
+        * inst/include/Rcpp/api/meat/unwind.h: Extract unwind protection from
+        Rcpp::Rcpp_fast_eval() into Rcpp::unwindProtect(). Use this function
+        whenever you need to call a C function that might longjump, for instance
+        a function from R's C API. Rcpp::unwindProtect() will protect your C++
+        stack and throw a Rcpp::internal::LongJump exception to ensure all
+        destructors are called. The R longjump is then resumed once it is safe
+        to do so. This function powers Rcpp_fast_eval().
+
+        You can use Rcpp::unwindProtect() in two ways. First with a C-like
+        callback interface that takes a `SEXP (*)(void* data)` function pointer
+        and a `void*` data argument that is passed to the function. Second, if
+        you have C++11 enabled, Rcpp::unwindProtect() implements an
+        `std::function<SEXP(void)>` overload. You can pass any function object
+        or lambda function with the right signature.
+        * inst/include/Rcpp/api/meat/Rcpp_eval.h: Idem
+
 2018-06-15  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll minor version

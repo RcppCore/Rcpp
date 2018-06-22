@@ -51,3 +51,60 @@ SEXP testSendInterrupt() {
     Rf_onintr();
     return R_NilValue;
 }
+
+SEXP maybeThrow(void* data) {
+    bool* fail = (bool*) data;
+    if (*fail)
+        Rf_error("throw!");
+    else
+        return NumericVector::create(42);
+}
+
+// [[Rcpp::export]]
+SEXP testUnwindProtect(LogicalVector indicator, bool fail) {
+    unwindIndicator my_data(indicator);
+    SEXP out = R_NilValue;
+
+#if defined(R_VERSION) && R_VERSION >= R_Version(3, 5, 0)
+    out = Rcpp::unwindProtect(&maybeThrow, &fail);
+#endif
+    return out;
+}
+
+
+// [[Rcpp::plugins("cpp11")]]
+
+// [[Rcpp::export]]
+SEXP testUnwindProtectLambda(LogicalVector indicator, bool fail) {
+    unwindIndicator my_data(indicator);
+    SEXP out = R_NilValue;
+
+#if defined(R_VERSION) && R_VERSION >= R_Version(3, 5, 0)
+    out = Rcpp::unwindProtect([&] () { return maybeThrow(&fail); });
+#endif
+
+    return out;
+}
+
+struct FunctionObj {
+    FunctionObj(int data_, bool fail_) : data(data_), fail(fail_) { }
+    SEXP operator() () {
+        NumericVector x = maybeThrow(&fail);
+        x[0] = x[0] * data;
+        return x;
+    }
+    int data;
+    bool fail;
+};
+
+// [[Rcpp::export]]
+SEXP testUnwindProtectFunctionObject(LogicalVector indicator, bool fail) {
+    unwindIndicator my_data(indicator);
+    SEXP out = R_NilValue;
+
+#if defined(R_VERSION) && R_VERSION >= R_Version(3, 5, 0)
+    out = Rcpp::unwindProtect(FunctionObj(10, fail));
+#endif
+
+    return out;
+}
