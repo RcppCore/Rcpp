@@ -30,6 +30,9 @@
       \code{Rcpp_eval} though this still requires setting
       \code{RCPP_PROTECTED_EVAL} before including \code{Rcpp.h} (Qiang
       Kou in \ghpr{867} closing \ghit{866}).
+      \item The \code{Rcpp::unwindProtect()} function extracts the
+      unwinding from the \code{Rcpp_fast_eval()} function and makes it
+      more generally available. (Lionel in \ghpr{873}).
     }
   }
 }

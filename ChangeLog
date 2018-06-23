@@ -1,3 +1,6 @@
+2018-06-22  Kevin Ushey  <kevinushey@gmail.com>
+
+        * inst/include/Rcpp/api/meat/Rcpp_eval.h: Ensure R_BaseEnv is used
 
 2018-06-21  Lionel Henry  <lionel@rstudio.com>
 
@@ -24,45 +27,45 @@
 
 2018-06-13  Filip Schouwenaars  <filip@datacamp.com>
 
-	* inst/unitTests/runit.embeddedR.R: Evaluate in environment derived
-	of baseenv
+        * inst/unitTests/runit.embeddedR.R: Evaluate in environment derived
+        of baseenv
 
 2018-06-11  Romain Francois  <romain@purrple.cat>
 
-	* inst/include/Rcpp/exceptions.h: Control call and stack display
-	after exception / stop
-	* inst/unitTests/cpp/Exceptions_nocall.cpp: new test
-	* inst/unitTests/runit.Exceptions_nocall.R: idem
+        * inst/include/Rcpp/exceptions.h: Control call and stack display
+        after exception / stop
+        * inst/unitTests/cpp/Exceptions_nocall.cpp: new test
+        * inst/unitTests/runit.Exceptions_nocall.R: idem
 
 2018-06-09  Qiang Kou  <qkou@umail.iu.edu>
 
-	* inst/include/Rcpp/DataFrame.h: Use Rcpp_fast_eval, not Rcpp_eval
-	* inst/include/Rcpp/Environment.h: Idem
-	* inst/include/Rcpp/Function.h: Idem
-	* inst/include/Rcpp/Language.h: Idem
-	* inst/include/Rcpp/Module.h: Idem
-	* inst/include/Rcpp/Reference.h: Idem
-	* inst/include/Rcpp/exceptions.h: Idem
-	* inst/include/Rcpp/generated/Function__operator.h: Idem
-	* inst/include/Rcpp/proxy/FieldProxy.h: Idem
-	* inst/include/Rcpp/proxy/NamesProxy.h: Idem
-	* inst/include/Rcpp/r_cast.h: Idem
-	* inst/include/Rcpp/vector/Vector.h: Idem
-	* inst/examples/SugarPerformance/sugarBenchmarks.R: Idem
-	* inst/unitTests/cpp/language.c: Idem
-	* inst/unitTests/cpp/misc.c: Idem
-	* src/barrier.c: Idem
+        * inst/include/Rcpp/DataFrame.h: Use Rcpp_fast_eval, not Rcpp_eval
+        * inst/include/Rcpp/Environment.h: Idem
+        * inst/include/Rcpp/Function.h: Idem
+        * inst/include/Rcpp/Language.h: Idem
+        * inst/include/Rcpp/Module.h: Idem
+        * inst/include/Rcpp/Reference.h: Idem
+        * inst/include/Rcpp/exceptions.h: Idem
+        * inst/include/Rcpp/generated/Function__operator.h: Idem
+        * inst/include/Rcpp/proxy/FieldProxy.h: Idem
+        * inst/include/Rcpp/proxy/NamesProxy.h: Idem
+        * inst/include/Rcpp/r_cast.h: Idem
+        * inst/include/Rcpp/vector/Vector.h: Idem
+        * inst/examples/SugarPerformance/sugarBenchmarks.R: Idem
+        * inst/unitTests/cpp/language.c: Idem
+        * inst/unitTests/cpp/misc.c: Idem
+        * src/barrier.c: Idem
 
 2018-06-09  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/unitTests/runit.embeddedR.R: Suspend test for now
+        * inst/unitTests/runit.embeddedR.R: Suspend test for now
 
 2018-06-08  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll minor version
         * inst/include/Rcpp/config.h: Idem
 
-	* Contributing.md: Minor update coding style
+        * Contributing.md: Minor update coding style
 
 2018-06-07  Kevin Ushey  <kevinushey@gmail.com>
 
@@ -103,7 +106,7 @@
 
 2018-06-01  Romain Francois  <romain@purrple.cat>
 
-	* inst/include/Rcpp/Environment.h: Make Environment::new_child() const
+        * inst/include/Rcpp/Environment.h: Make Environment::new_child() const
 
 2018-05-31  Lionel Henry  <lionel@rstudio.com>
 
@@ -154,16 +157,16 @@
 
 2018-05-27  Romain Francois  <romain@purrple.cat>
 
-	* inst/include/Rcpp/vector/string_proxy.h: Make
-	StringProxy::operator== const
-	* inst/unitTests/cpp/Vector.cpp: New test
-	* inst/unitTests/runit.Vector.R: Idem
+        * inst/include/Rcpp/vector/string_proxy.h: Make
+        StringProxy::operator== const
+        * inst/unitTests/cpp/Vector.cpp: New test
+        * inst/unitTests/runit.Vector.R: Idem
 
 2018-05-09  Filip Schouwenaars  <filip@datacamp.com>
 
-	* R/Attributes.R: Set local environment in source()
-	* inst/unitTests/cpp/embeddedR.cpp: New test
-	* inst/unitTests/runit.embeddedR.R: Idem
+        * R/Attributes.R: Set local environment in source()
+        * inst/unitTests/cpp/embeddedR.cpp: New test
+        * inst/unitTests/runit.embeddedR.R: Idem
 
 2018-05-09  Dirk Eddelbuettel  <edd@debian.org>
 
