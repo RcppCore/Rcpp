@@ -17,8 +17,8 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef RCPP_API_MEAT_UNWIND_H
-#define RCPP_API_MEAT_UNWIND_H
+#ifndef RCPP_UNWINDPROTECT_H
+#define RCPP_UNWINDPROTECT_H
 
 #include <csetjmp>
 

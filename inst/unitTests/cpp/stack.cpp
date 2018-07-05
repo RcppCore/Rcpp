@@ -65,7 +65,7 @@ SEXP testUnwindProtect(Environment indicator, bool fail) {
     unwindIndicator my_data(indicator);
     SEXP out = R_NilValue;
 
-#if defined(R_VERSION) && R_VERSION >= R_Version(3, 5, 0)
+#ifdef RCPP_USING_UNWIND_PROTECT
     out = Rcpp::unwindProtect(&maybeThrow, &fail);
 #endif
     return out;
@@ -77,7 +77,7 @@ SEXP testUnwindProtectLambda(Environment indicator, bool fail) {
     unwindIndicator my_data(indicator);
     SEXP out = R_NilValue;
 
-#if defined(R_VERSION) && R_VERSION >= R_Version(3, 5, 0)
+#ifdef RCPP_USING_UNWIND_PROTECT
     out = Rcpp::unwindProtect([&] () { return maybeThrow(&fail); });
 #endif
 
@@ -100,7 +100,7 @@ SEXP testUnwindProtectFunctionObject(Environment indicator, bool fail) {
     unwindIndicator my_data(indicator);
     SEXP out = R_NilValue;
 
-#if defined(R_VERSION) && R_VERSION >= R_Version(3, 5, 0)
+#ifdef RCPP_USING_UNWIND_PROTECT
     out = Rcpp::unwindProtect(FunctionObj(10, fail));
 #endif
 
