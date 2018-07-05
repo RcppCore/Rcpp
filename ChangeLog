@@ -1,3 +1,9 @@
+
+2018-07-05  Lionel Henry  <lionel@rstudio.com>
+
+        * R/unit.tests.R (unitTestSetup): Pass extra arguments to sourceCpp()
+        for easier debugging.
+
 2018-06-22  Kevin Ushey  <kevinushey@gmail.com>
 
         * inst/include/Rcpp/api/meat/Rcpp_eval.h: Ensure R_BaseEnv is used

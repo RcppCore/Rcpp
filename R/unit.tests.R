@@ -88,14 +88,15 @@ test <- function(output=if(file.exists("/tmp")) "/tmp" else getwd(),
 }
 
 unitTestSetup <- function(file, packages=NULL,
-                          pathToRcppTests=system.file("unitTests", package = "Rcpp")) {
+                          pathToRcppTests=system.file("unitTests", package = "Rcpp"),
+                          ...) {
     function() {
         if (! is.null(packages)) {
             for (p in packages) {
                 suppressMessages(require(p, character.only=TRUE))
             }
         }
-        sourceCpp(file.path(pathToRcppTests, "cpp", file))
+        sourceCpp(file.path(pathToRcppTests, "cpp", file), ...)
     }
 }
 
