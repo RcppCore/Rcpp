@@ -28,7 +28,7 @@
       finely (Romain in \ghpr{868}).
       \item The new \code{Rcpp_fast_eval} is used instead of
       \code{Rcpp_eval} though this still requires setting
-      \code{RCPP_PROTECTED_EVAL} before including \code{Rcpp.h} (Qiang
+      \code{RCPP_USE_UNWIND_PROTECT} before including \code{Rcpp.h} (Qiang
       Kou in \ghpr{867} closing \ghit{866}).
       \item The \code{Rcpp::unwindProtect()} function extracts the
       unwinding from the \code{Rcpp_fast_eval()} function and makes it
@@ -110,7 +110,7 @@
       (Kevin in \ghpr{784}).
       \item Use public R APIs for \code{new_env} (Kevin in \ghpr{785}).
       \item Evaluation of R code is now safer when compiled against R
-      3.5 (you also need to explicitly define \code{RCPP_PROTECTED_EVAL}
+      3.5 (you also need to explicitly define \code{RCPP_USE_UNWIND_PROTECT}
       before including \code{Rcpp.h}). Longjumps of all kinds (condition
       catching, returns, restarts, debugger exit) are appropriately
       detected and handled, e.g. the C++ stack unwinds correctly

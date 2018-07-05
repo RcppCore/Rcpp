@@ -524,7 +524,7 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
 }
 
 .plugins[["unwindProtect"]] <- function() {
-    list(env = list(PKG_CPPFLAGS = "-DRCPP_PROTECTED_EVAL"))
+    list(env = list(PKG_CPPFLAGS = "-DRCPP_USE_UNWIND_PROTECT"))
 }
 
 # register a plugin

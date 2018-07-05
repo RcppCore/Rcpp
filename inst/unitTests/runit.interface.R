@@ -67,7 +67,7 @@ if (.runThisTest) {
         sys_sep <- if (.Platform$OS.type == "windows") ";" else ":"
         Sys.setenv(R_LIBS = paste(c(lib_path, old_lib_paths), collapse = sys_sep))
 
-        cfg <- "#define RCPP_PROTECTED_EVAL"
+        cfg <- "#define RCPP_USE_UNWIND_PROTECT"
         build_package(exporter_name, lib_path, config = cfg)
         build_package(user_name, lib_path, config = cfg)
 

@@ -21,15 +21,15 @@
 #include <Rcpp/Interrupt.h>
 #include <Rversion.h>
 
-#if (defined(RCPP_PROTECTED_EVAL) && defined(R_VERSION) && R_VERSION >= R_Version(3, 5, 0))
-#define RCPP_USE_PROTECT_UNWIND
+#if (defined(RCPP_USE_UNWIND_PROTECT) && defined(R_VERSION) && R_VERSION >= R_Version(3, 5, 0))
+#define RCPP_USING_PROTECT_UNWIND
 #include <Rcpp/api/meat/unwind.h>
 #endif
 
 
 namespace Rcpp { namespace internal {
 
-#ifdef RCPP_USE_PROTECT_UNWIND
+#ifdef RCPP_USING_PROTECT_UNWIND
 
 struct EvalData {
     SEXP expr;
@@ -61,7 +61,7 @@ inline SEXP Rcpp_eval_impl(SEXP expr, SEXP env) {
 
 namespace Rcpp {
 
-#ifdef RCPP_USE_PROTECT_UNWIND
+#ifdef RCPP_USING_PROTECT_UNWIND
 
 inline SEXP Rcpp_fast_eval(SEXP expr, SEXP env) {
     internal::EvalData data(expr, env);
