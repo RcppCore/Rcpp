@@ -26,22 +26,22 @@ using namespace Rcpp;
 
 // Class that indicates to R caller whether C++ stack was unwound
 struct unwindIndicator {
-    unwindIndicator(LogicalVector indicator_) {
-        // Reset the indicator to FALSE
+    unwindIndicator(Environment indicator_) {
+        // Reset the indicator to NULL
         indicator = indicator_;
-        *LOGICAL(indicator) = 0;
+        indicator["unwound"] = R_NilValue;
     }
 
     // Set indicator to TRUE when stack unwinds
     ~unwindIndicator() {
-        *LOGICAL(indicator) = 1;
+        indicator["unwound"] = LogicalVector::create(1);
     }
 
-    LogicalVector indicator;
+    Environment indicator;
 };
 
 // [[Rcpp::export]]
-SEXP testFastEval(RObject expr, Environment env, LogicalVector indicator) {
+SEXP testFastEval(RObject expr, Environment env, Environment indicator) {
     unwindIndicator my_data(indicator);
     return Rcpp::Rcpp_fast_eval(expr, env);
 }
@@ -61,7 +61,7 @@ SEXP maybeThrow(void* data) {
 }
 
 // [[Rcpp::export]]
-SEXP testUnwindProtect(LogicalVector indicator, bool fail) {
+SEXP testUnwindProtect(Environment indicator, bool fail) {
     unwindIndicator my_data(indicator);
     SEXP out = R_NilValue;
 
@@ -75,7 +75,7 @@ SEXP testUnwindProtect(LogicalVector indicator, bool fail) {
 // [[Rcpp::plugins("cpp11")]]
 
 // [[Rcpp::export]]
-SEXP testUnwindProtectLambda(LogicalVector indicator, bool fail) {
+SEXP testUnwindProtectLambda(Environment indicator, bool fail) {
     unwindIndicator my_data(indicator);
     SEXP out = R_NilValue;
 
@@ -98,7 +98,7 @@ struct FunctionObj {
 };
 
 // [[Rcpp::export]]
-SEXP testUnwindProtectFunctionObject(LogicalVector indicator, bool fail) {
+SEXP testUnwindProtectFunctionObject(Environment indicator, bool fail) {
     unwindIndicator my_data(indicator);
     SEXP out = R_NilValue;
 
