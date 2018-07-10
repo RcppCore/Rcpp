@@ -66,7 +66,7 @@ inline SEXP unwindProtect(SEXP (*callback)(void* data), void* data) {
         // Shield<SEXP> is on the stack.
         ::R_PreserveObject(token);
 
-        throw internal::LongjumpException(token);
+        throw LongjumpException(token);
     }
 
     return ::R_UnwindProtect(callback, data,

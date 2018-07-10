@@ -1,3 +1,13 @@
+
+2018-07-10  Lionel Henry  <lionel@rstudio.com>
+
+        * inst/include/Rcpp/exceptions.h: Move LongjumpException from the
+        Rcpp::internal namespace to the public Rcpp namespace. If you have a
+        catch-all statement like `catch (...)`, be sure to catch and rethrow
+        Rcpp::LongjumpException to prevent the R longjump from being ignored.
+        * inst/include/Rcpp/macros/macros.h (VOID_END_RCPP): idem
+        * src/attributes.cpp: idem
+
 2018-07-05  Lionel Henry  <lionel@rstudio.com>
 
         * inst/include/Rcpp/api/meat/Rcpp_eval.h: Rename `RCPP_PROTECTED_EVAL`
