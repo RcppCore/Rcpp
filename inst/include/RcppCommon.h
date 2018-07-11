@@ -74,11 +74,11 @@ namespace Rcpp {
 
 namespace Rcpp {
 
-    SEXP Rcpp_fast_eval(SEXP expr_, SEXP env = R_GlobalEnv);
+    SEXP Rcpp_fast_eval(SEXP expr_, SEXP env);
     SEXP Rcpp_eval(SEXP expr_, SEXP env = R_GlobalEnv);
 
     namespace internal {
-        SEXP Rcpp_eval_impl(SEXP expr, SEXP env = R_GlobalEnv);
+        SEXP Rcpp_eval_impl(SEXP expr, SEXP env);
     }
 
     class Module;
