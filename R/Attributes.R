@@ -523,6 +523,10 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
                     PKG_LIBS="-fopenmp"))
 }
 
+.plugins[["unwindProtect"]] <- function() {
+    list(env = list(PKG_CPPFLAGS = "-DRCPP_USE_UNWIND_PROTECT"))
+}
+
 # register a plugin
 registerPlugin <- function(name, plugin) {
     .plugins[[name]] <- plugin                                  # #nocov

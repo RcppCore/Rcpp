@@ -27,22 +27,31 @@ if (.runThisTest) {
     # On old versions of R, Rcpp_fast_eval() falls back to Rcpp_eval() and
     # leaks on longjumps
     hasUnwind <- getRversion() >= "3.5.0"
-    checkUnwound <- if (hasUnwind) checkTrue else function(x) checkTrue(!x)
+    checkUnwound <- if (hasUnwind) checkTrue else function(x) checkIdentical(x, NULL)
     checkErrorMessage <- function(x, msg) {
         if (!hasUnwind) {
             msg <- paste0("Evaluation error: ", msg, ".")
         }
         checkIdentical(x$message, msg)
     }
-    EvalUnwind <- function(expr, indicator) {
+    evalUnwind <- function(expr, indicator) {
         testFastEval(expr, parent.frame(), indicator)
+    }
+
+    # Wrap the unwind indicator in an environment because mutating
+    # vectors passed by argument can corrupt the R session in
+    # byte-compiled code.
+    newIndicator <- function() {
+        env <- new.env()
+        env$unwound <- NULL
+        env
     }
 
     # Stack is always unwound on errors and interrupts
     test.stackUnwindsOnErrors <- function() {
-        unwound <- FALSE
-        out <- tryCatch(EvalUnwind(quote(stop("err")), unwound), error = identity)
-        checkTrue(unwound)
+        indicator <- newIndicator()
+        out <- tryCatch(evalUnwind(quote(stop("err")), indicator), error = identity)
+        checkTrue(indicator$unwound)
         checkErrorMessage(out, "err")
     }
 
@@ -50,55 +59,51 @@ if (.runThisTest) {
         if (.Platform$OS.type == "windows") {
             return(NULL)
         }
-        unwound <- FALSE
+        indicator <- newIndicator()
         expr <- quote({
             repeat testSendInterrupt()
             "returned"
         })
-        out <- tryCatch(EvalUnwind(expr, unwound), interrupt = function(c) "onintr")
-        checkTrue(unwound)
+        out <- tryCatch(evalUnwind(expr, indicator), interrupt = function(c) "onintr")
+        checkTrue(indicator$unwound)
         checkIdentical(out, "onintr")
-
     }
 
     test.stackUnwindsOnCaughtConditions <- function() {
-        unwound <- FALSE
+        indicator <- newIndicator()
         expr <- quote(signalCondition(simpleCondition("cnd")))
-        cnd <- tryCatch(EvalUnwind(expr, unwound), condition = identity)
+        cnd <- tryCatch(evalUnwind(expr, indicator), condition = identity)
         checkTrue(inherits(cnd, "simpleCondition"))
-        checkUnwound(unwound)
-
+        checkUnwound(indicator$unwound)
     }
 
     test.stackUnwindsOnRestartJumps <- function() {
-        unwound <- FALSE
+        indicator <- newIndicator()
         expr <- quote(invokeRestart("rst"))
-        out <- withRestarts(EvalUnwind(expr, unwound), rst = function(...) "restarted")
+        out <- withRestarts(evalUnwind(expr, indicator), rst = function(...) "restarted")
         checkIdentical(out, "restarted")
-        checkUnwound(unwound)
-
+        checkUnwound(indicator$unwound)
     }
 
     test.stackUnwindsOnReturns <- function() {
-        unwound <- FALSE
+        indicator <- newIndicator()
         expr <- quote(signalCondition(simpleCondition(NULL)))
         out <- callCC(function(k) {
-            withCallingHandlers(EvalUnwind(expr, unwound),
+            withCallingHandlers(evalUnwind(expr, indicator),
                 simpleCondition = function(e) k("jumped")
             )
         })
         checkIdentical(out, "jumped")
-        checkUnwound(unwound)
-
+        checkUnwound(indicator$unwound)
     }
 
     test.stackUnwindsOnReturnedConditions <- function() {
-        unwound <- FALSE
+        indicator <- newIndicator()
         cnd <- simpleError("foo")
-        out <- tryCatch(EvalUnwind(quote(cnd), unwound),
+        out <- tryCatch(evalUnwind(quote(cnd), indicator),
             error = function(c) "abort"
         )
-        checkTrue(unwound)
+        checkTrue(indicator$unwound)
 
         # The old mechanism cannot differentiate between a returned error and a
         # thrown error
@@ -111,62 +116,62 @@ if (.runThisTest) {
 
     # Longjump from the inner protected eval
     test.stackUnwindsOnNestedEvalsInner <- function() {
-        unwound1 <- FALSE
-        unwound2 <- FALSE
-        innerUnwindExpr <- quote(EvalUnwind(quote(invokeRestart("here", "jump")), unwound2))
+        indicator1 <- newIndicator()
+        indicator2 <- newIndicator()
+        innerUnwindExpr <- quote(evalUnwind(quote(invokeRestart("here", "jump")), indicator2))
         out <- withRestarts(
             here = identity,
-            EvalUnwind(innerUnwindExpr, unwound1)
+            evalUnwind(innerUnwindExpr, indicator1)
         )
 
         checkIdentical(out, "jump")
-        checkUnwound(unwound1)
-        checkUnwound(unwound2)
+        checkUnwound(indicator1$unwound)
+        checkUnwound(indicator2$unwound)
     }
 
     # Longjump from the outer protected eval
     test.stackUnwindsOnNestedEvalsOuter <- function() {
-        unwound1 <- FALSE
-        unwound2 <- FALSE
+        indicator1 <- newIndicator()
+        indicator2 <- newIndicator()
         innerUnwindExpr <- quote({
-            EvalUnwind(NULL, unwound2)
+            evalUnwind(NULL, indicator2)
             invokeRestart("here", "jump")
         })
         out <- withRestarts(
             here = identity,
-            EvalUnwind(innerUnwindExpr, unwound1)
+            evalUnwind(innerUnwindExpr, indicator1)
         )
 
         checkIdentical(out, "jump")
-        checkUnwound(unwound1)
-        checkTrue(unwound2) # Always unwound
+        checkUnwound(indicator1$unwound)
+        checkTrue(indicator2$unwound) # Always unwound
     }
 
     test.unwindProtect <- function() {
         if (hasUnwind) {
-            unwound <- FALSE
-            checkException(testUnwindProtect(unwound, fail = TRUE))
-            checkTrue(unwound)
+            indicator <- newIndicator()
+            checkException(testUnwindProtect(indicator, fail = TRUE))
+            checkTrue(indicator$unwound)
 
-            unwound <- FALSE
-            checkException(testUnwindProtectLambda(unwound, fail = TRUE))
-            checkTrue(unwound)
+            indicator <- newIndicator()
+            checkException(testUnwindProtectLambda(indicator, fail = TRUE))
+            checkTrue(indicator$unwound)
 
-            unwound <- FALSE
-            checkException(testUnwindProtectFunctionObject(unwound, fail = TRUE))
-            checkTrue(unwound)
+            indicator <- newIndicator()
+            checkException(testUnwindProtectFunctionObject(indicator, fail = TRUE))
+            checkTrue(indicator$unwound)
 
-            unwound <- FALSE
-            checkEquals(testUnwindProtect(unwound, fail = FALSE), 42)
-            checkTrue(unwound)
+            indicator <- newIndicator()
+            checkEquals(testUnwindProtect(indicator, fail = FALSE), 42)
+            checkTrue(indicator$unwound)
 
-            unwound <- FALSE
-            checkEquals(testUnwindProtectLambda(unwound, fail = FALSE), 42)
-            checkTrue(unwound)
+            indicator <- newIndicator()
+            checkEquals(testUnwindProtectLambda(indicator, fail = FALSE), 42)
+            checkTrue(indicator$unwound)
 
-            unwound <- FALSE
-            checkEquals(testUnwindProtectFunctionObject(unwound, fail = FALSE), 420)
-            checkTrue(unwound)
+            indicator <- newIndicator()
+            checkEquals(testUnwindProtectFunctionObject(indicator, fail = FALSE), 420)
+            checkTrue(indicator$unwound)
         }
     }
 }

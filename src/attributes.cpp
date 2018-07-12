@@ -2192,7 +2192,7 @@ namespace attributes {
                        << std::endl;
                 ostr() << "        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))"
                        << std::endl
-                       << "            throw Rcpp::internal::LongjumpException(rcpp_result_gen);"
+                       << "            throw Rcpp::LongjumpException(rcpp_result_gen);"
                        << std::endl;
                 ostr() << "        if (rcpp_result_gen.inherits(\"try-error\"))"
                        << std::endl

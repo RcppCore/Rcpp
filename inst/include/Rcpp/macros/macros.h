@@ -41,7 +41,7 @@
     catch( Rcpp::internal::InterruptedException &__ex__) {                                       \
         rcpp_output_type = 1 ;                                                                   \
     }                                                                                            \
-    catch(Rcpp::internal::LongjumpException& __ex__) {                                           \
+    catch (Rcpp::LongjumpException& __ex__) {                                                    \
         rcpp_output_type = 3 ;                                                                   \
         rcpp_output_condition = __ex__.token;                                                    \
     }                                                                                            \
@@ -83,7 +83,7 @@
   catch (Rcpp::internal::InterruptedException &__ex__) {                       \
     return Rcpp::internal::interruptedError();                                 \
   }                                                                            \
-  catch (Rcpp::internal::LongjumpException& __ex__) {                          \
+  catch (Rcpp::LongjumpException& __ex__) {                                    \
     return Rcpp::internal::longjumpSentinel(__ex__.token);                     \
   }                                                                            \
   catch (std::exception &__ex__) {                                             \

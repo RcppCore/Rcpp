@@ -1,3 +1,38 @@
+
+2018-07-10  Lionel Henry  <lionel@rstudio.com>
+
+        * inst/include/Rcpp/exceptions.h: Move LongjumpException from the
+        Rcpp::internal namespace to the public Rcpp namespace. If you have a
+        catch-all statement like `catch (...)`, be sure to catch and rethrow
+        Rcpp::LongjumpException to prevent the R longjump from being ignored.
+        * inst/include/Rcpp/macros/macros.h (VOID_END_RCPP): idem
+        * src/attributes.cpp: idem
+
+2018-07-05  Lionel Henry  <lionel@rstudio.com>
+
+        * inst/include/Rcpp/api/meat/Rcpp_eval.h: Rename `RCPP_PROTECTED_EVAL`
+        to `RCPP_USE_UNWIND_PROTECT` because the new API is now more general
+        than just evaluation of R code.
+        * inst/NEWS.Rd: idem
+        * inst/unitTests/runit.interface.R: idem
+
+2018-07-05  Lionel Henry  <lionel@rstudio.com>
+
+        * R/unit.tests.R (unitTestSetup): Pass extra arguments to sourceCpp()
+        for easier debugging.
+
+2018-07-05  Lionel Henry  <lionel@rstudio.com>
+
+        * R/Attributes.R (.plugins[["unwindProtect"]]): You can now add
+        `[[Rcpp::plugins(unwindProtect)]]` in one of your source file to enable
+        the new unwind-protect mechanism easily. It appends
+        `-DRCPP_USE_UNWIND_PROTECT` to `PKG_CPPFLAGS`.
+
+        This is safer than using a `#define` because it ensures unwind-protect
+        is enabled in all compilation units, including RcppExports.cpp.
+
+        * inst/unitTests/cpp/stack.cpp: Use new plugin to enable unwind-protect.
+
 2018-06-22  Kevin Ushey  <kevinushey@gmail.com>
 
         * inst/include/Rcpp/api/meat/Rcpp_eval.h: Ensure R_BaseEnv is used

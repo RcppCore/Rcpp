@@ -114,51 +114,57 @@ namespace Rcpp {
         throw Rcpp::exception(message.c_str());
     }                                                        // #nocov end
 
-    namespace internal {
+} // namespace Rcpp
 
-        inline SEXP longjumpSentinel(SEXP token) {
-            SEXP sentinel = PROTECT(Rf_allocVector(VECSXP, 1));
-            SET_VECTOR_ELT(sentinel, 0, token);
 
-            SEXP sentinelClass = PROTECT(Rf_mkString("Rcpp:longjumpSentinel"));
-            Rf_setAttrib(sentinel, R_ClassSymbol, sentinelClass) ;
+namespace Rcpp { namespace internal {
 
-            UNPROTECT(2);
-            return sentinel;
-        }
+inline SEXP longjumpSentinel(SEXP token) {
+    SEXP sentinel = PROTECT(Rf_allocVector(VECSXP, 1));
+    SET_VECTOR_ELT(sentinel, 0, token);
 
-        inline bool isLongjumpSentinel(SEXP x) {
-            return
-                Rf_inherits(x, "Rcpp:longjumpSentinel") &&
-                TYPEOF(x) == VECSXP &&
-                Rf_length(x) == 1;
-        }
+    SEXP sentinelClass = PROTECT(Rf_mkString("Rcpp:longjumpSentinel"));
+    Rf_setAttrib(sentinel, R_ClassSymbol, sentinelClass) ;
 
-        inline SEXP getLongjumpToken(SEXP sentinel) {
-            return VECTOR_ELT(sentinel, 0);
-        }
+    UNPROTECT(2);
+    return sentinel;
+}
 
-        struct LongjumpException {
-            SEXP token;
-            LongjumpException(SEXP token_) : token(token_) {
-                if (isLongjumpSentinel(token)) {
-                    token = getLongjumpToken(token);
-                }
-            }
-        };
+inline bool isLongjumpSentinel(SEXP x) {
+    return
+        Rf_inherits(x, "Rcpp:longjumpSentinel") &&
+        TYPEOF(x) == VECSXP &&
+        Rf_length(x) == 1;
+}
 
-        inline void resumeJump(SEXP token) {
-            if (isLongjumpSentinel(token)) {
-                token = getLongjumpToken(token);
-            }
-            ::R_ReleaseObject(token);
+inline SEXP getLongjumpToken(SEXP sentinel) {
+    return VECTOR_ELT(sentinel, 0);
+}
+
+inline void resumeJump(SEXP token) {
+    if (isLongjumpSentinel(token)) {
+        token = getLongjumpToken(token);
+    }
+    ::R_ReleaseObject(token);
 #if (defined(R_VERSION) && R_VERSION >= R_Version(3, 5, 0))
-            ::R_ContinueUnwind(token);
+    ::R_ContinueUnwind(token);
 #endif
-            Rf_error("Internal error: Rcpp longjump failed to resume");
-        }
+    Rf_error("Internal error: Rcpp longjump failed to resume");
+}
 
-    } // namespace internal
+}} // namespace Rcpp::internal
+
+
+namespace Rcpp {
+
+struct LongjumpException {
+    SEXP token;
+    LongjumpException(SEXP token_) : token(token_) {
+        if (internal::isLongjumpSentinel(token)) {
+            token = internal::getLongjumpToken(token);
+        }
+    }
+};
 
 } // namespace Rcpp
 
