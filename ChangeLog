@@ -1,3 +1,12 @@
+2018-07-12  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version, Date): Roll minor version
+        * inst/include/Rcpp/config.h: Idem
+
+2018-07-12  Jack Wasey  <jack@jackwasey.com>
+
+	* R/Attributes.R: Use case-insensitive sort of filenames to make
+	RcppExports more deterministic
 
 2018-07-10  Lionel Henry  <lionel@rstudio.com>
 
@@ -8,6 +17,11 @@
         * inst/include/Rcpp/macros/macros.h (VOID_END_RCPP): idem
         * src/attributes.cpp: idem
 
+2018-07-09  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/Date.cpp: Skip 'tm_gmtoff' on AIX as well (thanks to PR 876
+	by @ayappanec)
+
 2018-07-05  Lionel Henry  <lionel@rstudio.com>
 
         * inst/include/Rcpp/api/meat/Rcpp_eval.h: Rename `RCPP_PROTECTED_EVAL`
@@ -15,13 +29,8 @@
         than just evaluation of R code.
         * inst/NEWS.Rd: idem
         * inst/unitTests/runit.interface.R: idem
-
-2018-07-05  Lionel Henry  <lionel@rstudio.com>
-
         * R/unit.tests.R (unitTestSetup): Pass extra arguments to sourceCpp()
         for easier debugging.
-
-2018-07-05  Lionel Henry  <lionel@rstudio.com>
 
         * R/Attributes.R (.plugins[["unwindProtect"]]): You can now add
         `[[Rcpp::plugins(unwindProtect)]]` in one of your source file to enable
@@ -115,7 +124,7 @@
 
         * inst/include/Rcpp/api/meat/Rcpp_eval.h: Evaluate in base env
 
-2018-06-05  Jack Wasey <jack@jackwasey.com>
+2018-06-05  Jack Wasey  <jack@jackwasey.com>
 
         * inst/include/Rcpp/r_cast.h: Error and abort if debugging
 

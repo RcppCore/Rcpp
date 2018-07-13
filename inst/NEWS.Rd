@@ -7,9 +7,6 @@
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
-      \item The \code{sourceCpp()} function now evaluates R code in the
-      correct local environment in which a function was compiled (Filip
-      Schouwenaars in \ghpr{852} and \ghpr{869} fixing \ghit{851}).
       \item The \code{StringProxy::operator==} is now \code{const}
       correct (Romain in \ghpr{855} fixing \ghit{854}).
       \item The \code{Environment::new_child()} is now \code{const}
@@ -32,7 +29,17 @@
       Kou in \ghpr{867} closing \ghit{866}).
       \item The \code{Rcpp::unwindProtect()} function extracts the
       unwinding from the \code{Rcpp_fast_eval()} function and makes it
-      more generally available. (Lionel in \ghpr{873}).
+      more generally available. (Lionel in \ghpr{873} and \ghpr{877}).
+      \item The \code{tm_gmtoff} part is skipped on AIX too (\ghpr{876}).
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item The \code{sourceCpp()} function now evaluates R code in the
+      correct local environment in which a function was compiled (Filip
+      Schouwenaars in \ghpr{852} and \ghpr{869} fixing \ghit{851}).
+      \item Filenames are now sorted in a case-insenstive way so that
+      the \code{RcppExports} files are more stable across locales (Jack
+      Wasey in \ghpr{878}).
     }
   }
 }
