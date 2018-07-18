@@ -53,13 +53,13 @@ loadRcppClass <- function(Class, CppClass = Class,
     }
     mod <- loadModule(module, NULL, env = where, loadNow = TRUE)
     storage <- get("storage", envir = as.environment(mod))
-    if(exists(CppClass, envir = storage, inherits = FALSE)) {
-        cppclassinfo <- get(CppClass, envir = storage)
+    if(exists(Class, envir = storage, inherits = FALSE)) {
+        cppclassinfo <- get(Class, envir = storage)
         if(!is(cppclassinfo, "C++Class"))
-            stop(gettextf("Object \"%s\" in module \"%s\" is not a C++ class description", CppClass, module))
+            stop(gettextf("Object \"%s\" in module \"%s\" is not a C++ class description", Class, module))
     }
     else
-        stop(gettextf("No object \"%s\" in module \"%s\"", CppClass, module))
+        stop(gettextf("No object \"%s\" in module \"%s\"", Class, module))
     allmethods <- .makeCppMethods(methods, cppclassinfo, where)
     allfields <- .makeCppFields(fields, cppclassinfo, where)
     value <- setRefClass(Class, fields = allfields,
