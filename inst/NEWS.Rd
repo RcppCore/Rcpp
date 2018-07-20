@@ -14,7 +14,8 @@
       \item Next \code{eval} codes now properly unwind (Lionel in the large
       and careful \ghpr{859} fixing \ghit{807}).
       \item In debugging mode, more type information is shown on
-      \code{abort()} (Jack Waseyin \ghpr{860} fixing \ghit{857}).
+      \code{abort()} (Jack Waseyin \ghpr{860} and \ghpr{882} fixing
+      \ghit{857}).
       \item A new class was added which allow suspension of the RNG
       synchronisation to address an issue seen in \CRANpkg{RcppDE}
       (Kevin in \ghpr{862}).
@@ -30,7 +31,8 @@
       \item The \code{Rcpp::unwindProtect()} function extracts the
       unwinding from the \code{Rcpp_fast_eval()} function and makes it
       more generally available. (Lionel in \ghpr{873} and \ghpr{877}).
-      \item The \code{tm_gmtoff} part is skipped on AIX too (\ghpr{876}).
+      \item The \code{tm_gmtoff} part is skipped on AIX too
+      (\ghpr{876}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{
@@ -40,6 +42,11 @@
       \item Filenames are now sorted in a case-insenstive way so that
       the \code{RcppExports} files are more stable across locales (Jack
       Wasey in \ghpr{878}).
+    }
+    \item Changes in Rcpp Sugar:
+    \itemize{
+      \item The sugar functions \code{min} and \code{max} now recognise
+      empty vectors (Dirk in \ghpr{884} fixing \ghit{883}).
     }
   }
 }

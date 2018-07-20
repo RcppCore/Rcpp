@@ -1,3 +1,13 @@
+2018-07-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/sugar/functions/max.h (Rcpp): Also consider case
+	of an empty vector
+	* inst/include/Rcpp/sugar/functions/min.h (Rcpp): Idem
+
+2018-07-19  Jack Wasey  <jack@jackwasey.com>
+
+        * inst/include/Rcpp/r_cast.h: Error and abort if debugging for STRSXP
+
 2018-07-12  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll minor version
