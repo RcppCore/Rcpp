@@ -123,7 +123,12 @@ namespace Rcpp {
                 return Rf_ScalarString( PRINTNAME( x ) );
             default:
                 const char* fmt = "Not compatible with STRSXP: [type=%s].";
+#ifndef NDEBUG
+                REprintf(fmt, Rf_type2char(TYPEOF(x)));
+                abort();
+#else
                 throw ::Rcpp::not_compatible(fmt, Rf_type2char(TYPEOF(x)));
+#endif
             }
             return R_NilValue; /* -Wall */
         }
