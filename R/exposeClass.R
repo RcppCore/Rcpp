@@ -92,7 +92,7 @@ exposeClass <- function(class, constructors, fields, methods,
     }
     if(is.character(file)) {
         ## are we in a package directory?  Writable, searchable src subdirectory:
-        if(file.access("src",3)==0)
+        if(file.access("src",3)==0 && (basename(file) == file))
             cfile <- file.path("src", file)
         else
             cfile <- file
@@ -107,7 +107,7 @@ exposeClass <- function(class, constructors, fields, methods,
         if(identical(Rfile, TRUE))
             Rfile <- sprintf("%sClass.R",class)
         if(is.character(Rfile)) {
-            if(file.access("R",3)==0) # in a package directory
+            if(file.access("R",3)==0 && (basename(file) == file)) # in a package directory
                 Rfile <- file.path("R", Rfile)
             Rcon <- file(Rfile, "w")
             msg <- sprintf("Wrote R file \"%s\"",Rfile)
@@ -200,11 +200,11 @@ exposeClass <- function(class, constructors, fields, methods,
         if(missing(CppClass))
             CppString <- ""
         else
-            CppString <- paste(",",dQuote(CppClass))
+            CppString <- paste0(", \"",CppClass, "\"")
         if(missing(module))
             ModString <- ""
         else
-            ModString <- paste(", module =", dQuote(module))
+            ModString <- paste0(", module = \"", module, "\"")
         writeLines(sprintf("%s <- setRcppClass(\"%s\"%s%s)",
                                class, class, CppString,ModString), Rcon)
     }
