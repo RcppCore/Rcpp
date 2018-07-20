@@ -34,9 +34,8 @@ if (.runThisTest) {
 #define foo_h 1
 // class to set/get double
 class foo {
- private:
-  double x;
  public:
+  double x;
   double get_x() {return x;}
   void set_x(double _x) {x = _x; return;}
   foo(double _x) {set_x(_x);}
@@ -54,10 +53,11 @@ class foo {
         ## check that result of exposeClass compiles and runs properly
         exposeClass(class = "fooR",
                     constructors = list("double"),
-                    fields = character(),
+                    fields = "x",
                     methods = c("get_x", "set_x"),
                     header = '#include "foo.h"',
                     CppClass = "foo",
+                    rename = c(y = "x", get_y = "get_x", set_y = "set_x"),
                     file = file.path(src_path, "fooModule.cpp"),
                     Rfile = file.path(R_path, "fooClass.R"))
         compileAttributes(pkg_path)
@@ -86,11 +86,17 @@ class foo {
         checkTrue( exists("bar", envir = env, inherits = FALSE),
                   "module object successfully instantiated" )
         gs <- replicate(n = 10, {
-          x <- rnorm(1)
-          bar$set_x(x)
-          bar$get_x() - x
+          y <- rnorm(1)
+          bar$set_y(y)
+          bar$get_y() - y
         })
-        checkTrue( all(gs == 0), "object methods function as expected" )
+        checkTrue( all(gs == 0), "renamed methods function as expected" )
+        gs <- replicate(n = 10, {
+          y <- rnorm(1)
+          bar$set_y(y)
+          bar$y - y
+        })
+        checkTrue( all(gs == 0), "renamed direct field functions as expected" )
 
     }
 

@@ -136,16 +136,17 @@ exposeClass <- function(class, constructors, fields, methods,
     }
     writeLines("", mcon)
     flds <- .specifyItems(fields)
-    nm <- names(flds)
+    nm <- fnm <- names(flds)
     rdOnly <- nm %in% readOnly
     macros <- ifelse(rdOnly, ".field_readonly", ".field")
     test <- nm %in% rename
     if(any(test))
-        nm[test] <- newnames[match(nm[test], newnames)]
+        nm[test] <- newnames[match(nm[test], rename)]
     ns <- NULL
     for(i in seq_along(nm)) {
         typei <- flds[[i]]
-        nmi <- fldi <- nm[[i]]
+        fldi <- fnm[i]
+        nmi <- nm[[i]]
         macroi <- macros[[i]]
         if(!length(typei) || identical(typei, "")) ## direct field
             writeLines(sprintf("    %s(\"%s\", &%s::%s)",
@@ -171,7 +172,7 @@ exposeClass <- function(class, constructors, fields, methods,
     nm <- mds <- names(sigs)
     test <- nm %in% rename
     if(any(test))
-        nm[test] <- newnames[match(nm[test], newnames)]
+        nm[test] <- newnames[match(nm[test], rename)]
     for(i in seq_along(nm)) {
         sigi <- sigs[[i]]
         nmi <-  nm[[i]]
