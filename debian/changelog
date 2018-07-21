@@ -1,4 +1,15 @@
+rcpp (0.12.18-1) unstable; urgency=medium
+
+  * New upstream release
+
+  * debian/control: Set Build-Depends: to current R version
+  * debian/control: Set Standards-Version: to current version
+
+ -- Dirk Eddelbuettel <edd@debian.org>  Sat, 21 Jul 2018 08:52:27 -0500
+
 rcpp (0.12.17-1) unstable; urgency=medium
+
+  * New upstream release
 
   * debian/control: Set Build-Depends: to current R version
   * debian/control: Set Standards-Version: to current version
@@ -6,9 +17,9 @@ rcpp (0.12.17-1) unstable; urgency=medium
   * debian/control: Switch from cdbs to dh-r
   * debian/rules: Idem
 
-  * debian/control: Change Depends to r-cran-littler   (Closes: #897973)
+  * debian/control: Add Depends: on r-cran-littler   (Closes: #897973)
 
- -- Dirk Eddelbuettel <edd@debian.org>  Wed, 09 May 2018 06:37:14 -0500
+ -- Dirk Eddelbuettel <edd@debian.org>  Tue, 22 May 2018 21:49:21 -0500
 
 rcpp (0.12.16-1) unstable; urgency=medium
 
