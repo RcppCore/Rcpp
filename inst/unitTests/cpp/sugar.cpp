@@ -1219,3 +1219,26 @@ CharacterMatrix mtrimws(CharacterMatrix x, const char* which = "both") {
 String strimws(String x, const char* which = "both") {
     return trimws(x, which);
 }
+
+
+// 21 Jul 2018 min/max tests for int and double
+
+// [[Rcpp::export]]
+int intmin(IntegerVector v) {
+    return min(v);
+}
+
+// [[Rcpp::export]]
+int intmax(IntegerVector v) {
+    return max(v);
+}
+
+// [[Rcpp::export]]
+double doublemin(NumericVector v) {
+    return min(v);
+}
+
+// [[Rcpp::export]]
+double doublemax(NumericVector v) {
+    return max(v);
+}
