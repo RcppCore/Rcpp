@@ -1,16 +1,22 @@
 2018-07-21  Dirk Eddelbuettel  <edd@debian.org>
 
+        * DESCRIPTION: Release 0.12.18
+        * inst/NEWS.Rd: Idem
+        * inst/bib/Rcpp.bib: Idem
+        * vignettes/Rcpp.bib: Idem
+        * inst/include/Rcpp/config.h: Idem
+
 	* vignettes/Rcpp.bib: Updated other references
 	* inst/bib/Rcpp.bib: Idem
 
-	* inst/unitTests/runit.sugar.R: Additional unit tests
+	* inst/unitTests/runit.sugar.R: Additional min, max unit tests
 	* inst/unitTests/cpp/sugar.cpp: Idem
 
 2018-07-20  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/sugar/functions/max.h (Rcpp): Also consider case
-	of an empty vector
-	* inst/include/Rcpp/sugar/functions/min.h (Rcpp): Idem
+	* inst/include/Rcpp/sugar/functions/max.h: Also consider case of an
+	empty vector
+	* inst/include/Rcpp/sugar/functions/min.h: Idem
 
 2018-07-19  Jack Wasey  <jack@jackwasey.com>
 
