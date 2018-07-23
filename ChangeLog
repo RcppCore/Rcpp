@@ -1,3 +1,8 @@
+2018-07-23  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/bib/Rcpp.bib: More updates
+        * vignettes/Rcpp.bib: Idem
+
 2018-07-21  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.12.18
