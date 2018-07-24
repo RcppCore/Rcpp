@@ -14,14 +14,14 @@
       \item Next \code{eval} codes now properly unwind (Lionel in the large
       and careful \ghpr{859} fixing \ghit{807}).
       \item In debugging mode, more type information is shown on
-      \code{abort()} (Jack Waseyin \ghpr{860} and \ghpr{882} fixing
+      \code{abort()} (Jack Wasey in \ghpr{860} and \ghpr{882} fixing
       \ghit{857}).
       \item A new class was added which allow suspension of the RNG
       synchronisation to address an issue seen in \CRANpkg{RcppDE}
       (Kevin in \ghpr{862}).
       \item Evaluation calls now happen in the \code{base} environment
       (which may fix an issue seen between \CRANpkg{conflicted} and some
-      BioConductor packages) (Kevn \ghpr{863} fixing \ghit{861}).
+      BioConductor packages) (Kevin in \ghpr{863} fixing \ghit{861}).
       \item Call stack display on error can now be controlled more
       finely (Romain in \ghpr{868}).
       \item The new \code{Rcpp_fast_eval} is used instead of
