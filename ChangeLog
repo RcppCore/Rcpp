@@ -1,3 +1,9 @@
+2018-07-24  Martin Lysy  <mlysy@uwaterloo.ca>
+
+        * R/loadRcppClass.R: Search in R module for 'Class' instead of 'CppClass'.
+        * R/exposeClass.R: Fixed 'rename' argument to work as expected.
+        * inst/unitTests/runit.exposeClass.R: Added unit tests for the above.
+
 2018-07-23  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/bib/Rcpp.bib: More updates
@@ -26,6 +32,10 @@
 2018-07-19  Jack Wasey  <jack@jackwasey.com>
 
         * inst/include/Rcpp/r_cast.h: Error and abort if debugging for STRSXP
+2018-07-24  Martin Lysy  <mlysy@uwaterloo.ca>
+	* R/loadRcppClass.R: Search in R module for 'Class' instead of 'CppClass'.
+	* R/exposeClass.R: Fixed 'rename' argument to work as expected.
+	* inst/unitTests/runit.exposeClass.R: Added unit tests for the above.
 
 2018-07-12  Dirk Eddelbuettel  <edd@debian.org>
 
