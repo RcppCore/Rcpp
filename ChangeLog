@@ -1,8 +1,18 @@
+2018-07-26  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/Rcpp-FAQ.Rmd: Use collapse: true
+
+2018-07-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/Rcpp-extending.Rmd: Use collapse: true
+
 2018-07-24  Martin Lysy  <mlysy@uwaterloo.ca>
 
-        * R/loadRcppClass.R: Search in R module for 'Class' instead of 'CppClass'.
+        * R/loadRcppClass.R: Search in R module for 'Class' instead of
+	'CppClass'.
         * R/exposeClass.R: Fixed 'rename' argument to work as expected.
-        * inst/unitTests/runit.exposeClass.R: Added unit tests for the above.
+        * inst/unitTests/runit.exposeClass.R: Added unit tests for the
+	above.
 
 2018-07-23  Dirk Eddelbuettel  <edd@debian.org>
 

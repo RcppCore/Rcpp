@@ -3,6 +3,25 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
+\section{Changes in Rcpp version 0.12.19 (2018-09-xx)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      TBD
+    }
+    \item Changes in Rcpp Modules:
+    \itemize{
+      \item Improved \code{exposeClass} functionality along with added
+      test (Martin Lysy in \ghpr{886} fixing \ghit{879}).
+    }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item Several vignettes now use the \code{collapse} argument to
+      show output in the corresponding code block.
+    }
+  }
+}
+
 \section{Changes in Rcpp version 0.12.18 (2018-07-21)}{
   \itemize{
     \item Changes in Rcpp API:
