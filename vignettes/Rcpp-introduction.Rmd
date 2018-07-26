@@ -55,7 +55,9 @@ watermark: false
 footer_contents: "Rcpp Vignette"
 
 # Produce a pinp document
-output: pinp::pinp
+output:
+    pinp::pinp:
+        collapse: true
 
 # Local additiona of a few definitions we use
 header-includes: >
@@ -86,6 +88,7 @@ vignette: >
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(cache=TRUE)
 library(Rcpp)
+options("width"=50, digits=5)
 ```
 
 
@@ -193,7 +196,7 @@ and
 As a first step, and chiefly to establish that the toolchain is set up correctly, consider
 a minimal use case such as the following:
 
-```{r evalCpp, eval=FALSE}
+```{r evalCpp}
 library("Rcpp")
 evalCpp("2 + 2")
 ```
@@ -225,6 +228,7 @@ isOddR <- function(num = 10L) {
    result <- (num %% 2L == 1L)
    return(result)
 }
+isOddR(42L)
 ```
 
 The operator `%%` implements the $\bmod$ operation in \rlangns. For the default
@@ -259,7 +263,7 @@ that represents the \cpp code. Upon calling the `cppFunction()`, and similarly t
 earlier example involving `evalCpp()`, the \cpp code is both _compiled_ and _linked_, and
 then _imported_ into \rlang under the name of the function supplied (_e.g._ here `isOddCpp()`).
 
-```{r isOddRcpp, cache=TRUE, eval=FALSE}
+```{r isOddRcpp}
 library("Rcpp")
 cppFunction("
 bool isOddCpp(int num = 10) {
@@ -509,7 +513,7 @@ set.seed(123)
 rnorm(3)
 ```
 
-# Translating Code from \rlang into \rcppns: A Bootstrapping Example
+# Translating Code from \rlang into \rcppns: Bootstrap Example
 
 Statistical inference relied primarily upon asymptotic theory until
 \cite{Efron:1979:Bootstrap} proposed the bootstrap. Bootstrapping is known
@@ -564,7 +568,7 @@ make_boot_graph <- function(ds, actual, type, ylim){
   abline(v = actual, col = "orange2", lwd = 2)
   lines(density(ds))
 }
-pdf("bootstrap.pdf", width=6.5, height=3.25)
+pdf("figures/bootstrap.pdf", width=6.5, height=3.25)
 par(mfrow=c(1,2))
 make_boot_graph(result_r[,1], 21, "Mean", c(0, 1.23))
 make_boot_graph(result_r[,2], 10, "SD", c(0, 1.85))
@@ -573,7 +577,7 @@ dev.off()
 
 \begin{figure*}
   \begin{center}
-    \includegraphics[width=6.5in, height=3.25in]{bootstrap}
+    \includegraphics[width=6.5in, height=3.25in]{figures/bootstrap}
     \caption{Results of the bootstrapping procedure for sample mean and variance.}
     \label{fig:bootstrap-graphs}
   \end{center}
@@ -809,13 +813,10 @@ Rcpp::List fastLm(const arma::mat& X,
                   const arma::colvec& y) {
     // Dimension information
     int n = X.n_rows, p = X.n_cols;
-
     // Fit model y ~ X
     arma::colvec coef = arma::solve(X, y);
-
     // Compute the residuals
     arma::colvec res  = y - X*coef;
-
     // Estimated variance of the random error
     double s2 =
         std::inner_product(res.begin(), res.end(),

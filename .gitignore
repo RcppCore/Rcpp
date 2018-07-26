@@ -15,3 +15,5 @@ Rcpp.pro.user
 .#*
 
 *.tar.gz
+
+vignettes/*_cache

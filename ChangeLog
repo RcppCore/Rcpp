@@ -1,6 +1,7 @@
 2018-07-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* vignettes/Rcpp-FAQ.Rmd: Use collapse: true
+	* vignettes/Rcpp-introduction.Rmd: Idem
 
 2018-07-25  Dirk Eddelbuettel  <edd@debian.org>
 
