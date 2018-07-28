@@ -26,8 +26,8 @@ export(Module,
        sourceCpp,
        compileAttributes,
        registerPlugin,
-       RcppLdFlags,	# deprecated since Rcpp 0.12.19 released Sep 2018
-       LdFlags,		# deprecated since Rcpp 0.12.19 released Sep 2018
+       RcppLdFlags,     # deprecated since Rcpp 0.12.19 released Sep 2018
+       LdFlags,         # deprecated since Rcpp 0.12.19 released Sep 2018
        demangle,
        sizeof,
        cpp_object_initializer,
