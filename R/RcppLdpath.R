@@ -1,4 +1,4 @@
-# Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2018  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -23,6 +23,8 @@ Rcpp.system.file <- function(...){
 ## Use R's internal knowledge of path settings to find the lib/ directory
 ## plus optinally an arch-specific directory on system building multi-arch
 RcppLdPath <- function() {
+    .Deprecated(msg=paste("This function is now deprecated as it has not",
+                          "been needed since 2013."))
     ""
 }
 
@@ -33,8 +35,12 @@ RcppLdPath <- function() {
 ## Updated Jan 2010:  We now default to static linking but allow the use
 ##                    of rpath on Linux if static==FALSE has been chosen
 ##                    Note that this is probably being called from LdFlags()
-## Updated Nov 2013:  We no longer build a library. This should be deprecated. 
-RcppLdFlags <- function() { "" }
+## Updated Nov 2013:  We no longer build a library. This should be deprecated.
+RcppLdFlags <- function() {
+    .Deprecated(msg=paste("This function is now deprecated as it has not",
+                          "been needed since 2013."))
+    ""
+}
 
 # indicates if Rcpp was compiled with GCC >= 4.3
 canUseCXX0X <- function() { TRUE }  # .Call( "canUseCXX0X", PACKAGE = "Rcpp" )
@@ -52,8 +58,11 @@ RcppCxxFlags <- function(cxx0x=FALSE) {
 ## Shorter names, and call cat() directly
 ## CxxFlags defaults to no using c++0x extensions are these are considered non-portable
 CxxFlags <- function(cxx0x=FALSE) {
+    .Deprecated(msg=paste("This function is now deprecated as R uses minimally",
+                          "viable compilers om all platforme."))
     cat(RcppCxxFlags(cxx0x=cxx0x))
 }
+
 ## LdFlags defaults to static linking on the non-Linux platforms Windows and OS X
 LdFlags <- function() {
     cat(RcppLdFlags())
@@ -64,11 +73,14 @@ RcppCapabilities <- capabilities <- function() .Call( rcpp_capabilities )
 
 # compile, load and call the cxx0x.c script to identify whether
 # the compiler is GCC >= 4.3
-RcppCxx0xFlags <- function(){
+RcppCxx0xFlags <- function() {
+    .Deprecated(msg=paste("This function is now deprecated as R uses minimally",
+                          "viable compilers om all platforme."))
     script <- Rcpp.system.file( "discovery", "cxx0x.R" )
     flag <- capture.output( source( script ) )
     flag
 }
 
-Cxx0xFlags <- function() cat( RcppCxx0xFlags() )
-
+Cxx0xFlags <- function() {
+    cat( RcppCxx0xFlags() )
+}

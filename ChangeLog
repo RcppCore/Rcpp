@@ -1,6 +1,15 @@
+2018-07-28  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/RcppLdpath.R (RcppLdPath, RcppLdFlags, CxxFlags, RcppLdFlags)
+	(RcppCxx0xFlags): Marked as deprecated
+
+	* man/Rcpp-deprecated.Rd: Add exported functions LdFlags() and
+	RcppLdFlags() as deprecated
+	* man/RcppLdFlags.Rd: Idem
+
 2018-07-27  Dirk Eddelbuettel  <edd@debian.org>
 
-	* man/loadRcppModules-deprecated.Rd: Fix typo: was deprecated in
+	* man/loadRcppModules-deprecated.Rd: Fix typo; was deprecated in
 	0.12.5, not 0.16.5 which does not exist
 
 2018-07-26  Dirk Eddelbuettel  <edd@debian.org>
