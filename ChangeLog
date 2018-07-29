@@ -1,3 +1,10 @@
+2018-07-29  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Refreshed via some edits and updates
+
+        * DESCRIPTION (Version, Date): Roll minor version
+        * inst/include/Rcpp/config.h: Idem
+
 2018-07-28  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/RcppLdpath.R (RcppLdPath, RcppLdFlags, CxxFlags, RcppLdFlags)

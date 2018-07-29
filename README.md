@@ -2,38 +2,45 @@
 
 ### Seamless R and C++ Integration
 
-The [Rcpp package](https://cran.r-project.org/package=Rcpp) provides R functions and a C++ library
+The [Rcpp package](https://cran.r-project.org/package=Rcpp) provides R
+functions and a (header-only for client packages) C++ library greatly
 facilitating the integration of R and C++.
 
-R data types (`SEXP`) are matched to C++ objects in a class hierarchy.  All R
-types are supported (vectors, functions, environment, etc ...)  and each
-type is mapped to a dedicated class. For example, numeric vectors are
-represented as instances of the Rcpp::NumericVector class, environments are
-represented as instances of Rcpp::Environment, functions are represented as
-Rcpp::Function, etc ...
-The
+All underlying R types and objects, _i.e._, everything a `SEXP` represents internally
+in R, are matched to corresponding C++ objects. This covers anything from vectors,
+matrices or lists to environments, functions and more. Each `SEXP` variant is
+automatically mapped to a dedicated C++ class. For example, numeric vectors are
+represented as instances of the `Rcpp::NumericVector` class, environments are
+represented as instances of `Rcpp::Environment`, functions are represented as
+`Rcpp::Function`, etc ...  The
 [Rcpp-introduction](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-introduction.pdf)
-vignette (also published as a [JSS paper](http://www.jstatsoft.org/v40/i08/)) provides a good
-entry point to Rcpp as do the [Rcpp website](http://www.rcpp.org), the
-[Rcpp page](http://dirk.eddelbuettel.com/code/rcpp.html) and the
-[Rcpp Gallery](http://gallery.rcpp.org). Full documentation
-is provided by the [Rcpp book](http://www.rcpp.org/book/).
+vignette (now published as a
+[TAS paper](https://amstat.tandfonline.com/doi/abs/10.1080/00031305.2017.1375990); an
+[earlier introduction](https://cloud.r-project.org/web/packages/Rcpp/vignettes/Rcpp-jss-2011.pdf)
+was also published as a [JSS paper](http://www.jstatsoft.org/v40/i08/))
+provides a good entry point to Rcpp as do the [Rcpp
+website](http://www.rcpp.org), the [Rcpp
+page](http://dirk.eddelbuettel.com/code/rcpp.html) and the [Rcpp
+Gallery](http://gallery.rcpp.org). Full documentation is provided by the
+[Rcpp book](http://www.rcpp.org/book/).
 
-Conversion from C++ to R and back is driven by the templates `Rcpp::wrap`
+Other highlights:
+
+- The conversion from C++ to R and back is driven by the templates `Rcpp::wrap`
 and `Rcpp::as` which are highly flexible and extensible, as documented
 in the [Rcpp-extending](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-extending.pdf) vignette.
 
-Rcpp also provides Rcpp modules, a framework that allows exposing
+- Rcpp also provides Rcpp modules, a framework that allows exposing
 C++ functions and classes to the R level. The [Rcpp-modules](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-modules.pdf) vignette
 details the current set of features of Rcpp-modules.
 
-Rcpp includes a concept called Rcpp sugar that brings many R functions
+- Rcpp includes a concept called Rcpp sugar that brings many R functions
 into C++. Sugar takes advantage of lazy evaluation and expression templates
 to achieve great performance while exposing a syntax that is much nicer
 to use than the equivalent low-level loop code. The [Rcpp-sugar](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-sugar.pdf)
 gives an overview of the feature.
 
-Rcpp attributes provide a high-level syntax for declaring C++
+- Rcpp attributes provide a high-level syntax for declaring C++
 functions as callable from R and automatically generating the code
 required to invoke them.  Attributes are intended to facilitate both
 interactive use of C++ within R sessions as well as to support R
@@ -43,18 +50,28 @@ See the [Rcpp-atttributes](https://cran.r-project.org/package=Rcpp/vignettes/Rcp
 
 ### Documentation
 
-The package ships with nine pdf vignettes.
+The package ships with nine pdf vignettes, including a [recent introduction to
+Rcpp](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-introduction.pdf) now
+published as a [paper in
+TAS](https://amstat.tandfonline.com/doi/abs/10.1080/00031305.2017.1375990) (and as a
+[preprint in PeerJ](https://peerj.com/preprints/3188/)). Also available is an
+[earlier
+introduction](https://cloud.r-project.org/web/packages/Rcpp/vignettes/Rcpp-jss-2011.pdf)
+which was published as a [JSS paper](http://www.jstatsoft.org/v40/i08/))
 
-Additional documentation is available via the
-[JSS paper](http://www.jstatsoft.org/v40/i08/) by Eddelbuettel and
-Francois (2011, JSS) paper (corresponding to the 'intro' vignette)
-and the [book](http://www.rcpp.org/book) by Eddelbuettel (2013, Springer);
-see 'citation("Rcpp")' for details.
+Among the other vignettes are the [Rcpp
+FAQ](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-FAQ.pdf) and the
+introduction to [Rcpp
+Attributes](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-attributes.pdf).
+Additional documentation is available via the [Rcpp book](http://www.rcpp.org/book)
+by Eddelbuettel (2013, Springer); see 'citation("Rcpp")' for details.
 
 ### Examples
 
 The [Rcpp Gallery](http://gallery.rcpp.org) showcases over one hundred fully
-documented and working examples.
+documented and working examples. The
+[package RcppExamples](https://cran.r-project.org/package=RcppExamples) contains a few basic
+examples covering the core data types.
 
 A number of examples are included as are 1429 unit tests in 618 unit
 test functions provide additional usage examples.
@@ -66,7 +83,7 @@ available for code relying on the older interface. New development should
 always use this Rcpp package instead.
 
 Other usage examples are provided by packages using Rcpp. As of July 2018,
-there are 1402 [CRAN](https://cran.r-project.org) packages using Rcpp, a further
+there are 1408 [CRAN](https://cran.r-project.org) packages using Rcpp, a further
 91 [BioConductor](http://www.bioconductor.org) packages in its current release
 as well as an unknown number of GitHub, Bitbucket, R-Forge, ... repositories
 using Rcpp.  All these packages provide usage examples for Rcpp.
