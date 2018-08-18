@@ -25,12 +25,16 @@ namespace Rcpp{
         return x ;
     }
 
+    inline SEXP Rcpp_unprotect(int i){
+        UNPROTECT(i);
+    }
+
     template <typename T>
     class Shield{
     public:
         Shield( SEXP t_) : t(Rcpp_protect(t_)){}
         ~Shield(){
-            if( t != R_NilValue ) UNPROTECT(1) ;
+            if( t != R_NilValue ) Rcpp_unprotect(1) ;
         }
 
         operator SEXP() const { return t; }

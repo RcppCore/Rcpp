@@ -243,7 +243,7 @@ namespace internal {
     inline bool is_Rcpp_eval_call(SEXP expr) {
         SEXP sys_calls_symbol = Rf_install("sys.calls");
         SEXP identity_symbol = Rf_install("identity");
-        SEXP identity_fun = Rf_findFun(identity_symbol, R_BaseEnv);
+        Shield<SEXP> identity_fun(Rf_findFun(identity_symbol, R_BaseEnv));
         SEXP tryCatch_symbol = Rf_install("tryCatch");
         SEXP evalq_symbol = Rf_install("evalq");
 
