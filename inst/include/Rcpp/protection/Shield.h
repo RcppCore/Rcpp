@@ -25,7 +25,7 @@ namespace Rcpp{
         return x ;
     }
 
-    inline SEXP Rcpp_unprotect(int i){
+    inline void Rcpp_unprotect(int i){
         UNPROTECT(i);
     }
 
