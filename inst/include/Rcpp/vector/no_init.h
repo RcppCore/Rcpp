@@ -35,9 +35,12 @@ public:
         return size;
     }
 
-    template <int RTYPE, template <class> class StoragePolicy >
-    operator Vector<RTYPE, StoragePolicy>() const {
-        return Rf_allocVector(RTYPE, size) ;
+    template <int RTYPE>
+    operator Vector<RTYPE, PreserveStorage>() const {
+        SEXP x = PROTECT(Rf_allocVector(RTYPE, size));
+        Vector<RTYPE, PreserveStorage> ret(x);
+        UNPROTECT(1);
+        return ret;
     }
 
 private:
