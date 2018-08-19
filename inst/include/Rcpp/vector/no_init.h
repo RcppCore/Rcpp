@@ -37,6 +37,8 @@ public:
 
     template <int RTYPE>
     operator Vector<RTYPE, PreserveStorage>() const {
+        // Explicitly protect temporary vector to avoid false positive
+        // with rchk (#892)
         SEXP x = PROTECT(Rf_allocVector(RTYPE, size));
         Vector<RTYPE, PreserveStorage> ret(x);
         UNPROTECT(1);

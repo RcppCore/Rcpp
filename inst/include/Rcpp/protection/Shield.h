@@ -26,6 +26,8 @@ namespace Rcpp{
     }
 
     inline void Rcpp_unprotect(int i){
+        // Prefer this function over UNPROTECT() in Rcpp so that all
+        // balance checks errors by rchk are contained at one location (#892)
         UNPROTECT(i);
     }
 
