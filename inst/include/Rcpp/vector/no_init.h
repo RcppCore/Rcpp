@@ -35,13 +35,12 @@ public:
         return size;
     }
 
-    template <int RTYPE>
-    operator Vector<RTYPE, PreserveStorage>() const {
+    template <int RTYPE, template <class> class StoragePolicy >
+    operator Vector<RTYPE, StoragePolicy>() const {
         // Explicitly protect temporary vector to avoid false positive
         // with rchk (#892)
-        SEXP x = PROTECT(Rf_allocVector(RTYPE, size));
+        Shield<SEXP> x(Rf_allocVector(RTYPE, size));
         Vector<RTYPE, PreserveStorage> ret(x);
-        UNPROTECT(1);
         return ret;
     }
 
