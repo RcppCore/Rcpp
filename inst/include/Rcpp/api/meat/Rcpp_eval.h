@@ -75,7 +75,7 @@ inline SEXP Rcpp_fast_eval(SEXP expr, SEXP env) {
 inline SEXP Rcpp_eval(SEXP expr, SEXP env) {
 
     // 'identity' function used to capture errors, interrupts
-    SEXP identity = Rf_findFun(::Rf_install("identity"), R_BaseNamespace);
+    Shield<SEXP> identity(Rf_findFun(::Rf_install("identity"), R_BaseNamespace));
 
     if (identity == R_UnboundValue) {
         stop("Failed to find 'base::identity()'");

@@ -27,11 +27,11 @@ namespace Rcpp {
 
         inline SEXP operator()(SEXP x){
             nprotected++;
-            return PROTECT(x) ;
+            return Rcpp_protect(x) ;
         }
 
         ~Shelter(){
-            UNPROTECT(nprotected) ;
+            Rcpp_unprotect(nprotected) ;
             nprotected = 0 ;
         }
 
