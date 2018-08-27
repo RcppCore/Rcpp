@@ -29,6 +29,6 @@
 #define RCPP_VERSION Rcpp_Version(0,12,18)
 
 // the current source snapshot
-#define RCPP_DEV_VERSION RcppDevVersion(0,12,18,1)
+#define RCPP_DEV_VERSION RcppDevVersion(0,12,18,2)
 
 #endif

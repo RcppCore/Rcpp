@@ -1,3 +1,10 @@
+2018-08-27  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version, Date): Roll minor version
+        * inst/include/Rcpp/config.h: Idem
+
+	* man/Rcpp-deprecated.Rd: Fix two-char typo/thinko in \link{}
+
 2018-07-29  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Refreshed via some edits and updates
