@@ -17,3 +17,8 @@ Rcpp.pro.user
 *.tar.gz
 
 vignettes/*_cache
+
+## GNU global
+GPATH
+GRTAGS
+GTAGS
