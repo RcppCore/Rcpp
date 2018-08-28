@@ -18,6 +18,7 @@ RUN apt-get update \
                 r-cran-httr \
                 r-cran-lazyeval \
                 r-cran-withr \
+                git \
         && install.r rbenchmark pinp covr \
         && mkdir ~/.R \
         && echo _R_CHECK_FORCE_SUGGESTS_=FALSE > ~/.R/check.Renviron
