@@ -19,3 +19,4 @@ inst/include/Rcpp.h.old
 LICENSE
 .*.tar.gz
 \.editorconfig
+docker
