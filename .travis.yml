@@ -13,10 +13,6 @@ env:
       DOCKER_CNTR="eddelbuettel/rcpp-testing"
       R_BLD_CHK_OPTS="--no-build-vignettes --no-manual"
 
-env:
-  global:
-    - RunAllRcppTests="yes"
-
 before_install:
   - docker pull ${DOCKER_CNTR}
   - docker run ${DOCKER_OPTS} ${DOCKER_CNTR} r -p -e 'sessionInfo()'
