@@ -1,32 +1,37 @@
-# Run Travis CI for R using https://eddelbuettel.github.io/r-travis/
+# Run Travis CI for R via Docker
+#
+# Made by Dirk Eddelbuettel in August 2018 and released under GPL (>=2)
 
-language: c
-
-sudo: required
-
+os: linux
 dist: trusty
+sudo: required
+services: docker
+
+env:
+  global:
+    - DOCKER_OPTS="--rm -ti -v $(pwd):/mnt -w /mnt"
+      DOCKER_CNTR="eddelbuettel/rcpp-testing"
+      R_BLD_CHK_OPTS="--no-build-vignettes --no-manual"
 
 env:
   global:
     - RunAllRcppTests="yes"
 
 before_install:
-  - curl -OLs https://eddelbuettel.github.io/r-travis/run.sh && chmod 0755 run.sh
-  # add our launchpad repo which has (inter alia) the r-cran-rbenchmark package
-  - sudo add-apt-repository -y ppa:edd/misc
-  - ./run.sh bootstrap
+  - docker pull ${DOCKER_CNTR}
+  - docker run ${DOCKER_OPTS} ${DOCKER_CNTR} r -p -e 'sessionInfo()'
 
 install:
-  - ./run.sh install_aptget r-cran-runit r-cran-inline r-cran-rbenchmark r-cran-rmarkdown r-cran-knitr r-cran-pinp r-cran-pkgkitten
+  # Rcpp test runner can be forced to run more tests via this a variable
+  - echo 'RunAllRcppTests="yes"' > ~/.Renviron
+  #
+  - docker run ${DOCKER_OPTS} ${DOCKER_CNTR} R CMD build ${R_BLD_CHK_OPTS} .
 
-script: 
-  - ./run.sh run_tests
+script:
+  - docker run ${DOCKER_OPTS} ${DOCKER_CNTR} R CMD check ${R_BLD_CHK_OPTS} Rcpp_*.tar.gz
 
 after_success:
-  - ./run.sh coverage
-
-after_failure:
-  - ./run.sh dump_logs
+  - r -l covr -e 'codecov()'
 
 notifications:
   email:
@@ -34,5 +39,3 @@ notifications:
     on_failure: change
   slack:
     secure: kUzgzzpgBMc6a+qSjGovfU14U7x9GUXfghDgyF5qBaND/MjFpkmTBfW438Out2buiY+hFNnZc4zThifJM300cOXbcwVentmzuVQ5lLjBhTDvwQgdqytgWr/Ds9dErBeMXr178UD3MJXSOCLhO0wUke2xp2ZsDhsjquT+vFYnuk8=
-      
-
