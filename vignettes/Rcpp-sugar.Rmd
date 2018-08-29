@@ -143,7 +143,7 @@ Rcpp::NumericVector foo(Rcpp::NumericVector x,
 }
 ```
 
-Apart from being stronly-typed and the need for explicit `return`
+Apart from being strongly-typed and the need for explicit `return`
 statement, the code is now identical between highly-vectorised
 \proglang{R} and \proglang{C++}.
 
@@ -533,7 +533,7 @@ read of the paper.
 Writing \sugar functions is fairly repetitive and follows a well-structured
 pattern. So once the basic concepts are mastered (which may take time given
 the inherent complexities in template programming), it should be possible to
-extend the set of function further following the established pattern..
+extend the set of function further following the established pattern.
 
 ## The curiously recurring template pattern
 
