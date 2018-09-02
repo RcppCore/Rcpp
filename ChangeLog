@@ -1,3 +1,7 @@
+2018-09-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .travis.yml: Switch to rcpp/rcpp-testing container
+
 2018-08-29  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .travis.yml: Use Dockerfile
