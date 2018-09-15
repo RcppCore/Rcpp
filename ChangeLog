@@ -2,6 +2,8 @@
 
 	* docker/ci/Dockerfile: Move Dockerfile to docker/ci
 	* docker/run/Dockerfile: Add deployment Dockerfile
+	* docker/plus/Dockerfile: Add 'plus-sized' Dockerfile suitable for
+	different add-on packages requiring Rcpp{Armadillo,Eigen,GSL} or BH
 
 2018-09-02  Dirk Eddelbuettel  <edd@debian.org>
 
