@@ -10,7 +10,7 @@ RUN apt-get update \
         && apt-get install -y --no-install-recommends \
                 r-cran-rcpparmadillo \
                 r-cran-rcppeigen \
-                r-cran-rcpgsl \
+                r-cran-rcppgsl \
         && install.r microbenchmark BH
 
 CMD ["bash"]
