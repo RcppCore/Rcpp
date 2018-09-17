@@ -7,7 +7,10 @@
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
-      TBD
+      \item \code{STRICT_R_HEADERS} will be defined twelve months from
+      now; until then we protect it via \code{RCPP_NO_STRICT_HEADERS}
+      which can then be used to avoid the definition; downstream
+      maintainers are encouraged to update their packages as needed
     }
     \item Changes in Rcpp Modules:
     \itemize{
@@ -18,6 +21,12 @@
     \itemize{
       \item Several vignettes now use the \code{collapse} argument to
       show output in the corresponding code block.
+    }
+    \item Changes in Rcpp Deployment:
+    \itemize{
+      \item Dockerfiles for contiunous integration, standard deployment
+      and 'plus sized' deployment are provided along with builds
+      \item Travis CI now use the \code{rcpp/ci} container for tests
     }
   }
 }
