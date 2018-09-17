@@ -22,3 +22,6 @@ vignettes/*_cache
 GPATH
 GRTAGS
 GTAGS
+
+##
+local/

@@ -20,3 +20,7 @@ LICENSE
 .*.tar.gz
 \.editorconfig
 docker
+^GPATH
+^GRTAGS
+^GTAGS
+^local
