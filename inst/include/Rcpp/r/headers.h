@@ -25,6 +25,17 @@
 #define MAXELTSIZE 8192
 #define R_NO_REMAP
 
+// until September 2019, define RCPP_NO_STRICT_R_HEADERS for transition
+#ifndef RCPP_NO_STRICT_R_HEADERS
+# define RCPP_NO_STRICT_R_HEADERS
+#endif
+// define strict headers for R to not clash on ERROR, MESSGAGE, etc
+#ifndef RCPP_NO_STRICT_R_HEADERS
+# ifndef STRICT_R_HEADERS
+#  define STRICT_R_HEADERS
+# endif
+#endif
+
 // prevent some macro pollution when including R headers
 // in particular, on Linux, gcc 'leaks' the 'major',
 // 'minor' and 'makedev' macros on Linux; we prevent
