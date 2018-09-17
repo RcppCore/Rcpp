@@ -10,7 +10,7 @@ services: docker
 env:
   global:
     - DOCKER_OPTS="--rm -ti -v $(pwd):/mnt -w /mnt"
-      DOCKER_CNTR="rcpp/rcpp-testing"
+      DOCKER_CNTR="rcpp/ci"
       R_BLD_CHK_OPTS="--no-build-vignettes --no-manual"
 
 before_install:
@@ -18,7 +18,7 @@ before_install:
   - docker run ${DOCKER_OPTS} ${DOCKER_CNTR} r -p -e 'sessionInfo()'
 
 install:
-  # Rcpp test runner can be forced to run more tests via this a variable
+  # Rcpp test runner can be forced to run more tests via this variable
   - echo 'RunAllRcppTests="yes"' > ~/.Renviron
   #
   - docker run ${DOCKER_OPTS} ${DOCKER_CNTR} R CMD build ${R_BLD_CHK_OPTS} .

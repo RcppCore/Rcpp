@@ -1,3 +1,7 @@
+2018-09-17  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .travis.yml (env): Switch to rcpp/ci for ci use
+
 2018-09-15  Dirk Eddelbuettel  <edd@debian.org>
 
 	* docker/ci/Dockerfile: Move Dockerfile to docker/ci
