@@ -650,6 +650,30 @@ step may be required. Specifically, if your package `NAMESPACE` file
 does not use a pattern to export functions then you should add an explicit
 entry to `NAMESPACE` for each R function you want publicly available.
 
+## Package Init Functions
+
+Rcpp attribute compilation will automatically generate a package R_init function that does native routine registration as described here: <https://cran.r-project.org/doc/manuals/r-release/R-exts.html#Registering-native-routines>.
+
+You may however want to add additional C++ code to the package initialization sequence. To do this, you can add the `[[Rcpp::init]]` attribute to functions within your package. For example:
+
+```{cpp, eval = FALSE}
+// [[Rcpp::init]]
+void my_package_init(DllInfo *dll) {
+  // initialization code here
+}
+```
+
+In this case, a call to `my_package_init()` will be added to the end of the automatically generated R_init function within RcppExports.cpp. For example:
+
+```{cpp, eval = FALSE}
+void my_package_init(DllInfo *dll);
+RcppExport void R_init_pkgname(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
+    my_package_init(dll);
+}
+```
+
 ## Types in Generated Code 
 
 In some cases the signatures of the C++ functions that are generated within

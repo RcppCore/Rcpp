@@ -9,6 +9,11 @@
     \itemize{
       TBD
     }
+     \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Added \code{[[Rcpp::init]]} attribute for registering C++ functions to
+      run during package initialization.
+    }
     \item Changes in Rcpp Modules:
     \itemize{
       \item Improved \code{exposeClass} functionality along with added

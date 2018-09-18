@@ -1,3 +1,8 @@
+2018-09-18  JJ Allaire  <jj@rstudio.com>
+
+	* src/attributes.cpp: Add support [[Rcpp::init]] attribute
+	* vignettes/Rcpp-attributes.Rmd: Documentation for [[Rcpp::init]] attribute
+
 2018-09-17  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .travis.yml (env): Switch to rcpp/ci for ci use
