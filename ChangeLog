@@ -1,5 +1,8 @@
 2018-09-17  Dirk Eddelbuettel  <edd@debian.org>
 
+	* inst/include/Rcpp/r/headers.h: Define STRICT_R_HEADERS, but until
+	September 2019 protect by defining RCPP_NO_STRICT_HEADERS
+
 	* .travis.yml (env): Switch to rcpp/ci for ci use
 
 2018-09-15  Dirk Eddelbuettel  <edd@debian.org>
