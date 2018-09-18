@@ -12,6 +12,11 @@
       which can then be used to avoid the definition; downstream
       maintainers are encouraged to update their packages as needed
     }
+     \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Added \code{[[Rcpp::init]]} attribute for registering C++ functions to
+      run during package initialization.
+    }
     \item Changes in Rcpp Modules:
     \itemize{
       \item Improved \code{exposeClass} functionality along with added

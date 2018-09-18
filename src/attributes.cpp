@@ -153,6 +153,7 @@ namespace attributes {
     const char * const kExportAttribute = "export";
     const char * const kExportName = "name";
     const char * const kExportRng = "rng";
+    const char * const kInitAttribute = "init";
     const char * const kDependsAttribute = "depends";
     const char * const kPluginsAttribute = "plugins";
     const char * const kInterfacesAttribute = "interfaces";
@@ -673,6 +674,9 @@ namespace attributes {
                                       const std::string& name) const;
 
     private:
+        // for generating calls to init functions
+        std::vector<Attribute> initFunctions_;
+
         // for generating C++ interfaces
         std::vector<Attribute> cppExports_;
 
@@ -1323,8 +1327,8 @@ namespace attributes {
         // and it doesn't appear at the end of the file
         Function function;
 
-        // special handling for export
-        if (name == kExportAttribute) {
+        // special handling for export and init
+        if (name == kExportAttribute || name == kInitAttribute) {
 
             // parse the function (unless we are at the end of the file in
             // which case we print a warning)
@@ -1673,6 +1677,7 @@ namespace attributes {
     bool SourceFileAttributesParser::isKnownAttribute(const std::string& name)
                                                                         const {
         return name == kExportAttribute ||
+               name == kInitAttribute ||
                name == kDependsAttribute ||
                name == kPluginsAttribute ||
                name == kInterfacesAttribute;
@@ -1894,6 +1899,8 @@ namespace attributes {
 
                 // add it to the native routines list
                 nativeRoutines_.push_back(*it);
+            } else if (it->name() == kInitAttribute) {
+                initFunctions_.push_back(*it);
             }
         }                                               // #nocov end
 
@@ -1967,7 +1974,7 @@ namespace attributes {
          }
 
          // write native routines
-         if (!hasPackageInit && (!nativeRoutines_.empty() || !modules_.empty())) {
+         if (!hasPackageInit && (!nativeRoutines_.empty() || !modules_.empty() || !initFunctions_.empty())) {
 
             // build list of routines we will register
             std::vector<std::string> routineNames;
@@ -2022,10 +2029,28 @@ namespace attributes {
 
             ostr() << std::endl;
 
+            // write prototypes for init functions
+            for (std::size_t i = 0; i<initFunctions_.size(); i++) {
+                const Function& function = initFunctions_[i].function();
+                printFunction(ostr(), function, false);
+                ostr() << ";" << std::endl;
+            }
+
             ostr() << "RcppExport void R_init_" << packageCpp() << "(DllInfo *dll) {" << std::endl;
             ostr() << "    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);" << std::endl;
             ostr() << "    R_useDynamicSymbols(dll, FALSE);" << std::endl;
+            // call init functions
+            for (std::size_t i = 0; i<initFunctions_.size(); i++) {
+                const Function& function = initFunctions_[i].function();
+                ostr() << "    " << function.name() << "(dll);" << std::endl;
+            }
             ostr() << "}" << std::endl;
+         }
+
+         // warn if both a hand-written package init function and Rcpp::init are used
+         if (hasPackageInit && !initFunctions_.empty()) {
+            showWarning("[[Rcpp::init]] attribute used in a package with an explicit "
+                        "R_init function (Rcpp::init functions will not be called)");
          }
     }
 
