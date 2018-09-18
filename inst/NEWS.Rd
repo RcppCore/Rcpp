@@ -24,7 +24,7 @@
     }
     \item Changes in Rcpp Deployment:
     \itemize{
-      \item Dockerfiles for contiunous integration, standard deployment
+      \item Dockerfiles for continuous integration, standard deployment
       and 'plus sized' deployment are provided along with builds
       \item Travis CI now use the \code{rcpp/ci} container for tests
     }
