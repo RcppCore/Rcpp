@@ -90,7 +90,7 @@ public:
     Matrix& operator=( const SubMatrix<RTYPE>& ) ;
 
     explicit Matrix( const no_init_matrix& obj) {
-        Storage::set__( Rf_allocMatrix( RTYPE, obj.nrow(), obj.ncol() ) );
+        VECTOR::set__( Rf_allocMatrix( RTYPE, obj.nrow(), obj.ncol() ) );
     }
 
     inline int ncol() const {
