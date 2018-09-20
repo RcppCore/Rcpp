@@ -16,7 +16,7 @@ represented as instances of `Rcpp::Environment`, functions are represented as
 [Rcpp-introduction](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-introduction.pdf)
 vignette (now published as a
 [TAS paper](https://amstat.tandfonline.com/doi/abs/10.1080/00031305.2017.1375990); an
-[earlier introduction](https://cloud.r-project.org/web/packages/Rcpp/vignettes/Rcpp-jss-2011.pdf)
+[earlier introduction](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-jss-2011.pdf)
 was also published as a [JSS paper](http://www.jstatsoft.org/v40/i08/))
 provides a good entry point to Rcpp as do the [Rcpp
 website](http://www.rcpp.org), the [Rcpp
@@ -56,7 +56,7 @@ published as a [paper in
 TAS](https://amstat.tandfonline.com/doi/abs/10.1080/00031305.2017.1375990) (and as a
 [preprint in PeerJ](https://peerj.com/preprints/3188/)). Also available is an
 [earlier
-introduction](https://cloud.r-project.org/web/packages/Rcpp/vignettes/Rcpp-jss-2011.pdf)
+introduction](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-jss-2011.pdf)
 which was published as a [JSS paper](http://www.jstatsoft.org/v40/i08/))
 
 Among the other vignettes are the [Rcpp

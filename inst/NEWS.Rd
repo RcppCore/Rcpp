@@ -3,19 +3,24 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp version 0.12.19 (2018-09-xx)}{
+\section{Changes in Rcpp version 0.12.19 (2018-09-20)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
+      \item The \code{no_init()} accessor for vectors and matrices is
+      now wrapped in \code{Shield<>()} to not trigger \code{rchk}
+      warnings (Kirill Mueller in \ghpr{893} addressing \ghit{892}).
       \item \code{STRICT_R_HEADERS} will be defined twelve months from
       now; until then we protect it via \code{RCPP_NO_STRICT_HEADERS}
       which can then be used to avoid the definition; downstream
       maintainers are encouraged to update their packages as needed
+      (Dirk in \ghpr{900} beginning to address \ghit{898}).
     }
      \item Changes in Rcpp Attributes:
     \itemize{
-      \item Added \code{[[Rcpp::init]]} attribute for registering C++ functions to
-      run during package initialization.
+      \item Added \code{[[Rcpp::init]]} attribute for registering C++
+      functions to run during package initialization (JJ in \ghpr{903}
+      addressing \ghit{902}).
     }
     \item Changes in Rcpp Modules:
     \itemize{
@@ -24,14 +29,20 @@
     }
     \item Changes in Rcpp Documentation:
     \itemize{
+      \item Two typos were fixed in the Rcpp Sugar vignette (Patrick
+      Miller in \ghpr{895}).
       \item Several vignettes now use the \code{collapse} argument to
       show output in the corresponding code block.
     }
     \item Changes in Rcpp Deployment:
     \itemize{
+      \item The old \code{LdFlags()} build helper is now deprecated
+      (Dirk in \ghpr{887}).
       \item Dockerfiles for continuous integration, standard deployment
       and 'plus sized' deployment are provided along with builds
+      (Dirk in \ghpr{894}).
       \item Travis CI now use the \code{rcpp/ci} container for tests
+      (Dirk in \ghpr{896}).
     }
   }
 }

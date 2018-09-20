@@ -890,7 +890,7 @@ Rcpp::NumericVector fun(void) {
 \noindent Yes, via the \pkg{RcppArmadillo} package which builds upon \pkg{Rcpp} and the
 wonderful Armadillo library described above in \faq{matrix-algebra}:
 
-```{r}
+```{r, eval = FALSE}
 txt <- 'arma::mat Am = Rcpp::as< arma::mat >(A);
         arma::mat Bm = Rcpp::as< arma::mat >(B);
         return Rcpp::wrap( Am * Bm );'
