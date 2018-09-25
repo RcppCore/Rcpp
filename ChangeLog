@@ -1,10 +1,16 @@
-2018-09-20  Dirk Eddelbuettel  <edd@debian.org>
+2018-09-21  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION: Release 0.12.19
         * inst/NEWS.Rd: Idem
         * inst/bib/Rcpp.bib: Idem
         * vignettes/Rcpp.bib: Idem
         * inst/include/Rcpp/config.h: Idem
+
+	* R/RcppLdpath.R (RcppLdPath, RcppLdFlags, CxxFlags, RcppCxx0xFlags):
+	After discussion with CRAN, do not mark as .Deprecated() as too many
+	packages are involved. This will need to be phased in more slowly.
+
+2018-09-20  Dirk Eddelbuettel  <edd@debian.org>
 
 	* vignettes/Rcpp-FAQ.Rmd: Set 'eval=FALSE' on another
 	RcppArmadillo example to not create a build-time dependency

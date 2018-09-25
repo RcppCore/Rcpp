@@ -36,8 +36,8 @@
     }
     \item Changes in Rcpp Deployment:
     \itemize{
-      \item The old \code{LdFlags()} build helper is now deprecated
-      (Dirk in \ghpr{887}).
+      \item The old \code{LdFlags()} build helper was marked as
+      deprecated [but removed for release] (Dirk in \ghpr{887}).
       \item Dockerfiles for continuous integration, standard deployment
       and 'plus sized' deployment are provided along with builds
       (Dirk in \ghpr{894}).

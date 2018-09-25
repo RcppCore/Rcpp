@@ -23,8 +23,8 @@ Rcpp.system.file <- function(...){
 ## Use R's internal knowledge of path settings to find the lib/ directory
 ## plus optinally an arch-specific directory on system building multi-arch
 RcppLdPath <- function() {
-    .Deprecated(msg=paste("This function is now deprecated as it has not",
-                          "been needed since 2013."))
+    #.Deprecated(msg=paste("This function is now deprecated as it has not",
+    #                      "been needed since 2013."))
     ""
 }
 
@@ -37,8 +37,8 @@ RcppLdPath <- function() {
 ##                    Note that this is probably being called from LdFlags()
 ## Updated Nov 2013:  We no longer build a library. This should be deprecated.
 RcppLdFlags <- function() {
-    .Deprecated(msg=paste("This function is now deprecated as it has not",
-                          "been needed since 2013."))
+    #.Deprecated(msg=paste("This function is now deprecated as it has not",
+    #                      "been needed since 2013."))
     ""
 }
 
@@ -58,8 +58,8 @@ RcppCxxFlags <- function(cxx0x=FALSE) {
 ## Shorter names, and call cat() directly
 ## CxxFlags defaults to no using c++0x extensions are these are considered non-portable
 CxxFlags <- function(cxx0x=FALSE) {
-    .Deprecated(msg=paste("This function is now deprecated as R uses minimally",
-                          "viable compilers om all platforme."))
+    #.Deprecated(msg=paste("This function is now deprecated as R uses minimally",
+    #                      "viable compilers om all platforme."))
     cat(RcppCxxFlags(cxx0x=cxx0x))
 }
 
@@ -74,8 +74,8 @@ RcppCapabilities <- capabilities <- function() .Call( rcpp_capabilities )
 # compile, load and call the cxx0x.c script to identify whether
 # the compiler is GCC >= 4.3
 RcppCxx0xFlags <- function() {
-    .Deprecated(msg=paste("This function is now deprecated as R uses minimally",
-                          "viable compilers om all platforme."))
+    #.Deprecated(msg=paste("This function is now deprecated as R uses minimally",
+    #                      "viable compilers om all platforme."))
     script <- Rcpp.system.file( "discovery", "cxx0x.R" )
     flag <- capture.output( source( script ) )
     flag
