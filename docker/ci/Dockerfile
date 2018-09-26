@@ -21,6 +21,7 @@ RUN apt-get update \
                 git \
         && install.r rbenchmark pinp covr \
         && mkdir ~/.R \
-        && echo _R_CHECK_FORCE_SUGGESTS_=FALSE > ~/.R/check.Renviron
+        && echo _R_CHECK_FORCE_SUGGESTS_=FALSE > ~/.R/check.Renviron \
+        && echo RunAllRcppTests=yes >> ~/.R/check.Renviron
 
 CMD ["bash"]

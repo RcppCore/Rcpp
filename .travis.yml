@@ -18,9 +18,6 @@ before_install:
   - docker run ${DOCKER_OPTS} ${DOCKER_CNTR} r -p -e 'sessionInfo()'
 
 install:
-  # Rcpp test runner can be forced to run more tests via this variable
-  - echo 'RunAllRcppTests="yes"' > ~/.Renviron
-  #
   - docker run ${DOCKER_OPTS} ${DOCKER_CNTR} R CMD build ${R_BLD_CHK_OPTS} .
 
 script:
