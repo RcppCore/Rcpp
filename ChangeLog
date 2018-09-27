@@ -1,3 +1,8 @@
+2018-09-27  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/date_datetime/Date.h: Remove the empty destructor
+	to make g++-9 (prerelease) happy [CRAN request]
+
 2018-09-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* docker/ci/Dockerfile: Set env var RunAllRcppTests=yes

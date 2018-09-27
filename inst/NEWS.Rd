@@ -3,6 +3,21 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
+\section{Changes in Rcpp version 0.12.20 (2018-11-xx)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item The empty destructor for the \code{Date} class was removed
+      to please g++-9 (prerelease) and \code{-Wdeprecated-copy} (Dirk).
+    }
+    \item Changes in Rcpp Deployment:
+    \itemize{
+      \item The Dockerfile for Continuous Integration sets the required
+      test flag (for release versions) inside the container (Dirk).
+    }
+  }
+}
+
 \section{Changes in Rcpp version 0.12.19 (2018-09-20)}{
   \itemize{
     \item Changes in Rcpp API:
