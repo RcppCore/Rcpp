@@ -11,7 +11,7 @@ env:
   global:
     - DOCKER_OPTS="--rm -ti -v $(pwd):/mnt -w /mnt"
       DOCKER_CNTR="rcpp/ci"
-      R_BLD_CHK_OPTS="--no-build-vignettes --no-manual"
+      R_BLD_CHK_OPTS="--no-vignettes --no-manual"
 
 before_install:
   - docker pull ${DOCKER_CNTR}

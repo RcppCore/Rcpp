@@ -9,11 +9,14 @@
     \itemize{
       \item The empty destructor for the \code{Date} class was removed
       to please g++-9 (prerelease) and \code{-Wdeprecated-copy} (Dirk).
+      \item The constructor for \code{NumericMatrix(not_init(n,k))} was
+      corrected (Romain in \ghpr{904} and Dirk in \ghpr{905}).
     }
     \item Changes in Rcpp Deployment:
     \itemize{
       \item The Dockerfile for Continuous Integration sets the required
       test flag (for release versions) inside the container (Dirk).
+      \item Correct the \code{R CMD check} call to skip vignettes (Dirk).
     }
   }
 }
