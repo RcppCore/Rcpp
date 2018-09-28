@@ -1,6 +1,7 @@
 2018-09-28  Dirk Eddelbuettel  <edd@debian.org>
 
-	* .travis.yml (env): Correct R CMD check option to --no-vignettes
+	* .travis.yml (env): Set distinct build and check options to skip
+	tests of vignettes
 
 2018-09-27  Dirk Eddelbuettel  <edd@debian.org>
 
