@@ -3,6 +3,15 @@
 	* inst/include/Rcpp/date_datetime/Date.h: Remove the empty destructor
 	to make g++-9 (prerelease) happy [CRAN request]
 
+	* inst/unitTests/runit.Matrix.R: Correct typo
+
+2018-09-27  Romain Francois  <romain@rstudio.com>
+
+	* inst/include/Rcpp/vector/Matrix.h: Fix Matrix(no_init(int,int))
+	constructor
+	* inst/unitTests/runit.Matrix.R: test for above
+	* inst/unitTests/cpp/Matrix.cpp: same
+
 2018-09-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* docker/ci/Dockerfile: Set env var RunAllRcppTests=yes
