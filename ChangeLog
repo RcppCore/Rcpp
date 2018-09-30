@@ -1,3 +1,8 @@
+2018-09-30  Dirk Eddelbuettel  <edd@debian.org>
+
+	* man/RcppUnitTests.Rd: Remove \details{} with conditional code which
+	R-devel (as of Sep 28) warns about as empty
+
 2018-09-28  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .travis.yml (env): Set distinct build and check options to skip
