@@ -289,7 +289,7 @@ NumericMatrix runit_no_init_matrix_ctor() {
 }
 
 // [[Rcpp::export]]
-int runit_no_init_matrix_ctor_nrows() {
+int runit_no_init_matrix_ctor_nrow() {
     NumericMatrix x(no_init(2, 2));
     return x.nrow();
 }
