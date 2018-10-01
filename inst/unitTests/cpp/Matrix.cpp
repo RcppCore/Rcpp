@@ -288,6 +288,12 @@ NumericMatrix runit_no_init_matrix_ctor() {
     return x;
 }
 
+// [[Rcpp::export]]
+int runit_no_init_matrix_ctor_nrows() {
+    NumericMatrix x(no_init(2, 2));
+    return x.nrow();
+}
+
 void runit_const_Matrix_column_set( NumericMatrix::Column& col1, const NumericMatrix::Column& col2 ){
     col1 = col2 ;
 }

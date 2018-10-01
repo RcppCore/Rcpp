@@ -202,6 +202,11 @@ if (.runThisTest) {
         checkEquals(m, matrix(c(0, 1, 2, 3), nrow = 2))
     }
 
+    test.NumericMatrix.no.init.ctor.nrow <- function() {
+        nrow <- runit_no_init_matrix_ctor_nrow()
+        checkEquals(nrow, 2L)
+    }
+
     test.NumericMatrix.const.Column <- function(){
       m <- matrix(as.numeric(1:9), nrow = 3)
       res <- runit_const_Matrix_column(m)
