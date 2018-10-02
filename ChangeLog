@@ -1,3 +1,14 @@
+2018-10-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Date, Version): Roll minor version
+	* inst/include/Rcpp/config.h (RCPP_DEV_VERSION): Idem
+
+2018-10-02  Romain Francois  <romain@rstudio.com>
+
+	* inst/include/Rcpp/vector/Matrix.h: Init nrow in Matrix(no_init) ctor
+	* inst/unitTests/runit.Matrix.R: New test
+	* inst/unitTests/cpp/Matrix.cpp: Idem
+
 2018-09-30  Dirk Eddelbuettel  <edd@debian.org>
 
 	* man/RcppUnitTests.Rd: Remove \details{} with conditional code which

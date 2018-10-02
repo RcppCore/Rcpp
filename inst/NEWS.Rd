@@ -10,7 +10,8 @@
       \item The empty destructor for the \code{Date} class was removed
       to please g++-9 (prerelease) and \code{-Wdeprecated-copy} (Dirk).
       \item The constructor for \code{NumericMatrix(not_init(n,k))} was
-      corrected (Romain in \ghpr{904} and Dirk in \ghpr{905}).
+      corrected (Romain in \ghpr{904}, Dirk in \ghpr{905}, and also
+      Romain in \ghpr{908} fixing \ghpr{907}).
     }
     \item Changes in Rcpp Deployment:
     \itemize{
