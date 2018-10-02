@@ -89,9 +89,7 @@ public:
     }
     Matrix& operator=( const SubMatrix<RTYPE>& ) ;
 
-    explicit Matrix( const no_init_matrix& obj) {
-        VECTOR::set__( Rf_allocMatrix( RTYPE, obj.nrow(), obj.ncol() ) );
-    }
+    explicit Matrix( const no_init_matrix& obj) : VECTOR(Rf_allocMatrix(RTYPE, obj.nrow(), obj.ncol())), nrows(obj.nrow()) {}
 
     inline int ncol() const {
         return VECTOR::dims()[1];
