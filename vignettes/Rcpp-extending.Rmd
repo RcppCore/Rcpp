@@ -210,7 +210,7 @@ to \proglang{R} as an external pointer. It can be used instead of specializing
 #include RcppCommon.h
 #include foobar.h
 
-RCPP_EXPOSED_WRAP(Bar);
+RCPP_EXPOSED_WRAP(Bar)
 ```
 
 ## Templates and partial specialization
@@ -301,7 +301,7 @@ should not be used simultaneously.
 #include RcppCommon.h
 #include foobar.h
 
-RCPP_EXPOSED_AS(Bar);
+RCPP_EXPOSED_AS(Bar)
 ```
 
 With this being said, there is one additional macro that can be used to
