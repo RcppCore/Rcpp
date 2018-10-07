@@ -1,3 +1,8 @@
+2018-10-07  Ralf Stubner  <ralf.stubner@daqana.com>
+
+        * vignettes/Rcpp-extending.Rmd: Correct EXPORT to EXPOSED in displays
+	of the corresponding macro, and remove two spurious semicolons
+
 2018-10-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Date, Version): Roll minor version

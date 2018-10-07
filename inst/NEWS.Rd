@@ -19,6 +19,11 @@
       test flag (for release versions) inside the container (Dirk).
       \item Correct the \code{R CMD check} call to skip vignettes (Dirk).
     }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item The 'Rcpp Extending' vignette was corrected and refers to
+      \code{EXPOSED} rather than \code{EXPORTED} (Ralf Stubner in \ghpr{910}).
+    }
   }
 }
 
