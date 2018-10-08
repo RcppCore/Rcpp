@@ -19,6 +19,11 @@
       test flag (for release versions) inside the container (Dirk).
       \item Correct the \code{R CMD check} call to skip vignettes (Dirk).
     }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Sort the files scanned for attributes in the C locale for
+      stable output across systems.
+    }
     \item Changes in Rcpp Documentation:
     \itemize{
       \item The 'Rcpp Extending' vignette was corrected and refers to
