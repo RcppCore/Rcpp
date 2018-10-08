@@ -424,6 +424,12 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     # get a list of all source files
     cppFiles <- list.files(srcDir, pattern = "\\.((c(c|pp)?)|(h(pp)?))$", ignore.case = TRUE)
 
+    # locale independent sort for stable output
+    locale <- Sys.getlocale(category = "LC_COLLATE")
+    Sys.setlocale(category = "LC_COLLATE", locale = "C")
+    cppFiles <- sort(cppFiles)
+    Sys.setlocale(category = "LC_COLLATE", locale = locale)
+
     # derive base names (will be used for modules)
     cppFileBasenames <- tools::file_path_sans_ext(cppFiles)
 

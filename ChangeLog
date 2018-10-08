@@ -1,3 +1,8 @@
+2018-09-18  JJ Allaire  <jj@rstudio.com>
+
+	* R/Attributes.R: Sort the files scanned for attributes in the C locale
+	for stable output across systems.
+
 2018-10-07  Ralf Stubner  <ralf.stubner@daqana.com>
 
         * vignettes/Rcpp-extending.Rmd: Correct EXPORT to EXPOSED in displays
