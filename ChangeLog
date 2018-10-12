@@ -3,6 +3,8 @@
 	* tests/doRUnit.R: Simplified to something similar to what
 	RcppArmadillo (and other packages) had for a while now
 
+	* vignettes/Rcpp-unitTests.Rnw: Removed as less useful now
+
 2018-10-08  JJ Allaire  <jj@rstudio.com>
 
 	* R/Attributes.R: Sort the files scanned for attributes in the C locale
