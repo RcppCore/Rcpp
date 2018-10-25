@@ -12,6 +12,9 @@
       \item The constructor for \code{NumericMatrix(not_init(n,k))} was
       corrected (Romain in \ghpr{904}, Dirk in \ghpr{905}, and also
       Romain in \ghpr{908} fixing \ghpr{907}).
+      \item Rcpp::String no longer silently drops embedded NUL bytes
+      in strings. Instead, the new Rcpp exception `embedded_nul_in_string`
+      is thrown. (\ghit{916})
     }
     \item Changes in Rcpp Deployment:
     \itemize{

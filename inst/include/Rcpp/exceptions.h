@@ -208,6 +208,7 @@ namespace Rcpp {
     RCPP_SIMPLE_EXCEPTION_CLASS(no_such_field, "No such field.") // not used internally
     RCPP_SIMPLE_EXCEPTION_CLASS(no_such_function, "No such function.")
     RCPP_SIMPLE_EXCEPTION_CLASS(unevaluated_promise, "Promise not yet evaluated.")
+    RCPP_SIMPLE_EXCEPTION_CLASS(embedded_nul_in_string, "Embedded NUL in string.")
 
     // Promoted
     RCPP_EXCEPTION_CLASS(no_such_slot, "No such slot")

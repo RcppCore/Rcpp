@@ -1,3 +1,9 @@
+2018-10-25  Kevin Ushey  <kevinushey@gmail.com>
+
+	* inst/include/Rcpp/String.h: Use Rf_mkCharLenCE() as appropriate
+	* inst/unitTests/cpp/String.cpp: Add unit tests
+	* inst/unitTests/runit.String.R: Add unit tests
+
 2018-10-12  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Date, Version): Roll minor version
