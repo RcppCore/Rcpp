@@ -2753,6 +2753,7 @@ namespace attributes {
                      << "(" << argument.name() << "SEXP);" << std::endl;
             }
 
+            ostr << "    Rcpp::StreambufSwitcher streambuf_switcher;\n";
             ostr << "    ";
             if (!function.type().isVoid())
                 ostr << "rcpp_result_gen = Rcpp::wrap(";

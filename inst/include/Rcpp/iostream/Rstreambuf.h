@@ -24,6 +24,7 @@
 
 #include <cstdio>
 #include <streambuf>
+#include <iostream>
 
 namespace Rcpp {
 
@@ -83,6 +84,20 @@ namespace Rcpp {
     static Rostream<true>  Rcout;
     static Rostream<false> Rcerr;
 
+    // Redirect std::cout/cerr to Rstreambuf during its lifetime
+    class StreambufSwitcher {
+    public:
+        StreambufSwitcher():
+            stdoutbuf_(std::cout.rdbuf(Rcpp::Rcout.rdbuf())),
+            stderrbuf_(std::cerr.rdbuf(Rcpp::Rcerr.rdbuf())) {}
+        ~StreambufSwitcher() {
+            std::cout.rdbuf(stdoutbuf_);
+            std::cerr.rdbuf(stderrbuf_);
+        }
+    private:
+        std::streambuf* stdoutbuf_;
+        std::streambuf* stderrbuf_;
+    };
 
 }
 
