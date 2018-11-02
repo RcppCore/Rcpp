@@ -365,9 +365,16 @@ namespace Rcpp {
 
 
         inline SEXP get_sexp_impl() const {
+
+            // workaround for h5 package (currently deprecated so updates
+            // to CRAN may not be timely)
+#ifdef __H5Cpp_H
+            return Rf_mkCharCE(buffer.c_str(), enc);
+#else
             if (buffer.find('\0') != std::string::npos)
                 throw embedded_nul_in_string();
             return Rf_mkCharLenCE(buffer.c_str(), buffer.size(), enc);
+#endif
         }
 
         inline SEXP get_sexp() const {
