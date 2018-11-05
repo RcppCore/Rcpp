@@ -1,3 +1,10 @@
+2018-11-04  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Date, Version): Roll minor version
+	* inst/include/Rcpp/config.h (RCPP_DEV_VERSION): Idem
+
+	* README.md: Updated stated package and test numbers
+
 2018-10-25  Kevin Ushey  <kevinushey@gmail.com>
 
 	* inst/include/Rcpp/String.h: Use Rf_mkCharLenCE() as appropriate

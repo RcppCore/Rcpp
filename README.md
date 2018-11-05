@@ -1,4 +1,4 @@
-## Rcpp [![Build Status](https://travis-ci.org/RcppCore/Rcpp.svg)](https://travis-ci.org/RcppCore/Rcpp) [![License](https://eddelbuettel.github.io/badges/GPL2+.svg)](http://www.gnu.org/licenses/gpl-2.0.html) [![CRAN](http://www.r-pkg.org/badges/version/Rcpp)](https://cran.r-project.org/package=Rcpp) [![Downloads](http://cranlogs.r-pkg.org/badges/Rcpp?color=brightgreen)](http://www.r-pkg.org/pkg/Rcpp) [![Coverage Status](https://codecov.io/gh/RcppCore/Rcpp/graph/badge.svg)](https://codecov.io/github/RcppCore/Rcpp?branch=master)
+## Rcpp [![Build Status](https://travis-ci.org/RcppCore/Rcpp.svg)](https://travis-ci.org/RcppCore/Rcpp) [![License](https://eddelbuettel.github.io/badges/GPL2+.svg)](http://www.gnu.org/licenses/gpl-2.0.html) [![CRAN](http://www.r-pkg.org/badges/version/Rcpp)](https://cran.r-project.org/package=Rcpp) [![Dependencies](https://tinyverse.netlify.com/badge/Rcpp)](https://cran.r-project.org/package=Rcpp) [![Downloads](http://cranlogs.r-pkg.org/badges/Rcpp?color=brightgreen)](http://www.r-pkg.org/pkg/Rcpp) [![Coverage Status](https://codecov.io/gh/RcppCore/Rcpp/graph/badge.svg)](https://codecov.io/github/RcppCore/Rcpp?branch=master)
 
 ### Seamless R and C++ Integration
 
@@ -73,7 +73,7 @@ documented and working examples. The
 [package RcppExamples](https://cran.r-project.org/package=RcppExamples) contains a few basic
 examples covering the core data types.
 
-A number of examples are included as are 1429 unit tests in 618 unit
+A number of examples are included as are 1437 unit tests in 622 unit
 test functions provide additional usage examples.
 
 An earlier version of Rcpp, containing what we now call the 'classic Rcpp
@@ -82,9 +82,9 @@ been factored out of Rcpp into the package RcppClassic, and it is still
 available for code relying on the older interface. New development should
 always use this Rcpp package instead.
 
-Other usage examples are provided by packages using Rcpp. As of July 2018,
-there are 1408 [CRAN](https://cran.r-project.org) packages using Rcpp, a further
-91 [BioConductor](http://www.bioconductor.org) packages in its current release
+Other usage examples are provided by packages using Rcpp. As of November 2018,
+there are 1490 [CRAN](https://cran.r-project.org) packages using Rcpp, a further
+150 [BioConductor](http://www.bioconductor.org) packages in its current release
 as well as an unknown number of GitHub, Bitbucket, R-Forge, ... repositories
 using Rcpp.  All these packages provide usage examples for Rcpp.
 

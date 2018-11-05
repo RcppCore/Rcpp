@@ -12,9 +12,9 @@
       \item The constructor for \code{NumericMatrix(not_init(n,k))} was
       corrected (Romain in \ghpr{904}, Dirk in \ghpr{905}, and also
       Romain in \ghpr{908} fixing \ghpr{907}).
-      \item Rcpp::String no longer silently drops embedded NUL bytes
-      in strings. Instead, the new Rcpp exception `embedded_nul_in_string`
-      is thrown. (\ghit{916})
+      \item \code{Rcpp::String} no longer silently drops embedded
+      \code{NUL} bytes in strings but throws new Rcpp exception
+      \code{embedded_nul_in_string}. (Kevin in \ghpr{917} fixing \ghit{916}).
     }
     \item Changes in Rcpp Deployment:
     \itemize{
@@ -24,13 +24,19 @@
     }
     \item Changes in Rcpp Attributes:
     \itemize{
+      \item A new \code{[[Rcpp::init]]} attribute allows function
+      registration for running on package initialization (JJ in
+      \ghpr{903}).
       \item Sort the files scanned for attributes in the C locale for
-      stable output across systems.
+      stable output across systems (JJ in \ghpr{912}).
     }
     \item Changes in Rcpp Documentation:
     \itemize{
       \item The 'Rcpp Extending' vignette was corrected and refers to
-      \code{EXPOSED} rather than \code{EXPORTED} (Ralf Stubner in \ghpr{910}).
+      \code{EXPOSED} rather than \code{EXPORTED} (Ralf Stubner in
+      \ghpr{910}).
+      \item The 'Unit test' vignette is no longer included (Dirk in
+      \ghpr{914}).
     }
   }
 }
@@ -132,12 +138,12 @@
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
-      \item The random number \code{Generator} class no longer inhreits from
+      \item The random number \code{Generator} class no longer inherits from
       \code{RNGScope} (Kevin in \ghpr{837} fixing \ghit{836}).
-	  \item A new class, \code{SuspendRNGSynchronizationScope}, can be created
-	  and used to ensure that calls to Rcpp functions do not attempt to call
-	  \code{::GetRNGstate()} or \code{::PutRNGstate()} for the duration of
-	  some code block.
+      \item A new class, \code{SuspendRNGSynchronizationScope}, can be created
+      and used to ensure that calls to Rcpp functions do not attempt to call
+      \code{::GetRNGstate()} or \code{::PutRNGstate()} for the duration of
+      some code block.
       \item A spurious parenthesis was removed to please gcc8 (Dirk
       fixing \ghit{841})
       \item The optional \code{Timer} class header now undefines
