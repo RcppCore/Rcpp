@@ -3,8 +3,9 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp version 0.12.20 (2018-11-xx)}{
+\section{Changes in Rcpp version 1.0.0 (2018-11-05)}{
   \itemize{
+    \item Happy tenth birtday to Rcpp, and hello release 1.0 !
     \item Changes in Rcpp API:
     \itemize{
       \item The empty destructor for the \code{Date} class was removed
