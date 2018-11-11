@@ -3,6 +3,15 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
+\section{Changes in Rcpp version 1.0.1 (2019-xx-yy)}{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Subsetting is no longer limited by an integer range (William
+      Nolan in \ghpr{920} fixing \ghit{919}).
+    }
+  }
+}
+
 \section{Changes in Rcpp version 1.0.0 (2018-11-05)}{
   \itemize{
     \item Happy tenth birthday to Rcpp, and hello release 1.0 !

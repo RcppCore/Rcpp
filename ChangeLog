@@ -1,7 +1,8 @@
 2018-11-09  William Nolan  <will@landale.net>
 
-        * inst/include/Rcpp/vector/Subsetter.h: Fixed to use R_xlen_t instead of int for indexing
-        and added warning when indexing by IntegerVector (only for large enough vectors)
+        * inst/include/Rcpp/vector/Subsetter.h: Fixed to use R_xlen_t instead
+	of int for indexing and added warning when indexing by IntegerVector
+	(only for large enough vectors)
 
 2018-11-05  Dirk Eddelbuettel  <edd@debian.org>
 
