@@ -1,3 +1,8 @@
+2018-11-11  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/vector/Subsetter.h (check_indices): More
+	informative error message as suggested by KK
+
 2018-11-09  William Nolan  <will@landale.net>
 
         * inst/include/Rcpp/vector/Subsetter.h: Fixed to use R_xlen_t instead

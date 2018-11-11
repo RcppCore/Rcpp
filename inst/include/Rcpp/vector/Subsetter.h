@@ -67,7 +67,7 @@ public:
             stop("index error");
         }
         return *this;
-    }  
+    }
 
     // Enable e.g. x[y] = 1;
     // TODO: std::enable_if<primitive> with C++11
@@ -139,7 +139,7 @@ private:
         for (IDX i=0; i < n; ++i) {
             if (x[i] < 0 or x[i] >= size) {
                 if(std::numeric_limits<IDX>::is_integer && size > std::numeric_limits<IDX>::max()) {
-                    stop("use NumericVector to index an object of this size");
+                    stop("use NumericVector to index an object of length %td", size);
                 }
                 stop("index error");
             }
@@ -157,7 +157,7 @@ private:
         for (R_xlen_t i=0; i < rhs_n; ++i) {
             indices.push_back( rhs[i] );
         }
-        indices_n = rhs_n;        
+        indices_n = rhs_n;
     }
 
     void get_indices( traits::identity< traits::int2type<REALSXP> > t ) {
