@@ -8,6 +8,12 @@
     \itemize{
       \item Subsetting is no longer limited by an integer range (William
       Nolan in \ghpr{920} fixing \ghit{919}).
+      \item Error messages from subsetting are now more informative
+      (Qiang and Dirk).
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item A new plugin was added for C++20 (Dirk in \ghpr{927})
     }
   }
 }

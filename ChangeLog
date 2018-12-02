@@ -1,3 +1,8 @@
+2018-12-01  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/Attributes.R: Added new 'c++2a' plugin for '-std=c++2a'
+	compilation standard supported by g++ 8 or later
+
 2018-11-11  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/vector/Subsetter.h (check_indices): More
