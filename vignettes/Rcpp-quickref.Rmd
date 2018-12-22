@@ -111,7 +111,7 @@ NumericVector xx(y.begin(), y.end());
 NumericVector xx =
     NumericVector::create(1.0, 2.0, 3.0, 4.0);
 NumericVector yy =
-    NumericVector::create(Named["foo"] = 1.0,
+    NumericVector::create(Named("foo") = 1.0,
                          _["bar"]      = 2.0);
                          // _ short for Named
 ```
