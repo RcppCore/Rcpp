@@ -442,8 +442,10 @@ Environment env( 2 ); // by position
 Environment::Rcpp_namespace();
 Environment::base_env();
 Environment::base_namespace();
-Environment::global_env();
 Environment::empty_env();
+
+Environment glob = Environment::global_env();
+
 
 // Extract function from specific environment
 Function rnorm = stats["rnorm"];
