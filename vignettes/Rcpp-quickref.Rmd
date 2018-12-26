@@ -111,7 +111,7 @@ NumericVector xx(y.begin(), y.end());
 NumericVector xx =
     NumericVector::create(1.0, 2.0, 3.0, 4.0);
 NumericVector yy =
-    NumericVector::create(Named["foo"] = 1.0,
+    NumericVector::create(Named("foo") = 1.0,
                          _["bar"]      = 2.0);
                          // _ short for Named
 ```
@@ -434,16 +434,17 @@ double zz = Rf_rnorm(0, 2);
 # Environment
 
 ```cpp
-// Obtain an R environment
-Environment stats("package:stats");
-Environment env( 2 ); // by position
-
 // Special environments
 Environment::Rcpp_namespace();
 Environment::base_env();
 Environment::base_namespace();
 Environment::global_env();
 Environment::empty_env();
+
+// Obtain an R environment
+Environment stats("package:stats");
+Environment env( 2 ); // by position
+Environment glob = Environment::global_env();
 
 // Extract function from specific environment
 Function rnorm = stats["rnorm"];
@@ -457,7 +458,7 @@ std::string x = glob["x"];
 glob.assign( "foo" , 3 );
 int foo = glob.get( "foo" );
 int foo = glob.find( "foo" );
-CharacterVector names = glob.ls()
+CharacterVector names = glob.ls(TRUE)
 bool b = glob.exists( "foo" );
 glob.remove( "foo" );
 
