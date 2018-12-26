@@ -458,7 +458,7 @@ std::string x = glob["x"];
 glob.assign( "foo" , 3 );
 int foo = glob.get( "foo" );
 int foo = glob.find( "foo" );
-CharacterVector names = glob.ls()
+CharacterVector names = glob.ls(TRUE)
 bool b = glob.exists( "foo" );
 glob.remove( "foo" );
 
