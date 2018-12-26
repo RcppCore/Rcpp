@@ -434,16 +434,17 @@ double zz = Rf_rnorm(0, 2);
 # Environment
 
 ```cpp
-// Obtain an R environment
-Environment stats("package:stats");
-Environment env( 2 ); // by position
-
 // Special environments
 Environment::Rcpp_namespace();
 Environment::base_env();
 Environment::base_namespace();
 Environment::global_env();
 Environment::empty_env();
+
+// Obtain an R environment
+Environment stats("package:stats");
+Environment env( 2 ); // by position
+Environment glob = Environment::global_env();
 
 // Extract function from specific environment
 Function rnorm = stats["rnorm"];
