@@ -4,6 +4,7 @@
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
 \section{Changes in Rcpp version 1.0.1 (2019-xx-yy)}{
+  \itemize{
     \item Changes in Rcpp API:
     \itemize{
       \item Subsetting is no longer limited by an integer range (William
@@ -14,6 +15,11 @@
     \item Changes in Rcpp Attributes:
     \itemize{
       \item A new plugin was added for C++20 (Dirk in \ghpr{927})
+    }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item Three small corrections were added in the 'Rcpp Quickref
+      vignette (Zhuoer Dong in \ghpr{934} fixing \ghit{933}).
     }
   }
 }
