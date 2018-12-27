@@ -19,7 +19,7 @@
     \item Changes in Rcpp Documentation:
     \itemize{
       \item Three small corrections were added in the 'Rcpp Quickref
-      vignette (Zhuoer Dong in \ghpr{934} fixing \ghit{933}).
+      vignette (Zhuoer Dong in \ghpr{933} fixing \ghit{932}).
     }
   }
 }
