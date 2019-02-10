@@ -864,7 +864,7 @@ static member function or a free function that returns a pointer to
 the target class. Typical use-cases include creating objects in a
 hierarchy:
 
-```c++
+```cpp
 #include <Rcpp.h>
 using namespace Rcpp;
 
