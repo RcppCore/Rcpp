@@ -855,6 +855,72 @@ It can be used to perform operations, releasing resources, etc ...
 The finalizer is called automatically when the \proglang{R} object that encapsulates
 the \proglang{C++} object is garbage collected.
 
+### Object factories
+
+The `.factory` member function of `class_` can be used to register a
+[factory](https://en.wikipedia.org/wiki/Factory_method_pattern) that
+can be used as alternative to a constructor.  A factory can be a
+static member function or a free function that returns a pointer to
+the target class. Typical use-cases include creating objects in a
+hierarchy:
+
+```cpp
+#include <Rcpp.h>
+using namespace Rcpp;
+
+// abstract class
+class Base {
+    public:
+        virtual ~Base() {}
+        virtual std::string name() const = 0;
+};
+
+// first derived class
+class Derived1: public Base {
+    public:
+        Derived1() : Base() {}
+        virtual std::string name() const {
+		    return "Derived1";
+		}
+};
+
+// second derived class
+class Derived2: public Base {
+    public:
+        Derived2() : Base() {}
+        virtual std::string name() const {
+		    return "Derived2";
+		}
+};
+
+Base *newBase( const std::string &name ) {
+    if (name == "d1"){
+        return new Derived1;
+    } else if (name == "d2"){
+        return new Derived2;
+    } else {
+        return 0;
+    }
+}
+
+RCPP_MODULE(mod) {
+    Rcpp::class_< Base >("Base")
+        .factory<const std::string&>(newBase)
+        .method("name", &Base::name);
+}
+```
+
+The `newBase` method returns a pointer to a `Base` object. Since that
+class is an abstract class, the objects are actually instances of
+`Derived1` or `Derived2`. The same behavior is now available in R:
+
+```{r, eval=FALSE}
+dv1 <- new(Base, "d1")
+dv1$name() # returns "Derived1"
+dv2 <- new(Base, "d2")
+dv2$name() # returns "Derived2"
+```
+
 ### S4 dispatch
 
 When a \proglang{C++} class is exposed by the `class_` template,
