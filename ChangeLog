@@ -2,6 +2,10 @@
 
 	* R/Attributes.R: better handle pre-existing RcppExports.cpp,
 	RcppExports.R when calling compileAttributes()
+2019-01-31  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/protection/Shelter.h (Rcpp): Only increase
+	nprotected count if object is not NULL (suggested by Stepan Sindelar)
 
 2018-12-26  Zhuoer Dong  <dongzhuoer@mail.nankai.edu.cn>
 
