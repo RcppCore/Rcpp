@@ -15,6 +15,9 @@
     \item Changes in Rcpp Attributes:
     \itemize{
       \item A new plugin was added for C++20 (Dirk in \ghpr{927})
+      \item Fixed an issue where 'stale' symbols could become registered in
+      RcppExports.cpp, leading to linker errors and other related issues.
+      (\ghit{733}; \ghit{934})
     }
     \item Changes in Rcpp Documentation:
     \itemize{

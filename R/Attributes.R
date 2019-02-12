@@ -421,8 +421,14 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     if (!file.exists(rDir))
         dir.create(rDir)
 
+    # remove the old RcppExports.R file
+    unlink(file.path(rDir, "RcppExports.R"))
+
     # get a list of all source files
     cppFiles <- list.files(srcDir, pattern = "\\.((c(c|pp)?)|(h(pp)?))$", ignore.case = TRUE)
+
+    # don't include RcppExports.cpp
+    cppFiles <- setdiff(cppFiles, "RcppExports.cpp")
 
     # locale independent sort for stable output
     locale <- Sys.getlocale(category = "LC_COLLATE")
