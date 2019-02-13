@@ -17,12 +17,14 @@
       \item A new plugin was added for C++20 (Dirk in \ghpr{927})
       \item Fixed an issue where 'stale' symbols could become registered in
       RcppExports.cpp, leading to linker errors and other related issues.
-      (\ghit{733}; \ghit{934})
+      (Kevin fixing \ghit{733} and \ghit{934})
     }
     \item Changes in Rcpp Documentation:
     \itemize{
       \item Three small corrections were added in the 'Rcpp Quickref
       vignette (Zhuoer Dong in \ghpr{933} fixing \ghit{932}).
+      \item The \code{Rcpp-modules} vignette now has documentation for
+      \code{.factory} (Ralf Stubner in \ghpr{938} fixing \ghit{937}).
     }
   }
 }
