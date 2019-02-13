@@ -1,3 +1,7 @@
+2019-02-13  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): New minor version
+
 2019-02-11  Kevin Ushey  <kevinushey@gmail.com>
 
 	* R/Attributes.R: better handle pre-existing RcppExports.cpp,
