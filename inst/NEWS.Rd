@@ -11,13 +11,15 @@
       Nolan in \ghpr{920} fixing \ghit{919}).
       \item Error messages from subsetting are now more informative
       (Qiang and Dirk).
+      \item \code{Shelter} increases count only on non-null objects
+      (Dirk in \ghpr{940} as suggested by Stepan Sindelar in \ghit{935}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{
       \item A new plugin was added for C++20 (Dirk in \ghpr{927})
       \item Fixed an issue where 'stale' symbols could become registered in
-      RcppExports.cpp, leading to linker errors and other related issues.
-      (Kevin fixing \ghit{733} and \ghit{934})
+      RcppExports.cpp, leading to linker errors and other related issues
+      (Kevin in \ghpr{939} fixing \ghit{733} and \ghit{934}).
     }
     \item Changes in Rcpp Documentation:
     \itemize{
