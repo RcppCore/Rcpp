@@ -1,3 +1,7 @@
+2019-02-16  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/sugar/functions/cbind.h: Converted CRLF to CR
+
 2019-02-15  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/README: Moved stale file to local/
