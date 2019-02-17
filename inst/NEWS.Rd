@@ -23,7 +23,7 @@
     }
     \item Changes in Rcpp Documentation:
     \itemize{
-      \item Three small corrections were added in the 'Rcpp Quickref
+      \item Three small corrections were added in the 'Rcpp Quickref'
       vignette (Zhuoer Dong in \ghpr{933} fixing \ghit{932}).
       \item The \code{Rcpp-modules} vignette now has documentation for
       \code{.factory} (Ralf Stubner in \ghpr{938} fixing \ghit{937}).
