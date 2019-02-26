@@ -1,3 +1,8 @@
+2019-02-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .travis.yml (after_success): Setting CODECOV_TOKEN to reenable
+	codecov.io coverage as detailed by Ralf in GitHub issue #941
+
 2019-02-16  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/sugar/functions/cbind.h: Converted CRLF to CR
