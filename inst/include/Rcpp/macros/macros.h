@@ -50,24 +50,24 @@
     catch(Rcpp::exception& __ex__) {                                                             \
        rcpp_output_type = 2 ;                                                                    \
        rcpp_output_condition = PROTECT(rcpp_exception_to_r_condition(__ex__)) ;                  \
-       nprot++;                                                                                  \
+       ++nprot;                                                                                  \
     }                                                                                            \
     catch( std::exception& __ex__ ){                                                             \
        rcpp_output_type = 2 ;                                                                    \
        rcpp_output_condition = PROTECT(exception_to_r_condition(__ex__)) ;                       \
-       nprot++;                                                                                  \
+       ++nprot;                                                                                  \
     }                                                                                            \
     catch( ... ){                                                                                \
        rcpp_output_type = 2 ;                                                                    \
        rcpp_output_condition = PROTECT(string_to_try_error("c++ exception (unknown reason)")) ;  \
-       nprot++;                                                                                  \
+       ++nprot;                                                                                  \
     }                                                                                            \
     if( rcpp_output_type == 1 ){                                                                 \
        Rf_onintr() ;                                                                             \
     }                                                                                            \
     if( rcpp_output_type == 2 ){                                                                 \
        SEXP expr = PROTECT( Rf_lang2( stop_sym , rcpp_output_condition ) ) ;                     \
-       nprot++;                                                                                  \
+       ++nprot;                                                                                  \
        Rf_eval( expr, R_BaseEnv ) ;                                                              \
     }                                                                                            \
     if (rcpp_output_type == 3) {                                                                 \
