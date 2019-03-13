@@ -71,7 +71,7 @@ public:
     }
 
     Vector( SEXP x ) {
-        Storage::set__( r_cast<RTYPE>(x) ) ;
+        Storage::set__( r_cast<RTYPE>(Shield<SEXP>(x)) ) ;
     }
 
     template <typename Proxy>
