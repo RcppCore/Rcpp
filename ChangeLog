@@ -1,3 +1,7 @@
+2019-03-16  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+
 2019-03-13  Romain François <romain@purrple.cat>
 
 	* inst/include/Rcpp/macros/macros.h: Add UNPROTECT to please rchk
