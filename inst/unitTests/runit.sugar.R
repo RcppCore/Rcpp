@@ -1,7 +1,7 @@
 #!/usr/bin/env r
 #                     -*- mode: R; ess-indent-level: 4; indent-tabs-mode: nil; -*-
 #
-# Copyright (C) 2010 - 2015  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2019  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -21,6 +21,9 @@
 .runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
 
 if (.runThisTest) {
+
+    ## Needed for a change in R 3.6.0 reducing a bias in very large samples
+    suppressWarnings(RNGversion("3.5.0"))
 
     .setUp <- Rcpp:::unitTestSetup("sugar.cpp")
 

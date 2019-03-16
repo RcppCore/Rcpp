@@ -2,6 +2,9 @@
 
 	* DESCRIPTION (Version, Date): Roll minor version
 
+	* inst/unitTests/runit.sugar.R: Set the sample() behaviour to R 3.5.0
+	as R 3.6.0 has a breaking change (for the better)
+
 2019-03-13  Romain François <romain@purrple.cat>
 
 	* inst/include/Rcpp/macros/macros.h: Add UNPROTECT to please rchk
