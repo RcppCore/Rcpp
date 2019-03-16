@@ -13,6 +13,9 @@
       (Qiang and Dirk).
       \item \code{Shelter} increases count only on non-null objects
       (Dirk in \ghpr{940} as suggested by Stepan Sindelar in \ghit{935}).
+      \item \code{AttributeProxy::set()} and a few related setters get
+      \code{Shiled<>} to ensure rchk is happy (Romain in \ghpr{947})
+      fixing \ghit{946}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{
@@ -20,6 +23,8 @@
       \item Fixed an issue where 'stale' symbols could become registered in
       RcppExports.cpp, leading to linker errors and other related issues
       (Kevin in \ghpr{939} fixing \ghit{733} and \ghit{934}).
+      \item The wrapper macro gets an \code{UNPROTECT} to ensure rchk is
+      happy (Romain in \ghpr{949}) fixing \ghit{948}).
     }
     \item Changes in Rcpp Documentation:
     \itemize{
@@ -27,6 +32,11 @@
       vignette (Zhuoer Dong in \ghpr{933} fixing \ghit{932}).
       \item The \code{Rcpp-modules} vignette now has documentation for
       \code{.factory} (Ralf Stubner in \ghpr{938} fixing \ghit{937}).
+    }
+    \item Changes in Rcpp Deployment:
+    \itemize{
+      \item Travis CI again reports to CodeCov.io (Dirk and Ralf Stubner in
+      \ghpr{942} fixing \ghit{941}).
     }
   }
 }

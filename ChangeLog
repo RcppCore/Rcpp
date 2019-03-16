@@ -1,3 +1,17 @@
+2019-03-13  Romain François <romain@purrple.cat>
+
+	* inst/include/Rcpp/macros/macros.h: Add UNPROTECT to please rchk
+
+2019-03-12  Romain François <romain@purrple.cat>
+
+	* inst/include/Rcpp/api/meat/proxy.h: AttributeProxy::set() with
+	Shield<> and a few related uses of Shield<> to please rchk
+	* inst/include/Rcpp/clone.h: Idem
+	* inst/include/Rcpp/proxy/AttributeProxy.h: Idem
+	* inst/include/Rcpp/proxy/NamesProxy.h: Idem
+	* inst/include/Rcpp/vector/Matrix.h: Idem
+	* inst/include/Rcpp/vector/Vector.h: Idem
+
 2019-02-25  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .travis.yml (after_success): Setting CODECOV_TOKEN to reenable
