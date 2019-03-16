@@ -71,12 +71,14 @@ public:
     }
 
     Vector( SEXP x ) {
-        Storage::set__( r_cast<RTYPE>(x) ) ;
+        Rcpp::Shield<SEXP> safe(x);
+        Storage::set__( r_cast<RTYPE>(safe) ) ;
     }
 
     template <typename Proxy>
     Vector( const GenericProxy<Proxy>& proxy ){
-        Storage::set__( r_cast<RTYPE>(proxy.get()) ) ;
+        Rcpp::Shield<SEXP> safe(proxy.get());
+        Storage::set__( r_cast<RTYPE>(safe) ) ;
     }
 
     explicit Vector( const no_init_vector& obj) {
@@ -174,7 +176,8 @@ public:
 
     template <bool NA, typename T>
     Vector( const sugar::SingleLogicalResult<NA,T>& obj ) {
-        Storage::set__( r_cast<RTYPE>( const_cast<sugar::SingleLogicalResult<NA,T>&>(obj).get_sexp() ) ) ;
+        Rcpp::Shield<SEXP> safe(const_cast<sugar::SingleLogicalResult<NA,T>&>(obj).get_sexp() );
+        Storage::set__( r_cast<RTYPE>(safe) ) ;
         RCPP_DEBUG_2( "Vector<%d>( const sugar::SingleLogicalResult<NA,T>& ) [T = %s]", RTYPE, DEMANGLE(T) )
     }
 
