@@ -43,13 +43,21 @@ if (requireNamespace("RUnit", quietly=TRUE) &&
 
     Sys.setenv("R_TESTS"="")    		# without this, we get (or used to get) unit test failures
 
-    ## force tests to be executed if in dev release which we define as
+    ## Force tests to be executed if in dev release which we define as
     ## having a sub-release, eg 0.9.15.5 is one whereas 0.9.16 is not
     if (length(strsplit(packageDescription("Rcpp")$Version, "\\.")[[1]]) > 3) {	# dev release, and
         if (Sys.getenv("RunAllRcppTests") != "no") { 				# if env.var not yet set
             message("Setting \"RunAllRcppTests\"=\"yes\" for development release\n")
             Sys.setenv("RunAllRcppTests"="yes")
         }
+    }
+
+    ## On Travis also always set tests; see
+    ## https://docs.travis-ci.com/user/environment-variables/#default-environment-variables
+    if ((Sys.getenv("CI") == "true") || (Sys.getenv("TRAVIS") == "true") ||
+        (Sys.getenv("CONTINUOUS_INTEGRATION") == "true")) {
+            message("Always enabling \"RunAllRcppTests\"=\"yes\" on Travis\n")
+            Sys.setenv("RunAllRcppTests"="yes")
     }
 
     tests <- runTestSuite(testSuite)	# Run tests
