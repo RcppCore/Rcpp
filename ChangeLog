@@ -2,6 +2,8 @@
 
 	* DESCRIPTION (Version, Date): Roll minor version
 
+	* tests/doRUnit.R: On Travis always set RunAllRcppTests
+
 2019-03-18  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/macros/macros.h (END_RCPP_RETURN_ERROR): Add
