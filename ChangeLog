@@ -4,6 +4,8 @@
 
 	* tests/doRUnit.R: On Travis always set RunAllRcppTests
 
+	* docker/ci/Dockerfile: Set environment variables container-wide
+
 2019-03-18  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/macros/macros.h (END_RCPP_RETURN_ERROR): Add

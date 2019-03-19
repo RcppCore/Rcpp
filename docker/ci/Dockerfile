@@ -19,9 +19,9 @@ RUN apt-get update \
                 r-cran-lazyeval \
                 r-cran-withr \
                 git \
-        && install.r rbenchmark pinp covr \
-        && mkdir ~/.R \
-        && echo _R_CHECK_FORCE_SUGGESTS_=FALSE > ~/.R/check.Renviron \
-        && echo RunAllRcppTests=yes >> ~/.R/check.Renviron
+        && install.r rbenchmark pinp covr
+
+ENV _R_CHECK_FORCE_SUGGESTS_ FALSE
+ENV RunAllRcppTests yes
 
 CMD ["bash"]
