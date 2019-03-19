@@ -98,7 +98,9 @@
   catch (...) {                                                                \
     return string_to_try_error("c++ exception (unknown reason)");              \
   }                                                                            \
-  return R_NilValue;
+  UNPROTECT(nprot);                                                            \
+  return R_NilValue;                                                           \
+  (void) stop_sym;   /* never reached but suppresses warning */
 #endif
 
 #define Rcpp_error(MESSAGE) throw Rcpp::exception(MESSAGE, __FILE__, __LINE__)
