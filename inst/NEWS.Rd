@@ -11,6 +11,11 @@
       a variable reference suppressing compiler warnings (Dirk in
       \ghpr{953}) fixing \ghit{951}).
     }
+    \item Changes in Rcpp Sugar:
+    \itemize{
+      \item Added decreasing parameter to \code{sort_unique()}
+      (James Balamuta in \ghpr{958} addressing \ghit{950}).
+    }
   }
 }
 
