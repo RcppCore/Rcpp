@@ -612,7 +612,8 @@ Rcpp::CharacterVector runit_unique_ch(Rcpp::CharacterVector x) {
 }
 
 // [[Rcpp::export]]
-Rcpp::CharacterVector runit_sort_unique_ch(Rcpp::CharacterVector x, decreasing = false) {
+Rcpp::CharacterVector runit_sort_unique_ch(Rcpp::CharacterVector x,
+                                           bool decreasing = false) {
     return Rcpp::sort_unique(x, decreasing);
 }
 
