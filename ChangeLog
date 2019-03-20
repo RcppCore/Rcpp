@@ -1,3 +1,9 @@
+2019-03-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/date.cpp: Renamed from Date.cpp
+	* src/module.cpp: Renamed from Module.cpp
+	* src/rcpp_init.cpp: Renamed from Rcpp_init.cpp
+
 2019-03-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
