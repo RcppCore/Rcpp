@@ -22,7 +22,7 @@ install:
   - docker run ${DOCKER_OPTS} ${DOCKER_CNTR} R CMD build ${R_BLD_OPTS} .
 
 script:
-  - travis_wait 20 docker run ${DOCKER_OPTS} ${DOCKER_CNTR} R CMD check ${R_CHK_OPTS} Rcpp_*.tar.gz
+  - travis_wait 20 sleep infinity & docker run ${DOCKER_OPTS} ${DOCKER_CNTR} R CMD check ${R_CHK_OPTS} Rcpp_*.tar.gz
 
 after_success:
   - docker run ${DOCKER_OPTS} -e CODECOV_TOKEN ${DOCKER_CNTR} r -l covr -e 'codecov()'
