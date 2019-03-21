@@ -1,8 +1,14 @@
 2019-03-20  James J Balamuta  <balamut2@illinois.edu>
 
-    * inst/include/Rcpp/sugar/functions/unique.h: Added decreasing parameter to control sort.
+  * inst/include/Rcpp/sugar/functions/unique.h: Added decreasing parameter to control sort.
 	* inst/unitTests/runit.sugar.R: Added sort_unique() tests
 	* inst/unitTests/cpp/sugar.cpp: Ditto
+
+2019-03-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/date.cpp: Renamed from Date.cpp
+	* src/module.cpp: Renamed from Module.cpp
+	* src/rcpp_init.cpp: Renamed from Rcpp_init.cpp
 
 2019-03-19  Dirk Eddelbuettel  <edd@debian.org>
 
