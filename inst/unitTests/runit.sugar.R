@@ -711,7 +711,7 @@ if (.runThisTest) {
         )
 
         checkEquals(
-            sort(unique(x), decreasing = FALSE, na.last = FALSE),
+            sort(unique(x), decreasing = FALSE, na.last = TRUE),
             runit_sort_unique_ch(x, decreasing = FALSE),
             "unique / character / with NA / increasing sort"
         )
