@@ -689,6 +689,7 @@ if (.runThisTest) {
 
     test.sort_unique <- function() {
 
+        set.seed(123)
         x <- sample(LETTERS[1:5], 10, TRUE)
         checkEquals(
             sort(unique(x), decreasing = TRUE),
@@ -704,13 +705,13 @@ if (.runThisTest) {
 
         x <- c(x, NA, NA)
         checkEquals(
-            sort(unique(x), decreasing = TRUE, na.last = TRUE),
+            sort(unique(x), decreasing = TRUE, na.last = FALSE),
             runit_sort_unique_ch(x, decreasing = TRUE),
             "unique / character / with NA / decreasing sort"
         )
 
         checkEquals(
-            sort(unique(x), decreasing = FALSE, na.last = TRUE),
+            sort(unique(x), decreasing = FALSE, na.last = FALSE),
             runit_sort_unique_ch(x, decreasing = FALSE),
             "unique / character / with NA / increasing sort"
         )
