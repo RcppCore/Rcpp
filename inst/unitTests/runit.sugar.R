@@ -687,6 +687,36 @@ if (.runThisTest) {
         )
     }
 
+    test.sort_unique <- function() {
+
+        set.seed(123)
+        x <- sample(LETTERS[1:5], 10, TRUE)
+        checkEquals(
+            sort(unique(x), decreasing = TRUE),
+            runit_sort_unique_ch(x, decreasing = TRUE),
+            "unique / character / without NA / decreasing sort"
+        )
+
+        checkEquals(
+            sort(unique(x), decreasing = FALSE),
+            runit_sort_unique_ch(x, decreasing = FALSE),
+            "unique / character / without NA / increasing sort"
+        )
+
+        x <- c(x, NA, NA)
+        checkEquals(
+            sort(unique(x), decreasing = TRUE, na.last = FALSE),
+            runit_sort_unique_ch(x, decreasing = TRUE),
+            "unique / character / with NA / decreasing sort"
+        )
+
+        checkEquals(
+            sort(unique(x), decreasing = FALSE, na.last = TRUE),
+            runit_sort_unique_ch(x, decreasing = FALSE),
+            "unique / character / with NA / increasing sort"
+        )
+    }
+
     test.table <- function(){
         x <- sample( letters, 1000, replace = TRUE )
         checkTrue( all( runit_table(x) == table(x) ) )
