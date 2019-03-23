@@ -1,6 +1,13 @@
+2019-03-23  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+
+	* inst/NEWS.Rd: Updated
+
 2019-03-20  James J Balamuta  <balamut2@illinois.edu>
 
-  * inst/include/Rcpp/sugar/functions/unique.h: Added decreasing parameter to control sort.
+	* inst/include/Rcpp/sugar/functions/unique.h: Added decreasing
+	parameter to control sort.
 	* inst/unitTests/runit.sugar.R: Added sort_unique() tests
 	* inst/unitTests/cpp/sugar.cpp: Ditto
 

@@ -5,6 +5,11 @@
 
 \section{Changes in Rcpp version 1.0.2 (2019-xx-yy)}{
   \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Files in \code{src/} are now consistentely lowercase (Dirk
+      in \ghpr{956}).
+    }
     \item Changes in Rcpp Attributes:
     \itemize{
       \item The second END wrapper macro also gets \code{UNPROTECT} and
@@ -15,6 +20,11 @@
     \itemize{
       \item Added decreasing parameter to \code{sort_unique()}
       (James Balamuta in \ghpr{958} addressing \ghit{950}).
+    }
+    \item Changes in Rcpp Deployment:
+    \itemize{
+      \item Travis CI unit tests are now always running irrespective of
+      the package version (Dirk in \ghpr{954}).
     }
   }
 }
