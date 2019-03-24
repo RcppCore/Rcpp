@@ -204,11 +204,13 @@ full advantage of the \pkg{Rcpp} type system.
 Another non-intrusive option is to expose an external pointer. The macro
 `RCPP_EXPOSED_WRAP` provides an easy way to expose a \proglang{C++} class
 to \proglang{R} as an external pointer. It can be used instead of specializing
-`Rcpp::wrap`, and should not be used simultaneously.
+`Rcpp::wrap`, and should not be used simultaneously. Note that the
+\proglang{C++} class has to use Rcpp modules. See the Rcpp modules vignette for
+more details.
 
 ```{Rcpp, eval = FALSE}
-#include RcppCommon.h
-#include foobar.h
+#include <Rcpp.h>
+#include <foobar.h>
 
 RCPP_EXPOSED_WRAP(Bar)
 ```
@@ -295,11 +297,12 @@ Furthermore, another non-intrusive option is to opt for sharing an R
 external pointer. The macro `RCPP_EXPOSED_AS` provides an easy way to
 extend `Rcpp::as` to expose \proglang{R} external pointers to
 \proglang{C++}. It can be used instead of specializing `Rcpp::as`, and
-should not be used simultaneously.
+should not be used simultaneously.  Note that the \proglang{C++} class
+has to use Rcpp modules. See the Rcpp modules vignette for more details.
 
 ```{Rcpp, eval = FALSE}
-#include RcppCommon.h
-#include foobar.h
+#include <Rcpp.h>
+#include <foobar.h>
 
 RCPP_EXPOSED_AS(Bar)
 ```

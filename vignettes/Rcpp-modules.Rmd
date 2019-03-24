@@ -942,6 +942,58 @@ setMethod("show", yada$World , function(object) {
 
 TODO: mention R inheritance (John ?)
 
+### Extending `Rcpp::as` and `Rcpp::wrap`
+
+Sometimes it is necessary to extend `Rcpp::as` or `Rcpp::wrap` for
+classes that are also exposed using Rcpp modules. Instead of using the
+general methods described in the _Rcpp Extending_ vignette, one can
+use the `RCPP_EXPOSED_AS` or `RCPP_EXPOSED_WRAP` macros.
+Alternatively the `RCPP_EXPOSED_CLASS` macro defines both `Rcpp::as`
+and `Rcpp::wrap` specializations. Do not use these macros together
+with the generic extension mechanisms.  Note that opposesd to the
+generic methods, these macros can be used _after_ `Rcpp.h` has been
+loaded. Here an example of a pair of Rcpp modules exposed classes
+where one of them has a method taking an instance of the other class
+as argument. In this case it is suffcient to use `RCPP_EXPOSED_AS` to
+enable the transparent conversion from \proglang{R} to \proglang{C++}:
+
+```cpp
+#include <Rcpp.h>
+
+class Foo {
+public:
+    Foo() = default;
+};
+
+class Bar {
+public:
+    Bar() = default;
+    void handleFoo(Foo foo) {
+        Rcpp::Rcout << "Got a Foo!" << std::endl;
+    };
+};
+
+RCPP_EXPOSED_AS(Foo)
+
+RCPP_MODULE(Foo){
+    Rcpp::class_<Foo>("Foo")
+    .constructor();
+}
+
+RCPP_MODULE(Barl){
+    Rcpp::class_<Bar>("Bar")
+    .constructor()
+    .method("handleFoo", &Bar::handleFoo);
+}
+```
+
+```{r, eval=FALSE}
+foo <- new(Foo)
+bar <- new(Bar)
+bar$handleFoo(foo)
+#> Got a Foo!
+```
+
 ### Full example
 
 <!-- TODO: maybe replace this by something from wls or RcppModels ? -->
