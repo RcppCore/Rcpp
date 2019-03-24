@@ -26,6 +26,12 @@
       \item Travis CI unit tests are now always running irrespective of
       the package version (Dirk in \ghpr{954}).
     }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item The \code{Rcpp-modules} vignette now covers the
+      \code{RCPP_EXPOSED_*} macros, and the \code{Rcpp-extending} vignette
+      references it (Ralf Stubner in \ghpr{959} fixing \ghit{953})
+    }
   }
 }
 

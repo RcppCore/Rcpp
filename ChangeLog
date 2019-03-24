@@ -1,3 +1,8 @@
+2019-03-23  Ralf Stubner  <ralf.stubner@daqana.com>
+
+	* vignettes/Rcpp-modules.Rmd: Describe RCPP_EXPOSED_* macros
+	* vignettes/Rcpp-extending.Rmd: Reference Modules extensions
+
 2019-03-23  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
