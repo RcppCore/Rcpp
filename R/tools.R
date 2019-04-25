@@ -1,4 +1,4 @@
-# Copyright (C) 2010 - 2017  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2019  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -47,4 +47,32 @@ asBuildPath <- function(path) {
     }
 
     return(path)
+}
+
+
+##' Helper function to report the package version of the R installation.
+##'
+##' While \code{packageVersion(Rcpp)} exports the version registers in
+##' {DESCRIPTION}, this version does get incremented more easily
+##' during development and can therefore be higher than the released
+##' version.  The actual \code{#define} long used at the C++ level
+##' corresponds more to an \sQuote{API Version} which is now provided
+##' by this function, and use for example in the package skeleton
+##' generator.
+##'
+##' @title Export the Rcpp (API) Package Version
+##' @param devel An logical value indicating if the development or
+##' release version number should be returned, default is release.
+##' @return A \code{package_version} object with either the release
+##' or development version.
+##' @author Dirk Eddelbuettel
+##' @seealso \code{\link{packageVersion}},
+##' \code{\link{Rcpp.package.skeleton}}
+##' @examples getRcppVersion()
+getRcppVersion <- function(devel = FALSE) {
+    rcpp <- .Call("getRcppVersionStrings")[if(devel) 2 else 1]
+    .make_numeric_version(rcpp,
+                          TRUE,
+                          .standard_regexps()$valid_package_version,
+                          "package_version")
 }

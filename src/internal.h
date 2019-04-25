@@ -128,6 +128,8 @@ CALLFUN_0(rcpp_capabilities);
 CALLFUN_0(rcpp_can_use_cxx0x);
 CALLFUN_0(rcpp_can_use_cxx11);
 
+CALLFUN_0(getRcppVersionStrings);
+
 /* .External functions */
 EXTFUN(CppMethod__invoke);
 EXTFUN(CppMethod__invoke_void);

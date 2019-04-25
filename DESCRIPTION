@@ -22,4 +22,4 @@ URL: http://www.rcpp.org, http://dirk.eddelbuettel.com/code/rcpp.html, https://g
 License: GPL (>= 2)
 BugReports: https://github.com/RcppCore/Rcpp/issues
 MailingList: Please send questions and comments regarding Rcpp to rcpp-devel@lists.r-forge.r-project.org
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1

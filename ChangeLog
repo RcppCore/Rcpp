@@ -1,3 +1,14 @@
+2019-04-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/tools.R (getRcppVersion): Export R (and dev) package version
+	* man/getRcppVersion.Rd: Documentation for new function
+
+	* inst/include/Rcpp/config.h (RCPP_VERSION_STRING): New version
+	and development version string #define
+	* src/api.cpp (getRcppVersionStrings): Expose new versions strings
+	* src/internal.h: Register new version string exporter
+	* src/rcpp_init.cpp (callEntries[]): Idem
+
 2019-03-23  Ralf Stubner  <ralf.stubner@daqana.com>
 
 	* vignettes/Rcpp-modules.Rmd: Describe RCPP_EXPOSED_* macros
