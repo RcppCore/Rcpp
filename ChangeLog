@@ -9,6 +9,8 @@
 	* src/internal.h: Register new version string exporter
 	* src/rcpp_init.cpp (callEntries[]): Idem
 
+	* inst/unitTests/runit.misc.R (test.getRcppVersion): test new function
+
 2019-03-23  Ralf Stubner  <ralf.stubner@daqana.com>
 
 	* vignettes/Rcpp-modules.Rmd: Describe RCPP_EXPOSED_* macros

@@ -24,11 +24,11 @@ forceAssignInNamespace <- function(x, value, env) {
     is_ns <- isNamespace(env)
     unlocker <- get("unlockBinding", baseenv())
     if (is_ns && exists(x, env) && bindingIsLocked(x, env)) {
-        unlocker(x, env)
+        unlocker(x, env)				# #nocov
     }
     assign(x, value, env)
     if (is_ns) {
-        lockBinding(x, env)
+        lockBinding(x, env)				# #nocov
     }
 }
 
