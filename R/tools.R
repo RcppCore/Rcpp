@@ -70,6 +70,6 @@ asBuildPath <- function(path) {
 ##' \code{\link{Rcpp.package.skeleton}}
 ##' @examples getRcppVersion()
 getRcppVersion <- function(devel = FALSE) {
-    rcpp <- .Call("getRcppVersionStrings", package="Rcpp")
+    rcpp <- .Call("getRcppVersionStrings", PACKAGE="Rcpp")
     package_version(rcpp[if(devel) 2 else 1])
 }
