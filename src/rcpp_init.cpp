@@ -57,6 +57,8 @@ static R_CallMethodDef callEntries[]  = {
     CALLDEF(rcpp_capabilities,0),
     CALLDEF(rcpp_can_use_cxx0x,0),
     CALLDEF(rcpp_can_use_cxx11,0),
+
+    CALLDEF(getRcppVersionStrings,0),
     {NULL, NULL, 0}
 };
 
@@ -130,7 +132,7 @@ extern "C" void R_unload_Rcpp(DllInfo *) {  // #nocov start
 extern "C" void R_init_Rcpp(DllInfo* dllinfo) {
     setCurrentScope(0);
 
-    registerFunctions();        		// call wrapper to register export symbols 
+    registerFunctions();        		// call wrapper to register export symbols
 
     R_useDynamicSymbols(dllinfo, FALSE);	// set up symbol symbol lookup (cf R 3.4.0)
 

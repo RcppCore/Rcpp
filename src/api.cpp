@@ -325,3 +325,11 @@ SEXP stack_trace(const char* file, int line) {
 
 // }}}
 
+
+// [[Rcpp::internal]]
+SEXP getRcppVersionStrings() {
+    Shield<SEXP> versionstring(Rf_allocVector(STRSXP,2));
+    SET_STRING_ELT(versionstring, 0, Rf_mkChar(RCPP_VERSION_STRING));
+    SET_STRING_ELT(versionstring, 1, Rf_mkChar(RCPP_DEV_VERSION_STRING));
+    return versionstring;
+}
