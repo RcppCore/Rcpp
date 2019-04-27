@@ -1,3 +1,7 @@
+2019-04-27  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/Rcpp.package.skeleton.R (Rcpp.package.skeleton): Use getRcppVersion()
+
 2019-04-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version

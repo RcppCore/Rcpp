@@ -9,6 +9,8 @@
     \itemize{
       \item Files in \code{src/} are now consistentely lowercase (Dirk
       in \ghpr{956}).
+      \item The Rcpp 'API Version' is now accessible via
+      \code{getRcppVersion()} (Dirk in \ghpr{963}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{

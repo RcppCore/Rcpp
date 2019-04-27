@@ -1,4 +1,4 @@
-# Copyright (C) 2009 - 2016  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2009 - 2019  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -81,8 +81,7 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
     # Add Rcpp to the DESCRIPTION
     DESCRIPTION <- file.path(root, "DESCRIPTION")
     if (file.exists(DESCRIPTION)) {
-        imports <- c(if (isTRUE(module)) "methods",
-                     sprintf("Rcpp (>= %s)", packageDescription("Rcpp")[["Version"]]))
+        imports <- c(if (isTRUE(module)) "methods", sprintf("Rcpp (>= %s)", getRcppVersion()))
         x <- cbind(read.dcf(DESCRIPTION),
                    "Imports" = paste(imports, collapse = ", "),
                    "LinkingTo" = "Rcpp")
