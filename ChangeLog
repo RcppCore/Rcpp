@@ -1,3 +1,12 @@
+2019-07-04  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/Rcpp.bib: Updated
+	* inst/bib/Rcpp.bib: Idem
+
+2019-05-05  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .Rbuildignore: Small tweak
+	
 2019-04-27  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/Rcpp.package.skeleton.R (Rcpp.package.skeleton): Use getRcppVersion()

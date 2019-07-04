@@ -17,7 +17,7 @@ vignettes/getCurrentVersionsOfCitedPackages.R
 inst/include/Rcpp.h.new
 inst/include/Rcpp.h.old
 LICENSE
-.*.tar.gz
+.*\.tar\.gz$
 \.editorconfig
 docker
 ^GPATH
