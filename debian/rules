@@ -1,7 +1,0 @@
-#!/usr/bin/make -f
-# 							-*- makefile -*-
-# debian/rules file for the Debian/GNU Linux rcpp package
-# Copyright 2003 - 2018 by Dirk Eddelbuettel <edd@debian.org>
-
-%:
-	dh $@ --buildsystem R
