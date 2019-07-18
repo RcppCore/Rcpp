@@ -1481,7 +1481,6 @@ namespace attributes {
         std::string argsText = signature.substr(beginParenLoc + 1,
                                                  endParenLoc-beginParenLoc-1);
         std::vector<std::string> args = parseArguments(argsText);
-        for(auto arg: args)
         for (std::vector<std::string>::const_iterator it =
                                         args.begin(); it != args.end(); ++it) {
 
