@@ -1165,7 +1165,7 @@ namespace attributes {
 
             // Now read into a list of strings (which we can pass to regexec)
             // First read into a std::deque (which will handle lots of append
-            // operations efficiently) then copy into an R chracter vector
+            // operations efficiently) then copy into an R character vector
             std::deque<std::string> lines;
             readLines(buffer, &lines);
             lines_ = Rcpp::wrap(lines);
@@ -1420,6 +1420,7 @@ namespace attributes {
 
         // Establish the text to parse for the signature
         std::string signature = parseSignature(lineNumber);
+		std::cerr << "-------------------------------- SourceFileAttributesParser::parseFunction 10" << std::endl << signature << std::endl;
         if (signature.empty()) {
             rcppExportNoFunctionFoundWarning(lineNumber);		// #nocov
             return Function();						// #nocov
@@ -1429,6 +1430,7 @@ namespace attributes {
         // (bail with an empty result if we can't find them)
         std::string::size_type endParenLoc = signature.find_last_of(')');
         std::string::size_type beginParenLoc = signature.find_first_of('(');
+		std::cerr << "-------------------------------- SourceFileAttributesParser::parseFunction 20" << std::endl << beginParenLoc << std::endl << endParenLoc << std::endl;
         if (endParenLoc == std::string::npos ||
             beginParenLoc == std::string::npos ||
             endParenLoc < beginParenLoc) {
@@ -1481,6 +1483,8 @@ namespace attributes {
         std::string argsText = signature.substr(beginParenLoc + 1,
                                                  endParenLoc-beginParenLoc-1);
         std::vector<std::string> args = parseArguments(argsText);
+        for(auto arg: args)
+			std::cerr << "-------------------------------- SourceFileAttributesParser::parseFunction 30" << std::endl << arg << std::endl;
         for (std::vector<std::string>::const_iterator it =
                                         args.begin(); it != args.end(); ++it) {
 
@@ -1588,44 +1592,66 @@ namespace attributes {
     std::vector<std::string> SourceFileAttributesParser::parseArguments(
                                                 const std::string& argText) {
 
+			std::cerr << "-------------------------------- SourceFileAttributesParser::SourceFileAttributesParser::parseArguments 1" << std::endl << argText << std::endl;
         int templateCount = 0;
         int parenCount = 0;
-        bool insideQuotes = false;
+        bool endOfArg = false;
         std::string currentArg;
         std::vector<std::string> args;
+        char quote = 0;
         char prevChar = 0;
-        for (std::string::const_iterator
-                            it = argText.begin(); it != argText.end(); ++it) {
+        typedef std::string::const_iterator it_t;
+        for (it_t it = argText.begin(); it != argText.end(); ++it) {
+
+            endOfArg = false;
+
+            // Store current character
             char ch = *it;
 
-            if (ch == '"' && prevChar != '\\') {
-                insideQuotes = !insideQuotes;
-            }
+            // Ignore quoted strings and character values in single quotes
+            if ( ! quote && (ch == '"' || ch == '\''))
+                quote = ch;
+            else if (quote && ch == quote && prevChar != '\\')
+                quote = 0;
 
-            if ((ch == ',') &&
+			std::cerr << "-------------------------------- SourceFileAttributesParser::SourceFileAttributesParser::parseArguments 10" << std::endl << "'" << prevChar << "' '" << ch << "' #" << quote << "#" << std::endl;
+            // Detect end of argument declaration
+            if ( ! quote &&
+                (ch == ',') &&
                 (templateCount == 0) &&
-                (parenCount == 0) &&
-                !insideQuotes) {
+                (parenCount == 0)) {
                 args.push_back(currentArg);
                 currentArg.clear();
-                continue;
-            } else {
-                currentArg.push_back(ch);
-                switch(ch) {
-                    case '<':
-                        templateCount++;
-                        break;
-                    case '>':
-                        templateCount--;
-                        break;
-                    case '(':
-                        parenCount++;			// #nocov
-                        break;				// #nocov
-                    case ')':
-                        parenCount--;			// #nocov
-                        break;				// #nocov
+                endOfArg = true;
+            }
+
+			std::cerr << "-------------------------------- SourceFileAttributesParser::SourceFileAttributesParser::parseArguments 20" << std::endl << endOfArg << std::endl;
+            if ( ! endOfArg) {
+
+                // Append current character if not a space at start
+                if ( ! currentArg.empty() || ch != ' ')
+                    currentArg.push_back(ch);
+
+                // Count use of potentially enclosed brackets
+                if ( ! quote) {
+                    switch(ch) {
+                        case '<':
+                            templateCount++;
+                            break;
+                        case '>':
+                            templateCount--;
+                            break;
+                        case '(':
+                            parenCount++;			// #nocov
+                            break;				// #nocov
+                        case ')':
+                            parenCount--;			// #nocov
+                            break;				// #nocov
+                    }
                 }
             }
+			std::cerr << "-------------------------------- SourceFileAttributesParser::SourceFileAttributesParser::parseArguments 30" << std::endl << templateCount << " " << parenCount << std::endl;
+			std::cerr << "-------------------------------- SourceFileAttributesParser::SourceFileAttributesParser::parseArguments 40" << std::endl << currentArg << std::endl;
 
             prevChar = ch;
         }

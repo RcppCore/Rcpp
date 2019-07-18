@@ -32,6 +32,14 @@ if (.runThisTest) {
             parse_declaration_test(),
             "Parse function declaration"
         )
+        checkEquals(
+            parse_default_values_with_str_parenthesis(),
+            "Parse function header with parenthis inside default string values."
+        )
+        checkEquals(
+            parse_default_values_with_chr_parenthesis(),
+            "Parse function header with parenthis inside default char values."
+        )
     }
 
 }
