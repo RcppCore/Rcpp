@@ -1165,7 +1165,7 @@ namespace attributes {
 
             // Now read into a list of strings (which we can pass to regexec)
             // First read into a std::deque (which will handle lots of append
-            // operations efficiently) then copy into an R chracter vector
+            // operations efficiently) then copy into an R character vector
             std::deque<std::string> lines;
             readLines(buffer, &lines);
             lines_ = Rcpp::wrap(lines);
@@ -1590,27 +1590,44 @@ namespace attributes {
 
         int templateCount = 0;
         int parenCount = 0;
-        bool insideQuotes = false;
         std::string currentArg;
         std::vector<std::string> args;
-        char prevChar = 0;
-        for (std::string::const_iterator
-                            it = argText.begin(); it != argText.end(); ++it) {
+        char quote = 0;
+        bool escaped = false;
+        typedef std::string::const_iterator it_t;
+        for (it_t it = argText.begin(); it != argText.end(); ++it) {
+
+            // Store current character
             char ch = *it;
 
-            if (ch == '"' && prevChar != '\\') {
-                insideQuotes = !insideQuotes;
-            }
+            // Ignore quoted strings and character values in single quotes
+            if ( ! quote && (ch == '"' || ch == '\''))
+                quote = ch;
+            else if (quote && ch == quote && ! escaped)
+                quote = 0;
 
-            if ((ch == ',') &&
+            // Escaped character inside quotes
+            if (escaped)
+                escaped = false;
+            else if (quote && ch == '\\')
+                escaped = true;
+
+            // Detect end of argument declaration
+            if ( ! quote &&
+                (ch == ',') &&
                 (templateCount == 0) &&
-                (parenCount == 0) &&
-                !insideQuotes) {
+                (parenCount == 0)) {
                 args.push_back(currentArg);
                 currentArg.clear();
                 continue;
-            } else {
+            }
+
+            // Append current character if not a space at start
+            if ( ! currentArg.empty() || ch != ' ')
                 currentArg.push_back(ch);
+
+            // Count use of potentially enclosed brackets
+            if ( ! quote) {
                 switch(ch) {
                     case '<':
                         templateCount++;
@@ -1626,8 +1643,6 @@ namespace attributes {
                         break;				// #nocov
                 }
             }
-
-            prevChar = ch;
         }
 
         if (!currentArg.empty())
