@@ -1590,15 +1590,12 @@ namespace attributes {
 
         int templateCount = 0;
         int parenCount = 0;
-        bool endOfArg = false;
         std::string currentArg;
         std::vector<std::string> args;
         char quote = 0;
         bool escaped = false;
         typedef std::string::const_iterator it_t;
         for (it_t it = argText.begin(); it != argText.end(); ++it) {
-
-            endOfArg = false;
 
             // Store current character
             char ch = *it;
@@ -1622,31 +1619,28 @@ namespace attributes {
                 (parenCount == 0)) {
                 args.push_back(currentArg);
                 currentArg.clear();
-                endOfArg = true;
+                continue;
             }
 
-            if ( ! endOfArg) {
+            // Append current character if not a space at start
+            if ( ! currentArg.empty() || ch != ' ')
+                currentArg.push_back(ch);
 
-                // Append current character if not a space at start
-                if ( ! currentArg.empty() || ch != ' ')
-                    currentArg.push_back(ch);
-
-                // Count use of potentially enclosed brackets
-                if ( ! quote) {
-                    switch(ch) {
-                        case '<':
-                            templateCount++;
-                            break;
-                        case '>':
-                            templateCount--;
-                            break;
-                        case '(':
-                            parenCount++;			// #nocov
-                            break;				// #nocov
-                        case ')':
-                            parenCount--;			// #nocov
-                            break;				// #nocov
-                    }
+            // Count use of potentially enclosed brackets
+            if ( ! quote) {
+                switch(ch) {
+                    case '<':
+                        templateCount++;
+                        break;
+                    case '>':
+                        templateCount--;
+                        break;
+                    case '(':
+                        parenCount++;			// #nocov
+                        break;				// #nocov
+                    case ')':
+                        parenCount--;			// #nocov
+                        break;				// #nocov
                 }
             }
         }
