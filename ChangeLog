@@ -1,3 +1,9 @@
+2019-07-18  Pierrick Roger  <pk.roger@icloud.com>
+
+	* src/attributes.cpp: Correct parsing of default function values
+	* inst/unitTests/cpp/attributes.cpp: Added tests
+	* inst/unitTests/runit.attributes.R: Idem
+	
 2019-07-16  Dirk Eddelbuettel  <edd@debian.org>
 
 	* debian/: Removed, see https://salsa.debian.org/edd/r-base/ instead
