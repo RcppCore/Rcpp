@@ -230,11 +230,11 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
         .self <- .refClassDef <- NULL
         generator$methods(initialize =
               if(cpp_hasDefaultConstructor(CLASS))
-                 function(...) cpp_object_initializer(.self,.refClassDef, ...)
+                 function(...) Rcpp::cpp_object_initializer(.self,.refClassDef, ...)
               else
                  function(...) {
-                     if(nargs()) cpp_object_initializer(.self,.refClassDef, ...)
-                     else cpp_object_dummy(.self, .refClassDef)
+                     if(nargs()) Rcpp::cpp_object_initializer(.self,.refClassDef, ...)
+                     else Rcpp::cpp_object_dummy(.self, .refClassDef)
                  }
                           )
         rm( .self, .refClassDef )
