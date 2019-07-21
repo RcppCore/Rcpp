@@ -912,18 +912,47 @@ dv2$name() # returns "Derived2"
 When a \proglang{C++} class is exposed by the `class_` template,
 a new S4 class is registered as well. The name of the S4 class is
 obfuscated in order to avoid name clashes (i.e. two modules exposing the
-same class).
+same class). This allows implementation of \proglang{R}-level
+(S4) dispatch.
 
-This allows implementation of \proglang{R}-level
-(S4) dispatch. For example, one might implement the `show`
-method for \proglang{C++} `World` objects from the module `yada` created above:
+For example, consider the \proglang{C++} class `World` exposed in module `yada`:
+
+```cpp
+class World {
+public:
+    World() : msg("hello") {}
+    void set(std::string msg) { this->msg = msg; }
+    std::string greet() { return msg; }
+
+private:
+    std::string msg;
+};
+
+RCPP_MODULE(yada){
+    using namespace Rcpp ;
+
+    class_<World>("World")
+    
+    // expose the default constructor
+    .constructor()
+
+    .method("greet", &World::greet)
+    .method("set", &World::set)
+    ;
+    
+}
+```
+
+The `show` method for `World` objects can then implemented as:
 
 ```{r, eval=FALSE}
+yada <- Module("yada", inline::getDynLib(fx))
 setMethod("show", yada$World , function(object) {
     msg <- paste("World object with message : ",
                  object$greet())
     writeLines(msg)
 } )
+yada$World$new() # implictly calls show
 ```
 
 TODO: mention R inheritance (John ?)
