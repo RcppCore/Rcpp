@@ -3,6 +3,16 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
+\section{Changes in Rcpp version 1.0.3 (2019-11-xx)}{
+  \itemize{
+    \item Changes in Rcpp Modules:
+    \itemize{
+      \item Improved initialization via explicit \code{Rcpp::} prefix
+      (Riccardo Porreca in \ghpr{980})
+    }
+  }
+}
+
 \section{Changes in Rcpp version 1.0.2 (2019-07-20)}{
   \itemize{
     \item Changes in Rcpp API:
