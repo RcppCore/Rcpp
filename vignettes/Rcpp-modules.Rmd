@@ -73,6 +73,9 @@ skip_final_break: true
 # Produce a pinp document
 output: pinp::pinp
 
+params:
+    eval: FALSE
+
 header-includes: >
   \newcommand{\proglang}[1]{\textsf{#1}}
   \newcommand{\pkg}[1]{\textbf{#1}}
@@ -88,6 +91,15 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
+```{r setup, include=FALSE}
+# disable evaluation globally
+knitr::opts_chunk$set(eval = FALSE)
+if (params$eval) {
+    library(Rcpp)
+    library(inline)
+}
+```
 
 # Motivation
 
@@ -249,7 +261,7 @@ DE 21 Sep 2013: there must a bug somewhere in the vignette processing
              hence shortened example to not show code again
 -->
 
-```{r, eval=FALSE}
+```{r}
 f1 <- cxxfunction( , "", includes = unifModCode,
                   plugin = "Rcpp" )
 getDynLib(f1)  ## will display info about 'f1' 
@@ -258,7 +270,7 @@ getDynLib(f1)  ## will display info about 'f1'
 The following listing shows some \textsl{manual} wrapping to access the code,
 we will see later how this can be automated:
 
-```{r, eval=FALSE}
+```{r}
 setClass("Uniform",
          representation( pointer = "externalptr"))
 
@@ -338,7 +350,7 @@ the need for a wrapper function using either \pkg{Rcpp} or the \proglang{R} API.
 On the \proglang{R} side, the module is retrieved by using the
 `Module` function from \pkg{Rcpp}
 
-```{r, eval=FALSE}
+```{r, eval=params$eval}
 inc <- '
 using namespace Rcpp;
 
@@ -368,7 +380,7 @@ to `cxxfunction`.
 A module can contain any number of calls to `function` to register
 many internal functions to \proglang{R}. For example, these 6 functions:
 
-```cpp
+```{Rcpp yada-fun-def}
 std::string hello() {
     return "hello";
 }
@@ -396,7 +408,7 @@ void bla2( int x, double y) {
 
 can be exposed with the following minimal code:
 
-```cpp
+```{Rcpp yada-fun-module}
 RCPP_MODULE(yada) {
     using namespace Rcpp;
 
@@ -408,10 +420,14 @@ RCPP_MODULE(yada) {
     function("bla2"  , &bla2 );
 }
 ```
+```{r include=FALSE, eval=params$eval}
+inc <- unlist(knitr::knit_code$get(c("yada-fun-def", "yada-fun-module")))
+fx <- cxxfunction(signature(), plugin = "Rcpp", include = inc)
+```
 
 which can then be used from \proglang{R}:
 
-```{r, eval=FALSE}
+```{r eval=params$eval, output=params$output}
 yada <- Module("yada", getDynLib(fx))
 yada$bar(2L)
 yada$foo(2L, 10.0)
@@ -438,7 +454,7 @@ are:
 In addition to the name of the function and the function pointer, it is possible
 to pass a short description of the function as the third parameter of `function`.
 
-```cpp
+```{Rcpp norm-doc}
 using namespace Rcpp;
 
 double norm(double x, double y) {
@@ -453,7 +469,11 @@ RCPP_MODULE(mod) {
 
 The description is used when displaying the function to the R prompt:
 
-```{r, eval=FALSE}
+```{r include=FALSE, eval=params$eval}
+inc <- unlist(knitr::knit_code$get(c("norm-doc")))
+fx <- cxxfunction(signature(), plugin = "Rcpp", include = inc)
+```
+```{r, eval=params$eval}
 mod <- Module("mod", getDynLib(fx))
 show(mod$norm)
 ```
@@ -464,7 +484,7 @@ show(mod$norm)
 of the R function that encapsulates the C++ function, by passing
 a `Rcpp::List` after the function pointer.
 
-```cpp
+```{Rcpp mod_formals}
 using namespace Rcpp;
 
 double norm(double x, double y) {
@@ -482,7 +502,11 @@ RCPP_MODULE(mod_formals) {
 
 A simple usage example is provided below:
 
-```{r, eval=FALSE}
+```{r include=FALSE, eval=params$eval}
+inc <- unlist(knitr::knit_code$get(c("mod_formals")))
+fx <- cxxfunction(signature(), plugin = "Rcpp", include = inc)
+```
+```{r, eval=params$eval}
 mod <- Module("mod_formals", getDynLib(fx))
 norm <- mod$norm
 norm()
@@ -493,7 +517,7 @@ args(norm)
 
 To set formal arguments without default values, simply omit the rhs.
 
-```cpp
+```{Rcpp mod_formals2}
 using namespace Rcpp;
 
 double norm(double x, double y) {
@@ -509,7 +533,11 @@ RCPP_MODULE(mod_formals2) {
 
 This can be used as follows:
 
-```{r, eval=FALSE}
+```{r include=FALSE, eval=params$eval}
+inc <- unlist(knitr::knit_code$get(c("mod_formals2")))
+fx <- cxxfunction(signature(), plugin = "Rcpp", include = inc)
+```
+```{r, eval=params$eval}
 mod <- Module("mod_formals2", getDynLib(fx))
 norm <- mod$norm
 args(norm)
@@ -518,7 +546,7 @@ args(norm)
 The ellipsis (`...`) can be used to denote that additional arguments
 are optional; it does not take a default value.
 
-```cpp
+```{Rcpp mod_formals3}
 using namespace Rcpp;
 
 double norm(double x, double y) {
@@ -534,7 +562,11 @@ RCPP_MODULE(mod_formals3) {
 
 and from the R side:
 
-```{r, eval=FALSE}
+```{r include=FALSE, eval=params$eval}
+inc <- unlist(knitr::knit_code$get(c("mod_formals3")))
+fx <- cxxfunction(signature(), plugin = "Rcpp", include = inc)
+```
+```{r, eval=params$eval}
 mod <- Module("mod_formals3", getDynLib(fx))
 norm <- mod$norm
 args(norm)
@@ -551,7 +583,7 @@ on the reference classes introduced in R 2.12.0.
 A class is exposed using the `class_` keyword. The `Uniform`
 class may be exposed to \proglang{R} as follows:
 
-```cpp
+```{Rcpp mod_uniform}
 using namespace Rcpp;
 class Uniform {
 public:
@@ -586,7 +618,11 @@ RCPP_MODULE(unif_module) {
 }
 ```
 
-```{r, eval=FALSE}
+```{r include=FALSE, eval=params$eval}
+inc <- unlist(knitr::knit_code$get(c("mod_uniform")))
+fx <- cxxfunction(signature(), plugin = "Rcpp", include = inc)
+```
+```{r, eval=params$eval}
 unif_module <- Module("unif_module",
                       getDynLib(fx))
 Uniform <- unif_module$Uniform
@@ -725,7 +761,7 @@ Using properties gives more flexibility in case field access has to be tracked
 or has impact on other fields. For example, this class keeps track of how many times
 the `x` field is read and written.
 
-```cpp
+```{Rcpp mod_bar}
 class Bar {
 public:
 
@@ -765,7 +801,11 @@ RCPP_MODULE(mod_bar) {
 
 Here is a simple usage example:
 
-```{r, eval=FALSE}
+```{r include=FALSE, eval=params$eval}
+inc <- unlist(knitr::knit_code$get(c("mod_bar")))
+fx <- cxxfunction(signature(), plugin = "Rcpp", include = inc)
+```
+```{r, eval=params$eval}
 mod_bar <- Module("mod_bar", getDynLib(fx))
 Bar <- mod_bar$Bar
 b <- new(Bar, 10)
@@ -848,7 +888,7 @@ static member function or a free function that returns a pointer to
 the target class. Typical use-cases include creating objects in a
 hierarchy:
 
-```cpp
+```{Rcpp mod_base}
 #include <Rcpp.h>
 using namespace Rcpp;
 
@@ -898,7 +938,11 @@ The `newBase` method returns a pointer to a `Base` object. Since that
 class is an abstract class, the objects are actually instances of
 `Derived1` or `Derived2`. The same behavior is now available in R:
 
-```{r, eval=FALSE}
+```{r include=FALSE, eval=params$eval}
+inc <- unlist(knitr::knit_code$get(c("mod_base")))
+fx <- cxxfunction(signature(), plugin = "Rcpp", include = inc)
+```
+```{r, eval=params$eval}
 mod <- Module("mod", getDynLib(fx))
 Base <- mod$Base
 dv1 <- new(Base, "d1")
@@ -917,7 +961,7 @@ same class). This allows implementation of \proglang{R}-level
 
 For example, consider the \proglang{C++} class `World` exposed in module `yada`:
 
-```cpp
+```{Rcpp yada-world}
 class World {
 public:
     World() : msg("hello") {}
@@ -943,10 +987,14 @@ RCPP_MODULE(yada){
 }
 ```
 
-The `show` method for `World` objects can then implemented as:
+The `show` method for `World` objects is then implemented as:
 
-```{r, eval=FALSE}
-yada <- Module("yada", inline::getDynLib(fx))
+```{r include=FALSE, eval=params$eval}
+inc <- unlist(knitr::knit_code$get(c("yada-world")))
+fx <- cxxfunction(signature(), plugin = "Rcpp", include = inc)
+```
+```{r, eval=params$eval}
+yada <- Module("yada", getDynLib(fx))
 setMethod("show", yada$World , function(object) {
     msg <- paste("World object with message : ",
                  object$greet())
@@ -972,7 +1020,7 @@ where one of them has a method taking an instance of the other class
 as argument. In this case it is sufficient to use `RCPP_EXPOSED_AS` to
 enable the transparent conversion from \proglang{R} to \proglang{C++}:
 
-```cpp
+```{Rcpp exposed_as}
 #include <Rcpp.h>
 
 class Foo {
@@ -1001,11 +1049,15 @@ RCPP_MODULE(Barl){
     .method("handleFoo", &Bar::handleFoo);
 }
 ```
-
-```{r, eval=FALSE}
-Barl <- Module("Barl", getDynLib(fx))
-foo <- new(Barl$Foo)
-bar <- new(Barl$Bar)
+```{r include=FALSE, eval=params$eval}
+inc <- unlist(knitr::knit_code$get(c("exposed_as")))
+fx <- cxxfunction(signature(), plugin = "Rcpp", include = inc)
+```
+```{r, eval=params$eval}
+Foo <- Module("Foo", getDynLib(fx))$Foo
+Bar <- Module("Barl", getDynLib(fx))$Bar
+foo <- new(Foo)
+bar <- new(Bar)
 bar$handleFoo(foo)
 #> Got a Foo!
 ```
@@ -1017,7 +1069,7 @@ bar$handleFoo(foo)
 The following example illustrates how to use Rcpp modules to expose
 the class `std::vector<double>` from the STL.
 
-```cpp
+```{Rcpp mod_vec} 
 typedef std::vector<double> vec; 	
 void vec_assign(vec* obj, 
                 Rcpp::NumericVector data) {
@@ -1034,6 +1086,14 @@ Rcpp::NumericVector vec_asR( vec* obj ) {
 void vec_set(vec* obj, int i, double value) { 
    obj->at( i ) = value; 
 }
+// CHECK-PR: workaround complilation error with vecL:resize (C++11)
+void vec_resize (vec* obj, int n) {
+    obj->resize(n);
+}
+// CHECK-PR: workaround complilation error with vec::push_back (C++11)
+void vec_push_back (vec* obj, double value) {
+    obj->push_back(value);
+}
 
 RCPP_MODULE(mod_vec) {
     using namespace Rcpp;
@@ -1049,11 +1109,11 @@ RCPP_MODULE(mod_vec) {
     // exposing member functions
     .method("size", &vec::size)
     .method("max_size", &vec::max_size)
-    .method("resize", &vec::resize)
+    // .method("resize", &vec::resize) // CHECK-PR
     .method("capacity", &vec::capacity)
     .method("empty", &vec::empty)
     .method("reserve", &vec::reserve)
-    .method("push_back", &vec::push_back)
+    // .method("push_back", &vec::push_back) // CHECK-PR
     .method("pop_back", &vec::pop_back)
     .method("clear", &vec::clear)
 
@@ -1067,6 +1127,8 @@ RCPP_MODULE(mod_vec) {
     // argument
     .method("assign", &vec_assign)
     .method("insert", &vec_insert)
+    .method("resize", &vec_resize) // CHECK-PR
+    .method("push_back", &vec_push_back) // CHECK-PR
     .method("as.vector", &vec_asR)
 
     // special methods for indexing
@@ -1075,23 +1137,22 @@ RCPP_MODULE(mod_vec) {
     ;
 }
 ```
-
-```{r, eval=FALSE}
-# for code compiled on the fly using
-# cxxfunction() into 'fx_vec', we use
-#????? Why mustStart = TRUE ?????#
+```{r include=FALSE, eval=params$eval}
+inc <- unlist(knitr::knit_code$get(c("mod_vec")))
+fx <- cxxfunction(signature(), plugin = "Rcpp", include = inc)
+```
+```{r, eval=params$eval, collapse=TRUE}
+# CHECK-PR: do we need mustStart = TRUE ?
 mod_vec <- Module("mod_vec",
-                  getDynLib(fx_vec),
+                  getDynLib(fx),
                   mustStart = TRUE)
 vec <- mod_vec$vec
-# and that is not needed in a package
-# setup as e.g. one created
-# via Rcpp.package.skeleton(..., module=TRUE)
 v <- new(vec)
 v$reserve(50L)
 v$assign(1:10)
 v$push_back(10)
 v$size()
+v$resize(30L)
 v$capacity()
 v[[ 0L ]]
 v$as.vector()
