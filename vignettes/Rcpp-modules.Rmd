@@ -181,7 +181,7 @@ double norm(double x, double y) {
 See the corresponding vignette \citep{CRAN:Rcpp:Attributes} for details, but
 read on for \textsl{Rcpp modules} which provide features not
 covered by \textsl{Rcpp attributes}, particularly when it comes to binding
-entire C++ classes and more.
+entire \proglang{C++} classes and more.
 
 ## Exposing classes using Rcpp
 
@@ -206,7 +206,7 @@ private:
 };
 ```
 
-To use this class from R, we at least need to expose the constructor and
+To use this class from \proglang{R}, we at least need to expose the constructor and
 the `draw` method. External pointers
 \citep{R:Extensions} are the perfect vessel for this, and using the
 `Rcpp:::XPtr` template from \pkg{Rcpp} we can expose the class
@@ -329,7 +329,7 @@ simplifies the way modules are actually loaded, as detailed in Section
 ## Exposing \proglang{C++} functions using Rcpp modules
 
 Consider the `norm` function from the previous section.
-We can expose it to \proglang{R} :
+We can expose it to \proglang{R}:
 
 ```cpp
 using namespace Rcpp;
@@ -371,7 +371,7 @@ mod <- Module("mod", getDynLib(fx))
 
 Note that this example assumed that the previous code segment defining the
 module was returned by the `cxxfunction()` (from the \pkg{inline}
-package) as callable R function `fx` from which we can extract the
+package) as callable \proglang{R} function `fx` from which we can extract the
 relevant pointer using `getDynLib()` (again from \pkg{inline}).
 
 Throughout the rest of the examples in this document, we always assume that the
@@ -448,7 +448,7 @@ are:
   can be managed by the `Rcpp::wrap` template.
 - The function name itself has to be unique in the module.
   In other words, no two functions with
-  the same name but different signatures are allowed. C++ allows overloading
+  the same name but different signatures are allowed. \proglang{C++} allows overloading
   functions. This might be added in future versions of modules.
 
 ### Documentation for exposed functions using Rcpp modules
@@ -469,7 +469,7 @@ RCPP_MODULE(mod) {
 }
 ```
 
-The description is used when displaying the function to the R prompt:
+The description is used when displaying the function to the \proglang{R} prompt:
 
 ```{r include=FALSE, eval=params$eval}
 inc <- unlist(knitr::knit_code$get(c("norm-doc")))
@@ -483,7 +483,7 @@ show(mod$norm)
 ### Formal arguments specification
 
 `function` also gives the possibility to specify the formal arguments
-of the R function that encapsulates the C++ function, by passing
+of the \proglang{R} function that encapsulates the \proglang{C++} function, by passing
 a `Rcpp::List` after the function pointer.
 
 ```{Rcpp mod_formals}
@@ -562,7 +562,7 @@ RCPP_MODULE(mod_formals3) {
 }
 ```
 
-and from the R side:
+and from the \proglang{R} side:
 
 ```{r include=FALSE, eval=params$eval}
 inc <- unlist(knitr::knit_code$get(c("mod_formals3")))
@@ -578,7 +578,7 @@ args(norm)
 ## Exposing \proglang{C++} classes using Rcpp modules
 
 Rcpp modules also provide a mechanism for exposing \proglang{C++} classes, based
-on the reference classes introduced in R 2.12.0.
+on the reference classes introduced in \proglang{R} 2.12.0.
 
 ### Initial example
 
@@ -648,7 +648,7 @@ Then constructors, fields and methods are exposed.
 ### Exposing constructors using Rcpp modules
 
 Public constructors that take from 0 and 6 parameters can be exposed
-to the R level using the `.constuctor` template method of `.class_`.
+to the \proglang{R} level using the `.constructor` template method of `class_`.
 
 Optionally, `.constructor` can take a description as the first argument.
 
@@ -658,7 +658,7 @@ Optionally, `.constructor` can take a description as the first argument.
 ```
 
 Also, the second argument can be a function pointer (called validator)
-matching the following type :
+matching the following type:
 
 ```cpp
 typedef bool (*ValidConstructor)(SEXP*,int);
@@ -668,7 +668,7 @@ The validator can be used to implement dispatch to the appropriate constructor,
 when multiple constructors taking the same number of arguments are exposed.
 The default validator always accepts the constructor as valid if it is passed
 the appropriate number of arguments. For example, with the call above, the default
-validator accepts any call from R with two `double` arguments (or
+validator accepts any call from \proglang{R} with two `double` arguments (or
 arguments that can be cast to `double`).
 
 TODO: include validator example here
@@ -676,7 +676,7 @@ TODO: include validator example here
 ### Exposing fields and properties
 
 `class_` has three ways to expose fields and properties, as
-illustrated in the example below :
+illustrated in the example below:
 
 ```cpp
 using namespace Rcpp;
@@ -708,15 +708,15 @@ RCPP_MODULE(mod_foo) {
 }
 ```
 
-The `.field` method exposes a public field with read/write access from R.
-`field` accepts an extra parameter to give a short description of the
+The `.field` method exposes a public field with read/write access from \proglang{R}.
+It accepts an extra parameter to give a short description of the
 field:
 
 ```cpp
   .field("x", &Foo::x, "documentation for x")
 ```
 
-The `.field_readonly` exposes a public field with read-only access from R.
+The `.field_readonly` exposes a public field with read-only access from \proglang{R}.
 It also accepts the description of the field.
 
 ```cpp
@@ -751,9 +751,9 @@ class and returning a \textbf{T}, for example:
 double z_get(Foo* foo) { return foo->get_z(); }
 ```
 
-Setters can be either a member function taking a `T` and returning void, such
+Setters can be either a member function taking a \textbf{T} and returning `void`, such
 as `set_z` above, or a free function taking a pointer to the target
-class and a \textbf{T} :
+class and a \textbf{T}:
 
 ```cpp
 void z_set(Foo* foo, double z) { foo->set_z(z); }
@@ -824,13 +824,13 @@ functions allowing the programmer to expose a method associated with the class.
 
 A legitimate method to be exposed by `.method` can be:
 
-- A public member function of the class, either const or non const, that
-  returns void or any type that can be handled by `Rcpp::wrap`, and that
+- A public member function of the class, either `const` or non-`const`, that
+  returns `void` or any type that can be handled by `Rcpp::wrap`, and that
   takes between 0 and 65 parameters whose types can be handled by `Rcpp::as`.
 - A free function that takes a pointer to the target class as its first
   parameter, followed by 0 or more (up to 65) parameters that can be handled by
   `Rcpp::as` and returning a type that can be handled by `Rcpp::wrap`
-  or void.
+  or `void`.
 
 ### Documenting methods
 
@@ -848,7 +848,7 @@ TODO: mention overloading, need good example.
 
 ### Const and non-const member functions
 
-`method` is able to expose both `const` and `non const`
+`.method` is able to expose both `const` and non-`const`
 member functions of a class. There are however situations where
 a class defines two versions of the same method, differing only in their
 signature by the `const`-ness. It is for example the case of the
@@ -860,8 +860,8 @@ reference back ( );
 const_reference back ( ) const;
 ```
 
-To resolve the ambiguity, it is possible to use `const_method`
-or `nonconst_method` instead of `method` in order
+To resolve the ambiguity, it is possible to use `.const_method`
+or `.nonconst_method` instead of `.method` in order
 to restrict the candidate methods.
 
 ### Special methods
@@ -938,7 +938,7 @@ RCPP_MODULE(mod) {
 
 The `newBase` method returns a pointer to a `Base` object. Since that
 class is an abstract class, the objects are actually instances of
-`Derived1` or `Derived2`. The same behavior is now available in R:
+`Derived1` or `Derived2`. The same behavior is now available in \proglang{R}:
 
 ```{r include=FALSE, eval=params$eval}
 inc <- unlist(knitr::knit_code$get(c("mod_base")))
@@ -1180,7 +1180,7 @@ Note that this is similar to exposing modules in \proglang{R} packages using
 As an example, consider a file called `yada.cpp` containing the following
 \proglang{C++} code:
 
-```{Rcpp}
+```{Rcpp eval=params$eval}
 #include <Rcpp.h>
 std::string hello() {
     return "hello";
@@ -1234,11 +1234,12 @@ w$set("hohoho")
 w$greet()
 ```
 
+
 # Using modules in other packages {#sec:package}
 
 ## Namespace import
 
-When using \pkg{Rcpp} modules in a packages, the client package needs to
+When using \textsl{Rcpp modules} in a packages, the client package needs to
 import \pkg{Rcpp}'s namespace. This is achieved by adding the
 following line to the `NAMESPACE` file.
 
@@ -1398,7 +1399,7 @@ the `Module()` function as well.
 # Future extensions {#sec:future}
 
 `Boost.Python` has many more features that we would like to port
-to Rcpp modules : class inheritance, default arguments, enum
+to \textsl{Rcpp modules}: class inheritance, default arguments, enum
 types, ...
 
 # Known shortcomings {#sec:misfeatures}
@@ -1408,7 +1409,7 @@ There are some things \textsl{Rcpp modules} is not good at:
 - serialization and deserialization of objects: modules are
   implemented via an external pointer using a memory location, which is
   non-constant and varies between session. Objects have to be re-created,
-  which is different from the (de-)serialization that R offers. So these
+  which is different from the (de-)serialization that \proglang{R} offers. So these
   objects cannot be saved from session to session.
 - multiple inheritance: currently, only simple class structures are
   representable via \textsl{Rcpp modules}.
