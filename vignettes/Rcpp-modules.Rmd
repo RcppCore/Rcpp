@@ -73,6 +73,7 @@ skip_final_break: true
 # Produce a pinp document
 output: pinp::pinp
 
+# CHECK-PR: Keep the option to run the examples? (look for params$eval)
 params:
     eval: FALSE
 
@@ -169,7 +170,7 @@ certain aspect of \textsl{Rcpp modules} and makes binding to simple functions
 such as this one even easier.  With \textsl{Rcpp attributes} we can just write
 
 ```cpp
-# include <Rcpp.h>
+#include <Rcpp.h>
 
 // [[Rcpp::export]]
 double norm(double x, double y) {
@@ -373,9 +374,10 @@ module was returned by the `cxxfunction()` (from the \pkg{inline}
 package) as callable R function `fx` from which we can extract the
 relevant pointer using `getDynLib()` (again from \pkg{inline}).
 
-Throughout the rest of the examples in this document, we always assume that the \proglang{C++}
-code defining a module is used to create an object `fx` via a similar call
-to `cxxfunction`.
+Throughout the rest of the examples in this document, we always assume that the
+\proglang{C++} code defining a module is used to create an object `fx` via a
+similar call to `cxxfunction`. As an alternative, one can also use `sourceCpp`
+as described in Section \ref{sec:modules-sourceCpp}.
 
 A module can contain any number of calls to `function` to register
 many internal functions to \proglang{R}. For example, these 6 functions:
@@ -973,7 +975,7 @@ private:
 };
 
 RCPP_MODULE(yada){
-    using namespace Rcpp ;
+    using namespace Rcpp;
 
     class_<World>("World")
     
@@ -1158,53 +1160,162 @@ v[[ 0L ]]
 v$as.vector()
 ```
 
+<!-- CHECK-PR: sourceCpp is pretty convenient, OK to add as new section? -->
+<!-- If not, the content of yada.cpp should be shown in the package section -->
+## Loading modules via sourceCpp {#sec:modules-sourceCpp}
+
+As an alternative to the explicit creation of a `Module` object using the
+\pkg{inline} package via `cxxfunction` and `getDynLib`, it is possible to use
+the `sourceCpp` function, accepting \proglang{C++} source code as either a
+`.cpp` file or a character string. The main differences with this approach are:
+
+- The `Rcpp.h` header file must be explicitly included.
+- The content of the module (\proglang{C++} functions and classes) are
+implicitly exposed and made available to \proglang{R} as individual objects, as
+opposed to being accessed from a `Module` object with the `$` extractor.
+
+Note that this is similar to exposing modules in \proglang{R} packages using
+`loadModule`, described in Section \ref{sec:package-namespace-loadModule} below.
+
+As an example, consider a file called `yada.cpp` containing the following
+\proglang{C++} code:
+
+```{Rcpp}
+#include <Rcpp.h>
+std::string hello() {
+    return "hello";
+}
+void bla() {
+    Rprintf("hello\\n");
+}
+void bla2( int x, double y) {
+    Rprintf("hello (x = %d, y = %5.2f)\\n", x, y);
+}
+
+class World {
+public:
+    World() : msg("hello") {}
+    void set(std::string msg) { this->msg = msg; }
+    std::string greet() { return msg; }
+
+private:
+    std::string msg;
+};
+
+RCPP_MODULE(yada){
+    using namespace Rcpp;
+
+    function("hello" , &hello);
+    function("bla"   , &bla);
+    function("bla2"  , &bla2);
+
+    class_<World>("World")
+    .constructor()
+    .method("greet", &World::greet)
+    .method("set",   &World::set)
+    ;
+}
+```
+
+```{r}
+sourceCpp('yada.cpp')
+```
+
+\proglang{C++} functions `hello`, `bla`, `bla2` and class `World` will be
+readily available in \proglang{R}:
+
+```{r, eval=params$eval}
+hello()
+bla()
+bla2(42, 0.42)
+w <- new(World)
+w$greet()
+w$set("hohoho")
+w$greet()
+```
+
 # Using modules in other packages {#sec:package}
 
-## Namespace import/export
-
-### Import all functions and classes
+## Namespace import
 
 When using \pkg{Rcpp} modules in a packages, the client package needs to
 import \pkg{Rcpp}'s namespace. This is achieved by adding the
 following line to the `NAMESPACE` file.
 
+<!-- CHECK-PR: is this chunk needed at all? -->
 ```{r, echo=FALSE,eval=TRUE}
 options( prompt = " ", continue = " " )
 ```
 
-```{r, eval=FALSE}
+```{r}
 import(Rcpp)
 ```
 
 In some case we have found that explicitly naming a symbol can be preferable:
 
-```{r, eval=FALSE}
+```{r}
 import(Rcpp, evalCpp)
 ```
 
-## Load the module
+## Load the module in the namespace
 
-### Deprecated older method using loadRcppModules
+### Load the module content via loadModule {#sec:package-namespace-loadModule}
 
-Note: This approach is deprecated as of Rcpp 0.12.5, and now triggers a warning
-message.  Eventually this function will be withdrawn.
+Starting with release 0.9.11, the preferred way for loading a module directly
+into a package namespace is by calling the `loadModule()` function, which takes
+the module name as an argument and exposes the content of the module
+(\proglang{C++} functions and classes) as individual objects in the namespace.
+It can be placed in any `.R` file in the package. This is useful as it allows to
+load the module from the same file as some auxiliary \proglang{R} functions
+using the module.
 
-The simplest way to load all functions and classes from a module directly
-into a package namespace used to be to use the `loadRcppModules` function
+Consider a package \pkg{testmod} defining a module `yada` in the source file
+`src/yada.cpp`, with the same content as defined above in
+Section \ref{sec:modules-sourceCpp} above
+
+Then, `loadModule` is called in the package's \proglang{R} code to expose all
+\proglang{C++} functions and classes as objects `hello`, `bla`, `bla2`, `World`
+into the package namespace:
+
+```{r}
+loadModule("yada", TRUE)
+```
+
+Provided the objects are also exported (see Section \ref{sec:package-exports} below), this makes them readily
+available in \proglang{R}:
+
+```{r}
+library(testmod)
+hello()
+bla()
+bla2(42, 0.42)
+w <- new(World)
+w$greet()
+w$set("hohoho")
+w$greet()
+```
+
+The `loadModule` function has an argument `what` to control which objects are
+exposed in the package namespace. The special value `TRUE` means that all
+objects are exposed.
+
+### Deprecated legacy method using loadRcppModules
+
+Prior to release 0.9.11, where `loadModule` was introduced, 
+loading all functions and classes from a module
+into a package namespace was achieved using the `loadRcppModules` function
 within the `.onLoad` body.
 
-```{r, eval=FALSE}
+```{r}
 .onLoad <- function(libname, pkgname) {
     loadRcppModules()
 }
 ```
 
-This will look in the package's DESCRIPTION file for the `RcppModules`
+This will look in the package's `DESCRIPTION` file for the `RcppModules`
 field, load each declared module and populate their contents into the
-package's namespace. For example, both the \pkg{testRcppModule} package
-(which is part of large unit test suite for \pkg{Rcpp}) and the package
-created via `Rcpp.package.skeleton("somename", module=TRUE)` have this
-declaration:
+package's namespace. For example, a package defining modules 
+`yada`, `stdVector`, `NumEx` would have this declaration:
 
 ```
 RcppModules: yada, stdVector, NumEx
@@ -1215,31 +1326,18 @@ with a default value of `TRUE`. With this default value, all content
 from the module is exposed directly in the package namespace. If set to
 `FALSE`, all content is exposed as components of the module.
 
-### Preferred current method using loadModule
-
-Starting with release 0.9.11, an alternative is provided by the
-`loadModule()` function which takes the module name as an argument.
-It can be placed in any `.R` file in the package. This is useful as it allows to load
-the module from the same file as some auxiliary \proglang{R} functions using the
-module. For the example module, the equivalent code to the `.onLoad()`
-use shown above then becomes
-
-```{r, eval=FALSE}
-loadModule("yada")
-loadModule("stdVector")
-loadModule("NumEx")
-```
-
-This feature is also used in the new Rcpp Classes introduced with Rcpp 0.9.11.
+Note: This approach is **deprecated** as of Rcpp 0.12.5, and now triggers a
+warning message. Eventually this function will be withdrawn.
 
 ### Just expose the module
 
-Alternatively, it is possible to just expose the module to the user of the package,
+Alternatively to exposing a module's content via `loadModule`,
+it is possible to just expose the module object to the users of the package,
 and let them extract the functions and classes as needed. This uses lazy loading
 so that the module is only loaded the first time the user attempts to extract
 a function or a class with the dollar extractor.
 
-```{r, eval=FALSE}
+```{r}
 yada <- Module( "yada" )
 
 .onLoad <- function(libname, pkgname) {
@@ -1247,24 +1345,38 @@ yada <- Module( "yada" )
 }
 ```
 
+<!-- CHECK-PR: is this chunk needed at all? -->
 ```{r, echo=FALSE,eval=TRUE}
 options(prompt = "> ", continue = "+ ")
+```
+
+Provided `yada` is properly exported, the functions and classes are
+accessed as e.g. `yada$hello`, `yada$World`.
+
+## Namespace exports {#sec:package-exports}
+
+The content of modules or the modules as a whole, exposed as objects in the
+package namespace, must be exported to be visible to users of the package. As
+for any other object, this is achieved by the appropriate `export()` or
+`exportPattern()` statements in the `NAMESPACE` file. For instance, the
+functions and classes in the `yada` module considered above can be exported as:
+
+```
+export(hello, bla, bla2, World)
 ```
 
 
 ## Support for modules in skeleton generator
 
-The `Rcpp.package.skeleton` function has been improved to help
-\pkg{Rcpp} modules. When the `module` argument is set to `TRUE`,
-the skeleton generator installs code that uses a simple module.
+Creating a new package using \textsl{Rcpp modules} is easiest via the call to
+`Rcpp.package.skeleton()` with argument `module=TRUE`.
 
-```{r, eval=FALSE}
+```{r}
 Rcpp.package.skeleton("testmod", module = TRUE)
 ```
 
-Creating a new package using \textsl{Rcpp modules} is easiest via the call to
-`Rcpp.package.skeleton()` with argument `module=TRUE` as a working
-package with three example Modules results.
+This will install code providing three example modules, exposed using
+`LoadModule`.
 
 ## Module documentation
 
@@ -1272,7 +1384,7 @@ package with three example Modules results.
 `Module` class, allowing generation of a skeleton of an Rd
 file containing some information about the module.
 
-```{r, eval=FALSE}
+```{r}
 yada <- Module("yada")
 prompt(yada, "yada-module.Rd")
 ```
