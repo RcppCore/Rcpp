@@ -74,8 +74,10 @@ skip_final_break: true
 output: pinp::pinp
 
 # CHECK-PR: Keep the option to run the examples? (look for params$eval)
+# Parameters defining the evaluation behavior (chunk options) 
 params:
     eval: FALSE
+    results: "hide"
 
 header-includes: >
   \newcommand{\proglang}[1]{\textsf{#1}}
@@ -99,6 +101,11 @@ knitr::opts_chunk$set(eval = FALSE)
 if (params$eval) {
     library(Rcpp)
     library(inline)
+    # convenience wrapper to extract code from chunks and call cxxfunction()
+    chunk_cxxfunction <- function(chunks) {
+        inc <- unlist(knitr::knit_code$get(chunks))
+        cxxfunction(signature(), plugin = "Rcpp", include = inc)
+    }
 }
 ```
 
@@ -351,7 +358,7 @@ the need for a wrapper function using either \pkg{Rcpp} or the \proglang{R} API.
 On the \proglang{R} side, the module is retrieved by using the
 `Module` function from \pkg{Rcpp}
 
-```{r, eval=params$eval}
+```{r, eval=params$eval, results=params$results}
 inc <- '
 using namespace Rcpp;
 
@@ -422,14 +429,13 @@ RCPP_MODULE(yada) {
     function("bla2"  , &bla2 );
 }
 ```
-```{r include=FALSE, eval=params$eval}
-inc <- unlist(knitr::knit_code$get(c("yada-fun-def", "yada-fun-module")))
-fx <- cxxfunction(signature(), plugin = "Rcpp", include = inc)
+```{r include=FALSE, eval=params$eval, results=params$results}
+fx <- chunk_cxxfunction(c("yada-fun-def", "yada-fun-module"))
 ```
 
 which can then be used from \proglang{R}:
 
-```{r eval=params$eval, output=params$output}
+```{r eval=params$eval, results=params$results}
 yada <- Module("yada", getDynLib(fx))
 yada$bar(2L)
 yada$foo(2L, 10.0)
@@ -471,11 +477,10 @@ RCPP_MODULE(mod) {
 
 The description is used when displaying the function to the \proglang{R} prompt:
 
-```{r include=FALSE, eval=params$eval}
-inc <- unlist(knitr::knit_code$get(c("norm-doc")))
-fx <- cxxfunction(signature(), plugin = "Rcpp", include = inc)
+```{r include=FALSE, eval=params$eval, results=params$results}
+fx <- chunk_cxxfunction("norm-doc")
 ```
-```{r, eval=params$eval}
+```{r, eval=params$eval, results=params$results}
 mod <- Module("mod", getDynLib(fx))
 show(mod$norm)
 ```
@@ -504,11 +509,10 @@ RCPP_MODULE(mod_formals) {
 
 A simple usage example is provided below:
 
-```{r include=FALSE, eval=params$eval}
-inc <- unlist(knitr::knit_code$get(c("mod_formals")))
-fx <- cxxfunction(signature(), plugin = "Rcpp", include = inc)
+```{r include=FALSE, eval=params$eval, results=params$results}
+fx <- chunk_cxxfunction("mod_formals")
 ```
-```{r, eval=params$eval}
+```{r, eval=params$eval, results=params$results}
 mod <- Module("mod_formals", getDynLib(fx))
 norm <- mod$norm
 norm()
@@ -535,11 +539,10 @@ RCPP_MODULE(mod_formals2) {
 
 This can be used as follows:
 
-```{r include=FALSE, eval=params$eval}
-inc <- unlist(knitr::knit_code$get(c("mod_formals2")))
-fx <- cxxfunction(signature(), plugin = "Rcpp", include = inc)
+```{r include=FALSE, eval=params$eval, results=params$results}
+fx <- chunk_cxxfunction("mod_formals2")
 ```
-```{r, eval=params$eval}
+```{r, eval=params$eval, results=params$results}
 mod <- Module("mod_formals2", getDynLib(fx))
 norm <- mod$norm
 args(norm)
@@ -564,11 +567,10 @@ RCPP_MODULE(mod_formals3) {
 
 and from the \proglang{R} side:
 
-```{r include=FALSE, eval=params$eval}
-inc <- unlist(knitr::knit_code$get(c("mod_formals3")))
-fx <- cxxfunction(signature(), plugin = "Rcpp", include = inc)
+```{r include=FALSE, eval=params$eval, results=params$results}
+fx <- chunk_cxxfunction("mod_formals3")
 ```
-```{r, eval=params$eval}
+```{r, eval=params$eval, results=params$results}
 mod <- Module("mod_formals3", getDynLib(fx))
 norm <- mod$norm
 args(norm)
@@ -620,11 +622,10 @@ RCPP_MODULE(unif_module) {
 }
 ```
 
-```{r include=FALSE, eval=params$eval}
-inc <- unlist(knitr::knit_code$get(c("mod_uniform")))
-fx <- cxxfunction(signature(), plugin = "Rcpp", include = inc)
+```{r include=FALSE, eval=params$eval, results=params$results}
+fx <- chunk_cxxfunction("mod_uniform")
 ```
-```{r, eval=params$eval}
+```{r, eval=params$eval, results=params$results}
 unif_module <- Module("unif_module",
                       getDynLib(fx))
 Uniform <- unif_module$Uniform
@@ -803,11 +804,10 @@ RCPP_MODULE(mod_bar) {
 
 Here is a simple usage example:
 
-```{r include=FALSE, eval=params$eval}
-inc <- unlist(knitr::knit_code$get(c("mod_bar")))
-fx <- cxxfunction(signature(), plugin = "Rcpp", include = inc)
+```{r include=FALSE, eval=params$eval, results=params$results}
+fx <- chunk_cxxfunction("mod_bar")
 ```
-```{r, eval=params$eval}
+```{r, eval=params$eval, results=params$results}
 mod_bar <- Module("mod_bar", getDynLib(fx))
 Bar <- mod_bar$Bar
 b <- new(Bar, 10)
@@ -940,11 +940,10 @@ The `newBase` method returns a pointer to a `Base` object. Since that
 class is an abstract class, the objects are actually instances of
 `Derived1` or `Derived2`. The same behavior is now available in \proglang{R}:
 
-```{r include=FALSE, eval=params$eval}
-inc <- unlist(knitr::knit_code$get(c("mod_base")))
-fx <- cxxfunction(signature(), plugin = "Rcpp", include = inc)
+```{r include=FALSE, eval=params$eval, results=params$results}
+fx <- chunk_cxxfunction("mod_base")
 ```
-```{r, eval=params$eval}
+```{r, eval=params$eval, results=params$results}
 mod <- Module("mod", getDynLib(fx))
 Base <- mod$Base
 dv1 <- new(Base, "d1")
@@ -991,11 +990,10 @@ RCPP_MODULE(yada){
 
 The `show` method for `World` objects is then implemented as:
 
-```{r include=FALSE, eval=params$eval}
-inc <- unlist(knitr::knit_code$get(c("yada-world")))
-fx <- cxxfunction(signature(), plugin = "Rcpp", include = inc)
+```{r include=FALSE, eval=params$eval, results=params$results}
+fx <- chunk_cxxfunction("yada-world")
 ```
-```{r, eval=params$eval}
+```{r, eval=params$eval, results=params$results}
 yada <- Module("yada", getDynLib(fx))
 setMethod("show", yada$World , function(object) {
     msg <- paste("World object with message : ",
@@ -1051,11 +1049,10 @@ RCPP_MODULE(Barl){
     .method("handleFoo", &Bar::handleFoo);
 }
 ```
-```{r include=FALSE, eval=params$eval}
-inc <- unlist(knitr::knit_code$get(c("exposed_as")))
-fx <- cxxfunction(signature(), plugin = "Rcpp", include = inc)
+```{r include=FALSE, eval=params$eval, results=params$results}
+fx <- chunk_cxxfunction("exposed_as")
 ```
-```{r, eval=params$eval}
+```{r, eval=params$eval, results=params$results}
 Foo <- Module("Foo", getDynLib(fx))$Foo
 Bar <- Module("Barl", getDynLib(fx))$Bar
 foo <- new(Foo)
@@ -1139,11 +1136,10 @@ RCPP_MODULE(mod_vec) {
     ;
 }
 ```
-```{r include=FALSE, eval=params$eval}
-inc <- unlist(knitr::knit_code$get(c("mod_vec")))
-fx <- cxxfunction(signature(), plugin = "Rcpp", include = inc)
+```{r include=FALSE, eval=params$eval, results=params$results}
+fx <- chunk_cxxfunction("mod_vec")
 ```
-```{r, eval=params$eval, collapse=TRUE}
+```{r, eval=params$eval, results=params$results, collapse=TRUE}
 # CHECK-PR: do we need mustStart = TRUE ?
 mod_vec <- Module("mod_vec",
                   getDynLib(fx),
@@ -1224,7 +1220,7 @@ sourceCpp('yada.cpp')
 \proglang{C++} functions `hello`, `bla`, `bla2` and class `World` will be
 readily available in \proglang{R}:
 
-```{r, eval=params$eval}
+```{r, eval=params$eval, results=params$results}
 hello()
 bla()
 bla2(42, 0.42)
