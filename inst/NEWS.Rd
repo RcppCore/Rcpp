@@ -26,7 +26,7 @@
     \itemize{
       \item The second END wrapper macro also gets \code{UNPROTECT} and
       a variable reference suppressing compiler warnings (Dirk in
-      \ghpr{953}) fixing \ghit{951}).
+      \ghpr{953} fixing \ghit{951}).
       \item Default function arguments are parsed correctly (Pierrick
       Roger in \ghpr{977} fixing \ghit{975})
     }
@@ -44,7 +44,7 @@
     \itemize{
       \item The \code{Rcpp-modules} vignette now covers the
       \code{RCPP_EXPOSED_*} macros, and the \code{Rcpp-extending} vignette
-      references it (Ralf Stubner in \ghpr{959} fixing \ghit{952})
+      references it (Ralf Stubner in \ghpr{959} fixing \ghit{952}).
     }
   }
 }
