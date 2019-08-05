@@ -73,12 +73,6 @@ skip_final_break: true
 # Produce a pinp document
 output: pinp::pinp
 
-# CHECK-PR: Keep the option to run the examples? (look for params$eval)
-# Parameters defining the evaluation behavior (chunk options) 
-params:
-    eval: FALSE
-    results: "hide"
-
 header-includes: >
   \newcommand{\proglang}[1]{\textsf{#1}}
   \newcommand{\pkg}[1]{\textbf{#1}}
@@ -94,20 +88,6 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-
-```{r setup, include=FALSE}
-# disable evaluation globally
-knitr::opts_chunk$set(eval = FALSE)
-if (params$eval) {
-    library(Rcpp)
-    library(inline)
-    # convenience wrapper to extract code from chunks and call cxxfunction()
-    chunk_cxxfunction <- function(chunks) {
-        inc <- unlist(knitr::knit_code$get(chunks))
-        cxxfunction(signature(), plugin = "Rcpp", include = inc)
-    }
-}
-```
 
 # Motivation
 
@@ -269,7 +249,7 @@ DE 21 Sep 2013: there must a bug somewhere in the vignette processing
              hence shortened example to not show code again
 -->
 
-```{r}
+```{r, eval=FALSE}
 f1 <- cxxfunction( , "", includes = unifModCode,
                   plugin = "Rcpp" )
 getDynLib(f1)  ## will display info about 'f1' 
@@ -278,7 +258,7 @@ getDynLib(f1)  ## will display info about 'f1'
 The following listing shows some \textsl{manual} wrapping to access the code,
 we will see later how this can be automated:
 
-```{r}
+```{r, eval=FALSE}
 setClass("Uniform",
          representation( pointer = "externalptr"))
 
@@ -358,7 +338,7 @@ the need for a wrapper function using either \pkg{Rcpp} or the \proglang{R} API.
 On the \proglang{R} side, the module is retrieved by using the
 `Module` function from \pkg{Rcpp}
 
-```{r, eval=params$eval, results=params$results}
+```{r, eval=FALSE}
 inc <- '
 using namespace Rcpp;
 
@@ -389,7 +369,7 @@ as described in Section \ref{sec:modules-sourceCpp}.
 A module can contain any number of calls to `function` to register
 many internal functions to \proglang{R}. For example, these 6 functions:
 
-```{Rcpp yada-fun-def}
+```{Rcpp yada-fun-def, eval=FALSE}
 std::string hello() {
     return "hello";
 }
@@ -417,7 +397,7 @@ void bla2( int x, double y) {
 
 can be exposed with the following minimal code:
 
-```{Rcpp yada-fun-module}
+```{Rcpp yada-fun-module, eval=FALSE}
 RCPP_MODULE(yada) {
     using namespace Rcpp;
 
@@ -429,13 +409,10 @@ RCPP_MODULE(yada) {
     function("bla2"  , &bla2 );
 }
 ```
-```{r include=FALSE, eval=params$eval, results=params$results}
-fx <- chunk_cxxfunction(c("yada-fun-def", "yada-fun-module"))
-```
 
 which can then be used from \proglang{R}:
 
-```{r eval=params$eval, results=params$results}
+```{r eval=FALSE}
 yada <- Module("yada", getDynLib(fx))
 yada$bar(2L)
 yada$foo(2L, 10.0)
@@ -462,7 +439,7 @@ are:
 In addition to the name of the function and the function pointer, it is possible
 to pass a short description of the function as the third parameter of `function`.
 
-```{Rcpp norm-doc}
+```{Rcpp norm-doc, eval=FALSE}
 using namespace Rcpp;
 
 double norm(double x, double y) {
@@ -477,10 +454,7 @@ RCPP_MODULE(mod) {
 
 The description is used when displaying the function to the \proglang{R} prompt:
 
-```{r include=FALSE, eval=params$eval, results=params$results}
-fx <- chunk_cxxfunction("norm-doc")
-```
-```{r, eval=params$eval, results=params$results}
+```{r, eval=FALSE}
 mod <- Module("mod", getDynLib(fx))
 show(mod$norm)
 ```
@@ -491,7 +465,7 @@ show(mod$norm)
 of the \proglang{R} function that encapsulates the \proglang{C++} function, by passing
 a `Rcpp::List` after the function pointer.
 
-```{Rcpp mod_formals}
+```{Rcpp mod_formals, eval=FALSE}
 using namespace Rcpp;
 
 double norm(double x, double y) {
@@ -509,10 +483,7 @@ RCPP_MODULE(mod_formals) {
 
 A simple usage example is provided below:
 
-```{r include=FALSE, eval=params$eval, results=params$results}
-fx <- chunk_cxxfunction("mod_formals")
-```
-```{r, eval=params$eval, results=params$results}
+```{r, eval=FALSE}
 mod <- Module("mod_formals", getDynLib(fx))
 norm <- mod$norm
 norm()
@@ -523,7 +494,7 @@ args(norm)
 
 To set formal arguments without default values, simply omit the rhs.
 
-```{Rcpp mod_formals2}
+```{Rcpp mod_formals2, eval=FALSE}
 using namespace Rcpp;
 
 double norm(double x, double y) {
@@ -539,10 +510,7 @@ RCPP_MODULE(mod_formals2) {
 
 This can be used as follows:
 
-```{r include=FALSE, eval=params$eval, results=params$results}
-fx <- chunk_cxxfunction("mod_formals2")
-```
-```{r, eval=params$eval, results=params$results}
+```{r, eval=FALSE}
 mod <- Module("mod_formals2", getDynLib(fx))
 norm <- mod$norm
 args(norm)
@@ -551,7 +519,7 @@ args(norm)
 The ellipsis (`...`) can be used to denote that additional arguments
 are optional; it does not take a default value.
 
-```{Rcpp mod_formals3}
+```{Rcpp mod_formals3, eval=FALSE}
 using namespace Rcpp;
 
 double norm(double x, double y) {
@@ -567,10 +535,7 @@ RCPP_MODULE(mod_formals3) {
 
 and from the \proglang{R} side:
 
-```{r include=FALSE, eval=params$eval, results=params$results}
-fx <- chunk_cxxfunction("mod_formals3")
-```
-```{r, eval=params$eval, results=params$results}
+```{r, eval=FALSE}
 mod <- Module("mod_formals3", getDynLib(fx))
 norm <- mod$norm
 args(norm)
@@ -587,7 +552,7 @@ on the reference classes introduced in \proglang{R} 2.12.0.
 A class is exposed using the `class_` keyword. The `Uniform`
 class may be exposed to \proglang{R} as follows:
 
-```{Rcpp mod_uniform}
+```{Rcpp mod_uniform, eval=FALSE}
 using namespace Rcpp;
 class Uniform {
 public:
@@ -622,10 +587,7 @@ RCPP_MODULE(unif_module) {
 }
 ```
 
-```{r include=FALSE, eval=params$eval, results=params$results}
-fx <- chunk_cxxfunction("mod_uniform")
-```
-```{r, eval=params$eval, results=params$results}
+```{r, eval=FALSE}
 unif_module <- Module("unif_module",
                       getDynLib(fx))
 Uniform <- unif_module$Uniform
@@ -764,7 +726,7 @@ Using properties gives more flexibility in case field access has to be tracked
 or has impact on other fields. For example, this class keeps track of how many times
 the `x` field is read and written.
 
-```{Rcpp mod_bar}
+```{Rcpp mod_bar, eval=FALSE}
 class Bar {
 public:
 
@@ -804,10 +766,7 @@ RCPP_MODULE(mod_bar) {
 
 Here is a simple usage example:
 
-```{r include=FALSE, eval=params$eval, results=params$results}
-fx <- chunk_cxxfunction("mod_bar")
-```
-```{r, eval=params$eval, results=params$results}
+```{r, eval=FALSE}
 mod_bar <- Module("mod_bar", getDynLib(fx))
 Bar <- mod_bar$Bar
 b <- new(Bar, 10)
@@ -890,7 +849,7 @@ static member function or a free function that returns a pointer to
 the target class. Typical use-cases include creating objects in a
 hierarchy:
 
-```{Rcpp mod_base}
+```{Rcpp mod_base, eval=FALSE}
 #include <Rcpp.h>
 using namespace Rcpp;
 
@@ -940,10 +899,7 @@ The `newBase` method returns a pointer to a `Base` object. Since that
 class is an abstract class, the objects are actually instances of
 `Derived1` or `Derived2`. The same behavior is now available in \proglang{R}:
 
-```{r include=FALSE, eval=params$eval, results=params$results}
-fx <- chunk_cxxfunction("mod_base")
-```
-```{r, eval=params$eval, results=params$results}
+```{r, eval=FALSE}
 mod <- Module("mod", getDynLib(fx))
 Base <- mod$Base
 dv1 <- new(Base, "d1")
@@ -962,7 +918,7 @@ same class). This allows implementation of \proglang{R}-level
 
 For example, consider the \proglang{C++} class `World` exposed in module `yada`:
 
-```{Rcpp yada-world}
+```{Rcpp yada-world, eval=FALSE}
 class World {
 public:
     World() : msg("hello") {}
@@ -990,10 +946,7 @@ RCPP_MODULE(yada){
 
 The `show` method for `World` objects is then implemented as:
 
-```{r include=FALSE, eval=params$eval, results=params$results}
-fx <- chunk_cxxfunction("yada-world")
-```
-```{r, eval=params$eval, results=params$results}
+```{r, eval=FALSE}
 yada <- Module("yada", getDynLib(fx))
 setMethod("show", yada$World , function(object) {
     msg <- paste("World object with message : ",
@@ -1020,7 +973,7 @@ where one of them has a method taking an instance of the other class
 as argument. In this case it is sufficient to use `RCPP_EXPOSED_AS` to
 enable the transparent conversion from \proglang{R} to \proglang{C++}:
 
-```{Rcpp exposed_as}
+```{Rcpp exposed_as, eval=FALSE}
 #include <Rcpp.h>
 
 class Foo {
@@ -1049,10 +1002,7 @@ RCPP_MODULE(Barl){
     .method("handleFoo", &Bar::handleFoo);
 }
 ```
-```{r include=FALSE, eval=params$eval, results=params$results}
-fx <- chunk_cxxfunction("exposed_as")
-```
-```{r, eval=params$eval, results=params$results}
+```{r, eval=FALSE}
 Foo <- Module("Foo", getDynLib(fx))$Foo
 Bar <- Module("Barl", getDynLib(fx))$Bar
 foo <- new(Foo)
@@ -1068,7 +1018,7 @@ bar$handleFoo(foo)
 The following example illustrates how to use Rcpp modules to expose
 the class `std::vector<double>` from the STL.
 
-```{Rcpp mod_vec} 
+```{Rcpp mod_vec, eval=FALSE} 
 typedef std::vector<double> vec; 	
 void vec_assign(vec* obj, 
                 Rcpp::NumericVector data) {
@@ -1085,11 +1035,11 @@ Rcpp::NumericVector vec_asR( vec* obj ) {
 void vec_set(vec* obj, int i, double value) { 
    obj->at( i ) = value; 
 }
-// CHECK-PR: workaround complilation error with vecL:resize (C++11)
+// Fix for C++11, where we cannot directly expose 
+// member functions vec::resize and vec::push_back
 void vec_resize (vec* obj, int n) {
     obj->resize(n);
 }
-// CHECK-PR: workaround complilation error with vec::push_back (C++11)
 void vec_push_back (vec* obj, double value) {
     obj->push_back(value);
 }
@@ -1108,11 +1058,9 @@ RCPP_MODULE(mod_vec) {
     // exposing member functions
     .method("size", &vec::size)
     .method("max_size", &vec::max_size)
-    // .method("resize", &vec::resize) // CHECK-PR
     .method("capacity", &vec::capacity)
     .method("empty", &vec::empty)
     .method("reserve", &vec::reserve)
-    // .method("push_back", &vec::push_back) // CHECK-PR
     .method("pop_back", &vec::pop_back)
     .method("clear", &vec::clear)
 
@@ -1126,8 +1074,8 @@ RCPP_MODULE(mod_vec) {
     // argument
     .method("assign", &vec_assign)
     .method("insert", &vec_insert)
-    .method("resize", &vec_resize) // CHECK-PR
-    .method("push_back", &vec_push_back) // CHECK-PR
+    .method("resize", &vec_resize)
+    .method("push_back", &vec_push_back)
     .method("as.vector", &vec_asR)
 
     // special methods for indexing
@@ -1136,14 +1084,8 @@ RCPP_MODULE(mod_vec) {
     ;
 }
 ```
-```{r include=FALSE, eval=params$eval, results=params$results}
-fx <- chunk_cxxfunction("mod_vec")
-```
-```{r, eval=params$eval, results=params$results, collapse=TRUE}
-# CHECK-PR: do we need mustStart = TRUE ?
-mod_vec <- Module("mod_vec",
-                  getDynLib(fx),
-                  mustStart = TRUE)
+```{r, eval=FALSE}
+mod_vec <- Module("mod_vec", getDynLib(fx))
 vec <- mod_vec$vec
 v <- new(vec)
 v$reserve(50L)
@@ -1156,17 +1098,18 @@ v[[ 0L ]]
 v$as.vector()
 ```
 
-<!-- CHECK-PR: sourceCpp is pretty convenient, OK to add as new section? -->
-<!-- If not, the content of yada.cpp should be shown in the package section -->
 ## Loading modules via sourceCpp {#sec:modules-sourceCpp}
 
 As an alternative to the explicit creation of a `Module` object using the
 \pkg{inline} package via `cxxfunction` and `getDynLib`, it is possible to use
 the `sourceCpp` function, accepting \proglang{C++} source code as either a
-`.cpp` file or a character string. The main differences with this approach are:
+`.cpp` file or a character string and described in the \textsl{Rcpp attributes}
+vignette \citep{CRAN:Rcpp:Attributes}.
+
+The main differences with this approach are:
 
 - The `Rcpp.h` header file must be explicitly included.
-- The content of the module (\proglang{C++} functions and classes) are
+- The content of the module (\proglang{C++} functions and classes) is
 implicitly exposed and made available to \proglang{R} as individual objects, as
 opposed to being accessed from a `Module` object with the `$` extractor.
 
@@ -1176,7 +1119,7 @@ Note that this is similar to exposing modules in \proglang{R} packages using
 As an example, consider a file called `yada.cpp` containing the following
 \proglang{C++} code:
 
-```{Rcpp eval=params$eval}
+```{Rcpp, eval=FALSE}
 #include <Rcpp.h>
 std::string hello() {
     return "hello";
@@ -1213,14 +1156,14 @@ RCPP_MODULE(yada){
 }
 ```
 
-```{r}
+```{r, eval=FALSE}
 sourceCpp('yada.cpp')
 ```
 
 \proglang{C++} functions `hello`, `bla`, `bla2` and class `World` will be
 readily available in \proglang{R}:
 
-```{r, eval=params$eval, results=params$results}
+```{r, eval=FALSE}
 hello()
 bla()
 bla2(42, 0.42)
@@ -1239,18 +1182,13 @@ When using \textsl{Rcpp modules} in a packages, the client package needs to
 import \pkg{Rcpp}'s namespace. This is achieved by adding the
 following line to the `NAMESPACE` file.
 
-<!-- CHECK-PR: is this chunk needed at all? -->
-```{r, echo=FALSE,eval=TRUE}
-options( prompt = " ", continue = " " )
-```
-
-```{r}
+```{r, eval=FALSE}
 import(Rcpp)
 ```
 
 In some case we have found that explicitly naming a symbol can be preferable:
 
-```{r}
+```{r, eval=FALSE}
 import(Rcpp, evalCpp)
 ```
 
@@ -1274,14 +1212,14 @@ Then, `loadModule` is called in the package's \proglang{R} code to expose all
 \proglang{C++} functions and classes as objects `hello`, `bla`, `bla2`, `World`
 into the package namespace:
 
-```{r}
+```{r, eval=FALSE}
 loadModule("yada", TRUE)
 ```
 
 Provided the objects are also exported (see Section \ref{sec:package-exports} below), this makes them readily
 available in \proglang{R}:
 
-```{r}
+```{r, eval=FALSE}
 library(testmod)
 hello()
 bla()
@@ -1303,7 +1241,7 @@ loading all functions and classes from a module
 into a package namespace was achieved using the `loadRcppModules` function
 within the `.onLoad` body.
 
-```{r}
+```{r, eval=FALSE}
 .onLoad <- function(libname, pkgname) {
     loadRcppModules()
 }
@@ -1334,17 +1272,12 @@ and let them extract the functions and classes as needed. This uses lazy loading
 so that the module is only loaded the first time the user attempts to extract
 a function or a class with the dollar extractor.
 
-```{r}
+```{r, eval=FALSE}
 yada <- Module( "yada" )
 
 .onLoad <- function(libname, pkgname) {
     # placeholder
 }
-```
-
-<!-- CHECK-PR: is this chunk needed at all? -->
-```{r, echo=FALSE,eval=TRUE}
-options(prompt = "> ", continue = "+ ")
 ```
 
 Provided `yada` is properly exported, the functions and classes are
@@ -1368,7 +1301,7 @@ export(hello, bla, bla2, World)
 Creating a new package using \textsl{Rcpp modules} is easiest via the call to
 `Rcpp.package.skeleton()` with argument `module=TRUE`.
 
-```{r}
+```{r, eval=FALSE}
 Rcpp.package.skeleton("testmod", module = TRUE)
 ```
 
@@ -1381,7 +1314,7 @@ This will install code providing three example modules, exposed using
 `Module` class, allowing generation of a skeleton of an Rd
 file containing some information about the module.
 
-```{r}
+```{r, eval=FALSE}
 yada <- Module("yada")
 prompt(yada, "yada-module.Rd")
 ```
