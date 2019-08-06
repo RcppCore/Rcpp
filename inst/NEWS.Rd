@@ -8,7 +8,12 @@
     \item Changes in Rcpp Modules:
     \itemize{
       \item Improved initialization via explicit \code{Rcpp::} prefix
-      (Riccardo Porreca in \ghpr{980})
+      (Riccardo Porreca in \ghpr{980}).
+    }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item The \code{Rcpp-modules} vignette received a major review and
+      edit (Riccardo Porreca in \ghpr{982}).
     }
   }
 }

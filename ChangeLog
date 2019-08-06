@@ -1,3 +1,8 @@
+2019-08-06  Riccardo Porreca  <riccardo.porreca@mirai-solutions.com>
+
+	* vignettes/Rcpp-modules.Rmd: Extensive review and edit improving the
+	Modules vignette
+
 2019-08-04  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Add thre doi badges
