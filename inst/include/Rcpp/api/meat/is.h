@@ -148,6 +148,8 @@ namespace Rcpp {
         return TYPEOF(x) == REALSXP && Rf_inherits(x, "POSIXt");
     }
 
+#ifndef RCPP_NO_MODULES
+
     inline bool is_module_object_internal(SEXP obj, const char* clazz){
         Environment env(obj);
         SEXP sexp = env.get(".cppclass");
@@ -160,6 +162,8 @@ namespace Rcpp {
         typedef typename Rcpp::traits::un_pointer<T>::type CLASS;
         return is_module_object_internal(x, typeid(CLASS).name());
     }
+
+#endif
 
 
   } // namespace internal

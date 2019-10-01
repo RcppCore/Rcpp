@@ -63,8 +63,10 @@
 
 #include <Rcpp/Na_Proxy.h>
 
+#ifndef RCPP_NO_MODULES
 #include <Rcpp/Module.h>
 #include <Rcpp/InternalFunction.h>
+#endif
 
 #include <Rcpp/Nullable.h>
 
