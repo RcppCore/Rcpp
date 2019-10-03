@@ -5,6 +5,11 @@
 
 \section{Changes in Rcpp version 1.0.3 (2019-11-xx)}{
   \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Compilation can be sped up by skipping Modules headers via a
+      toggle \code{RCPP_NO_MODULES} (Kevin in \ghpr{995} for \ghit{993}).
+    }
     \item Changes in Rcpp Modules:
     \itemize{
       \item Improved initialization via explicit \code{Rcpp::} prefix

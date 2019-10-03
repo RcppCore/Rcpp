@@ -1,3 +1,7 @@
+2019-10-01  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+	
 2019-09-30  Kevin Ushey  <kevinushey@gmail.com>
 
 	* inst/include/Rcpp.h: add RCPP_NO_MODULES
@@ -19,7 +23,7 @@
 	* README.md: Add thre doi badges
 
 	* inst/NEWS.Rd: Two minor edits
-	
+
 2019-07-21  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
@@ -43,7 +47,7 @@
 	* src/attributes.cpp: Correct parsing of default function values
 	* inst/unitTests/cpp/attributes.cpp: Added tests
 	* inst/unitTests/runit.attributes.R: Idem
-	
+
 2019-07-16  Dirk Eddelbuettel  <edd@debian.org>
 
 	* debian/: Removed, see https://salsa.debian.org/edd/r-base/ instead
@@ -56,7 +60,7 @@
 2019-05-05  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .Rbuildignore: Small tweak
-	
+
 2019-04-27  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/Rcpp.package.skeleton.R (Rcpp.package.skeleton): Use getRcppVersion()
