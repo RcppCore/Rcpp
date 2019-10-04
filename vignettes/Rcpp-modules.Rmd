@@ -487,12 +487,10 @@ A simple usage example is provided below:
 mod <- Module("mod_formals", getDynLib(fx))
 norm <- mod$norm
 norm()
-norm(y = 2)
 norm(x = 2, y = 3)
-args(norm)
 ```
 
-To set formal arguments without default values, simply omit the rhs.
+To set formal arguments without default values, omit the rhs.
 
 ```{Rcpp mod_formals2, eval=FALSE}
 using namespace Rcpp;
@@ -517,7 +515,7 @@ args(norm)
 ```
 
 The ellipsis (`...`) can be used to denote that additional arguments
-are optional; it does not take a default value.
+are optional; it does not take a default value. 
 
 ```{Rcpp mod_formals3, eval=FALSE}
 using namespace Rcpp;
@@ -533,14 +531,13 @@ RCPP_MODULE(mod_formals3) {
 }
 ```
 
-and from the \proglang{R} side:
+This works similarly from the \proglang{R} side where the ellipsis is also understood:
 
 ```{r, eval=FALSE}
 mod <- Module("mod_formals3", getDynLib(fx))
 norm <- mod$norm
 args(norm)
 ```
-
 
 ## Exposing \proglang{C++} classes using Rcpp modules
 

@@ -688,11 +688,9 @@ sapply(const Rcpp::VectorBase<RTYPE,_NA_,T>& t,
 
 ### The sapply function
 
-`sapply` is a template function that takes two arguments.
-
-- The first argument is a sugar expression, which we recognize because of 
-  the relationship with the `VectorBase` class template.
-- The second argument is the function to apply.
+`sapply` is a template function that takes two arguments.  The first argument is a sugar
+expression, which we recognize because of the relationship with the `VectorBase` class
+template. The second argument is the function to apply.
 
 The `sapply` function itself does not do anything, it is just used
 to trigger compiler detection of the template parameters that will be used
@@ -711,6 +709,7 @@ typedef typename
 ```
 
 The `result_of` type trait is implemented as such:
+
 
 ```{Rcpp, eval = FALSE}
 template <typename T>
@@ -769,7 +768,7 @@ typedef typename
 
 ### Input expression base type
 
-The input expression --- the expression over which `sapply` runs --- is
+The input expression---the expression over which `sapply` runs---is
 also typedef'ed for convenience:
 
 ```cpp
@@ -800,6 +799,7 @@ is the manifestation of the _CRTP_.
 
 ### Constructor
 
+ 
 The constructor of the `Sapply` class template is straightforward, it
 simply consists of holding the reference to the input expression and the
 function.

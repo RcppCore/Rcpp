@@ -1,3 +1,12 @@
+2019-10-04  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/Rcpp-attributes.Rmd: Correct two unevaluated knitr C++
+	chunks to mode 'Rcpp' rather than the (unregistered) C++ mode
+	* vignettes/Rcpp-extending.Rmd: Minor white-space tweak to avoid
+	paragraph-spacing warnings from latex and its mdframed style
+	* vignettes/Rcpp-modules.Rmd: Idem
+	* vignettes/Rcpp-sugar.Rmd: Idem
+
 2019-10-01  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version

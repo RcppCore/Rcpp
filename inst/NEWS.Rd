@@ -19,6 +19,8 @@
     \itemize{
       \item The \code{Rcpp-modules} vignette received a major review and
       edit (Riccardo Porreca in \ghpr{982}).
+      \item Minor whitespace alignments and edits were made in three
+      vignettes following the new \pkg{pinp} release (Dirk).
     }
   }
 }

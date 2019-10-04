@@ -656,7 +656,7 @@ Rcpp attribute compilation will automatically generate a package R_init function
 
 You may however want to add additional C++ code to the package initialization sequence. To do this, you can add the `[[Rcpp::init]]` attribute to functions within your package. For example:
 
-```{cpp, eval = FALSE}
+```{Rcpp, eval = FALSE}
 // [[Rcpp::init]]
 void my_package_init(DllInfo *dll) {
   // initialization code here
@@ -665,7 +665,7 @@ void my_package_init(DllInfo *dll) {
 
 In this case, a call to `my_package_init()` will be added to the end of the automatically generated R_init function within RcppExports.cpp. For example:
 
-```{cpp, eval = FALSE}
+```{Rcpp, eval = FALSE}
 void my_package_init(DllInfo *dll);
 RcppExport void R_init_pkgname(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);

@@ -134,8 +134,8 @@ input <- list( x = seq(1, 10, by = 0.5) )
 fx(input)
 ```
 
-The \pkg{Rcpp} converter function `Rcpp::as` and `Rcpp::wrap` have been
-designed to be extensible to user-defined types and third-party types.
+The \pkg{Rcpp} converter functions `Rcpp::as` and `Rcpp::wrap` are
+extensible to user-defined types and third-party types.
 
 # Extending `Rcpp::wrap`
 
@@ -265,7 +265,6 @@ class Foo{
         // this ctor enables implicit Rcpp::as
         Foo(SEXP);
 }
-
 
 // this must appear after the specialization, or
 // specialization will not be seen by Rcpp types
