@@ -318,7 +318,11 @@ inline SEXP make_condition(const std::string& ex_msg, SEXP call, SEXP cppstack, 
 
 template <typename Exception>
 inline SEXP exception_to_condition_template( const Exception& ex, bool include_call) {
+#ifndef RCPP_NO_RTTI
   std::string ex_class = demangle( typeid(ex).name() ) ;
+#else
+  std::string ex_class = "<not available>";
+#endif
   std::string ex_msg   = ex.what() ;
 
   Rcpp::Shelter<SEXP> shelter;
@@ -369,7 +373,10 @@ inline SEXP exception_to_try_error( const std::exception& ex){
 }
 
 std::string demangle( const std::string& name) ;
+#ifndef RCPP_NO_RTTI
 #define DEMANGLE(__TYPE__) demangle( typeid(__TYPE__).name() ).c_str()
+#endif
+
 
 inline void forward_exception_to_r(const std::exception& ex){
     SEXP stop_sym  = Rf_install( "stop" ) ;
