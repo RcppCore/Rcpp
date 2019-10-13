@@ -1,3 +1,9 @@
+2019-10-11  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/exceptions.h: Condition use of typeid() on
+	absence of RCPP_NO_RTTI in two places
+	* inst/include/Rcpp/r/headers.h: RCPP_NO_RTTI implied RCPP_NO_MODULES
+
 2019-10-04  Dirk Eddelbuettel  <edd@debian.org>
 
 	* vignettes/Rcpp-attributes.Rmd: Correct two unevaluated knitr C++
