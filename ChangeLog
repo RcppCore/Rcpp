@@ -1,3 +1,7 @@
+2019-10-14  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Added CRAN + BioConductor badges for reverse depends,
+
 2019-10-11  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/exceptions.h: Condition use of typeid() on
