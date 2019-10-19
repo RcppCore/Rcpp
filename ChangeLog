@@ -1,3 +1,10 @@
+2019-10-19  Stephen Wade  <stephematician@gmail.com>
+
+	* inst/include/Rcpp/XPtr.h: XPtr constructor split up, a single
+	argument does not modify tags and protected data of the external pointer
+	* inst/unitTests/cpp/Xptr.cpp: Added test
+	* inst/unitTests/runit.XPtr.R: Idem
+
 2019-10-14  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Added CRAN + BioConductor badges for reverse depends,
