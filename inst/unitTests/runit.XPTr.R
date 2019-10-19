@@ -31,6 +31,9 @@ if (.runThisTest) {
         front <- xptr_2(xp)
         checkEquals( front, 1L, msg = "check usage of external pointer" )
 
+        xptr_self_tag(xp)
+        checkEquals(xptr_has_self_tag(xp), T, msg = "check external pointer tag preserved")
+
         checkTrue(xptr_release(xp), msg = "check release of external pointer")
 
         checkTrue(xptr_access_released(xp), msg = "check access of released external pointer")
