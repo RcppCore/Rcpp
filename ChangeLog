@@ -1,3 +1,7 @@
+2019-10-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+
 2019-10-19  Stephen Wade  <stephematician@gmail.com>
 
 	* inst/include/Rcpp/XPtr.h: XPtr constructor split up, a single
@@ -13,7 +17,7 @@
 
 	* inst/include/Rcpp/exceptions.h: Condition use of typeid() on
 	absence of RCPP_NO_RTTI in two places
-	* inst/include/Rcpp/r/headers.h: RCPP_NO_RTTI implied RCPP_NO_MODULES
+	* inst/include/Rcpp/r/headers.h: RCPP_NO_RTTI implies RCPP_NO_MODULES
 
 2019-10-04  Dirk Eddelbuettel  <edd@debian.org>
 
