@@ -5,6 +5,9 @@
 	* vignettes/Rcpp-FAQ.Rmd: Turn off knitr cache
 	* vignettes/Rcpp-introduction.Rmd: Idem
 
+	* vignettes/Makefile: Add simple Makefile
+	* .Rbuildignore: Exclude vignettes/Makefile
+
 2019-10-19  Stephen Wade  <stephematician@gmail.com>
 
 	* inst/include/Rcpp/XPtr.h: XPtr constructor split up, a single
