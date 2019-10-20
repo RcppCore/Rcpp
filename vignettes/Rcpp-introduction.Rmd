@@ -86,7 +86,7 @@ vignette: >
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(cache=TRUE)
+knitr::opts_chunk$set(cache=FALSE)
 library(Rcpp)
 options("width"=50, digits=5)
 ```

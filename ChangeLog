@@ -2,6 +2,9 @@
 
 	* DESCRIPTION (Version, Date): Roll minor version
 
+	* vignettes/Rcpp-FAQ.Rmd: Turn off knitr cache
+	* vignettes/Rcpp-introduction.Rmd: Idem
+
 2019-10-19  Stephen Wade  <stephematician@gmail.com>
 
 	* inst/include/Rcpp/XPtr.h: XPtr constructor split up, a single
