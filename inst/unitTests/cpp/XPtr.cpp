@@ -47,6 +47,17 @@ int xptr_2( XPtr< std::vector<int> > p){
 }
 
 // [[Rcpp::export]]
+void xptr_self_tag( XPtr< std::vector<int> > p ){
+    XPtr< std::vector<int> > self_tag(wrap(p), wrap(p), R_NilValue) ;
+}
+
+// [[Rcpp::export]]
+bool xptr_has_self_tag( XPtr< std::vector<int> > p ){
+    return wrap(p) == R_ExternalPtrTag(p);
+}
+
+
+// [[Rcpp::export]]
 bool xptr_release( XPtr< std::vector<int> > p) {
     p.release();
     return !p;

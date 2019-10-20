@@ -63,13 +63,22 @@ public:
      *
      * @param xp external pointer to wrap
      */
-    explicit XPtr(SEXP x, SEXP tag = R_NilValue, SEXP prot = R_NilValue) {
+    explicit XPtr(SEXP x) {
         if (TYPEOF(x) != EXTPTRSXP) {
             const char* fmt = "Expecting an external pointer: [type=%s].";
             throw ::Rcpp::not_compatible(fmt, Rf_type2char(TYPEOF(x)));
         }
-
         Storage::set__(x);
+    };
+
+    /**
+     * constructs a XPtr wrapping the external pointer (EXTPTRSXP SEXP)
+     *
+     * @param xp external pointer to wrap
+     * @param tag tag to assign to external pointer 
+     * @param prot protected data to assign to external pointer
+     */
+    explicit XPtr(SEXP x, SEXP tag, SEXP prot) : XPtr(x) {
         R_SetExternalPtrTag( x, tag);
         R_SetExternalPtrProtected(x, prot);
     };
