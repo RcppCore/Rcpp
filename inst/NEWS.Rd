@@ -9,6 +9,10 @@
     \itemize{
       \item Compilation can be sped up by skipping Modules headers via a
       toggle \code{RCPP_NO_MODULES} (Kevin in \ghpr{995} for \ghit{993}).
+      \item Compilation can be sped up by toggling \code{RCPP_NO_RTTI} which
+      implies \code{RCPP_NO_MODULES} (Dirk in \ghpr{998} fixing \ghit{998}).
+      \item \code{XPtr} tags are now preserved in \code{as<>} (Stephen Wade
+      in \phpr{1003} fixing \ghpr{986})
     }
     \item Changes in Rcpp Modules:
     \itemize{
@@ -21,6 +25,8 @@
       edit (Riccardo Porreca in \ghpr{982}).
       \item Minor whitespace alignments and edits were made in three
       vignettes following the new \pkg{pinp} release (Dirk).
+      \item New badges for DOI and CRAN and BioConductor reverse dependencies
+      have been added to README.md (Dirk).
     }
   }
 }
