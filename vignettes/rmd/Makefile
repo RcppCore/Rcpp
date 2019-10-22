@@ -6,6 +6,7 @@ rmdvignettes := 	$(rmdsources:.Rmd=.pdf)
 %.pdf:			%.Rmd
 			Rscript -e 'rmarkdown::render("$<")'
 			Rscript -e 'tools::compactPDF("$@", gs_quality="ebook")'
+			cp -vax $@ ../pdf
 
 all:			${rmdvignettes} Rcpp-jss-2011.pdf
 
