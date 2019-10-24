@@ -1,3 +1,13 @@
+2019-10-23  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/Rcpp-*.Rnw: Wrappers around pdf/*pdf
+	* vignettes/Makefile: Added
+
+2019-10-21  Dirk Eddelbuettel  <edd@debian.org>
+	
+	* vignettes/rmd/*: Moved from parent directory
+	* vignettes/pdf/*: New target directory
+
 2019-10-20  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version

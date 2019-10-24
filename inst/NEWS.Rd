@@ -12,7 +12,7 @@
       \item Compilation can be sped up by toggling \code{RCPP_NO_RTTI} which
       implies \code{RCPP_NO_MODULES} (Dirk in \ghpr{998} fixing \ghit{998}).
       \item \code{XPtr} tags are now preserved in \code{as<>} (Stephen Wade
-      in \phpr{1003} fixing \ghpr{986})
+      in \ghpr{1003} fixing \ghit{986})
     }
     \item Changes in Rcpp Modules:
     \itemize{
