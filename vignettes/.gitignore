@@ -7,3 +7,4 @@ Rcpp-*.log
 Rcpp-*.tex
 Rcpp-*.pdf
 unitTests-results/
+rmd/figures/bootstrap.pdf
