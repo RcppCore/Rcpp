@@ -6,6 +6,8 @@
 	* vignettes/Makefile: Refinements 
 	* vignettes/rmd/Makefile: Idem
 
+	* cleanup: Removed bashism, added invocation of make clean
+
 2019-10-23  Dirk Eddelbuettel  <edd@debian.org>
 
 	* vignettes/Rcpp-*.Rnw: Wrappers around pdf/*pdf
