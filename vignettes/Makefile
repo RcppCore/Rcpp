@@ -35,3 +35,6 @@ rnwvignettes  = 	Rcpp-attributes.pdf \
 
 all:			${rnwvignettes}
 			@rm -f *.aux *.log *.tex
+
+clean:
+			@rm -f *.aux *.log *.tex
