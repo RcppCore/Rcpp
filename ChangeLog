@@ -18,6 +18,9 @@
 
 	* inst/unitTests/runit.exposeClass.R: Updated to pass with r-devel
 
+	* vignettes/rmd/Rcpp-FAQ.Rmd: Two new short section on speedier
+	compilation and lack of exceptions / stop() across shared libraries
+
 2019-10-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* vignettes/Rcpp-package.Rnw: Another wrapper
