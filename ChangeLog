@@ -1,3 +1,7 @@
+2019-10-27  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/unitTests/runit.exposeClass.R: Updated to pass with r-devel
+
 2019-10-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* vignettes/Rcpp-package.Rnw: Another wrapper
