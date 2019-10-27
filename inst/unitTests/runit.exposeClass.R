@@ -46,8 +46,14 @@ class foo {
         ## create package
         Rcpp.package.skeleton(pkg_name, path=path, environment = environment(),
                               example_code = FALSE, module = TRUE)
+        ## R 4.0.0 (currently in development) is stricter about the NAMESPACE and wants
+        ##  - an actual function behind the export declaration we end up with here
+        ##  - an export declaration for the class exposed and check below
+        ## so we provide both to comply (and also no longer delete from src/ and R/)
+        cat("Rcpp.fake.fun <- function() {}", file=file.path(path, pkg_name, "R", "fakefun.R"))
+        cat("export(\"fooR\")", append=TRUE, file=file.path(path, pkg_name, "NAMESPACE"))
+
         on.exit(unlink(pkg_path, recursive=TRUE))
-        file.remove(list.files(c(src_path, R_path), full.names = TRUE))
         cat(foo_header, file = file.path(src_path, "foo.h"))
 
         ## check that result of exposeClass compiles and runs properly

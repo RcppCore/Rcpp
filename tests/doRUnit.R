@@ -63,6 +63,7 @@ if (requireNamespace("RUnit", quietly=TRUE) &&
     tests <- runTestSuite(testSuite)	# Run tests
 
     printTextProtocol(tests)			# Print results
+    printTextProtocol(tests, file="/tmp/RcppTestLog.txt")
 
     ## Return success or failure to R CMD CHECK
     if (getErrors(tests)$nFail > 0) stop("TEST FAILED!")
