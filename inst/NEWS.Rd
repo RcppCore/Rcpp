@@ -19,6 +19,11 @@
       \item Improved initialization via explicit \code{Rcpp::} prefix
       (Riccardo Porreca in \ghpr{980}).
     }
+    \item Changes in Rcpp Deployment:
+    \itemize{
+      \item A unit test for Rcpp Class exposure was updated to not fail under
+      r-devel (Dirk in \ghpr{1008} fixing \ghit{1006}).
+    }
     \item Changes in Rcpp Documentation:
     \itemize{
       \item The \code{Rcpp-modules} vignette received a major review and
@@ -27,6 +32,8 @@
       vignettes following the new \pkg{pinp} release (Dirk).
       \item New badges for DOI and CRAN and BioConductor reverse dependencies
       have been added to README.md (Dirk).
+      \item Vignettes are now included pre-made (Dirk in \ghpr{1005}
+      addressing \ghit{1004})).
     }
   }
 }
