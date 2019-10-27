@@ -561,7 +561,7 @@ result_r <- bootstrap_r(initdata)
 
 Figure \ref{fig:bootstrap-graphs} shows that the bootstrap procedure worked well!
 
-```{r dist_graphs, echo = FALSE, results = "hide"}
+```{r dist_graphs, echo = FALSE, results = "hide", eval=FALSE}
 make_boot_graph <- function(ds, actual, type, ylim){
   hist(ds, main = paste(type, "Bootstrap"), xlab = "Samples",
        col = "lightblue", lwd = 2, prob = TRUE, ylim = ylim, cex.axis = .85, cex.lab = .90)

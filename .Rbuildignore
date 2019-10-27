@@ -25,3 +25,4 @@ docker
 ^GTAGS
 ^local
 vignettes/Makefile
+vignettes/rmd

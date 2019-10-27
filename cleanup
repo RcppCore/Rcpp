@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 #cd inst/doc && rm -f index.html *.tex *.bbl *.blg *.aux *.out *.log && cd -
 
@@ -30,7 +30,10 @@ rm -f confdefs.h config.log config.status \
 	vignettes/*.toc vignettes/*.tpt vignettes/*.xwm
 
 rm -rf	autom4te.cache inst/lib/ inst/doc/man/ inst/doc/html/ inst/doc/latex/ \
-   	inst/doc/auto inst/bib/auto inst/doc/Rcpp-*/auto/ src-* vignettes/auto
+        inst/doc/auto inst/bib/auto inst/doc/Rcpp-*/auto/ src-* vignettes/auto
 
 find . -name \*~ -exec rm {} \;
 find . -name \*.flc -exec rm {} \;
+
+(cd vignettes/ && make clean && cd -) >/dev/null
+(cd vignettes/rmd/ && make clean && cd -) >/dev/null
