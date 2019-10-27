@@ -1,5 +1,7 @@
 2019-10-27  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Roll minor version
+
 	* inst/unitTests/runit.exposeClass.R: Updated to pass with r-devel
 
 2019-10-26  Dirk Eddelbuettel  <edd@debian.org>
