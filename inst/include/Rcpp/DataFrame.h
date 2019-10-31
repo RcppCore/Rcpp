@@ -101,8 +101,9 @@ namespace Rcpp{
             if( ::Rf_inherits( x, "data.frame" )){
                 Parent::set__( x ) ;
             } else{
-                SEXP y = internal::convert_using_rfunction( x, "as.data.frame" ) ;
+                SEXP y = PROTECT(internal::convert_using_rfunction( x, "as.data.frame" )) ;
                 Parent::set__( y ) ;
+                UNPROTECT(1);
             }
         }
 
@@ -130,7 +131,7 @@ namespace Rcpp{
             obj.erase(strings_as_factors_index) ;
             names.erase(strings_as_factors_index) ;
             obj.attr( "names") = names ;
-            Shield<SEXP> call( Rf_lang3(as_df_symb, obj, wrap( strings_as_factors ) ) ) ;
+            Shield<SEXP> call( Rf_lang3(as_df_symb, obj, Rf_ScalarLogical(strings_as_factors) ) ) ;
             SET_TAG( CDDR(call),  strings_as_factors_symb ) ;
             Shield<SEXP> res(Rcpp_fast_eval(call, R_GlobalEnv));
             DataFrame_Impl out( res ) ;
