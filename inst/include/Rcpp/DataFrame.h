@@ -101,9 +101,8 @@ namespace Rcpp{
             if( ::Rf_inherits( x, "data.frame" )){
                 Parent::set__( x ) ;
             } else{
-                SEXP y = PROTECT(internal::convert_using_rfunction( x, "as.data.frame" )) ;
+                Shield<SEXP> y(internal::convert_using_rfunction( x, "as.data.frame" )) ;
                 Parent::set__( y ) ;
-                UNPROTECT(1);
             }
         }
 
