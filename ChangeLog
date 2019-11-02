@@ -1,3 +1,7 @@
+2019-11-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+
 2019-10-31  Romain Francois  <romain@rstudio.com>
 	
 	* inst/include/Rcpp/DataFrame.h: Protect temporaries from gc
