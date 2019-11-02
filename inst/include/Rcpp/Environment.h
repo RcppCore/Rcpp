@@ -2,8 +2,8 @@
 //
 // Environment.h: Rcpp R/C++ interface class library -- access R environments
 //
-// Copyright (C) 2009 - 2013    Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2014           Dirk Eddelbuettel, Romain Francois and Kevin Ushey
+// Copyright (C) 2009 - 2013  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2014 - 2019  Dirk Eddelbuettel, Romain Francois and Kevin Ushey
 //
 // This file is part of Rcpp.
 //
@@ -246,9 +246,8 @@ namespace Rcpp{
                        we have to go back to R to do this operation */
                     SEXP internalSym = Rf_install( ".Internal" );
                     SEXP removeSym = Rf_install( "remove" );
-                    Shield<SEXP> call( Rf_lang2(internalSym,
-                            Rf_lang4(removeSym, Rf_mkString(name.c_str()), Storage::get__(), Rf_ScalarLogical( FALSE ))
-                        ) );
+                    Shield<SEXP> str(Rf_mkString(name.c_str()));
+                    Shield<SEXP> call(Rf_lang2(internalSym, Rf_lang4(removeSym, str, Storage::get__(), Rf_ScalarLogical(FALSE))));
                     Rcpp_fast_eval( call, R_GlobalEnv ) ;
                 }
             } else{
