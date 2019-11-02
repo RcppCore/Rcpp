@@ -41,12 +41,14 @@ public:
         const std::string& field_name ;
 
         SEXP get() const {
-            Shield<SEXP> call( Rf_lang3( R_DollarSymbol, parent, Rf_mkString(field_name.c_str()) ) ) ;
+            Shield<SEXP> str(Rf_mkString(field_name.c_str()));
+            Shield<SEXP> call(Rf_lang3(R_DollarSymbol, parent, str));
             return Rcpp_fast_eval( call, R_GlobalEnv ) ;
         }
         void set(SEXP x ) {
             SEXP dollarGetsSym = Rf_install( "$<-");
-            Shield<SEXP> call( Rf_lang4( dollarGetsSym, parent, Rf_mkString(field_name.c_str()) , x ) ) ;
+            Shield<SEXP> str(Rf_mkString(field_name.c_str()));
+            Shield<SEXP> call(Rf_lang4(dollarGetsSym, parent, str, x));
             parent.set__( Rcpp_fast_eval( call, R_GlobalEnv ) );
         }
     } ;
@@ -66,7 +68,8 @@ public:
         const std::string& field_name ;
 
         SEXP get() const {
-            Shield<SEXP> call( Rf_lang3( R_DollarSymbol, parent, Rf_mkString(field_name.c_str()) ) ) ;
+            Shield<SEXP> str(Rf_mkString(field_name.c_str()));
+            Shield<SEXP> call(Rf_lang3(R_DollarSymbol, parent, str));
             return Rcpp_fast_eval( call, R_GlobalEnv ) ;
         }
     } ;

@@ -4,6 +4,8 @@
 
 	* inst/include/Rcpp/Reference.h: Shield Rf_mkstring inside Rf_lang2
 	* inst/include/Rcpp/Environment.h: Idem (inside Rf_lang4)
+	* inst/include/Rcpp/proxy/FieldProxy.h: Idem (inside Rf_lang3 and 4)
+
 2019-10-31  Romain Francois  <romain@rstudio.com>
 	
 	* inst/include/Rcpp/DataFrame.h: Protect temporaries from gc
