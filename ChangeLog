@@ -2,6 +2,7 @@
 
 	* DESCRIPTION (Version, Date): Roll minor version
 
+	* inst/include/Rcpp/Reference.h: Shield Rf_mkstring inside Rf_lang2
 2019-10-31  Romain Francois  <romain@rstudio.com>
 	
 	* inst/include/Rcpp/DataFrame.h: Protect temporaries from gc
