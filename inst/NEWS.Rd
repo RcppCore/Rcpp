@@ -13,6 +13,8 @@
       implies \code{RCPP_NO_MODULES} (Dirk in \ghpr{998} fixing \ghit{998}).
       \item \code{XPtr} tags are now preserved in \code{as<>} (Stephen Wade
       in \ghpr{1003} fixing \ghit{986})
+      \item A few more temporary allocations are now protected from garbage
+      collection (Romain Francois in \ghpr{1010}).
     }
     \item Changes in Rcpp Modules:
     \itemize{
