@@ -1740,8 +1740,17 @@ by the linker, consider running `compileAttributes()` twice. Deleting
 
 ## Can we use exceptions and stop() across shared libraries?
 
-No, sadly.  A known limitation coming from the operating system, Windows in
-particular.  Exceptions cannot be caught safely as R is statically linked
-with `libgcc` there. Some more background is [in this SO
+Within limits, yes. Code that is generated via Rcpp Attributes (see
+\citet{CRAN:Rcpp:Attributes} and Section~\ref{using-attributes}) generally
+handles this correctly and gracefully via the `try-catch` layer it adds
+shielding the exception from propagating to another, separate dynamic
+library.
+
+However, this mechanism relies on dynamic linking with the (system library)
+`libgcc` providing the C++ standard library (as well as on using the same C++
+standard library across all compiled components). But this library is linked
+statically on Windows putting a limitation on the use of `stop()` from within
+Rcpp Modules \citep{CRAN:Rcpp:Modules}.  Some more background on the linking
+requirement is [in this SO
 question](https://stackoverflow.com/questions/2424836/exceptions-are-not-caught-in-gcc-program).
  
