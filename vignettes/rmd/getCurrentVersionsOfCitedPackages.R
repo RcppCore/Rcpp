@@ -1,9 +1,9 @@
 #/usr/bin/r
 
-setwd("~/git/rcpp/vignettes")
+if (!file.exists("Rcpp.bib")) fsetwd("~/git/rcpp/vignettes/rmd")
 cmd <- "grep package= Rcpp.bib | cut -c27- | sed -e 's/\"$//' | sort | uniq"
 con <- pipe(cmd)
-pkgs <- readLines(pipe(cmd))
+pkgs <- readLines(con)
 close(con)
 
 repo <- "https://cloud.r-project.org"
