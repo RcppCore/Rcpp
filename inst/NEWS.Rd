@@ -14,7 +14,7 @@
       \item \code{XPtr} tags are now preserved in \code{as<>} (Stephen Wade
       in \ghpr{1003} fixing \ghit{986})
       \item A few more temporary allocations are now protected from garbage
-      collection (Romain Francois in \ghpr{1010}).
+      collection (Romain Francois in \ghpr{1010}, and Dirk in \ghpr{1011}).
     }
     \item Changes in Rcpp Modules:
     \itemize{
@@ -36,6 +36,8 @@
       have been added to README.md (Dirk).
       \item Vignettes are now included pre-made (Dirk in \ghpr{1005}
       addressing \ghit{1004})).
+      \item The Rcpp FAQ has two new entries on 'no modules / no rtti' and
+      exceptions across shared libraries (Dirk in \ghpr{1009}).
     }
   }
 }
