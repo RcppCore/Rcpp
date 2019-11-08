@@ -20,19 +20,23 @@
 
 .runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
 
+isWindows <- Sys.info()[["sysname"]] == "Windows"
+
 if (.runThisTest) {
 
     .setUp <- Rcpp:::unitTestSetup("XPtr.cpp")
-    
+
     test.XPtr <- function(){
         xp <- xptr_1()
         checkEquals(typeof( xp ), "externalptr", msg = "checking external pointer creation" )
-        
+
         front <- xptr_2(xp)
         checkEquals( front, 1L, msg = "check usage of external pointer" )
 
-        xptr_self_tag(xp)
-        checkEquals(xptr_has_self_tag(xp), T, msg = "check external pointer tag preserved")
+        if (!isWindows) {
+            xptr_self_tag(xp)
+            checkEquals(xptr_has_self_tag(xp), T, msg = "check external pointer tag preserved")
+        }
 
         checkTrue(xptr_release(xp), msg = "check release of external pointer")
 
