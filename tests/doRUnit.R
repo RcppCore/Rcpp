@@ -62,9 +62,9 @@ if (requireNamespace("RUnit", quietly=TRUE) &&
 
     tests <- runTestSuite(testSuite)		# Run tests
 
-    printTextProtocol(tests)			# Print results
-    if (Sys.info()[["sysname"]] != "Windows")
-        printTextProtocol(tests, file="/tmp/RcppTestLog.txt")
+    printTextProtocol(tests)			# Print results, optionally also to file
+    if (Sys.getenv("RcppUnitTestsOutputFile") != "")
+        printTextProtocol(tests, file=Sys.getenv("RcppUnitTestsOutputFile"))
 
     ## Return success or failure to R CMD CHECK
     if (getErrors(tests)$nFail > 0) stop("TEST FAILED!")

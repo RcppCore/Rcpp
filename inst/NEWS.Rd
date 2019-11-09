@@ -3,6 +3,17 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
+\section{Changes in Rcpp version 1.0.4 (2020-03-xx)}{
+  \itemize{
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item The \code{cppFunction} helper now deals correctly with mulitple
+      \code{depends} arguments (TJ McKinley in \ghpr{1016} fixing
+      \ghit{1017}).
+    }
+  }
+}
+
 \section{Changes in Rcpp version 1.0.3 (2019-11-08)}{
   \itemize{
     \item Changes in Rcpp API:
@@ -10,7 +21,7 @@
       \item Compilation can be sped up by skipping Modules headers via a
       toggle \code{RCPP_NO_MODULES} (Kevin in \ghpr{995} for \ghit{993}).
       \item Compilation can be sped up by toggling \code{RCPP_NO_RTTI} which
-      implies \code{RCPP_NO_MODULES} (Dirk in \ghpr{998} fixing \ghit{998}).
+      implies \code{RCPP_NO_MODULES} (Dirk in \ghpr{998} fixing \ghit{997}).
       \item \code{XPtr} tags are now preserved in \code{as<>} (Stephen Wade
       in \ghpr{1003} fixing \ghit{986}, plus Dirk in \ghpr{1012}).
       \item A few more temporary allocations are now protected from garbage
