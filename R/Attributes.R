@@ -244,7 +244,7 @@ cppFunction <- function(code,
 
     # process depends
     if (!is.null(depends) && length(depends) > 0) {             # #nocov start
-        depends <- paste(depends, sep=", ")
+        depends <- paste(depends, collapse=", ")
         scaffolding <- paste("// [[Rcpp::depends(", depends, ")]]", sep="")
         scaffolding <- c(scaffolding, "", .linkingToIncludes(depends, FALSE),
                          recursive=TRUE)                        # #nocov end
