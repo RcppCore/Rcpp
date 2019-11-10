@@ -14,5 +14,5 @@ Make use of the *Preview* tab just above!
 
 - read the [Contributing](https://github.com/RcppCore/Rcpp/blob/master/Contributing.md) page for details on preferred reporting and style;
 
-If you have the above, remove the text above and provide a [`Minimally Complete and Reproducible Example`](https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example),
-the output of `sessionInfo()` plus relevant information about the C++ compiler.
+If you have the above, remove the text above and provide a [`Minimally Complete and Reproducible Example`](https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example), the
+output of `sessionInfo()` plus relevant information about the C++ compiler.
