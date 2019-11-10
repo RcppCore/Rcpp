@@ -1,3 +1,8 @@
+2019-11-10  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/config.h: Correct RCPP_VERSION and
+	RCPP_DEV_VERSION to 1.0.3
+
 2019-11-09  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
