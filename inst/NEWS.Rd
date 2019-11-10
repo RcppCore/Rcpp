@@ -5,11 +5,21 @@
 
 \section{Changes in Rcpp version 1.0.4 (2020-03-xx)}{
   \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Safer \code{Rcpp_list*}, \code{Rcpp_lang*} and
+      \code{Function.operator()} (Romain in \ghpr{1014}, \ghit{1015}).
+    }
     \item Changes in Rcpp Attributes:
     \itemize{
       \item The \code{cppFunction} helper now deals correctly with mulitple
       \code{depends} arguments (TJ McKinley in \ghpr{1016} fixing
       \ghit{1017}).
+    }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item The \code{.github/} directory now has more explicit guidance on
+      contributinh, issues, and pull requests (Dirk).
     }
   }
 }

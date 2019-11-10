@@ -15,6 +15,13 @@
 	* R/Attributes.R: Correct how cppFunction() deal with multiple
 	depends arguments
 	
+2019-11-08  Romain Francois  <romain@rstudio.com>
+
+	* inst/include/Rcpp/lang.h: Safer Rcpp_list* and Rcpp_lang*
+	* inst/include/Rcpp/Function.h: Add Function.invoke() for operator()
+	* inst/include/Rcpp/generated/Function__operator.h: Safer
+	Function.operator() using Function.invoke()
+	
 2019-11-08  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Date, Version): Release 1.0.3
