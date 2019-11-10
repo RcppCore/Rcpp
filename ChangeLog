@@ -1,5 +1,8 @@
 2019-11-10  Dirk Eddelbuettel  <edd@debian.org>
 
+	* .github/: Add files CONTRIBUTING.md, FUNDING.yml, ISSUE_TEMPLATE.md
+	and PULL_REQUEST_TEMPLATE.md
+
 	* inst/include/Rcpp/config.h: Correct RCPP_VERSION and
 	RCPP_DEV_VERSION to 1.0.3
 
