@@ -111,6 +111,14 @@ namespace Rcpp{
             Shield<SEXP> x( Rf_findFun( nameSym, env ) ) ;
             Storage::set__(x) ;
         }
+
+        SEXP invoke(SEXP args_, SEXP env) const {
+            Shield<SEXP> args(args_);
+            Shield<SEXP> call(Rcpp_lcons(Storage::get__(), args));
+            SEXP out = Rcpp_fast_eval(call, env);
+            return out;
+        }
+
     };
 
     typedef Function_Impl<PreserveStorage> Function ;
