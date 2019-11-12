@@ -21,6 +21,11 @@
       \item The \code{.github/} directory now has more explicit guidance on
       contributinh, issues, and pull requests (Dirk).
     }
+    \item Changes in Rcpp Deployment:
+    \itemize{
+      \item Added unit test to check if C++ version remains remains aligned
+      with the package number (Dirk in \ghpr{1022} fixing \ghit{1021}).
+    }
   }
 }
 
