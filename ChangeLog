@@ -1,3 +1,8 @@
+2019-11-11  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/unitTests/runit.packageversion.R: New test
+	* inst/unitTests/cpp/rcppversion.cpp: Cpp portion of test 
+
 2019-11-10  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .github/: Add files CONTRIBUTING.md, FUNDING.yml, ISSUE_TEMPLATE.md
@@ -12,7 +17,7 @@
 
 2019-11-09  TJ McKinley  <t.mckinley@exeter.ac.uk>
 
-	* R/Attributes.R: Correct how cppFunction() deal with multiple
+	* R/Attributes.R: Correct how cppFunction() deals with multiple
 	depends arguments
 	
 2019-11-08  Romain Francois  <romain@rstudio.com>
