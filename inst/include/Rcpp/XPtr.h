@@ -58,20 +58,12 @@ public:
 
     typedef StoragePolicy<XPtr> Storage;
 
-#if defined(RCPP_USING_CXX11)
-
     /**
      * constructs a XPtr wrapping the external pointer (EXTPTRSXP SEXP)
      *
      * @param xp external pointer to wrap
      */
-    explicit XPtr(SEXP x) {
-        if (TYPEOF(x) != EXTPTRSXP) {
-            const char* fmt = "Expecting an external pointer: [type=%s].";
-            throw ::Rcpp::not_compatible(fmt, Rf_type2char(TYPEOF(x)));
-        }
-        Storage::set__(x);
-    };
+    explicit XPtr(SEXP x) { checked_set(x); };
 
     /**
      * constructs a XPtr wrapping the external pointer (EXTPTRSXP SEXP)
@@ -80,30 +72,11 @@ public:
      * @param tag tag to assign to external pointer
      * @param prot protected data to assign to external pointer
      */
-    explicit XPtr(SEXP x, SEXP tag, SEXP prot) : XPtr(x) {
-        R_SetExternalPtrTag( x, tag);
+    explicit XPtr(SEXP x, SEXP tag, SEXP prot) {
+        checked_set(x);
+        R_SetExternalPtrTag(x, tag);
         R_SetExternalPtrProtected(x, prot);
     };
-
-#else
-
-    /**
-     * constructs a XPtr wrapping the external pointer (EXTPTRSXP SEXP)
-     *
-     * @param xp external pointer to wrap
-     */
-    explicit XPtr(SEXP x, SEXP tag = R_NilValue, SEXP prot = R_NilValue) {
-        if (TYPEOF(x) != EXTPTRSXP) {
-            const char* fmt = "Expecting an external pointer: [type=%s].";
-            throw ::Rcpp::not_compatible(fmt, Rf_type2char(TYPEOF(x)));
-        }
-
-        Storage::set__(x);
-        R_SetExternalPtrTag( x, tag);
-        R_SetExternalPtrProtected(x, prot);
-    };
-
-#endif
 
     /**
      * creates a new external pointer wrapping the dumb pointer p.
@@ -213,6 +186,16 @@ public:
     }
 
     void update(SEXP) {}
+
+private:
+    inline void checked_set(SEXP x) {
+        if (TYPEOF(x) != EXTPTRSXP) {
+            const char* fmt = "Expecting an external pointer: [type=%s].";
+            throw ::Rcpp::not_compatible(fmt, Rf_type2char(TYPEOF(x)));
+        }
+        Storage::set__(x);
+    }
+
 };
 
 } // namespace Rcpp
