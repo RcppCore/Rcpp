@@ -1,7 +1,12 @@
+2019-11-13  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .github/ISSUE_TEMPLATE.md: Another small edit
+	* .github/PULL_REQUEST_TEMPLATE.md: Idem
+
 2019-11-13  Stephen Wade  <stephematician@gmail.com>
 
-	* inst/include/Rcpp/XPtr.h: Delete delegating constructor (follow-up #1012)
-	* inst/unitTests/runit.XPTr.R (test.XPtr): Reinsert self-tag test on Windows
+	* inst/include/Rcpp/XPtr.h: Delete delegating ctor (follow-up #1012)
+	* inst/unitTests/runit.XPTr.R: Reinsert self-tag test on Windows
 
 2019-11-11  Dirk Eddelbuettel  <edd@debian.org>
 

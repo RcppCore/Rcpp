@@ -1,9 +1,7 @@
 
 ### Pull Request Template for Rcpp
 
-Please explain the changes you want to apply to Rcpp, preferably in an issue ticket **before** you create a pull
-request. See the file [Contributing](https://github.com/RcppCore/Rcpp/blob/master/Contributing.md) and the other
-templates for details.
+Please explain the changes you want to apply to Rcpp, preferably in an issue ticket **before** you create a pull request. See the file [Contributing](https://github.com/RcppCore/Rcpp/blob/master/Contributing.md) and the other templates for details.
 
 #### Checklist
 
