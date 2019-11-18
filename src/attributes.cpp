@@ -384,7 +384,7 @@ namespace attributes {
 
         bool invisible() const {
             Param invisibleParam = paramNamed(kExportInvisible);
-            if (!invisibleParam.empty()) 
+            if (!invisibleParam.empty())
                 return invisibleParam.value() == kParamValueTrue ||	// #nocov
                        invisibleParam.value() == kParamValueTRUE;  	// #nocov
             else
@@ -2435,13 +2435,13 @@ namespace attributes {
                 std::string name = attribute.exportedName();
 
                 // determine if return invisible
-                bool invisible = function.type().isVoid() || attribute.invisible();
+                bool  isInvisibleOrVoid = function.type().isVoid() || attribute.invisible();
 
                 // write the function
                 ostr() << name << " <- function(" << args << ") {"
                        << std::endl;
                 ostr() << "    ";
-                if (invisible)
+                if (isInvisibleOrVoid)
                     ostr() << "invisible(";			// #nocov
                 ostr() << ".Call(";
                 if (!registration_)
@@ -2459,7 +2459,7 @@ namespace attributes {
                 for (size_t i = 0; i<arguments.size(); i++)
                     ostr() << ", " << arguments[i].name();	// #nocov
                 ostr() << ")";
-                if (invisible)
+                if (isInvisibleOrVoid)
                     ostr() << ")";				// #nocov
                 ostr() << std::endl;
 
