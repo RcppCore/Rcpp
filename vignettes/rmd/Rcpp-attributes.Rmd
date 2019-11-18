@@ -17,7 +17,7 @@ address:
     address: \url{http://dirk.eddelbuettel.com}
   - code: c
     address: \url{https://romain.rbind.io/}
-    
+
 # For footer text  TODO(fold into template, allow free form two-authors)
 lead_author_surname: Allaire, Eddelbuettel, François
 
@@ -61,7 +61,7 @@ numbersections: true
 # Optional: Specify the depth of section number, default is 5
 #secnumdepth: 5
 
-# Optional: Bibliography 
+# Optional: Bibliography
 bibliography: Rcpp
 
 # Optional: Enable a 'Draft' watermark on the document
@@ -117,7 +117,7 @@ Attributes can also be used for package development via the
 `extern "C"` and `.Call` wrappers for \proglang{C++}
 functions within packages.
 
-# Using Attributes 
+# Using Attributes
 
 Attributes are annotations that are added to C++ source files to provide
 additional information to the compiler. \pkg{Rcpp} supports attributes
@@ -129,7 +129,7 @@ as well as to optionally specify additional build dependencies for source files.
 fully supported across all compilers, \pkg{Rcpp} attributes are included in
 source files using specially formatted comments.
 
-## Exporting C++ Functions 
+## Exporting C++ Functions
 
 The `sourceCpp` function parses a \proglang{C++} file and looks for
 functions marked with the `Rcpp::export` attribute. A shared
@@ -171,11 +171,11 @@ and \pkg{Rcpp} wrapper types and then source them just as we would an
 \proglang{R} script.
 
 The `sourceCpp` function performs caching based on the last
-modified date of the source file and it's local dependencies so as 
-long as the source does not change the compilation will occur only 
+modified date of the source file and it's local dependencies so as
+long as the source does not change the compilation will occur only
 once per R session.
 
-## Specifying Argument Defaults 
+## Specifying Argument Defaults
 
 If default argument values are provided in the C++ function definition
 then these defaults are also used for the exported R function. For example,
@@ -187,7 +187,7 @@ DataFrame readData(CharacterVector file,
                          CharacterVector::create(),
                    std::string comment = "#",
                    bool header = true)
-``` 
+```
 
 Will be exported to R as:
 
@@ -214,7 +214,7 @@ Not all \proglang{C++} default argument values can be parsed into their
 - `Matrix` types instantiated using the `rows`,
   `cols` constructor.
 
-## Signaling Errors 
+## Signaling Errors
 
 Within \proglang{R} code the `stop` function is typically used to signal
 errors. Within \proglang{R} extensions written in \proglang{C} the `Rf_error` function is typically used. However, within \proglang{C++} code you cannot
@@ -249,12 +249,12 @@ if (unexpectedCondition)
     Rcpp::warning("Unexpected condition occurred");
 ```
 
-## Supporting User Interruption 
+## Supporting User Interruption
 
 If your function may run for an extended period of time, users will appreciate
 the ability to interrupt it's processing and return to the REPL. This is
 handled automatically for R code (as R checks for user interrupts periodically
-during processing) however requires explicit accounting for in C and C++ 
+during processing) however requires explicit accounting for in C and C++
 extensions to R. To make computations interrupt-able, you should periodically
 call the `Rcpp::checkUserInterrupt` function, for example:
 
@@ -263,7 +263,7 @@ for (int i=0; i<1000000; i++) {
     // check for interrupt every 1000 iterations
     if (i % 1000 == 0)
         Rcpp::checkUserInterrupt();
-    
+
     // ...do some expensive work...
 }
 ```
@@ -273,13 +273,13 @@ seconds that your computation is running. In the above code, if the user
 requests an interrupt then an exception is thrown and the attributes wrapper
 code arranges for the user to be returned to the REPL.
 
-Note that R provides a \proglang{C} API for the same purpose 
-(`R_CheckUserInterrupt`) however this API is not safe to use in 
+Note that R provides a \proglang{C} API for the same purpose
+(`R_CheckUserInterrupt`) however this API is not safe to use in
 \proglang{C++} code as it uses `longjmp` to exit the current scope,
 bypassing any C++ destructors on the stack. The `Rcpp::checkUserInterrupt`
 function is provided as a safe alternative for \proglang{C++} code.
 
-## Embedding R Code 
+## Embedding R Code
 
 Typically \proglang{C++} and \proglang{R} code are kept in their own source
 files. However, it's often convenient to bundle code from both languages into
@@ -302,7 +302,7 @@ Multiple \proglang{R} code chunks can be included in a \proglang{C++} file. The
 `sourceCpp` function will first compile the \proglang{C++} code into a
 shared library and then source the embedded \proglang{R} code.
 
-## Modifying Function Names 
+## Modifying Function Names
 
 You can change the name of an exported function as it appears to \proglang{R} by
 adding a name parameter to `Rcpp::export`. For example:
@@ -318,7 +318,23 @@ exported R function will be hidden. You can also use this method to provide
 implementations of S3 methods (which wouldn't otherwise be possible because
 C++ functions can't contain a '.' in their name).
 
-## Function Requirements 
+## Returning invisible object
+
+Typically, only `void`-returning functions are wrapped by `invisible()` in
+`RcppExports.R`. In some cases, however, it is preferred to return an object
+invisibly. This can be done by adding an invisible parameter to `Rcpp::export`.
+For example:
+
+```{Rcpp, eval = FALSE}
+// [[Rcpp::export(invisible = true)]]
+NumericVector convolveCpp(NumericVector a,
+                          NumericVector b)
+```
+
+Then the R wrapper of `convolveCpp` will return `invisible(.Call(...))` rather
+than `.Call(...)`.
+
+## Function Requirements
 
 Functions marked with the `Rcpp::export` attribute must meet several
 requirements to be correctly handled:
@@ -332,7 +348,7 @@ requirements to be correctly handled:
   `DataFrame` is okay as a type name but `std::string` must be
   specified fully).
 
-## Random Number Generation 
+## Random Number Generation
 
 \proglang{R} functions implemented in \proglang{C} or \proglang{C++} need
 to be careful to surround use of internal random number generation routines
@@ -346,10 +362,10 @@ Note that \pkg{Rcpp} implements `RNGScope` using a counter, so it's
 still safe to execute code that may establish it's own `RNGScope` (such
 as the \pkg{Rcpp} sugar functions that deal with random number generation).
 
-The overhead associated with using `RNGScope` is negligible (only a 
+The overhead associated with using `RNGScope` is negligible (only a
 couple of milliseconds) and it provides a guarantee that all C++ code
-will inter-operate correctly with R's random number generation. If you are 
-certain that no C++ code will make use of random number generation and the 
+will inter-operate correctly with R's random number generation. If you are
+certain that no C++ code will make use of random number generation and the
 2ms of execution time is meaningful in your context, you can disable the
 automatic injection of `RNGScope` using the `rng` parameter
 of the `Rcpp::export` attribute. For example:
@@ -358,11 +374,11 @@ of the `Rcpp::export` attribute. For example:
 // [[Rcpp::export(rng = false)]]
 double myFunction(double input) {
     // ...code that never uses the
-    // R random number generation... 
+    // R random number generation...
 }
 ```
 
-## Importing Dependencies 
+## Importing Dependencies
 
 It's also possible to use the `Rcpp::depends` attribute to declare
 dependencies on other packages. For example:
@@ -384,7 +400,7 @@ List fastLm(NumericVector yr, NumericMatrix Xr) {
     arma::colvec coef = arma::solve(X, y);
     arma::colvec rd = y - X*coef;
 
-    double sig2 = 
+    double sig2 =
       arma::as_scalar(arma::trans(rd)*rd/(n-k));
     arma::colvec sderr = arma::sqrt(sig2 *
       arma::diagvec(arma::inv(arma::trans(X)*X)));
@@ -392,7 +408,7 @@ List fastLm(NumericVector yr, NumericMatrix Xr) {
     return List::create(Named("coef") = coef,
                         Named("sderr")= sderr);
 }
-``` 
+```
 
 The inclusion of the `Rcpp::depends` attribute causes `sourceCpp`
 to configure the build environment to correctly compile and link against the
@@ -412,24 +428,24 @@ source file in an \proglang{R} package these dependencies must still be
 listed in the `Imports` and/or `LinkingTo` fields of the package
 `DESCRIPTION` file.
 
-## Sharing Code 
+## Sharing Code
 
 The core use case for `sourceCpp` is the compilation of a single
 self-contained source file. Code within this file can import other C++ code
 by using the `Rcpp::depends` attribute as described above.
 
-The recommended practice for sharing C++ code across many uses of 
+The recommended practice for sharing C++ code across many uses of
 `sourceCpp` is therefore to create an R package to wrap the C++
 code. This has many benefits not the least of which is easy distribution of
 shared code. More information on creating packages that contain C++ code
 is included in the Package Development section below.
 
-### Shared Code in Header Files 
+### Shared Code in Header Files
 
-If you need to share a small amount of C++ code between source files 
+If you need to share a small amount of C++ code between source files
 compiled with `sourceCpp` and the option of creating a package
 isn't practical, then you can also share code using local includes of C++
-header files. To do this, create a header file with the definition of 
+header files. To do this, create a header file with the definition of
 shared functions, classes, enums, etc. For example:
 
 ```{Rcpp, eval = FALSE}
@@ -444,9 +460,9 @@ inline double timesTwo(double x) {
 ```
 
 Note the use of the `#ifndef` include guard, this is important to ensure
-that code is not included more than once in a source file. You should 
+that code is not included more than once in a source file. You should
 use an include guard and be sure to pick a unique name for the corresponding
-`#define`. 
+`#define`.
 
 Also note the use of the \code{inline} keyword preceding the function. This
 is important to ensure that there are not multiple definitions of
@@ -454,7 +470,7 @@ functions included from header files. Classes fully defined in header files
 automatically have inline semantics so don't require this treatment.
 
 To use this code in a source file you'd just include
-it based on it's relative path (being sure to use `"` as the 
+it based on it's relative path (being sure to use `"` as the
 delimiter to indicate a local file reference). For example:
 
 ```{Rcpp, eval = FALSE}
@@ -466,14 +482,14 @@ double transformValue(double x) {
 }
 ```
 
-### Shared Code in C++ Files 
+### Shared Code in C++ Files
 
 When scanning for locally included header files \code{sourceCpp} also checks
 for a corresponding implementation file and automatically includes it in the
 compilation if it exists.
 
 This enables you to break the shared code entirely into it's own source file.
-In terms of the above example, this would mean having only a function 
+In terms of the above example, this would mean having only a function
 declaration in the header:
 
 ```{Rcpp, eval = FALSE}
@@ -485,7 +501,7 @@ double timesTwo(double x);
 #endif // __UTILITIES__
 ```
 
-Then actually defining the function in a separate source file with the 
+Then actually defining the function in a separate source file with the
 same base name as the header file but with a .cpp extension (in the above
 example this would be \code{utilities.cpp}):
 
@@ -497,20 +513,20 @@ double timesTwo(double x) {
 }
 ```
 
-It's also possible to use attributes to declare dependencies and exported 
+It's also possible to use attributes to declare dependencies and exported
 functions within shared header and source files. This enables you to take
 a source file that is typically used standalone and include it when compiling
-another source file. 
+another source file.
 
 Note that since additional source files are processed as separate translation
 units the total compilation time will increase proportional to the number of
-files processed. From this standpoint it's often preferable to use shared 
+files processed. From this standpoint it's often preferable to use shared
 header files with definitions fully inlined as demonstrated above.
 
 Note also that embedded R code is only executed for the main source file not
 those referenced by local includes.
 
-## Including C++ Inline 
+## Including C++ Inline
 
 Maintaining C++ code in it's own source file provides several benefits including
 the ability to use \proglang{C++} aware text-editing tools and straightforward
@@ -540,7 +556,7 @@ You can also specify a depends parameter to `cppFunction` or `evalCpp`:
 cppFunction(depends='RcppArmadillo', code='...')
 ```
 
-# Package Development 
+# Package Development
 
 One of the goals of \pkg{Rcpp} attributes is to simultaneously facilitate
 ad-hoc and interactive work with \proglang{C++} while also making it very easy to
@@ -554,7 +570,7 @@ moving code from a standalone \proglang{C++} source file to a package:
 1. Packages provide additional infrastructure for testing, documentation
    and consistency
 
-## Package Creation 
+## Package Creation
 
 To create a package that is based on \pkg{Rcpp} you should follow the
 guidelines in the '\textsl{Rcpp-package}' vignette. For a new package this
@@ -575,9 +591,9 @@ with `sourceCpp` you can use the `cpp_files` parameter:
 Rcpp.package.skeleton("NewPackage",
                       example_code = FALSE,
                       cpp_files = c("convolve.cpp"))
-``` 
+```
 
-## Specifying Dependencies 
+## Specifying Dependencies
 
 Once you've migrated \proglang{C++} code into a package, the dependencies for
 source files are derived from the `Imports` and `LinkingTo` fields
@@ -597,7 +613,7 @@ entries in the `DESCRIPTION` file:
 ```{bash, eval = FALSE}
 Imports: Rcpp (>= 0.11.4)
 LinkingTo: Rcpp
-``` 
+```
 
 And the following entry in your `NAMESPACE` file:
 
@@ -612,10 +628,10 @@ you'd just add an entry for \pkg{BH} to the `LinkingTo` field since
 ```{bash, eval = FALSE}
 Imports: Rcpp (>= 0.11.4)
 LinkingTo: Rcpp, BH
-``` 
+```
 
 
-## Exporting R Functions 
+## Exporting R Functions
 
 Within interactive sessions you call the `sourceCpp` function
 on individual files to export \proglang{C++} functions into the global
@@ -639,7 +655,7 @@ Results in the generation of the following two source files:
 
 You should re-run `compileAttributes` whenever functions are added,
 removed, or have their signatures changed. Note that if you are using either
-RStudio or \pkg{devtools} to build your package then the 
+RStudio or \pkg{devtools} to build your package then the
 `compileAttributes` function is called automatically whenever your
 package is built.
 
@@ -674,13 +690,13 @@ RcppExport void R_init_pkgname(DllInfo *dll) {
 }
 ```
 
-## Types in Generated Code 
+## Types in Generated Code
 
 In some cases the signatures of the C++ functions that are generated within
-`RcppExports.cpp` may have additional type requirements beyond the core 
+`RcppExports.cpp` may have additional type requirements beyond the core
 standard library and \pkg{Rcpp} types (e.g. `CharacterVector`,
 `NumericVector`, etc.). Examples might include convenience typedefs,
-as/wrap handlers for marshaling between custom types and SEXP, or types 
+as/wrap handlers for marshaling between custom types and SEXP, or types
 wrapped by the Rcpp `XPtr` template.
 
 In this case, you can create a header file that contains these type definitions
@@ -700,20 +716,20 @@ inst/include/fastcode_types.hpp
 
 There is one other mechanism for type visibility in `RcppExports.cpp`.
 If your package provides a master include file for consumption by C++ clients
-then this file will also be automatically included. For example, if the 
+then this file will also be automatically included. For example, if the
 \pkg{fastcode} package had a C++ API and the following header file:
 
 ```{Rcpp, eval = FALSE}
 inst/include/fastcode.h
 ```
 
-This header file will also automatically be included in 
+This header file will also automatically be included in
 `RcppExports.cpp`. Note that the convention of using `.h` for
 header files containing C++ code may seem unnatural, but this comes from the
-recommended practices described in '\textsl{Writing R Extensions}' 
+recommended practices described in '\textsl{Writing R Extensions}'
 \citep{R:Extensions}.
 
-## Roxygen Comments 
+## Roxygen Comments
 
 The \pkg{roxygen2} package \citep{CRAN:roxygen2} provides a facility for
 automatically generating \proglang{R} documentation files based on specially
@@ -743,7 +759,7 @@ Results in the following code in the generated \proglang{R} source file:
 strLength <- function(str)
 ```
 
-## Providing a C++ Interface 
+## Providing a C++ Interface
 
 The interface exposed from \proglang{R} packages is most typically a set of
 \proglang{R} functions. However, the \proglang{R} package system also provides
@@ -759,7 +775,7 @@ system automatically adds the required `include` directories for all
 packages specified in the `LinkingTo` field of the package
 `DESCRIPTION` file.
 
-### Interfaces Attribute 
+### Interfaces Attribute
 
 The `Rcpp::interfaces` attribute can be used to automatically
 generate a header-only interface to your \proglang{C++} functions
@@ -779,7 +795,7 @@ should be generated for a source file:
 Note that the default behavior if an `Rcpp::interfaces` attribute
 is not included in a source file is to generate an R interface only.
 
-### Generated Code 
+### Generated Code
 
 If you request a `cpp` interface for a source file then
 `compileAttributes` generates the following header files
@@ -815,7 +831,7 @@ void foo() {
 }
 ```
 
-### Including Additional Code 
+### Including Additional Code
 
 You might wish to use the `Rcpp::interfaces` attribute to generate
 a part of your package's \proglang{C++} interface but also provide
