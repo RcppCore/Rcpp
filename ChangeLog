@@ -1,7 +1,7 @@
 2019-11-18  Kun Ren  <mail@renkun.me>
 
 	* src/attributes.cpp: Add invisible param to export attribute (#1024)
-        * vignettes/rmd/Rcpp-attributes.Rmd: Add an section of Returning invisible object
+	* vignettes/rmd/Rcpp-attributes.Rmd: Add an section of Returning invisible object
 
 2019-11-13  Dirk Eddelbuettel  <edd@debian.org>
 
