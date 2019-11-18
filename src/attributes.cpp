@@ -153,6 +153,7 @@ namespace attributes {
     const char * const kExportAttribute = "export";
     const char * const kExportName = "name";
     const char * const kExportRng = "rng";
+    const char * const kExportInvisible = "invisible";
     const char * const kInitAttribute = "init";
     const char * const kDependsAttribute = "depends";
     const char * const kPluginsAttribute = "plugins";
@@ -379,6 +380,15 @@ namespace attributes {
                        rngParam.value() == kParamValueTRUE;  	// #nocov
             else
                 return true;
+        }
+
+        bool invisible() const {
+            Param invisibleParam = paramNamed(kExportInvisible);
+            if (!invisibleParam.empty()) 
+                return invisibleParam.value() == kParamValueTrue ||	// #nocov
+                       invisibleParam.value() == kParamValueTRUE;  	// #nocov
+            else
+                return false;
         }
 
         const std::vector<std::string>& roxygen() const { return roxygen_; }
@@ -1352,7 +1362,8 @@ namespace attributes {
                 // parameter that isn't name or rng
                 else if (!value.empty() &&
                          (name != kExportName) &&
-                         (name != kExportRng)) {
+                         (name != kExportRng) &&
+                         (name != kExportInvisible)) {
                     rcppExportWarning("Unrecognized parameter '" + name + "'",
                                       lineNumber);
                 }
@@ -1363,6 +1374,16 @@ namespace attributes {
                         value != kParamValueFALSE &&
                         value != kParamValueTRUE) {
                         rcppExportWarning("rng value must be true or false",
+                                          lineNumber);			// #nocov end
+                    }
+                }
+                // invisible that isn't true of false
+                else if (name == kExportInvisible) {
+                    if (value != kParamValueFalse &&
+                        value != kParamValueTrue &&
+                        value != kParamValueFALSE &&
+                        value != kParamValueTRUE) {
+                        rcppExportWarning("invisible value must be true or false",
                                           lineNumber);			// #nocov end
                     }
                 }
@@ -2413,11 +2434,14 @@ namespace attributes {
                 // determine the function name
                 std::string name = attribute.exportedName();
 
+                // determine if return invisible
+                bool invisible = function.type().isVoid() || attribute.invisible();
+
                 // write the function
                 ostr() << name << " <- function(" << args << ") {"
                        << std::endl;
                 ostr() << "    ";
-                if (function.type().isVoid())
+                if (invisible)
                     ostr() << "invisible(";			// #nocov
                 ostr() << ".Call(";
                 if (!registration_)
@@ -2435,7 +2459,7 @@ namespace attributes {
                 for (size_t i = 0; i<arguments.size(); i++)
                     ostr() << ", " << arguments[i].name();	// #nocov
                 ostr() << ")";
-                if (function.type().isVoid())
+                if (invisible)
                     ostr() << ")";				// #nocov
                 ostr() << std::endl;
 
