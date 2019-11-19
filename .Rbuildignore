@@ -26,3 +26,4 @@ docker
 ^local
 vignettes/Makefile
 vignettes/rmd
+\.github
