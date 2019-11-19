@@ -15,11 +15,15 @@
       \item The \code{cppFunction} helper now deals correctly with mulitple
       \code{depends} arguments (TJ McKinley in \ghpr{1016} fixing
       \ghit{1017}).
+      \item Invisible return object are now supported via new option (Kun Ren
+      in \ghpr{1025} fixing \ghit{1024}).
     }
     \item Changes in Rcpp Documentation:
     \itemize{
       \item The \code{.github/} directory now has more explicit guidance on
       contributinh, issues, and pull requests (Dirk).
+      \item The Rcpp Attributes vignette describe the new invisible return
+      objection option (Kun Ren in \ghpr{1025}).
     }
     \item Changes in Rcpp Deployment:
     \itemize{
