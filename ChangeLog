@@ -1,3 +1,8 @@
+2019-11-19  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+        * inst/include/Rcpp/config.h: Idem
+
 2019-11-18  Kun Ren  <mail@renkun.me>
 
 	* src/attributes.cpp: Add invisible param to export attribute (#1024)
