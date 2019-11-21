@@ -1,3 +1,7 @@
+2019-11-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/Attributes.R: Test for and report unavailable 'LinkingTo' package
+
 2019-11-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version

@@ -962,6 +962,11 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
         # otherwise check for standard Rcpp::interfaces generated include
         else if (!pluginsOnly) {
             pkgPath <- find.package(package, NULL, quiet=TRUE)
+            if (length(pkgPath) == 0) {
+                stop(paste("Package '", package, "' referenced from ",
+                           "LinkingTo directive is not available.", sep=""),
+                     call. = FALSE)
+            }
             pkgHeader <- paste(package, ".h", sep="")
             pkgHeaderPath <- file.path(pkgPath, "include",  pkgHeader)
             if (file.exists(pkgHeaderPath)) {
