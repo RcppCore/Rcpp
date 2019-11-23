@@ -1,3 +1,7 @@
+2019-11-23  Dirk Eddelbuettel  <edd@debian.org>
+
+	* docker/ci/Dockerfile: Add tinytest to ci Docker image
+
 2019-11-20  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/Attributes.R: Test for and report unavailable 'LinkingTo' package

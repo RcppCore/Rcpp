@@ -19,7 +19,7 @@ RUN apt-get update \
                 r-cran-lazyeval \
                 r-cran-withr \
                 git \
-        && install.r rbenchmark pinp covr
+        && install.r rbenchmark pinp covr tinytest
 
 ENV _R_CHECK_FORCE_SUGGESTS_ FALSE
 ENV RunAllRcppTests yes
