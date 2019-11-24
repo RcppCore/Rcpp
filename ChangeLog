@@ -1,7 +1,10 @@
 2019-11-24  Dirk Eddelbuettel  <edd@debian.org>
 
- 	* inst/tinytest/test_algorithm.R: Converted from RUnit to tinytest
+	* tests/tinytest.R: Converted from RUnit to tinytest 
+ 	* inst/tinytest/test_algorithm.R: Idem
  	* inst/tinytest/test_as.R: Idem
+	* inst/tinytest/test_binary_package.R: Idem (but inactive for now)
+	* inst/tinytest/test_client_package.R: Idem (but inactive for now)
 
 2019-11-23  Dirk Eddelbuettel  <edd@debian.org>
 
