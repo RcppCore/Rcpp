@@ -10,6 +10,8 @@
 	* inst/tinytest/test_dispatch.R: Idem
 	* inst/tinytest/test_embedded.R: Idem
 	* inst/tinytest/test_environments.R: Idem
+	* inst/tinytest/test_exceptions.R: Idem
+	* inst/tinytest/test_exceptions_nocall.R: Idem
 
 2019-11-23  Dirk Eddelbuettel  <edd@debian.org>
 
