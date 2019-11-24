@@ -17,6 +17,8 @@
 	* inst/tinytest/test_interface.R: Idem (but inactive for now)
 	* inst/tinytest/test_internal_function.R: Idem
 	* inst/tinytest/test_internal_function_cpp11.R: Idem
+	* inst/tinytest/test_language.R: Idem
+	* inst/tinytest/test_listof.R: Idem
 	
 2019-11-23  Dirk Eddelbuettel  <edd@debian.org>
 
