@@ -21,7 +21,7 @@
 ## override -- skipping test for now (need to rebuild binary)
 .runThisTest <- FALSE
 
-if (!.runThisTest) exit_file("Skipping, set 'RunAllRcppTests=yes' to run.")
+if (!.runThisTest) exit_file("Skipping 'test_rcpp_package_skeleton'") #, set 'RunAllRcppTests=yes' to run.")
 
 library(Rcpp)
 
