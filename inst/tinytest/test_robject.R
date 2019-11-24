@@ -21,7 +21,7 @@
 if (!.runThisTest) exit_file("Skipping, set 'RunAllRcppTests=yes' to run.")
 
 library(Rcpp)
-sourceCpp("cpp/RObject")
+sourceCpp("cpp/RObject.cpp")
 
 #    test.RObject.asDouble <- function(){
 expect_equal( asDouble(2.123), 4.246, info = "as<double>( REALSXP ) " )
@@ -108,7 +108,6 @@ expect_equal( asStdVectorBool(x=c(1.0, 0.0)), c(FALSE, TRUE), info = "as< std::v
 expect_equal( asStdVectorBool(x=as.raw(c(1,0))), c(FALSE, TRUE), info = "as< std::vector<bool> >(raw)" )
 expect_error( asStdVectorBool("foo"), info = "as< std::vector<bool> >(character) -> exception" )
 expect_error( asStdVectorBool(NULL), info = "as< std::vector<bool> >(NULL) -> exception" )
-    }
 
 #    test.RObject.asStdVectorString <- function(){
 expect_equal( asStdVectorString(c("foo", "bar")), c("foofoo", "barbar"), info = "as< std::vector<std::string> >(character)" )
@@ -153,7 +152,8 @@ expect_true( !isNULL(1L), info = "RObject.isNULL(integer) -> false" )
 expect_true( !isNULL(1.0), info = "RObject.isNULL(numeric) -> false" )
 expect_true( !isNULL(as.raw(1)), info = "RObject.isNULL(raw) -> false" )
 expect_true( !isNULL(letters), info = "RObject.isNULL(character) -> false")
-expect_true( !isNULL(test.RObject.isNULL), info = "RObject.isNULL(function) -> false" )
+#expect_true( !isNULL(test.RObject.isNULL), info = "RObject.isNULL(function) -> false" )
+expect_true( !isNULL(base::ls), info = "RObject.isNULL(function) -> false" )
 expect_true( !isNULL(.GlobalEnv), info = "RObject.isNULL(environment) -> false" )
 expect_true( isNULL(NULL), info = "RObject.isNULL(NULL) -> true" )
 
