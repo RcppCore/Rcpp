@@ -30,6 +30,8 @@
 	* inst/tinytest/test_reference.R: Idem
 	* inst/tinytest/test_rmath.R: Idem
 	* inst/tinytest/test_robject.R: Idem
+	* inst/tinytest/test_s4.R: Idem
+	* inst/tinytest/test_stack.R: Idem
 
 2019-11-23  Dirk Eddelbuettel  <edd@debian.org>
 
