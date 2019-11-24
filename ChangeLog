@@ -12,6 +12,9 @@
 	* inst/tinytest/test_environments.R: Idem
 	* inst/tinytest/test_exceptions.R: Idem
 	* inst/tinytest/test_exceptions_nocall.R: Idem
+	* inst/tinytest/test_expose_class.R: Idem
+	* inst/tinytest/test_function.R: Idem
+	* inst/tinytest/test_interface.R: Idem
 
 2019-11-23  Dirk Eddelbuettel  <edd@debian.org>
 
