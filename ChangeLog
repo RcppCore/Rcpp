@@ -35,6 +35,7 @@
 	* inst/tinytest/test_stats.R: Idem
 	* inst/tinytest/test_string.R: Idem
 	* inst/tinytest/test_subset.R: Idem
+	* inst/tinytest/test_sugar.R: Idem
 
 2019-11-23  Dirk Eddelbuettel  <edd@debian.org>
 

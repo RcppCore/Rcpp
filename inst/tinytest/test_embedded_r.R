@@ -18,6 +18,9 @@
 
 .runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
 
+## override -- skipping test for now as noisy
+.runThisTest <- FALSE
+
 if (!.runThisTest) exit_file("Skipping 'test_embedded_r.R'")
 
 library(Rcpp)
