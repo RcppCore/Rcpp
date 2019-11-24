@@ -19,6 +19,8 @@
 	* inst/tinytest/test_internal_function_cpp11.R: Idem
 	* inst/tinytest/test_language.R: Idem
 	* inst/tinytest/test_listof.R: Idem
+	* inst/tinytest/test_matrix.R: Idem
+	* inst/tinytest/test_misc.R: Idem
 	
 2019-11-23  Dirk Eddelbuettel  <edd@debian.org>
 
