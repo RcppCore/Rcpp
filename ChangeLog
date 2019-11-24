@@ -5,6 +5,8 @@
  	* inst/tinytest/test_as.R: Idem
 	* inst/tinytest/test_binary_package.R: Idem (but inactive for now)
 	* inst/tinytest/test_client_package.R: Idem (but inactive for now)
+	* inst/tinytest/test_dataframe.R: Idem
+	* inst/tinytest/test_date.R: Idem (but condition two test sets on TZ)
 
 2019-11-23  Dirk Eddelbuettel  <edd@debian.org>
 
