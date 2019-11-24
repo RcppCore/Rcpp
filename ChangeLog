@@ -21,6 +21,9 @@
 	* inst/tinytest/test_listof.R: Idem
 	* inst/tinytest/test_matrix.R: Idem
 	* inst/tinytest/test_misc.R: Idem
+	* inst/tinytest/test_modref.R: Idem
+	* inst/tinytest/test_module.R: Idem
+	* inst/tinytest/test_module_client_package.R: Idem
 	
 2019-11-23  Dirk Eddelbuettel  <edd@debian.org>
 
