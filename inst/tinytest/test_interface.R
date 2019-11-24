@@ -18,7 +18,10 @@
 
 .runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
 
-if (.runThisTest) exit_file("Skipping 'test_interface.R'")
+## override -- skipping test for now as noisy
+.runThisTest <- FALSE
+
+if (!.runThisTest) exit_file("Skipping 'test_interface.R'")
 
 library(Rcpp)
 

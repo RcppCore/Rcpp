@@ -20,7 +20,7 @@
 
 .runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
 
-if (.runThisTest) exit_file("Skipping 'test_dispatch.R'")
+if (!.runThisTest) exit_file("Skipping 'test_dispatch.R'")
 
 library(Rcpp)
 sourceCpp("cpp/dispatch.cpp")

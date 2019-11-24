@@ -18,7 +18,7 @@
 
 .runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
 
-if (.runThisTest) exit_file("Skipping 'test_date.R'")
+if (!.runThisTest) exit_file("Skipping 'test_date.R'")
 
 library(Rcpp)
 sourceCpp("cpp/dates.cpp")

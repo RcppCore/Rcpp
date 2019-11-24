@@ -18,7 +18,7 @@
 
 .runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
 
-if (.runThisTest) exit_file("Skipping 'test_exceptions.R'")
+if (!.runThisTest) exit_file("Skipping 'test_exceptions.R'")
 
 library(Rcpp)
 sourceCpp("cpp/exceptions.cpp")

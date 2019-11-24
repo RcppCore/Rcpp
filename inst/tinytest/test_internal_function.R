@@ -1,5 +1,5 @@
 
-##  Copyright (C) 2012 - 2016  Dirk Eddelbuettel and Romain Francois
+##  Copyright (C) 2014 - 2019  Christian Authmann
 ##
 ##  This file is part of Rcpp.
 ##
@@ -18,19 +18,15 @@
 
 .runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
 
-if (!.runThisTest) exit_file("Skipping 'test_embedded_r.R'")
+if (!.runThisTest) exit_file("Skipping 'test_internal_function.R'")
 
 library(Rcpp)
+sourceCpp("cpp/InternalFunction.cpp")
 
-#    test.embeddedR <- function() {
-path <- "cpp"   #file.path(system.file("unitTests", package = "Rcpp"), "cpp")
-expectedVars <- c("foo", "x")
+#    test.internal_function_add <- function(){
+fun <- getAdd()
+expect_equal( fun(10,32), 42 )
 
-## embeddedR.cpp exposes the function foo, R snippet calls foo
-newEnv <- new.env(parent = baseenv())
-sourceCpp("cpp/embeddedR.cpp",  env = newEnv)
-expect_equal(ls(newEnv), expectedVars, msg = "sourcing code in custom env")
-
-## R snippet in embeddedR2.cpp also contains a call to foo from previous cpp
-newEnv2 <- new.env(parent = baseenv())
-expect_error(sourceCpp("cpp/embeddedR2.cpp", env = newEnv2), 'could not find function "foo"')
+#    test.internal_function_concatenate <- function(){
+fun <- getConcatenate()
+expect_equal( fun("Hello"," World"), "Hello World" )

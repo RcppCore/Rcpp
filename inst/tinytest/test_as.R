@@ -18,7 +18,7 @@
 
 .runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
 
-if (.runThisTest) exit_file("Skipping 'test_as.R'")
+if (!.runThisTest) exit_file("Skipping 'test_as.R'")
 
 library(Rcpp)
 sourceCpp("cpp/as.cpp")

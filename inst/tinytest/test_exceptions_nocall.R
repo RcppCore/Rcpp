@@ -18,7 +18,7 @@
 
 .runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
 
-if (.runThisTest) exit_file("Skipping 'test_exceptions_nocall.R'")
+if (!.runThisTest) exit_file("Skipping 'test_exceptions_nocall.R'")
 
 library(Rcpp)
 sourceCpp("cpp/Exceptions_nocall.cpp")

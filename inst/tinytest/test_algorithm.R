@@ -18,7 +18,7 @@
 
 .runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
 
-if (.runThisTest) exit_file("Skipping 'test_algorithm.R'")
+if (!.runThisTest) exit_file("Skipping 'test_algorithm.R'")
 
 library(Rcpp)
 sourceCpp("cpp/algorithm.cpp")

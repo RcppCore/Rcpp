@@ -18,7 +18,7 @@
 
 .runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
 
-if (.runThisTest) exit_file("Skipping 'test_dataframe.R'")
+if (!.runThisTest) exit_file("Skipping 'test_dataframe.R'")
 
 library(Rcpp)
 sourceCpp("cpp/DataFrame.cpp")

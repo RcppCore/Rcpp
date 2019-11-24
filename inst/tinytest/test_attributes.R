@@ -18,7 +18,7 @@
 
 .runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
 
-if (.runThisTest) exit_file("Skipping 'test_attributes.R'")
+if (!.runThisTest) exit_file("Skipping 'test_attributes.R'")
 
 library(Rcpp)
 sourceCpp("cpp/attributes.cpp")
