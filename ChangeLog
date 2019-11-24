@@ -1,6 +1,6 @@
 2019-11-24  Dirk Eddelbuettel  <edd@debian.org>
 
-	* tests/tinytest.R: Converted from RUnit to tinytest 
+	* tests/tinytest.R: Converted from RUnit to tinytest
  	* inst/tinytest/test_algorithm.R: Idem
  	* inst/tinytest/test_as.R: Idem
 	* inst/tinytest/test_binary_package.R: Idem (but inactive for now)
@@ -24,7 +24,13 @@
 	* inst/tinytest/test_modref.R: Idem
 	* inst/tinytest/test_module.R: Idem
 	* inst/tinytest/test_module_client_package.R: Idem
-	
+	* inst/tinytest/test_na.R: Idem
+	* inst/tinytest/test_quickanddirty.R: Idem
+	* inst/tinytest/test_rcpp_package_skeleton.R: Idem
+	* inst/tinytest/test_reference.R: Idem
+	* inst/tinytest/test_rmath.R: Idem
+	* inst/tinytest/test_robject.R: Idem
+
 2019-11-23  Dirk Eddelbuettel  <edd@debian.org>
 
 	* docker/ci/Dockerfile: Add tinytest to ci Docker image
