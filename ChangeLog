@@ -1,3 +1,7 @@
+2019-11-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/tinytest/cpp/Vector.cpp (no_op): Suppress compiler warning
+
 2019-11-24  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Suggests): Add tinytest, remove RUnit

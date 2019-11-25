@@ -805,7 +805,7 @@ LogicalVector logical_vector_from_bool_assign() {
 
 // [[Rcpp::export]]
 void no_op(int major) {
-    int minor = 1;
+    //int minor = 1;
 }
 
 // [[Rcpp::export]]
