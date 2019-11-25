@@ -56,6 +56,9 @@
 
 	* R/unitTests.R: Removed as tied to RUnit setuo
 
+	* inst/tinytest/test_attributes.R: Added test for error with
+	non-existing package in cppFunction
+
 2019-11-23  Dirk Eddelbuettel  <edd@debian.org>
 
 	* docker/ci/Dockerfile: Add tinytest to ci Docker image

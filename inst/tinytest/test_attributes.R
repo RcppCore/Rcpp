@@ -38,3 +38,6 @@ expect_equal(parse_default_values_with_chr_parenthesis(),
 
 expect_equal(parse_default_values_with_chr_backslash(),
             "Parse function header with backslash inside default char values.")
+
+## cf issue #1026 and pr #1027
+expect_error(cppFunction("bool foo() { return false; }", depends = "fakepkg"))
