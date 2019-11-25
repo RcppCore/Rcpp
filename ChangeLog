@@ -42,6 +42,9 @@
 	* inst/tinytest/test_table.R: Idem
 	* inst/tinytest/test_vector.R: Idem
 	* inst/tinytest/test_vector_old.R: Idem
+	* inst/tinytest/test_wrap.R: Idem
+	* inst/tinytest/test_wstring.R: Idem
+	* inst/tinytest/test_xptr.R: Idem
 
 2019-11-23  Dirk Eddelbuettel  <edd@debian.org>
 
