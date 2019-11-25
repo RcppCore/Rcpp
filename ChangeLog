@@ -40,6 +40,8 @@
 	* inst/tinytest/test_support.R: Idem
 	* inst/tinytest/test_system.R: Idem
 	* inst/tinytest/test_table.R: Idem
+	* inst/tinytest/test_vector.R: Idem
+	* inst/tinytest/test_vector_old.R: Idem
 
 2019-11-23  Dirk Eddelbuettel  <edd@debian.org>
 
