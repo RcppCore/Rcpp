@@ -1,5 +1,10 @@
 2019-11-24  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Suggests): Add tinytest, remove RUnit
+
+	* tests/doRUnit.R: Removed
+	* tests/tinytest.R: Added
+
 	* tests/tinytest.R: Converted from RUnit to tinytest
  	* inst/tinytest/test_algorithm.R: Idem
  	* inst/tinytest/test_as.R: Idem
@@ -46,6 +51,11 @@
 	* inst/tinytest/test_wstring.R: Idem
 	* inst/tinytest/test_xptr.R: Idem
 
+	* inst/tinytest/cpp/*: C++ support files for tests
+	* inst/tinytest/*: Other support files and directories from unitTests
+
+	* R/unitTests.R: Removed as tied to RUnit setuo
+
 2019-11-23  Dirk Eddelbuettel  <edd@debian.org>
 
 	* docker/ci/Dockerfile: Add tinytest to ci Docker image
@@ -62,7 +72,8 @@
 2019-11-18  Kun Ren  <mail@renkun.me>
 
 	* src/attributes.cpp: Add invisible param to export attribute (#1024)
-	* vignettes/rmd/Rcpp-attributes.Rmd: Add an section of Returning invisible object
+	* vignettes/rmd/Rcpp-attributes.Rmd: Add an section of Returning
+	invisible object
 
 2019-11-13  Dirk Eddelbuettel  <edd@debian.org>
 

@@ -21,7 +21,7 @@
 ## override -- skipping test for now
 .runThisTest <- FALSE
 
-if (!.runThisTest) exit_file("Skipping 'test_expose_class.R")
+if (!.runThisTest) exit_file("Skipping 'test_expose_class.R'")
 
 library(Rcpp)
 
