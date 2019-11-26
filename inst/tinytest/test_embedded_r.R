@@ -1,5 +1,5 @@
 
-##  Copyright (C) 2012 - 2016  Dirk Eddelbuettel and Romain Francois
+##  Copyright (C) 2012 - 2019  Dirk Eddelbuettel and Romain Francois
 ##
 ##  This file is part of Rcpp.
 ##
@@ -18,10 +18,7 @@
 
 .runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
 
-## override -- skipping test for now as noisy
-.runThisTest <- FALSE
-
-if (!.runThisTest) exit_file("Skipping 'test_embedded_r.R'")
+if (!.runThisTest) exit_file("Skipping, set 'RunAllRcppTests=yes' to run.")
 
 library(Rcpp)
 
@@ -31,9 +28,14 @@ expectedVars <- c("foo", "x")
 
 ## embeddedR.cpp exposes the function foo, R snippet calls foo
 newEnv <- new.env(parent = baseenv())
+
+sink(tempfile())                        # NB: silencing output
+
 sourceCpp("cpp/embeddedR.cpp",  env = newEnv)
 expect_equal(ls(newEnv), expectedVars, msg = "sourcing code in custom env")
 
 ## R snippet in embeddedR2.cpp also contains a call to foo from previous cpp
 newEnv2 <- new.env(parent = baseenv())
 expect_error(sourceCpp("cpp/embeddedR2.cpp", env = newEnv2), 'could not find function "foo"')
+
+sink(NULL)                              # NB: restoring

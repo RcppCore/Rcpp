@@ -1,3 +1,8 @@
+2019-11-26  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/tinytest/test_embedded_r.R: Use sink to suppress noisy output,
+	reenable tests (still conditional on usual environment variable)
+
 2019-11-25  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/tinytest/cpp/Vector.cpp (no_op): Suppress compiler warning
