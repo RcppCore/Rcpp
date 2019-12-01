@@ -1,3 +1,8 @@
+2019-12-01  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Suggests): Remove knitr, rmarkdown, pinp
+	* DESCRIPTION (VignetteBuilder): Remove knitr
+
 2019-11-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/tinytest/test_embedded_r.R: Use sink to suppress noisy output,
