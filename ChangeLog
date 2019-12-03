@@ -1,3 +1,8 @@
+2019-12-03  Dirk Eddelbuettel  <edd@debian.org>
+
+	* docker/ci/Dockerfile: Lighter builds as fewer Suggests:
+	* docker/plus/Dockerfile: Take packages moved from ci/Dockerfile
+
 2019-12-01  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
