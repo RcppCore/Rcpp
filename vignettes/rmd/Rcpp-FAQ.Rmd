@@ -1754,3 +1754,14 @@ Rcpp Modules \citep{CRAN:Rcpp:Modules}.  Some more background on the linking
 requirement is [in this SO
 question](https://stackoverflow.com/questions/2424836/exceptions-are-not-caught-in-gcc-program).
  
+## My package errors with "'dataptr' not provided by Rcpp"
+
+If you see tests of your package fail with an error '... not provided by
+Rcpp', frequently pointing at either `dataptr` or `enterRNGScope`, then the
+\pkg{Rcpp} package may not have been initialized correctly.  For your
+package, it is generally recommended to have both `Imports: Rcpp` and
+`LinkingTo: Rcpp` in the file `DESCRIPTION` combined with an explicit
+`importFrom("Rcpp", "evalCpp")` in the file `NAMESPACE`.  Doing so ensures
+that this symbol is registered when your package is loaded by R, and as a
+side-effect certain other \pkg{Rcpp} function identifiers will also be
+resolved properly.

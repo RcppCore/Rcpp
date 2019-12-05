@@ -1,3 +1,8 @@
+2019-12-05  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/rmd/Rcpp-FAQ.Rmd (Rcpp): Add entry about "'dataptr' (or
+	'enterRNGScope') not provided by Rcpp" recommending proper importFrom
+
 2019-12-03  Dirk Eddelbuettel  <edd@debian.org>
 
 	* docker/ci/Dockerfile: Lighter builds as fewer Suggests:
