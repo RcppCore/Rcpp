@@ -1,3 +1,8 @@
+2019-12-07  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/tinytest/test_misc.R: Add commented-out test that fails
+	* tests/tinytest.R: Minor edit
+
 2019-12-05  Dirk Eddelbuettel  <edd@debian.org>
 
 	* vignettes/rmd/Rcpp-FAQ.Rmd (Rcpp): Add entry about "'dataptr' (or

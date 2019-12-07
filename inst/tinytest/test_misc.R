@@ -181,3 +181,7 @@ expect_true(nchar(Rcpp:::bib()) > 0, info="bib file")
 #    test.getRcppVersion <- function() {
 expect_true(inherits(getRcppVersion(), "package_version"), info="package_version object")
 expect_true(getRcppVersion(devel=TRUE) >= getRcppVersion(devel=FALSE), info="dev greater equal release")
+
+## if need be it can be useful to fail to test e.g. the Docker setup
+## commented out now as we prefer to pass when not debugging ;-)
+# expect_true(FALSE, info="oh noes")
