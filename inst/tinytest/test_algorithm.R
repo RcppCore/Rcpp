@@ -16,12 +16,9 @@
 ##  You should have received a copy of the GNU General Public License
 ##  along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
+if (Sys.getenv("RunAllRcppTests") != "yes") exit_file("Set 'RunAllRcppTests' to 'yes' to run.")
 
-if (!.runThisTest) exit_file("Skipping 'test_algorithm.R'")
-
-library(Rcpp)
-sourceCpp("cpp/algorithm.cpp")
+Rcpp::sourceCpp("cpp/algorithm.cpp")
 
 #    test.sum <- function() {
 v <- c(1.0, 2.0, 3.0, 4.0, 5.0)

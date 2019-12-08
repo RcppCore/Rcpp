@@ -16,11 +16,9 @@
 ##  You should have received a copy of the GNU General Public License
 ##  along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
-if (! .runThisTest) exit_file("Set 'RunAllRcppTests' to 'yes' to run.")
+if (Sys.getenv("RunAllRcppTests") != "yes") exit_file("Set 'RunAllRcppTests' to 'yes' to run.")
 
-library(Rcpp)
-sourceCpp("cpp/Reference.cpp")
+Rcpp::sourceCpp("cpp/Reference.cpp")
 
 #    test.Reference <- function(){
 Instrument <- setRefClass(Class="Instrument", fields=list("id"="character", "description"="character"))
