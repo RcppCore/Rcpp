@@ -16,12 +16,9 @@
 ##  You should have received a copy of the GNU General Public License
 ##  along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
+if (Sys.getenv("RunAllRcppTests") != "yes") exit_file("Set 'RunAllRcppTests' to 'yes' to run.")
 
-if (!.runThisTest) exit_file("Skipping, set 'RunAllRcppTests=yes' to run.")
-
-library(Rcpp)
-sourceCpp("cpp/String.cpp")
+Rcpp::sourceCpp("cpp/String.cpp")
 
 #    test.replace_all <- function(){
 expect_equal( String_replace_all("abcdbacdab", "ab", "AB"), "ABcdbacdAB")

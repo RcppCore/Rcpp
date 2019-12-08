@@ -16,12 +16,9 @@
 ##  You should have received a copy of the GNU General Public License
 ##  along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
+if (Sys.getenv("RunAllRcppTests") != "yes") exit_file("Set 'RunAllRcppTests' to 'yes' to run.")
 
-if (!.runThisTest) exit_file("Skipping, set 'RunAllRcppTests=yes' to run.")
-
-library(Rcpp)
-sourceCpp("cpp/wrap.cpp")
+Rcpp::sourceCpp("cpp/wrap.cpp")
 
 #    test.wrap.map.string.int <- function(){
 expect_equal(map_string_int(), c( a = 200L, b = 100L, c = 300L), info = "wrap( map<string,int>) " )

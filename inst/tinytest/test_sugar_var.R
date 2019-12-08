@@ -16,11 +16,7 @@
 ##  You should have received a copy of the GNU General Public License
 ##  along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
-
-if (!.runThisTest) exit_file("Skipping, set 'RunAllRcppTests=yes' to run.")
-
-library(Rcpp)
+if (Sys.getenv("RunAllRcppTests") != "yes") exit_file("Set 'RunAllRcppTests' to 'yes' to run.")
 
 #    test.Sugar.var <- function() {
 fNumeric <- Rcpp::cppFunction('double myVar(NumericVector x) { return(var(x)); }')
