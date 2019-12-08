@@ -5,6 +5,8 @@
 	* inst/tinytest/test_misc.R: Add commented-out test that fails
 	* tests/tinytest.R: Minor edit
 
+	* docker/ci/Dockerfile: Add curl and ssl -dev packages needed for covr
+
 2019-12-05  Dirk Eddelbuettel  <edd@debian.org>
 
 	* vignettes/rmd/Rcpp-FAQ.Rmd (Rcpp): Add entry about "'dataptr' (or
