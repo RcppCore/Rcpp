@@ -1374,7 +1374,7 @@ namespace attributes {
                         value != kParamValueFALSE &&
                         value != kParamValueTRUE) {
                         rcppExportWarning("rng value must be true or false",
-                                          lineNumber);			// #nocov end
+                                          lineNumber);
                     }
                 }
                 // invisible that isn't true of false
@@ -3640,4 +3640,3 @@ BEGIN_RCPP
     return Rcpp::wrap<std::vector<std::string> >(updated);
 END_RCPP
 }
-
