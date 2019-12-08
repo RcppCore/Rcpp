@@ -9,6 +9,8 @@
 	* inst/tinytest/test_rcpp_package_skeleton.R: Idem
 	* inst/tinytest/test_reference.R: Idem
 
+	* inst/tinytest/test_*.R: Streamlined initial test and sourceCpp call
+
 	* src/attributes.cpp: Remove dangling '#nocov end'
 
 2019-12-07  Dirk Eddelbuettel  <edd@debian.org>

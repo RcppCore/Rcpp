@@ -18,12 +18,9 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
+if (Sys.getenv("RunAllRcppTests") != "yes") exit_file("Set 'RunAllRcppTests' to 'yes' to run.")
 
-if (!.runThisTest) exit_file("Skipping 'test_dispatch.R'")
-
-library(Rcpp)
-sourceCpp("cpp/dispatch.cpp")
+Rcpp::sourceCpp("cpp/dispatch.cpp")
 
 #    test.RawVector <- function() {
 x <- as.raw(0:9)
