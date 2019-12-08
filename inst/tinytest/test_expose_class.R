@@ -16,12 +16,9 @@
 ##  You should have received a copy of the GNU General Public License
 ##  along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
+.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes" && Sys.getenv("RunVerboseRcppTests") == "yes"
 
-## override -- skipping test for now
-.runThisTest <- FALSE
-
-if (!.runThisTest) exit_file("Skipping 'test_expose_class.R'")
+if (! .runThisTest) exit_file("Set 'RunVerboseRcppTests' and 'RunAllRcppTests' to 'yes' to run.")
 
 library(Rcpp)
 

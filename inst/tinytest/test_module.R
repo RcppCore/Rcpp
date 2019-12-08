@@ -16,14 +16,11 @@
 # You should have received a copy of the GNU General Public License
 # along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
-
-if (!.runThisTest) exit_file("Skipping, set 'RunAllRcppTests=yes' to run.")
+if (Sys.getenv("RunAllRcppTests") != "yes") exit_file("Set 'RunAllRcppTests' to 'yes' to run.")
 
 if( ! Rcpp:::capabilities()[["Rcpp modules"]] ) exit_file("Skipping as no Modules capability.")
 
-library(Rcpp)
-sourceCpp("cpp/Module.cpp")
+Rcpp::sourceCpp("cpp/Module.cpp")
 
 #    test.Module <- function(){
 expect_equal( bar( 2L ), 4L )

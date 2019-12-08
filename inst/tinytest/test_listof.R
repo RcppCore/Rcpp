@@ -16,12 +16,9 @@
 ##  You should have received a copy of the GNU General Public License
 ##  along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
+if (Sys.getenv("RunAllRcppTests") != "yes") exit_file("Set 'RunAllRcppTests' to 'yes' to run.")
 
-if (!.runThisTest) exit_file("Skipping, set 'RunAllRcppTests=yes' to run.")
-
-library(Rcpp)
-sourceCpp("cpp/ListOf.cpp")
+Rcpp::sourceCpp("cpp/ListOf.cpp")
 
 x <- list( c(1, 5), c(2, 6), c(3, 7) )
 

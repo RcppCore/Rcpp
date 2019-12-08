@@ -16,12 +16,9 @@
 ##  You should have received a copy of the GNU General Public License
 ##  along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
+if (Sys.getenv("RunAllRcppTests") != "yes") exit_file("Set 'RunAllRcppTests' to 'yes' to run.")
 
-if (!.runThisTest) exit_file("Skipping, set 'RunAllRcppTests=yes' to run.")
-
-library(Rcpp)
-sourceCpp("cpp/na.cpp")
+Rcpp::sourceCpp("cpp/na.cpp")
 
 #test.na <- function() {
 expect_identical( R_IsNA_(NA_real_), Rcpp_IsNA(NA_real_) )

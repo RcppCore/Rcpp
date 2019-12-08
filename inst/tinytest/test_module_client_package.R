@@ -25,14 +25,11 @@
 ## It now (Dec 2011) appears to fail on Windows too
 .onWindows <- .Platform$OS.type == "windows"
 
-.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
-
-## override -- skipping test for now as noisy
-.runThisTest <- FALSE
-
-if ( ! .runThisTest) exit_file("Skipping 'test_module_client_package.R'")
-
 if (.badOSX || .onWindows) exit_file("Skipping as older macOS or Windows.")
+
+.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes" && Sys.getenv("RunVerboseRcppTests") == "yes"
+
+if (! .runThisTest) exit_file("Set 'RunVerboseRcppTests' and 'RunAllRcppTests' to 'yes' to run.")
 
 ## ## added test for 'testRcppClass' example of extending C++ classes via R
 #    test.Class.package <- function( ){

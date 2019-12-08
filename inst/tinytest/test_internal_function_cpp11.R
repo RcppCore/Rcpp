@@ -16,14 +16,11 @@
 ##  You should have received a copy of the GNU General Public License
 ##  along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
-
-if (!.runThisTest) exit_file("Skipping 'test_internal_function.R'")
+if (Sys.getenv("RunAllRcppTests") != "yes") exit_file("Set 'RunAllRcppTests' to 'yes' to run.")
 
 if (!Rcpp:::capabilities()[["Full C++11 support"]]) exit_file("No C++11 support")
 
-library(Rcpp)
-sourceCpp("cpp/InternalFunctionCPP11.cpp")
+Rcpp::sourceCpp("cpp/InternalFunctionCPP11.cpp")
 
 #    test.internal_function_add <- function(){
 fun <- getAdd4()
