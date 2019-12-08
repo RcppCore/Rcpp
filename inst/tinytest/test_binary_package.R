@@ -20,15 +20,15 @@
 
 .onTravis <- Sys.getenv("TRAVIS") != ""
 
-.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
-
-## override -- skipping test for now (need to rebuild binary)
-.runThisTest <- FALSE
-
+.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes" && Sys.getenv("RunVerboseRcppTests") == "yes"
 
 ##test.binary.testRcppPackage <- function() {
 
-if (!(.runThisTest && .onLinux && !.onTravis)) exit_file("Skipping 'test_binary_package.R'")
+if (! .runThisTest) exit_file("Set 'RunVerboseRcppTests' and 'RunAllRcppTests' to 'yes' to run.")
+if (! .onLinux)     exit_file("Only running this on Linux.'")
+if (.onTravis)      exit_file("Not running on Travis.")
+
+exit_file("Skipping for now as underlying binary needs to be updated.")
 
 debpkg <- "r-cran-testrcpppackage"
 rpkg <- "testRcppPackage"
