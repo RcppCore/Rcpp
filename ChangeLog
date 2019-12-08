@@ -1,5 +1,7 @@
 2019-12-08  Dirk Eddelbuettel  <edd@debian.org>
 
+	* tests/tinytest.R: Turn verbose tests on in dev and on Travis
+
 	* inst/tinytest/test_client_package.R: Finer-grained skip messages
 	* inst/tinytest/test_module_client_package.R: Idem
 	* inst/tinytest/test_expose_class.R: Idem
