@@ -17,11 +17,7 @@
 ##  along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 .runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
-
-## override -- skipping test for now (need to rebuild binary)
-.runThisTest <- FALSE
-
-if (!.runThisTest) exit_file("Skipping 'test_reference.R'") #, set 'RunAllRcppTests=yes' to run.")
+if (! .runThisTest) exit_file("Set 'RunAllRcppTests' to 'yes' to run.")
 
 library(Rcpp)
 sourceCpp("cpp/Reference.cpp")
