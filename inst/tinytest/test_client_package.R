@@ -19,12 +19,10 @@
 ## This now (Dec 2011) appears to fail on Windows
 .onWindows <- .Platform$OS.type == "windows"
 
-.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes"
+.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes" && Sys.getenv("RunVerboseRcppTests") == "yes"
 
-## override -- skipping test for now as noisy
-.runThisTest <- FALSE
-
-if ( ! .runThisTest || .onWindows) exit_file("Skipping 'test_client_package.R'")
+if (! .runThisTest) exit_file("Set 'RunVerboseRcppTests' and 'RunAllRcppTests' to 'yes' to run.")
+if (.onWindow)      exit_file("Skipping on Windows.'")
 
 #.client.package <- function(pkg = "testRcppPackage") {
 td <- tempfile()

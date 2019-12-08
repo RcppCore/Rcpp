@@ -1,5 +1,7 @@
 2019-12-08  Dirk Eddelbuettel  <edd@debian.org>
 
+	* inst/tinytest/test_client_package.R: Finer-grained skip messages
+
 	* src/attributes.cpp: Remove dangling '#nocov end'
 
 2019-12-07  Dirk Eddelbuettel  <edd@debian.org>
