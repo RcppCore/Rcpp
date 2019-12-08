@@ -1,5 +1,7 @@
 2019-12-07  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Roll minor version
+
 	* inst/tinytest/test_binary_package.R: Finer-grained skip messages
 
 	* inst/tinytest/test_misc.R: Add commented-out test that fails
