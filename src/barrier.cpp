@@ -2,7 +2,7 @@
 //
 // barrier.cpp: Rcpp R/C++ interface class library -- write barrier
 //
-// Copyright (C) 2010 - 2015  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2019  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -29,7 +29,7 @@
 #include <Rcpp/protection/Shield.h>
 
 // [[Rcpp::register]]
-SEXP get_string_elt(SEXP x, R_xlen_t i) {
+SEXP get_string_elt(SEXP x, R_xlen_t i) {			// #nocov start
     return STRING_ELT(x, i);
 }
 
@@ -65,7 +65,7 @@ void set_vector_elt(SEXP x, R_xlen_t i, SEXP value) {
 
 // [[Rcpp::register]]
 SEXP* get_vector_ptr(SEXP x) {
-    return VECTOR_PTR(x);
+    return VECTOR_PTR(x);							// #nocov end
 }
 
 // [[Rcpp::register]]
@@ -153,7 +153,7 @@ SEXP init_Rcpp_cache() {
 }
 
 // [[Rcpp::register]]
-SEXP reset_current_error() {
+SEXP reset_current_error() {							// #nocov start
     SEXP cache = get_rcpp_cache();
 
     // error occured
@@ -189,7 +189,7 @@ SEXP rcpp_error_recorder(SEXP e) {
 
 // [[Rcpp::register]]
 SEXP rcpp_get_current_error() {
-    return VECTOR_ELT(get_rcpp_cache(), 2);
+    return VECTOR_ELT(get_rcpp_cache(), 2);				// #nocov end
 }
 
 // [[Rcpp::register]]
@@ -206,4 +206,3 @@ int* get_cache(int m) {
     std::fill(res, res+m, 0);
     return res;
 }
-

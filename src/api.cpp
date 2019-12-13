@@ -2,7 +2,7 @@
 //
 // api.cpp: Rcpp R/C++ interface class library -- Rcpp api
 //
-// Copyright (C) 2012 - 2016  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2019  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -82,7 +82,7 @@ namespace Rcpp {
         }
 
         // [[Rcpp::register]]
-        unsigned long beginSuspendRNGSynchronization() {
+        unsigned long beginSuspendRNGSynchronization() {// #nocov start
             ++rngSynchronizationSuspended;
             return rngSynchronizationSuspended;
         }
@@ -91,7 +91,7 @@ namespace Rcpp {
         unsigned long endSuspendRNGSynchronization() {
             --rngSynchronizationSuspended;
             return rngSynchronizationSuspended;
-        }
+        }						// #nocov end
 
         // [[Rcpp::register]]
         char* get_string_buffer() {
