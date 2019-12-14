@@ -1,3 +1,13 @@
+2019-12-14  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/date.cpp: A few more #nocov tage
+
+2019-12-13  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/api.cpp: A few more #nocov tags
+	* src/attributes.cpp: Idem
+	* src/barrier.cpp: Idem
+
 2019-12-08  Dirk Eddelbuettel  <edd@debian.org>
 
 	* tests/tinytest.R: Turn verbose tests on in dev and on Travis

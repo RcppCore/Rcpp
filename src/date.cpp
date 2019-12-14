@@ -1,9 +1,8 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-// jedit: :folding=explicit:
+
 //
 // Date.cpp: Rcpp R/C++ interface class library -- Date type
 //
-// Copyright (C) 2010 - 2016  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2019  Dirk Eddelbuettel and Romain Francois
 //
 //    The mktime00() as well as the gmtime_() replacement function are
 //    Copyright (C) 2000 - 2010  The R Development Core Team.
@@ -85,11 +84,11 @@ namespace Rcpp {
         year0 = year_base + tm.tm_year;
         /* safety check for unbounded loops */
         if (year0 > 3000) {
-            excess = (int)(year0/2000) - 1;
+            excess = (int)(year0/2000) - 1;				// #nocov start
             year0 -= excess * 2000;
         } else if (year0 < 0) {
             excess = -1 - (int)(-year0/2000);
-            year0 -= excess * 2000;
+            year0 -= excess * 2000;					// #nocov end
         }
 
         for(i = 0; i < tm.tm_mon; i++) day += days_in_month[i];
@@ -461,12 +460,12 @@ struct tzhead {
         ** or if j < INT_MIN - i; given i < 0, INT_MIN - i cannot overflow.
         */
         if ((i >= 0) ? (j > INT_MAX - i) : (j < INT_MIN - i))
-            return TRUE;
+            return TRUE;							// #nocov 
         *ip += j;
         return FALSE;
     }
 
-    static int increment_overflow_time(time_t *tp, int_fast32_t j) {
+    static int increment_overflow_time(time_t *tp, int_fast32_t j) {		// #nocov start
         /*
         ** This is like
         ** 'if (! (time_t_min <= *tp + j && *tp + j <= time_t_max)) ...',
@@ -477,10 +476,10 @@ struct tzhead {
                : *tp <= time_t_max - j))
             return TRUE;
         *tp += j;
-        return FALSE;
+        return FALSE;								
     }
 
-    static int_fast32_t detzcode(const char *const codep) { 	// #nocov start 
+    static int_fast32_t detzcode(const char *const codep) { 	
         int_fast32_t result = (codep[0] & 0x80) ? -1 : 0;
         for (int i = 0; i < 4; ++i)
             result = (result << 8) | (codep[i] & 0xff);
@@ -1241,7 +1240,7 @@ struct tzhead {
         hit = 0;
         i = sp->leapcnt;
         while (--i >= 0) {
-            lp = &sp->lsis[i];
+            lp = &sp->lsis[i];							// #nocov start
             if (*timep >= lp->ls_trans) {
                 if (*timep == lp->ls_trans) {
                     hit = ((i == 0 && lp->ls_corr > 0) ||
@@ -1257,7 +1256,7 @@ struct tzhead {
                         }
                 }
                 corr = lp->ls_corr;
-                break;
+                break;								// #nocov end
             }
         }
         y = EPOCH_YEAR;
@@ -1272,13 +1271,13 @@ struct tzhead {
             tdelta = tdays / DAYSPERLYEAR;
             if (! ((! TYPE_SIGNED(time_t) || INT_MIN <= tdelta)
                    && tdelta <= INT_MAX))
-                return NULL;
+                return NULL;							// #nocov
             idelta = (int)tdelta;
             if (idelta == 0)
                 idelta = (tdays < 0) ? -1 : 1;
             newy = y;
             if (increment_overflow(&newy, idelta))
-                return NULL;
+                return NULL;							// #nocov
             leapdays = leaps_thru_end_of(newy - 1) -
                 leaps_thru_end_of(y - 1);
             tdays -= ((time_t) newy - y) * DAYSPERNYEAR;
@@ -1297,7 +1296,7 @@ struct tzhead {
         */
         idays = (int)tdays;
         rem += offset - corr;
-        while (rem < 0) {
+        while (rem < 0) {							// #nocov start
             rem += SECSPERDAY;
             --idays;
         }
@@ -1313,14 +1312,14 @@ struct tzhead {
         while (idays >= year_lengths[isleap(y)]) {
             idays -= year_lengths[isleap(y)];
             if (increment_overflow(&y, 1))
-                return NULL;
+                return NULL;							// #nocov end
         }
         // Previously we returned 'year + base', so keep behaviour
         // It seems like R now returns just 'year - 1900' (as libc does)
         // But better for continuity to do as before 
         tmp->tm_year = y + TM_YEAR_BASE;
         if (increment_overflow(&tmp->tm_year, -TM_YEAR_BASE))
-            return NULL;
+            return NULL;							// #nocov
         tmp->tm_yday = idays;
         /*
         ** The "extra" mods below avoid overflow problems.
@@ -1333,7 +1332,7 @@ struct tzhead {
             idays;
         tmp->tm_wday %= DAYSPERWEEK;
         if (tmp->tm_wday < 0)
-            tmp->tm_wday += DAYSPERWEEK;
+            tmp->tm_wday += DAYSPERWEEK;					// #nocov
         tmp->tm_hour = (int) (rem / SECSPERHOUR);
         rem %= SECSPERHOUR;
         tmp->tm_min = (int) (rem / SECSPERMIN);
