@@ -1271,13 +1271,13 @@ struct tzhead {
             tdelta = tdays / DAYSPERLYEAR;
             if (! ((! TYPE_SIGNED(time_t) || INT_MIN <= tdelta)
                    && tdelta <= INT_MAX))
-                return NULL;							// #nocov 
+                return NULL;							// #nocov
             idelta = (int)tdelta;
             if (idelta == 0)
                 idelta = (tdays < 0) ? -1 : 1;
             newy = y;
             if (increment_overflow(&newy, idelta))
-                return NULL;
+                return NULL;							// #nocov
             leapdays = leaps_thru_end_of(newy - 1) -
                 leaps_thru_end_of(y - 1);
             tdays -= ((time_t) newy - y) * DAYSPERNYEAR;
