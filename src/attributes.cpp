@@ -3627,13 +3627,13 @@ BEGIN_RCPP
             if (i != (diff.size()-1))
                 msg += ", ";
         }
-        showWarning(msg);						// #nocov end
+        showWarning(msg);
     }
 
     // verbose output
     if (verbose) {
         for (size_t i=0; i<updated.size(); i++)
-            Rcpp::Rcout << updated[i] << " updated." << std::endl;
+            Rcpp::Rcout << updated[i] << " updated." << std::endl;	// #nocov end
     }
 
     // return files updated
