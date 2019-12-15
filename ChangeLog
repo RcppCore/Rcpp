@@ -1,5 +1,9 @@
 2019-12-14  Dirk Eddelbuettel  <edd@debian.org>
 
+	* R/Attributes.R (sourceCpp): Support new argument windowsDebugDLL to
+	create a debug DLL, supported on Windows only
+	* man/sourceCpp.Rd: Document it
+
 	* src/date.cpp: A few more #nocov tage
 
 2019-12-13  Dirk Eddelbuettel  <edd@debian.org>
