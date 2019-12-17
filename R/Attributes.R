@@ -65,8 +65,11 @@ sourceCpp <- function(file = "",
                  "is not permitted.")
         }
     } else {
-        if (verbose && windowsDebugDLL) {
-            message("The 'windowsDebugDLL' toggle is ignored on non-Windows platforms.")
+        if (windowsDebugDLL) {
+            if (verbose) {
+                message("The 'windowsDebugDLL' toggle is ignored on "
+                        "non-Windows platforms.")
+            }
             windowsDebugDLL <- FALSE    # now we do not need to deal with OS choice below
         }							# #nocov end
     }
