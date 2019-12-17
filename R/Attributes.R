@@ -1,5 +1,5 @@
 
-# Copyright (C) 2012 - 2018  JJ Allaire, Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2012 - 2019  JJ Allaire, Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -27,7 +27,8 @@ sourceCpp <- function(file = "",
                       cleanupCacheDir = FALSE,
                       showOutput = verbose,
                       verbose = getOption("verbose"),
-                      dryRun = FALSE) {
+                      dryRun = FALSE,
+                      windowsDebugDLL = FALSE) {
 
     # use an architecture/version specific subdirectory of the cacheDir
     # (since cached dynlibs can now perist across sessions we need to be
@@ -62,7 +63,15 @@ sourceCpp <- function(file = "",
         if (grepl(' ', basename(file), fixed=TRUE)) {
             stop("The filename '", basename(file), "' contains spaces. This ",
                  "is not permitted.")
-        }                                                       # #nocov end
+        }
+    } else {
+        if (windowsDebugDLL) {
+            if (verbose) {
+                message("The 'windowsDebugDLL' toggle is ignored on ",
+                        "non-Windows platforms.")
+            }
+            windowsDebugDLL <- FALSE    # now we do not need to deal with OS choice below
+        }							# #nocov end
     }
 
     # get the context (does code generation as necessary)
@@ -121,6 +130,7 @@ sourceCpp <- function(file = "",
         # prepare the command (output if we are in showOutput mode)
         cmd <- paste(R.home(component="bin"), .Platform$file.sep, "R ",
                      "CMD SHLIB ",
+                     ifelse(windowsDebugDLL, "-d ", ""),
                      "-o ", shQuote(context$dynlibFilename), " ",
                      ifelse(rebuild, "--preclean ", ""),
                      ifelse(dryRun, "--dry-run ", ""),

@@ -10,7 +10,8 @@ and RCPP_MODULE declarations. A shared library is then built and its exported fu
 \usage{
 sourceCpp(file = "", code = NULL, env = globalenv(), embeddedR = TRUE, rebuild = FALSE, 
           cacheDir = getOption("rcpp.cache.dir", tempdir()), cleanupCacheDir = FALSE,
-          showOutput = verbose, verbose = getOption("verbose"), dryRun = FALSE)
+          showOutput = verbose, verbose = getOption("verbose"), dryRun = FALSE,
+          windowsDebugDLL = FALSE)
 }
 \arguments{
   \item{file}{
@@ -43,6 +44,9 @@ sourceCpp(file = "", code = NULL, env = globalenv(), embeddedR = TRUE, rebuild =
   \item{dryRun}{
     \code{TRUE} to do a dry run (showing commands that would be used rather than
 actually executing the commands).
+}
+  \item{windowsDebugDLL}{
+    \code{TRUE} to create a debug DLL on Windows (and ignored on other platforms).
 }
 }
 \details{
