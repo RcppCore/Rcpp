@@ -36,6 +36,11 @@ void finalizer_wrapper(SEXP p) {
     if (TYPEOF(p) == EXTPTRSXP) {
         T* ptr = (T*) R_ExternalPtrAddr(p);
         RCPP_DEBUG_3("finalizer_wrapper<%s>(SEXP p = <%p>). ptr = %p", DEMANGLE(T), p, ptr)
+
+        // Clear before finalizing to avoid interesting behavior,
+        // e.g. https://github.com/r-dbi/RPostgres/issues/167
+        R_ClearExternalPtr(p);
+
         Finalizer(ptr);
     }
 }
@@ -174,10 +179,10 @@ public:
             // Call the finalizer -- note that this implies that finalizers
             // need to be ready for a NULL external pointer value (our
             // default C++ finalizer is since delete NULL is a no-op).
+            // This clears the external pointer just before calling the finalizer,
+            // to avoid interesting behavior with co-dependent finalizers,
+            // e.g. https://github.com/r-dbi/RPostgres/issues/167.
             finalizer_wrapper<T,Finalizer>(Storage::get__());
-
-            // Clear the external pointer
-            R_ClearExternalPtr(Storage::get__());
         }
     }
 
