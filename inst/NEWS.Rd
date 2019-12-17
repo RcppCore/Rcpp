@@ -9,6 +9,8 @@
     \itemize{
       \item Safer \code{Rcpp_list*}, \code{Rcpp_lang*} and
       \code{Function.operator()} (Romain in \ghpr{1014}, \ghit{1015}).
+      \item A number of \code{#nocov} markers were added (Dirk in
+      \ghprP1036}). 
     }
     \item Changes in Rcpp Attributes:
     \itemize{
@@ -17,6 +19,10 @@
       \ghit{1017}).
       \item Invisible return object are now supported via new option (Kun Ren
       in \ghpr{1025} fixing \ghit{1024}).
+      \item Unavailable packages referred to in \code{LinkingTo} are now
+      reported (Dirk in \ghpr{1027} fixing \ghit{1026}).
+      \item The \code{sourceCpp} function can now create a debug DLL on
+      Windows (Dirk in \ghpr{1037} fixing \ghit{ghit}).
     }
     \item Changes in Rcpp Documentation:
     \itemize{
@@ -24,11 +30,16 @@
       contributinh, issues, and pull requests (Dirk).
       \item The Rcpp Attributes vignette describe the new invisible return
       objection option (Kun Ren in \ghpr{1025}).
+      \item Vignettes are now included as pre-made pdf files (Dirk in \ghpr{1029})
+      \item The Rcpp FAQ has new entry on the recommended
+      \code{importFrom} directive (Dirk in \ghpr{1031} fixing \ghit{1030}).
     }
     \item Changes in Rcpp Deployment:
     \itemize{
       \item Added unit test to check if C++ version remains remains aligned
       with the package number (Dirk in \ghpr{1022} fixing \ghit{1021}).
+      \item The unit test system was switched to tinytest (Dirk in
+      \ghpr{1028}, \ghpr{1032}, \ghpr{1033}).
     }
   }
 }

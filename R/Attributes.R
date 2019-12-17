@@ -63,12 +63,12 @@ sourceCpp <- function(file = "",
         if (grepl(' ', basename(file), fixed=TRUE)) {
             stop("The filename '", basename(file), "' contains spaces. This ",
                  "is not permitted.")
-        }                                                       # #nocov end
+        }
     } else {
         if (verbose && windowsDebugDLL) {
             message("The 'windowsDebugDLL' toggle is ignored on non-Windows platforms.")
-            windowsDebugDLL <- FALSE    # no we do not need to for OS below
-        }
+            windowsDebugDLL <- FALSE    # now we do not need to deal with OS choice below
+        }							# #nocov end
     }
 
     # get the context (does code generation as necessary)
