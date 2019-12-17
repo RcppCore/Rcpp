@@ -67,7 +67,7 @@ sourceCpp <- function(file = "",
     } else {
         if (windowsDebugDLL) {
             if (verbose) {
-                message("The 'windowsDebugDLL' toggle is ignored on "
+                message("The 'windowsDebugDLL' toggle is ignored on ",
                         "non-Windows platforms.")
             }
             windowsDebugDLL <- FALSE    # now we do not need to deal with OS choice below
