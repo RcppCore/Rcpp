@@ -33,17 +33,19 @@ void standard_delete_finalizer(T* obj) {
 
 template <typename T, void Finalizer(T*) >
 void finalizer_wrapper(SEXP p) {
-    if (TYPEOF(p) == EXTPTRSXP) {
-        T* ptr = (T*) R_ExternalPtrAddr(p);
-        RCPP_DEBUG_3("finalizer_wrapper<%s>(SEXP p = <%p>). ptr = %p", DEMANGLE(T), p, ptr)
+    if (TYPEOF(p) != EXTPTRSXP)
+        return;
 
-        // Clear before finalizing to avoid interesting behavior
-        // like access of freed memory,
-        // e.g. https://github.com/r-dbi/RPostgres/issues/167
-        R_ClearExternalPtr(p);
+    T* ptr = (T*) R_ExternalPtrAddr(p);
+    RCPP_DEBUG_3("finalizer_wrapper<%s>(SEXP p = <%p>). ptr = %p", DEMANGLE(T), p, ptr)
 
-        Finalizer(ptr);
-    }
+    if (ptr == NULL)
+        return;
+
+    // Clear before finalizing to avoid behavior like access of freed memory
+    R_ClearExternalPtr(p);
+
+    Finalizer(ptr);
 }
 
 template <
@@ -181,9 +183,7 @@ public:
             // need to be ready for a NULL external pointer value (our
             // default C++ finalizer is since delete NULL is a no-op).
             // This clears the external pointer just before calling the finalizer,
-            // to avoid interesting behavior with co-dependent finalizers,
-            // like access of freed memory,
-            // e.g. https://github.com/r-dbi/RPostgres/issues/167.
+            // to avoid interesting behavior with co-dependent finalizers.
             finalizer_wrapper<T,Finalizer>(Storage::get__());
         }
     }
