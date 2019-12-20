@@ -1,3 +1,8 @@
+2019-12-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+        * inst/include/Rcpp/config.h: Idem
+
 2019-12-18  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/XPtr.h: Additional null check, refactored
