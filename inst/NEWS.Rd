@@ -10,7 +10,9 @@
       \item Safer \code{Rcpp_list*}, \code{Rcpp_lang*} and
       \code{Function.operator()} (Romain in \ghpr{1014}, \ghit{1015}).
       \item A number of \code{#nocov} markers were added (Dirk in
-      \ghprP1036}). 
+      \ghpr{1036}).
+      \item Finalizer calls clear external pointer first (Kirill Müller and
+      Dirk in \ghpr{1038}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{
@@ -22,7 +24,7 @@
       \item Unavailable packages referred to in \code{LinkingTo} are now
       reported (Dirk in \ghpr{1027} fixing \ghit{1026}).
       \item The \code{sourceCpp} function can now create a debug DLL on
-      Windows (Dirk in \ghpr{1037} fixing \ghit{ghit}).
+      Windows (Dirk in \ghpr{1037} fixing \ghit{1035}).
     }
     \item Changes in Rcpp Documentation:
     \itemize{
@@ -202,7 +204,7 @@
     \itemize{
       \item The \code{no_init()} accessor for vectors and matrices is
       now wrapped in \code{Shield<>()} to not trigger \code{rchk}
-      warnings (Kirill Mueller in \ghpr{893} addressing \ghit{892}).
+      warnings (Kirill Müller in \ghpr{893} addressing \ghit{892}).
       \item \code{STRICT_R_HEADERS} will be defined twelve months from
       now; until then we protect it via \code{RCPP_NO_STRICT_HEADERS}
       which can then be used to avoid the definition; downstream
@@ -337,7 +339,7 @@
     \item Changes in Rcpp Attributes:
     \itemize{
       \item Code generated with \code{cppFunction()} now uses \code{.Call()}
-      directly (Kirill Mueller in \ghpr{813} addressing \ghit{795}).
+      directly (Kirill Müller in \ghpr{813} addressing \ghit{795}).
     }
     \item Changes in Rcpp Documentation:
     \itemize{
@@ -507,7 +509,7 @@
       \item Rcpp::exceptions can now be constructed without a call stack (Jim
       Hester in \ghpr{663} addressing \ghit{664}).
       \item Somewhat spurious compiler messages under very verbose settings are
-      now suppressed (Kirill Mueller in \ghpr{670}, \ghpr{671}, \ghpr{672},
+      now suppressed (Kirill Müller in \ghpr{670}, \ghpr{671}, \ghpr{672},
       \ghpr{687}, \ghpr{688}, \ghpr{691}).
       \item Refreshed the included \code{tinyformat} template library
       (James Balamuta in \ghpr{674} addressing \ghit{673}).
@@ -813,7 +815,7 @@
       \code{Nullable} class (Dan in PR \ghpr{423} closing \ghit{421})
       \item The \code{Nullable<>::operator SEXP()} and
       \code{Nullable<>::get()} now also work for \code{const} objects
-      (Kirill Mueller in PR \ghpr{417}).
+      (Kirill Müller in PR \ghpr{417}).
       \item A subsetting error was fixed (Qiang via \ghpr{432} closing
       \ghit{431}).
     }

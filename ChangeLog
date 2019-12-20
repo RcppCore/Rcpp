@@ -1,3 +1,11 @@
+2019-12-18  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/XPtr.h: Additional null check, refactored
+
+2019-12-17  Kirill Müller  <krlmlr@mailbox.org>
+
+	* inst/include/Rcpp/XPtr.h: Clear external pointer before finalizer
+
 2019-12-17  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/Attributes.R (sourceCpp): Very minor cosmetic changes
