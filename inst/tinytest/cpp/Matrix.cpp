@@ -338,6 +338,20 @@ NumericMatrix matrix_scalar_plus2(const NumericMatrix & x, double y) {
 }
 
 // [[Rcpp::export]]
+NumericMatrix matrix_scalar_plus3(const NumericMatrix & x, double y) {
+    NumericMatrix z(x.rows(), x.cols());
+    z = x + y;
+    return x;
+}
+
+// [[Rcpp::export]]
+NumericMatrix matrix_scalar_plus4(const NumericMatrix & x, double y) {
+    NumericMatrix z(x.rows(), x.cols());
+    z = y + x;
+    return x;
+}
+
+// [[Rcpp::export]]
 NumericMatrix matrix_scalar_divide(const NumericMatrix & x, double y) {
     return x / y;
 }
@@ -345,6 +359,20 @@ NumericMatrix matrix_scalar_divide(const NumericMatrix & x, double y) {
 // [[Rcpp::export]]
 NumericMatrix matrix_scalar_divide2(const NumericMatrix & x, double y) {
     return y / x;
+}
+
+// [[Rcpp::export]]
+NumericMatrix matrix_scalar_divide3(const NumericMatrix & x, double y) {
+    NumericMatrix z(x.rows(), x.cols());
+    z = x / y;
+    return x;
+}
+
+// [[Rcpp::export]]
+NumericMatrix matrix_scalar_divide4(const NumericMatrix & x, double y) {
+    NumericMatrix z(x.rows(), x.cols());
+    z = y / x;
+    return x;
 }
 
 // 24 October 2016
