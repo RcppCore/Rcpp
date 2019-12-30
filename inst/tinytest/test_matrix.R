@@ -213,8 +213,13 @@ expect_equal(transposeCharacter(M), t(M), info="character transpose with row and
 M <- matrix(c(1:12), 3, 4)
 expect_equal(matrix_scalar_plus(M, 2), M + 2, info="matrix + scalar")
 expect_equal(matrix_scalar_plus2(M, 2), 2 + M, info="scalar + matrix")
+expect_equal(matrix_scalar_plus3(M, 2), M, info="matrix + scalar should not change input matrix")
+expect_equal(matrix_scalar_plus4(M, 2), M, info="scalar + matrix should not change input matrix")
+
 expect_equal(matrix_scalar_divide(M, 2), M / 2, info="matrix / scalar")
 expect_equal(matrix_scalar_divide2(M, 2), 2 / M, info="scalar / matrix")
+expect_equal(matrix_scalar_divide3(M, 2), M, info="matrix / scalar should not change input matrix")
+expect_equal(matrix_scalar_divide4(M, 2), M, info="scalar / matrix should not change input matrix")
 
 ## 23 October 2016
 ## eye function

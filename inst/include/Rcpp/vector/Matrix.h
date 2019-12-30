@@ -269,8 +269,7 @@ RCPP_GENERATE_MATRIX_SCALAR_OPERATOR(/)
     inline typename traits::enable_if< traits::is_convertible< typename traits::remove_const_and_reference< T >::type,        \
          typename Matrix<RTYPE, StoragePolicy>::stored_type >::value, Matrix<RTYPE, StoragePolicy> >::type                    \
              operator __OPERATOR__ (const T &lhs, const Matrix<RTYPE, StoragePolicy> &rhs) {                                  \
-        Vector<RTYPE, StoragePolicy> v = static_cast<const Vector<RTYPE, StoragePolicy> &>(rhs);                              \
-        v = lhs __OPERATOR__ v;                                                                                               \
+        Vector<RTYPE, StoragePolicy> v = lhs __OPERATOR__ static_cast<const Vector<RTYPE, StoragePolicy> &>(rhs);             \
         v.attr("dim") = Vector<INTSXP>::create(rhs.nrow(), rhs.ncol());                                                       \
         return as< Matrix<RTYPE, StoragePolicy> >(v);                                                                         \
     }
