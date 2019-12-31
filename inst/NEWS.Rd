@@ -13,6 +13,8 @@
       \ghpr{1036}).
       \item Finalizer calls clear external pointer first (Kirill Müller and
       Dirk in \ghpr{1038}).
+      \item Scalar operations with a rhs matrix no longer change the
+      matrix value (Qiang in \ghpr{1040} fixing (again) \ghit{365}). 
     }
     \item Changes in Rcpp Attributes:
     \itemize{

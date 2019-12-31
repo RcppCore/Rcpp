@@ -1,3 +1,10 @@
+2019-12-29  Qiang Kou  <qkou@qkou.info>
+
+	* inst/include/Rcpp/vector/Matrix.h: Ensure scalar OP matrix do not
+	change right-hand side in operation
+	* inst/tinytest/test_matrix.R: New tests
+	* inst/tinytest/cpp/Matrix.cpp: Idem
+
 2019-12-20  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
