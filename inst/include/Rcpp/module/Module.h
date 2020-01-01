@@ -1,8 +1,7 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // Module.h: Rcpp R/C++ interface class library -- Rcpp modules
 //
-// Copyright (C) 2012 - 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2020  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -51,7 +50,7 @@ namespace Rcpp {
          * @param args an array of R objects to use as arguments for the function
          * @param nargs number of arguments
          */
-        inline SEXP invoke( const std::string& name_, SEXP* args, int nargs){
+        inline SEXP invoke( const std::string& name_, SEXP* args, int nargs){ 	// #nocov start
             MAP::iterator it = functions.find( name_ );
             if( it == functions.end() ){
                 throw std::range_error( "no such function" ) ;
@@ -81,7 +80,7 @@ namespace Rcpp {
 	        }
 	        x.names() = names ;
 	        return x ;
-	    }
+	    }																		// #nocov end
 
         /**
          * vector of names of the functions
@@ -117,7 +116,7 @@ namespace Rcpp {
         /**
          * completion information
          */
-        CharacterVector complete(){
+        CharacterVector complete(){												// #nocov start
             size_t nf = functions.size() ;
             size_t nc = classes.size() ;
             size_t n = nf + nc ;
@@ -139,7 +138,7 @@ namespace Rcpp {
                 res[i] = cit->first ;
             }
             return res ;
-        }
+        }																		// #nocov end
 
         /**
          * Returns a list that contains:
@@ -199,13 +198,13 @@ namespace Rcpp {
             classes.insert( CLASS_PAIR( name_ , cptr ) ) ;
         }
 
-        inline bool has_function( const std::string& m){
+        inline bool has_function( const std::string& m){											// #nocov start
             return functions.find(m) != functions.end() ;
         }
 
         inline bool has_class( const std::string& m){
             return classes.find(m) != classes.end() ;
-        }
+        }																							// #nocov end
 
         CppClass get_class( const std::string& cl ) ;
 

@@ -1,3 +1,9 @@
+2020-01-01  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/module/Module.h: A few more #nocov tags
+	* inst/include/Rcpp/XPtr.h: Idem
+	* inst/include/Rcpp/vector/Vector.h: Idem
+
 2019-12-31  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version

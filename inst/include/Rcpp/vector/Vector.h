@@ -1,8 +1,7 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // Vector.h: Rcpp R/C++ interface class library -- vectors
 //
-// Copyright (C) 2010 - 2018 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2020  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -301,12 +300,12 @@ public:
      * one dimensional offset doing bounds checking to ensure
      * it is valid
      */
-    R_xlen_t offset(const R_xlen_t& i) const {
+    R_xlen_t offset(const R_xlen_t& i) const {											// #nocov start
         if(i < 0 || i >= ::Rf_xlength(Storage::get__()) ) {
             const char* fmt = "Index out of bounds: [index=%i; extent=%i].";
             throw index_out_of_bounds(fmt, i, ::Rf_xlength(Storage::get__()) ) ;
         }
-        return i ;
+        return i ;																		// #nocov end
     }
 
     R_xlen_t offset(const std::string& name) const {
@@ -352,9 +351,9 @@ public:
     inline Proxy at( const size_t& i) {
        return cache.ref( offset(i) ) ;
     }
-    inline const_Proxy at( const size_t& i) const {
+    inline const_Proxy at( const size_t& i) const {									// #nocov start
        return cache.ref( offset(i) ) ;
-    }
+    }																				// #nocov end
 
     inline Proxy operator()( const size_t& i, const size_t& j) {
         return cache.ref( offset(i,j) ) ;
@@ -632,7 +631,7 @@ private:
         iterator this_end(end());
         if( Rf_isNull(names) ){
             for( ; it < this_end; ++it, ++target_it ){
-                *target_it = *it ;
+                *target_it = *it ;												// #nocov start
             }
         } else {
             Shield<SEXP> newnames( ::Rf_allocVector( STRSXP, n + 1) ) ;
@@ -642,7 +641,7 @@ private:
                 SET_STRING_ELT( newnames, i, STRING_ELT(names, i ) ) ;
             }
             SET_STRING_ELT( newnames, i, Rf_mkChar("") ) ;
-            target.attr("names") = newnames ;
+            target.attr("names") = newnames ;									// #nocov end
         }
         *target_it = object_sexp;
         Storage::set__( target.get__() ) ;
@@ -685,8 +684,8 @@ private:
         int i=0;
         if( Rf_isNull(names) ){
             for( ; it < this_end; ++it, ++target_it,i++ ){
-                *target_it = *it ;
-                SET_STRING_ELT( newnames, i , R_BlankString );
+                *target_it = *it ;												// #nocov
+                SET_STRING_ELT( newnames, i , R_BlankString );					// #nocov
             }
         } else {
             for( ; it < this_end; ++it, ++target_it, i++ ){

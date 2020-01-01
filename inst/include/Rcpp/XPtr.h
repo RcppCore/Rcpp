@@ -1,8 +1,7 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // XPtr.h: Rcpp R/C++ interface class library -- smart external pointers
 //
-// Copyright (C) 2009 - 2017  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2009 - 2020  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -27,7 +26,7 @@
 namespace Rcpp {
 
 template <typename T>
-void standard_delete_finalizer(T* obj) {
+void standard_delete_finalizer(T* obj) {												// #nocov start
     delete obj;
 }
 
@@ -46,7 +45,7 @@ void finalizer_wrapper(SEXP p) {
     R_ClearExternalPtr(p);
 
     Finalizer(ptr);
-}
+}																						// #nocov end
 
 template <
     typename T,
@@ -102,7 +101,7 @@ public:
         RCPP_DEBUG_2("XPtr(T* p = <%p>, bool set_delete_finalizer = %s, SEXP tag = R_NilValue, SEXP prot = R_NilValue)", p, (set_delete_finalizer ? "true" : "false"))
         Storage::set__(R_MakeExternalPtr((void*)p , tag, prot));
         if (set_delete_finalizer) {
-            setDeleteFinalizer();
+            setDeleteFinalizer();												// #nocov
         }
     }
 
@@ -142,7 +141,7 @@ public:
     inline T* checked_get() const {
         T* ptr = get();
         if (ptr == NULL)
-            throw ::Rcpp::exception("external pointer is not valid");
+            throw ::Rcpp::exception("external pointer is not valid");									// #nocov
         return ptr;
     }
 
@@ -162,10 +161,10 @@ public:
         return checked_get();
     }
 
-    void setDeleteFinalizer() {
+    void setDeleteFinalizer() {																			// #nocov start
         R_RegisterCFinalizerEx(Storage::get__(), finalizer_wrapper<T,Finalizer>,
                                (Rboolean) finalizeOnExit);
-    }
+    }																									// #nocov end
 
     /**
      * Release the external pointer (if any) immediately. This will cause
@@ -197,8 +196,8 @@ public:
 private:
     inline void checked_set(SEXP x) {
         if (TYPEOF(x) != EXTPTRSXP) {
-            const char* fmt = "Expecting an external pointer: [type=%s].";
-            throw ::Rcpp::not_compatible(fmt, Rf_type2char(TYPEOF(x)));
+            const char* fmt = "Expecting an external pointer: [type=%s].";						// #nocov
+            throw ::Rcpp::not_compatible(fmt, Rf_type2char(TYPEOF(x)));							// #nocov
         }
         Storage::set__(x);
     }
