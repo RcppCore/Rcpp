@@ -1,3 +1,7 @@
+2020-01-04  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/Attributes.R: A few more #nocov tags
+
 2020-01-01  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/module/Module.h: A few more #nocov tags

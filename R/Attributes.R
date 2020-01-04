@@ -1,5 +1,5 @@
 
-# Copyright (C) 2012 - 2019  JJ Allaire, Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2012 - 2020  JJ Allaire, Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -83,7 +83,7 @@ sourceCpp <- function(file = "",
 
         # print output for verbose mode
         if (verbose)
-            .printVerboseOutput(context)
+            .printVerboseOutput(context)						# #nocov
 
         # variables used to hold completed state (passed to completed hook)
         succeeded <- FALSE
@@ -115,7 +115,7 @@ sourceCpp <- function(file = "",
         # on.exit handler calls hook and restores environment and working dir
         on.exit({
             if (!succeeded)
-                .showBuildFailureDiagnostics()
+                .showBuildFailureDiagnostics()					# #nocov
             .callBuildCompleteHook(succeeded, output)
             setwd(cwd)
             .restoreEnvironment(envRestore)
@@ -139,7 +139,7 @@ sourceCpp <- function(file = "",
                      shQuote(context$cppSourceFilename), " ",
                      sep="")
         if (showOutput)
-            cat(cmd, "\n")
+            cat(cmd, "\n")										# #nocov
 
         # execute the build -- suppressWarnings b/c when showOutput = FALSE
         # we are going to explicitly check for an error and print the output
@@ -176,14 +176,14 @@ sourceCpp <- function(file = "",
         on.exit({
             setwd(cwd)
         })
-        if (verbose)
+        if (verbose)											# #nocov start
             cat("\nNo rebuild required (use rebuild = TRUE to ",
                 "force a rebuild)\n\n", sep="")
     }
 
     # return immediately if this was a dry run
     if (dryRun)
-        return(invisible(NULL))
+        return(invisible(NULL))									# #nocov end
 
     # load the module if we have exported symbols
     if (length(context$exportedFunctions) > 0 || length(context$modules) > 0) {
@@ -211,7 +211,7 @@ sourceCpp <- function(file = "",
 
     # cleanup the cache dir if requested
     if (cleanupCacheDir)
-        cleanupSourceCppCache(cacheDir, context$cppSourcePath, context$buildDirectory)
+        cleanupSourceCppCache(cacheDir, context$cppSourcePath, context$buildDirectory)	# #nocov
 
     # return (invisibly) a list containing exported functions and modules
     invisible(list(functions = context$exportedFunctions,
@@ -295,13 +295,13 @@ cppFunction <- function(code,
             "\n--------------------------------------------------------\n\n")
         cat(code)
         cat("\n")
-    }                                                           # #nocov end
+    }
 
     # source cpp into specified environment. if env is set to NULL
     # then create a new one (the caller can get a hold of the function
     # via the return value)
     if (is.null(env))
-        env <- new.env()
+        env <- new.env()										# #nocov end
     exported <- sourceCpp(code = code,
                           env = env,
                           rebuild = rebuild,
@@ -311,9 +311,9 @@ cppFunction <- function(code,
 
     # verify that a single function was exported and return it
     if (length(exported$functions) == 0)
-        stop("No function definition found")
+        stop("No function definition found")					# #nocov
     else if (length(exported$functions) > 1)
-        stop("More than one function definition")
+        stop("More than one function definition")				# #nocov
     else {
         functionName <- exported$functions[[1]]
         invisible(get(functionName, env))
@@ -405,7 +405,7 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     pkgdir <- normalizePath(pkgdir, winslash = "/")
     descFile <- file.path(pkgdir,"DESCRIPTION")
     if (!file.exists(descFile))
-        stop("pkgdir must refer to the directory containing an R package")
+        stop("pkgdir must refer to the directory containing an R package")		# #nocov
     pkgDesc <- read.dcf(descFile)[1,]
     pkgname = .readPkgDescField(pkgDesc, "Package")
     depends <- c(.readPkgDescField(pkgDesc, "Depends", character()),
@@ -417,14 +417,14 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     # check the NAMESPACE file to see if dynamic registration is enabled
     namespaceFile <- file.path(pkgdir, "NAMESPACE")
     if (!file.exists(namespaceFile))
-        stop("pkgdir must refer to the directory containing an R package")
+        stop("pkgdir must refer to the directory containing an R package")		# #nocov
     pkgNamespace <- readLines(namespaceFile, warn = FALSE)
     registration <- any(grepl("^\\s*useDynLib.*\\.registration\\s*=\\s*TRUE.*$", pkgNamespace))
 
     # determine source directory
     srcDir <- file.path(pkgdir, "src")
     if (!file.exists(srcDir))
-        return (FALSE)
+        return (FALSE)															# #nocov
 
     # create R directory if it doesn't already exist
     rDir <- file.path(pkgdir, "R")
@@ -474,7 +474,7 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     pkgHeaderPath <- file.path(pkgdir, "src", pkgHeader)
     pkgHeader <- pkgHeader[file.exists(pkgHeaderPath)]
     if (length(pkgHeader) > 0)
-        includes <- c(paste0("#include \"", pkgHeader ,"\""), includes)
+        includes <- c(paste0("#include \"", pkgHeader ,"\""), includes)		# #nocov
 
     # generate exports
     invisible(.Call("compileAttributes", PACKAGE="Rcpp",
@@ -638,7 +638,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
 # Split the depends field of a package description
 .splitDepends <- function(x) {
     if (!length(x))
-        return(character())
+        return(character())										# #nocov
     x <- unlist(strsplit(x, ","))
     x <- sub("[[:space:]]+$", "", x)
     x <- unique(sub("^[[:space:]]*(.*)", "\\1", x))
@@ -665,9 +665,9 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
 
     plugin <- .plugins[[pluginName]]
     if (is.null(plugin))
-        stop("Inline plugin '", pluginName, "' could not be found ",
+        stop("Inline plugin '", pluginName, "' could not be found ",	# #nocov start
              "within the Rcpp package. You should be ",
-             "sure to call registerPlugin before using a plugin.")
+             "sure to call registerPlugin before using a plugin.")		# #nocov end
 
     return(plugin)
 }
@@ -693,7 +693,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
             buildEnv[[name]] <<- value
         }
         # if it's not identical then append
-        else if (!identical(buildEnv[[name]], value)) {
+        else if (!identical(buildEnv[[name]], value)) {			# #nocov
             buildEnv[[name]] <<- paste(buildEnv[[name]], value) # #nocov
         }
         else {
@@ -875,7 +875,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
     # variables to reset
     setVars <- restore[!is.na(restore)]
     if (length(setVars))
-        do.call(Sys.setenv, setVars)
+        do.call(Sys.setenv, setVars)							# #nocov
 
     # variables to remove
     removeVars <- names(restore[is.na(restore)])
@@ -934,7 +934,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
 .getHooksList <- function(name) {
     hooks <- getHook(name)
     if (!is.list(hooks))
-        hooks <- list(hooks)
+        hooks <- list(hooks)									# #nocov
     hooks
 }
 
@@ -948,7 +948,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
 
     # This field can be NULL or empty -- in that case just return Rcpp.h
     if (is.null(linkingTo) || !nzchar(linkingTo))
-        return (c("#include <Rcpp.h>"))
+        return (c("#include <Rcpp.h>"))							# #nocov
 
     # Look for Rcpp inline plugins within the list or LinkedTo packages
     include.before <- character()
@@ -1033,7 +1033,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
 .parseLinkingTo <- function(linkingTo) {
 
     if (is.null(linkingTo))
-        return (character())
+        return (character())									# #nocov
 
     linkingTo <- strsplit(linkingTo, "\\s*\\,")[[1]]
     result <- gsub("\\s", "", linkingTo)
@@ -1217,7 +1217,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
         matches <- regexec('^\\s+\\{"([^"]+)",.*$', code)
         matches <- regmatches(code, matches)
         matches <- Filter(x = matches, function(x) {
-            length(x) > 0
+            length(x) > 0											# #nocov start
         })
         for (match in matches) {
             routine <- match[[2]]
@@ -1225,7 +1225,7 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
                 declaration <- grep(sprintf("^extern .* %s\\(.*$", routine), code,
                                     value = TRUE)
                 declarations <- c(declarations, sub("^extern", "RcppExport", declaration))
-                call_entries <- c(call_entries, match[[1]])
+                call_entries <- c(call_entries, match[[1]])			# #nocov end
             }
         }
     }

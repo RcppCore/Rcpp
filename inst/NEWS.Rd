@@ -10,7 +10,7 @@
       \item Safer \code{Rcpp_list*}, \code{Rcpp_lang*} and
       \code{Function.operator()} (Romain in \ghpr{1014}, \ghit{1015}).
       \item A number of \code{#nocov} markers were added (Dirk in
-      \ghpr{1036}).
+      \ghpr{1036} and \ghpr{1042}).
       \item Finalizer calls clear external pointer first (Kirill Müller and
       Dirk in \ghpr{1038}).
       \item Scalar operations with a rhs matrix no longer change the
