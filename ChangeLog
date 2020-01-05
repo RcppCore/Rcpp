@@ -1,3 +1,8 @@
+2020-01-05  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/exceptions.h: A few more #nocov tags
+	* inst/include/Rcpp/generated/Vector__create.h: Idem, plus whitespace
+
 2020-01-04  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/Attributes.R: A few more #nocov tags

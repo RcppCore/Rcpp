@@ -1,8 +1,8 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+
 //
 // Vector__create.h: Rcpp R/C++ interface class library -- generated helper code for Vector.h
 //
-// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2020  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -69,7 +69,7 @@ public:
 	template <typename T1>
 	static Vector create(const T1& t1){
 		return create__dispatch( typename traits::integral_constant<bool,
-  traits::is_named<T1>::value
+                                 traits::is_named<T1>::value
 		>::type(), t1 ) ;
 	}
 
@@ -81,7 +81,7 @@ private:
 		iterator it( res.begin() );
 
 		////
- *it = converter_type::get(t1) ; ++it ;
+        *it = converter_type::get(t1) ; ++it ;
 		////
 
 		return res ;
@@ -95,7 +95,7 @@ private:
 		iterator it( res.begin() );
 
 		////
- replace_element( it, names, index, t1 ) ; ++it; ++index ;
+        replace_element( it, names, index, t1 ) ; ++it; ++index ;
 		////
 
 		res.attr("names") = names ;
@@ -106,10 +106,11 @@ private:
 public:
 
 	template <typename T1, typename T2>
-	static Vector create(const T1& t1, const T2& t2){
+	static Vector create(const T1& t1, const T2& t2){			// #nocov start
 		return create__dispatch( typename traits::integral_constant<bool,
-  traits::is_named<T1>::value  ||  traits::is_named<T2>::value
-		>::type(), t1, t2 ) ;
+                                 traits::is_named<T1>::value  ||
+                                 traits::is_named<T2>::value
+		>::type(), t1, t2 ) ;									// #nocov end
 	}
 
 private:
@@ -120,14 +121,14 @@ private:
 		iterator it( res.begin() );
 
 		////
- *it = converter_type::get(t1) ; ++it ;
- *it = converter_type::get(t2) ; ++it ;
+        *it = converter_type::get(t1) ; ++it ;
+        *it = converter_type::get(t2) ; ++it ;
 		////
 
 		return res ;
 	}
 
-	template <typename T1, typename T2>
+	template <typename T1, typename T2>							// #nocov start
 	static Vector create__dispatch( traits::true_type, const T1& t1, const T2& t2){
 		Vector res( 2 ) ;
 		Shield<SEXP> names( ::Rf_allocVector( STRSXP, 2 ) ) ;
@@ -135,13 +136,13 @@ private:
 		iterator it( res.begin() );
 
 		////
- replace_element( it, names, index, t1 ) ; ++it; ++index ;
- replace_element( it, names, index, t2 ) ; ++it; ++index ;
+        replace_element( it, names, index, t1 ) ; ++it; ++index ;
+        replace_element( it, names, index, t2 ) ; ++it; ++index ;
 		////
 
 		res.attr("names") = names ;
 
-		return res ;
+		return res ;											// #nocov end
 	}
 
 public:
@@ -149,7 +150,9 @@ public:
 	template <typename T1, typename T2, typename T3>
 	static Vector create(const T1& t1, const T2& t2, const T3& t3){
 		return create__dispatch( typename traits::integral_constant<bool,
-  traits::is_named<T1>::value  ||  traits::is_named<T2>::value  ||  traits::is_named<T3>::value
+                                 traits::is_named<T1>::value  ||
+                                 traits::is_named<T2>::value  ||
+                                 traits::is_named<T3>::value
 		>::type(), t1, t2, t3 ) ;
 	}
 
@@ -161,9 +164,9 @@ private:
 		iterator it( res.begin() );
 
 		////
- *it = converter_type::get(t1) ; ++it ;
- *it = converter_type::get(t2) ; ++it ;
- *it = converter_type::get(t3) ; ++it ;
+        *it = converter_type::get(t1) ; ++it ;
+        *it = converter_type::get(t2) ; ++it ;
+        *it = converter_type::get(t3) ; ++it ;
 		////
 
 		return res ;
@@ -177,9 +180,9 @@ private:
 		iterator it( res.begin() );
 
 		////
- replace_element( it, names, index, t1 ) ; ++it; ++index ;
- replace_element( it, names, index, t2 ) ; ++it; ++index ;
- replace_element( it, names, index, t3 ) ; ++it; ++index ;
+        replace_element( it, names, index, t1 ) ; ++it; ++index ;
+        replace_element( it, names, index, t2 ) ; ++it; ++index ;
+        replace_element( it, names, index, t3 ) ; ++it; ++index ;
 		////
 
 		res.attr("names") = names ;
@@ -192,7 +195,10 @@ public:
 	template <typename T1, typename T2, typename T3, typename T4>
 	static Vector create(const T1& t1, const T2& t2, const T3& t3, const T4& t4){
 		return create__dispatch( typename traits::integral_constant<bool,
-  traits::is_named<T1>::value  ||  traits::is_named<T2>::value  ||  traits::is_named<T3>::value  ||  traits::is_named<T4>::value
+                                 traits::is_named<T1>::value  ||
+                                 traits::is_named<T2>::value  ||
+                                 traits::is_named<T3>::value  ||
+                                 traits::is_named<T4>::value
 		>::type(), t1, t2, t3, t4 ) ;
 	}
 
@@ -204,10 +210,10 @@ private:
 		iterator it( res.begin() );
 
 		////
- *it = converter_type::get(t1) ; ++it ;
- *it = converter_type::get(t2) ; ++it ;
- *it = converter_type::get(t3) ; ++it ;
- *it = converter_type::get(t4) ; ++it ;
+        *it = converter_type::get(t1) ; ++it ;
+        *it = converter_type::get(t2) ; ++it ;
+        *it = converter_type::get(t3) ; ++it ;
+        *it = converter_type::get(t4) ; ++it ;
 		////
 
 		return res ;
@@ -221,10 +227,10 @@ private:
 		iterator it( res.begin() );
 
 		////
- replace_element( it, names, index, t1 ) ; ++it; ++index ;
- replace_element( it, names, index, t2 ) ; ++it; ++index ;
- replace_element( it, names, index, t3 ) ; ++it; ++index ;
- replace_element( it, names, index, t4 ) ; ++it; ++index ;
+        replace_element( it, names, index, t1 ) ; ++it; ++index ;
+        replace_element( it, names, index, t2 ) ; ++it; ++index ;
+        replace_element( it, names, index, t3 ) ; ++it; ++index ;
+        replace_element( it, names, index, t4 ) ; ++it; ++index ;
 		////
 
 		res.attr("names") = names ;
@@ -237,7 +243,7 @@ public:
 	template <typename T1, typename T2, typename T3, typename T4, typename T5>
 	static Vector create(const T1& t1, const T2& t2, const T3& t3, const T4& t4, const T5& t5){
 		return create__dispatch( typename traits::integral_constant<bool,
-  traits::is_named<T1>::value  ||  traits::is_named<T2>::value  ||  traits::is_named<T3>::value  ||  traits::is_named<T4>::value  ||  traits::is_named<T5>::value
+                                 traits::is_named<T1>::value  ||  traits::is_named<T2>::value  ||  traits::is_named<T3>::value  ||  traits::is_named<T4>::value  ||  traits::is_named<T5>::value
 		>::type(), t1, t2, t3, t4, t5 ) ;
 	}
 
@@ -249,11 +255,11 @@ private:
 		iterator it( res.begin() );
 
 		////
- *it = converter_type::get(t1) ; ++it ;
- *it = converter_type::get(t2) ; ++it ;
- *it = converter_type::get(t3) ; ++it ;
- *it = converter_type::get(t4) ; ++it ;
- *it = converter_type::get(t5) ; ++it ;
+        *it = converter_type::get(t1) ; ++it ;
+        *it = converter_type::get(t2) ; ++it ;
+        *it = converter_type::get(t3) ; ++it ;
+        *it = converter_type::get(t4) ; ++it ;
+        *it = converter_type::get(t5) ; ++it ;
 		////
 
 		return res ;
@@ -267,11 +273,11 @@ private:
 		iterator it( res.begin() );
 
 		////
- replace_element( it, names, index, t1 ) ; ++it; ++index ;
- replace_element( it, names, index, t2 ) ; ++it; ++index ;
- replace_element( it, names, index, t3 ) ; ++it; ++index ;
- replace_element( it, names, index, t4 ) ; ++it; ++index ;
- replace_element( it, names, index, t5 ) ; ++it; ++index ;
+        replace_element( it, names, index, t1 ) ; ++it; ++index ;
+        replace_element( it, names, index, t2 ) ; ++it; ++index ;
+        replace_element( it, names, index, t3 ) ; ++it; ++index ;
+        replace_element( it, names, index, t4 ) ; ++it; ++index ;
+        replace_element( it, names, index, t5 ) ; ++it; ++index ;
 		////
 
 		res.attr("names") = names ;
@@ -296,12 +302,12 @@ private:
 		iterator it( res.begin() );
 
 		////
- *it = converter_type::get(t1) ; ++it ;
- *it = converter_type::get(t2) ; ++it ;
- *it = converter_type::get(t3) ; ++it ;
- *it = converter_type::get(t4) ; ++it ;
- *it = converter_type::get(t5) ; ++it ;
- *it = converter_type::get(t6) ; ++it ;
+        *it = converter_type::get(t1) ; ++it ;
+        *it = converter_type::get(t2) ; ++it ;
+        *it = converter_type::get(t3) ; ++it ;
+        *it = converter_type::get(t4) ; ++it ;
+        *it = converter_type::get(t5) ; ++it ;
+        *it = converter_type::get(t6) ; ++it ;
 		////
 
 		return res ;
@@ -315,12 +321,12 @@ private:
 		iterator it( res.begin() );
 
 		////
- replace_element( it, names, index, t1 ) ; ++it; ++index ;
- replace_element( it, names, index, t2 ) ; ++it; ++index ;
- replace_element( it, names, index, t3 ) ; ++it; ++index ;
- replace_element( it, names, index, t4 ) ; ++it; ++index ;
- replace_element( it, names, index, t5 ) ; ++it; ++index ;
- replace_element( it, names, index, t6 ) ; ++it; ++index ;
+        replace_element( it, names, index, t1 ) ; ++it; ++index ;
+        replace_element( it, names, index, t2 ) ; ++it; ++index ;
+        replace_element( it, names, index, t3 ) ; ++it; ++index ;
+        replace_element( it, names, index, t4 ) ; ++it; ++index ;
+        replace_element( it, names, index, t5 ) ; ++it; ++index ;
+        replace_element( it, names, index, t6 ) ; ++it; ++index ;
 		////
 
 		res.attr("names") = names ;
@@ -345,13 +351,13 @@ private:
 		iterator it( res.begin() );
 
 		////
- *it = converter_type::get(t1) ; ++it ;
- *it = converter_type::get(t2) ; ++it ;
- *it = converter_type::get(t3) ; ++it ;
- *it = converter_type::get(t4) ; ++it ;
- *it = converter_type::get(t5) ; ++it ;
- *it = converter_type::get(t6) ; ++it ;
- *it = converter_type::get(t7) ; ++it ;
+        *it = converter_type::get(t1) ; ++it ;
+        *it = converter_type::get(t2) ; ++it ;
+        *it = converter_type::get(t3) ; ++it ;
+        *it = converter_type::get(t4) ; ++it ;
+        *it = converter_type::get(t5) ; ++it ;
+        *it = converter_type::get(t6) ; ++it ;
+        *it = converter_type::get(t7) ; ++it ;
 		////
 
 		return res ;
@@ -365,13 +371,13 @@ private:
 		iterator it( res.begin() );
 
 		////
- replace_element( it, names, index, t1 ) ; ++it; ++index ;
- replace_element( it, names, index, t2 ) ; ++it; ++index ;
- replace_element( it, names, index, t3 ) ; ++it; ++index ;
- replace_element( it, names, index, t4 ) ; ++it; ++index ;
- replace_element( it, names, index, t5 ) ; ++it; ++index ;
- replace_element( it, names, index, t6 ) ; ++it; ++index ;
- replace_element( it, names, index, t7 ) ; ++it; ++index ;
+        replace_element( it, names, index, t1 ) ; ++it; ++index ;
+        replace_element( it, names, index, t2 ) ; ++it; ++index ;
+        replace_element( it, names, index, t3 ) ; ++it; ++index ;
+        replace_element( it, names, index, t4 ) ; ++it; ++index ;
+        replace_element( it, names, index, t5 ) ; ++it; ++index ;
+        replace_element( it, names, index, t6 ) ; ++it; ++index ;
+        replace_element( it, names, index, t7 ) ; ++it; ++index ;
 		////
 
 		res.attr("names") = names ;
@@ -396,14 +402,14 @@ private:
 		iterator it( res.begin() );
 
 		////
- *it = converter_type::get(t1) ; ++it ;
- *it = converter_type::get(t2) ; ++it ;
- *it = converter_type::get(t3) ; ++it ;
- *it = converter_type::get(t4) ; ++it ;
- *it = converter_type::get(t5) ; ++it ;
- *it = converter_type::get(t6) ; ++it ;
- *it = converter_type::get(t7) ; ++it ;
- *it = converter_type::get(t8) ; ++it ;
+        *it = converter_type::get(t1) ; ++it ;
+        *it = converter_type::get(t2) ; ++it ;
+        *it = converter_type::get(t3) ; ++it ;
+        *it = converter_type::get(t4) ; ++it ;
+        *it = converter_type::get(t5) ; ++it ;
+        *it = converter_type::get(t6) ; ++it ;
+        *it = converter_type::get(t7) ; ++it ;
+        *it = converter_type::get(t8) ; ++it ;
 		////
 
 		return res ;
@@ -417,14 +423,14 @@ private:
 		iterator it( res.begin() );
 
 		////
- replace_element( it, names, index, t1 ) ; ++it; ++index ;
- replace_element( it, names, index, t2 ) ; ++it; ++index ;
- replace_element( it, names, index, t3 ) ; ++it; ++index ;
- replace_element( it, names, index, t4 ) ; ++it; ++index ;
- replace_element( it, names, index, t5 ) ; ++it; ++index ;
- replace_element( it, names, index, t6 ) ; ++it; ++index ;
- replace_element( it, names, index, t7 ) ; ++it; ++index ;
- replace_element( it, names, index, t8 ) ; ++it; ++index ;
+        replace_element( it, names, index, t1 ) ; ++it; ++index ;
+        replace_element( it, names, index, t2 ) ; ++it; ++index ;
+        replace_element( it, names, index, t3 ) ; ++it; ++index ;
+        replace_element( it, names, index, t4 ) ; ++it; ++index ;
+        replace_element( it, names, index, t5 ) ; ++it; ++index ;
+        replace_element( it, names, index, t6 ) ; ++it; ++index ;
+        replace_element( it, names, index, t7 ) ; ++it; ++index ;
+        replace_element( it, names, index, t8 ) ; ++it; ++index ;
 		////
 
 		res.attr("names") = names ;
@@ -449,15 +455,15 @@ private:
 		iterator it( res.begin() );
 
 		////
- *it = converter_type::get(t1) ; ++it ;
- *it = converter_type::get(t2) ; ++it ;
- *it = converter_type::get(t3) ; ++it ;
- *it = converter_type::get(t4) ; ++it ;
- *it = converter_type::get(t5) ; ++it ;
- *it = converter_type::get(t6) ; ++it ;
- *it = converter_type::get(t7) ; ++it ;
- *it = converter_type::get(t8) ; ++it ;
- *it = converter_type::get(t9) ; ++it ;
+        *it = converter_type::get(t1) ; ++it ;
+        *it = converter_type::get(t2) ; ++it ;
+        *it = converter_type::get(t3) ; ++it ;
+        *it = converter_type::get(t4) ; ++it ;
+        *it = converter_type::get(t5) ; ++it ;
+        *it = converter_type::get(t6) ; ++it ;
+        *it = converter_type::get(t7) ; ++it ;
+        *it = converter_type::get(t8) ; ++it ;
+        *it = converter_type::get(t9) ; ++it ;
 		////
 
 		return res ;
@@ -471,15 +477,15 @@ private:
 		iterator it( res.begin() );
 
 		////
- replace_element( it, names, index, t1 ) ; ++it; ++index ;
- replace_element( it, names, index, t2 ) ; ++it; ++index ;
- replace_element( it, names, index, t3 ) ; ++it; ++index ;
- replace_element( it, names, index, t4 ) ; ++it; ++index ;
- replace_element( it, names, index, t5 ) ; ++it; ++index ;
- replace_element( it, names, index, t6 ) ; ++it; ++index ;
- replace_element( it, names, index, t7 ) ; ++it; ++index ;
- replace_element( it, names, index, t8 ) ; ++it; ++index ;
- replace_element( it, names, index, t9 ) ; ++it; ++index ;
+        replace_element( it, names, index, t1 ) ; ++it; ++index ;
+        replace_element( it, names, index, t2 ) ; ++it; ++index ;
+        replace_element( it, names, index, t3 ) ; ++it; ++index ;
+        replace_element( it, names, index, t4 ) ; ++it; ++index ;
+        replace_element( it, names, index, t5 ) ; ++it; ++index ;
+        replace_element( it, names, index, t6 ) ; ++it; ++index ;
+        replace_element( it, names, index, t7 ) ; ++it; ++index ;
+        replace_element( it, names, index, t8 ) ; ++it; ++index ;
+        replace_element( it, names, index, t9 ) ; ++it; ++index ;
 		////
 
 		res.attr("names") = names ;
@@ -504,16 +510,16 @@ private:
 		iterator it( res.begin() );
 
 		////
- *it = converter_type::get(t1) ; ++it ;
- *it = converter_type::get(t2) ; ++it ;
- *it = converter_type::get(t3) ; ++it ;
- *it = converter_type::get(t4) ; ++it ;
- *it = converter_type::get(t5) ; ++it ;
- *it = converter_type::get(t6) ; ++it ;
- *it = converter_type::get(t7) ; ++it ;
- *it = converter_type::get(t8) ; ++it ;
- *it = converter_type::get(t9) ; ++it ;
- *it = converter_type::get(t10) ; ++it ;
+        *it = converter_type::get(t1) ; ++it ;
+        *it = converter_type::get(t2) ; ++it ;
+        *it = converter_type::get(t3) ; ++it ;
+        *it = converter_type::get(t4) ; ++it ;
+        *it = converter_type::get(t5) ; ++it ;
+        *it = converter_type::get(t6) ; ++it ;
+        *it = converter_type::get(t7) ; ++it ;
+        *it = converter_type::get(t8) ; ++it ;
+        *it = converter_type::get(t9) ; ++it ;
+        *it = converter_type::get(t10) ; ++it ;
 		////
 
 		return res ;
@@ -527,16 +533,16 @@ private:
 		iterator it( res.begin() );
 
 		////
- replace_element( it, names, index, t1 ) ; ++it; ++index ;
- replace_element( it, names, index, t2 ) ; ++it; ++index ;
- replace_element( it, names, index, t3 ) ; ++it; ++index ;
- replace_element( it, names, index, t4 ) ; ++it; ++index ;
- replace_element( it, names, index, t5 ) ; ++it; ++index ;
- replace_element( it, names, index, t6 ) ; ++it; ++index ;
- replace_element( it, names, index, t7 ) ; ++it; ++index ;
- replace_element( it, names, index, t8 ) ; ++it; ++index ;
- replace_element( it, names, index, t9 ) ; ++it; ++index ;
- replace_element( it, names, index, t10 ) ; ++it; ++index ;
+        replace_element( it, names, index, t1 ) ; ++it; ++index ;
+        replace_element( it, names, index, t2 ) ; ++it; ++index ;
+        replace_element( it, names, index, t3 ) ; ++it; ++index ;
+        replace_element( it, names, index, t4 ) ; ++it; ++index ;
+        replace_element( it, names, index, t5 ) ; ++it; ++index ;
+        replace_element( it, names, index, t6 ) ; ++it; ++index ;
+        replace_element( it, names, index, t7 ) ; ++it; ++index ;
+        replace_element( it, names, index, t8 ) ; ++it; ++index ;
+        replace_element( it, names, index, t9 ) ; ++it; ++index ;
+        replace_element( it, names, index, t10 ) ; ++it; ++index ;
 		////
 
 		res.attr("names") = names ;
@@ -561,17 +567,17 @@ private:
 		iterator it( res.begin() );
 
 		////
- *it = converter_type::get(t1) ; ++it ;
- *it = converter_type::get(t2) ; ++it ;
- *it = converter_type::get(t3) ; ++it ;
- *it = converter_type::get(t4) ; ++it ;
- *it = converter_type::get(t5) ; ++it ;
- *it = converter_type::get(t6) ; ++it ;
- *it = converter_type::get(t7) ; ++it ;
- *it = converter_type::get(t8) ; ++it ;
- *it = converter_type::get(t9) ; ++it ;
- *it = converter_type::get(t10) ; ++it ;
- *it = converter_type::get(t11) ; ++it ;
+        *it = converter_type::get(t1) ; ++it ;
+        *it = converter_type::get(t2) ; ++it ;
+        *it = converter_type::get(t3) ; ++it ;
+        *it = converter_type::get(t4) ; ++it ;
+        *it = converter_type::get(t5) ; ++it ;
+        *it = converter_type::get(t6) ; ++it ;
+        *it = converter_type::get(t7) ; ++it ;
+        *it = converter_type::get(t8) ; ++it ;
+        *it = converter_type::get(t9) ; ++it ;
+        *it = converter_type::get(t10) ; ++it ;
+        *it = converter_type::get(t11) ; ++it ;
 		////
 
 		return res ;
@@ -585,17 +591,17 @@ private:
 		iterator it( res.begin() );
 
 		////
- replace_element( it, names, index, t1 ) ; ++it; ++index ;
- replace_element( it, names, index, t2 ) ; ++it; ++index ;
- replace_element( it, names, index, t3 ) ; ++it; ++index ;
- replace_element( it, names, index, t4 ) ; ++it; ++index ;
- replace_element( it, names, index, t5 ) ; ++it; ++index ;
- replace_element( it, names, index, t6 ) ; ++it; ++index ;
- replace_element( it, names, index, t7 ) ; ++it; ++index ;
- replace_element( it, names, index, t8 ) ; ++it; ++index ;
- replace_element( it, names, index, t9 ) ; ++it; ++index ;
- replace_element( it, names, index, t10 ) ; ++it; ++index ;
- replace_element( it, names, index, t11 ) ; ++it; ++index ;
+        replace_element( it, names, index, t1 ) ; ++it; ++index ;
+        replace_element( it, names, index, t2 ) ; ++it; ++index ;
+        replace_element( it, names, index, t3 ) ; ++it; ++index ;
+        replace_element( it, names, index, t4 ) ; ++it; ++index ;
+        replace_element( it, names, index, t5 ) ; ++it; ++index ;
+        replace_element( it, names, index, t6 ) ; ++it; ++index ;
+        replace_element( it, names, index, t7 ) ; ++it; ++index ;
+        replace_element( it, names, index, t8 ) ; ++it; ++index ;
+        replace_element( it, names, index, t9 ) ; ++it; ++index ;
+        replace_element( it, names, index, t10 ) ; ++it; ++index ;
+        replace_element( it, names, index, t11 ) ; ++it; ++index ;
 		////
 
 		res.attr("names") = names ;
@@ -620,18 +626,18 @@ private:
 		iterator it( res.begin() );
 
 		////
- *it = converter_type::get(t1) ; ++it ;
- *it = converter_type::get(t2) ; ++it ;
- *it = converter_type::get(t3) ; ++it ;
- *it = converter_type::get(t4) ; ++it ;
- *it = converter_type::get(t5) ; ++it ;
- *it = converter_type::get(t6) ; ++it ;
- *it = converter_type::get(t7) ; ++it ;
- *it = converter_type::get(t8) ; ++it ;
- *it = converter_type::get(t9) ; ++it ;
- *it = converter_type::get(t10) ; ++it ;
- *it = converter_type::get(t11) ; ++it ;
- *it = converter_type::get(t12) ; ++it ;
+        *it = converter_type::get(t1) ; ++it ;
+        *it = converter_type::get(t2) ; ++it ;
+        *it = converter_type::get(t3) ; ++it ;
+        *it = converter_type::get(t4) ; ++it ;
+        *it = converter_type::get(t5) ; ++it ;
+        *it = converter_type::get(t6) ; ++it ;
+        *it = converter_type::get(t7) ; ++it ;
+        *it = converter_type::get(t8) ; ++it ;
+        *it = converter_type::get(t9) ; ++it ;
+        *it = converter_type::get(t10) ; ++it ;
+        *it = converter_type::get(t11) ; ++it ;
+        *it = converter_type::get(t12) ; ++it ;
 		////
 
 		return res ;
@@ -645,18 +651,18 @@ private:
 		iterator it( res.begin() );
 
 		////
- replace_element( it, names, index, t1 ) ; ++it; ++index ;
- replace_element( it, names, index, t2 ) ; ++it; ++index ;
- replace_element( it, names, index, t3 ) ; ++it; ++index ;
- replace_element( it, names, index, t4 ) ; ++it; ++index ;
- replace_element( it, names, index, t5 ) ; ++it; ++index ;
- replace_element( it, names, index, t6 ) ; ++it; ++index ;
- replace_element( it, names, index, t7 ) ; ++it; ++index ;
- replace_element( it, names, index, t8 ) ; ++it; ++index ;
- replace_element( it, names, index, t9 ) ; ++it; ++index ;
- replace_element( it, names, index, t10 ) ; ++it; ++index ;
- replace_element( it, names, index, t11 ) ; ++it; ++index ;
- replace_element( it, names, index, t12 ) ; ++it; ++index ;
+        replace_element( it, names, index, t1 ) ; ++it; ++index ;
+        replace_element( it, names, index, t2 ) ; ++it; ++index ;
+        replace_element( it, names, index, t3 ) ; ++it; ++index ;
+        replace_element( it, names, index, t4 ) ; ++it; ++index ;
+        replace_element( it, names, index, t5 ) ; ++it; ++index ;
+        replace_element( it, names, index, t6 ) ; ++it; ++index ;
+        replace_element( it, names, index, t7 ) ; ++it; ++index ;
+        replace_element( it, names, index, t8 ) ; ++it; ++index ;
+        replace_element( it, names, index, t9 ) ; ++it; ++index ;
+        replace_element( it, names, index, t10 ) ; ++it; ++index ;
+        replace_element( it, names, index, t11 ) ; ++it; ++index ;
+        replace_element( it, names, index, t12 ) ; ++it; ++index ;
 		////
 
 		res.attr("names") = names ;
@@ -681,19 +687,19 @@ private:
 		iterator it( res.begin() );
 
 		////
- *it = converter_type::get(t1) ; ++it ;
- *it = converter_type::get(t2) ; ++it ;
- *it = converter_type::get(t3) ; ++it ;
- *it = converter_type::get(t4) ; ++it ;
- *it = converter_type::get(t5) ; ++it ;
- *it = converter_type::get(t6) ; ++it ;
- *it = converter_type::get(t7) ; ++it ;
- *it = converter_type::get(t8) ; ++it ;
- *it = converter_type::get(t9) ; ++it ;
- *it = converter_type::get(t10) ; ++it ;
- *it = converter_type::get(t11) ; ++it ;
- *it = converter_type::get(t12) ; ++it ;
- *it = converter_type::get(t13) ; ++it ;
+        *it = converter_type::get(t1) ; ++it ;
+        *it = converter_type::get(t2) ; ++it ;
+        *it = converter_type::get(t3) ; ++it ;
+        *it = converter_type::get(t4) ; ++it ;
+        *it = converter_type::get(t5) ; ++it ;
+        *it = converter_type::get(t6) ; ++it ;
+        *it = converter_type::get(t7) ; ++it ;
+        *it = converter_type::get(t8) ; ++it ;
+        *it = converter_type::get(t9) ; ++it ;
+        *it = converter_type::get(t10) ; ++it ;
+        *it = converter_type::get(t11) ; ++it ;
+        *it = converter_type::get(t12) ; ++it ;
+        *it = converter_type::get(t13) ; ++it ;
 		////
 
 		return res ;
@@ -707,19 +713,19 @@ private:
 		iterator it( res.begin() );
 
 		////
- replace_element( it, names, index, t1 ) ; ++it; ++index ;
- replace_element( it, names, index, t2 ) ; ++it; ++index ;
- replace_element( it, names, index, t3 ) ; ++it; ++index ;
- replace_element( it, names, index, t4 ) ; ++it; ++index ;
- replace_element( it, names, index, t5 ) ; ++it; ++index ;
- replace_element( it, names, index, t6 ) ; ++it; ++index ;
- replace_element( it, names, index, t7 ) ; ++it; ++index ;
- replace_element( it, names, index, t8 ) ; ++it; ++index ;
- replace_element( it, names, index, t9 ) ; ++it; ++index ;
- replace_element( it, names, index, t10 ) ; ++it; ++index ;
- replace_element( it, names, index, t11 ) ; ++it; ++index ;
- replace_element( it, names, index, t12 ) ; ++it; ++index ;
- replace_element( it, names, index, t13 ) ; ++it; ++index ;
+        replace_element( it, names, index, t1 ) ; ++it; ++index ;
+        replace_element( it, names, index, t2 ) ; ++it; ++index ;
+        replace_element( it, names, index, t3 ) ; ++it; ++index ;
+        replace_element( it, names, index, t4 ) ; ++it; ++index ;
+        replace_element( it, names, index, t5 ) ; ++it; ++index ;
+        replace_element( it, names, index, t6 ) ; ++it; ++index ;
+        replace_element( it, names, index, t7 ) ; ++it; ++index ;
+        replace_element( it, names, index, t8 ) ; ++it; ++index ;
+        replace_element( it, names, index, t9 ) ; ++it; ++index ;
+        replace_element( it, names, index, t10 ) ; ++it; ++index ;
+        replace_element( it, names, index, t11 ) ; ++it; ++index ;
+        replace_element( it, names, index, t12 ) ; ++it; ++index ;
+        replace_element( it, names, index, t13 ) ; ++it; ++index ;
 		////
 
 		res.attr("names") = names ;
@@ -744,20 +750,20 @@ private:
 		iterator it( res.begin() );
 
 		////
- *it = converter_type::get(t1) ; ++it ;
- *it = converter_type::get(t2) ; ++it ;
- *it = converter_type::get(t3) ; ++it ;
- *it = converter_type::get(t4) ; ++it ;
- *it = converter_type::get(t5) ; ++it ;
- *it = converter_type::get(t6) ; ++it ;
- *it = converter_type::get(t7) ; ++it ;
- *it = converter_type::get(t8) ; ++it ;
- *it = converter_type::get(t9) ; ++it ;
- *it = converter_type::get(t10) ; ++it ;
- *it = converter_type::get(t11) ; ++it ;
- *it = converter_type::get(t12) ; ++it ;
- *it = converter_type::get(t13) ; ++it ;
- *it = converter_type::get(t14) ; ++it ;
+        *it = converter_type::get(t1) ; ++it ;
+        *it = converter_type::get(t2) ; ++it ;
+        *it = converter_type::get(t3) ; ++it ;
+        *it = converter_type::get(t4) ; ++it ;
+        *it = converter_type::get(t5) ; ++it ;
+        *it = converter_type::get(t6) ; ++it ;
+        *it = converter_type::get(t7) ; ++it ;
+        *it = converter_type::get(t8) ; ++it ;
+        *it = converter_type::get(t9) ; ++it ;
+        *it = converter_type::get(t10) ; ++it ;
+        *it = converter_type::get(t11) ; ++it ;
+        *it = converter_type::get(t12) ; ++it ;
+        *it = converter_type::get(t13) ; ++it ;
+        *it = converter_type::get(t14) ; ++it ;
 		////
 
 		return res ;
@@ -771,20 +777,20 @@ private:
 		iterator it( res.begin() );
 
 		////
- replace_element( it, names, index, t1 ) ; ++it; ++index ;
- replace_element( it, names, index, t2 ) ; ++it; ++index ;
- replace_element( it, names, index, t3 ) ; ++it; ++index ;
- replace_element( it, names, index, t4 ) ; ++it; ++index ;
- replace_element( it, names, index, t5 ) ; ++it; ++index ;
- replace_element( it, names, index, t6 ) ; ++it; ++index ;
- replace_element( it, names, index, t7 ) ; ++it; ++index ;
- replace_element( it, names, index, t8 ) ; ++it; ++index ;
- replace_element( it, names, index, t9 ) ; ++it; ++index ;
- replace_element( it, names, index, t10 ) ; ++it; ++index ;
- replace_element( it, names, index, t11 ) ; ++it; ++index ;
- replace_element( it, names, index, t12 ) ; ++it; ++index ;
- replace_element( it, names, index, t13 ) ; ++it; ++index ;
- replace_element( it, names, index, t14 ) ; ++it; ++index ;
+        replace_element( it, names, index, t1 ) ; ++it; ++index ;
+        replace_element( it, names, index, t2 ) ; ++it; ++index ;
+        replace_element( it, names, index, t3 ) ; ++it; ++index ;
+        replace_element( it, names, index, t4 ) ; ++it; ++index ;
+        replace_element( it, names, index, t5 ) ; ++it; ++index ;
+        replace_element( it, names, index, t6 ) ; ++it; ++index ;
+        replace_element( it, names, index, t7 ) ; ++it; ++index ;
+        replace_element( it, names, index, t8 ) ; ++it; ++index ;
+        replace_element( it, names, index, t9 ) ; ++it; ++index ;
+        replace_element( it, names, index, t10 ) ; ++it; ++index ;
+        replace_element( it, names, index, t11 ) ; ++it; ++index ;
+        replace_element( it, names, index, t12 ) ; ++it; ++index ;
+        replace_element( it, names, index, t13 ) ; ++it; ++index ;
+        replace_element( it, names, index, t14 ) ; ++it; ++index ;
 		////
 
 		res.attr("names") = names ;
@@ -809,21 +815,21 @@ private:
 		iterator it( res.begin() );
 
 		////
- *it = converter_type::get(t1) ; ++it ;
- *it = converter_type::get(t2) ; ++it ;
- *it = converter_type::get(t3) ; ++it ;
- *it = converter_type::get(t4) ; ++it ;
- *it = converter_type::get(t5) ; ++it ;
- *it = converter_type::get(t6) ; ++it ;
- *it = converter_type::get(t7) ; ++it ;
- *it = converter_type::get(t8) ; ++it ;
- *it = converter_type::get(t9) ; ++it ;
- *it = converter_type::get(t10) ; ++it ;
- *it = converter_type::get(t11) ; ++it ;
- *it = converter_type::get(t12) ; ++it ;
- *it = converter_type::get(t13) ; ++it ;
- *it = converter_type::get(t14) ; ++it ;
- *it = converter_type::get(t15) ; ++it ;
+        *it = converter_type::get(t1) ; ++it ;
+        *it = converter_type::get(t2) ; ++it ;
+        *it = converter_type::get(t3) ; ++it ;
+        *it = converter_type::get(t4) ; ++it ;
+        *it = converter_type::get(t5) ; ++it ;
+        *it = converter_type::get(t6) ; ++it ;
+        *it = converter_type::get(t7) ; ++it ;
+        *it = converter_type::get(t8) ; ++it ;
+        *it = converter_type::get(t9) ; ++it ;
+        *it = converter_type::get(t10) ; ++it ;
+        *it = converter_type::get(t11) ; ++it ;
+        *it = converter_type::get(t12) ; ++it ;
+        *it = converter_type::get(t13) ; ++it ;
+        *it = converter_type::get(t14) ; ++it ;
+        *it = converter_type::get(t15) ; ++it ;
 		////
 
 		return res ;
@@ -837,21 +843,21 @@ private:
 		iterator it( res.begin() );
 
 		////
- replace_element( it, names, index, t1 ) ; ++it; ++index ;
- replace_element( it, names, index, t2 ) ; ++it; ++index ;
- replace_element( it, names, index, t3 ) ; ++it; ++index ;
- replace_element( it, names, index, t4 ) ; ++it; ++index ;
- replace_element( it, names, index, t5 ) ; ++it; ++index ;
- replace_element( it, names, index, t6 ) ; ++it; ++index ;
- replace_element( it, names, index, t7 ) ; ++it; ++index ;
- replace_element( it, names, index, t8 ) ; ++it; ++index ;
- replace_element( it, names, index, t9 ) ; ++it; ++index ;
- replace_element( it, names, index, t10 ) ; ++it; ++index ;
- replace_element( it, names, index, t11 ) ; ++it; ++index ;
- replace_element( it, names, index, t12 ) ; ++it; ++index ;
- replace_element( it, names, index, t13 ) ; ++it; ++index ;
- replace_element( it, names, index, t14 ) ; ++it; ++index ;
- replace_element( it, names, index, t15 ) ; ++it; ++index ;
+        replace_element( it, names, index, t1 ) ; ++it; ++index ;
+        replace_element( it, names, index, t2 ) ; ++it; ++index ;
+        replace_element( it, names, index, t3 ) ; ++it; ++index ;
+        replace_element( it, names, index, t4 ) ; ++it; ++index ;
+        replace_element( it, names, index, t5 ) ; ++it; ++index ;
+        replace_element( it, names, index, t6 ) ; ++it; ++index ;
+        replace_element( it, names, index, t7 ) ; ++it; ++index ;
+        replace_element( it, names, index, t8 ) ; ++it; ++index ;
+        replace_element( it, names, index, t9 ) ; ++it; ++index ;
+        replace_element( it, names, index, t10 ) ; ++it; ++index ;
+        replace_element( it, names, index, t11 ) ; ++it; ++index ;
+        replace_element( it, names, index, t12 ) ; ++it; ++index ;
+        replace_element( it, names, index, t13 ) ; ++it; ++index ;
+        replace_element( it, names, index, t14 ) ; ++it; ++index ;
+        replace_element( it, names, index, t15 ) ; ++it; ++index ;
 		////
 
 		res.attr("names") = names ;
@@ -876,22 +882,22 @@ private:
 		iterator it( res.begin() );
 
 		////
- *it = converter_type::get(t1) ; ++it ;
- *it = converter_type::get(t2) ; ++it ;
- *it = converter_type::get(t3) ; ++it ;
- *it = converter_type::get(t4) ; ++it ;
- *it = converter_type::get(t5) ; ++it ;
- *it = converter_type::get(t6) ; ++it ;
- *it = converter_type::get(t7) ; ++it ;
- *it = converter_type::get(t8) ; ++it ;
- *it = converter_type::get(t9) ; ++it ;
- *it = converter_type::get(t10) ; ++it ;
- *it = converter_type::get(t11) ; ++it ;
- *it = converter_type::get(t12) ; ++it ;
- *it = converter_type::get(t13) ; ++it ;
- *it = converter_type::get(t14) ; ++it ;
- *it = converter_type::get(t15) ; ++it ;
- *it = converter_type::get(t16) ; ++it ;
+        *it = converter_type::get(t1) ; ++it ;
+        *it = converter_type::get(t2) ; ++it ;
+        *it = converter_type::get(t3) ; ++it ;
+        *it = converter_type::get(t4) ; ++it ;
+        *it = converter_type::get(t5) ; ++it ;
+        *it = converter_type::get(t6) ; ++it ;
+        *it = converter_type::get(t7) ; ++it ;
+        *it = converter_type::get(t8) ; ++it ;
+        *it = converter_type::get(t9) ; ++it ;
+        *it = converter_type::get(t10) ; ++it ;
+        *it = converter_type::get(t11) ; ++it ;
+        *it = converter_type::get(t12) ; ++it ;
+        *it = converter_type::get(t13) ; ++it ;
+        *it = converter_type::get(t14) ; ++it ;
+        *it = converter_type::get(t15) ; ++it ;
+        *it = converter_type::get(t16) ; ++it ;
 		////
 
 		return res ;
@@ -905,22 +911,22 @@ private:
 		iterator it( res.begin() );
 
 		////
- replace_element( it, names, index, t1 ) ; ++it; ++index ;
- replace_element( it, names, index, t2 ) ; ++it; ++index ;
- replace_element( it, names, index, t3 ) ; ++it; ++index ;
- replace_element( it, names, index, t4 ) ; ++it; ++index ;
- replace_element( it, names, index, t5 ) ; ++it; ++index ;
- replace_element( it, names, index, t6 ) ; ++it; ++index ;
- replace_element( it, names, index, t7 ) ; ++it; ++index ;
- replace_element( it, names, index, t8 ) ; ++it; ++index ;
- replace_element( it, names, index, t9 ) ; ++it; ++index ;
- replace_element( it, names, index, t10 ) ; ++it; ++index ;
- replace_element( it, names, index, t11 ) ; ++it; ++index ;
- replace_element( it, names, index, t12 ) ; ++it; ++index ;
- replace_element( it, names, index, t13 ) ; ++it; ++index ;
- replace_element( it, names, index, t14 ) ; ++it; ++index ;
- replace_element( it, names, index, t15 ) ; ++it; ++index ;
- replace_element( it, names, index, t16 ) ; ++it; ++index ;
+        replace_element( it, names, index, t1 ) ; ++it; ++index ;
+        replace_element( it, names, index, t2 ) ; ++it; ++index ;
+        replace_element( it, names, index, t3 ) ; ++it; ++index ;
+        replace_element( it, names, index, t4 ) ; ++it; ++index ;
+        replace_element( it, names, index, t5 ) ; ++it; ++index ;
+        replace_element( it, names, index, t6 ) ; ++it; ++index ;
+        replace_element( it, names, index, t7 ) ; ++it; ++index ;
+        replace_element( it, names, index, t8 ) ; ++it; ++index ;
+        replace_element( it, names, index, t9 ) ; ++it; ++index ;
+        replace_element( it, names, index, t10 ) ; ++it; ++index ;
+        replace_element( it, names, index, t11 ) ; ++it; ++index ;
+        replace_element( it, names, index, t12 ) ; ++it; ++index ;
+        replace_element( it, names, index, t13 ) ; ++it; ++index ;
+        replace_element( it, names, index, t14 ) ; ++it; ++index ;
+        replace_element( it, names, index, t15 ) ; ++it; ++index ;
+        replace_element( it, names, index, t16 ) ; ++it; ++index ;
 		////
 
 		res.attr("names") = names ;
@@ -945,23 +951,23 @@ private:
 		iterator it( res.begin() );
 
 		////
- *it = converter_type::get(t1) ; ++it ;
- *it = converter_type::get(t2) ; ++it ;
- *it = converter_type::get(t3) ; ++it ;
- *it = converter_type::get(t4) ; ++it ;
- *it = converter_type::get(t5) ; ++it ;
- *it = converter_type::get(t6) ; ++it ;
- *it = converter_type::get(t7) ; ++it ;
- *it = converter_type::get(t8) ; ++it ;
- *it = converter_type::get(t9) ; ++it ;
- *it = converter_type::get(t10) ; ++it ;
- *it = converter_type::get(t11) ; ++it ;
- *it = converter_type::get(t12) ; ++it ;
- *it = converter_type::get(t13) ; ++it ;
- *it = converter_type::get(t14) ; ++it ;
- *it = converter_type::get(t15) ; ++it ;
- *it = converter_type::get(t16) ; ++it ;
- *it = converter_type::get(t17) ; ++it ;
+        *it = converter_type::get(t1) ; ++it ;
+        *it = converter_type::get(t2) ; ++it ;
+        *it = converter_type::get(t3) ; ++it ;
+        *it = converter_type::get(t4) ; ++it ;
+        *it = converter_type::get(t5) ; ++it ;
+        *it = converter_type::get(t6) ; ++it ;
+        *it = converter_type::get(t7) ; ++it ;
+        *it = converter_type::get(t8) ; ++it ;
+        *it = converter_type::get(t9) ; ++it ;
+        *it = converter_type::get(t10) ; ++it ;
+        *it = converter_type::get(t11) ; ++it ;
+        *it = converter_type::get(t12) ; ++it ;
+        *it = converter_type::get(t13) ; ++it ;
+        *it = converter_type::get(t14) ; ++it ;
+        *it = converter_type::get(t15) ; ++it ;
+        *it = converter_type::get(t16) ; ++it ;
+        *it = converter_type::get(t17) ; ++it ;
 		////
 
 		return res ;
@@ -975,23 +981,23 @@ private:
 		iterator it( res.begin() );
 
 		////
- replace_element( it, names, index, t1 ) ; ++it; ++index ;
- replace_element( it, names, index, t2 ) ; ++it; ++index ;
- replace_element( it, names, index, t3 ) ; ++it; ++index ;
- replace_element( it, names, index, t4 ) ; ++it; ++index ;
- replace_element( it, names, index, t5 ) ; ++it; ++index ;
- replace_element( it, names, index, t6 ) ; ++it; ++index ;
- replace_element( it, names, index, t7 ) ; ++it; ++index ;
- replace_element( it, names, index, t8 ) ; ++it; ++index ;
- replace_element( it, names, index, t9 ) ; ++it; ++index ;
- replace_element( it, names, index, t10 ) ; ++it; ++index ;
- replace_element( it, names, index, t11 ) ; ++it; ++index ;
- replace_element( it, names, index, t12 ) ; ++it; ++index ;
- replace_element( it, names, index, t13 ) ; ++it; ++index ;
- replace_element( it, names, index, t14 ) ; ++it; ++index ;
- replace_element( it, names, index, t15 ) ; ++it; ++index ;
- replace_element( it, names, index, t16 ) ; ++it; ++index ;
- replace_element( it, names, index, t17 ) ; ++it; ++index ;
+        replace_element( it, names, index, t1 ) ; ++it; ++index ;
+        replace_element( it, names, index, t2 ) ; ++it; ++index ;
+        replace_element( it, names, index, t3 ) ; ++it; ++index ;
+        replace_element( it, names, index, t4 ) ; ++it; ++index ;
+        replace_element( it, names, index, t5 ) ; ++it; ++index ;
+        replace_element( it, names, index, t6 ) ; ++it; ++index ;
+        replace_element( it, names, index, t7 ) ; ++it; ++index ;
+        replace_element( it, names, index, t8 ) ; ++it; ++index ;
+        replace_element( it, names, index, t9 ) ; ++it; ++index ;
+        replace_element( it, names, index, t10 ) ; ++it; ++index ;
+        replace_element( it, names, index, t11 ) ; ++it; ++index ;
+        replace_element( it, names, index, t12 ) ; ++it; ++index ;
+        replace_element( it, names, index, t13 ) ; ++it; ++index ;
+        replace_element( it, names, index, t14 ) ; ++it; ++index ;
+        replace_element( it, names, index, t15 ) ; ++it; ++index ;
+        replace_element( it, names, index, t16 ) ; ++it; ++index ;
+        replace_element( it, names, index, t17 ) ; ++it; ++index ;
 		////
 
 		res.attr("names") = names ;
@@ -1016,24 +1022,24 @@ private:
 		iterator it( res.begin() );
 
 		////
- *it = converter_type::get(t1) ; ++it ;
- *it = converter_type::get(t2) ; ++it ;
- *it = converter_type::get(t3) ; ++it ;
- *it = converter_type::get(t4) ; ++it ;
- *it = converter_type::get(t5) ; ++it ;
- *it = converter_type::get(t6) ; ++it ;
- *it = converter_type::get(t7) ; ++it ;
- *it = converter_type::get(t8) ; ++it ;
- *it = converter_type::get(t9) ; ++it ;
- *it = converter_type::get(t10) ; ++it ;
- *it = converter_type::get(t11) ; ++it ;
- *it = converter_type::get(t12) ; ++it ;
- *it = converter_type::get(t13) ; ++it ;
- *it = converter_type::get(t14) ; ++it ;
- *it = converter_type::get(t15) ; ++it ;
- *it = converter_type::get(t16) ; ++it ;
- *it = converter_type::get(t17) ; ++it ;
- *it = converter_type::get(t18) ; ++it ;
+        *it = converter_type::get(t1) ; ++it ;
+        *it = converter_type::get(t2) ; ++it ;
+        *it = converter_type::get(t3) ; ++it ;
+        *it = converter_type::get(t4) ; ++it ;
+        *it = converter_type::get(t5) ; ++it ;
+        *it = converter_type::get(t6) ; ++it ;
+        *it = converter_type::get(t7) ; ++it ;
+        *it = converter_type::get(t8) ; ++it ;
+        *it = converter_type::get(t9) ; ++it ;
+        *it = converter_type::get(t10) ; ++it ;
+        *it = converter_type::get(t11) ; ++it ;
+        *it = converter_type::get(t12) ; ++it ;
+        *it = converter_type::get(t13) ; ++it ;
+        *it = converter_type::get(t14) ; ++it ;
+        *it = converter_type::get(t15) ; ++it ;
+        *it = converter_type::get(t16) ; ++it ;
+        *it = converter_type::get(t17) ; ++it ;
+        *it = converter_type::get(t18) ; ++it ;
 		////
 
 		return res ;
@@ -1047,24 +1053,24 @@ private:
 		iterator it( res.begin() );
 
 		////
- replace_element( it, names, index, t1 ) ; ++it; ++index ;
- replace_element( it, names, index, t2 ) ; ++it; ++index ;
- replace_element( it, names, index, t3 ) ; ++it; ++index ;
- replace_element( it, names, index, t4 ) ; ++it; ++index ;
- replace_element( it, names, index, t5 ) ; ++it; ++index ;
- replace_element( it, names, index, t6 ) ; ++it; ++index ;
- replace_element( it, names, index, t7 ) ; ++it; ++index ;
- replace_element( it, names, index, t8 ) ; ++it; ++index ;
- replace_element( it, names, index, t9 ) ; ++it; ++index ;
- replace_element( it, names, index, t10 ) ; ++it; ++index ;
- replace_element( it, names, index, t11 ) ; ++it; ++index ;
- replace_element( it, names, index, t12 ) ; ++it; ++index ;
- replace_element( it, names, index, t13 ) ; ++it; ++index ;
- replace_element( it, names, index, t14 ) ; ++it; ++index ;
- replace_element( it, names, index, t15 ) ; ++it; ++index ;
- replace_element( it, names, index, t16 ) ; ++it; ++index ;
- replace_element( it, names, index, t17 ) ; ++it; ++index ;
- replace_element( it, names, index, t18 ) ; ++it; ++index ;
+        replace_element( it, names, index, t1 ) ; ++it; ++index ;
+        replace_element( it, names, index, t2 ) ; ++it; ++index ;
+        replace_element( it, names, index, t3 ) ; ++it; ++index ;
+        replace_element( it, names, index, t4 ) ; ++it; ++index ;
+        replace_element( it, names, index, t5 ) ; ++it; ++index ;
+        replace_element( it, names, index, t6 ) ; ++it; ++index ;
+        replace_element( it, names, index, t7 ) ; ++it; ++index ;
+        replace_element( it, names, index, t8 ) ; ++it; ++index ;
+        replace_element( it, names, index, t9 ) ; ++it; ++index ;
+        replace_element( it, names, index, t10 ) ; ++it; ++index ;
+        replace_element( it, names, index, t11 ) ; ++it; ++index ;
+        replace_element( it, names, index, t12 ) ; ++it; ++index ;
+        replace_element( it, names, index, t13 ) ; ++it; ++index ;
+        replace_element( it, names, index, t14 ) ; ++it; ++index ;
+        replace_element( it, names, index, t15 ) ; ++it; ++index ;
+        replace_element( it, names, index, t16 ) ; ++it; ++index ;
+        replace_element( it, names, index, t17 ) ; ++it; ++index ;
+        replace_element( it, names, index, t18 ) ; ++it; ++index ;
 		////
 
 		res.attr("names") = names ;
@@ -1089,25 +1095,25 @@ private:
 		iterator it( res.begin() );
 
 		////
- *it = converter_type::get(t1) ; ++it ;
- *it = converter_type::get(t2) ; ++it ;
- *it = converter_type::get(t3) ; ++it ;
- *it = converter_type::get(t4) ; ++it ;
- *it = converter_type::get(t5) ; ++it ;
- *it = converter_type::get(t6) ; ++it ;
- *it = converter_type::get(t7) ; ++it ;
- *it = converter_type::get(t8) ; ++it ;
- *it = converter_type::get(t9) ; ++it ;
- *it = converter_type::get(t10) ; ++it ;
- *it = converter_type::get(t11) ; ++it ;
- *it = converter_type::get(t12) ; ++it ;
- *it = converter_type::get(t13) ; ++it ;
- *it = converter_type::get(t14) ; ++it ;
- *it = converter_type::get(t15) ; ++it ;
- *it = converter_type::get(t16) ; ++it ;
- *it = converter_type::get(t17) ; ++it ;
- *it = converter_type::get(t18) ; ++it ;
- *it = converter_type::get(t19) ; ++it ;
+        *it = converter_type::get(t1) ; ++it ;
+        *it = converter_type::get(t2) ; ++it ;
+        *it = converter_type::get(t3) ; ++it ;
+        *it = converter_type::get(t4) ; ++it ;
+        *it = converter_type::get(t5) ; ++it ;
+        *it = converter_type::get(t6) ; ++it ;
+        *it = converter_type::get(t7) ; ++it ;
+        *it = converter_type::get(t8) ; ++it ;
+        *it = converter_type::get(t9) ; ++it ;
+        *it = converter_type::get(t10) ; ++it ;
+        *it = converter_type::get(t11) ; ++it ;
+        *it = converter_type::get(t12) ; ++it ;
+        *it = converter_type::get(t13) ; ++it ;
+        *it = converter_type::get(t14) ; ++it ;
+        *it = converter_type::get(t15) ; ++it ;
+        *it = converter_type::get(t16) ; ++it ;
+        *it = converter_type::get(t17) ; ++it ;
+        *it = converter_type::get(t18) ; ++it ;
+        *it = converter_type::get(t19) ; ++it ;
 		////
 
 		return res ;
@@ -1121,25 +1127,25 @@ private:
 		iterator it( res.begin() );
 
 		////
- replace_element( it, names, index, t1 ) ; ++it; ++index ;
- replace_element( it, names, index, t2 ) ; ++it; ++index ;
- replace_element( it, names, index, t3 ) ; ++it; ++index ;
- replace_element( it, names, index, t4 ) ; ++it; ++index ;
- replace_element( it, names, index, t5 ) ; ++it; ++index ;
- replace_element( it, names, index, t6 ) ; ++it; ++index ;
- replace_element( it, names, index, t7 ) ; ++it; ++index ;
- replace_element( it, names, index, t8 ) ; ++it; ++index ;
- replace_element( it, names, index, t9 ) ; ++it; ++index ;
- replace_element( it, names, index, t10 ) ; ++it; ++index ;
- replace_element( it, names, index, t11 ) ; ++it; ++index ;
- replace_element( it, names, index, t12 ) ; ++it; ++index ;
- replace_element( it, names, index, t13 ) ; ++it; ++index ;
- replace_element( it, names, index, t14 ) ; ++it; ++index ;
- replace_element( it, names, index, t15 ) ; ++it; ++index ;
- replace_element( it, names, index, t16 ) ; ++it; ++index ;
- replace_element( it, names, index, t17 ) ; ++it; ++index ;
- replace_element( it, names, index, t18 ) ; ++it; ++index ;
- replace_element( it, names, index, t19 ) ; ++it; ++index ;
+        replace_element( it, names, index, t1 ) ; ++it; ++index ;
+        replace_element( it, names, index, t2 ) ; ++it; ++index ;
+        replace_element( it, names, index, t3 ) ; ++it; ++index ;
+        replace_element( it, names, index, t4 ) ; ++it; ++index ;
+        replace_element( it, names, index, t5 ) ; ++it; ++index ;
+        replace_element( it, names, index, t6 ) ; ++it; ++index ;
+        replace_element( it, names, index, t7 ) ; ++it; ++index ;
+        replace_element( it, names, index, t8 ) ; ++it; ++index ;
+        replace_element( it, names, index, t9 ) ; ++it; ++index ;
+        replace_element( it, names, index, t10 ) ; ++it; ++index ;
+        replace_element( it, names, index, t11 ) ; ++it; ++index ;
+        replace_element( it, names, index, t12 ) ; ++it; ++index ;
+        replace_element( it, names, index, t13 ) ; ++it; ++index ;
+        replace_element( it, names, index, t14 ) ; ++it; ++index ;
+        replace_element( it, names, index, t15 ) ; ++it; ++index ;
+        replace_element( it, names, index, t16 ) ; ++it; ++index ;
+        replace_element( it, names, index, t17 ) ; ++it; ++index ;
+        replace_element( it, names, index, t18 ) ; ++it; ++index ;
+        replace_element( it, names, index, t19 ) ; ++it; ++index ;
 		////
 
 		res.attr("names") = names ;
@@ -1164,26 +1170,26 @@ private:
 		iterator it( res.begin() );
 
 		////
- *it = converter_type::get(t1) ; ++it ;
- *it = converter_type::get(t2) ; ++it ;
- *it = converter_type::get(t3) ; ++it ;
- *it = converter_type::get(t4) ; ++it ;
- *it = converter_type::get(t5) ; ++it ;
- *it = converter_type::get(t6) ; ++it ;
- *it = converter_type::get(t7) ; ++it ;
- *it = converter_type::get(t8) ; ++it ;
- *it = converter_type::get(t9) ; ++it ;
- *it = converter_type::get(t10) ; ++it ;
- *it = converter_type::get(t11) ; ++it ;
- *it = converter_type::get(t12) ; ++it ;
- *it = converter_type::get(t13) ; ++it ;
- *it = converter_type::get(t14) ; ++it ;
- *it = converter_type::get(t15) ; ++it ;
- *it = converter_type::get(t16) ; ++it ;
- *it = converter_type::get(t17) ; ++it ;
- *it = converter_type::get(t18) ; ++it ;
- *it = converter_type::get(t19) ; ++it ;
- *it = converter_type::get(t20) ; ++it ;
+        *it = converter_type::get(t1) ; ++it ;
+        *it = converter_type::get(t2) ; ++it ;
+        *it = converter_type::get(t3) ; ++it ;
+        *it = converter_type::get(t4) ; ++it ;
+        *it = converter_type::get(t5) ; ++it ;
+        *it = converter_type::get(t6) ; ++it ;
+        *it = converter_type::get(t7) ; ++it ;
+        *it = converter_type::get(t8) ; ++it ;
+        *it = converter_type::get(t9) ; ++it ;
+        *it = converter_type::get(t10) ; ++it ;
+        *it = converter_type::get(t11) ; ++it ;
+        *it = converter_type::get(t12) ; ++it ;
+        *it = converter_type::get(t13) ; ++it ;
+        *it = converter_type::get(t14) ; ++it ;
+        *it = converter_type::get(t15) ; ++it ;
+        *it = converter_type::get(t16) ; ++it ;
+        *it = converter_type::get(t17) ; ++it ;
+        *it = converter_type::get(t18) ; ++it ;
+        *it = converter_type::get(t19) ; ++it ;
+        *it = converter_type::get(t20) ; ++it ;
 		////
 
 		return res ;
@@ -1197,26 +1203,26 @@ private:
 		iterator it( res.begin() );
 
 		////
- replace_element( it, names, index, t1 ) ; ++it; ++index ;
- replace_element( it, names, index, t2 ) ; ++it; ++index ;
- replace_element( it, names, index, t3 ) ; ++it; ++index ;
- replace_element( it, names, index, t4 ) ; ++it; ++index ;
- replace_element( it, names, index, t5 ) ; ++it; ++index ;
- replace_element( it, names, index, t6 ) ; ++it; ++index ;
- replace_element( it, names, index, t7 ) ; ++it; ++index ;
- replace_element( it, names, index, t8 ) ; ++it; ++index ;
- replace_element( it, names, index, t9 ) ; ++it; ++index ;
- replace_element( it, names, index, t10 ) ; ++it; ++index ;
- replace_element( it, names, index, t11 ) ; ++it; ++index ;
- replace_element( it, names, index, t12 ) ; ++it; ++index ;
- replace_element( it, names, index, t13 ) ; ++it; ++index ;
- replace_element( it, names, index, t14 ) ; ++it; ++index ;
- replace_element( it, names, index, t15 ) ; ++it; ++index ;
- replace_element( it, names, index, t16 ) ; ++it; ++index ;
- replace_element( it, names, index, t17 ) ; ++it; ++index ;
- replace_element( it, names, index, t18 ) ; ++it; ++index ;
- replace_element( it, names, index, t19 ) ; ++it; ++index ;
- replace_element( it, names, index, t20 ) ; ++it; ++index ;
+        replace_element( it, names, index, t1 ) ; ++it; ++index ;
+        replace_element( it, names, index, t2 ) ; ++it; ++index ;
+        replace_element( it, names, index, t3 ) ; ++it; ++index ;
+        replace_element( it, names, index, t4 ) ; ++it; ++index ;
+        replace_element( it, names, index, t5 ) ; ++it; ++index ;
+        replace_element( it, names, index, t6 ) ; ++it; ++index ;
+        replace_element( it, names, index, t7 ) ; ++it; ++index ;
+        replace_element( it, names, index, t8 ) ; ++it; ++index ;
+        replace_element( it, names, index, t9 ) ; ++it; ++index ;
+        replace_element( it, names, index, t10 ) ; ++it; ++index ;
+        replace_element( it, names, index, t11 ) ; ++it; ++index ;
+        replace_element( it, names, index, t12 ) ; ++it; ++index ;
+        replace_element( it, names, index, t13 ) ; ++it; ++index ;
+        replace_element( it, names, index, t14 ) ; ++it; ++index ;
+        replace_element( it, names, index, t15 ) ; ++it; ++index ;
+        replace_element( it, names, index, t16 ) ; ++it; ++index ;
+        replace_element( it, names, index, t17 ) ; ++it; ++index ;
+        replace_element( it, names, index, t18 ) ; ++it; ++index ;
+        replace_element( it, names, index, t19 ) ; ++it; ++index ;
+        replace_element( it, names, index, t20 ) ; ++it; ++index ;
 		////
 
 		res.attr("names") = names ;
