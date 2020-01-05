@@ -1,8 +1,7 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
+
 // exceptions.h: Rcpp R/C++ interface class library -- exceptions
 //
-// Copyright (C) 2010 - 2017  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2020  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -130,7 +129,7 @@ inline SEXP longjumpSentinel(SEXP token) {
     return sentinel;
 }
 
-inline bool isLongjumpSentinel(SEXP x) {
+inline bool isLongjumpSentinel(SEXP x) {					// #nocov start
     return
         Rf_inherits(x, "Rcpp:longjumpSentinel") &&
         TYPEOF(x) == VECSXP &&
@@ -148,7 +147,7 @@ inline void resumeJump(SEXP token) {
     ::R_ReleaseObject(token);
 #if (defined(R_VERSION) && R_VERSION >= R_Version(3, 5, 0))
     ::R_ContinueUnwind(token);
-#endif
+#endif														// #nocov end
     Rf_error("Internal error: Rcpp longjump failed to resume");
 }
 
@@ -200,7 +199,7 @@ namespace Rcpp {
         virtual const char* what() const throw() { return __MESSAGE__ ; }          \
     } ;
 
-    RCPP_SIMPLE_EXCEPTION_CLASS(not_a_matrix, "Not a matrix.") // #nocov start
+    RCPP_SIMPLE_EXCEPTION_CLASS(not_a_matrix, "Not a matrix.") 				// #nocov start
     RCPP_SIMPLE_EXCEPTION_CLASS(parse_error, "Parse error.")
     RCPP_SIMPLE_EXCEPTION_CLASS(not_s4, "Not an S4 object.")
     RCPP_SIMPLE_EXCEPTION_CLASS(not_reference, "Not an S4 object of a reference class.")
@@ -221,10 +220,10 @@ namespace Rcpp {
     RCPP_EXCEPTION_CLASS(binding_is_locked, "Binding is locked")
     RCPP_EXCEPTION_CLASS(no_such_namespace, "No such namespace")
     RCPP_EXCEPTION_CLASS(function_not_exported, "Function not exported")
-    RCPP_EXCEPTION_CLASS(eval_error, "Evaluation error")			     // #nocov end
+    RCPP_EXCEPTION_CLASS(eval_error, "Evaluation error")
 
     // Promoted
-    RCPP_ADVANCED_EXCEPTION_CLASS(not_compatible, "Not compatible" )
+    RCPP_ADVANCED_EXCEPTION_CLASS(not_compatible, "Not compatible" )		// #nocov end
     RCPP_ADVANCED_EXCEPTION_CLASS(index_out_of_bounds, "Index is out of bounds")
 
     #undef RCPP_SIMPLE_EXCEPTION_CLASS
