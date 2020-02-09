@@ -100,7 +100,6 @@ void registerFunctions(){
     RCPP_REGISTER(endSuspendRNGSynchronization);
     RCPP_REGISTER(get_Rcpp_namespace)
     RCPP_REGISTER(get_cache)
-    RCPP_REGISTER(stack_trace)
     RCPP_REGISTER(get_string_elt)
     RCPP_REGISTER(char_get_string_elt)
     RCPP_REGISTER(set_string_elt)

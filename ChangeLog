@@ -1,3 +1,11 @@
+2020-02-09  Joshua Pritikin  <jpritikin@pobox.com>
+
+	* inst/include/Rcpp.h: Include exceptions_impl.h
+	* inst/include/Rcpp/exceptions.h: Make thread-safe
+	* inst/include/Rcpp/exceptions_impl.h: New home for code moved
+	from inst/include/Rcpp/routines.h and src/api.cpp
+	* src/rcpp_init.cpp: stack_trace no longer exported as an R API
+
 2020-01-05  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/exceptions.h: A few more #nocov tags

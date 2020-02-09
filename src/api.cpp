@@ -32,35 +32,6 @@ using namespace Rcpp;
 #include <cxxabi.h>
 #endif
 
-#if defined(__GNUC__) || defined(__clang__)
-    #if defined(_WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__CYGWIN__) || defined(__sun) || defined(_AIX) || defined(__MUSL__) || defined(__HAIKU__) || defined(__ANDROID__)
-        // do nothing
-    #else
-        #include <execinfo.h>
-
-        // Extract mangled name e.g. ./test(baz+0x14)[0x400962]
-        static std::string demangler_one(const char* input) {
-            static std::string buffer;
-            buffer = input;
-            size_t last_open = buffer.find_last_of('(');
-            size_t last_close = buffer.find_last_of(')');
-            if (last_open == std::string::npos ||
-                last_close == std::string::npos) {
-              return input;     // #nocov
-            }
-            std::string function_name = buffer.substr(last_open + 1, last_close - last_open - 1);
-            // Strip the +0x14 (if it exists, which it does not in earlier versions of gcc)
-            size_t function_plus = function_name.find_last_of('+');
-            if (function_plus != std::string::npos) {
-              function_name.resize(function_plus);
-            }
-            buffer.replace(last_open + 1, function_name.size(), demangle(function_name));
-            return buffer;
-        }
-    #endif
-#endif
-
-
 namespace Rcpp {
 
     namespace internal {
@@ -279,44 +250,6 @@ SEXP rcpp_can_use_cxx11() {				// #nocov start
     #endif
 }							// #nocov end
 
-
-// [[Rcpp::register]]
-SEXP stack_trace(const char* file, int line) {
-    #if defined(__GNUC__) || defined(__clang__)
-        #if defined(_WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__CYGWIN__) || defined(__sun) || defined(_AIX) || defined(__MUSL__) || defined(__HAIKU__) || defined(__ANDROID__)
-            // Simpler version for Windows and *BSD
-            List trace = List::create(_["file"] = file,
-                                      _[ "line"  ] = line,
-                                      _[ "stack" ] = "C++ stack not available on this system");
-            trace.attr("class") = "Rcpp_stack_trace";
-            return trace;
-        #else // ! (defined(_WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__CYGWIN__) || defined(__sun) || defined(_AIX) || defined(__ANDROID__)
-
-            /* inspired from http://tombarta.wordpress.com/2008/08/01/c-stack-traces-with-gcc/  */
-            const size_t max_depth = 100;
-            int stack_depth;
-            void *stack_addrs[max_depth];
-            char **stack_strings;
-
-            stack_depth = backtrace(stack_addrs, max_depth);
-            stack_strings = backtrace_symbols(stack_addrs, stack_depth);
-
-            std::string current_line;
-
-            CharacterVector res(stack_depth - 1);
-            std::transform(stack_strings + 1, stack_strings + stack_depth, res.begin(), demangler_one);
-            free(stack_strings); // malloc()ed by backtrace_symbols
-
-            List trace = List::create(_["file" ] = file,
-                                      _["line" ] = line,
-                                      _["stack"] = res);
-            trace.attr("class") = "Rcpp_stack_trace";
-            return trace;
-        #endif
-    #else /* !defined( __GNUC__ ) */
-        return R_NilValue;
-    #endif
-}
 
 // // [ [ Rcpp::register ] ]
 // void print(SEXP s) {
