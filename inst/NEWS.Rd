@@ -7,7 +7,6 @@
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
-      \item \code{Rcpp::exception} is now thread-safe
       \item Safer \code{Rcpp_list*}, \code{Rcpp_lang*} and
       \code{Function.operator()} (Romain in \ghpr{1014}, \ghit{1015}).
       \item A number of \code{#nocov} markers were added (Dirk in
@@ -16,6 +15,9 @@
       Dirk in \ghpr{1038}).
       \item Scalar operations with a rhs matrix no longer change the
       matrix value (Qiang in \ghpr{1040} fixing (again) \ghit{365}).
+      \item \code{Rcpp::exception} and \code{Rcpp::stop} are now
+      thread-safe. Be cautioned that most of Rcpp continues to be not
+      thread-safe.
     }
     \item Changes in Rcpp Attributes:
     \itemize{

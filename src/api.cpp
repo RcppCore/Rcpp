@@ -251,6 +251,12 @@ SEXP rcpp_can_use_cxx11() {				// #nocov start
 }							// #nocov end
 
 
+// [[Rcpp::register]]
+SEXP stack_trace(const char* file, int line) {
+    return R_NilValue;
+}
+
+
 // // [ [ Rcpp::register ] ]
 // void print(SEXP s) {
 //     Rf_PrintValue(s);           // defined in Rinternals.h

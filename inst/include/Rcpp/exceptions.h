@@ -27,6 +27,8 @@
 #define RCPP_DEFAULT_INCLUDE_CALL true
 #endif
 
+#define GET_STACKTRACE() R_NilValue
+
 namespace Rcpp {
 
     // Throwing an exception must be thread-safe to avoid surprises w/ OpenMP.
@@ -34,14 +36,12 @@ namespace Rcpp {
     public:
         explicit exception(const char* message_, bool include_call = RCPP_DEFAULT_INCLUDE_CALL) :	// #nocov start
             message(message_),
-            include_call_(include_call)
-        {
+            include_call_(include_call) {
             record_stack_trace();
         }
         exception(const char* message_, const char*, int, bool include_call = RCPP_DEFAULT_INCLUDE_CALL) :
             message(message_),
-            include_call_(include_call)
-        {
+            include_call_(include_call) {
             record_stack_trace();
         }
         bool include_call() const {
