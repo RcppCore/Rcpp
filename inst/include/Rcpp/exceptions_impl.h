@@ -1,6 +1,6 @@
 // exceptions_impl.h: Rcpp R/C++ interface class library -- exceptions
 //
-// Copyright (C) 2020  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2020 Joshua N. Pritikin
 //
 // This file is part of Rcpp.
 //
