@@ -3,6 +3,8 @@
 	* DESCRIPTION (Version, Date): Roll minor version
         * inst/include/Rcpp/config.h: Idem
 
+	* README.md: Added indirect CRAN use badge
+
 2020-02-09  Joshua Pritikin  <jpritikin@pobox.com>
 
 	* inst/include/Rcpp.h: Include exceptions_impl.h
