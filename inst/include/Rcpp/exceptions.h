@@ -27,21 +27,22 @@
 #define RCPP_DEFAULT_INCLUDE_CALL true
 #endif
 
-#define GET_STACKTRACE() stack_trace( __FILE__, __LINE__ )
+#define GET_STACKTRACE() R_NilValue
 
 namespace Rcpp {
 
+    // Throwing an exception must be thread-safe to avoid surprises w/ OpenMP.
     class exception : public std::exception {
     public:
         explicit exception(const char* message_, bool include_call = RCPP_DEFAULT_INCLUDE_CALL) :	// #nocov start
             message(message_),
-            include_call_(include_call){
-            rcpp_set_stack_trace(Shield<SEXP>(stack_trace()));
+            include_call_(include_call) {
+            record_stack_trace();
         }
         exception(const char* message_, const char*, int, bool include_call = RCPP_DEFAULT_INCLUDE_CALL) :
             message(message_),
-            include_call_(include_call){
-            rcpp_set_stack_trace(Shield<SEXP>(stack_trace()));
+            include_call_(include_call) {
+            record_stack_trace();
         }
         bool include_call() const {
             return include_call_;
@@ -50,9 +51,12 @@ namespace Rcpp {
         virtual const char* what() const throw() {
             return message.c_str();					// #nocov end
         }
+        inline void copy_stack_trace_to_r() const;
     private:
         std::string message;
         bool include_call_;
+        std::vector<std::string> stack;
+        inline void record_stack_trace();
     };
 
     // simple helper
@@ -340,7 +344,8 @@ inline SEXP exception_to_condition_template( const Exception& ex, bool include_c
 }
 
 inline SEXP rcpp_exception_to_r_condition(const Rcpp::exception& ex) {
-  return exception_to_condition_template(ex, ex.include_call());
+    ex.copy_stack_trace_to_r();
+    return exception_to_condition_template(ex, ex.include_call());
 }
 
 inline SEXP exception_to_r_condition( const std::exception& ex){

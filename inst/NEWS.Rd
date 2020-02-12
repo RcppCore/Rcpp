@@ -14,7 +14,10 @@
       \item Finalizer calls clear external pointer first (Kirill Müller and
       Dirk in \ghpr{1038}).
       \item Scalar operations with a rhs matrix no longer change the
-      matrix value (Qiang in \ghpr{1040} fixing (again) \ghit{365}). 
+      matrix value (Qiang in \ghpr{1040} fixing (again) \ghit{365}).
+      \item \code{Rcpp::exception} and \code{Rcpp::stop} are now
+      thread-safe. Be cautioned that most of Rcpp continues to be not
+      thread-safe.
     }
     \item Changes in Rcpp Attributes:
     \itemize{
