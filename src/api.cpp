@@ -2,7 +2,7 @@
 //
 // api.cpp: Rcpp R/C++ interface class library -- Rcpp api
 //
-// Copyright (C) 2012 - 2019  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2020  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -53,7 +53,7 @@ namespace Rcpp {
         }
 
         // [[Rcpp::register]]
-        unsigned long beginSuspendRNGSynchronization() {// #nocov start
+        unsigned long beginSuspendRNGSynchronization() {        // #nocov start
             ++rngSynchronizationSuspended;
             return rngSynchronizationSuspended;
         }
@@ -62,7 +62,7 @@ namespace Rcpp {
         unsigned long endSuspendRNGSynchronization() {
             --rngSynchronizationSuspended;
             return rngSynchronizationSuspended;
-        }						// #nocov end
+        }                                                       // #nocov end
 
         // [[Rcpp::register]]
         char* get_string_buffer() {
@@ -73,36 +73,36 @@ namespace Rcpp {
     }
 
     // [[Rcpp::register]]
-    const char * type2name(SEXP x) { 			// #nocov start
+    const char * type2name(SEXP x) {                            // #nocov start
         switch (TYPEOF(x)) {
-        case NILSXP:	return "NILSXP";
-        case SYMSXP:	return "SYMSXP";
-        case RAWSXP:	return "RAWSXP";
-        case LISTSXP:	return "LISTSXP";
-        case CLOSXP:	return "CLOSXP";
-        case ENVSXP:	return "ENVSXP";
-        case PROMSXP:	return "PROMSXP";
-        case LANGSXP:	return "LANGSXP";
-        case SPECIALSXP:	return "SPECIALSXP";
-        case BUILTINSXP:	return "BUILTINSXP";
-        case CHARSXP:	return "CHARSXP";
-        case LGLSXP:	return "LGLSXP";
-        case INTSXP:	return "INTSXP";
-        case REALSXP:	return "REALSXP";
-        case CPLXSXP:	return "CPLXSXP";
-        case STRSXP:	return "STRSXP";
-        case DOTSXP:	return "DOTSXP";
-        case ANYSXP:	return "ANYSXP";
-        case VECSXP:	return "VECSXP";
-        case EXPRSXP:	return "EXPRSXP";
-        case BCODESXP:	return "BCODESXP";
-        case EXTPTRSXP:	return "EXTPTRSXP";
-        case WEAKREFSXP:	return "WEAKREFSXP";
-        case S4SXP:		return "S4SXP";
+        case NILSXP:    return "NILSXP";
+        case SYMSXP:    return "SYMSXP";
+        case RAWSXP:    return "RAWSXP";
+        case LISTSXP:   return "LISTSXP";
+        case CLOSXP:    return "CLOSXP";
+        case ENVSXP:    return "ENVSXP";
+        case PROMSXP:   return "PROMSXP";
+        case LANGSXP:   return "LANGSXP";
+        case SPECIALSXP:    return "SPECIALSXP";
+        case BUILTINSXP:    return "BUILTINSXP";
+        case CHARSXP:   return "CHARSXP";
+        case LGLSXP:    return "LGLSXP";
+        case INTSXP:    return "INTSXP";
+        case REALSXP:   return "REALSXP";
+        case CPLXSXP:   return "CPLXSXP";
+        case STRSXP:    return "STRSXP";
+        case DOTSXP:    return "DOTSXP";
+        case ANYSXP:    return "ANYSXP";
+        case VECSXP:    return "VECSXP";
+        case EXPRSXP:   return "EXPRSXP";
+        case BCODESXP:  return "BCODESXP";
+        case EXTPTRSXP: return "EXTPTRSXP";
+        case WEAKREFSXP:    return "WEAKREFSXP";
+        case S4SXP:     return "S4SXP";
         default:
         return "<unknown>";
         }
-    }							// #nocov end
+    }                                                           // #nocov end
 
 
 } // namespace Rcpp
@@ -127,21 +127,21 @@ std::string demangle(const std::string& name) {
 }
 
 // [[Rcpp::register]]
-const char* short_file_name(const char* file) {		// #nocov start
+const char* short_file_name(const char* file) {                 // #nocov start
     std::string f(file);
     size_t index = f.find("/include/");
     if (index != std::string::npos) {
         f = f.substr(index + 9);
     }
     return f.c_str();
-}							// #nocov end
+}
 
 // [[Rcpp::internal]]
-SEXP as_character_externalptr(SEXP xp) {		// #nocov start
+SEXP as_character_externalptr(SEXP xp) {
     char buffer[20];
     snprintf(buffer, 20, "%p", (void*)EXTPTR_PTR(xp));
     return Rcpp::wrap((const char*)buffer);
-}							// #nocov end
+}                                                               // #nocov end
 
 // [[Rcpp::internal]]
 SEXP rcpp_capabilities() {
@@ -232,29 +232,29 @@ SEXP rcpp_capabilities() {
 
 
 // [[Rcpp::internal]]
-SEXP rcpp_can_use_cxx0x() {				// #nocov start
+SEXP rcpp_can_use_cxx0x() {                                     // #nocov start
     #if defined(HAS_VARIADIC_TEMPLATES) || defined(RCPP_USING_CXX11)
         return Rf_ScalarLogical(TRUE);
     #else
         return Rf_ScalarLogical(FALSE);
     #endif
-}							// #nocov end
+}
 
 
 // [[Rcpp::internal]]
-SEXP rcpp_can_use_cxx11() {				// #nocov start
+SEXP rcpp_can_use_cxx11() {
     #if defined(RCPP_USING_CXX11)
         return Rf_ScalarLogical(TRUE);
     #else
         return Rf_ScalarLogical(FALSE);
     #endif
-}							// #nocov end
+}
 
 
 // [[Rcpp::register]]
 SEXP stack_trace(const char* file, int line) {
     return R_NilValue;
-}
+}                                                               // #nocov end
 
 
 // // [ [ Rcpp::register ] ]
