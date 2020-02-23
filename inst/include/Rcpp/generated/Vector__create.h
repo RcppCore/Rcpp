@@ -173,21 +173,21 @@ private:
 	}
 
 	template <typename T1, typename T2, typename T3>
-	static Vector create__dispatch( traits::true_type, const T1& t1, const T2& t2, const T3& t3){
-		Vector res( 3 ) ;
-		Shield<SEXP> names( ::Rf_allocVector( STRSXP, 3 ) ) ;
-		int index = 0 ;
-		iterator it( res.begin() );
+    static Vector create__dispatch( traits::true_type, const T1& t1, const T2& t2, const T3& t3){   // #nocov start
+        Vector res( 3 ) ;
+        Shield<SEXP> names( ::Rf_allocVector( STRSXP, 3 ) ) ;
+        int index = 0 ;
+        iterator it( res.begin() );
 
-		////
+        ////
         replace_element( it, names, index, t1 ) ; ++it; ++index ;
         replace_element( it, names, index, t2 ) ; ++it; ++index ;
         replace_element( it, names, index, t3 ) ; ++it; ++index ;
-		////
+        ////
 
-		res.attr("names") = names ;
+        res.attr("names") = names ;
 
-		return res ;
+        return res ;                                                                                // #nocov end
 	}
 
 public:
