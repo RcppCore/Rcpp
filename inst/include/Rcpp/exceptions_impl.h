@@ -26,7 +26,7 @@ namespace Rcpp {
     #include <execinfo.h>
 
     // Extract mangled name e.g. ./test(baz+0x14)[0x400962]
-    static std::string demangler_one(const char* input) {
+    static std::string demangler_one(const char* input) {       // #nocov start
         static std::string buffer;
         buffer = input;
         size_t last_open = buffer.find_last_of('(');
@@ -84,6 +84,6 @@ namespace Rcpp {
                                   _["line" ] = -1,
                                   _["stack"] = res);
         trace.attr("class") = "Rcpp_stack_trace";
-        rcpp_set_stack_trace(trace);
+        rcpp_set_stack_trace(trace);                            // #nocov end
     }
 };
