@@ -1,3 +1,13 @@
+2020-02-24  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/exceptions_impl.h: Remove spurious semicolon
+
+2020-02-23  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/generated/Vector__create.h: Added #nocov tags
+	* inst/include/Rcpp/exceptions_impl.h: Idem
+	* src/api.cpp: Idem plus some whitespace realignment
+
 2020-02-13  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Add a Debian badge

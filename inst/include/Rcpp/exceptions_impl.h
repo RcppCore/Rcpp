@@ -86,4 +86,4 @@ namespace Rcpp {
         trace.attr("class") = "Rcpp_stack_trace";
         rcpp_set_stack_trace(trace);                            // #nocov end
     }
-};
+}
