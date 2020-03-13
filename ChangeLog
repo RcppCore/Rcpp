@@ -1,3 +1,17 @@
+2020-03-13  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Date, Version): Release 1.0.4
+
+        * inst/include/Rcpp/config.h: Idem
+        * inst/NEWS.Rd: Idem
+        * vignettes/rmd/Rcpp.bib: Idem
+        * inst/bib/Rcpp.bib: Idem
+
+2020-03-12  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/rmd/Rcpp.bib: Updated to current package versions
+	* inst/bib/Rcpp.bib: Idem
+
 2020-02-24  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/exceptions_impl.h: Remove spurious semicolon
