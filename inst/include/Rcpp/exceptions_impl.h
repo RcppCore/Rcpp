@@ -18,16 +18,33 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+// disable demangler on platforms where we have no support
+#ifndef RCPP_DEMANGLER_ENABLED
+# if defined(_WIN32)     || \
+    defined(__FreeBSD__) || \
+    defined(__NetBSD__)  || \
+    defined(__OpenBSD__) || \
+    defined(__CYGWIN__)  || \
+    defined(__sun)       || \
+    defined(_AIX)        || \
+    defined(__MUSL__)    || \
+    defined(__HAIKU__)   || \
+    defined(__ANDROID__)
+#  define RCPP_DEMANGLER_ENABLED 0
+# elif defined(__GNUC__)  || defined(__clang__)
+#  include <execinfo.h>
+#  define RCPP_DEMANGLER_ENABLED 1
+# endif
+#endif
+
 namespace Rcpp {
-#if defined(__GNUC__) || defined(__clang__)
-    #if defined(_WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__CYGWIN__) || defined(__sun) || defined(_AIX) || defined(__MUSL__) || defined(__HAIKU__) || defined(__ANDROID__)
-        // do nothing
-    #else
-    #include <execinfo.h>
 
     // Extract mangled name e.g. ./test(baz+0x14)[0x400962]
+#if RCPP_DEMANGLER_ENABLED
     static std::string demangler_one(const char* input) {       // #nocov start
+
         static std::string buffer;
+
         buffer = input;
         size_t last_open = buffer.find_last_of('(');
         size_t last_close = buffer.find_last_of(')');
@@ -42,19 +59,16 @@ namespace Rcpp {
             function_name.resize(function_plus);
         }
         buffer.replace(last_open + 1, function_name.size(), demangle(function_name));
+
         return buffer;
+
     }
-    #endif
 #endif
 
     // thread-safe; invoked prior to throwing the exception
     inline void exception::record_stack_trace()
     {
-    #if defined(__GNUC__) || defined(__clang__)
-        #if defined(_WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__CYGWIN__) || defined(__sun) || defined(_AIX) || defined(__MUSL__) || defined(__HAIKU__) || defined(__ANDROID__)
-            // C++ stack not available on this system
-        #else // ! (defined(_WIN32) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__CYGWIN__) || defined(__sun) || defined(_AIX) || defined(__ANDROID__)
-
+#if RCPP_DEMANGLER_ENABLED
         /* inspired from http://tombarta.wordpress.com/2008/08/01/c-stack-traces-with-gcc/  */
         const size_t max_depth = 100;
         int stack_depth;
@@ -66,8 +80,7 @@ namespace Rcpp {
         std::transform(stack_strings + 1, stack_strings + stack_depth,
                        std::back_inserter(stack), demangler_one);
         free(stack_strings); // malloc()ed by backtrace_symbols
-        #endif
-    #endif
+#endif
     }
 
     // not thread-safe; invoked after catching the exception
@@ -86,4 +99,6 @@ namespace Rcpp {
         trace.attr("class") = "Rcpp_stack_trace";
         rcpp_set_stack_trace(trace);                            // #nocov end
     }
+
 }
+
