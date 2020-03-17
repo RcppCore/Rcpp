@@ -3,6 +3,16 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
+\section{Changes in Rcpp version 1.0.5 (2020-07-xx)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item The exception handler code in \ghpr{1043} was updated to ensure
+      proper include behavior (Kevin in \ghpr{1047} fixing \ghit{1046}).
+    }
+  }
+}
+
 \section{Changes in Rcpp version 1.0.4 (2020-03-13)}{
   \itemize{
     \item Changes in Rcpp API:
@@ -37,10 +47,10 @@
       \item The Rcpp Attributes vignette describe the new invisible return
       object option (Kun Ren in \ghpr{1025}).
       \item Vignettes are now included as pre-made pdf files (Dirk in \ghpr{1029})
-      \item The Rcpp FAQ has new entry on the recommended
+      \item The Rcpp FAQ has a new entry on the recommended
       \code{importFrom} directive (Dirk in \ghpr{1031} fixing \ghit{1030}).
       \item The bib file for the vignette was once again updated to
-      current package versions.
+      current package versions (Dirk).
     }
     \item Changes in Rcpp Deployment:
     \itemize{
