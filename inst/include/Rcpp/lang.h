@@ -32,12 +32,24 @@
 #define Rcpp_lang4 Rf_lang4
 #define Rcpp_list5 Rf_list5
 #define Rcpp_lang5 Rf_lang5
-#define Rcpp_list6 Rf_list6
 #define Rcpp_lang6 Rf_lang6
 
 #define Rcpp_lcons Rf_lcons
 
 namespace Rcpp {
+
+// `Rf_lang6()` is available on R 3.3, but `Rf_list6()` is not
+inline SEXP Rcpp_list6( SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5 )
+{
+    PROTECT(x0);
+    x0 = Rf_cons(x0, Rcpp_list5(x1, x2, x3, x4, x5));
+    UNPROTECT(1);
+    return x0;
+}
+
+
+
+
 
 inline SEXP Rcpp_list7( SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, SEXP x6 )
 {
