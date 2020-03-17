@@ -9,6 +9,8 @@
     \itemize{
       \item The exception handler code in \ghpr{1043} was updated to ensure
       proper include behavior (Kevin in \ghpr{1047} fixing \ghit{1046}).
+      \item A missing \code{Rcpp_list6} definition was added to support
+      R 3.3.* builds (Davis Vaughan in \ghpr{1049} fixing \ghit{1048}).
     }
   }
 }
