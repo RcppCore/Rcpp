@@ -1,3 +1,7 @@
+2020-03-17  Davis Vaughan  <davis@rstudio.com>
+
+	* inst/include/Rcpp/lang.h: Inline Rcpp_list6() to support R 3.3.
+
 2020-03-17  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
