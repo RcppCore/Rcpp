@@ -21,6 +21,7 @@
 #ifndef Rcpp__lang_h
 #define Rcpp__lang_h
 
+#define Rcpp_list1 Rf_list1
 #define Rcpp_lang1 Rf_lang1
 #define Rcpp_lang2 Rf_lang2
 #define Rcpp_lang3 Rf_lang3
@@ -31,13 +32,6 @@
 #define Rcpp_lcons Rf_lcons
 
 namespace Rcpp {
-
-inline SEXP Rcpp_list1(SEXP x0) {
-    PROTECT(x0);
-    x0 = Rf_cons(x0);
-    UNPROTECT(1);
-    return x0;
-}
 
 inline SEXP Rcpp_list2(SEXP x0, SEXP x1) {
     PROTECT(x0);

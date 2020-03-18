@@ -11,6 +11,8 @@
       proper include behavior (Kevin in \ghpr{1047} fixing \ghit{1046}).
       \item A missing \code{Rcpp_list6} definition was added to support
       R 3.3.* builds (Davis Vaughan in \ghpr{1049} fixing \ghit{1048}).
+      \item Missing \code{Rcpp_list{2,3,4,5} definition were added to
+      the Rcpp namespace (Dirk fixing \ghit{1053}).
     }
   }
 }
