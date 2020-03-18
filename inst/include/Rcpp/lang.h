@@ -1,8 +1,7 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-//
+
 // lang.h: Rcpp R/C++ interface class library -- extra lang_* functions
 //
-// Copyright (C) 2011 - 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2011 - 2020 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,21 +21,53 @@
 #ifndef Rcpp__lang_h
 #define Rcpp__lang_h
 
-#define Rcpp_list1 Rf_list1
 #define Rcpp_lang1 Rf_lang1
-#define Rcpp_list2 Rf_list2
 #define Rcpp_lang2 Rf_lang2
-#define Rcpp_list3 Rf_list3
 #define Rcpp_lang3 Rf_lang3
-#define Rcpp_list4 Rf_list4
 #define Rcpp_lang4 Rf_lang4
-#define Rcpp_list5 Rf_list5
 #define Rcpp_lang5 Rf_lang5
 #define Rcpp_lang6 Rf_lang6
 
 #define Rcpp_lcons Rf_lcons
 
 namespace Rcpp {
+
+inline SEXP Rcpp_list1(SEXP x0) {
+    PROTECT(x0);
+    x0 = Rf_cons(x0);
+    UNPROTECT(1);
+    return x0;
+}
+
+inline SEXP Rcpp_list2(SEXP x0, SEXP x1) {
+    PROTECT(x0);
+    x0 = Rf_cons(x0, Rcpp_list1(x1));
+    UNPROTECT(1);
+    return x0;
+}
+
+inline SEXP Rcpp_list3(SEXP x0, SEXP x1, SEXP x2) {
+    PROTECT(x0);
+    x0 = Rf_cons(x0, Rcpp_list2(x1, x2));
+    UNPROTECT(1);
+    return x0;
+}
+
+inline SEXP Rcpp_list4(SEXP x0, SEXP x1, SEXP x2, SEXP x3) {
+    PROTECT(x0);
+    x0 = Rf_cons(x0, Rcpp_list3(x1, x2, x3));
+    UNPROTECT(1);
+    return x0;
+}
+
+inline SEXP Rcpp_list5(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4) {
+    PROTECT(x0);
+    x0 = Rf_cons(x0, Rcpp_list4(x1, x2, x3, x4));
+    UNPROTECT(1);
+    return x0;
+}
+
+
 
 // `Rf_lang6()` is available on R 3.3, but `Rf_list6()` is not
 inline SEXP Rcpp_list6( SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5 )
@@ -330,4 +361,3 @@ inline SEXP Rcpp_lang20( SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5, S
 }
 
 #endif
-
