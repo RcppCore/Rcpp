@@ -1,10 +1,20 @@
+2020-03-18  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+        * inst/include/Rcpp/config.h: Idem
+
+	* inst/include/Rcpp/lang.h: Define Rcpp_list{2,3,4,5} in the Rcpp
+	namespace
+
+	* DESCRIPTION: Remove versioned depends on R (>= 3.0.0) from 2013
+
 2020-03-17  Davis Vaughan  <davis@rstudio.com>
 
 	* inst/include/Rcpp/lang.h: Inline Rcpp_list6() to support R 3.3.
 
 2020-03-17  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version
+	* DESCRIPTION (Version, Date): Roll minor version (twice)
         * inst/include/Rcpp/config.h: Idem
 
         * inst/NEWS.Rd: Updated
