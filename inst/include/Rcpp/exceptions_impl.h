@@ -18,6 +18,9 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+#ifndef Rcpp__exceptions_impl__h
+#define Rcpp__exceptions_impl__h
+
 // disable demangler on platforms where we have no support
 #ifndef RCPP_DEMANGLER_ENABLED
 # if defined(_WIN32)     || \
@@ -102,3 +105,4 @@ namespace Rcpp {
 
 }
 
+#endif
