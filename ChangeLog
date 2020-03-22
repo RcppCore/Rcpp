@@ -1,3 +1,9 @@
+2020-03-22  Mattias Ellert  <mattias.ellert@physics.uu.se>
+
+	* inst/include/Rcpp/exceptions_impl.h: Add include guard,
+	Make sure RCPP_DEMANGLER_ENABLED is always defined,
+	Add missing inline qualifier
+
 2020-03-18  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version

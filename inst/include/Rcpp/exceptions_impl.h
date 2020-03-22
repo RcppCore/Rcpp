@@ -18,6 +18,9 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+#ifndef Rcpp__exceptions_impl__h
+#define Rcpp__exceptions_impl__h
+
 // disable demangler on platforms where we have no support
 #ifndef RCPP_DEMANGLER_ENABLED
 # if defined(_WIN32)     || \
@@ -34,6 +37,8 @@
 # elif defined(__GNUC__)  || defined(__clang__)
 #  include <execinfo.h>
 #  define RCPP_DEMANGLER_ENABLED 1
+# else
+#  define RCPP_DEMANGLER_ENABLED 0
 # endif
 #endif
 
@@ -41,7 +46,7 @@ namespace Rcpp {
 
     // Extract mangled name e.g. ./test(baz+0x14)[0x400962]
 #if RCPP_DEMANGLER_ENABLED
-    static std::string demangler_one(const char* input) {       // #nocov start
+    static inline std::string demangler_one(const char* input) {  // #nocov start
 
         static std::string buffer;
 
@@ -102,3 +107,4 @@ namespace Rcpp {
 
 }
 
+#endif
