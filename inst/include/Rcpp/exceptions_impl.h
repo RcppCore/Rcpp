@@ -37,6 +37,8 @@
 # elif defined(__GNUC__)  || defined(__clang__)
 #  include <execinfo.h>
 #  define RCPP_DEMANGLER_ENABLED 1
+# else
+#  define RCPP_DEMANGLER_ENABLED 0
 # endif
 #endif
 
