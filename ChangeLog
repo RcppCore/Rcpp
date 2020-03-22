@@ -7,6 +7,8 @@
 	* docker/ci-3.5/Dockerfile: Idem
 	* docker/ci-dev/Dockerfile: Idem
 
+	* .travis.yml (jobs): Expand to matrix
+
 2020-03-22  Mattias Ellert  <mattias.ellert@physics.uu.se>
 
 	* inst/include/Rcpp/exceptions_impl.h: Add include guard,
