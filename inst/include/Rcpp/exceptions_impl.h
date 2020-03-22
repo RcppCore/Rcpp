@@ -46,7 +46,7 @@ namespace Rcpp {
 
     // Extract mangled name e.g. ./test(baz+0x14)[0x400962]
 #if RCPP_DEMANGLER_ENABLED
-    static std::string demangler_one(const char* input) {       // #nocov start
+    static inline std::string demangler_one(const char* input) {  // #nocov start
 
         static std::string buffer;
 
