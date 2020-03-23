@@ -10,13 +10,15 @@ services: docker
 jobs:
   include:
     - name: release
-      env: DOCKER_CNTR="rcpp/ci" R="R" COVR="yes"
+      env: DOCKER_CNTR="rcpp/ci" R="R" COVR="no"
     - name: r-3.4
-      env: DOCKER_CNTR="rcpp/ci-3.4" R="R"
+      env: DOCKER_CNTR="rcpp/ci-3.4" R="R" COVR="no"
     - name: r-3.5
-      env: DOCKER_CNTR="rcpp/ci-3.5" R="R"
+      env: DOCKER_CNTR="rcpp/ci-3.5" R="R" COVR="no"
     - name: dev
-      env: DOCKER_CNTR="rcpp/ci-dev" R="RD"
+      env: DOCKER_CNTR="rcpp/ci-dev" R="RD" COVR="no"
+    - name: coverage
+      env: DOCKER_CNTR="rcpp/ci" R="R" COVR="yes"
 
 env:
   global:
@@ -33,10 +35,8 @@ install:
   - docker run ${DOCKER_OPTS} ${DOCKER_CNTR} ${R} CMD build ${R_BLD_OPTS} .
 
 script:
-  - docker run ${DOCKER_OPTS} ${DOCKER_CNTR} ${R} CMD check ${R_CHK_OPTS} Rcpp_*.tar.gz
-
-after_success:
-  - if [[ "$COVR" == "yes" ]]; then docker run ${DOCKER_OPTS} -e CODECOV_TOKEN ${DOCKER_CNTR} r -l covr -e 'codecov()'; fi
+  - if [[ "${COVR}" == "no" ]]; then docker run ${DOCKER_OPTS} ${DOCKER_CNTR} ${R} CMD check ${R_CHK_OPTS} Rcpp_*.tar.gz; fi
+  - if [[ "${COVR}" == "yes" ]]; then docker run ${DOCKER_OPTS} -e CODECOV_TOKEN ${DOCKER_CNTR} r -l covr -e 'codecov()'; fi
 
 notifications:
   email:
