@@ -16,6 +16,11 @@
       \item Missing \code{Rcpp_list{2,3,4,5}} definition were added to
       the Rcpp namespace (Dirk fixing \ghit{1053}).
     }
+    \item Changes in Rcpp Deployment:
+    \itemize{
+      \item Travis CI unit tests now run a matrix over the versions of R
+      also tested at CRAN (rel/dev/oldrel/oldoldrel) (Dirk in \ghpr{1056}).
+    }
   }
 }
 

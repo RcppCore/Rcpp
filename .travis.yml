@@ -7,25 +7,36 @@ dist: trusty
 sudo: required
 services: docker
 
+jobs:
+  include:
+    - name: release
+      env: DOCKER_CNTR="rcpp/ci" R="R" COVR="yes"
+    - name: r-3.4
+      env: DOCKER_CNTR="rcpp/ci-3.4" R="R"
+    - name: r-3.5
+      env: DOCKER_CNTR="rcpp/ci-3.5" R="R"
+    - name: dev
+      env: DOCKER_CNTR="rcpp/ci-dev" R="RD"
+
 env:
   global:
     - DOCKER_OPTS="--rm -ti -v $(pwd):/mnt -w /mnt"
-      DOCKER_CNTR="rcpp/ci"
       R_BLD_OPTS="--no-build-vignettes --no-manual"
       R_CHK_OPTS="--no-vignettes --no-manual"
 
 before_install:
   - docker pull ${DOCKER_CNTR}
   - docker run ${DOCKER_OPTS} ${DOCKER_CNTR} r -p -e 'sessionInfo()'
+  - if [[ "$R" == "RD" ]]; then docker run ${DOCKER_OPTS} ${DOCKER_CNTR} RDscript -e 'sessionInfo()'; fi
 
 install:
-  - docker run ${DOCKER_OPTS} ${DOCKER_CNTR} R CMD build ${R_BLD_OPTS} .
+  - docker run ${DOCKER_OPTS} ${DOCKER_CNTR} ${R} CMD build ${R_BLD_OPTS} .
 
 script:
-  - docker run ${DOCKER_OPTS} ${DOCKER_CNTR} R CMD check ${R_CHK_OPTS} Rcpp_*.tar.gz
+  - docker run ${DOCKER_OPTS} ${DOCKER_CNTR} ${R} CMD check ${R_CHK_OPTS} Rcpp_*.tar.gz
 
 after_success:
-  - docker run ${DOCKER_OPTS} -e CODECOV_TOKEN ${DOCKER_CNTR} r -l covr -e 'codecov()'
+  - if [[ "$COVR" == "yes" ]]; then docker run ${DOCKER_OPTS} -e CODECOV_TOKEN ${DOCKER_CNTR} r -l covr -e 'codecov()'; fi
 
 notifications:
   email:
