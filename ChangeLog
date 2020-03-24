@@ -1,3 +1,11 @@
+2020-03-24  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+        * inst/include/Rcpp/config.h: Idem
+
+	* inst/include/Rcpp/Environment.h: Added two Shield<SEXP> wrappers
+	around Rf_langX calls
+
 2020-03-23  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .travis.yml (script): Run coverage as parallel step

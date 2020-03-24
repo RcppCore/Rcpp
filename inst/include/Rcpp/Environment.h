@@ -3,7 +3,7 @@
 // Environment.h: Rcpp R/C++ interface class library -- access R environments
 //
 // Copyright (C) 2009 - 2013  Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2014 - 2019  Dirk Eddelbuettel, Romain Francois and Kevin Ushey
+// Copyright (C) 2014 - 2020  Dirk Eddelbuettel, Romain Francois and Kevin Ushey
 //
 // This file is part of Rcpp.
 //
@@ -33,8 +33,8 @@ namespace Rcpp{
             if( Rf_isEnvironment(x) ) return x ;
             SEXP asEnvironmentSym = Rf_install("as.environment");
             try {
-                Shield<SEXP> res(Rcpp_fast_eval(Rf_lang2(asEnvironmentSym, x), R_GlobalEnv));
-                return res ;
+                Shield<SEXP> call(Rf_lang2(asEnvironmentSym, x));
+                return Rcpp_fast_eval(call, R_GlobalEnv);
             } catch( const eval_error& ex) {
                 const char* fmt = "Cannot convert object to an environment: "
                                   "[type=%s; target=ENVSXP].";
@@ -393,9 +393,9 @@ namespace Rcpp{
          */
         Environment_Impl new_child(bool hashed) const {
             SEXP newEnvSym = Rf_install("new.env");
-            return Environment_Impl(Rcpp_fast_eval(Rf_lang3(newEnvSym, Rf_ScalarLogical(hashed), Storage::get__()), R_GlobalEnv));
+            Shield<SEXP> call(Rf_lang3(newEnvSym, Rf_ScalarLogical(hashed), Storage::get__()));
+            return Environment_Impl(Rcpp_fast_eval(call, R_GlobalEnv));
         }
-
 
         void update(SEXP){}
     };
