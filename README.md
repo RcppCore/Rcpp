@@ -5,12 +5,13 @@
 [![CRAN](http://www.r-pkg.org/badges/version/Rcpp)](https://cran.r-project.org/package=Rcpp)
 [![Dependencies](https://tinyverse.netlify.com/badge/Rcpp)](https://cran.r-project.org/package=Rcpp)
 [![Coverage Status](https://codecov.io/gh/RcppCore/Rcpp/graph/badge.svg)](https://codecov.io/github/RcppCore/Rcpp?branch=master)
-[![Debian package](https://img.shields.io/debian/v/r-cran-rcpp/sid?color=brightgreen)](https://packages.debian.org/sid/r-cran-rcpp)  
+[![Debian package](https://img.shields.io/debian/v/r-cran-rcpp/sid?color=brightgreen)](https://packages.debian.org/sid/r-cran-rcpp)
+[![Last Commit](https://img.shields.io/github/last-commit/RcppCore/Rcpp)](https://github.com/RcppCore/Rcpp)
 [![Downloads](http://cranlogs.r-pkg.org/badges/Rcpp?color=brightgreen)](http://www.r-pkg.org/pkg/Rcpp)
 [![CRAN use](https://jangorecki.gitlab.io/rdeps/Rcpp/CRAN_usage.svg?sanitize=true)](https://cran.r-project.org/package=Rcpp)
 [![CRAN indirect](https://jangorecki.gitlab.io/rdeps/Rcpp/indirect_usage.svg?sanitize=true)](https://cran.r-project.org/package=Rcpp)
 [![BioConductor use](https://jangorecki.gitlab.io/rdeps/Rcpp/BioC_usage.svg?sanitize=true)](https://cran.r-project.org/package=Rcpp)
-[![StackOverflow](https://img.shields.io/badge/stackoverflow-rcpp-orange.svg)](https://stackoverflow.com/questions/tagged/rcpp)  
+[![StackOverflow](https://img.shields.io/badge/stackoverflow-rcpp-orange.svg)](https://stackoverflow.com/questions/tagged/rcpp)
 [![JSS](https://img.shields.io/badge/JSS-10.18637%2Fjss.v040.i08-brightgreen)](http://dx.doi.org/10.18637/jss.v040.i08)
 [![Springer useR!](https://img.shields.io/badge/Springer%20useR!-10.1007%2F978--1--4614--6868--4-brightgreen)](https://www.springer.com/gp/book/9781461468677)
 [![TAS](https://img.shields.io/badge/TAS-10.1080%2F00031305.2017.1375990-brightgreen)](http://dx.doi.org/10.1080/00031305.2017.1375990)
@@ -88,8 +89,8 @@ documented and working examples. The
 [package RcppExamples](https://cran.r-project.org/package=RcppExamples) contains a few basic
 examples covering the core data types.
 
-A number of examples are included as are 1437 unit tests in 622 unit
-test functions provide additional usage examples.
+A number of examples are included, as are 1560 unit tests which provide
+additional usage examples.
 
 An earlier version of Rcpp, containing what we now call the 'classic Rcpp
 API' was written during 2005 and 2006 by Dominick Samperi.  This code has
@@ -97,9 +98,9 @@ been factored out of Rcpp into the package RcppClassic, and it is still
 available for code relying on the older interface. New development should
 always use this Rcpp package instead.
 
-Other usage examples are provided by packages using Rcpp. As of September 2019,
-there are 1790 [CRAN](https://cran.r-project.org) packages using Rcpp, a further
-176 [BioConductor](http://www.bioconductor.org) packages in its current release
+Other usage examples are provided by packages using Rcpp. As of March 2020,
+there are 1900 [CRAN](https://cran.r-project.org) packages using Rcpp, a further
+191 [BioConductor](http://www.bioconductor.org) packages in its current release
 as well as an unknown number of GitHub, Bitbucket, R-Forge, ... repositories
 using Rcpp.  All these packages provide usage examples for Rcpp.
 
