@@ -6,21 +6,19 @@
 [![Dependencies](https://tinyverse.netlify.com/badge/Rcpp)](https://cran.r-project.org/package=Rcpp)
 [![Coverage Status](https://codecov.io/gh/RcppCore/Rcpp/graph/badge.svg)](https://codecov.io/github/RcppCore/Rcpp?branch=master)
 [![Debian package](https://img.shields.io/debian/v/r-cran-rcpp/sid?color=brightgreen)](https://packages.debian.org/sid/r-cran-rcpp)
-[![Last Commit](https://img.shields.io/github/last-commit/RcppCore/Rcpp)](https://github.com/RcppCore/Rcpp)
+[![Last Commit](https://img.shields.io/github/last-commit/RcppCore/Rcpp)](https://github.com/RcppCore/Rcpp)  
 [![Downloads](http://cranlogs.r-pkg.org/badges/Rcpp?color=brightgreen)](http://www.r-pkg.org/pkg/Rcpp)
 [![CRAN use](https://jangorecki.gitlab.io/rdeps/Rcpp/CRAN_usage.svg?sanitize=true)](https://cran.r-project.org/package=Rcpp)
 [![CRAN indirect](https://jangorecki.gitlab.io/rdeps/Rcpp/indirect_usage.svg?sanitize=true)](https://cran.r-project.org/package=Rcpp)
 [![BioConductor use](https://jangorecki.gitlab.io/rdeps/Rcpp/BioC_usage.svg?sanitize=true)](https://cran.r-project.org/package=Rcpp)
-[![StackOverflow](https://img.shields.io/badge/stackoverflow-rcpp-orange.svg)](https://stackoverflow.com/questions/tagged/rcpp)
+[![StackOverflow](https://img.shields.io/badge/stackoverflow-rcpp-orange.svg)](https://stackoverflow.com/questions/tagged/rcpp)  
 [![JSS](https://img.shields.io/badge/JSS-10.18637%2Fjss.v040.i08-brightgreen)](http://dx.doi.org/10.18637/jss.v040.i08)
 [![Springer useR!](https://img.shields.io/badge/Springer%20useR!-10.1007%2F978--1--4614--6868--4-brightgreen)](https://www.springer.com/gp/book/9781461468677)
 [![TAS](https://img.shields.io/badge/TAS-10.1080%2F00031305.2017.1375990-brightgreen)](http://dx.doi.org/10.1080/00031305.2017.1375990)
 
 ### Synopsis
 
-The [Rcpp package](https://cran.r-project.org/package=Rcpp) provides R
-functions and a (header-only for client packages) C++ library greatly
-facilitating the integration of R and C++.
+The [Rcpp package](https://cran.r-project.org/package=Rcpp) help to integrate R and C++ via R functions and a (header-only) C++ library.
 
 All underlying R types and objects, _i.e._, everything a `SEXP` represents internally
 in R, are matched to corresponding C++ objects. This covers anything from vectors,
