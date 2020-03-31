@@ -134,7 +134,7 @@ sourceCpp <- function(file = "",
         src  <- context$cppSourceFilename
 
         # prepare the command (output if we are in showOutput mode)
-        cmd <- paste(
+        args <- c(
             r, "CMD", "SHLIB",
             if (windowsDebugDLL) "-d",
             if (rebuild) "--preclean",
@@ -145,6 +145,7 @@ sourceCpp <- function(file = "",
             shQuote(src)
         )
 
+        cmd <- paste(args, collapse = " ")
         if (showOutput)
             cat(cmd, "\n")										# #nocov
 
