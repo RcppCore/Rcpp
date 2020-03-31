@@ -1,6 +1,9 @@
 2020-03-31  Dirk Eddelbuettel  <edd@debian.org>
 
 	* docker/ci-dev/Dockerfile: Also install the 'codetools' package
+2020-03-31	Kevin Ushey	<kevin@rstudio.com>
+
+	* R/Attributes.R: Fix for sourceCpp() on Windows w/R-devel
 
 2020-03-24  Dirk Eddelbuettel  <edd@debian.org>
 
