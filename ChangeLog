@@ -1,3 +1,7 @@
+2020-03-31  Dirk Eddelbuettel  <edd@debian.org>
+
+	* docker/ci-dev/Dockerfile: Also install the 'codetools' package
+
 2020-03-24  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
