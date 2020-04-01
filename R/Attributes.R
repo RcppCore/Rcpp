@@ -127,17 +127,25 @@ sourceCpp <- function(file = "",
             file.remove(context$previousDynlibPath)
         }                                                       # #nocov end
 
+        # grab components we need to build command
+        r <- paste(R.home("bin"), "R", sep = .Platform$file.sep)
+        lib  <- context$dynlibFilename
+        deps <- context$cppDependencySourcePaths
+        src  <- context$cppSourceFilename
+
         # prepare the command (output if we are in showOutput mode)
-        cmd <- paste(R.home(component="bin"), .Platform$file.sep, "R ",
-                     "CMD SHLIB ",
-                     ifelse(windowsDebugDLL, "-d ", ""),
-                     "-o ", shQuote(context$dynlibFilename), " ",
-                     ifelse(rebuild, "--preclean ", ""),
-                     ifelse(dryRun, "--dry-run ", ""),
-                     paste(shQuote(context$cppDependencySourcePaths),
-                           collapse = " "), " ",
-                     shQuote(context$cppSourceFilename), " ",
-                     sep="")
+        args <- c(
+            r, "CMD", "SHLIB",
+            if (windowsDebugDLL) "-d",
+            if (rebuild) "--preclean",
+            if (dryRun) "--dry-run",
+            "-o", shQuote(lib),
+            if (length(deps))
+                paste(shQuote(deps), collapse = " "),
+            shQuote(src)
+        )
+
+        cmd <- paste(args, collapse = " ")
         if (showOutput)
             cat(cmd, "\n")										# #nocov
 
