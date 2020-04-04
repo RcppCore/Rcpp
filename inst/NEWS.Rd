@@ -3,23 +3,31 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp version 1.0.5 (2020-07-xx)}{
+\section{Changes in Rcpp patch release version 1.0.4.6 (2020-04-02)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
       \item The exception handler code in \ghpr{1043} was updated to ensure
       proper include behavior (Kevin in \ghpr{1047} fixing \ghit{1046}).
-      \item A further updated corrected the header include and provided
-      a missing else branch (Mattias Ellert in \ghpr{1055}).
       \item A missing \code{Rcpp_list6} definition was added to support
       R 3.3.* builds (Davis Vaughan in \ghpr{1049} fixing \ghit{1048}).
       \item Missing \code{Rcpp_list{2,3,4,5}} definition were added to
-      the Rcpp namespace (Dirk fixing \ghit{1053}).
+      the Rcpp namespace (Dirk in \ghpr{1054} fixing \ghit{1053}).
+      \item A further updated corrected the header include and provided
+      a missing else branch (Mattias Ellert in \ghpr{1055}).
+      \item Two more assignments are protect with \code{Rcpp::Shield}
+      (Dirk in \ghpr{1059})
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Empty strings are not passed to \code{R CMD SHLIB} which was
+      seen with R 4.0.0 on Windows (Kevin in \ghpr{1062} fixing \ghpr{1061}).
     }
     \item Changes in Rcpp Deployment:
     \itemize{
       \item Travis CI unit tests now run a matrix over the versions of R
-      also tested at CRAN (rel/dev/oldrel/oldoldrel) (Dirk in \ghpr{1056}).
+      also tested at CRAN (rel/dev/oldrel/oldoldrel), and coverage runs
+      in parallel for a net speed-up (Dirk in \ghpr{1056} and \ghpr{1057}).
     }
   }
 }

@@ -1,3 +1,10 @@
+2020-04-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/NEWS.rd: Mark as patch release 1.0.4.6
+
+	* inst/tinytest/test_exceptions.R: If running skip remainder of file
+	on Windows to not trigger failed test
+
 2020-04-01  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version

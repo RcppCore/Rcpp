@@ -25,3 +25,7 @@ GTAGS
 
 ##
 local/
+
+## docker helpers
+docker/*sh
+docker/*/*.sh

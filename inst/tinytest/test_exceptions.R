@@ -1,5 +1,5 @@
 
-##  Copyright (C) 2010 - 2019  Dirk Eddelbuettel and Romain Francois
+##  Copyright (C) 2010 - 2020  Dirk Eddelbuettel and Romain Francois
 ##
 ##  This file is part of Rcpp.
 ##
@@ -17,6 +17,9 @@
 ##  along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 if (Sys.getenv("RunAllRcppTests") != "yes") exit_file("Set 'RunAllRcppTests' to 'yes' to run.")
+
+## used below
+.onWindows <- .Platform$OS.type == "windows"
 
 Rcpp::sourceCpp("cpp/exceptions.cpp")
 
@@ -46,6 +49,8 @@ condition <- tryCatch(takeLogRcpp(-1L), error = identity)
 
 expect_identical(condition$message, "Inadmissible value")
 expect_identical(class(condition), c("Rcpp::exception", "C++Error", "error", "condition"))
+
+if (.onWindows) exit_file("Skipping remainder of file on Windows")
 
 expect_true(!is.null(condition$cppstack))
 
