@@ -126,9 +126,15 @@ std::string demangle(const std::string& name) {
     #endif
 }
 
+// NOTE: remains registered but this routine is now effectively unused by Rcpp;
+// we retain it for backwards compatibility with any existing packages which
+// (explicitly or implicitly) rely on its existence. See also:
+// https://github.com/RcppCore/Rcpp/issues/1066
+
 // [[Rcpp::register]]
 const char* short_file_name(const char* file) {                 // #nocov start
-    std::string f(file);
+    static std::string f;
+    f = file;
     size_t index = f.find("/include/");
     if (index != std::string::npos) {
         f = f.substr(index + 9);

@@ -22,6 +22,23 @@
 #ifndef Rcpp_macros_macros_h
 #define Rcpp_macros_macros_h
 
+#include <string>
+
+namespace Rcpp {
+namespace debug {
+
+inline std::string short_file_name(const char* file)
+{
+    std::string f(file);
+    size_t index = f.find("/include/");
+    if (index != std::string::npos)
+        f = f.substr(index + 9);
+    return f;
+}
+
+} // namespace debug
+} // namespace Rcpp
+
 #define RCPP_DECORATE(__FUN__) __FUN__##__rcpp__wrapper__
 #define RCPP_GET_NAMES(x) Rf_getAttrib(x, R_NamesSymbol)
 #define RCPP_GET_CLASS(x) Rf_getAttrib(x, R_ClassSymbol)
