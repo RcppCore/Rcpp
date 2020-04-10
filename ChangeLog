@@ -1,3 +1,7 @@
+2020-04-10  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/tinytest/test_exceptions.R: Skip parts of file if on Solaris
+
 2020-04-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/NEWS.rd: Mark as patch release 1.0.4.6

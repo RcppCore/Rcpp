@@ -20,6 +20,7 @@ if (Sys.getenv("RunAllRcppTests") != "yes") exit_file("Set 'RunAllRcppTests' to 
 
 ## used below
 .onWindows <- .Platform$OS.type == "windows"
+.onSolaris <- Sys.info()[["sysname"]] == "SunOS"
 
 Rcpp::sourceCpp("cpp/exceptions.cpp")
 
@@ -51,6 +52,7 @@ expect_identical(condition$message, "Inadmissible value")
 expect_identical(class(condition), c("Rcpp::exception", "C++Error", "error", "condition"))
 
 if (.onWindows) exit_file("Skipping remainder of file on Windows")
+if (.onSolaris) exit_file("Skipping remainder of file on Solaris")
 
 expect_true(!is.null(condition$cppstack))
 
