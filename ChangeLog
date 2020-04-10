@@ -1,3 +1,10 @@
+2020-04-10  Kevin Ushey  <kevinushey@gmail.com>
+
+	* inst/include/Rcpp/macros/macros.h: Safer definition of short_file_name
+	* inst/include/Rcpp/String.h: Idem
+	* inst/include/Rcpp/macros/debug.h: Idem
+	* src/api.cpp: Idem
+
 2020-04-10  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/tinytest/test_exceptions.R: Skip parts of file if on Solaris
