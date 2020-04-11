@@ -3,7 +3,7 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp patch release version 1.0.4.6 (2020-04-02)}{
+\section{Changes in Rcpp patch release version 1.0.5 (2020-xx-yy)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
@@ -15,19 +15,25 @@
       the Rcpp namespace (Dirk in \ghpr{1054} fixing \ghit{1053}).
       \item A further updated corrected the header include and provided
       a missing else branch (Mattias Ellert in \ghpr{1055}).
-      \item Two more assignments are protect with \code{Rcpp::Shield}
-      (Dirk in \ghpr{1059})
+      \item Two more assignments are protected with \code{Rcpp::Shield}
+      (Dirk in \ghpr{1059}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{
       \item Empty strings are not passed to \code{R CMD SHLIB} which was
-      seen with R 4.0.0 on Windows (Kevin in \ghpr{1062} fixing \ghpr{1061}).
+      seen with R 4.0.0 on Windows (Kevin in \ghpr{1062} fixing
+      \ghpr{1061}).
+      \item The \code{short_file_name()} helper function is safer with
+      respect to temporaries (Kevin in \ghpr{1067} fixing \ghit{1066}).
     }
     \item Changes in Rcpp Deployment:
     \itemize{
       \item Travis CI unit tests now run a matrix over the versions of R
       also tested at CRAN (rel/dev/oldrel/oldoldrel), and coverage runs
-      in parallel for a net speed-up (Dirk in \ghpr{1056} and \ghpr{1057}).
+      in parallel for a net speed-up (Dirk in \ghpr{1056} and
+      \ghpr{1057}).
+      \item The exceptions test is now partially skipped on Solaris as
+      it already is on Windows (Dirk in \ghpr{1065}).
     }
   }
 }

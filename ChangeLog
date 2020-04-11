@@ -1,3 +1,8 @@
+2020-04-11  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+        * inst/include/Rcpp/config.h: Idem
+
 2020-04-10  Kevin Ushey  <kevinushey@gmail.com>
 
 	* inst/include/Rcpp/macros/macros.h: Safer definition of short_file_name
