@@ -29,10 +29,10 @@
 
 #if RCPP_STRING_DEBUG_LEVEL > 0
     #define RCPP_STRING_DEBUG_FORMAT "%40s:%4d "
-    #define RCPP_STRING_DEBUG(MSG) Rprintf(RCPP_STRING_DEBUG_FORMAT "%s\n" , ::Rcpp::debug::short_file_name(__FILE__).c_str(), __LINE__, MSG);
-    #define RCPP_STRING_DEBUG_1(fmt, MSG) Rprintf(RCPP_STRING_DEBUG_FORMAT fmt "\n" , ::Rcpp::debug::short_file_name(__FILE__).c_str(), __LINE__, MSG);
-    #define RCPP_STRING_DEBUG_2(fmt, M1, M2) Rprintf(RCPP_STRING_DEBUG_FORMAT fmt "\n" , ::Rcpp::debug::short_file_name(__FILE__).c_str(), __LINE__, M1, M2);
-    #define RCPP_STRING_DEBUG_3(fmt, M1, M2, M3) Rprintf(RCPP_STRING_DEBUG_FORMAT fmt "\n" , ::Rcpp::debug::short_file_name(__FILE__).c_str(), __LINE__, M1, M2, M3);
+    #define RCPP_STRING_DEBUG(MSG) Rprintf(RCPP_STRING_DEBUG_FORMAT "%s\n" , ::Rcpp::internal::debug::short_file_name(__FILE__).c_str(), __LINE__, MSG);
+    #define RCPP_STRING_DEBUG_1(fmt, MSG) Rprintf(RCPP_STRING_DEBUG_FORMAT fmt "\n" , ::Rcpp::internal::debug::short_file_name(__FILE__).c_str(), __LINE__, MSG);
+    #define RCPP_STRING_DEBUG_2(fmt, M1, M2) Rprintf(RCPP_STRING_DEBUG_FORMAT fmt "\n" , ::Rcpp::internal::debug::short_file_name(__FILE__).c_str(), __LINE__, M1, M2);
+    #define RCPP_STRING_DEBUG_3(fmt, M1, M2, M3) Rprintf(RCPP_STRING_DEBUG_FORMAT fmt "\n" , ::Rcpp::internal::debug::short_file_name(__FILE__).c_str(), __LINE__, M1, M2, M3);
 #else
     #define RCPP_STRING_DEBUG(MSG)
     #define RCPP_STRING_DEBUG_1(fmt, MSG)
