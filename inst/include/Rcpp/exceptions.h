@@ -108,9 +108,9 @@ namespace Rcpp {
 
     // Variadic / code generated version of the warning and stop functions
     // can be found within the respective C++11 or C++98 exceptions.h
-    // included below
+    // included below.
     inline void warning(const std::string& message) {        // #nocov start
-        Rf_warning(message.c_str());
+        ::Rf_warning("%s", message.c_str());
     }                                                        // #nocov end
 
     inline void NORET stop(const std::string& message) {     // #nocov start
