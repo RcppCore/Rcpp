@@ -1,3 +1,7 @@
+2020-04-15 Uwe Korn <mail@uwekorn.com>
+
+	* inst/include/Rcpp/DataFrame.h: Explicit call to scalar std::abs
+
 2020-04-11  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
