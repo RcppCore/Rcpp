@@ -17,6 +17,8 @@
       a missing else branch (Mattias Ellert in \ghpr{1055}).
       \item Two more assignments are protected with \code{Rcpp::Shield}
       (Dirk in \ghpr{1059}).
+      \item One call to \code{abs} is now properly namespaced with
+      \code{std::} (Uwe Korn in \ghpr{1069}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{
@@ -24,7 +26,8 @@
       seen with R 4.0.0 on Windows (Kevin in \ghpr{1062} fixing
       \ghpr{1061}).
       \item The \code{short_file_name()} helper function is safer with
-      respect to temporaries (Kevin in \ghpr{1067} fixing \ghit{1066}).
+      respect to temporaries (Kevin in \ghpr{1067} fixing \ghit{1066},
+      and \ghpr{1071} fixing \ghpr{1070}).
     }
     \item Changes in Rcpp Deployment:
     \itemize{
