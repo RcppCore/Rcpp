@@ -25,6 +25,7 @@
 #include <string>
 
 namespace Rcpp {
+namespace internal {
 namespace debug {
 
 inline std::string short_file_name(const char* file)
@@ -37,6 +38,7 @@ inline std::string short_file_name(const char* file)
 }
 
 } // namespace debug
+} // namespace internal
 } // namespace Rcpp
 
 #define RCPP_DECORATE(__FUN__) __FUN__##__rcpp__wrapper__

@@ -1,3 +1,9 @@
+2020-04-15  Kevin Ushey  <kevinushey@gmail.com>
+
+	* inst/include/Rcpp/String.h: Avoid 'debug' namespace collisions
+	* inst/include/Rcpp/macros/debug.h: Idem
+	* inst/include/Rcpp/macros/macros.h: Idem
+
 2020-04-15 Uwe Korn <mail@uwekorn.com>
 
 	* inst/include/Rcpp/DataFrame.h: Explicit call to scalar std::abs
