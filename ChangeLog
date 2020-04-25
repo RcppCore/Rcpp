@@ -1,3 +1,8 @@
+2020-04-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/sugar/functions/sample.h: Replace R_alloc() with
+	a standard vector allocation to reduce memory consumption in sample
+
 2020-04-16  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
