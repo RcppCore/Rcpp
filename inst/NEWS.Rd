@@ -38,6 +38,11 @@
       \item The exceptions test is now partially skipped on Solaris as
       it already is on Windows (Dirk in \ghpr{1065}).
     }
+    \item Changes in Rcpp Sugar:
+    \itemize{
+      \item Two \code{sample()} objects are now standard vectors and not
+      \code{R_alloc} created (Dirk in \ghpr{1075} fixing \ghpr{1074}).
+    }
   }
 }
 
