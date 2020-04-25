@@ -16,9 +16,10 @@ Rcpp-jss-2011.tex:	Rcpp-jss-2011.Rnw
 
 Rcpp-jss-2011.pdf:	Rcpp-jss-2011.tex
 			Rscript -e 'tools::texi2pdf("$<", texi2dvi="pdflatex")'
+			bibtex Rcpp-jss-2011.aux
 			Rscript -e 'tools::texi2pdf("$<", texi2dvi="pdflatex")'
 			Rscript -e 'tools::compactPDF("$@", gs_quality="ebook")'
 			cp -vax $@ ../pdf
 
 clean:
-			@rm -rf *.aux *.log *.out *.tex *.pdf Rcpp-introduction_cache pinp.cls
+			@rm -rf *.aux *.log *.out *.tex *.pdf Rcpp-introduction_cache pinp.cls Rcpp-jss-2011.bbl Rcpp-jss-2011.blg
