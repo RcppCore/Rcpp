@@ -29,6 +29,16 @@
       respect to temporaries (Kevin in \ghpr{1067} fixing \ghit{1066},
       and \ghpr{1071} fixing \ghpr{1070}).
     }
+    \item Changes in Rcpp Sugar:
+    \itemize{
+      \item Two \code{sample()} objects are now standard vectors and not
+      \code{R_alloc} created (Dirk in \ghpr{1075} fixing \ghpr{1074}).
+    }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item The pdf file of the earlier introduction is again typeset
+      with bibliographic information. (Dirk)
+    }
     \item Changes in Rcpp Deployment:
     \itemize{
       \item Travis CI unit tests now run a matrix over the versions of R
@@ -37,11 +47,6 @@
       \ghpr{1057}).
       \item The exceptions test is now partially skipped on Solaris as
       it already is on Windows (Dirk in \ghpr{1065}).
-    }
-    \item Changes in Rcpp Sugar:
-    \itemize{
-      \item Two \code{sample()} objects are now standard vectors and not
-      \code{R_alloc} created (Dirk in \ghpr{1075} fixing \ghpr{1074}).
     }
   }
 }
