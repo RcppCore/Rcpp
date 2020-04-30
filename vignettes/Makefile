@@ -10,6 +10,7 @@ rnwsources  = 		Rcpp-attributes.Rnw \
 			Rcpp-FAQ.Rnw \
 			Rcpp-introduction.Rnw \
 			Rcpp-jss-2011.Rnw \
+			Rcpp-libraries.Rnw \
 			Rcpp-modules.Rnw \
 			Rcpp-package.Rnw \
 			Rcpp-quickref.Rnw \
@@ -20,6 +21,7 @@ rnwvignettes  = 	Rcpp-attributes.pdf \
 			Rcpp-FAQ.pdf \
 			Rcpp-introduction.pdf \
 			Rcpp-jss-2011.pdf \
+			Rcpp-libraries.pdf \
 			Rcpp-modules.pdf \
 			Rcpp-package.pdf \
 			Rcpp-quickref.pdf \
