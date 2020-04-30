@@ -1,140 +1,140 @@
 2020-04-30  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version
+        * DESCRIPTION (Version, Date): Roll minor version
         * inst/include/Rcpp/config.h: Idem
 
-	* vignettes/rmd/Rcpp-libraries.Rmd: Add new vignette source
-	* vignettes/rmd/Rcpp.bib: Complete references
+        * vignettes/rmd/Rcpp-libraries.Rmd: Add new vignette source
+        * vignettes/rmd/Rcpp.bib: Complete references
         * inst/bib/Rcpp.bib: Idem
 
 2020-04-26  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version
+        * DESCRIPTION (Version, Date): Roll minor version
         * inst/include/Rcpp/config.h: Idem
 
 2020-04-25  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/sugar/functions/sample.h: Replace R_alloc() with
-	a standard vector allocation to reduce memory consumption in sample
+        * inst/include/Rcpp/sugar/functions/sample.h: Replace R_alloc() with
+        a standard vector allocation to reduce memory consumption in sample
 
-	* docker/ci/Dockerfile: Update for R 4.0.0 (with a temporary
-	diversion to rocker/r-base:4.0.0, and all-source installations)
+        * docker/ci/Dockerfile: Update for R 4.0.0 (with a temporary
+        diversion to rocker/r-base:4.0.0, and all-source installations)
 
-	* vignettes/rmd/Makefile: Add bibtex call to JSS 2011 paper builds
+        * vignettes/rmd/Makefile: Add bibtex call to JSS 2011 paper builds
 
 2020-04-16  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version
+        * DESCRIPTION (Version, Date): Roll minor version
         * inst/include/Rcpp/config.h: Idem
 
 2020-04-15  Kevin Ushey  <kevinushey@gmail.com>
 
-	* inst/include/Rcpp/String.h: Avoid 'debug' namespace collisions
-	* inst/include/Rcpp/macros/debug.h: Idem
-	* inst/include/Rcpp/macros/macros.h: Idem
+        * inst/include/Rcpp/String.h: Avoid 'debug' namespace collisions
+        * inst/include/Rcpp/macros/debug.h: Idem
+        * inst/include/Rcpp/macros/macros.h: Idem
 
 2020-04-15  Uwe Korn  <mail@uwekorn.com>
 
-	* inst/include/Rcpp/DataFrame.h: Explicit call to scalar std::abs
+        * inst/include/Rcpp/DataFrame.h: Explicit call to scalar std::abs
 
 2020-04-11  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version
+        * DESCRIPTION (Version, Date): Roll minor version
         * inst/include/Rcpp/config.h: Idem
 
 2020-04-10  Kevin Ushey  <kevinushey@gmail.com>
 
-	* inst/include/Rcpp/macros/macros.h: Safer definition of short_file_name
-	* inst/include/Rcpp/String.h: Idem
-	* inst/include/Rcpp/macros/debug.h: Idem
-	* src/api.cpp: Idem
+        * inst/include/Rcpp/macros/macros.h: Safer definition of short_file_name
+        * inst/include/Rcpp/String.h: Idem
+        * inst/include/Rcpp/macros/debug.h: Idem
+        * src/api.cpp: Idem
 
 2020-04-10  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/tinytest/test_exceptions.R: Skip parts of file if on Solaris
+        * inst/tinytest/test_exceptions.R: Skip parts of file if on Solaris
 
 2020-04-02  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/NEWS.rd: Mark as patch release 1.0.4.6
+        * inst/NEWS.rd: Mark as patch release 1.0.4.6
 
-	* inst/tinytest/test_exceptions.R: If running skip remainder of file
-	on Windows to not trigger failed test
+        * inst/tinytest/test_exceptions.R: If running skip remainder of file
+        on Windows to not trigger failed test
 
 2020-04-01  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version
+        * DESCRIPTION (Version, Date): Roll minor version
         * inst/include/Rcpp/config.h: Idem
 
 2020-03-31  Dirk Eddelbuettel  <edd@debian.org>
 
-	* docker/ci-dev/Dockerfile: Also install the 'codetools' package
+        * docker/ci-dev/Dockerfile: Also install the 'codetools' package
 
 2020-03-31 Kevin Ushey  <kevin@rstudio.com>
 
-	* R/Attributes.R: Fix for sourceCpp() on Windows w/R-devel
+        * R/Attributes.R: Fix for sourceCpp() on Windows w/R-devel
 
 2020-03-28  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/examples/RcppGibbs/RcppGibbs_Updated.R: Updated example
+        * inst/examples/RcppGibbs/RcppGibbs_Updated.R: Updated example
 
 2020-03-24  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version
+        * DESCRIPTION (Version, Date): Roll minor version
         * inst/include/Rcpp/config.h: Idem
 
-	* inst/include/Rcpp/Environment.h: Added two Shield<SEXP> wrappers
-	around Rf_langX calls
+        * inst/include/Rcpp/Environment.h: Added two Shield<SEXP> wrappers
+        around Rf_langX calls
 
 2020-03-23  Dirk Eddelbuettel  <edd@debian.org>
 
-	* .travis.yml (script): Run coverage as parallel step
+        * .travis.yml (script): Run coverage as parallel step
 
 2020-03-22  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version
+        * DESCRIPTION (Version, Date): Roll minor version
         * inst/include/Rcpp/config.h: Idem
 
-	* docker/ci-3.4/Dockerfile: Added
-	* docker/ci-3.5/Dockerfile: Idem
-	* docker/ci-dev/Dockerfile: Idem
+        * docker/ci-3.4/Dockerfile: Added
+        * docker/ci-3.5/Dockerfile: Idem
+        * docker/ci-dev/Dockerfile: Idem
 
-	* .travis.yml (jobs): Expand to matrix
+        * .travis.yml (jobs): Expand to matrix
 
 2020-03-22  Mattias Ellert  <mattias.ellert@physics.uu.se>
 
-	* inst/include/Rcpp/exceptions_impl.h: Add include guard,
-	Make sure RCPP_DEMANGLER_ENABLED is always defined,
-	Add missing inline qualifier
+        * inst/include/Rcpp/exceptions_impl.h: Add include guard,
+        Make sure RCPP_DEMANGLER_ENABLED is always defined,
+        Add missing inline qualifier
 
 2020-03-18  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version
+        * DESCRIPTION (Version, Date): Roll minor version
         * inst/include/Rcpp/config.h: Idem
 
-	* inst/include/Rcpp/lang.h: Define Rcpp_list{2,3,4,5} in the Rcpp
-	namespace
+        * inst/include/Rcpp/lang.h: Define Rcpp_list{2,3,4,5} in the Rcpp
+        namespace
 
-	* DESCRIPTION: Remove versioned depends on R (>= 3.0.0) from 2013
+        * DESCRIPTION: Remove versioned depends on R (>= 3.0.0) from 2013
 
 2020-03-17  Davis Vaughan  <davis@rstudio.com>
 
-	* inst/include/Rcpp/lang.h: Inline Rcpp_list6() to support R 3.3.
+        * inst/include/Rcpp/lang.h: Inline Rcpp_list6() to support R 3.3.
 
 2020-03-17  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version (twice)
+        * DESCRIPTION (Version, Date): Roll minor version (twice)
         * inst/include/Rcpp/config.h: Idem
 
         * inst/NEWS.Rd: Updated
 
 2020-03-15  Kevin Ushey  <kevinushey@gmail.com>
 
-	* inst/include/Rcpp/exceptions_impl.h: Ensure <execinfo.h> is included
-	into global namespace; refactor detection of demangler support
+        * inst/include/Rcpp/exceptions_impl.h: Ensure <execinfo.h> is included
+        into global namespace; refactor detection of demangler support
 
 2020-03-13  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Date, Version): Release 1.0.4
+        * DESCRIPTION (Date, Version): Release 1.0.4
 
         * inst/include/Rcpp/config.h: Idem
         * inst/NEWS.Rd: Idem
@@ -143,276 +143,276 @@
 
 2020-03-12  Dirk Eddelbuettel  <edd@debian.org>
 
-	* vignettes/rmd/Rcpp.bib: Updated to current package versions
-	* inst/bib/Rcpp.bib: Idem
+        * vignettes/rmd/Rcpp.bib: Updated to current package versions
+        * inst/bib/Rcpp.bib: Idem
 
 2020-02-24  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/exceptions_impl.h: Remove spurious semicolon
+        * inst/include/Rcpp/exceptions_impl.h: Remove spurious semicolon
 
 2020-02-23  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/generated/Vector__create.h: Added #nocov tags
-	* inst/include/Rcpp/exceptions_impl.h: Idem
-	* src/api.cpp: Idem plus some whitespace realignment
+        * inst/include/Rcpp/generated/Vector__create.h: Added #nocov tags
+        * inst/include/Rcpp/exceptions_impl.h: Idem
+        * src/api.cpp: Idem plus some whitespace realignment
 
 2020-02-13  Dirk Eddelbuettel  <edd@debian.org>
 
-	* README.md: Add a Debian badge
+        * README.md: Add a Debian badge
 
 2020-02-12  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version
+        * DESCRIPTION (Version, Date): Roll minor version
         * inst/include/Rcpp/config.h: Idem
 
-	* README.md: Added indirect CRAN use badge
+        * README.md: Added indirect CRAN use badge
 
 2020-02-09  Joshua Pritikin  <jpritikin@pobox.com>
 
-	* inst/include/Rcpp.h: Include exceptions_impl.h
-	* inst/include/Rcpp/exceptions.h: Make thread-safe
-	* inst/include/Rcpp/exceptions_impl.h: New home for code moved
-	from src/api.cpp
+        * inst/include/Rcpp.h: Include exceptions_impl.h
+        * inst/include/Rcpp/exceptions.h: Make thread-safe
+        * inst/include/Rcpp/exceptions_impl.h: New home for code moved
+        from src/api.cpp
 
 2020-01-05  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/exceptions.h: A few more #nocov tags
-	* inst/include/Rcpp/generated/Vector__create.h: Idem, plus whitespace
+        * inst/include/Rcpp/exceptions.h: A few more #nocov tags
+        * inst/include/Rcpp/generated/Vector__create.h: Idem, plus whitespace
 
 2020-01-04  Dirk Eddelbuettel  <edd@debian.org>
 
-	* R/Attributes.R: A few more #nocov tags
+        * R/Attributes.R: A few more #nocov tags
 
 2020-01-01  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/module/Module.h: A few more #nocov tags
-	* inst/include/Rcpp/XPtr.h: Idem
-	* inst/include/Rcpp/vector/Vector.h: Idem
+        * inst/include/Rcpp/module/Module.h: A few more #nocov tags
+        * inst/include/Rcpp/XPtr.h: Idem
+        * inst/include/Rcpp/vector/Vector.h: Idem
 
 2019-12-31  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version
+        * DESCRIPTION (Version, Date): Roll minor version
         * inst/include/Rcpp/config.h: Idem
 
 2019-12-29  Qiang Kou  <qkou@qkou.info>
 
-	* inst/include/Rcpp/vector/Matrix.h: Ensure scalar OP matrix do not
-	change right-hand side in operation
-	* inst/tinytest/test_matrix.R: New tests
-	* inst/tinytest/cpp/Matrix.cpp: Idem
+        * inst/include/Rcpp/vector/Matrix.h: Ensure scalar OP matrix do not
+        change right-hand side in operation
+        * inst/tinytest/test_matrix.R: New tests
+        * inst/tinytest/cpp/Matrix.cpp: Idem
 
 2019-12-20  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version
+        * DESCRIPTION (Version, Date): Roll minor version
         * inst/include/Rcpp/config.h: Idem
 
 2019-12-18  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/XPtr.h: Additional null check, refactored
+        * inst/include/Rcpp/XPtr.h: Additional null check, refactored
 
 2019-12-17  Kirill Müller  <krlmlr@mailbox.org>
 
-	* inst/include/Rcpp/XPtr.h: Clear external pointer before finalizer
+        * inst/include/Rcpp/XPtr.h: Clear external pointer before finalizer
 
 2019-12-17  Dirk Eddelbuettel  <edd@debian.org>
 
-	* R/Attributes.R (sourceCpp): Very minor cosmetic changes
+        * R/Attributes.R (sourceCpp): Very minor cosmetic changes
 
 2019-12-15  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version
+        * DESCRIPTION (Version, Date): Roll minor version
         * inst/include/Rcpp/config.h: Idem
 
 2019-12-14  Dirk Eddelbuettel  <edd@debian.org>
 
-	* R/Attributes.R (sourceCpp): Support new argument windowsDebugDLL to
-	create a debug DLL, supported on Windows only
-	* man/sourceCpp.Rd: Document it
+        * R/Attributes.R (sourceCpp): Support new argument windowsDebugDLL to
+        create a debug DLL, supported on Windows only
+        * man/sourceCpp.Rd: Document it
 
-	* src/date.cpp: A few more #nocov tage
+        * src/date.cpp: A few more #nocov tage
 
 2019-12-13  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/api.cpp: A few more #nocov tags
-	* src/attributes.cpp: Idem
-	* src/barrier.cpp: Idem
+        * src/api.cpp: A few more #nocov tags
+        * src/attributes.cpp: Idem
+        * src/barrier.cpp: Idem
 
 2019-12-08  Dirk Eddelbuettel  <edd@debian.org>
 
-	* tests/tinytest.R: Turn verbose tests on in dev and on Travis
+        * tests/tinytest.R: Turn verbose tests on in dev and on Travis
 
-	* inst/tinytest/test_client_package.R: Finer-grained skip messages
-	* inst/tinytest/test_module_client_package.R: Idem
-	* inst/tinytest/test_expose_class.R: Idem
-	* inst/tinytest/test_interface.R: Idem
-	* inst/tinytest/test_rcpp_package_skeleton.R: Idem
-	* inst/tinytest/test_reference.R: Idem
+        * inst/tinytest/test_client_package.R: Finer-grained skip messages
+        * inst/tinytest/test_module_client_package.R: Idem
+        * inst/tinytest/test_expose_class.R: Idem
+        * inst/tinytest/test_interface.R: Idem
+        * inst/tinytest/test_rcpp_package_skeleton.R: Idem
+        * inst/tinytest/test_reference.R: Idem
 
-	* inst/tinytest/test_*.R: Streamlined initial test and sourceCpp call
+        * inst/tinytest/test_*.R: Streamlined initial test and sourceCpp call
 
-	* src/attributes.cpp: Remove dangling '#nocov end'
+        * src/attributes.cpp: Remove dangling '#nocov end'
 
 2019-12-07  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version
+        * DESCRIPTION (Version, Date): Roll minor version
         * inst/include/Rcpp/config.h: Idem
 
-	* inst/tinytest/test_binary_package.R: Finer-grained skip messages
+        * inst/tinytest/test_binary_package.R: Finer-grained skip messages
 
-	* inst/tinytest/test_misc.R: Add commented-out test that fails
-	* tests/tinytest.R: Minor edit
+        * inst/tinytest/test_misc.R: Add commented-out test that fails
+        * tests/tinytest.R: Minor edit
 
-	* docker/ci/Dockerfile: Add curl and ssl -dev packages needed for covr
+        * docker/ci/Dockerfile: Add curl and ssl -dev packages needed for covr
 
 2019-12-05  Dirk Eddelbuettel  <edd@debian.org>
 
-	* vignettes/rmd/Rcpp-FAQ.Rmd (Rcpp): Add entry about "'dataptr' (or
-	'enterRNGScope') not provided by Rcpp" recommending proper importFrom
+        * vignettes/rmd/Rcpp-FAQ.Rmd (Rcpp): Add entry about "'dataptr' (or
+        'enterRNGScope') not provided by Rcpp" recommending proper importFrom
 
 2019-12-03  Dirk Eddelbuettel  <edd@debian.org>
 
-	* docker/ci/Dockerfile: Lighter builds as fewer Suggests:
-	* docker/plus/Dockerfile: Take packages moved from ci/Dockerfile
+        * docker/ci/Dockerfile: Lighter builds as fewer Suggests:
+        * docker/plus/Dockerfile: Take packages moved from ci/Dockerfile
 
 2019-12-01  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version
+        * DESCRIPTION (Version, Date): Roll minor version
         * inst/include/Rcpp/config.h: Idem
 
-	* DESCRIPTION (Suggests): Remove knitr, rmarkdown, pinp
-	* DESCRIPTION (VignetteBuilder): Remove knitr
+        * DESCRIPTION (Suggests): Remove knitr, rmarkdown, pinp
+        * DESCRIPTION (VignetteBuilder): Remove knitr
 
 2019-11-26  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/tinytest/test_embedded_r.R: Use sink to suppress noisy output,
-	reenable tests (still conditional on usual environment variable)
+        * inst/tinytest/test_embedded_r.R: Use sink to suppress noisy output,
+        reenable tests (still conditional on usual environment variable)
 
 2019-11-25  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/tinytest/cpp/Vector.cpp (no_op): Suppress compiler warning
+        * inst/tinytest/cpp/Vector.cpp (no_op): Suppress compiler warning
 
 2019-11-24  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Suggests): Add tinytest, remove RUnit
+        * DESCRIPTION (Suggests): Add tinytest, remove RUnit
 
-	* tests/doRUnit.R: Removed
-	* tests/tinytest.R: Added
+        * tests/doRUnit.R: Removed
+        * tests/tinytest.R: Added
 
-	* tests/tinytest.R: Converted from RUnit to tinytest
- 	* inst/tinytest/test_algorithm.R: Idem
- 	* inst/tinytest/test_as.R: Idem
-	* inst/tinytest/test_binary_package.R: Idem (but inactive for now)
-	* inst/tinytest/test_client_package.R: Idem (but inactive for now)
-	* inst/tinytest/test_dataframe.R: Idem
-	* inst/tinytest/test_date.R: Idem (but condition two test sets on TZ)
-	* inst/tinytest/test_dispatch.R: Idem
-	* inst/tinytest/test_embedded.R: Idem
-	* inst/tinytest/test_environments.R: Idem
-	* inst/tinytest/test_exceptions.R: Idem
-	* inst/tinytest/test_exceptions_nocall.R: Idem
-	* inst/tinytest/test_expose_class.R: Idem
-	* inst/tinytest/test_function.R: Idem
-	* inst/tinytest/test_interface.R: Idem (but inactive for now)
-	* inst/tinytest/test_internal_function.R: Idem
-	* inst/tinytest/test_internal_function_cpp11.R: Idem
-	* inst/tinytest/test_language.R: Idem
-	* inst/tinytest/test_listof.R: Idem
-	* inst/tinytest/test_matrix.R: Idem
-	* inst/tinytest/test_misc.R: Idem
-	* inst/tinytest/test_modref.R: Idem
-	* inst/tinytest/test_module.R: Idem
-	* inst/tinytest/test_module_client_package.R: Idem
-	* inst/tinytest/test_na.R: Idem
-	* inst/tinytest/test_quickanddirty.R: Idem
-	* inst/tinytest/test_rcpp_package_skeleton.R: Idem
-	* inst/tinytest/test_reference.R: Idem
-	* inst/tinytest/test_rmath.R: Idem
-	* inst/tinytest/test_robject.R: Idem
-	* inst/tinytest/test_s4.R: Idem
-	* inst/tinytest/test_stack.R: Idem
-	* inst/tinytest/test_stats.R: Idem
-	* inst/tinytest/test_string.R: Idem
-	* inst/tinytest/test_subset.R: Idem
-	* inst/tinytest/test_sugar.R: Idem
-	* inst/tinytest/test_sugar_var.R: Idem
-	* inst/tinytest/test_support.R: Idem
-	* inst/tinytest/test_system.R: Idem
-	* inst/tinytest/test_table.R: Idem
-	* inst/tinytest/test_vector.R: Idem
-	* inst/tinytest/test_vector_old.R: Idem
-	* inst/tinytest/test_wrap.R: Idem
-	* inst/tinytest/test_wstring.R: Idem
-	* inst/tinytest/test_xptr.R: Idem
+        * tests/tinytest.R: Converted from RUnit to tinytest
+        * inst/tinytest/test_algorithm.R: Idem
+        * inst/tinytest/test_as.R: Idem
+        * inst/tinytest/test_binary_package.R: Idem (but inactive for now)
+        * inst/tinytest/test_client_package.R: Idem (but inactive for now)
+        * inst/tinytest/test_dataframe.R: Idem
+        * inst/tinytest/test_date.R: Idem (but condition two test sets on TZ)
+        * inst/tinytest/test_dispatch.R: Idem
+        * inst/tinytest/test_embedded.R: Idem
+        * inst/tinytest/test_environments.R: Idem
+        * inst/tinytest/test_exceptions.R: Idem
+        * inst/tinytest/test_exceptions_nocall.R: Idem
+        * inst/tinytest/test_expose_class.R: Idem
+        * inst/tinytest/test_function.R: Idem
+        * inst/tinytest/test_interface.R: Idem (but inactive for now)
+        * inst/tinytest/test_internal_function.R: Idem
+        * inst/tinytest/test_internal_function_cpp11.R: Idem
+        * inst/tinytest/test_language.R: Idem
+        * inst/tinytest/test_listof.R: Idem
+        * inst/tinytest/test_matrix.R: Idem
+        * inst/tinytest/test_misc.R: Idem
+        * inst/tinytest/test_modref.R: Idem
+        * inst/tinytest/test_module.R: Idem
+        * inst/tinytest/test_module_client_package.R: Idem
+        * inst/tinytest/test_na.R: Idem
+        * inst/tinytest/test_quickanddirty.R: Idem
+        * inst/tinytest/test_rcpp_package_skeleton.R: Idem
+        * inst/tinytest/test_reference.R: Idem
+        * inst/tinytest/test_rmath.R: Idem
+        * inst/tinytest/test_robject.R: Idem
+        * inst/tinytest/test_s4.R: Idem
+        * inst/tinytest/test_stack.R: Idem
+        * inst/tinytest/test_stats.R: Idem
+        * inst/tinytest/test_string.R: Idem
+        * inst/tinytest/test_subset.R: Idem
+        * inst/tinytest/test_sugar.R: Idem
+        * inst/tinytest/test_sugar_var.R: Idem
+        * inst/tinytest/test_support.R: Idem
+        * inst/tinytest/test_system.R: Idem
+        * inst/tinytest/test_table.R: Idem
+        * inst/tinytest/test_vector.R: Idem
+        * inst/tinytest/test_vector_old.R: Idem
+        * inst/tinytest/test_wrap.R: Idem
+        * inst/tinytest/test_wstring.R: Idem
+        * inst/tinytest/test_xptr.R: Idem
 
-	* inst/tinytest/cpp/*: C++ support files for tests
-	* inst/tinytest/*: Other support files and directories from unitTests
+        * inst/tinytest/cpp/*: C++ support files for tests
+        * inst/tinytest/*: Other support files and directories from unitTests
 
-	* R/unitTests.R: Removed as tied to RUnit setuo
+        * R/unitTests.R: Removed as tied to RUnit setuo
 
-	* inst/tinytest/test_attributes.R: Added test for error with
-	non-existing package in cppFunction
+        * inst/tinytest/test_attributes.R: Added test for error with
+        non-existing package in cppFunction
 
 2019-11-23  Dirk Eddelbuettel  <edd@debian.org>
 
-	* docker/ci/Dockerfile: Add tinytest to ci Docker image
+        * docker/ci/Dockerfile: Add tinytest to ci Docker image
 
 2019-11-20  Dirk Eddelbuettel  <edd@debian.org>
 
-	* R/Attributes.R: Test for and report unavailable 'LinkingTo' package
+        * R/Attributes.R: Test for and report unavailable 'LinkingTo' package
 
 2019-11-19  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version
+        * DESCRIPTION (Version, Date): Roll minor version
         * inst/include/Rcpp/config.h: Idem
 
 2019-11-18  Kun Ren  <mail@renkun.me>
 
-	* src/attributes.cpp: Add invisible param to export attribute (#1024)
-	* vignettes/rmd/Rcpp-attributes.Rmd: Add an section of Returning
-	invisible object
+        * src/attributes.cpp: Add invisible param to export attribute (#1024)
+        * vignettes/rmd/Rcpp-attributes.Rmd: Add an section of Returning
+        invisible object
 
 2019-11-13  Dirk Eddelbuettel  <edd@debian.org>
 
-	* .github/ISSUE_TEMPLATE.md: Another small edit
-	* .github/PULL_REQUEST_TEMPLATE.md: Idem
+        * .github/ISSUE_TEMPLATE.md: Another small edit
+        * .github/PULL_REQUEST_TEMPLATE.md: Idem
 
 2019-11-13  Stephen Wade  <stephematician@gmail.com>
 
-	* inst/include/Rcpp/XPtr.h: Delete delegating ctor (follow-up #1012)
-	* inst/unitTests/runit.XPTr.R: Reinsert self-tag test on Windows
+        * inst/include/Rcpp/XPtr.h: Delete delegating ctor (follow-up #1012)
+        * inst/unitTests/runit.XPTr.R: Reinsert self-tag test on Windows
 
 2019-11-11  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/unitTests/runit.packageversion.R: New test
-	* inst/unitTests/cpp/rcppversion.cpp: Cpp portion of test
+        * inst/unitTests/runit.packageversion.R: New test
+        * inst/unitTests/cpp/rcppversion.cpp: Cpp portion of test
 
 2019-11-10  Dirk Eddelbuettel  <edd@debian.org>
 
-	* .github/: Add files CONTRIBUTING.md, FUNDING.yml, ISSUE_TEMPLATE.md
-	and PULL_REQUEST_TEMPLATE.md
+        * .github/: Add files CONTRIBUTING.md, FUNDING.yml, ISSUE_TEMPLATE.md
+        and PULL_REQUEST_TEMPLATE.md
 
-	* inst/include/Rcpp/config.h: Correct RCPP_VERSION and
-	RCPP_DEV_VERSION to 1.0.3
+        * inst/include/Rcpp/config.h: Correct RCPP_VERSION and
+        RCPP_DEV_VERSION to 1.0.3
 
 2019-11-09  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version
+        * DESCRIPTION (Version, Date): Roll minor version
 
 2019-11-09  TJ McKinley  <t.mckinley@exeter.ac.uk>
 
-	* R/Attributes.R: Correct how cppFunction() deals with multiple
-	depends arguments
+        * R/Attributes.R: Correct how cppFunction() deals with multiple
+        depends arguments
 
 2019-11-08  Romain Francois  <romain@rstudio.com>
 
-	* inst/include/Rcpp/lang.h: Safer Rcpp_list* and Rcpp_lang*
-	* inst/include/Rcpp/Function.h: Add Function.invoke() for operator()
-	* inst/include/Rcpp/generated/Function__operator.h: Safer
-	Function.operator() using Function.invoke()
+        * inst/include/Rcpp/lang.h: Safer Rcpp_list* and Rcpp_lang*
+        * inst/include/Rcpp/Function.h: Add Function.invoke() for operator()
+        * inst/include/Rcpp/generated/Function__operator.h: Safer
+        Function.operator() using Function.invoke()
 
 2019-11-08  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Date, Version): Release 1.0.3
+        * DESCRIPTION (Date, Version): Release 1.0.3
 
         * inst/include/Rcpp/config.h: Idem
         * inst/NEWS.Rd: Idem
@@ -421,131 +421,131 @@
 
 2019-11-06  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version
+        * DESCRIPTION (Version, Date): Roll minor version
 
-	* inst/include/Rcpp/XPtr.h: Provided fallback for old constructor
-	when C++11 is not available (follow-up to #1003)
-	* inst/unitTests/runit.XPTr.R (test.XPtr): On Windows (as a proxy for
-	old compilers) do not test new feature
+        * inst/include/Rcpp/XPtr.h: Provided fallback for old constructor
+        when C++11 is not available (follow-up to #1003)
+        * inst/unitTests/runit.XPTr.R (test.XPtr): On Windows (as a proxy for
+        old compilers) do not test new feature
 
-	* tests/doRUnit.R: Protect printing to /tmp from Windows use
+        * tests/doRUnit.R: Protect printing to /tmp from Windows use
 
-	* vignettes/rmd/Rcpp.bib: Updated
-	* inst/bib/Rcpp.bib: Idem
+        * vignettes/rmd/Rcpp.bib: Updated
+        * inst/bib/Rcpp.bib: Idem
 
 2019-11-02  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version
+        * DESCRIPTION (Version, Date): Roll minor version
 
-	* inst/include/Rcpp/Reference.h: Shield Rf_mkstring inside Rf_lang2
-	* inst/include/Rcpp/Environment.h: Idem (inside Rf_lang4)
-	* inst/include/Rcpp/proxy/FieldProxy.h: Idem (inside Rf_lang3 and 4)
+        * inst/include/Rcpp/Reference.h: Shield Rf_mkstring inside Rf_lang2
+        * inst/include/Rcpp/Environment.h: Idem (inside Rf_lang4)
+        * inst/include/Rcpp/proxy/FieldProxy.h: Idem (inside Rf_lang3 and 4)
 
 2019-10-31  Romain Francois  <romain@rstudio.com>
 
-	* inst/include/Rcpp/DataFrame.h: Protect temporaries from gc
-	* inst/include/Rcpp/Environment.h: Idem
-	* inst/include/Rcpp/r_cast.h: Idem
+        * inst/include/Rcpp/DataFrame.h: Protect temporaries from gc
+        * inst/include/Rcpp/Environment.h: Idem
+        * inst/include/Rcpp/r_cast.h: Idem
 
 2019-10-27  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version
+        * DESCRIPTION (Version, Date): Roll minor version
 
-	* inst/unitTests/runit.exposeClass.R: Updated to pass with r-devel
+        * inst/unitTests/runit.exposeClass.R: Updated to pass with r-devel
 
-	* vignettes/rmd/Rcpp-FAQ.Rmd: Two new short section on speedier
-	compilation and lack of exceptions / stop() across shared libraries
+        * vignettes/rmd/Rcpp-FAQ.Rmd: Two new short section on speedier
+        compilation and lack of exceptions / stop() across shared libraries
 
 2019-10-26  Dirk Eddelbuettel  <edd@debian.org>
 
-	* vignettes/Rcpp-package.Rnw: Another wrapper
-	* vignettes/Rcpp-jss-2011.Rnw: Idem
+        * vignettes/Rcpp-package.Rnw: Another wrapper
+        * vignettes/Rcpp-jss-2011.Rnw: Idem
 
-	* vignettes/Makefile: Refinements
-	* vignettes/rmd/Makefile: Idem
+        * vignettes/Makefile: Refinements
+        * vignettes/rmd/Makefile: Idem
 
-	* cleanup: Removed bashism, added invocation of make clean
+        * cleanup: Removed bashism, added invocation of make clean
 
 2019-10-23  Dirk Eddelbuettel  <edd@debian.org>
 
-	* vignettes/Rcpp-*.Rnw: Wrappers around pdf/*pdf
-	* vignettes/Makefile: Added
+        * vignettes/Rcpp-*.Rnw: Wrappers around pdf/*pdf
+        * vignettes/Makefile: Added
 
 2019-10-21  Dirk Eddelbuettel  <edd@debian.org>
 
-	* vignettes/rmd/*: Moved from parent directory
-	* vignettes/pdf/*: New target directory
+        * vignettes/rmd/*: Moved from parent directory
+        * vignettes/pdf/*: New target directory
 
 2019-10-20  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version
+        * DESCRIPTION (Version, Date): Roll minor version
 
-	* vignettes/Rcpp-FAQ.Rmd: Turn off knitr cache
-	* vignettes/Rcpp-introduction.Rmd: Idem
+        * vignettes/Rcpp-FAQ.Rmd: Turn off knitr cache
+        * vignettes/Rcpp-introduction.Rmd: Idem
 
-	* vignettes/Makefile: Add simple Makefile
-	* .Rbuildignore: Exclude vignettes/Makefile
+        * vignettes/Makefile: Add simple Makefile
+        * .Rbuildignore: Exclude vignettes/Makefile
 
 2019-10-19  Stephen Wade  <stephematician@gmail.com>
 
-	* inst/include/Rcpp/XPtr.h: XPtr constructor split up, a single
-	argument does not modify tags and protected data of the external pointer
-	* inst/unitTests/cpp/Xptr.cpp: Added test
-	* inst/unitTests/runit.XPtr.R: Idem
+        * inst/include/Rcpp/XPtr.h: XPtr constructor split up, a single
+        argument does not modify tags and protected data of the external pointer
+        * inst/unitTests/cpp/Xptr.cpp: Added test
+        * inst/unitTests/runit.XPtr.R: Idem
 
 2019-10-14  Dirk Eddelbuettel  <edd@debian.org>
 
-	* README.md: Added CRAN + BioConductor badges for reverse depends,
+        * README.md: Added CRAN + BioConductor badges for reverse depends,
 
 2019-10-11  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/exceptions.h: Condition use of typeid() on
-	absence of RCPP_NO_RTTI in two places
-	* inst/include/Rcpp/r/headers.h: RCPP_NO_RTTI implies RCPP_NO_MODULES
+        * inst/include/Rcpp/exceptions.h: Condition use of typeid() on
+        absence of RCPP_NO_RTTI in two places
+        * inst/include/Rcpp/r/headers.h: RCPP_NO_RTTI implies RCPP_NO_MODULES
 
 2019-10-04  Dirk Eddelbuettel  <edd@debian.org>
 
-	* vignettes/Rcpp-attributes.Rmd: Correct two unevaluated knitr C++
-	chunks to mode 'Rcpp' rather than the (unregistered) C++ mode
-	* vignettes/Rcpp-extending.Rmd: Minor white-space tweak to avoid
-	paragraph-spacing warnings from latex and its mdframed style
-	* vignettes/Rcpp-modules.Rmd: Idem
-	* vignettes/Rcpp-sugar.Rmd: Idem
+        * vignettes/Rcpp-attributes.Rmd: Correct two unevaluated knitr C++
+        chunks to mode 'Rcpp' rather than the (unregistered) C++ mode
+        * vignettes/Rcpp-extending.Rmd: Minor white-space tweak to avoid
+        paragraph-spacing warnings from latex and its mdframed style
+        * vignettes/Rcpp-modules.Rmd: Idem
+        * vignettes/Rcpp-sugar.Rmd: Idem
 
 2019-10-01  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version
+        * DESCRIPTION (Version, Date): Roll minor version
 
 2019-09-30  Kevin Ushey  <kevinushey@gmail.com>
 
-	* inst/include/Rcpp.h: add RCPP_NO_MODULES
-	* inst/include/Rcpp/api/meat/is.h: Idem
-	* inst/include/Rcpp/api/meat/meat.h: Idem
+        * inst/include/Rcpp.h: add RCPP_NO_MODULES
+        * inst/include/Rcpp/api/meat/is.h: Idem
+        * inst/include/Rcpp/api/meat/meat.h: Idem
 
 2019-09-28  Dirk Eddelbuettel  <edd@debian.org>
 
-	* README.md: Add a stackoverflow tag to indicate where to ask questions,
-	also updated package counts on CRAN and BioC for Rcpp users
+        * README.md: Add a stackoverflow tag to indicate where to ask questions,
+        also updated package counts on CRAN and BioC for Rcpp users
 
 2019-08-06  Riccardo Porreca  <riccardo.porreca@mirai-solutions.com>
 
-	* vignettes/Rcpp-modules.Rmd: Extensive review and edit improving the
-	Modules vignette
+        * vignettes/Rcpp-modules.Rmd: Extensive review and edit improving the
+        Modules vignette
 
 2019-08-04  Dirk Eddelbuettel  <edd@debian.org>
 
-	* README.md: Add thre doi badges
+        * README.md: Add thre doi badges
 
-	* inst/NEWS.Rd: Two minor edits
+        * inst/NEWS.Rd: Two minor edits
 
 2019-07-21  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version
+        * DESCRIPTION (Version, Date): Roll minor version
 
 2019-07-21  Riccardo Porreca  <riccardo.porreca@mirai-solutions.com>
 
-	* R/Module.R: Use an explicit Rcpp:: in the initalize method for C++
-	classes wrapped inside modules to ensure proper initialization
+        * R/Module.R: Use an explicit Rcpp:: in the initalize method for C++
+        classes wrapped inside modules to ensure proper initialization
 
 2019-07-20  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -558,82 +558,82 @@
 
 2019-07-18  Pierrick Roger  <pk.roger@icloud.com>
 
-	* src/attributes.cpp: Correct parsing of default function values
-	* inst/unitTests/cpp/attributes.cpp: Added tests
-	* inst/unitTests/runit.attributes.R: Idem
+        * src/attributes.cpp: Correct parsing of default function values
+        * inst/unitTests/cpp/attributes.cpp: Added tests
+        * inst/unitTests/runit.attributes.R: Idem
 
 2019-07-16  Dirk Eddelbuettel  <edd@debian.org>
 
-	* debian/: Removed, see https://salsa.debian.org/edd/r-base/ instead
+        * debian/: Removed, see https://salsa.debian.org/edd/r-base/ instead
 
 2019-07-04  Dirk Eddelbuettel  <edd@debian.org>
 
-	* vignettes/Rcpp.bib: Updated
-	* inst/bib/Rcpp.bib: Idem
+        * vignettes/Rcpp.bib: Updated
+        * inst/bib/Rcpp.bib: Idem
 
 2019-05-05  Dirk Eddelbuettel  <edd@debian.org>
 
-	* .Rbuildignore: Small tweak
+        * .Rbuildignore: Small tweak
 
 2019-04-27  Dirk Eddelbuettel  <edd@debian.org>
 
-	* R/Rcpp.package.skeleton.R (Rcpp.package.skeleton): Use getRcppVersion()
+        * R/Rcpp.package.skeleton.R (Rcpp.package.skeleton): Use getRcppVersion()
 
 2019-04-26  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version
+        * DESCRIPTION (Version, Date): Roll minor version
 
-	* R/tools.R (getRcppVersion): More idiomatic code
+        * R/tools.R (getRcppVersion): More idiomatic code
 
 2019-04-25  Dirk Eddelbuettel  <edd@debian.org>
 
-	* R/tools.R (getRcppVersion): Export R (and dev) package version
-	* man/getRcppVersion.Rd: Documentation for new function
+        * R/tools.R (getRcppVersion): Export R (and dev) package version
+        * man/getRcppVersion.Rd: Documentation for new function
 
-	* inst/include/Rcpp/config.h (RCPP_VERSION_STRING): New version
-	and development version string #define
-	* src/api.cpp (getRcppVersionStrings): Expose new versions strings
-	* src/internal.h: Register new version string exporter
-	* src/rcpp_init.cpp (callEntries[]): Idem
+        * inst/include/Rcpp/config.h (RCPP_VERSION_STRING): New version
+        and development version string #define
+        * src/api.cpp (getRcppVersionStrings): Expose new versions strings
+        * src/internal.h: Register new version string exporter
+        * src/rcpp_init.cpp (callEntries[]): Idem
 
-	* inst/unitTests/runit.misc.R (test.getRcppVersion): test new function
+        * inst/unitTests/runit.misc.R (test.getRcppVersion): test new function
 
 2019-03-23  Ralf Stubner  <ralf.stubner@daqana.com>
 
-	* vignettes/Rcpp-modules.Rmd: Describe RCPP_EXPOSED_* macros
-	* vignettes/Rcpp-extending.Rmd: Reference Modules extensions
+        * vignettes/Rcpp-modules.Rmd: Describe RCPP_EXPOSED_* macros
+        * vignettes/Rcpp-extending.Rmd: Reference Modules extensions
 
 2019-03-23  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version
+        * DESCRIPTION (Version, Date): Roll minor version
 
-	* inst/NEWS.Rd: Updated
+        * inst/NEWS.Rd: Updated
 
 2019-03-20  James J Balamuta  <balamut2@illinois.edu>
 
-	* inst/include/Rcpp/sugar/functions/unique.h: Added decreasing
-	parameter to control sort.
-	* inst/unitTests/runit.sugar.R: Added sort_unique() tests
-	* inst/unitTests/cpp/sugar.cpp: Ditto
+        * inst/include/Rcpp/sugar/functions/unique.h: Added decreasing
+        parameter to control sort.
+        * inst/unitTests/runit.sugar.R: Added sort_unique() tests
+        * inst/unitTests/cpp/sugar.cpp: Ditto
 
 2019-03-20  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/date.cpp: Renamed from Date.cpp
-	* src/module.cpp: Renamed from Module.cpp
-	* src/rcpp_init.cpp: Renamed from Rcpp_init.cpp
+        * src/date.cpp: Renamed from Date.cpp
+        * src/module.cpp: Renamed from Module.cpp
+        * src/rcpp_init.cpp: Renamed from Rcpp_init.cpp
 
 2019-03-19  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version
+        * DESCRIPTION (Version, Date): Roll minor version
 
-	* tests/doRUnit.R: On Travis always set RunAllRcppTests
+        * tests/doRUnit.R: On Travis always set RunAllRcppTests
 
-	* docker/ci/Dockerfile: Set environment variables container-wide
+        * docker/ci/Dockerfile: Set environment variables container-wide
 
 2019-03-18  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/macros/macros.h (END_RCPP_RETURN_ERROR): Add
-	UNPROTECT to reference nprot, also check for stop_sym
+        * inst/include/Rcpp/macros/macros.h (END_RCPP_RETURN_ERROR): Add
+        UNPROTECT to reference nprot, also check for stop_sym
 
 2019-03-17  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -646,77 +646,77 @@
 
 2019-03-16  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): Roll minor version
+        * DESCRIPTION (Version, Date): Roll minor version
 
-	* inst/unitTests/runit.sugar.R: Set the sample() behaviour to R 3.5.0
-	as R 3.6.0 has a breaking change (for the better)
+        * inst/unitTests/runit.sugar.R: Set the sample() behaviour to R 3.5.0
+        as R 3.6.0 has a breaking change (for the better)
 
 2019-03-13  Romain François <romain@purrple.cat>
 
-	* inst/include/Rcpp/macros/macros.h: Add UNPROTECT to please rchk
+        * inst/include/Rcpp/macros/macros.h: Add UNPROTECT to please rchk
 
 2019-03-12  Romain François <romain@purrple.cat>
 
-	* inst/include/Rcpp/api/meat/proxy.h: AttributeProxy::set() with
-	Shield<> and a few related uses of Shield<> to please rchk
-	* inst/include/Rcpp/clone.h: Idem
-	* inst/include/Rcpp/proxy/AttributeProxy.h: Idem
-	* inst/include/Rcpp/proxy/NamesProxy.h: Idem
-	* inst/include/Rcpp/vector/Matrix.h: Idem
-	* inst/include/Rcpp/vector/Vector.h: Idem
+        * inst/include/Rcpp/api/meat/proxy.h: AttributeProxy::set() with
+        Shield<> and a few related uses of Shield<> to please rchk
+        * inst/include/Rcpp/clone.h: Idem
+        * inst/include/Rcpp/proxy/AttributeProxy.h: Idem
+        * inst/include/Rcpp/proxy/NamesProxy.h: Idem
+        * inst/include/Rcpp/vector/Matrix.h: Idem
+        * inst/include/Rcpp/vector/Vector.h: Idem
 
 2019-02-25  Dirk Eddelbuettel  <edd@debian.org>
 
-	* .travis.yml (after_success): Setting CODECOV_TOKEN to reenable
-	codecov.io coverage as detailed by Ralf in GitHub issue #941
+        * .travis.yml (after_success): Setting CODECOV_TOKEN to reenable
+        codecov.io coverage as detailed by Ralf in GitHub issue #941
 
 2019-02-16  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/sugar/functions/cbind.h: Converted CRLF to CR
+        * inst/include/Rcpp/sugar/functions/cbind.h: Converted CRLF to CR
 
 2019-02-15  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/README: Moved stale file to local/
-	* inst/THANKS: Idem
+        * inst/README: Moved stale file to local/
+        * inst/THANKS: Idem
 
 2019-02-13  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Version, Date): New minor version
+        * DESCRIPTION (Version, Date): New minor version
 
 2019-02-11  Kevin Ushey  <kevinushey@gmail.com>
 
-	* R/Attributes.R: better handle pre-existing RcppExports.cpp,
-	RcppExports.R when calling compileAttributes()
+        * R/Attributes.R: better handle pre-existing RcppExports.cpp,
+        RcppExports.R when calling compileAttributes()
 
 2019-02-09  Ralf Stubner  <ralf.stubner@daqana.com>
 
-	* Rcpp-modules.Rmd: Added example for .factory
+        * Rcpp-modules.Rmd: Added example for .factory
 
 2019-01-31  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/protection/Shelter.h (Rcpp): Only increase
-	nprotected count if object is not NULL (suggested by Stepan Sindelar)
+        * inst/include/Rcpp/protection/Shelter.h (Rcpp): Only increase
+        nprotected count if object is not NULL (suggested by Stepan Sindelar)
 
 2018-12-26  Zhuoer Dong  <dongzhuoer@mail.nankai.edu.cn>
 
-	* vignettes/Rcpp-quickref.Rmd: Fix three bugs: use `Named()`, define
-	`glob`, `glob.ls(TRUE)`.
+        * vignettes/Rcpp-quickref.Rmd: Fix three bugs: use `Named()`, define
+        `glob`, `glob.ls(TRUE)`.
 
 2018-12-01  Dirk Eddelbuettel  <edd@debian.org>
 
-	* R/Attributes.R: Added new 'c++2a' plugin for '-std=c++2a'
-	compilation standard supported by g++ 8 or later
+        * R/Attributes.R: Added new 'c++2a' plugin for '-std=c++2a'
+        compilation standard supported by g++ 8 or later
 
 2018-11-11  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/vector/Subsetter.h (check_indices): More
-	informative error message as suggested by KK
+        * inst/include/Rcpp/vector/Subsetter.h (check_indices): More
+        informative error message as suggested by KK
 
 2018-11-09  William Nolan  <will@landale.net>
 
         * inst/include/Rcpp/vector/Subsetter.h: Fixed to use R_xlen_t instead
-	of int for indexing and added warning when indexing by IntegerVector
-	(only for large enough vectors)
+        of int for indexing and added warning when indexing by IntegerVector
+        (only for large enough vectors)
 
 2018-11-05  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -729,78 +729,78 @@
 
 2018-11-04  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Date, Version): Roll minor version
-	* inst/include/Rcpp/config.h (RCPP_DEV_VERSION): Idem
+        * DESCRIPTION (Date, Version): Roll minor version
+        * inst/include/Rcpp/config.h (RCPP_DEV_VERSION): Idem
 
-	* README.md: Updated stated package and test numbers
+        * README.md: Updated stated package and test numbers
 
 2018-10-25  Kevin Ushey  <kevinushey@gmail.com>
 
-	* inst/include/Rcpp/String.h: Use Rf_mkCharLenCE() as appropriate
-	* inst/unitTests/cpp/String.cpp: Add unit tests
-	* inst/unitTests/runit.String.R: Add unit tests
+        * inst/include/Rcpp/String.h: Use Rf_mkCharLenCE() as appropriate
+        * inst/unitTests/cpp/String.cpp: Add unit tests
+        * inst/unitTests/runit.String.R: Add unit tests
 
 2018-10-12  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Date, Version): Roll minor version
-	* inst/include/Rcpp/config.h (RCPP_DEV_VERSION): Idem
+        * DESCRIPTION (Date, Version): Roll minor version
+        * inst/include/Rcpp/config.h (RCPP_DEV_VERSION): Idem
 
-	* tests/doRUnit.R: Simplified to something similar to what
-	RcppArmadillo (and other packages) had for a while now
+        * tests/doRUnit.R: Simplified to something similar to what
+        RcppArmadillo (and other packages) had for a while now
 
-	* vignettes/Rcpp-unitTests.Rnw: Removed as less useful now
+        * vignettes/Rcpp-unitTests.Rnw: Removed as less useful now
 
 2018-10-08  JJ Allaire  <jj@rstudio.com>
 
-	* R/Attributes.R: Sort the files scanned for attributes in the C locale
-	for stable output across systems.
+        * R/Attributes.R: Sort the files scanned for attributes in the C locale
+        for stable output across systems.
 
 2018-10-07  Ralf Stubner  <ralf.stubner@daqana.com>
 
         * vignettes/Rcpp-extending.Rmd: Correct EXPORT to EXPOSED in displays
-	of the corresponding macro, and remove two spurious semicolons
+        of the corresponding macro, and remove two spurious semicolons
 
 2018-10-02  Dirk Eddelbuettel  <edd@debian.org>
 
-	* DESCRIPTION (Date, Version): Roll minor version
-	* inst/include/Rcpp/config.h (RCPP_DEV_VERSION): Idem
+        * DESCRIPTION (Date, Version): Roll minor version
+        * inst/include/Rcpp/config.h (RCPP_DEV_VERSION): Idem
 
 2018-10-02  Romain Francois  <romain@rstudio.com>
 
-	* inst/include/Rcpp/vector/Matrix.h: Init nrow in Matrix(no_init) ctor
-	* inst/unitTests/runit.Matrix.R: New test
-	* inst/unitTests/cpp/Matrix.cpp: Idem
+        * inst/include/Rcpp/vector/Matrix.h: Init nrow in Matrix(no_init) ctor
+        * inst/unitTests/runit.Matrix.R: New test
+        * inst/unitTests/cpp/Matrix.cpp: Idem
 
 2018-09-30  Dirk Eddelbuettel  <edd@debian.org>
 
-	* man/RcppUnitTests.Rd: Remove \details{} with conditional code which
-	R-devel (as of Sep 28) warns about as empty
+        * man/RcppUnitTests.Rd: Remove \details{} with conditional code which
+        R-devel (as of Sep 28) warns about as empty
 
 2018-09-28  Dirk Eddelbuettel  <edd@debian.org>
 
-	* .travis.yml (env): Set distinct build and check options to skip
-	tests of vignettes
+        * .travis.yml (env): Set distinct build and check options to skip
+        tests of vignettes
 
 2018-09-27  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll minor version
 
-	* inst/include/Rcpp/date_datetime/Date.h: Remove the empty destructor
-	to make g++-9 (prerelease) happy [CRAN request]
+        * inst/include/Rcpp/date_datetime/Date.h: Remove the empty destructor
+        to make g++-9 (prerelease) happy [CRAN request]
 
-	* inst/unitTests/runit.Matrix.R: Correct typo
+        * inst/unitTests/runit.Matrix.R: Correct typo
 
 2018-09-27  Romain Francois  <romain@rstudio.com>
 
-	* inst/include/Rcpp/vector/Matrix.h: Fix Matrix(no_init(int,int))
-	constructor
-	* inst/unitTests/runit.Matrix.R: test for above
-	* inst/unitTests/cpp/Matrix.cpp: same
+        * inst/include/Rcpp/vector/Matrix.h: Fix Matrix(no_init(int,int))
+        constructor
+        * inst/unitTests/runit.Matrix.R: test for above
+        * inst/unitTests/cpp/Matrix.cpp: same
 
 2018-09-26  Dirk Eddelbuettel  <edd@debian.org>
 
-	* docker/ci/Dockerfile: Set env var RunAllRcppTests=yes
-	* .travis.yml: Do not set env var here as needed in Docker
+        * docker/ci/Dockerfile: Set env var RunAllRcppTests=yes
+        * .travis.yml: Do not set env var here as needed in Docker
 
 2018-09-21  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -810,95 +810,95 @@
         * vignettes/Rcpp.bib: Idem
         * inst/include/Rcpp/config.h: Idem
 
-	* R/RcppLdpath.R (RcppLdPath, RcppLdFlags, CxxFlags, RcppCxx0xFlags):
-	After discussion with CRAN, do not mark as .Deprecated() as too many
-	packages are involved. This will need to be phased in more slowly.
+        * R/RcppLdpath.R (RcppLdPath, RcppLdFlags, CxxFlags, RcppCxx0xFlags):
+        After discussion with CRAN, do not mark as .Deprecated() as too many
+        packages are involved. This will need to be phased in more slowly.
 
 2018-09-20  Dirk Eddelbuettel  <edd@debian.org>
 
-	* vignettes/Rcpp-FAQ.Rmd: Set 'eval=FALSE' on another
-	RcppArmadillo example to not create a build-time dependency
+        * vignettes/Rcpp-FAQ.Rmd: Set 'eval=FALSE' on another
+        RcppArmadillo example to not create a build-time dependency
 
 2018-09-18  JJ Allaire  <jj@rstudio.com>
 
-	* src/attributes.cpp: Add support for [[Rcpp::init]] attribute
-	* vignettes/Rcpp-attributes.Rmd: Documentation for [[Rcpp::init]]
-	attribute
+        * src/attributes.cpp: Add support for [[Rcpp::init]] attribute
+        * vignettes/Rcpp-attributes.Rmd: Documentation for [[Rcpp::init]]
+        attribute
 
 2018-09-17  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/r/headers.h: Define STRICT_R_HEADERS, but until
-	September 2019 protect by defining RCPP_NO_STRICT_HEADERS
+        * inst/include/Rcpp/r/headers.h: Define STRICT_R_HEADERS, but until
+        September 2019 protect by defining RCPP_NO_STRICT_HEADERS
 
-	* .travis.yml (env): Switch to rcpp/ci for ci use
+        * .travis.yml (env): Switch to rcpp/ci for ci use
 
 2018-09-15  Dirk Eddelbuettel  <edd@debian.org>
 
-	* docker/ci/Dockerfile: Move Dockerfile to docker/ci
-	* docker/run/Dockerfile: Add deployment Dockerfile
-	* docker/plus/Dockerfile: Add 'plus-sized' Dockerfile suitable for
-	different add-on packages requiring Rcpp{Armadillo,Eigen,GSL} or BH
+        * docker/ci/Dockerfile: Move Dockerfile to docker/ci
+        * docker/run/Dockerfile: Add deployment Dockerfile
+        * docker/plus/Dockerfile: Add 'plus-sized' Dockerfile suitable for
+        different add-on packages requiring Rcpp{Armadillo,Eigen,GSL} or BH
 
 2018-09-02  Dirk Eddelbuettel  <edd@debian.org>
 
-	* .travis.yml: Switch to rcpp/rcpp-testing container
+        * .travis.yml: Switch to rcpp/rcpp-testing container
 
 2018-08-29  Dirk Eddelbuettel  <edd@debian.org>
 
-	* .travis.yml: Use Dockerfile
+        * .travis.yml: Use Dockerfile
 
 2018-08-28  Dirk Eddelbuettel  <edd@debian.org>
 
-	* docker/Dockerfile: Add Dockerfile for use by Travis CI
+        * docker/Dockerfile: Add Dockerfile for use by Travis CI
 
 2018-08-27  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll minor version
         * inst/include/Rcpp/config.h: Idem
 
-	* man/Rcpp-deprecated.Rd: Fix two-char typo/thinko in \link{}
+        * man/Rcpp-deprecated.Rd: Fix two-char typo/thinko in \link{}
 
 2018-07-29  Dirk Eddelbuettel  <edd@debian.org>
 
-	* README.md: Refreshed via some edits and updates
+        * README.md: Refreshed via some edits and updates
 
         * DESCRIPTION (Version, Date): Roll minor version
         * inst/include/Rcpp/config.h: Idem
 
 2018-07-28  Dirk Eddelbuettel  <edd@debian.org>
 
-	* R/RcppLdpath.R (RcppLdPath, RcppLdFlags, CxxFlags, RcppLdFlags)
-	(RcppCxx0xFlags): Marked as deprecated
+        * R/RcppLdpath.R (RcppLdPath, RcppLdFlags, CxxFlags, RcppLdFlags)
+        (RcppCxx0xFlags): Marked as deprecated
 
-	* man/Rcpp-deprecated.Rd: Add exported functions LdFlags() and
-	RcppLdFlags() as deprecated
-	* man/RcppLdFlags.Rd: Idem
+        * man/Rcpp-deprecated.Rd: Add exported functions LdFlags() and
+        RcppLdFlags() as deprecated
+        * man/RcppLdFlags.Rd: Idem
 
 2018-07-27  Dirk Eddelbuettel  <edd@debian.org>
 
-	* man/loadRcppModules-deprecated.Rd: Fix typo; was deprecated in
-	0.12.5, not 0.16.5 which does not exist
+        * man/loadRcppModules-deprecated.Rd: Fix typo; was deprecated in
+        0.12.5, not 0.16.5 which does not exist
 
 2018-07-26  Dirk Eddelbuettel  <edd@debian.org>
 
-	* vignettes/Rcpp-FAQ.Rmd: Use collapse: true
-	* vignettes/Rcpp-introduction.Rmd: Idem
+        * vignettes/Rcpp-FAQ.Rmd: Use collapse: true
+        * vignettes/Rcpp-introduction.Rmd: Idem
 
 2018-07-25  Dirk Eddelbuettel  <edd@debian.org>
 
-	* vignettes/Rcpp-extending.Rmd: Use collapse: true
+        * vignettes/Rcpp-extending.Rmd: Use collapse: true
 
 2018-07-24  Martin Lysy  <mlysy@uwaterloo.ca>
 
         * R/loadRcppClass.R: Search in R module for 'Class' instead of
-	'CppClass'.
+        'CppClass'.
         * R/exposeClass.R: Fixed 'rename' argument to work as expected.
         * inst/unitTests/runit.exposeClass.R: Added unit tests for the
-	above.
+        above.
 
 2018-07-23  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/bib/Rcpp.bib: More updates
+        * inst/bib/Rcpp.bib: More updates
         * vignettes/Rcpp.bib: Idem
 
 2018-07-21  Dirk Eddelbuettel  <edd@debian.org>
@@ -909,25 +909,25 @@
         * vignettes/Rcpp.bib: Idem
         * inst/include/Rcpp/config.h: Idem
 
-	* vignettes/Rcpp.bib: Updated other references
-	* inst/bib/Rcpp.bib: Idem
+        * vignettes/Rcpp.bib: Updated other references
+        * inst/bib/Rcpp.bib: Idem
 
-	* inst/unitTests/runit.sugar.R: Additional min, max unit tests
-	* inst/unitTests/cpp/sugar.cpp: Idem
+        * inst/unitTests/runit.sugar.R: Additional min, max unit tests
+        * inst/unitTests/cpp/sugar.cpp: Idem
 
 2018-07-20  Dirk Eddelbuettel  <edd@debian.org>
 
-	* inst/include/Rcpp/sugar/functions/max.h: Also consider case of an
-	empty vector
-	* inst/include/Rcpp/sugar/functions/min.h: Idem
+        * inst/include/Rcpp/sugar/functions/max.h: Also consider case of an
+        empty vector
+        * inst/include/Rcpp/sugar/functions/min.h: Idem
 
 2018-07-19  Jack Wasey  <jack@jackwasey.com>
 
         * inst/include/Rcpp/r_cast.h: Error and abort if debugging for STRSXP
 2018-07-24  Martin Lysy  <mlysy@uwaterloo.ca>
-	* R/loadRcppClass.R: Search in R module for 'Class' instead of 'CppClass'.
-	* R/exposeClass.R: Fixed 'rename' argument to work as expected.
-	* inst/unitTests/runit.exposeClass.R: Added unit tests for the above.
+        * R/loadRcppClass.R: Search in R module for 'Class' instead of 'CppClass'.
+        * R/exposeClass.R: Fixed 'rename' argument to work as expected.
+        * inst/unitTests/runit.exposeClass.R: Added unit tests for the above.
 
 2018-07-12  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -936,8 +936,8 @@
 
 2018-07-12  Jack Wasey  <jack@jackwasey.com>
 
-	* R/Attributes.R: Use case-insensitive sort of filenames to make
-	RcppExports more deterministic
+        * R/Attributes.R: Use case-insensitive sort of filenames to make
+        RcppExports more deterministic
 
 2018-07-10  Lionel Henry  <lionel@rstudio.com>
 
@@ -950,8 +950,8 @@
 
 2018-07-09  Dirk Eddelbuettel  <edd@debian.org>
 
-	* src/Date.cpp: Skip 'tm_gmtoff' on AIX as well (thanks to PR 876
-	by @ayappanec)
+        * src/Date.cpp: Skip 'tm_gmtoff' on AIX as well (thanks to PR 876
+        by @ayappanec)
 
 2018-07-05  Lionel Henry  <lionel@rstudio.com>
 
