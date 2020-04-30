@@ -14,7 +14,7 @@ address:
 lead_author_surname: Eddelbuettel
 
 # Place DOI URL or CRAN Package URL here
-#doi: "https://cran.r-project.org/package=anytime"
+doi_footer: "https://arxiv.org/abs/1911.06416"
 
 # Abstract
 abstract: |
