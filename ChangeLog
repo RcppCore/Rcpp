@@ -1,3 +1,9 @@
+2020-04-30  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/rmd/Rcpp-libraries.Rmd: Add new vignette source
+	* vignettes/rmd/Rcpp.bib: Complete references
+        * inst/bib/Rcpp.bib: Idem
+
 2020-04-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
