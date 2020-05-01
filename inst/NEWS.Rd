@@ -37,7 +37,9 @@
     \item Changes in Rcpp Documentation:
     \itemize{
       \item The pdf file of the earlier introduction is again typeset
-      with bibliographic information. (Dirk)
+      with bibliographic information (Dirk).
+      \item A new vignette describing how to package C++ libraries has
+      been added (Dirk in \ghpr{1078} fixing \ghit{1077}).
     }
     \item Changes in Rcpp Deployment:
     \itemize{
