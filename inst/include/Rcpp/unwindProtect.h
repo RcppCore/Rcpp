@@ -64,7 +64,8 @@ inline SEXP unwindProtect(SEXP (*callback)(void* data), void* data) {
         // in C++ destructors. Can't use PROTECT() for this because
         // UNPROTECT() might be called in a destructor, for instance if a
         // Shield<SEXP> is on the stack.
-        ::R_PreserveObject(token);
+        //::R_PreserveObject(token);
+        Rcpp::Rcpp_precious_preserve(token);
 
         throw LongjumpException(token);
     }

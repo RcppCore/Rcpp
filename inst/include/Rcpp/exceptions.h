@@ -148,7 +148,8 @@ inline void resumeJump(SEXP token) {
     if (isLongjumpSentinel(token)) {
         token = getLongjumpToken(token);
     }
-    ::R_ReleaseObject(token);
+    //::R_ReleaseObject(token);
+    Rcpp_precious_remove(token);
 #if (defined(R_VERSION) && R_VERSION >= R_Version(3, 5, 0))
     ::R_ContinueUnwind(token);
 #endif														// #nocov end

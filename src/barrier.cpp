@@ -1,8 +1,6 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
-//
 // barrier.cpp: Rcpp R/C++ interface class library -- write barrier
 //
-// Copyright (C) 2010 - 2019  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2020  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -87,6 +85,42 @@ static SEXP Rcpp_cache = R_NilValue;
 #ifndef RCPP_HASH_CACHE_INITIAL_SIZE
 #define RCPP_HASH_CACHE_INITIAL_SIZE 1024
 #endif
+
+namespace Rcpp {
+static SEXP Rcpp_precious = R_NilValue;
+// [[Rcpp::register]]
+void Rcpp_precious_init() {
+    Rcpp_precious = CONS(R_NilValue,R_NilValue);// set up
+	R_PreserveObject(Rcpp_precious); 			// and protect
+}
+// [[Rcpp::register]]
+void Rcpp_precious_teardown() {
+    R_ReleaseObject(Rcpp_precious);             // release resource
+}
+// [[Rcpp::register]]
+void Rcpp_precious_preserve(SEXP object) {
+    SETCDR(Rcpp_precious, CONS(object, CDR(Rcpp_precious)));
+}
+SEXP DeleteFromList(SEXP object, SEXP list) {
+    if (CAR(list) == object)
+        return CDR(list);
+    else {
+        SEXP last = list;
+        for (SEXP head = CDR(list); head != R_NilValue; head = CDR(head)) {
+            if (CAR(head) == object) {
+                SETCDR(last, CDR(head));
+                return list;
+            }
+            else last = head;
+        }
+        return list;
+    }
+}
+// [[Rcpp::register]]
+void Rcpp_precious_remove(SEXP object) {
+    SETCDR(Rcpp_precious, DeleteFromList(object, CDR(Rcpp_precious)));
+}
+}
 
 // only used for debugging
 SEXP get_rcpp_cache() {

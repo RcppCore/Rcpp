@@ -1,8 +1,6 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // Rcpp_init.cpp : Rcpp R/C++ interface class library -- Initialize and register
 //
-// Copyright (C) 2010 - 2017  John Chambers, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2020  John Chambers, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -121,22 +119,27 @@ void registerFunctions(){
     RCPP_REGISTER(error_occured)
     RCPP_REGISTER(rcpp_get_current_error)
     // RCPP_REGISTER(print)
+    RCPP_REGISTER(Rcpp_precious_init)
+    RCPP_REGISTER(Rcpp_precious_teardown)
+    RCPP_REGISTER(Rcpp_precious_preserve)
+    RCPP_REGISTER(Rcpp_precious_remove)
     #undef RCPP_REGISTER
 }
 
-
-extern "C" void R_unload_Rcpp(DllInfo *) {  // #nocov start
-    // Release resources
-} 						// #nocov end
+extern "C" void R_unload_Rcpp(DllInfo *) {  	// #nocov start
+    Rcpp::Rcpp_precious_teardown();	            // release resource
+} 						                    	// #nocov end
 
 extern "C" void R_init_Rcpp(DllInfo* dllinfo) {
     setCurrentScope(0);
 
-    registerFunctions();        		// call wrapper to register export symbols
+    registerFunctions();        				// call wrapper to register export symbols
 
-    R_useDynamicSymbols(dllinfo, FALSE);	// set up symbol symbol lookup (cf R 3.4.0)
+    R_useDynamicSymbols(dllinfo, FALSE);		// set up symbol symbol lookup (cf R 3.4.0)
 
-    init_Rcpp_cache();          		// init the cache
+    init_Rcpp_cache();          				// init the cache
 
-    init_Rcpp_routines(dllinfo);		// init routines
+    Rcpp::Rcpp_precious_init();
+
+    init_Rcpp_routines(dllinfo);				// init routines
 }

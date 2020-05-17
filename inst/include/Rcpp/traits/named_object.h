@@ -42,15 +42,19 @@ template <> class named_object<SEXP> {
 public:                                              // #nocov start
     named_object( const std::string& name_, const SEXP& o_):
         name(name_), object(o_) {
-        R_PreserveObject(object);
+        //R_PreserveObject(object);
+        Rcpp_precious_preserve(object);
     }
 
     named_object( const named_object<SEXP>& other ) :
         name(other.name), object(other.object) {
-        R_PreserveObject(object);
+        //R_PreserveObject(object);
+        Rcpp_precious_preserve(object);
     }
     ~named_object() {
-        R_ReleaseObject(object);
+        //R_ReleaseObject(object);
+        Rcpp_precious_remove(object);
+
     }                          	                     // #nocov end
     const std::string& name;
     SEXP object;

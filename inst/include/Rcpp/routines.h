@@ -38,6 +38,11 @@ namespace Rcpp{
     }
     double mktime00(struct tm &);
     struct tm * gmtime_(const time_t * const);
+
+    void Rcpp_precious_init();
+    void Rcpp_precious_teardown();
+    void Rcpp_precious_preserve(SEXP object);
+    void Rcpp_precious_remove(SEXP object);
 }
 
 SEXP          rcpp_get_stack_trace();
@@ -125,6 +130,27 @@ namespace Rcpp {
         typedef struct tm* (*Fun)(const time_t* const);
         static Fun fun =  GET_CALLABLE("gmtime_");
         return fun(x);
+    }
+
+    inline attribute_hidden void Rcpp_precious_init() {
+        typedef int (*Fun)(void);
+        static Fun fun = GET_CALLABLE("Rcpp_precious_init");
+        fun();
+    }
+    inline attribute_hidden void Rcpp_precious_teardown() {
+        typedef int (*Fun)(void);
+        static Fun fun = GET_CALLABLE("Rcpp_precious_teardown");
+        fun();
+    }
+    inline attribute_hidden void Rcpp_precious_preserve(SEXP object) {
+        typedef const char* (*Fun)(SEXP);
+        static Fun fun = GET_CALLABLE("Rcpp_precious_preserve");
+        fun(object);
+    }
+    inline attribute_hidden void Rcpp_precious_remove(SEXP object) {
+        typedef const char* (*Fun)(SEXP);
+        static Fun fun = GET_CALLABLE("Rcpp_precious_remove");
+        fun(object);
     }
 
 }
