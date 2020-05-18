@@ -532,7 +532,6 @@ namespace Rcpp {
         RCPP_STRING_DEBUG("wrap<String>()");
         Shield<SEXP> res(Rf_allocVector(STRSXP, 1));
         SEXP data = object.get_sexp();
-        Rcpp_PreserveObject(data);
         SET_STRING_ELT(res, 0, data);
         return res;
     }
