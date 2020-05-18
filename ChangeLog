@@ -1,7 +1,12 @@
+2020-05-18  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version, Date): Roll minor version
+        * inst/include/Rcpp/config.h: Idem
+
 2020-05-17  Kevin Ushey  <kevinushey@gmail.com>
 
-	* inst/include/Rcpp/String.h: don't preserve returned SEXP in wrap
-	* inst/include/RcppCommon.h: simplify
+	* inst/include/Rcpp/String.h: Don't preserve returned SEXP in wrap
+	* inst/include/RcppCommon.h: Simplify
 
 2020-04-30  Dirk Eddelbuettel  <edd@debian.org>
 

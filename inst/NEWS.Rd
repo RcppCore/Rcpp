@@ -19,6 +19,8 @@
       (Dirk in \ghpr{1059}).
       \item One call to \code{abs} is now properly namespaced with
       \code{std::} (Uwe Korn in \ghpr{1069}).
+      \item String object memory preservation was corrected/simplified
+      (Kevin in \ghpr{1082}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{
