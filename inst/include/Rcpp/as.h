@@ -71,6 +71,10 @@ namespace Rcpp {
             return as_string<T>(x, typename Rcpp::traits::is_wide_string<T>::type());
         }
 
+        template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_string_view_tag) {
+            return check_single_string(x);
+        }
+
         template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_RcppString_tag) {
             if (! ::Rf_isString(x)) {
                 const char* fmt = "Expecting a single string value: "

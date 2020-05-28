@@ -23,6 +23,10 @@
 #ifndef Rcpp__traits__r_type_traits__h
 #define Rcpp__traits__r_type_traits__h
 
+#if defined(__cpp_lib_string_view)
+#include <string_view>
+#endif
+
 namespace Rcpp{
 namespace traits{
 
@@ -37,6 +41,12 @@ struct r_type_primitive_tag{} ;
  * to std::string
  */
 struct r_type_string_tag{} ;
+
+/**
+ * Identifies that the associated type can be implicitly converted
+ * to std::string_view
+ */
+struct r_type_string_view_tag{} ;
 
 /**
  * Default
@@ -148,6 +158,10 @@ template<> struct r_type_traits<unsigned int>{ typedef r_type_primitive_tag r_ca
 template<> struct r_type_traits<float>{ typedef r_type_primitive_tag r_category ; } ;
 template<> struct r_type_traits<const char*>{ typedef r_type_string_tag r_category ; } ;
 template<> struct r_type_traits<const wchar_t*>{ typedef r_type_string_tag r_category ; } ;
+
+#if defined(__cpp_lib_string_view)
+template<> struct r_type_traits<std::string_view>{ typedef r_type_string_view_tag r_category ; } ;
+#endif
 
 /* long */
 template<> struct r_type_traits<long>{ typedef r_type_primitive_tag r_category ; } ;
