@@ -1,5 +1,8 @@
 2020-06-05  Dirk Eddelbuettel  <edd@debian.org>
 
+        * DESCRIPTION (Version, Date): Roll minor version
+        * inst/include/Rcpp/config.h: Idem
+
 	* R/Rcpp.package.skeleton.R: Remove a remaining NAMESPACE entry for
 	a temporary function symbol; ensure an exportPattern is set
 
