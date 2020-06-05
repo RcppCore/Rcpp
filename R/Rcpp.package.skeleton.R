@@ -1,4 +1,4 @@
-# Copyright (C) 2009 - 2019  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2009 - 2020  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -27,7 +27,6 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
                                   license = "GPL (>= 2)") {
 
     havePkgKitten <- requireNamespace("pkgKitten", quietly=TRUE)
-
 
     call <- match.call()
     call[[1]] <- as.name("package.skeleton")
@@ -115,6 +114,9 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
     } else {
         writeLines('importFrom(Rcpp, evalCpp)', ns)
         message(" >> added importFrom(Rcpp, evalCpp) directive to NAMESPACE" )
+    }
+    if (!any(grepl("^exportPattern", lines))) {
+        writeLines("exportPattern(\"^[[:alpha:]]+\")", ns)
     }
     close( ns )
 
@@ -206,6 +208,11 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
         rm("Rcpp.fake.fun", envir = env)
         unlink(file.path(root, "R"  , "Rcpp.fake.fun.R"))
         unlink(file.path(root, "man", "Rcpp.fake.fun.Rd"))
+
+        ## cleansing NAMESPACE of fake function entry
+        lines <- readLines(NAMESPACE)
+        lines <- lines[!grepl("^export.*fake\\.fun", lines)]
+        writeLines(lines, NAMESPACE)
     }
 
     if (isTRUE(remove_hello_world)) {
