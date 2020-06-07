@@ -1,3 +1,7 @@
+2020-06-07  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .travis.yml (jobs): Replace R 3.4.3 with R 3.6.3 in matrix
+
 2020-06-05  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll minor version
