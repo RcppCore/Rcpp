@@ -36,6 +36,11 @@
       \item Two \code{sample()} objects are now standard vectors and not
       \code{R_alloc} created (Dirk in \ghpr{1075} fixing \ghpr{1074}).
     }
+    \item Changes in Rcpp support functions:
+    \itemize{
+      \item \code{Rcpp.package.skeleton()} adjusts for a (documented)
+      change in R 4.0.0 (Dirk in \ghpr{1088} fixing \ghpr{1087}).
+    }
     \item Changes in Rcpp Documentation:
     \itemize{
       \item The pdf file of the earlier introduction is again typeset
