@@ -11,8 +11,8 @@ jobs:
   include:
     - name: release
       env: DOCKER_CNTR="rcpp/ci" R="R" COVR="no"
-    - name: r-3.4
-      env: DOCKER_CNTR="rcpp/ci-3.4" R="R" COVR="no"
+    - name: r-3.6
+      env: DOCKER_CNTR="rcpp/ci-3.6" R="R" COVR="no"
     - name: r-3.5
       env: DOCKER_CNTR="rcpp/ci-3.5" R="R" COVR="no"
     - name: dev

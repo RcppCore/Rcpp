@@ -57,6 +57,7 @@
       \item The exceptions test is now partially skipped on Solaris as
       it already is on Windows (Dirk in \ghpr{1065}).
       \item The default CI runner was upgraded to R 4.0.0 (Dirk).
+      \item The CI matrix spans R 3.5, 3.6, r-release and r-devel (Dirk).
     }
   }
 }
