@@ -1,3 +1,8 @@
+2020-06-14  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/bib/Rcpp.bib: Add John's new 'S, R, and Data Science' article
+	* vignettes/rmd/Rcpp.bib: Idem
+
 2020-06-07  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .travis.yml (jobs): Replace R 3.4.3 with R 3.6.3 in matrix
