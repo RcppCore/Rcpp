@@ -3,7 +3,7 @@
 # Made by Dirk Eddelbuettel in August 2018 and released under GPL (>=2)
 
 os: linux
-dist: trusty
+dist: bionic
 sudo: required
 services: docker
 
@@ -25,6 +25,9 @@ env:
     - DOCKER_OPTS="--rm -ti -v $(pwd):/mnt -w /mnt"
       R_BLD_OPTS="--no-build-vignettes --no-manual"
       R_CHK_OPTS="--no-vignettes --no-manual"
+      PKG_NAME=$(awk '/Package:/ {print $2}' DESCRIPTION)
+      PKG_VER=$(awk '/Version:/ {print $2}' DESCRIPTION)
+      PKG_TGZ="${PKG_NAME}_${PKG_VER}.tar.gz"
 
 before_install:
   - docker pull ${DOCKER_CNTR}
@@ -35,7 +38,7 @@ install:
   - docker run ${DOCKER_OPTS} ${DOCKER_CNTR} ${R} CMD build ${R_BLD_OPTS} .
 
 script:
-  - if [[ "${COVR}" == "no" ]]; then docker run ${DOCKER_OPTS} ${DOCKER_CNTR} ${R} CMD check ${R_CHK_OPTS} Rcpp_*.tar.gz; fi
+  - if [[ "${COVR}" == "no" ]]; then docker run ${DOCKER_OPTS} ${DOCKER_CNTR} ${R} CMD check ${R_CHK_OPTS} ${PKG_TGZ}; fi
   - if [[ "${COVR}" == "yes" ]]; then docker run ${DOCKER_OPTS} -e CODECOV_TOKEN ${DOCKER_CNTR} r -l covr -e 'codecov()'; fi
 
 notifications:

@@ -1,3 +1,8 @@
+2020-06-19  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .travis.yml: Determine package name and version from DESCRIPTION,
+	switch to bionic
+
 2020-06-14  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/bib/Rcpp.bib: Add John's new 'S, R, and Data Science' article
