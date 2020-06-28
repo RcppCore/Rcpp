@@ -8,6 +8,7 @@ LABEL org.label-schema.license="GPL-2.0" \
 
 RUN apt-get update \
         && apt-get install -y --no-install-recommends \
+                r-cran-bit64 \
                 r-cran-curl \
                 r-cran-httr \
                 r-cran-knitr \

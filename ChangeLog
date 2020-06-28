@@ -1,3 +1,8 @@
+2020-06-27  Dirk Eddelbuettel  <edd@debian.org>
+
+	* docker/ci/Dockerfile: Revert back to standard r-base container
+	* docker/plus/Dockerfile: Also install bit64
+
 2020-06-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .travis.yml: Determine package name and version from DESCRIPTION,
