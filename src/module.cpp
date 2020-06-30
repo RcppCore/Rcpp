@@ -53,7 +53,7 @@ RCPP_FUN_2(Rcpp::CppClass, Module__get_class, XP_Module module, std::string cl) 
     return module->get_class(cl);
 }
 RCPP_FUN_1(bool, CppObject__needs_init, SEXP xp) {					// #nocov start
-    return EXTPTR_PTR(xp) == 0;
+    return R_ExternalPtrAddr(xp) == 0;
 }
 RCPP_FUN_1(Rcpp::CharacterVector, CppClass__methods, XP_Class cl) {
     return cl->method_names();

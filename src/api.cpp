@@ -145,7 +145,7 @@ const char* short_file_name(const char* file) {                 // #nocov start
 // [[Rcpp::internal]]
 SEXP as_character_externalptr(SEXP xp) {
     char buffer[20];
-    snprintf(buffer, 20, "%p", (void*)EXTPTR_PTR(xp));
+    snprintf(buffer, 20, "%p", (void*)R_ExternalPtrAddr(xp));
     return Rcpp::wrap((const char*)buffer);
 }                                                               // #nocov end
 

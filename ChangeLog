@@ -6,6 +6,11 @@
         * inst/NEWS.Rd: Idem
         * vignettes/rmd/Rcpp.bib: Idem
         * inst/bib/Rcpp.bib: Idem
+2020-06-29  Kevin Ushey  <kevinushey@gmail.com>
+
+	* inst/include/Rcpp/module/class.h: EXTPTR_PTR -> R_ExternalPtrAddr
+	* src/api.cpp: Idem
+	* src/module.cpp: Idem
 
 2020-06-27  Dirk Eddelbuettel  <edd@debian.org>
 

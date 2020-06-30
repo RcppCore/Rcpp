@@ -167,7 +167,7 @@
         SEXP invoke( SEXP method_xp, SEXP object, SEXP *args, int nargs ){
             BEGIN_RCPP
 
-                vec_signed_method* mets = reinterpret_cast< vec_signed_method* >( EXTPTR_PTR( method_xp ) ) ;
+                vec_signed_method* mets = reinterpret_cast< vec_signed_method* >( R_ExternalPtrAddr( method_xp ) ) ;
             typename vec_signed_method::iterator it = mets->begin() ;
             int n = mets->size() ;
             method_class* m = 0 ;
@@ -194,7 +194,7 @@
         SEXP invoke_void( SEXP method_xp, SEXP object, SEXP *args, int nargs ){
             BEGIN_RCPP
 
-                vec_signed_method* mets = reinterpret_cast< vec_signed_method* >( EXTPTR_PTR( method_xp ) ) ;
+                vec_signed_method* mets = reinterpret_cast< vec_signed_method* >( R_ExternalPtrAddr( method_xp ) ) ;
             typename vec_signed_method::iterator it = mets->begin() ;
             int n = mets->size() ;
             method_class* m = 0 ;
@@ -216,7 +216,7 @@
         SEXP invoke_notvoid( SEXP method_xp, SEXP object, SEXP *args, int nargs ){
             BEGIN_RCPP
 
-                vec_signed_method* mets = reinterpret_cast< vec_signed_method* >( EXTPTR_PTR( method_xp ) ) ;
+                vec_signed_method* mets = reinterpret_cast< vec_signed_method* >( R_ExternalPtrAddr( method_xp ) ) ;
             typename vec_signed_method::iterator it = mets->begin() ;
             int n = mets->size() ;
             method_class* m = 0 ;
@@ -393,14 +393,14 @@
 
         SEXP getProperty( SEXP field_xp , SEXP object) {
             BEGIN_RCPP
-                prop_class* prop = reinterpret_cast< prop_class* >( EXTPTR_PTR( field_xp ) ) ;
+                prop_class* prop = reinterpret_cast< prop_class* >( R_ExternalPtrAddr( field_xp ) ) ;
             return prop->get( XP(object) );
             END_RCPP
                 }
 
         void setProperty( SEXP field_xp, SEXP object, SEXP value)  {
             BEGIN_RCPP
-                prop_class* prop = reinterpret_cast< prop_class* >( EXTPTR_PTR( field_xp ) ) ;
+                prop_class* prop = reinterpret_cast< prop_class* >( R_ExternalPtrAddr( field_xp ) ) ;
             return prop->set( XP(object), value );
             VOID_END_RCPP
                 }
