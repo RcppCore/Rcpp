@@ -94,3 +94,39 @@ IntegerVector DataFrame_nrow( DataFrame df){
 IntegerVector DataFrame_ncol( DataFrame df){
     return IntegerVector::create(df.ncol(), df.cols());
 }
+
+// [[Rcpp::export]]
+DataFrame DataFrame_PushBackNamed(){
+    NumericVector u(2);
+    NumericVector v(2);
+    DataFrame df = DataFrame::create(_["u"] = u);
+    df.push_back(v, "v");
+    return df;
+}
+
+// [[Rcpp::export]]
+DataFrame DataFrame_PushBackUnnamed(){
+    NumericVector u(2);
+    NumericVector v(2);
+    DataFrame df = DataFrame::create(_["u"] = u);
+    df.push_back(v);
+    return df;
+}
+
+// [[Rcpp::export]]
+DataFrame DataFrame_PushFrontNamed(){
+    NumericVector u(2);
+    NumericVector v(2);
+    DataFrame df = DataFrame::create(_["u"] = u);
+    df.push_front(v, "v");
+    return df;
+}
+
+// [[Rcpp::export]]
+DataFrame DataFrame_PushFrontUnnamed(){
+    NumericVector u(2);
+    NumericVector v(2);
+    DataFrame df = DataFrame::create(_["u"] = u);
+    df.push_front(v);
+    return df;
+}

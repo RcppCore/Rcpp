@@ -83,6 +83,42 @@ namespace Rcpp{
             return LENGTH(rn);
         }
 
+	template <typename T>
+        void push_back( const T& object){
+            R_xlen_t NewSize = std::max(object.size(), static_cast<R_xlen_t>(nrow()));
+            Parent::push_back(object);
+            IntegerVector RowNames = Range(1, NewSize);
+            Rf_setAttrib(Parent::get__(), R_RowNamesSymbol, RowNames);
+            Rf_setAttrib(Parent::get__(), R_ClassSymbol, Rf_mkString("data.frame"));
+        }
+
+        template <typename T>
+        void push_back( const T& object, const std::string& name ){
+            R_xlen_t NewSize = std::max(object.size(), static_cast<R_xlen_t>(nrow()));
+            Parent::push_back(object, name);
+            IntegerVector RowNames = Range(1, NewSize);
+            Rf_setAttrib(Parent::get__(), R_RowNamesSymbol, RowNames);
+            Rf_setAttrib(Parent::get__(), R_ClassSymbol, Rf_mkString("data.frame"));
+        }
+
+        template <typename T>
+        void push_front( const T& object){
+            R_xlen_t NewSize = std::max(object.size(), static_cast<R_xlen_t>(nrow()));
+            Parent::push_front(object);
+            IntegerVector RowNames = Range(1, NewSize);
+            Rf_setAttrib(Parent::get__(), R_RowNamesSymbol, RowNames);
+            Rf_setAttrib(Parent::get__(), R_ClassSymbol, Rf_mkString("data.frame"));
+        }
+
+        template <typename T>
+        void push_front( const T& object, const std::string& name){
+            R_xlen_t NewSize = std::max(object.size(), static_cast<R_xlen_t>(nrow()));
+            Parent::push_front(object, name);
+            IntegerVector RowNames = Range(1, NewSize);
+            Rf_setAttrib(Parent::get__(), R_RowNamesSymbol, RowNames);
+            Rf_setAttrib(Parent::get__(), R_ClassSymbol, Rf_mkString("data.frame"));
+        }
+                
         // Offer multiple variants to accomodate both old interface here and signatures in other classes
         inline int nrows() const { return DataFrame_Impl::nrow(); }
         inline int rows()  const { return DataFrame_Impl::nrow(); }

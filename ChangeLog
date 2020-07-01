@@ -17,6 +17,13 @@
         * inst/NEWS.Rd: Idem
         * vignettes/rmd/Rcpp.bib: Idem
         * inst/bib/Rcpp.bib: Idem
+2020-07-01 Walter Somerville <waltersom@gmail.com>
+	
+	* inst/include/Rcpp/DataFrame.h: Implement explict push_back and
+	push_front for DataFrame, which takes care to set the class and
+	row.names attributes.
+	* inst/tinyTest/test_dataframe.R Add in tests for push_back/push_front
+	* inst/tinyTest/cpp/DataFrame.cpp
 
 2020-06-27  Dirk Eddelbuettel  <edd@debian.org>
 

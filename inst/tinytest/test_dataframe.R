@@ -70,3 +70,23 @@ expect_equal( DataFrame_nrow( df ), rep(nrow(df), 2) )
 #    test.DataFrame.ncol <- function(){
 df <- data.frame( x = 1:10, y = 1:10 )
 expect_equal( DataFrame_ncol( df ), rep(ncol(df), 2) )
+
+#    test.DataFrame.PushBackNamed <- function(){
+df <- data.frame( u = c(0, 0), v = c(0, 0) )
+expect_true( is.data.frame( DataFrame_PushBackNamed() ) )
+expect_equal( DataFrame_PushBackNamed(), df )
+
+#    test.DataFrame.PushBackUnamed <- function(){
+df <- data.frame( u = c(0, 0), c(0, 0), fix.empty.names = FALSE )
+expect_true( is.data.frame( DataFrame_PushBackUnnamed() ) )
+expect_equal( DataFrame_PushBackUnnamed(), df )
+
+#    test.DataFrame.PushFrontNamed <- function(){
+df <- data.frame( v = c(0, 0), u = c(0, 0) )
+expect_true( is.data.frame( DataFrame_PushFrontNamed() ) )
+expect_equal( DataFrame_PushFrontNamed(), df )
+
+#    test.DataFrame.PushFrontUnnamed <- function(){
+df <- data.frame( c(0, 0), u = c(0, 0), fix.empty.names = FALSE )
+expect_true( is.data.frame( DataFrame_PushFrontUnnamed() ) )
+expect_equal( DataFrame_PushFrontUnnamed(), df )
