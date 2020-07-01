@@ -130,3 +130,30 @@ DataFrame DataFrame_PushFrontUnnamed(){
     df.push_front(v);
     return df;
 }
+
+// [[Rcpp::export]]
+DataFrame DataFrame_PushFrontDataFrame(){
+  NumericVector u(2);
+  NumericVector v(2);
+  NumericVector w(2);
+  NumericVector x(2);
+
+  DataFrame df1 = DataFrame::create(_["u"] = u, _["v"] = v);
+  DataFrame df2 = DataFrame::create(_["w"] = w, _["x"] = x);
+  df1.push_front(df2);
+  return df1;
+}
+
+// [[Rcpp::export]]
+DataFrame DataFrame_PushBackDataFrame(){
+  NumericVector u(2);
+  NumericVector v(2);
+  NumericVector w(2);
+  NumericVector x(2);
+
+  DataFrame df1 = DataFrame::create(_["u"] = u, _["v"] = v);
+  DataFrame df2 = DataFrame::create(_["w"] = w, _["x"] = x);
+  df1.push_back(df2);
+  return df1;
+}
+

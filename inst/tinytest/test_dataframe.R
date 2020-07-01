@@ -77,7 +77,7 @@ expect_true( is.data.frame( DataFrame_PushBackNamed() ) )
 expect_equal( DataFrame_PushBackNamed(), df )
 
 #    test.DataFrame.PushBackUnamed <- function(){
-df <- data.frame( u = c(0, 0), c(0, 0), fix.empty.names = FALSE )
+df <- data.frame( u = c(0, 0), c(0, 0) )
 expect_true( is.data.frame( DataFrame_PushBackUnnamed() ) )
 expect_equal( DataFrame_PushBackUnnamed(), df )
 
@@ -87,6 +87,17 @@ expect_true( is.data.frame( DataFrame_PushFrontNamed() ) )
 expect_equal( DataFrame_PushFrontNamed(), df )
 
 #    test.DataFrame.PushFrontUnnamed <- function(){
-df <- data.frame( c(0, 0), u = c(0, 0), fix.empty.names = FALSE )
+df <- data.frame( c(0, 0), u = c(0, 0) )
 expect_true( is.data.frame( DataFrame_PushFrontUnnamed() ) )
 expect_equal( DataFrame_PushFrontUnnamed(), df )
+
+
+#    test.DataFrame.PushFrontDataFrame <- function(){
+df <- data.frame( w = c(0, 0), x = c(0, 0), u = c(0, 0), v = c(0, 0) )
+expect_true( is.data.frame( DataFrame_PushFrontDataFrame() ) )
+expect_equal( DataFrame_PushFrontDataFrame(), df )
+
+#    test.DataFrame.PushBackDataFrame <- function(){
+df <- data.frame( u = c(0, 0), v = c(0, 0), w = c(0, 0), x = c(0, 0) )
+expect_true( is.data.frame( DataFrame_PushBackDataFrame() ) )
+expect_equal( DataFrame_PushBackDataFrame(), df )
