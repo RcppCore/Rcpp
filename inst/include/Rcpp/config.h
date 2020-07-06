@@ -26,11 +26,11 @@
 #define RcppDevVersion(maj, min, rev, dev)  (((maj)*1000000) + ((min)*10000) + ((rev)*100) + (dev))
 
 // the currently released version
-#define RCPP_VERSION            Rcpp_Version(1,0,4)
-#define RCPP_VERSION_STRING     "1.0.4"
+#define RCPP_VERSION            Rcpp_Version(1,0,5)
+#define RCPP_VERSION_STRING     "1.0.5"
 
 // the current source snapshot
-#define RCPP_DEV_VERSION        RcppDevVersion(1,0,4,12)
-#define RCPP_DEV_VERSION_STRING "1.0.4.12"
+#define RCPP_DEV_VERSION        RcppDevVersion(1,0,5,0)
+#define RCPP_DEV_VERSION_STRING "1.0.5"
 
 #endif
