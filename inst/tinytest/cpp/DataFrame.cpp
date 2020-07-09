@@ -177,8 +177,8 @@ DataFrame DataFrame_PushReplicateLength(){
   x[0] = 2;
 
   DataFrame df1 = DataFrame::create(_["u"] = u);
-  df1.push_back(v);
-  df1.push_back(x);
+  df1.push_back(v, "v");
+  df1.push_back(x, "x");
   return df1;
 }
 
