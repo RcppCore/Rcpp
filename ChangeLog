@@ -1,3 +1,17 @@
+2020-07-09  Walter Somerville  <waltersom@gmail.com>
+
+	* inst/include/Rcpp/DataFrame.h: Warn when data.frame has varying length
+	* inst/tinyTest/cpp/DataFrame.cpp: Test added
+	* inst/tinyTest/test_dataframe.R: Idem
+
+2020-07-07  Walter Somerville  <waltersom@gmail.com>
+
+	* inst/include/Rcpp/DataFrame.h: Implement explict push_back and
+	push_front for DataFrame, which takes care to set the class and
+	row.names attributes.
+	* inst/tinyTest/test_dataframe.R: Add in tests for push_back/push_front
+	* inst/tinyTest/cpp/DataFrame.cpp: Idem
+
 2020-07-06  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll minor version
@@ -17,13 +31,6 @@
         * inst/NEWS.Rd: Idem
         * vignettes/rmd/Rcpp.bib: Idem
         * inst/bib/Rcpp.bib: Idem
-2020-07-01 Walter Somerville <waltersom@gmail.com>
-	
-	* inst/include/Rcpp/DataFrame.h: Implement explict push_back and
-	push_front for DataFrame, which takes care to set the class and
-	row.names attributes.
-	* inst/tinyTest/test_dataframe.R: Add in tests for push_back/push_front
-	* inst/tinyTest/cpp/DataFrame.cpp: Idem
 
 2020-06-27  Dirk Eddelbuettel  <edd@debian.org>
 
