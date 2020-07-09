@@ -110,3 +110,6 @@ expect_warning( DataFrame_PushWrongSize() )
 df <- data.frame( u = c(1, 0), v = c(0, 0, 0, 0), x = c(2) )
 expect_true( is.data.frame( DataFrame_PushReplicateLength() ) )
 expect_equal( DataFrame_PushReplicateLength(), df )
+
+#    test.DataFrame.PushZeroLength <- function(){
+expect_warning( DataFrame_PushZeroLength())

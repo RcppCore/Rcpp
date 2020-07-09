@@ -181,3 +181,14 @@ DataFrame DataFrame_PushReplicateLength(){
   df1.push_back(x);
   return df1;
 }
+
+// [[Rcpp::export]]
+DataFrame DataFrame_PushZeroLength(){
+  NumericVector u(2);
+  NumericVector v(0);
+
+
+  DataFrame df1 = DataFrame::create(_["u"] = u);
+  df1.push_back(v);
+  return df1;
+}

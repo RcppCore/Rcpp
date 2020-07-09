@@ -142,7 +142,7 @@ namespace Rcpp{
                 }
             }
             for (it = Parent::begin(); it != Parent::end(); ++it) {
-                if (Rf_xlength(*it) > 1 && max_rows % Rf_xlength(*it) != 0) {
+                if (Rf_xlength(*it) == 0 || ( Rf_xlength(*it) > 1 && max_rows % Rf_xlength(*it) != 0 )) {
                     // We have a column that is not an integer fraction of the largest
                     invalid_column_size = true;
                 }
