@@ -157,3 +157,27 @@ DataFrame DataFrame_PushBackDataFrame(){
   return df1;
 }
 
+// [[Rcpp::export]]
+DataFrame DataFrame_PushWrongSize(){
+  NumericVector u(2);
+  NumericVector v(3);
+
+  DataFrame df1 = DataFrame::create(_["u"] = u);
+  df1.push_back(v);
+  return df1;
+}
+
+// [[Rcpp::export]]
+DataFrame DataFrame_PushReplicateLength(){
+  NumericVector u(2);
+  NumericVector v(4);
+  NumericVector x(1);
+
+  u[0] = 1;
+  x[0] = 2;
+
+  DataFrame df1 = DataFrame::create(_["u"] = u);
+  df1.push_back(v);
+  df1.push_back(x);
+  return df1;
+}

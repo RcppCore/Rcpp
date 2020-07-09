@@ -101,3 +101,12 @@ expect_equal( DataFrame_PushFrontDataFrame(), df )
 df <- data.frame( u = c(0, 0), v = c(0, 0), w = c(0, 0), x = c(0, 0) )
 expect_true( is.data.frame( DataFrame_PushBackDataFrame() ) )
 expect_equal( DataFrame_PushBackDataFrame(), df )
+
+#    test.DataFrame.PushWrongSize <- function(){
+df <- data.frame( u = c(0, 0), v = c(0, 0), w = c(0, 0), x = c(0, 0) )
+expect_warning( DataFrame_PushWrongSize() )
+
+#    test.DataFrame.PushReplicateLength <- function(){
+df <- data.frame( u = c(1, 0), v = c(0, 0, 0, 0), x = c(2) )
+expect_true( is.data.frame( DataFrame_PushReplicateLength() ) )
+expect_equal( DataFrame_PushReplicateLength(), df )
