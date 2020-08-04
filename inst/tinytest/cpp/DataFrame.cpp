@@ -94,3 +94,101 @@ IntegerVector DataFrame_nrow( DataFrame df){
 IntegerVector DataFrame_ncol( DataFrame df){
     return IntegerVector::create(df.ncol(), df.cols());
 }
+
+// [[Rcpp::export]]
+DataFrame DataFrame_PushBackNamed(){
+    NumericVector u(2);
+    NumericVector v(2);
+    DataFrame df = DataFrame::create(_["u"] = u);
+    df.push_back(v, "v");
+    return df;
+}
+
+// [[Rcpp::export]]
+DataFrame DataFrame_PushBackUnnamed(){
+    NumericVector u(2);
+    NumericVector v(2);
+    DataFrame df = DataFrame::create(_["u"] = u);
+    df.push_back(v);
+    return df;
+}
+
+// [[Rcpp::export]]
+DataFrame DataFrame_PushFrontNamed(){
+    NumericVector u(2);
+    NumericVector v(2);
+    DataFrame df = DataFrame::create(_["u"] = u);
+    df.push_front(v, "v");
+    return df;
+}
+
+// [[Rcpp::export]]
+DataFrame DataFrame_PushFrontUnnamed(){
+    NumericVector u(2);
+    NumericVector v(2);
+    DataFrame df = DataFrame::create(_["u"] = u);
+    df.push_front(v);
+    return df;
+}
+
+// [[Rcpp::export]]
+DataFrame DataFrame_PushFrontDataFrame(){
+  NumericVector u(2);
+  NumericVector v(2);
+  NumericVector w(2);
+  NumericVector x(2);
+
+  DataFrame df1 = DataFrame::create(_["u"] = u, _["v"] = v);
+  DataFrame df2 = DataFrame::create(_["w"] = w, _["x"] = x);
+  df1.push_front(df2);
+  return df1;
+}
+
+// [[Rcpp::export]]
+DataFrame DataFrame_PushBackDataFrame(){
+  NumericVector u(2);
+  NumericVector v(2);
+  NumericVector w(2);
+  NumericVector x(2);
+
+  DataFrame df1 = DataFrame::create(_["u"] = u, _["v"] = v);
+  DataFrame df2 = DataFrame::create(_["w"] = w, _["x"] = x);
+  df1.push_back(df2);
+  return df1;
+}
+
+// [[Rcpp::export]]
+DataFrame DataFrame_PushWrongSize(){
+  NumericVector u(2);
+  NumericVector v(3);
+
+  DataFrame df1 = DataFrame::create(_["u"] = u);
+  df1.push_back(v);
+  return df1;
+}
+
+// [[Rcpp::export]]
+DataFrame DataFrame_PushReplicateLength(){
+  NumericVector u(2);
+  NumericVector v(4);
+  NumericVector x(1);
+
+  u[0] = 1;
+  x[0] = 2;
+
+  DataFrame df1 = DataFrame::create(_["u"] = u);
+  df1.push_back(v, "v");
+  df1.push_back(x, "x");
+  return df1;
+}
+
+// [[Rcpp::export]]
+DataFrame DataFrame_PushZeroLength(){
+  NumericVector u(2);
+  NumericVector v(0);
+
+
+  DataFrame df1 = DataFrame::create(_["u"] = u);
+  df1.push_back(v);
+  return df1;
+}
