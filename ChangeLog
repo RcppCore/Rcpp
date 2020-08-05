@@ -1,3 +1,8 @@
+2020-08-05  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version, Date): Roll minor version
+        * inst/include/Rcpp/config.h: Idem
+
 2020-07-09  Walter Somerville  <waltersom@gmail.com>
 
 	* inst/include/Rcpp/DataFrame.h: Warn when data.frame has varying length

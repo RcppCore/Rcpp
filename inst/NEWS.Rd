@@ -10,6 +10,9 @@
       \item Replace remaining few uses of \code{EXTPTR_PTR} with
       \code{R_ExternalPtrAddr} (Kevin in \ghpr{1098} fixing
       \ghit{1097}).
+      \item Add \code{push_back} and \code{push_front} for
+      \code{DataFrame} (Walter Somerville in \ghpr{1099} fixing
+      \ghit{1094}).
     }
   }
 }
