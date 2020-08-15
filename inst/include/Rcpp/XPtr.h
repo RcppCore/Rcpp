@@ -110,8 +110,8 @@ public:
     }
 
     XPtr& operator=(const XPtr& other) {
-    	    Storage::copy__(other);
-    	    return *this;
+        Storage::copy__(other);
+        return *this;
     }
 
     /**
