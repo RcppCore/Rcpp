@@ -1,3 +1,7 @@
+2020-08-20  Mattias Ellert  <mattias.ellert@physics.uu.se>
+
+        * inst/include/Rcpp/lang.h: Remove obsolete and confusing comment
+
 2020-08-05  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll minor version

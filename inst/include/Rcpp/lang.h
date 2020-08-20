@@ -61,11 +61,7 @@ inline SEXP Rcpp_list5(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4) {
     return x0;
 }
 
-
-
-// `Rf_lang6()` is available on R 3.3, but `Rf_list6()` is not
-inline SEXP Rcpp_list6( SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5 )
-{
+inline SEXP Rcpp_list6(SEXP x0, SEXP x1, SEXP x2, SEXP x3, SEXP x4, SEXP x5) {
     PROTECT(x0);
     x0 = Rf_cons(x0, Rcpp_list5(x1, x2, x3, x4, x5));
     UNPROTECT(1);
