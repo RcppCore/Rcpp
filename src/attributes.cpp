@@ -168,7 +168,7 @@ namespace attributes {
     // Type info
     class Type {
     public:
-        Type() {}
+        Type(): isConst_(false), isReference_(false) {}
         Type(const std::string& name, bool isConst, bool isReference)
             : name_(name), isConst_(isConst), isReference_(isReference)
         {
