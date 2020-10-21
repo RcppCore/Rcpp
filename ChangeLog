@@ -1,3 +1,13 @@
+2020-10-21  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version, Date): Roll minor version
+        * inst/include/Rcpp/config.h: Idem
+
+2020-10-19  Benjamin Christoffersen  <boennecd@gmail.com>
+
+	* src/attributes.cpp: Initialize two private bool variable in default
+	constructor to avoid santizer warning
+
 2020-08-20  Mattias Ellert  <mattias.ellert@physics.uu.se>
 
         * inst/include/Rcpp/lang.h: Remove obsolete and confusing comment
@@ -9,7 +19,8 @@
 
 2020-07-09  Walter Somerville  <waltersom@gmail.com>
 
-	* inst/include/Rcpp/DataFrame.h: Warn when data.frame has varying length
+	* inst/include/Rcpp/DataFrame.h: Warn when data.frame has varying
+	length
 	* inst/tinyTest/cpp/DataFrame.cpp: Test added
 	* inst/tinyTest/test_dataframe.R: Idem
 
@@ -18,7 +29,8 @@
 	* inst/include/Rcpp/DataFrame.h: Implement explict push_back and
 	push_front for DataFrame, which takes care to set the class and
 	row.names attributes.
-	* inst/tinyTest/test_dataframe.R: Add in tests for push_back/push_front
+	* inst/tinyTest/test_dataframe.R: Add in tests for
+	push_back/push_front
 	* inst/tinyTest/cpp/DataFrame.cpp: Idem
 
 2020-07-06  Dirk Eddelbuettel  <edd@debian.org>
