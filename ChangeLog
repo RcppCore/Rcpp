@@ -1,3 +1,9 @@
+2020-10-22  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/lang.h: Remove spurious whitespace
+
+	* inst/NEWS.Rd: Updated for two PRs
+
 2020-10-21  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll minor version

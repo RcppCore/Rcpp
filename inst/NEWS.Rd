@@ -13,6 +13,10 @@
       \item Add \code{push_back} and \code{push_front} for
       \code{DataFrame} (Walter Somerville in \ghpr{1099} fixing
       \ghit{1094}).
+      \item Remove a misleading-to-wrong comment (Mattias Ellert in
+      \ghpr{1109} cleaning up after \ghpr{1049}).
+      \item Address a sanitizer report by initializing two private
+      \code{bool} variables (Benjamin Christoffersen in \ghpr{1113}).
     }
   }
 }
