@@ -2,6 +2,9 @@
 
 	* inst/include/Rcpp/lang.h: Remove spurious whitespace
 
+	* vignettes/.gitignore: Refined to no longer ignore pdf files
+	* vignettes/pdf/*: Added
+
 	* inst/NEWS.Rd: Updated for two PRs
 
 2020-10-21  Dirk Eddelbuettel  <edd@debian.org>
