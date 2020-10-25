@@ -1,3 +1,8 @@
+2020-10-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/generated/InternalFunction__ctors.h: Switch XPtr
+	finalizer argument from false to true
+
 2020-10-22  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/lang.h: Remove spurious whitespace
