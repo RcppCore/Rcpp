@@ -5,6 +5,8 @@
 	* inst/CITATION: Ditto
 	* man/Rcpp-package.Rd: Ditto
 
+	* inst/CITATION: Change from PeerJ Preprint to TAS
+
 2020-10-25  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll minor version
