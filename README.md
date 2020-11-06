@@ -77,7 +77,7 @@ Among the other vignettes are the [Rcpp
 FAQ](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-FAQ.pdf) and the
 introduction to [Rcpp
 Attributes](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-attributes.pdf).
-Additional documentation is available via the [Rcpp book](http://www.rcpp.org/book)
+Additional documentation is available via the [Rcpp book](http://www.rcpp.org/book/)
 by Eddelbuettel (2013, Springer); see 'citation("Rcpp")' for details.
 
 ### Examples

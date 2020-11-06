@@ -1,3 +1,10 @@
+2020-11-06  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION: More URL updates, e.g. http -> https
+	* README.md: Ditto
+	* inst/CITATION: Ditto
+	* man/Rcpp-package.Rd: Ditto
+
 2020-10-25  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll minor version

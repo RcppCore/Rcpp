@@ -9,13 +9,13 @@ citEntry(entry = "Article",
          volume       = "40",
          number       = "8",
          pages        = "1--18",
-         url          = "http://www.jstatsoft.org/v40/i08/",
+         url          = "https://www.jstatsoft.org/v40/i08/",
          doi          = "10.18637/jss.v040.i08",
 
          textVersion  = paste("Dirk Eddelbuettel and Romain Francois (2011).",
                               "Rcpp: Seamless R and C++ Integration.",
                               "Journal of Statistical Software, 40(8), 1-18.",
-                              "URL http://www.jstatsoft.org/v40/i08/.")
+                              "URL https://www.jstatsoft.org/v40/i08/.")
 )
 
 citEntry(entry = "Book",
