@@ -33,6 +33,10 @@ compileAttributes(pkgdir = ".", verbose = getOption("verbose"))
 	The \code{compileAttributes} function deals only with exporting C++ functions to R. If you want the functions to additionally be publicly available from your package's namespace another step may be required. Specifically, if your package \code{NAMESPACE} file does not use a pattern to export functions then you should add an explicit entry to \code{NAMESPACE} for each R function you want publicly available.
 
     In addition to exporting R bindings for C++ functions, the \code{compileAttributes} function can also generate a direct C++ interface to the functions using the \code{\link[=interfacesAttribute]{Rcpp::interfaces}} attribute.
+    This function also scans the C++ source code for \code{RCPP_MODULE} declarations, and generates the corresponding required entries in \code{src/RcppExports.cpp}.
+
+    If there is some C++ code file with \code{R_init_} registration code
+    already, then \code{src/RcppExports.cpp} file will \emph{not} be generated.
 }
 
 \seealso{
