@@ -1264,6 +1264,7 @@ namespace attributes {
                 Rcpp::CharacterVector match = initMatches[i];
                 if (match.size() > 0) {
                     hasPackageInit_ = true;		// #nocov start
+                    showWarning(pkgInit + " found in C++ code so not generating RcppExports.cpp.");
                     break;
                 }					// #nocov end
             }
