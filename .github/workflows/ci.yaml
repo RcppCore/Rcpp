@@ -32,19 +32,32 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Bootstrap
-        run: |
-          curl -OLs https://eddelbuettel.github.io/r-ci/run.sh
-          chmod 0755 run.sh
-          ./run.sh bootstrap
+      #- name: Bootstrap
+      #  run: |
+      #    curl -OLs https://eddelbuettel.github.io/r-ci/run.sh
+      #    chmod 0755 run.sh
+      #    ./run.sh bootstrap
 
       - name: Container
-        run: |
-          docker pull ${{ matrix.cntr }}
-          docker run --rm -i -v ${PWD}:/mnt -w /mnt ${{ matrix.cntr }} ${{ matrix.r }} -q -e 'sessionInfo()'
+        run: docker pull ${{ matrix.cntr }}
+
+      - name: SessionInfo
+        run: docker run --rm -i -v ${PWD}:/mnt -w /mnt ${{ matrix.cntr }} ${{ matrix.r }} -q -e 'sessionInfo()'
 
       - name: Build
         run: docker run --rm -i -v ${PWD}:/mnt -w /mnt ${{ matrix.cntr }} ${{matrix.r }} CMD build --no-build-vignettes --no-manual .
 
       - name: Check
         run: docker run --rm -i -v ${PWD}:/mnt -w /mnt ${{ matrix.cntr }} ${{ matrix.r }} CMD check --no-vignettes --no-manual Rcpp_*.tar.gz
+
+  covr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v1
+
+      - name: Container
+        run: docker pull rcpp/ci
+
+      - name: Coverage
+        run: docker run --rm -i -v ${PWD}:/mnt -w /mnt -e CODECOV_TOKEN=${{secrets.CODECOV_TOKEN }} rcpp/ci r -l covr -e 'codecov()'
