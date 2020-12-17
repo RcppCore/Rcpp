@@ -1,5 +1,7 @@
 2020-12-16  Dirk Eddelbuettel  <edd@debian.org>
 
+	* inst/NEWS.Rd: Updated for recent activity
+
 	* .github/workflows/ci.yaml: Add container-based CI runner
 	* README.md: Add new badge
 

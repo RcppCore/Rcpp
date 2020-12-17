@@ -17,6 +17,18 @@
       \ghpr{1109} cleaning up after \ghpr{1049}).
       \item Address a sanitizer report by initializing two private
       \code{bool} variables (Benjamin Christoffersen in \ghpr{1113}).
+      \item External pointer finalizer toggle default values were
+      corrected to true (Dirk in \ghpr{1115}).
+    }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item Several URLs were updated to https and/or new addresses (Dirk)
+    }
+    \item Changes in Rcpp Deployment:
+    \itemize{
+      \item Added GitHub Actions CI using the same container-based setup
+      used previously, and also carried code coverage over (Dirk in
+      \ghpr{1128}).
     }
   }
 }
