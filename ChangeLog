@@ -1,3 +1,8 @@
+2020-12-22  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .github/workflows/stale.yaml: Adding a staleness monitor labeling
+	and ultimately closing issues and PRs after suitably long windows
+
 2020-12-16  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/NEWS.Rd: Updated for recent activity

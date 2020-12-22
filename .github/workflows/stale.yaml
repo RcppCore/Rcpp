@@ -1,0 +1,28 @@
+# Mark stale issues and pull requests
+# cf https://github.com/actions/stale
+
+name: stale
+
+on:
+  schedule:
+  - cron: "11 1 * * *"
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/stale@v3
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        stale-issue-label: 'no-issue-activity'
+        stale-pr-label: 'no-pr-activity'
+        days-before-stale: 365
+        days-before-close: 31
+        stale-issue-message: >
+          This issue is stale (365 days without activity) and will be closed
+          in 31 days unless new activity is seen. Please feel free to re-open
+          it is still a concern, possibly with additional data.
+        stale-pr-message: >
+          This pull request is is stale (365 days without activity) and will
+          be closed in 31 days unless new activity is seen. Please feel free
+          to open a new issue to discuss a fresh approach.
