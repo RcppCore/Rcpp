@@ -633,6 +633,9 @@ namespace attributes {
         // if it wasn't (throws exception on io error)
         bool commit(const std::string& preamble = std::string());
 
+        // Convert a dot in package name to underscore for use in header file name
+        std::string dotNameHelper(const std::string & name) const;
+
     private:
 
         // Private virtual for doWriteFunctions so the base class
@@ -717,7 +720,7 @@ namespace attributes {
         std::string includeDir_;
     };
 
-    // Class which manages generating PackageName_RcppExports.h header file
+    // Class which manages generating PackageName.h header file
     class CppPackageIncludeGenerator : public ExportsGenerator {
     public:
         CppPackageIncludeGenerator(const std::string& packageDir,
@@ -1894,6 +1897,13 @@ namespace attributes {
         return removeFile(targetFile_);
     }
 
+    // Convert a possible dot in package name to underscore as needed for header file
+    std::string ExportsGenerator::dotNameHelper(const std::string & name) const {
+        std::string newname(name);
+        std::replace(newname.begin(), newname.end(), '.', '_');
+        return newname;
+    }
+
     CppExportsGenerator::CppExportsGenerator(const std::string& packageDir,
                                              const std::string& package,
                                              const std::string& fileSep)
@@ -2128,7 +2138,7 @@ namespace attributes {
                                             const std::string& fileSep)
         : ExportsGenerator(
             packageDir +  fileSep + "inst" +  fileSep + "include" +
-            fileSep + package + kRcppExportsSuffix,
+            fileSep + dotNameHelper(package) + kRcppExportsSuffix,
             package,
             "//")
     {
@@ -2346,7 +2356,7 @@ namespace attributes {
                                             const std::string& fileSep)
         : ExportsGenerator(
             packageDir +  fileSep + "inst" +  fileSep + "include" +
-            fileSep + package + ".h",
+            fileSep + dotNameHelper(package) + ".h",
             package,
             "//")
     {
@@ -2359,7 +2369,6 @@ namespace attributes {
             std::string guard = getHeaderGuard();			// #nocov start
             ostr() << "#ifndef " << guard << std::endl;
             ostr() << "#define " << guard << std::endl << std::endl;
-
             ostr() << "#include \"" << packageCpp() << kRcppExportsSuffix
                    << "\"" << std::endl;
 
