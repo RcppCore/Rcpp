@@ -1,3 +1,7 @@
+2021-01-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/Rcpp.package.skeleton.R: Wrap any() around grepl()
+
 2020-12-22  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .github/workflows/stale.yaml: Adding a staleness monitor labeling

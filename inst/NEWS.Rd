@@ -22,13 +22,17 @@
     }
     \item Changes in Rcpp Documentation:
     \itemize{
-      \item Several URLs were updated to https and/or new addresses (Dirk)
+      \item Several URLs were updated to https and/or new addresses (Dirk).
     }
     \item Changes in Rcpp Deployment:
     \itemize{
       \item Added GitHub Actions CI using the same container-based setup
       used previously, and also carried code coverage over (Dirk in
       \ghpr{1128}).
+    }
+    \item Changes in Rcpp support functions:
+    \itemize{
+      \item \code{Rcpp.package.skeleton()} avoids warning from R. (Dirk)
     }
   }
 }

@@ -99,7 +99,7 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
     NAMESPACE <- file.path(root, "NAMESPACE")
     lines <- readLines(NAMESPACE)
     ns <- file(NAMESPACE, open="w")
-    if (! grepl("useDynLib", lines)) {
+    if (!any(grepl("useDynLib", lines))) {
         if (getRversion() >= "3.4.0") {
             lines <- c(sprintf( "useDynLib(%s, .registration=TRUE)", name), lines)
         } else {
