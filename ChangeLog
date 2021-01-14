@@ -1,3 +1,8 @@
+2021-01-13  Dirk Eddelbuettel  <edd@debian.org>
+
+        * vignettes/rmd/Rcpp.bib: Updated package versions
+        * inst/bib/Rcpp.bib: Idem
+
 2021-01-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/Rcpp.package.skeleton.R: Wrap any() around grepl()
