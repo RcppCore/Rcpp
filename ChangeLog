@@ -1,3 +1,12 @@
+2021-01-14  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Date, Version): Release 1.0.6
+
+        * inst/include/Rcpp/config.h: Idem
+        * inst/NEWS.Rd: Idem
+        * vignettes/rmd/Rcpp.bib: Idem
+        * inst/bib/Rcpp.bib: Idem
+
 2021-01-13  Dirk Eddelbuettel  <edd@debian.org>
 
         * vignettes/rmd/Rcpp.bib: Updated package versions

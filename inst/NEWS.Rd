@@ -3,7 +3,7 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp patch release version 1.0.6 (2021-01-xx)}{
+\section{Changes in Rcpp patch release version 1.0.6 (2021-01-14)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
