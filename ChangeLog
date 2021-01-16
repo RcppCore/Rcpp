@@ -3,6 +3,8 @@
 	* tests/tinytest.R: Test for CODECOV when deciding to run extensive
 	tests or just a subset, and set CI=true to enable run full set
 
+	* .github/workflows/stale.yaml: Run weekly instead of daily
+
 2021-01-14  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Date, Version): Release 1.0.6
