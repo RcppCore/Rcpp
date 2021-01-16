@@ -24,7 +24,7 @@ if (requireNamespace("tinytest", quietly=TRUE)) {
     ## https://docs.travis-ci.com/user/environment-variables/#default-environment-variables
     ## GitHub Action also set CI variable; see
     ## https://docs.github.com/en/actions/reference/environment-variables
-    ## (but we may not see these as we are in Docker)
+    ## And we set it in 'docker run' call
     ## Ensure Codecov runs full tests too
     if ((Sys.getenv("CI") == "true")                     ||
         (Sys.getenv("TRAVIS") == "true")                 ||

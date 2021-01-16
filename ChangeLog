@@ -1,7 +1,7 @@
 2021-01-16  Dirk Eddelbuettel  <edd@debian.org>
 
-	* tests/tinytest.R: Also test for CODECOV when deciding to run
-	extensive tests or just a subset
+	* tests/tinytest.R: Test for CODECOV when deciding to run extensive
+	tests or just a subset, and set CI=true to enable run full set
 
 2021-01-14  Dirk Eddelbuettel  <edd@debian.org>
 

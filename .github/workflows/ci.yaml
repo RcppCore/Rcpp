@@ -48,7 +48,7 @@ jobs:
         run: docker run --rm -i -v ${PWD}:/mnt -w /mnt ${{ matrix.cntr }} ${{matrix.r }} CMD build --no-build-vignettes --no-manual .
 
       - name: Check
-        run: docker run --rm -i -v ${PWD}:/mnt -w /mnt ${{ matrix.cntr }} ${{ matrix.r }} CMD check --no-vignettes --no-manual Rcpp_*.tar.gz
+        run: docker run --rm -i -v ${PWD}:/mnt -w /mnt -e CI=true ${{ matrix.cntr }} ${{ matrix.r }} CMD check --no-vignettes --no-manual Rcpp_*.tar.gz
 
   covr:
     runs-on: ubuntu-latest
