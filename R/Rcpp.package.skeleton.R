@@ -1,4 +1,4 @@
-# Copyright (C) 2009 - 2020  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2009 - 2021  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -33,7 +33,7 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
     env <- parent.frame(1)
 
     if (!is.character(cpp_files))
-        stop("'cpp_files' must be a character vector")
+        stop("'cpp_files' must be a character vector")				# #nocov
 
     if (!length(list)) {
         fake <- TRUE
@@ -46,12 +46,12 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
         }
     } else {
         if (example_code && !isTRUE(attributes)) {
-            if (!"rcpp_hello_world" %in% list) {
+            if (!"rcpp_hello_world" %in% list) {					# #nocov start
                 assign( "rcpp_hello_world", function() {}, envir = env)
                 call[["list"]] <- as.call(c(as.name("c"),
                                             as.list(c("rcpp_hello_world", list))))
             }
-            remove_hello_world <- TRUE
+            remove_hello_world <- TRUE								# #nocov end
         } else {
             remove_hello_world <- FALSE
         }
@@ -69,7 +69,7 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
     }
 
     tryCatch(eval(call, envir = env), error = function(e){
-        stop(sprintf("error while calling `package.skeleton` : %s", conditionMessage(e)))
+        stop(sprintf("error while calling `package.skeleton` : %s", conditionMessage(e)))	# #nocov
     })
 
     message("\nAdding Rcpp settings")
@@ -103,7 +103,7 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
         if (getRversion() >= "3.4.0") {
             lines <- c(sprintf( "useDynLib(%s, .registration=TRUE)", name), lines)
         } else {
-            lines <- c(sprintf( "useDynLib(%s)", name), lines)
+            lines <- c(sprintf( "useDynLib(%s)", name), lines)				# #nocov
         }
         writeLines(lines, con = ns)
         message(" >> added useDynLib directive to NAMESPACE" )
@@ -124,7 +124,7 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
     if (havePkgKitten) {                # if pkgKitten is available, use it
         pkgKitten::playWithPerPackageHelpPage(name, path, maintainer, email)
     } else {
-        .playWithPerPackageHelpPage(name, path, maintainer, email)
+        .playWithPerPackageHelpPage(name, path, maintainer, email)			# #nocov
     }
 
     ## lay things out in the src directory
@@ -135,9 +135,9 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
     skeleton <- system.file("skeleton", package = "Rcpp")
 
     if (length(cpp_files) > 0L) {
-        for (file in cpp_files) {
+        for (file in cpp_files) {											# #nocov start
             file.copy(file, src)
-            message(" >> copied ", file, " to src directory" )
+            message(" >> copied ", file, " to src directory" )				# #nocov end
         }
     }
 
@@ -190,7 +190,7 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
             close(con)
             message(" >> created init.c for package registration")
         } else {
-            message(" >> R version older than 3.4.0 detected, so NO file init.c created.")
+            message(" >> R version older than 3.4.0 detected, so NO file init.c created.")	# #nocov
         }
     }
 
@@ -232,7 +232,7 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
                                         path = ".",
                                         maintainer = "Your Name",
                                         email = "your@mail.com") {
-    root <- file.path(path, name)
+    root <- file.path(path, name)										# #nocov start
     helptgt <- file.path(root, "man", sprintf( "%s-package.Rd", name))
     helpsrc <- system.file("skeleton", "manual-page-stub.Rd", package="Rcpp")
     ## update the package description help page
@@ -244,5 +244,5 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
                       lines, fixed = TRUE)
         writeLines(lines, helptgt)
     }
-    invisible(NULL)
+    invisible(NULL)														# #nocov end
 }

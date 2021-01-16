@@ -1,4 +1,4 @@
-# Copyright (C) 2010 - 2018  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2021  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -50,7 +50,7 @@ RcppCxxFlags <- function(cxx0x=FALSE) {
     # path <- RcppLdPath()
     path <- Rcpp.system.file( "include" )
     if (.Platform$OS.type=="windows") {
-        path <- asBuildPath(path)
+        path <- asBuildPath(path)				# #nocov
     }
     paste("-I", path, if (cxx0x && canUseCXX0X()) " -std=c++0x" else "", sep="")
 }
@@ -60,7 +60,7 @@ RcppCxxFlags <- function(cxx0x=FALSE) {
 CxxFlags <- function(cxx0x=FALSE) {
     #.Deprecated(msg=paste("This function is now deprecated as R uses minimally",
     #                      "viable compilers om all platforme."))
-    cat(RcppCxxFlags(cxx0x=cxx0x))
+    cat(RcppCxxFlags(cxx0x=cxx0x))				# #nocov
 }
 
 ## LdFlags defaults to static linking on the non-Linux platforms Windows and OS X
@@ -76,11 +76,11 @@ RcppCapabilities <- capabilities <- function() .Call( rcpp_capabilities )
 RcppCxx0xFlags <- function() {
     #.Deprecated(msg=paste("This function is now deprecated as R uses minimally",
     #                      "viable compilers om all platforme."))
-    script <- Rcpp.system.file( "discovery", "cxx0x.R" )
+    script <- Rcpp.system.file( "discovery", "cxx0x.R" )	# #nocov start
     flag <- capture.output( source( script ) )
     flag
 }
 
 Cxx0xFlags <- function() {
-    cat( RcppCxx0xFlags() )
+    cat( RcppCxx0xFlags() )									# #nocov end
 }

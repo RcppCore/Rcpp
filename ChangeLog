@@ -5,6 +5,13 @@
 
 	* .github/workflows/stale.yaml: Run weekly instead of daily
 
+	* src/attributes.cpp: Additional #nocov tag(s)
+	* R/Attributes.R: Idem
+	* R/Module.R: Idem
+	* R/Rcpp.package.skeleton.R: Idem
+	* R/RcppClass.R: Idem
+	* R/RcppLdpath.R: Idem
+
 2021-01-14  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Date, Version): Release 1.0.6

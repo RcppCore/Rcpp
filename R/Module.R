@@ -1,4 +1,4 @@
-# Copyright (C) 2010 - 2016  John Chambers, Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2021  John Chambers, Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -160,11 +160,11 @@ cpp_object_maker <- function(typeid, pointer){
 }
 
 Module <- function( module, PACKAGE = methods::getPackageName(where), where = topenv(parent.frame()), mustStart = FALSE ) {
-    if(inherits(module, "DLLInfo") && missing(mustStart)) mustStart <- TRUE
-    if(inherits(module, "Module")) {
+    if (inherits(module, "DLLInfo") && missing(mustStart)) mustStart <- TRUE						# #nocov
+    if (inherits(module, "Module")) {
         xp <- .getModulePointer(module, FALSE)
         if(!missing(PACKAGE))
-            warning("ignoring PACKAGE argument in favor of internal package from Module object")
+            warning("ignoring PACKAGE argument in favor of internal package from Module object")	# #nocov
         env <- as.environment(module) # not needed from R 2.12.0
         PACKAGE <- get("packageName", envir = env)
         moduleName <- get("moduleName", envir = env)
@@ -229,12 +229,12 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
         # just to make codetools happy
         .self <- .refClassDef <- NULL
         generator$methods(initialize =
-              if(cpp_hasDefaultConstructor(CLASS))
+              if (cpp_hasDefaultConstructor(CLASS))
                  function(...) Rcpp::cpp_object_initializer(.self,.refClassDef, ...)
               else
                  function(...) {
-                     if(nargs()) Rcpp::cpp_object_initializer(.self,.refClassDef, ...)
-                     else Rcpp::cpp_object_dummy(.self, .refClassDef)
+                     if (nargs()) Rcpp::cpp_object_initializer(.self,.refClassDef, ...)
+                     else Rcpp::cpp_object_dummy(.self, .refClassDef) 			# #nocov
                  }
                           )
         rm( .self, .refClassDef )

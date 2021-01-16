@@ -1,8 +1,7 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // attributes.cpp: Rcpp R/C++ interface class library -- Rcpp attributes
 //
-// Copyright (C) 2012 - 2017  JJ Allaire, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2021  JJ Allaire, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -919,7 +918,7 @@ namespace attributes {
                             for (size_t i = 0; i<exts.size(); ++i) {
 
                                 // look for corresponding cpp file and add it
-                                std::string file = Rcpp::as<std::string>(
+                                std::string file = Rcpp::as<std::string>(		// #nocov
                                     filePathSansExt(include)) + exts[i];
 
                                 exists = fileExists(file);

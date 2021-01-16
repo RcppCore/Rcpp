@@ -1,5 +1,5 @@
 
-# Copyright (C) 2012 - 2020  JJ Allaire, Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2012 - 2021  JJ Allaire, Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -437,7 +437,7 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     # create R directory if it doesn't already exist
     rDir <- file.path(pkgdir, "R")
     if (!file.exists(rDir))
-        dir.create(rDir)
+        dir.create(rDir)														# #nocov
 
     # remove the old RcppExports.R file
     unlink(file.path(rDir, "RcppExports.R"))

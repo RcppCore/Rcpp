@@ -1,4 +1,4 @@
-# Copyright (C) 2010 - 2012 John Chambers, Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2021 John Chambers, Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -26,8 +26,8 @@ setRcppClass <- function(Class, CppClass,
                          ...) {
     myCall <- match.call()
     myCall[[1]] <- quote(Rcpp::loadRcppClass)
-    if(!missing(module) && moduleIsLoaded(module, where)) # eval now
-        eval.parent(myCall)
+    if (!missing(module) && moduleIsLoaded(module, where)) # eval now
+        eval.parent(myCall)											# #nocov
     else {
         f <- function(NS)NULL
         myCall$where = as.name("NS")
@@ -46,20 +46,20 @@ loadRcppClass <- function(Class, CppClass = Class,
                          ...) {
 
     if(isBotchedSession()) {
-        value <- setRefClass(Class, fields = fields, methods = methods,  contains = contains, where = where, ...)  # kludge -- see loadModule.R
+        value <- setRefClass(Class, fields = fields, methods = methods,  contains = contains, where = where, ...)  # kludge -- see loadModule.R   #nocov start
         if(is.character(saveAs) && length(saveAs) == 1)
             assign(saveAs, value, envir = where)
-        return(value)
+        return(value)												# #nocov end
     }
     mod <- loadModule(module, NULL, env = where, loadNow = TRUE)
     storage <- get("storage", envir = as.environment(mod))
     if(exists(Class, envir = storage, inherits = FALSE)) {
         cppclassinfo <- get(Class, envir = storage)
         if(!is(cppclassinfo, "C++Class"))
-            stop(gettextf("Object \"%s\" in module \"%s\" is not a C++ class description", Class, module))
+            stop(gettextf("Object \"%s\" in module \"%s\" is not a C++ class description", Class, module))  # #nocov
     }
     else
-        stop(gettextf("No object \"%s\" in module \"%s\"", Class, module))
+        stop(gettextf("No object \"%s\" in module \"%s\"", Class, module))									# #nocov
     allmethods <- .makeCppMethods(methods, cppclassinfo, where)
     allfields <- .makeCppFields(fields, cppclassinfo, where)
     value <- setRefClass(Class, fields = allfields,
@@ -124,7 +124,7 @@ loadRcppClass <- function(Class, CppClass = Class,
                               cppArgs <- !nzchar(argNames)
                               .CppObject <<- do.call(.CppGenerator$new, args[cppArgs])
                               for(i in seq_along(args)[!cppArgs])
-                                  field(argNames[[i]], args[[i]])
+                                  field(argNames[[i]], args[[i]])			# #nocov
                           }
                           ),
                           fields = list(
@@ -135,7 +135,7 @@ loadRcppClass <- function(Class, CppClass = Class,
 
 .RcppClass$methods(show = function ()
                {
-                   cat("Rcpp class object of class ", classLabel(class(.self)),
+                   cat("Rcpp class object of class ", classLabel(class(.self)),			# #nocov start
                        "\n", sep = "")
                    fields <- names(.refClassDef@fieldClasses)
                    if(".CppObject" %in% fields) {
@@ -150,8 +150,5 @@ loadRcppClass <- function(Class, CppClass = Class,
                    }
                },
     objectPointer = function()
-           .CppObject$.pointer
+           .CppObject$.pointer															# #nocov end
     )
-
-
-
