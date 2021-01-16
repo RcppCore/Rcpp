@@ -1,11 +1,10 @@
 
-if (requireNamespace("tinytest", quietly=TRUE) &&
-    utils::packageVersion("tinytest") >= "1.0.0") {
+if (requireNamespace("tinytest", quietly=TRUE)) {
 
     ## Set a seed to make the test deterministic
     set.seed(42)
 
-    ## R makes us to this
+    ## R makes us do this (but tinytest now sets it too)
     Sys.setenv("R_TESTS"="")
 
     ## Force tests to be executed if in dev release which we define as
@@ -23,15 +22,20 @@ if (requireNamespace("tinytest", quietly=TRUE) &&
 
     ## On Travis also always set tests; see
     ## https://docs.travis-ci.com/user/environment-variables/#default-environment-variables
-    if ((Sys.getenv("CI") == "true")     ||
-        (Sys.getenv("TRAVIS") == "true") ||
-        (Sys.getenv("CONTINUOUS_INTEGRATION") == "true")) {
+    ## GitHub Action also set CI variable; see
+    ## https://docs.github.com/en/actions/reference/environment-variables
+    ## (but we may not see these as we are in Docker)
+    ## Ensure Codecov runs full tests too
+    if ((Sys.getenv("CI") == "true")                     ||
+        (Sys.getenv("TRAVIS") == "true")                 ||
+        (Sys.getenv("CONTINUOUS_INTEGRATION") == "true") ||
+        (Sys.getenv("CODECOV_TOKEN") != "")) {
         if (Sys.getenv("RunAllRcppTests") != "no") { 			# if env.var not yet set
-            message("Always enabling \"RunAllRcppTests\"=\"yes\" on Travis\n")
+            message("Always enabling \"RunAllRcppTests\"=\"yes\" in CI\n")
             Sys.setenv("RunAllRcppTests"="yes")
         }
         if (Sys.getenv("RunVerboseRcppTests") != "no") { 		# if env.var not yet set
-            message("Always enabling \"RunVerboseRcppTests\"=\"yes\" on Travis\n")
+            message("Always enabling \"RunVerboseRcppTests\"=\"yes\" in CI\n")
             Sys.setenv("RunVerboseRcppTests"="yes")
         }
     }
