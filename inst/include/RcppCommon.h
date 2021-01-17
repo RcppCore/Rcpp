@@ -77,8 +77,8 @@ namespace Rcpp {
     SEXP Rcpp_fast_eval(SEXP expr_, SEXP env);
     SEXP Rcpp_eval(SEXP expr_, SEXP env = R_GlobalEnv);
 
-    void Rcpp_precious_preserve(SEXP object);
-    void Rcpp_precious_remove(SEXP object);
+    SEXP Rcpp_precious_preserve(SEXP object);
+    void Rcpp_precious_remove(SEXP token);
 
     namespace internal {
         SEXP Rcpp_eval_impl(SEXP expr, SEXP env);
@@ -90,35 +90,12 @@ namespace Rcpp {
         template <typename T> class named_object;
     }
 
-    // inline SEXP Rcpp_PreserveObject(SEXP x) {
-    //     if (x != R_NilValue) {
-    //         R_PreserveObject(x);
-    //     }
-    //     return x;
-    // }
     inline SEXP Rcpp_PreserveObject(SEXP object) {
-        Rcpp_precious_preserve(object);
-        return object;
+        return Rcpp_precious_preserve(object);
     }
 
-    // inline void Rcpp_ReleaseObject(SEXP x) {
-    //     if (x != R_NilValue) {
-    //         R_ReleaseObject(x);
-    //     }
-    // }
-    inline void Rcpp_ReleaseObject(SEXP object) {
-        Rcpp_precious_remove(object);
-    }
-
-    inline SEXP Rcpp_ReplaceObject(SEXP x, SEXP y) {
-
-        // if we are setting to the same SEXP as we already have, do nothing
-        if (x != y) {
-            Rcpp_ReleaseObject(x);
-            Rcpp_PreserveObject(y);
-        }
-
-        return y;
+    inline void Rcpp_ReleaseObject(SEXP token) {
+        Rcpp_precious_remove(token);
     }
 
 }

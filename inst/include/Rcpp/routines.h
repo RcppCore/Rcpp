@@ -41,8 +41,8 @@ namespace Rcpp{
 
     void Rcpp_precious_init();
     void Rcpp_precious_teardown();
-    void Rcpp_precious_preserve(SEXP object);
-    void Rcpp_precious_remove(SEXP object);
+    SEXP Rcpp_precious_preserve(SEXP object);
+    void Rcpp_precious_remove(SEXP token);
 }
 
 SEXP          rcpp_get_stack_trace();
@@ -133,24 +133,24 @@ namespace Rcpp {
     }
 
     inline attribute_hidden void Rcpp_precious_init() {
-        typedef int (*Fun)(void);
+        typedef void (*Fun)(void);
         static Fun fun = GET_CALLABLE("Rcpp_precious_init");
         fun();
     }
     inline attribute_hidden void Rcpp_precious_teardown() {
-        typedef int (*Fun)(void);
+        typedef void (*Fun)(void);
         static Fun fun = GET_CALLABLE("Rcpp_precious_teardown");
         fun();
     }
-    inline attribute_hidden void Rcpp_precious_preserve(SEXP object) {
-        typedef const char* (*Fun)(SEXP);
+    inline attribute_hidden SEXP Rcpp_precious_preserve(SEXP object) {
+        typedef SEXP (*Fun)(SEXP);
         static Fun fun = GET_CALLABLE("Rcpp_precious_preserve");
-        fun(object);
+        return fun(object);
     }
-    inline attribute_hidden void Rcpp_precious_remove(SEXP object) {
-        typedef const char* (*Fun)(SEXP);
+    inline attribute_hidden void Rcpp_precious_remove(SEXP token) {
+        typedef void (*Fun)(SEXP);
         static Fun fun = GET_CALLABLE("Rcpp_precious_remove");
-        fun(object);
+        fun(token);
     }
 
 }

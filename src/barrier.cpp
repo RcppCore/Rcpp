@@ -90,35 +90,39 @@ namespace Rcpp {
 static SEXP Rcpp_precious = R_NilValue;
 // [[Rcpp::register]]
 void Rcpp_precious_init() {
-    Rcpp_precious = CONS(R_NilValue,R_NilValue);// set up
-	R_PreserveObject(Rcpp_precious); 			// and protect
+    Rcpp_precious = CONS(R_NilValue, R_NilValue);   // set up
+	R_PreserveObject(Rcpp_precious); 			    // and protect
 }
 // [[Rcpp::register]]
 void Rcpp_precious_teardown() {
-    R_ReleaseObject(Rcpp_precious);             // release resource
+    R_ReleaseObject(Rcpp_precious);                 // release resource
 }
 // [[Rcpp::register]]
-void Rcpp_precious_preserve(SEXP object) {
-    SETCDR(Rcpp_precious, CONS(object, CDR(Rcpp_precious)));
-}
-SEXP DeleteFromList(SEXP object, SEXP list) {
-    if (CAR(list) == object)
-        return CDR(list);
-    else {
-        SEXP last = list;
-        for (SEXP head = CDR(list); head != R_NilValue; head = CDR(head)) {
-            if (CAR(head) == object) {
-                SETCDR(last, CDR(head));
-                return list;
-            }
-            else last = head;
-        }
-        return list;
+SEXP Rcpp_precious_preserve(SEXP object) {
+    if (object == R_NilValue) {
+        return R_NilValue;
     }
+    PROTECT(object);
+    SEXP cell = PROTECT(CONS(Rcpp_precious, CDR(Rcpp_precious)));
+    SET_TAG(cell, object);
+    SETCDR(Rcpp_precious, cell);
+    if (CDR(cell) != R_NilValue) {
+        SETCAR(CDR(cell), cell);
+    }
+    UNPROTECT(2);
+    return cell;
 }
 // [[Rcpp::register]]
-void Rcpp_precious_remove(SEXP object) {
-    SETCDR(Rcpp_precious, DeleteFromList(object, CDR(Rcpp_precious)));
+void Rcpp_precious_remove(SEXP token) {
+    if (token == R_NilValue) {
+        return;
+    }
+    SEXP before = CAR(token);
+    SEXP after = CDR(token);
+    SETCDR(before, after);
+    if (after != R_NilValue) {
+        SETCAR(after, before);
+    }
 }
 }
 
