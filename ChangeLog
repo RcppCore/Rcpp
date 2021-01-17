@@ -1,3 +1,8 @@
+2021-01-17  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version, Date): Roll minor version
+        * inst/include/Rcpp/config.h: Idem
+
 2021-01-16  Dirk Eddelbuettel  <edd@debian.org>
 
 	* tests/tinytest.R: Test for CODECOV when deciding to run extensive
