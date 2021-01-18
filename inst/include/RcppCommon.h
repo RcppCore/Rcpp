@@ -1,10 +1,10 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
+
 //
 // RcppCommon.h: Rcpp R/C++ interface class library -- common include and defines statements
 //
 // Copyright (C) 2008 - 2009  Dirk Eddelbuettel
-// Copyright (C) 2009 - 2017  Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2021  Iñaki Ucar
+// Copyright (C) 2009 - 2020  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2021         Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //

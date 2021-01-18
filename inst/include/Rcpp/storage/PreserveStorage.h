@@ -1,9 +1,8 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
+
+// PreserveStorage.h: Rcpp R/C++ interface class library -- helper class
 //
-// String.h: Rcpp R/C++ interface class library -- single string
-//
-// Copyright (C) 2013  Romain Francois
-// Copyright (C) 2021  Iñaki Ucar
+// Copyright (C) 2013 - 2020  Romain Francois
+// Copyright (C) 2021         Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //

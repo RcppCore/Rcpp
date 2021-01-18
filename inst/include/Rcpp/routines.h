@@ -1,8 +1,9 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
+
+// routines.h: Rcpp R/C++ interface class library -- callable function setup
 //
-// Copyright (C) 2013  Romain Francois
-// Copyright (C) 2015  Dirk Eddelbuettel
-// Copyright (C) 2021  Iñaki Ucar
+// Copyright (C) 2013 - 2014 Romain Francois
+// Copyright (C) 2015 - 2020 Romain Francois and Dirk Eddelbuettel
+// Copyright (C) 2021        Romain Francois, Dirk Eddelbuettel and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //

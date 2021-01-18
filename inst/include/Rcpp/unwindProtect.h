@@ -1,6 +1,8 @@
+
 // unwind.h: Rcpp R/C++ interface class library -- Unwind Protect
 //
-// Copyright (C) 2018 RStudio
+// Copyright (C) 2018 - 2020  RStudio
+// Copyright (C) 2021         RStudio, Dirk Eddelbuettel and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //

@@ -1,9 +1,8 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
+
 // String.h: Rcpp R/C++ interface class library -- single string
 //
-// Copyright (C) 2012 - 2018  Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2021  Iñaki Ucar
+// Copyright (C) 2012 - 2020  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2021         Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //

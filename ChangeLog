@@ -17,7 +17,7 @@
 
 	[ these were originally committed 17 May 2020 and have been rebased ]
 	* src/barrier.cpp: Implement Rcpp_precious_{init,teardown,preserve,remove}
-	* src/init.c: Register cpp_precious_{init,teardown,preserve,remove}
+	* src/rcpp_init.c: Register cpp_precious_{init,teardown,preserve,remove}
 	and call from R_{init,unload}_Rcpp
 	* inst/include/Rcpp/routines.h: Declare Rcpp_precious_{init,teardown,
 	preserve,remove}
