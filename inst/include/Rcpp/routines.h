@@ -2,6 +2,7 @@
 //
 // Copyright (C) 2013  Romain Francois
 // Copyright (C) 2015  Dirk Eddelbuettel
+// Copyright (C) 2021  Iñaki Ucar
 //
 // This file is part of Rcpp.
 //

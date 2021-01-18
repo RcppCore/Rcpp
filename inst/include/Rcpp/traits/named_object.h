@@ -4,6 +4,7 @@
 // named_object.h: Rcpp R/C++ interface class library -- named SEXP
 //
 // Copyright (C) 2010 - 2017  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2021  Iñaki Ucar
 //
 // This file is part of Rcpp.
 //

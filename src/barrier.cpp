@@ -1,6 +1,7 @@
 // barrier.cpp: Rcpp R/C++ interface class library -- write barrier
 //
 // Copyright (C) 2010 - 2020  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2021  Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
