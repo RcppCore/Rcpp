@@ -1,4 +1,4 @@
-2021-01-17  Iñaki Ucar  <i.ucar86@gmail.com>
+2021-01-17  Iñaki Ucar  <iucar@fedoraproject.org>
 
 	* inst/include/Rcpp/String.h: Use Rcpp_{Preserve,Release}Object
 	throughout which connects to Rcpp_precious_* routines
@@ -1514,7 +1514,7 @@
 
         * inst/include/Rcpp/traits/is_na.h: Speed up Rcpp::is_na<double>()
 
-2018-01-09  Iñaki Ucar  <i.ucar86@gmail.com>
+2018-01-09  Iñaki Ucar  <iucar@fedoraproject.org>
 
         * inst/include/Rcpp/vector/proxy.h: Improve support for NVCC, the CUDA
         compiler, by making three more methods const
@@ -2116,7 +2116,7 @@
 
         * DESCRIPTION (Version, Date): New minor version
 
-2017-02-14  Iñaki Ucar  <i.ucar86@gmail.com>
+2017-02-14  Iñaki Ucar  <iucar@fedoraproject.org>
 
         * inst/include/Rcpp/iostream/Rstreambuf.h: Fixed single-character handling
         (pull request #649, fixes issue #647)
