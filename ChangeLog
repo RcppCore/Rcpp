@@ -1,9 +1,36 @@
+2021-01-17  Iñaki Ucar  <i.ucar86@gmail.com>
+
+	* inst/include/Rcpp/String.h: Use Rcpp_{Preserve,Release}Object
+	throughout which connects to Rcpp_precious_* routines
+	* inst/include/Rcpp/exceptions.h: Use Rcpp_ReleaseObject
+	* inst/include/Rcpp/routines.h: Several corrections and refinements
+	* inst/include/Rcpp/storage/PreserveStorage.h: Ditto
+	* inst/include/Rcpp/traits/named_object.h: Ditto
+	* inst/include/Rcpp/unwuindProtect.h: Ditto
+	* inst/include/RcppCommon.h: Ditto
+	* src/barrier.cpp: Ditto
+
 2021-01-17  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll minor version
         * inst/include/Rcpp/config.h: Idem
 
+	[ these were originally committed 17 May 2020 and have been rebased ]
+	* src/barrier.cpp: Implement Rcpp_precious_{init,teardown,preserve,remove}
+	* src/init.c: Register cpp_precious_{init,teardown,preserve,remove}
+	and call from R_{init,unload}_Rcpp
+	* inst/include/Rcpp/routines.h: Declare Rcpp_precious_{init,teardown,
+	preserve,remove}
+	* inst/include/Rcpp/exceptions.h: Use Rcpp_precious_remove
+	* inst/include/Rcpp/traits/named_object.h: Use
+	Rcpp_precious_{preserve,remove}
+	* inst/include/Rcpp/unwuindProtect.h: Use Rcpp_precious_preserve
+	* inst/include/RcppCommon.h: Use Rcpp_precious_{preserve,remove}
+
 2021-01-16  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version, Date): Roll minor version
+        * inst/include/Rcpp/config.h: Idem
 
 	* tests/tinytest.R: Test for CODECOV when deciding to run extensive
 	tests or just a subset, and set CI=true to enable run full set
