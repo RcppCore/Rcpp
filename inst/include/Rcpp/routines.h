@@ -1,7 +1,9 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
+
+// routines.h: Rcpp R/C++ interface class library -- callable function setup
 //
-// Copyright (C) 2013  Romain Francois
-// Copyright (C) 2015  Dirk Eddelbuettel
+// Copyright (C) 2013 - 2014 Romain Francois
+// Copyright (C) 2015 - 2020 Romain Francois and Dirk Eddelbuettel
+// Copyright (C) 2021        Romain Francois, Dirk Eddelbuettel and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -38,6 +40,11 @@ namespace Rcpp{
     }
     double mktime00(struct tm &);
     struct tm * gmtime_(const time_t * const);
+
+    void Rcpp_precious_init();
+    void Rcpp_precious_teardown();
+    SEXP Rcpp_precious_preserve(SEXP object);
+    void Rcpp_precious_remove(SEXP token);
 }
 
 SEXP          rcpp_get_stack_trace();
@@ -125,6 +132,27 @@ namespace Rcpp {
         typedef struct tm* (*Fun)(const time_t* const);
         static Fun fun =  GET_CALLABLE("gmtime_");
         return fun(x);
+    }
+
+    inline attribute_hidden void Rcpp_precious_init() {
+        typedef void (*Fun)(void);
+        static Fun fun = GET_CALLABLE("Rcpp_precious_init");
+        fun();
+    }
+    inline attribute_hidden void Rcpp_precious_teardown() {
+        typedef void (*Fun)(void);
+        static Fun fun = GET_CALLABLE("Rcpp_precious_teardown");
+        fun();
+    }
+    inline attribute_hidden SEXP Rcpp_precious_preserve(SEXP object) {
+        typedef SEXP (*Fun)(SEXP);
+        static Fun fun = GET_CALLABLE("Rcpp_precious_preserve");
+        return fun(object);
+    }
+    inline attribute_hidden void Rcpp_precious_remove(SEXP token) {
+        typedef void (*Fun)(SEXP);
+        static Fun fun = GET_CALLABLE("Rcpp_precious_remove");
+        fun(token);
     }
 
 }

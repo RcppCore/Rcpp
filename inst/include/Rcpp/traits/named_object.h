@@ -1,9 +1,8 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-/* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
-//
+
 // named_object.h: Rcpp R/C++ interface class library -- named SEXP
 //
-// Copyright (C) 2010 - 2017  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2020  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2021         Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -41,19 +40,22 @@ public:
 template <> class named_object<SEXP> {
 public:                                              // #nocov start
     named_object( const std::string& name_, const SEXP& o_):
-        name(name_), object(o_) {
-        R_PreserveObject(object);
+        name(name_), object(o_), token(R_NilValue) {
+        token = Rcpp_precious_preserve(object);
     }
 
     named_object( const named_object<SEXP>& other ) :
-        name(other.name), object(other.object) {
-        R_PreserveObject(object);
+        name(other.name), object(other.object), token(other.token) {
+        token = Rcpp_precious_preserve(object);
     }
     ~named_object() {
-        R_ReleaseObject(object);
+        Rcpp_precious_remove(token);
+
     }                          	                     // #nocov end
     const std::string& name;
     SEXP object;
+private:
+    SEXP token;
 };
 
 

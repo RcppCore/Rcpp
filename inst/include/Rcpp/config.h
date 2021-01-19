@@ -30,7 +30,7 @@
 #define RCPP_VERSION_STRING     "1.0.6"
 
 // the current source snapshot
-#define RCPP_DEV_VERSION        RcppDevVersion(1,0,6,1)
-#define RCPP_DEV_VERSION_STRING "1.0.6.1"
+#define RCPP_DEV_VERSION        RcppDevVersion(1,0,6,2)
+#define RCPP_DEV_VERSION_STRING "1.0.6.2"
 
 #endif
