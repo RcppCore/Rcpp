@@ -3,6 +3,22 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
+\section{Changes in Rcpp patch release version 1.0.7 (2021-07-xx)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Refactored \code{Rcpp_PreserveObject} and \code{Rcpp_ReleaseObject}
+      which are now O(1) (Dirk and Iñaki in \ghpr{1133} fixing \ghit{382} and
+      \ghit{1081}).
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Packages with dots in their name can now have per-package
+      include files (Dirk in \ghpr{1132} fixes \ghit{1129}).
+    }
+  }
+}
+
 \section{Changes in Rcpp patch release version 1.0.6 (2021-01-14)}{
   \itemize{
     \item Changes in Rcpp API:
