@@ -8,8 +8,8 @@
     \item Changes in Rcpp API:
     \itemize{
       \item Refactored \code{Rcpp_PreserveObject} and \code{Rcpp_ReleaseObject}
-      which are now O(1) (Dirk and Iñaki in \ghpr{1133} fixing \ghit{382} and
-      \ghit{1081}).
+      which are now O(1) (Dirk and Iñaki in \ghpr{1133} and \ghor{1135}
+      fixing \ghit{382} and \ghit{1081}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{
