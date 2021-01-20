@@ -31,7 +31,7 @@ namespace Rcpp{
         PreserveStorage() : data(R_NilValue), token(R_NilValue){}
 
         ~PreserveStorage(){
-            Rcpp_ReleaseObject(token) ;
+            Rcpp_PreciousRelease(token) ;
             data = R_NilValue;
             token = R_NilValue;
         }
@@ -39,8 +39,8 @@ namespace Rcpp{
         inline void set__(SEXP x){
             if (data != x) {
                 data = x;
-                Rcpp_ReleaseObject(token);
-                token = Rcpp_PreserveObject(data);
+                Rcpp_PreciousRelease(token);
+                token = Rcpp_PreciousPreserve(data);
             }
 
             // calls the update method of CLASS
@@ -54,7 +54,7 @@ namespace Rcpp{
 
         inline SEXP invalidate__(){
             SEXP out = data ;
-            Rcpp_ReleaseObject(token);
+            Rcpp_PreciousRelease(token);
             data = R_NilValue ;
             token = R_NilValue ;
             return out ;

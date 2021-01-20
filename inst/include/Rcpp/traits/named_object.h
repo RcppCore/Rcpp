@@ -41,15 +41,15 @@ template <> class named_object<SEXP> {
 public:                                              // #nocov start
     named_object( const std::string& name_, const SEXP& o_):
         name(name_), object(o_), token(R_NilValue) {
-        token = Rcpp_precious_preserve(object);
+        token = Rcpp_PreciousPreserve(object);
     }
 
     named_object( const named_object<SEXP>& other ) :
         name(other.name), object(other.object), token(other.token) {
-        token = Rcpp_precious_preserve(object);
+        token = Rcpp_PreciousPreserve(object);
     }
     ~named_object() {
-        Rcpp_precious_remove(token);
+        Rcpp_PreciousRelease(token);
 
     }                          	                     // #nocov end
     const std::string& name;

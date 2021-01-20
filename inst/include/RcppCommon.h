@@ -91,11 +91,31 @@ namespace Rcpp {
         template <typename T> class named_object;
     }
 
-    inline SEXP Rcpp_PreserveObject(SEXP object) {
+    // begin deprecated interface not using precious list
+    // use Rcpp_PreciousPreserve + Rcpp_PreciousRelease below it
+    inline SEXP Rcpp_PreserveObject(SEXP x) {
+        if (x != R_NilValue) R_PreserveObject(x);
+        return x;
+    }
+    inline void Rcpp_ReleaseObject(SEXP x) {
+        if (x != R_NilValue) R_ReleaseObject(x);
+    }
+    inline SEXP Rcpp_ReplaceObject(SEXP x, SEXP y) {
+        // if we are setting to the same SEXP as we already have, do nothing
+        if (x != y) {
+            Rcpp_ReleaseObject(x);
+            Rcpp_PreserveObject(y);
+        }
+        return y;
+    }
+    // end deprecated interface not using precious list
+
+    // new preferred interface using token-based precious list
+    inline SEXP Rcpp_PreciousPreserve(SEXP object) {
         return Rcpp_precious_preserve(object);
     }
 
-    inline void Rcpp_ReleaseObject(SEXP token) {
+    inline void Rcpp_PreciousRelease(SEXP token) {
         Rcpp_precious_remove(token);
     }
 
