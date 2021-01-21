@@ -1,3 +1,10 @@
+2021-01-21  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/DataFrame.h: Remove unused variable
+
+	* R/Attributes.R (sourceCpp): Support argument echo to be passed to
+	source() to silence optional R evaluation
+
 2021-01-19  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll minor version
