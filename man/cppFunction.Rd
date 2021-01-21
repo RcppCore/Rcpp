@@ -8,8 +8,8 @@ Dynamically define an R function with C++ source code. Compiles and links a shar
 }
 \usage{
 cppFunction(code, depends = character(), plugins = character(), includes = character(),
-            env = parent.frame(), rebuild = FALSE, cacheDir = getOption("rcpp.cache.dir", 
-            tempdir()), showOutput = verbose, verbose = getOption("verbose"))
+            env = parent.frame(), rebuild = FALSE, cacheDir = getOption("rcpp.cache.dir",
+            tempdir()), showOutput = verbose, verbose = getOption("verbose"), echo = TRUE)
 }
 
 \arguments{
@@ -40,10 +40,13 @@ cppFunction(code, depends = character(), plugins = character(), includes = chara
   \item{verbose}{
     \code{TRUE} to print detailed information about generated code to the console.
 }
+  \item{echo}{
+    \code{TRUE} to silence output from optional R evaluation if set to \code{FALSE}.
+}
 }
 \details{
    Functions defined using \code{cppFunction} must have return types that are compatible with \code{Rcpp::wrap} and parameter types that are compatible with \code{Rcpp::as}.
-        
+
     The shared library will not be rebuilt if the underlying code has not changed since the last compilation.
 }
 \value{
@@ -63,36 +66,36 @@ cppFunction(code, depends = character(), plugins = character(), includes = chara
 
 cppFunction(
     'int fibonacci(const int x) {
-        if (x == 0) return(0); 
+        if (x == 0) return(0);
         if (x == 1) return(1);
         return (fibonacci(x - 1)) + fibonacci(x - 2);
     }')
 
 cppFunction(depends = "RcppArmadillo",
     'List fastLm(NumericVector yr, NumericMatrix Xr) {
-        
+
         int n = Xr.nrow(), k = Xr.ncol();
-        
-        arma::mat X(Xr.begin(), n, k, false); 
+
+        arma::mat X(Xr.begin(), n, k, false);
         arma::colvec y(yr.begin(), yr.size(), false);
-        
+
         arma::colvec coef = arma::solve(X, y);
         arma::colvec resid = y - X*coef;
-        
+
         double sig2 = arma::as_scalar(arma::trans(resid)*resid/(n-k) );
         arma::colvec stderrest = arma::sqrt(
             sig2 * arma::diagvec(arma::inv(arma::trans(X)*X)));
-        
+
         return List::create(Named("coefficients") = coef,
             Named("stderr")       = stderrest
         );
     }')
-    
+
 cppFunction(plugins=c("cpp11"), '
     int useCpp11() {
         auto x = 10;
         return x;
     }')
-    
+
 }
 }
