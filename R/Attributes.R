@@ -28,7 +28,8 @@ sourceCpp <- function(file = "",
                       showOutput = verbose,
                       verbose = getOption("verbose"),
                       dryRun = FALSE,
-                      windowsDebugDLL = FALSE) {
+                      windowsDebugDLL = FALSE,
+                      echo = TRUE) {
 
     # use an architecture/version specific subdirectory of the cacheDir
     # (since cached dynlibs can now perist across sessions we need to be
@@ -214,7 +215,7 @@ sourceCpp <- function(file = "",
     if (embeddedR && (length(context$embeddedR) > 0)) {
         srcConn <- textConnection(context$embeddedR)
         setwd(rWorkingDir) # will be reset by previous on.exit handler
-        source(file = srcConn, local = env, echo = TRUE)
+        source(file = srcConn, local = env, echo = echo)
     }
 
     # cleanup the cache dir if requested
@@ -258,7 +259,8 @@ cppFunction <- function(code,
                         rebuild = FALSE,
                         cacheDir = getOption("rcpp.cache.dir", tempdir()),
                         showOutput = verbose,
-                        verbose = getOption("verbose")) {
+                        verbose = getOption("verbose"),
+                        echo = TRUE) {
 
     # process depends
     if (!is.null(depends) && length(depends) > 0) {             # #nocov start
@@ -315,7 +317,8 @@ cppFunction <- function(code,
                           rebuild = rebuild,
                           cacheDir = cacheDir,
                           showOutput = showOutput,
-                          verbose = verbose)
+                          verbose = verbose,
+                          echo = echo)
 
     # verify that a single function was exported and return it
     if (length(exported$functions) == 0)

@@ -2,7 +2,7 @@
 //
 // DataFrame.h: Rcpp R/C++ interface class library -- data frames
 //
-// Copyright (C) 2010 - 2015  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2021  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -106,7 +106,7 @@ namespace Rcpp{
             Parent::push_front(object, name);
             set_type_after_push();
         }
-                
+
         // Offer multiple variants to accomodate both old interface here and signatures in other classes
         inline int nrows() const { return DataFrame_Impl::nrow(); }
         inline int rows()  const { return DataFrame_Impl::nrow(); }
@@ -133,7 +133,6 @@ namespace Rcpp{
         void set_type_after_push(){
             int max_rows = 0;
             bool invalid_column_size = false;
-            SEXP data = Parent::get__();
             List::iterator it;
             // Get the maximum number of rows
             for (it = Parent::begin(); it != Parent::end(); ++it) {

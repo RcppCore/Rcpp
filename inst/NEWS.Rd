@@ -8,13 +8,17 @@
     \item Changes in Rcpp API:
     \itemize{
       \item Refactored \code{Rcpp_PreserveObject} and \code{Rcpp_ReleaseObject}
-      which are now O(1) (Dirk and Iñaki in \ghpr{1133} and \ghor{1135}
+      which are now O(1) (Dirk and Iñaki in \ghpr{1133} and \ghpr{1135}
       fixing \ghit{382} and \ghit{1081}).
+      \item A spuriously assigned variable was removed (Dirk in
+      \ghpr{1138} fixing \ghit{1137})
     }
     \item Changes in Rcpp Attributes:
     \itemize{
       \item Packages with dots in their name can now have per-package
       include files (Dirk in \ghpr{1132} fixes \ghit{1129}).
+      \item New argument \code{echo} to quieten optional evaluation in
+      \code{sourceCpp} (Dirk in \ghpr{1138} fixing \ghit{1126}).
     }
   }
 }
