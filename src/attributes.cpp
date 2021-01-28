@@ -795,6 +795,8 @@ namespace attributes {
 
     std::string generateRArgList(const Function& function);
 
+    void initializeGlobals(std::ostream& ostr);
+
     void generateCpp(std::ostream& ostr,
                      const SourceFileAttributes& attributes,
                      bool includePrototype,
@@ -2127,9 +2129,8 @@ namespace attributes {
 
         // always bring in Rcpp
         ostr << "using namespace Rcpp;" << std::endl << std::endl;
-        ostr << "Rostream<true>  &Rcpp::Rcout = Rcpp_cout_get();" << std::endl;
-        ostr << "Rostream<false> &Rcpp::Rcerr = Rcpp_cerr_get();" << std::endl;
-        ostr << std::endl;
+        // initialize references to global Rostreams
+        initializeGlobals(ostr);
 
         // commit with preamble
         return ExportsGenerator::commit(ostr.str());
@@ -2745,6 +2746,16 @@ namespace attributes {
         return argsOstr.str();
     }
 
+    // Generate the C++ code required to initialize global objects
+    void initializeGlobals(std::ostream& ostr) {
+        ostr << "#ifdef RCPP_USE_GLOBAL_ROSTREAM" << std::endl;
+        ostr << "Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();";
+        ostr << std::endl;
+        ostr << "Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();";
+        ostr << std::endl;
+        ostr << "#endif" << std::endl << std::endl;
+    }
+
     // Generate the C++ code required to make [[Rcpp::export]] functions
     // available as C symbols with SEXP parameters and return
     void generateCpp(std::ostream& ostr,
@@ -3191,6 +3202,8 @@ namespace {
             // always include Rcpp.h in case the user didn't
             ostr << std::endl << std::endl;
             ostr << "#include <Rcpp.h>" << std::endl;
+            // initialize references to global Rostreams
+            initializeGlobals(ostr);
             generateCpp(ostr, sourceAttributes, true, false, contextId_);
             generatedCpp_ = ostr.str();
             std::ofstream cppOfs(generatedCppSourcePath().c_str(),

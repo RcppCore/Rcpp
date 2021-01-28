@@ -80,9 +80,14 @@ namespace Rcpp {
         ::R_FlushConsole();
         return 0;
     }								// #nocov end
+
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
     extern Rostream<true>&  Rcout;
     extern Rostream<false>& Rcerr;
-
+#else
+    static Rostream<true>   Rcout;
+    static Rostream<false>  Rcerr;
+#endif
 
 }
 

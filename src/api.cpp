@@ -20,6 +20,7 @@
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 #define COMPILING_RCPP
+#define RCPP_USE_GLOBAL_ROSTREAM
 
 #include <Rcpp.h>
 
