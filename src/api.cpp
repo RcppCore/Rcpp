@@ -2,7 +2,7 @@
 //
 // api.cpp: Rcpp R/C++ interface class library -- Rcpp api
 //
-// Copyright (C) 2012 - 2020  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2021  Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
