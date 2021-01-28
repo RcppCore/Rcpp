@@ -23,6 +23,8 @@
 #ifndef RCPP_ROUTINE_H
 #define RCPP_ROUTINE_H
 
+#include <Rcpp/iostream/Rstreambuf.h>
+
 #if defined(COMPILING_RCPP)
 
 // the idea is that this file should be generated automatically by Rcpp::register
@@ -45,6 +47,9 @@ namespace Rcpp{
     void Rcpp_precious_teardown();
     SEXP Rcpp_precious_preserve(SEXP object);
     void Rcpp_precious_remove(SEXP token);
+
+    Rostream<true>&  Rcpp_cout_get();
+    Rostream<false>& Rcpp_cerr_get();
 }
 
 SEXP          rcpp_get_stack_trace();
@@ -153,6 +158,17 @@ namespace Rcpp {
         typedef void (*Fun)(SEXP);
         static Fun fun = GET_CALLABLE("Rcpp_precious_remove");
         fun(token);
+    }
+
+    inline attribute_hidden Rostream<true>&  Rcpp_cout_get() {
+        typedef Rostream<true>& (*Fun)();
+        static Fun fun = GET_CALLABLE("Rcpp_cout_get");
+        return fun();
+    }
+    inline attribute_hidden Rostream<false>& Rcpp_cerr_get() {
+        typedef Rostream<false>& (*Fun)();
+        static Fun fun = GET_CALLABLE("Rcpp_cerr_get");
+        return fun();
     }
 
 }

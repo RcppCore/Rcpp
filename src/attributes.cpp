@@ -2127,6 +2127,9 @@ namespace attributes {
 
         // always bring in Rcpp
         ostr << "using namespace Rcpp;" << std::endl << std::endl;
+        ostr << "Rostream<true>  &Rcpp::Rcout = Rcpp_cout_get();" << std::endl;
+        ostr << "Rostream<false> &Rcpp::Rcerr = Rcpp_cerr_get();" << std::endl;
+        ostr << std::endl;
 
         // commit with preamble
         return ExportsGenerator::commit(ostr.str());

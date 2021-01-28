@@ -124,6 +124,8 @@ void registerFunctions(){
     RCPP_REGISTER(Rcpp_precious_teardown)
     RCPP_REGISTER(Rcpp_precious_preserve)
     RCPP_REGISTER(Rcpp_precious_remove)
+    RCPP_REGISTER(Rcpp_cout_get)
+    RCPP_REGISTER(Rcpp_cerr_get)
     #undef RCPP_REGISTER
 }
 

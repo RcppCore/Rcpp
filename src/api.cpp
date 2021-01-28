@@ -33,6 +33,18 @@ using namespace Rcpp;
 #endif
 
 namespace Rcpp {
+    // [[Rcpp::register]]
+    Rostream<true>&  Rcpp_cout_get() {
+      static Rostream<true>  Rcpp_cout;
+      return Rcpp_cout;
+    }
+    // [[Rcpp::register]]
+    Rostream<false>& Rcpp_cerr_get() {
+      static Rostream<false> Rcpp_cerr;
+      return Rcpp_cerr;
+    }
+    Rostream<true>&  Rcout = Rcpp_cout_get();
+    Rostream<false>& Rcerr = Rcpp_cerr_get();
 
     namespace internal {
 
