@@ -2,7 +2,7 @@
 //
 // Rstreambuf.h: Rcpp R/C++ interface class library -- stream buffer
 //
-// Copyright (C) 2011 - 2017  Dirk Eddelbuettel, Romain Francois and Jelmer Ypma
+// Copyright (C) 2011 - 2020  Dirk Eddelbuettel, Romain Francois and Jelmer Ypma
 // Copyright (C) 2021         Dirk Eddelbuettel, Romain Francois, Jelmer Ypma and Iñaki Ucar
 //
 // This file is part of Rcpp.
