@@ -76,17 +76,17 @@ compileAttributes(pkg_path)
 
 # tests
 testRostream <- function() {
-  captureFun <- function(...) {
-    err <- capture.output(
-      out <- capture.output(..., type="output"), type="message")
-    c(out, err)
-  }
-  res <- all(ptrA() == ptrB())
-  res <- c(res, all(grepl("^ ", captureFun(something()))))
-  toLeft() # change alignment globally
-  res <- c(res, all(grepl("^s", captureFun(something()))))
-  toRight() # restore
-  res
+    captureFun <- function(...) {
+        err <- capture.output(
+            out <- capture.output(..., type="output"), type="message")
+        c(out, err)
+    }
+    res <- all(ptrA() == ptrB())
+    res <- c(res, all(grepl("^ ", captureFun(something()))))
+    toLeft() # change alignment globally
+    res <- c(res, all(grepl("^s", captureFun(something()))))
+    toRight() # restore
+    res
 }
 
 # test package
