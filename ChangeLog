@@ -3,6 +3,9 @@
         * DESCRIPTION (Version, Date): Roll minor version
         * inst/include/Rcpp/config.h: Idem
 
+	* README.md: Mention the Rcpp drap repo and its release candidates in
+	installation section
+
 2021-01-28  Iñaki Ucar  <iucar@fedoraproject.org>
 
 	* inst/include/Rcpp/iostream/Rstreambuf.h: Support for global Rcout/Rcerr by

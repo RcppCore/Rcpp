@@ -105,17 +105,48 @@ using Rcpp.  All these packages provide usage examples for Rcpp.
 
 ### Installation
 
-Released and tested versions of Rcpp are available via the
-[CRAN](https://cran.r-project.org) network, and can be installed from within R via
+#### CRAN
+
+Rcpp released on CRAN are carefully tested and curated. CRAN ensures they interoperate
+with all other CRAN package on all test environment. The released and tested versions
+are available via all mirrors of [CRAN](https://cran.r-project.org) network, and can be
+installed from within R via
 
 ```R
 install.packages("Rcpp")
 ```
 
+#### Release Candidates
+
+For the last several releases, we also made interim _candidate_ releases available
+on the [Rcpp Drat Repo](https://RcppCore.github.io/drat).  Versions from a
+[drat](https://github.com/eddelbuettel/drat) repo can be installed either by
+just temporarily setting the [drat](https://github.com/eddelbuettel/drat) repo as in
+
+```R
+install.packages("Rcpp", repos="https://RcppCore.github.io/drat")
+```
+
+or by setting a [drat](https://github.com/eddelbuettel/drat) repo more permanently
+(as described in the documentation of the [drat](https://github.com/eddelbuettel/drat)
+package).
+
+Testing the release candidates prior to actual release help. Please run this if you can.
+
+#### Source
+
 To install from source, ensure you have a complete package development
 environment for R as discussed in the relevant documentation; also see
 questions 1.2 and 1.3 in the
 [Rcpp-FAQ](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-FAQ.pdf).
+
+#### Less Common Versions and Platforms
+
+If you want to run Rcpp on another (not-tested on CRAN) platform, or on releases
+older than the previous release, we suggest you do your due diligence and test
+accordingly.  Rcpp is provided by an all-volunteer team with finite resources.
+We work hard to test Rcpp with several thousand CRAN packages using it---but
+we cannot test on outdated versions of R or your OS.
 
 ### Support
 
