@@ -1,3 +1,13 @@
+2021-01-28  Iñaki Ucar  <iucar@fedoraproject.org>
+
+	* inst/include/Rcpp/iostream/Rstreambuf.h: Support for global Rcout/Rcerr by
+	adding `-DRCPP_USE_GLOBAL_ROSTREAM` to `PKG_CPPFLAGS`. This behavior mimics
+	std::cout/cerr. Required initialization code is automatically generated.
+	* inst/include/Rcpp/routines.h: Ditto
+	* src/api.cpp: Ditto
+	* src/attributes.cpp: Ditto
+	* src/rcpp_init.cpp: Ditto
+
 2021-01-21  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll minor version

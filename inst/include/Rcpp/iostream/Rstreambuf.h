@@ -2,7 +2,8 @@
 //
 // Rstreambuf.h: Rcpp R/C++ interface class library -- stream buffer
 //
-// Copyright (C) 2011 - 2017  Dirk Eddelbuettel, Romain Francois and Jelmer Ypma
+// Copyright (C) 2011 - 2020  Dirk Eddelbuettel, Romain Francois and Jelmer Ypma
+// Copyright (C) 2021         Dirk Eddelbuettel, Romain Francois, Jelmer Ypma and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -80,9 +81,14 @@ namespace Rcpp {
         ::R_FlushConsole();
         return 0;
     }								// #nocov end
-    static Rostream<true>  Rcout;
-    static Rostream<false> Rcerr;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+    extern Rostream<true>&  Rcout;
+    extern Rostream<false>& Rcerr;
+#else
+    static Rostream<true>   Rcout;
+    static Rostream<false>  Rcerr;
+#endif
 
 }
 

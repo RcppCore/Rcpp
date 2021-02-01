@@ -3,6 +3,7 @@
 // api.cpp: Rcpp R/C++ interface class library -- Rcpp api
 //
 // Copyright (C) 2012 - 2020  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2021         Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -20,6 +21,7 @@
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 #define COMPILING_RCPP
+#define RCPP_USE_GLOBAL_ROSTREAM
 
 #include <Rcpp.h>
 
@@ -33,6 +35,18 @@ using namespace Rcpp;
 #endif
 
 namespace Rcpp {
+    // [[Rcpp::register]]
+    Rostream<true>&  Rcpp_cout_get() {
+      static Rostream<true>  Rcpp_cout;
+      return Rcpp_cout;
+    }
+    // [[Rcpp::register]]
+    Rostream<false>& Rcpp_cerr_get() {
+      static Rostream<false> Rcpp_cerr;
+      return Rcpp_cerr;
+    }
+    Rostream<true>&  Rcout = Rcpp_cout_get();
+    Rostream<false>& Rcerr = Rcpp_cerr_get();
 
     namespace internal {
 

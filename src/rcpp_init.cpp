@@ -2,6 +2,7 @@
 // Rcpp_init.cpp : Rcpp R/C++ interface class library -- Initialize and register
 //
 // Copyright (C) 2010 - 2020  John Chambers, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2021         John Chambers, Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -124,6 +125,8 @@ void registerFunctions(){
     RCPP_REGISTER(Rcpp_precious_teardown)
     RCPP_REGISTER(Rcpp_precious_preserve)
     RCPP_REGISTER(Rcpp_precious_remove)
+    RCPP_REGISTER(Rcpp_cout_get)
+    RCPP_REGISTER(Rcpp_cerr_get)
     #undef RCPP_REGISTER
 }
 
