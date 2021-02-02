@@ -119,7 +119,7 @@ install.packages("Rcpp")
 #### Release Candidates
 
 For the last several releases, we also made interim _candidate_ releases available
-on the [Rcpp Drat Repo](https://RcppCore.github.io/drat).  Versions from a
+on the [Rcpp Drat Repo](https://RcppCore.github.io/drat/).  Versions from a
 [drat](https://github.com/eddelbuettel/drat) repo can be installed either by
 just temporarily setting the [drat](https://github.com/eddelbuettel/drat) repo as in
 
