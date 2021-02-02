@@ -6,11 +6,16 @@
 	* README.md: Mention the Rcpp drap repo and its release candidates in
 	installation section
 
+2021-01-30  Iñaki Ucar  <iucar@fedoraproject.org>
+
+	* inst/include/test_global_rostream.R: Added test new (optionally)
+	global Rcout and Rcerr objects
+
 2021-01-28  Iñaki Ucar  <iucar@fedoraproject.org>
 
-	* inst/include/Rcpp/iostream/Rstreambuf.h: Support for global Rcout/Rcerr by
-	adding `-DRCPP_USE_GLOBAL_ROSTREAM` to `PKG_CPPFLAGS`. This behavior mimics
-	std::cout/cerr. Required initialization code is automatically generated.
+	* inst/include/Rcpp/iostream/Rstreambuf.h: Support for global
+	Rcout/Rcerr by defining `-DRCPP_USE_GLOBAL_ROSTREAM`; this mimics
+	std::cout/cerr; initialization code is automatically generated.
 	* inst/include/Rcpp/routines.h: Ditto
 	* src/api.cpp: Ditto
 	* src/attributes.cpp: Ditto

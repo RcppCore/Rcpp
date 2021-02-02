@@ -3,7 +3,7 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp patch release version 1.0.7 (2021-07-xx)}{
+\section{Changes in Rcpp release version 1.0.7 (unreleased, expected 2021-07-xx)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
@@ -12,6 +12,8 @@
       fixing \ghit{382} and \ghit{1081}).
       \item A spuriously assigned variable was removed (Dirk in
       \ghpr{1138} fixing \ghit{1137})
+      \item Global \code{Rcout} and \code{Rcerr} objects are supported
+      via a compiler directive (Iñaki in \ghpr{1139} fixing \ghit{928})
     }
     \item Changes in Rcpp Attributes:
     \itemize{
@@ -23,7 +25,7 @@
   }
 }
 
-\section{Changes in Rcpp patch release version 1.0.6 (2021-01-14)}{
+\section{Changes in Rcpp release version 1.0.6 (2021-01-14)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
@@ -57,7 +59,7 @@
   }
 }
 
-\section{Changes in Rcpp patch release version 1.0.5 (2020-07-01)}{
+\section{Changes in Rcpp release version 1.0.5 (2020-07-01)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
