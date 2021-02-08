@@ -1,3 +1,7 @@
+2021-02-08  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Author): Add Inaki to the team
+
 2021-02-01  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll minor version
