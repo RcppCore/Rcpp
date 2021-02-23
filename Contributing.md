@@ -30,7 +30,7 @@ post an issue outlining some motivation for your pull request to ensure that
 some discussion around the appropriate resolution for the issue occurs first.
 
 We would prefer it if your PR also included
-[unit tests](https://github.com/RcppCore/Rcpp/tree/master/inst/unitTests). Additions
+[unit tests](https://github.com/RcppCore/Rcpp/tree/master/inst/tinytest). Additions
 to the [ChangeLog](https://github.com/RcppCore/Rcpp/blob/master/ChangeLog) and
 [NEWS](https://github.com/RcppCore/Rcpp/blob/master/inst/NEWS.Rd) are also
 appreciated.
