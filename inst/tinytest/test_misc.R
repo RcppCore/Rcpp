@@ -184,6 +184,10 @@ expect_true(Rcpp::getRcppVersion(devel=TRUE) >= Rcpp::getRcppVersion(devel=FALSE
 # expect_true(FALSE, info="oh noes")
 
 ## test that a message is output as is, and a suppressedMessage is not
-expect_equal(capture.output(messageWrapper("ABCdef"), type="message"), "ABCdef")
-expect_equal(capture.output(suppressMessages(messageWrapper("ABCdef")), type="message"), character())
-expect_message(messageWrapper("ABCdef"))
+txt <- "ABCdef"
+expect_equal(capture.output(messageWrapper(txt), type="message"), txt)
+expect_equal(capture.output(suppressMessages(messageWrapper(txt)), type="message"), character())
+expect_message(messageWrapper(txt))
+## test for message component
+msg <- tryCatch(message(txt), message = identity)
+expect_equal(msg$message, paste(txt, "\n", sep=""))
