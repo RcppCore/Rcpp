@@ -14,6 +14,8 @@
       \ghpr{1138} fixing \ghit{1137})
       \item Global \code{Rcout} and \code{Rcerr} objects are supported
       via a compiler directive (Iñaki in \ghpr{1139} fixing \ghit{928})
+      \item Add support for \code{Rcpp::message} (Dirk in \ghpr{1146}
+      fixing \ghit{1145})
     }
     \item Changes in Rcpp Attributes:
     \itemize{
