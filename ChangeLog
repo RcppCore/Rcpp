@@ -1,3 +1,8 @@
+2021-03-21  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/api/meat/message.h: Add wrapper for base::message
+	* inst/include/Rcpp/api/meat/meat.h: Include new file
+
 2021-02-23  Dirk Eddelbuettel  <edd@debian.org>
 
 	* Contributing.md: Update unit test link to tinytest
