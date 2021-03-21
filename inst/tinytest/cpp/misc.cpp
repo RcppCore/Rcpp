@@ -224,3 +224,8 @@ String testNullableString(Rcpp::Nullable<Rcpp::String> param = R_NilValue) {
   else
     return String("");
 }
+
+// [[Rcpp::export]]
+void messageWrapper(SEXP s) {
+    message(s);
+}

@@ -2,6 +2,8 @@
 
 	* inst/include/Rcpp/api/meat/message.h: Add wrapper for base::message
 	* inst/include/Rcpp/api/meat/meat.h: Include new file
+	* inst/tinytest/test_misc.R: Simple test
+	* inst/tinytest/cpp/misc.cpp (messageWrapper): Test support
 
 2021-02-23  Dirk Eddelbuettel  <edd@debian.org>
 

@@ -1,5 +1,5 @@
 
-##  Copyright (C) 2010 - 2019  Dirk Eddelbuettel and Romain Francois
+##  Copyright (C) 2010 - 2021  Dirk Eddelbuettel and Romain Francois
 ##
 ##  This file is part of Rcpp.
 ##
@@ -182,3 +182,7 @@ expect_true(getRcppVersion(devel=TRUE) >= getRcppVersion(devel=FALSE), info="dev
 ## if need be it can be useful to fail to test e.g. the Docker setup
 ## commented out now as we prefer to pass when not debugging ;-)
 # expect_true(FALSE, info="oh noes")
+
+## test that a message is output as is, and a suppressedMessage is not
+expect_equal(capture.output( messageWrapper("ABCdef"), type="message"), "ABCdef")
+expect_equal(capture.output( suppressMessages(messageWrapper("ABCdef")), type="message"), character())
