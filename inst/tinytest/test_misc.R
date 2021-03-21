@@ -176,8 +176,8 @@ expect_equal(testNullableString("blah"), "blah")
 expect_true(nchar(Rcpp:::bib()) > 0, info="bib file")
 
 #    test.getRcppVersion <- function() {
-expect_true(inherits(getRcppVersion(), "package_version"), info="package_version object")
-expect_true(getRcppVersion(devel=TRUE) >= getRcppVersion(devel=FALSE), info="dev greater equal release")
+expect_true(inherits(Rcpp::getRcppVersion(), "package_version"), info="package_version object")
+expect_true(Rcpp::getRcppVersion(devel=TRUE) >= Rcpp::getRcppVersion(devel=FALSE), info="dev greater equal release")
 
 ## if need be it can be useful to fail to test e.g. the Docker setup
 ## commented out now as we prefer to pass when not debugging ;-)
