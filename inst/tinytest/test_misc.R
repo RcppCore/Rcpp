@@ -1,5 +1,5 @@
 
-##  Copyright (C) 2010 - 2019  Dirk Eddelbuettel and Romain Francois
+##  Copyright (C) 2010 - 2021  Dirk Eddelbuettel and Romain Francois
 ##
 ##  This file is part of Rcpp.
 ##
@@ -176,9 +176,18 @@ expect_equal(testNullableString("blah"), "blah")
 expect_true(nchar(Rcpp:::bib()) > 0, info="bib file")
 
 #    test.getRcppVersion <- function() {
-expect_true(inherits(getRcppVersion(), "package_version"), info="package_version object")
-expect_true(getRcppVersion(devel=TRUE) >= getRcppVersion(devel=FALSE), info="dev greater equal release")
+expect_true(inherits(Rcpp::getRcppVersion(), "package_version"), info="package_version object")
+expect_true(Rcpp::getRcppVersion(devel=TRUE) >= Rcpp::getRcppVersion(devel=FALSE), info="dev greater equal release")
 
 ## if need be it can be useful to fail to test e.g. the Docker setup
 ## commented out now as we prefer to pass when not debugging ;-)
 # expect_true(FALSE, info="oh noes")
+
+## test that a message is output as is, and a suppressedMessage is not
+txt <- "ABCdef"
+expect_equal(capture.output(messageWrapper(txt), type="message"), txt)
+expect_equal(capture.output(suppressMessages(messageWrapper(txt)), type="message"), character())
+expect_message(messageWrapper(txt))
+## test for message component
+msg <- tryCatch(message(txt), message = identity)
+expect_equal(msg$message, paste(txt, "\n", sep=""))
