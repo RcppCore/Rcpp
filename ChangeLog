@@ -1,3 +1,8 @@
+2021-03-22  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version, Date): Roll minor version
+        * inst/include/Rcpp/config.h: Idem
+
 2021-03-21  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/api/meat/message.h: Add wrapper for base::message
