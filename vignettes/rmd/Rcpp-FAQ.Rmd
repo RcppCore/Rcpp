@@ -1753,7 +1753,7 @@ statically on Windows putting a limitation on the use of `stop()` from within
 Rcpp Modules \citep{CRAN:Rcpp:Modules}.  Some more background on the linking
 requirement is [in this SO
 question](https://stackoverflow.com/questions/2424836/exceptions-are-not-caught-in-gcc-program).
- 
+
 ## My package errors with "'dataptr' not provided by Rcpp"
 
 If you see tests of your package fail with an error '... not provided by
@@ -1765,3 +1765,12 @@ package, it is generally recommended to have both `Imports: Rcpp` and
 that this symbol is registered when your package is loaded by R, and as a
 side-effect certain other \pkg{Rcpp} function identifiers will also be
 resolved properly.
+
+## On macOS, 'no matching function for call to `R_lsInternal`'
+
+In issue [#1148](https://github.com/RcppCore/Rcpp/issues/1148) an error due
+to overeager includes was reported. Including `Rinternals.h` along with the
+(macOS-only) `mach/boolean.h` lead to linker error as `mach/boolean`
+redefines `TRUE` leading to bad interactions with the `Rboolean` enum type. A
+very simple solution is to be more careful and conservative with `#include`
+files and a) have `#include <mach/boolean.h>` appear first and b) skip
