@@ -1766,7 +1766,7 @@ that this symbol is registered when your package is loaded by R, and as a
 side-effect certain other \pkg{Rcpp} function identifiers will also be
 resolved properly.
 
-## On macOS, 'no function function for call to `R_lsInternal`'
+## On macOS, 'no matching function for call to `R_lsInternal`'
 
 In issue [#1148](https://github.com/RcppCore/Rcpp/issues/1148) an error due
 to overeager includes was reported. Including `Rinternals.h` along with the
@@ -1774,4 +1774,3 @@ to overeager includes was reported. Including `Rinternals.h` along with the
 redefines `TRUE` leading to bad interactions with the `Rboolean` enum type. A
 very simple solution is to be more careful and conservative with `#include`
 files and a) have `#include <mach/boolean.h>` appear first and b) skip
-`#include <Rinternals.h>` as Rcpp brings it in anyway.
