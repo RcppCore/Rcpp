@@ -1774,3 +1774,4 @@ to overeager includes was reported. Including `Rinternals.h` along with the
 redefines `TRUE` leading to bad interactions with the `Rboolean` enum type. A
 very simple solution is to be more careful and conservative with `#include`
 files and a) have `#include <mach/boolean.h>` appear first and b) skip
+the `#include <Rinternals.h>` as it is included by `Rcpp.h` anyway.
