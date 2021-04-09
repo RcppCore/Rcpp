@@ -1,3 +1,7 @@
+2021-04-09  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/hash/IndexHash.h: Silence one comparison
+
 2021-03-22  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll minor version

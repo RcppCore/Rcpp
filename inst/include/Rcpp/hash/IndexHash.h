@@ -3,9 +3,9 @@
 // IndexHash.h: Rcpp R/C++ interface class library -- hashing utility, inspired
 // from Simon's fastmatch package
 //
-// Copyright (C) 2010, 2011  Simon Urbanek
-// Copyright (C) 2012  Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2014  Dirk Eddelbuettel, Romain Francois and Kevin Ushey
+// Copyright (C) 2010, 2011   Simon Urbanek
+// Copyright (C) 2012 - 2013  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2014 - 2021  Dirk Eddelbuettel, Romain Francois and Kevin Ushey
 //
 // This file is part of Rcpp.
 //
@@ -100,7 +100,7 @@ namespace Rcpp{
         }
 
         inline bool contains(STORAGE val) const {
-            return get_index(val) != NA_INTEGER ;
+            return get_index(val) != static_cast<unsigned int>(NA_INTEGER);
         }
 
         inline int size() const {
@@ -238,4 +238,3 @@ namespace Rcpp{
 } // Rcpp
 
 #endif
-
