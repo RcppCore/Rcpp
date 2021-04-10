@@ -1,11 +1,10 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
-//
+
 // IndexHash.h: Rcpp R/C++ interface class library -- hashing utility, inspired
 // from Simon's fastmatch package
 //
-// Copyright (C) 2010, 2011  Simon Urbanek
-// Copyright (C) 2012  Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2014  Dirk Eddelbuettel, Romain Francois and Kevin Ushey
+// Copyright (C) 2010, 2011   Simon Urbanek
+// Copyright (C) 2012 - 2013  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2014 - 2021  Dirk Eddelbuettel, Romain Francois and Kevin Ushey
 //
 // This file is part of Rcpp.
 //
@@ -43,7 +42,7 @@ namespace Rcpp{
     namespace sugar{
 
     #ifndef RCPP_HASH
-    #define RCPP_HASH(X) (3141592653U * ((unsigned int)(X)) >> (32 - k))
+    #define RCPP_HASH(X) (3141592653U * ((uint32_t)(X)) >> (32 - k))
     #endif
 
     template <int RTYPE>
@@ -100,7 +99,7 @@ namespace Rcpp{
         }
 
         inline bool contains(STORAGE val) const {
-            return get_index(val) != NA_INTEGER ;
+            return get_index(val) != static_cast<uint32_t>(NA_INTEGER);
         }
 
         inline int size() const {
@@ -167,10 +166,10 @@ namespace Rcpp{
         bool add_value(int i){
             RCPP_DEBUG_2( "%s::add_value(%d)", DEMANGLE(IndexHash), i )
             STORAGE val = src[i++] ;
-            unsigned int addr = get_addr(val) ;
+            uint32_t addr = get_addr(val) ;
             while (data[addr] && not_equal( src[data[addr] - 1], val)) {
               addr++;
-              if (addr == static_cast<unsigned int>(m)) {
+              if (addr == static_cast<uint32_t>(m)) {
                 addr = 0;
               }
             }
@@ -185,31 +184,31 @@ namespace Rcpp{
         }
 
         /* NOTE: we are returning a 1-based index ! */
-        inline unsigned int get_index(STORAGE value) const {
-            unsigned int addr = get_addr(value) ;
+        inline uint32_t get_index(STORAGE value) const {
+            uint32_t addr = get_addr(value) ;
             while (data[addr]) {
               if (src[data[addr] - 1] == value)
                 return data[addr];
               addr++;
-              if (addr == static_cast<unsigned int>(m)) addr = 0;
+              if (addr == static_cast<uint32_t>(m)) addr = 0;
             }
             return NA_INTEGER;
         }
 
         // defined below
-        unsigned int get_addr(STORAGE value) const ;
+        uint32_t get_addr(STORAGE value) const ;
     } ;
 
     template <>
-    inline unsigned int IndexHash<INTSXP>::get_addr(int value) const {
+    inline uint32_t IndexHash<INTSXP>::get_addr(int value) const {
         return RCPP_HASH(value) ;
     }
     template <>
-    inline unsigned int IndexHash<REALSXP>::get_addr(double val) const {
-      unsigned int addr;
+    inline uint32_t IndexHash<REALSXP>::get_addr(double val) const {
+      uint32_t addr;
       union dint_u {
           double d;
-          unsigned int u[2];
+          uint32_t u[2];
         };
       union dint_u val_u;
       /* double is a bit tricky - we nave to normalize 0.0, NA and NaN */
@@ -222,9 +221,9 @@ namespace Rcpp{
     }
 
     template <>
-    inline unsigned int IndexHash<STRSXP>::get_addr(SEXP value) const {
+    inline uint32_t IndexHash<STRSXP>::get_addr(SEXP value) const {
         intptr_t val = (intptr_t) value;
-        unsigned int addr;
+        uint32_t addr;
         #if (defined _LP64) || (defined __LP64__) || (defined WIN64)
           addr = RCPP_HASH((val & 0xffffffff) ^ (val >> 32));
         #else
@@ -238,4 +237,3 @@ namespace Rcpp{
 } // Rcpp
 
 #endif
-
