@@ -63,6 +63,7 @@ namespace Rcpp {
 #include <numeric>
 #include <algorithm>
 #include <complex>
+#include <cfloat>
 #include <limits>
 #include <typeinfo>
 #include <Rcpp/sprintf.h>
