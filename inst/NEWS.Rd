@@ -11,11 +11,15 @@
       which are now O(1) (Dirk and Iñaki in \ghpr{1133} and \ghpr{1135}
       fixing \ghit{382} and \ghit{1081}).
       \item A spuriously assigned variable was removed (Dirk in
-      \ghpr{1138} fixing \ghit{1137})
+      \ghpr{1138} fixing \ghit{1137}).
       \item Global \code{Rcout} and \code{Rcerr} objects are supported
       via a compiler directive (Iñaki in \ghpr{1139} fixing \ghit{928})
       \item Add support for \code{Rcpp::message} (Dirk in \ghpr{1146}
-      fixing \ghit{1145})
+      fixing \ghit{1145}).
+      \item The \code{uint32_t} type is used throughout instead of
+      \code{unsigned int} (Dirk in \ghpr{1153} fixing \ghit{1152}).
+      \item The \code{cfloat} header for floating point limits is now
+      included {\Dirk in \ghpr{1162} fixing \ghit{1161}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{
