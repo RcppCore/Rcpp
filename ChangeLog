@@ -1,3 +1,8 @@
+2021-05-13  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version, Date): Roll minor version
+        * inst/include/Rcpp/config.h: Idem
+
 2021-05-09  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/RcppCommon.h: Add cfloat header
