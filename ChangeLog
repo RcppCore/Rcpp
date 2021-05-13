@@ -1,7 +1,11 @@
+2021-05-09  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/RcppCommon.h: Add cfloat header
+
 2021-04-09  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/hash/IndexHash.h: Silence one comparison, update
-	use of unsigned it to uint32_t throughout
+	use of unsigned int to uint32_t throughout
 
 2021-03-22  Dirk Eddelbuettel  <edd@debian.org>
 
