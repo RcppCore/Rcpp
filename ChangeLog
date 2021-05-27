@@ -1,3 +1,10 @@
+2021-05-27  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/tinytest/cpp/rcppversion.cpp (checkVersion): Allow for more
+	than four components of a development version number
+	* inst/tinytest/test_packageversion.R: Idem
+	* inst/include/Rcpp/config.h (RCPP_DEV_VERSION): Clarify in comment
+
 2021-05-13  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll minor version
