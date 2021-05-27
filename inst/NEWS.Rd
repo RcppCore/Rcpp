@@ -19,12 +19,12 @@
       \item The \code{uint32_t} type is used throughout instead of
       \code{unsigned int} (Dirk in \ghpr{1153} fixing \ghit{1152}).
       \item The \code{cfloat} header for floating point limits is now
-      included {\Dirk in \ghpr{1162} fixing \ghit{1161}).
+      included (Dirk in \ghpr{1162} fixing \ghit{1161}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{
       \item Packages with dots in their name can now have per-package
-      include files (Dirk in \ghpr{1132} fixes \ghit{1129}).
+      include files (Dirk in \ghpr{1132} fixing \ghit{1129}).
       \item New argument \code{echo} to quieten optional evaluation in
       \code{sourceCpp} (Dirk in \ghpr{1138} fixing \ghit{1126}).
     }
