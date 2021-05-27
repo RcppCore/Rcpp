@@ -10,7 +10,8 @@ Rcpp::List checkVersion(Rcpp::IntegerVector v) {
 
     // ensure that length is four, after possibly appending 0
     if (v.size() == 3) v.push_back(0);
-    if (v.size() != 4) Rcpp::stop("Expect vector with four elements.");
+    if (v.size() == 4) v.push_back(0);
+    if (v.size() > 5) Rcpp::stop("Expect vector with up to five elements.");
 
     return Rcpp::List::create(Rcpp::Named("def_ver")     = RCPP_VERSION,
                               Rcpp::Named("def_str")     = RCPP_VERSION_STRING,
