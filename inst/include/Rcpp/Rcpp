@@ -1,0 +1,7 @@
+// New (draft) catch all header
+
+// With (at least) one (potentially) breaking change
+// (but also note r/headers.h)
+#define STRICT_R_HEADERS
+
+#include <Rcpp.h>
