@@ -1,3 +1,8 @@
+2021-07-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/r/headers.h: Update notice as January 2022
+	release will remove protection for STRICT_R_HEADERS making it default
+
 2021-05-27  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/tinytest/cpp/rcppversion.cpp (checkVersion): Allow for more

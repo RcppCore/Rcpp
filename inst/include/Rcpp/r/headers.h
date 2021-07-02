@@ -1,7 +1,7 @@
 // headers.h: Rcpp R/C++ interface class library -- R headers
 //
 // Copyright (C) 2008 - 2009 Dirk Eddelbuettel
-// Copyright (C) 2009 - 2019 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2009 - 2021 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -25,8 +25,7 @@
 #define MAXELTSIZE 8192
 #define R_NO_REMAP
 
-// until September 2019, define RCPP_NO_STRICT_R_HEADERS for transition
-// (that goal was too optimistic, reverse depency checks showed too much breakage)
+// until January 2022, define RCPP_NO_STRICT_R_HEADERS for transition
 #ifndef RCPP_NO_STRICT_R_HEADERS
 # define RCPP_NO_STRICT_R_HEADERS
 #endif
