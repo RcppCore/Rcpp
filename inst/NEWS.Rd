@@ -3,7 +3,7 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp release version 1.0.7 (unreleased, expected 2021-07-xx)}{
+\section{Changes in Rcpp release version 1.0.7 (2021-07-03)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
@@ -27,6 +27,11 @@
       include files (Dirk in \ghpr{1132} fixing \ghit{1129}).
       \item New argument \code{echo} to quieten optional evaluation in
       \code{sourceCpp} (Dirk in \ghpr{1138} fixing \ghit{1126}).
+    }
+    \item Forthcoming Changes in Rcpp API:
+    \itemize{
+      \item Starting with Rcpp 1.0.8 anticipated in January 2022,
+      \code{STRICT_R_HEADERS} will be enabled by default, see \ghit{1126}.
     }
   }
 }

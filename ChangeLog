@@ -1,3 +1,13 @@
+2021-07-03  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Date, Version): Release 1.0.7
+
+        * inst/include/Rcpp/config.h: Idem
+        * inst/NEWS.Rd: Idem
+        * vignettes/rmd/Rcpp.bib: Idem
+        * inst/bib/Rcpp.bib: Idem
+	* vignettes/pdf/*: Rebuilt
+
 2021-07-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/r/headers.h: Update notice as January 2022
