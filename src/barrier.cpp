@@ -116,7 +116,7 @@ SEXP Rcpp_precious_preserve(SEXP object) {
 }
 // [[Rcpp::register]]
 void Rcpp_precious_remove(SEXP token) {
-    if (token == R_NilValue) {
+    if (token == R_NilValue || TYPEOF(token) != LISTSXP) {
         return;
     }
     SEXP before = CAR(token);
