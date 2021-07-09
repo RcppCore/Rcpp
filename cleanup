@@ -35,5 +35,5 @@ rm -rf	autom4te.cache inst/lib/ inst/doc/man/ inst/doc/html/ inst/doc/latex/ \
 find . -name \*~ -exec rm {} \;
 find . -name \*.flc -exec rm {} \;
 
-(cd vignettes/ && make clean && cd -) >/dev/null
-(cd vignettes/rmd/ && make clean && cd -) >/dev/null
+(test -d vignettes/    && cd vignettes/     && make clean && cd -) >/dev/null
+(test -d vignettes/rmd && cd vignettes/rmd/ && make clean && cd -) >/dev/null
