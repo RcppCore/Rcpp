@@ -28,3 +28,4 @@ vignettes/Makefile
 vignettes/rmd
 \.github
 ^issue.*\.md
+^note.*\.md
