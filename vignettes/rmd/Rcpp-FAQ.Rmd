@@ -1776,9 +1776,9 @@ very simple solution is to be more careful and conservative with `#include`
 files and a) have `#include <mach/boolean.h>` appear first and b) skip
 the `#include <Rinternals.h>` as it is included by `Rcpp.h` anyway.
 
-## Can we grow Rcpp vectors via push_back() / push_from()
+## Can we grow Rcpp vectors like STL vectors via 'push*'
 
-No. Use STL vectors instead. This has been stated clearly many times going
+No. Use actual STL vectors instead. This has been stated clearly many times going
 back to the [original announcement in Feb 2010](https://lists.r-forge.r-project.org/pipermail/rcpp-devel/2010-February/000410.html),
 StackOverflow answers in [Dec 2011](https://stackoverflow.com/a/8631853/143305)
 and in [Dec 2012](https://stackoverflow.com/a/13783044/143305),
