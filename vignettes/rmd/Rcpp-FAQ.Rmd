@@ -1785,7 +1785,7 @@ and in [Dec 2012](https://stackoverflow.com/a/13783044/143305),
 the rcpp-devel list in [Jun 2013](https://lists.r-forge.r-project.org/pipermail/rcpp-devel/2013-June/006078.html),
 another StackOverflow answer in [Nov 2013](https://stackoverflow.com/a/19829440/143305),
 an early Rcpp Gallery post in [Dec 2013](https://gallery.rcpp.org/articles/plyr-c-to-rcpp/),
-again in on StackOverflow [Dec 2014](https://stackoverflow.com/a/27585789/143305), as well as in
+again on StackOverflow [Dec 2014](https://stackoverflow.com/a/27585789/143305), as well as in
 the 'Advanced R' [first](http://adv-r.had.co.nz/Rcpp.html#stl) and
 [second](https://adv-r.hadley.nz/rcpp.html#stl) editions.
 For emphasis, here is a quote from the [rcpp-devel post](https://lists.r-forge.r-project.org/pipermail/rcpp-devel/2013-June/006078.html):
@@ -1801,6 +1801,6 @@ For emphasis, here is a quote from the [rcpp-devel post](https://lists.r-forge.r
 > stl types and then convert back to R types, which is something we make
 > easy to do.
 
-Many code example and package show exactly that approach (as _e.g._ discussed
+Many code examples and packages show exactly that approach (as _e.g._ discussed
 in the [Rcpp Gallery post](https://gallery.rcpp.org/articles/plyr-c-to-rcpp/)).
 Anybody who claims otherwise is (possibly intentionally) misleading.
