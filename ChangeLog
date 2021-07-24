@@ -1,3 +1,7 @@
+2021-07-24  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/rmd/Rcpp-FAQ.Rmd: New entry on growing vectors
+
 2021-07-08  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll minor version
