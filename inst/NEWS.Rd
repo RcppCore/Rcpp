@@ -3,6 +3,20 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
+\section{Changes in Rcpp release version 1.0.8 (2022-01-xx)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \code{STRICT_R_HEADERS} will be enabled by default, see \ghit{1126}.
+    }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item The Rcpp FAQ has a new entry on how \emph{not} to grow a vector
+        (Dirk in \ghpr{1167}).
+    }
+  }
+}
+
 \section{Changes in Rcpp release version 1.0.7 (2021-07-06)}{
   \itemize{
     \item Changes in Rcpp API:
