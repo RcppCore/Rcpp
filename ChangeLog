@@ -1,3 +1,8 @@
+2021-08-05  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/bib/Rcpp.bib: Use https for CRAN URLs
+	* vignettes/rmd/Rcpp.bib: Idem
+
 2021-07-25  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll minor version
