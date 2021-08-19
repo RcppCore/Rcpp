@@ -1,0 +1,7 @@
+// New (draft) header with optional components off
+
+// no Modules
+#define RCPP_NO_MODULES
+
+// include Rcpp as usual
+#include <Rcpp/Rcpp>

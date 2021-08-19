@@ -1,0 +1,7 @@
+// New (draft) header with optional components off
+
+// no RTTI (actually implies no Modules) -- solid gain
+#define RCPP_NO_RTTI
+
+// include Rcpp/Light which includes Rcpp
+#include <Rcpp/Light>

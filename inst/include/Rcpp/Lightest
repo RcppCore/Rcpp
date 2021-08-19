@@ -1,0 +1,7 @@
+// New (draft) header with optional components off
+
+// no Sugar (but unclear how much it helps)
+#define RCPP_NO_SUGAR
+
+// include Rcpp/Lighter
+#include <Rcpp/Lighter>
