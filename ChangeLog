@@ -1,3 +1,11 @@
+2021-09-05  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/examples/Misc/piSugar.cpp (piSugar): Remove spurious call to
+	RNGScope we do not need with Rcpp Attributes
+	* inst/examples/RcppGibbs/RcppGibbs.R (Rgibbs): Comment on two uses
+	of RNGScope as historical in pre-Attributes code
+	* inst/examples/RcppGibbs/timeRNGs.R: Idem for one more
+
 2021-08-05  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/bib/Rcpp.bib: Use https for CRAN URLs

@@ -100,7 +100,7 @@ gibbscode <- '
   int i,j;
   NumericMatrix mat(N, 2);
 
-  RNGScope scope;         // Initialize Random number generator
+  RNGScope scope;         // Initialize Random number generator. Not needed when Attributes used.
 
   // The rest of the code follows the R version
   double x=0, y=0;
@@ -174,10 +174,10 @@ NumericMatrix RcppGibbs(int N, int thn){
 
     // Setup storage matrix
     NumericMatrix mat(N, 2);
-    
+
     // The rest of the code follows the R version
     double x = 0, y = 0;
-    
+
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < thn; j++) {
             x = R::rgamma(3.0,1.0/(y*y+4));
@@ -186,14 +186,14 @@ NumericMatrix RcppGibbs(int N, int thn){
         mat(i,0) = x;
         mat(i,1) = y;
     }
-    
+
     return mat;             // Return to R
 }')
 
 
 ## Use of the sourceCpp() is preferred for users who wish to source external
 ## files or specify their headers and Rcpp attributes within their code.
-## Code here is able to easily be extracted and placed into its own C++ file. 
+## Code here is able to easily be extracted and placed into its own C++ file.
 
 ## Compile and Load
 sourceCpp(code="
@@ -219,7 +219,7 @@ NumericMatrix GSLGibbs(int N, int thin){
         mat(i,1) = y;
     }
     gsl_rng_free(r);
-    
+
     return mat;           // Return to R
 }")
 
@@ -289,5 +289,3 @@ print(res)
 
 
 ## And we are done
-
-
