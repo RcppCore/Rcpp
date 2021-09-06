@@ -19,6 +19,9 @@ jobs:
           - name: release
             cntr: rcpp/ci
             r: R
+          - name: r-4.0
+            cntr: rcpp/ci-4.0
+            r: R
           - name: r-3.6
             cntr: rcpp/ci-3.6
             r: R
