@@ -5,7 +5,7 @@ suppressMessages(library(rbenchmark))
 
 ## NOTE: Within this section, the new way to compile Rcpp code inline has been
 ## written. Please use the code next as a template for your own project, and
-## no NOT use the old code below
+## do NOT use the old code below
 
 cppFunction('
 NumericVector rcppGamma(NumericVector x){
