@@ -1,3 +1,8 @@
+2021-09-06  Dirk Eddelbuettel  <edd@debian.org>
+
+	* docker/ci-4.0/Dockerfile: Using R 4.0.5 to build ci-4.0
+	* .github/workflows/ci.yaml (jobs): Also run against R 4.0.*
+
 2021-09-05  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/examples/Misc/piSugar.cpp (piSugar): Remove spurious call to
