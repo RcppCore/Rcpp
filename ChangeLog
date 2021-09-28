@@ -1,3 +1,7 @@
+2021-09-27  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Added total downloads badge
+
 2021-09-06  Dirk Eddelbuettel  <edd@debian.org>
 
 	* docker/ci-4.0/Dockerfile: Using R 4.0.5 to build ci-4.0
