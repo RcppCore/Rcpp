@@ -62,5 +62,7 @@ void test() {
 writeLines(code, file_path)
 expect_silent(system(cmd), info="check that finalizer is NOT called on exit")
 
+if (packageVersion("tinytest") < "1.2.0") exit_file("Skip remainder on older test platform")
+
 writeLines(c("#define RCPP_USE_FINALIZE_ON_EXIT", code), file_path)
 expect_stdout(system(cmd), info="check that finalizer is called on exit")
