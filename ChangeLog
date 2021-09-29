@@ -1,3 +1,10 @@
+2021-09-29  Iñaki Ucar  <iucar@fedoraproject.org>
+
+	* inst/include/Rcpp/XPtr.h: Check for new define
+        `RCPP_USE_FINALIZE_ON_EXIT` to flip the value of XPtr's `finalizeOnExit`
+        parameter from false (default) to true.
+	* inst/tinytest/test_xptr.R: Added test for this functionality.
+
 2021-09-27  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Added total downloads badge
