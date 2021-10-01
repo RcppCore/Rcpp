@@ -7,12 +7,21 @@
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
-      \code{STRICT_R_HEADERS} will be enabled by default, see \ghit{1126}.
+      \item \code{STRICT_R_HEADERS} will be enabled by default, see
+      extensive discussion in \ghit{1158}.
+      \item A new \code{#define} allows default setting of finalizer
+      calls for external pointers (Iñaki in \ghpr{1180} closing \ghit{1108}).
     }
     \item Changes in Rcpp Documentation:
     \itemize{
       \item The Rcpp FAQ has a new entry on how \emph{not} to grow a vector
-        (Dirk in \ghpr{1167}).
+      (Dirk in \ghpr{1167}).
+      \item Some long-spurious calls to \code{RNGSope} have been removed
+      from examples.
+    }
+    \item Changes in Rcpp Deployment:
+    \itemize{
+      \item Some continuous integration components have been updated.
     }
   }
 }
