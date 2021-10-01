@@ -2,6 +2,7 @@
 // XPtr.h: Rcpp R/C++ interface class library -- smart external pointers
 //
 // Copyright (C) 2009 - 2020  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2021         Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -51,7 +52,11 @@ template <
     typename T,
     template <class> class StoragePolicy = PreserveStorage,
     void Finalizer(T*) = standard_delete_finalizer<T>,
-    bool finalizeOnExit = false
+    #ifdef RCPP_USE_FINALIZE_ON_EXIT
+        bool finalizeOnExit = true
+    #else
+        bool finalizeOnExit = false
+    #endif
 >
 class XPtr :
     public StoragePolicy< XPtr<T,StoragePolicy, Finalizer, finalizeOnExit> >,
