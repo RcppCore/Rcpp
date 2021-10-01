@@ -1,3 +1,10 @@
+2021-10-01  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Version, Date): Roll minor version
+        * inst/include/Rcpp/config.h: Idem
+
+	* inst/NEWS.Rd: Updated
+
 2021-09-29  Iñaki Ucar  <iucar@fedoraproject.org>
 
 	* inst/include/Rcpp/XPtr.h: Check for new define
