@@ -1,3 +1,7 @@
+2021-10-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .github/workflows/docker.yaml (jobs): Add container builder action
+
 2021-10-01  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll minor version
