@@ -34,3 +34,55 @@ jobs:
         push: true
         context: docker/${{ matrix.tag }}
         tags: rcpp/${{ matrix.tag }}
+
+
+  docker-run:
+    runs-on: ubuntu-latest
+    name: run
+    needs: docker-ci
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        context: docker/run
+        tags: rcpp/run
+
+
+  docker-plus:
+    runs-on: ubuntu-latest
+    name: plus
+    needs: docker-run
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        context: docker/plus
+        tags: rcpp/plus

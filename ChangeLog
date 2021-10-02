@@ -1,6 +1,6 @@
 2021-10-02  Dirk Eddelbuettel  <edd@debian.org>
 
-	* .github/workflows/docker.yaml (jobs): Add basic container builder
+	* .github/workflows/docker.yaml (jobs): Add container builder action
 
 2021-10-01  Dirk Eddelbuettel  <edd@debian.org>
 
