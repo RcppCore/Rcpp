@@ -1,3 +1,7 @@
+2021-10-10  Travers Ching
+
+	* Added `signature` attribute to attributes.cpp
+
 2021-10-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .github/workflows/docker.yaml (jobs): Add container builder action
