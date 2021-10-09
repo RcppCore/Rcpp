@@ -154,6 +154,7 @@ namespace attributes {
     const char * const kExportName = "name";
     const char * const kExportRng = "rng";
     const char * const kExportInvisible = "invisible";
+    const char * const kExportSignature = "signature";
     const char * const kInitAttribute = "init";
     const char * const kDependsAttribute = "depends";
     const char * const kPluginsAttribute = "plugins";
@@ -164,6 +165,8 @@ namespace attributes {
     const char * const kParamValueTrue = "true";
     const char * const kParamValueFALSE = "FALSE";
     const char * const kParamValueTRUE = "TRUE";
+    const char * const kParamBlockStart = "{;";
+    const char * const kParamBlockEnd = "}";
 
     // Type info
     class Type {
@@ -390,8 +393,19 @@ namespace attributes {
             else
                 return false;
         }
-
+        
         const std::vector<std::string>& roxygen() const { return roxygen_; }
+        
+        std::string customRSignature() const {
+            Param sigParam = paramNamed(kExportSignature);
+            std::string sig = sigParam.value();
+            trimWhitespace(&sig);
+            if(sig.back() == '}')
+                sig = sig.substr(0, sig.size()-1);
+            if(sig.front() == '{')
+                sig.erase(0,1);
+            return sig;
+        }
 
     private:
         std::string name_;
@@ -1312,7 +1326,6 @@ namespace attributes {
     Attribute SourceFileAttributesParser::parseAttribute(
                                     const std::vector<std::string>& match,
                                     int lineNumber) {
-
         // Attribute name
         std::string name = match[1];
 
@@ -1368,7 +1381,8 @@ namespace attributes {
                 else if (!value.empty() &&
                          (name != kExportName) &&
                          (name != kExportRng) &&
-                         (name != kExportInvisible)) {
+                         (name != kExportInvisible) &&
+                         (name != kExportSignature)) {
                     rcppExportWarning("Unrecognized parameter '" + name + "'",
                                       lineNumber);
                 }
@@ -1422,9 +1436,10 @@ namespace attributes {
     // Parse attribute parameters
     std::vector<Param> SourceFileAttributesParser::parseParameters(
                                                     const std::string& input) {
-
+        std::string::size_type blockstart = input.find_first_of(kParamBlockStart);
+        std::string::size_type blockend = input.find_last_of(kParamBlockEnd);
+        
         const std::string delimiters(",");
-
         std::vector<Param> params;
         std::string::size_type current;
         std::string::size_type next = -1;
@@ -1432,9 +1447,11 @@ namespace attributes {
             next = input.find_first_not_of(delimiters, next + 1);
             if (next == std::string::npos)
                 break;							// #nocov
-            next -= 1;
-            current = next + 1;
-            next = input.find_first_of(delimiters, current);
+            current = next;
+            do {
+                next = input.find_first_of(delimiters, next + 1);
+            } while((next >= blockstart) && (next <= blockend) && 
+                (next != std::string::npos));
             params.push_back(Param(input.substr(current, next - current)));
         } while(next != std::string::npos);
 
@@ -2443,7 +2460,12 @@ namespace attributes {
 
                 // build the parameter list
                 std::string args = generateRArgList(function);
-
+                
+                // check if has a custom signature
+                if(attribute.hasParameter(kExportSignature)) {
+                    args = attribute.customRSignature();
+                }
+                
                 // determine the function name
                 std::string name = attribute.exportedName();
 
@@ -3352,11 +3374,19 @@ namespace {
                 if (!attribute.isExportedFunction())
                     continue;
                 const Function& function = attribute.function();
-
+                
+                // build the parameter list
+                std::string args = generateRArgList(function);
+                
+                // check if has a custom signature
+                if(attribute.hasParameter(kExportSignature)) {
+                    args = attribute.customRSignature();
+                }
+                
                 // export the function
                 ostr <<  attribute.exportedName()
                      << " <- Rcpp:::sourceCppFunction("
-                     << "function(" << generateRArgList(function) << ") {}, "
+                     << "function(" << args << ") {}, "
                      << (function.type().isVoid() ? "TRUE" : "FALSE") << ", "
                      << dllInfo << ", "
                      << "'" << contextId_ + "_" + function.name()

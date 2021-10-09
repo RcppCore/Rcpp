@@ -4,6 +4,9 @@
 	* man/Rcpp-package.Rd: Idem
 	* man/RcppLdFlags.Rd: Idem
 	* inst/CITATION: Only use doi entries in three citEntry blocks
+2021-10-10  Travers Ching
+
+	* Added `signature` attribute to attributes.cpp
 
 2021-10-02  Dirk Eddelbuettel  <edd@debian.org>
 
