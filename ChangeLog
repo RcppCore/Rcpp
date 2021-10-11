@@ -9,6 +9,8 @@
         * DESCRIPTION (Version, Date): Roll minor version
 	* inst/include/Rcpp/config.h: Idem
 
+	* .codecov.yml (comment): Disable codecov comments on PRs
+
 2021-10-10  Travers Ching
 
 	* Added `signature` attribute to attributes.cpp
