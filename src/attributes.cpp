@@ -2482,13 +2482,10 @@ namespace attributes {
                 // check if has a custom signature
                 if(attribute.hasParameter(kExportSignature)) {
                     args = attribute.customRSignature();
-<<<<<<< HEAD
                     if(!checkRSignature(function, args)) {
                         std::string rsig_err_msg = "Missing args in " + args;
                         throw Rcpp::exception(rsig_err_msg.c_str());
                     }
-=======
->>>>>>> 0ff6b77d3c3bb0a5341c72139e8e6c14c72272ed
                 }
                 
                 // determine the function name
@@ -3434,13 +3431,10 @@ namespace {
                 // check if has a custom signature
                 if(attribute.hasParameter(kExportSignature)) {
                     args = attribute.customRSignature();
-<<<<<<< HEAD
                     if(!checkRSignature(function, args)) {
                         std::string rsig_err_msg = "Missing args in " + args;
                         throw Rcpp::exception(rsig_err_msg.c_str());
                     }
-=======
->>>>>>> 0ff6b77d3c3bb0a5341c72139e8e6c14c72272ed
                 }
                 
                 // export the function
