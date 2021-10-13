@@ -33,7 +33,7 @@ represented as instances of `Rcpp::Environment`, functions are represented as
 vignette (now published as a
 [TAS paper](https://amstat.tandfonline.com/doi/abs/10.1080/00031305.2017.1375990); an
 [earlier introduction](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-jss-2011.pdf)
-was also published as a [JSS paper](https://www.jstatsoft.org/v40/i08/))
+was also published as a [JSS paper](https://doi.org/10.18637/jss.v040.i08)
 provides a good entry point to Rcpp as do the [Rcpp
 website](http://www.rcpp.org), the [Rcpp
 page](https://dirk.eddelbuettel.com/code/rcpp.html) and the [Rcpp
@@ -73,7 +73,7 @@ TAS](https://amstat.tandfonline.com/doi/abs/10.1080/00031305.2017.1375990) (and 
 [preprint in PeerJ](https://peerj.com/preprints/3188/)). Also available is an
 [earlier
 introduction](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-jss-2011.pdf)
-which was published as a [JSS paper](https://www.jstatsoft.org/v40/i08/))
+which was published as a [JSS paper](https://doi.org/10.18637/jss.v040.i08).
 
 Among the other vignettes are the [Rcpp
 FAQ](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-FAQ.pdf) and the

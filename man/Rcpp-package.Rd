@@ -20,7 +20,7 @@
 \references{
   Dirk Eddelbuettel and Romain Francois (2011). \pkg{Rcpp}: Seamless R
   and C++ Integration. \emph{Journal of Statistical Software},
-  \bold{40(8)}, 1-18. URL \url{https://www.jstatsoft.org/v40/i08/} and
+  \bold{40(8)}, 1-18, \doi{10.18637/jss.v040.i08}. Also
   available as \code{vignette("Rcpp-introduction")}.
 
   Eddelbuettel, Dirk (2013) Seamless R and C++ Integration with

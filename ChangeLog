@@ -1,3 +1,10 @@
+2021-10-13  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Switch JSS url to doi form per JSS request
+	* man/Rcpp-package.Rd: Idem
+	* man/RcppLdFlags.Rd: Idem
+	* inst/CITATION: Only use doi entries in three citEntry blocks
+
 2021-10-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .github/workflows/docker.yaml (jobs): Add container builder action
