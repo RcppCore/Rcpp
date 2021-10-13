@@ -809,6 +809,8 @@ namespace attributes {
     // Standalone generation helpers (used by sourceCpp)
 
     std::string generateRArgList(const Function& function);
+    
+    bool checkRSignature(const Function& function, std::string args);
 
     void initializeGlobals(std::ostream& ostr);
 
@@ -1443,6 +1445,7 @@ namespace attributes {
         std::vector<Param> params;
         std::string::size_type current;
         std::string::size_type next = -1;
+        std::string::size_type signature_param_start = -1;
         do {								// #nocov
             next = input.find_first_not_of(delimiters, next + 1);
             if (next == std::string::npos)
@@ -1453,8 +1456,23 @@ namespace attributes {
             } while((next >= blockstart) && (next <= blockend) && 
                 (next != std::string::npos));
             params.push_back(Param(input.substr(current, next - current)));
+            if(params.back().name() == kExportSignature) {
+                signature_param_start = current;
+            }
         } while(next != std::string::npos);
-
+        
+        // if the signature param was found, then check that the name, 
+        // start block and end block exist and are in the correct order
+        if(signature_param_start != static_cast<std::string::size_type>(-1)) {
+            bool sigchecks = 
+                signature_param_start < blockstart &&
+                blockstart < blockend &&
+                blockstart != std::string::npos &&
+                blockend != std::string::npos;
+            if(!sigchecks) {
+                throw Rcpp::exception("signature parameter found but missing {}");
+            }
+        }
         return params;
     }
 
@@ -2464,6 +2482,13 @@ namespace attributes {
                 // check if has a custom signature
                 if(attribute.hasParameter(kExportSignature)) {
                     args = attribute.customRSignature();
+<<<<<<< HEAD
+                    if(!checkRSignature(function, args)) {
+                        std::string rsig_err_msg = "Missing args in " + args;
+                        throw Rcpp::exception(rsig_err_msg.c_str());
+                    }
+=======
+>>>>>>> 0ff6b77d3c3bb0a5341c72139e8e6c14c72272ed
                 }
                 
                 // determine the function name
@@ -2767,6 +2792,34 @@ namespace attributes {
                 argsOstr << ", ";
         }
         return argsOstr.str();
+    }
+
+    bool checkRSignature(const Function& function, 
+                                             std::string args) {
+        std::vector<std::string> required_args;
+        const std::vector<Argument>& arguments = function.arguments();
+        for (size_t i = 0; i<arguments.size(); i++) {
+            const Argument& argument = arguments[i];
+            required_args.push_back(argument.name());
+        }
+        args = "function(" + args + ") {}";
+        Rcpp::Function parse = Rcpp::Environment::base_env()["parse"];
+        Rcpp::Function eval = Rcpp::Environment::base_env()["eval"];
+        Rcpp::Function formalArgs = 
+            Rcpp::Environment::namespace_env("methods")["formalArgs"];
+        
+        // If signature fails to parse, allow error to fall through
+        // as the error message is generally more descriptive
+        CharacterVector pargs_cv = formalArgs(eval(parse(_["text"] = args)));
+        std::vector<std::string> parsed_args = 
+            Rcpp::as<std::vector<std::string>>(pargs_cv);
+        
+        for(size_t i=0; i<required_args.size(); ++i) {
+            if(std::find(parsed_args.begin(), parsed_args.end(),
+                         required_args[i]) == parsed_args.end()) 
+                return false;
+        }
+        return true;
     }
 
     // Generate the C++ code required to initialize global objects
@@ -3381,6 +3434,13 @@ namespace {
                 // check if has a custom signature
                 if(attribute.hasParameter(kExportSignature)) {
                     args = attribute.customRSignature();
+<<<<<<< HEAD
+                    if(!checkRSignature(function, args)) {
+                        std::string rsig_err_msg = "Missing args in " + args;
+                        throw Rcpp::exception(rsig_err_msg.c_str());
+                    }
+=======
+>>>>>>> 0ff6b77d3c3bb0a5341c72139e8e6c14c72272ed
                 }
                 
                 // export the function
