@@ -1,10 +1,5 @@
-
-<<<<<<< HEAD
 ##  Copyright (C) 2010 - 2019  Dirk Eddelbuettel and Romain Francois and
 ##                             Travers Ching
-=======
-##  Copyright (C) 2010 - 2019  Dirk Eddelbuettel and Romain Francois
->>>>>>> cd70118335dcc458fc84cf6e5cc725f0cad4aabc
 ##
 ##  This file is part of Rcpp.
 ##
@@ -108,11 +103,7 @@ expect_error({
 # This third example should not compile because of missing end bracket }
 # The bracket within the signature is taken as the end bracket, which results in 
 # invalid R code. There are some additional warnings due to the incorrect syntax
-<<<<<<< HEAD
 expect_warning({
-=======
-suppressWarnings({
->>>>>>> cd70118335dcc458fc84cf6e5cc725f0cad4aabc
   expect_error({
     Rcpp::sourceCpp(code='
     #include <Rcpp.h>
@@ -128,10 +119,7 @@ suppressWarnings({
     }', verbose=T)
   })
 })
-<<<<<<< HEAD
-=======
 expect_error(result)
->>>>>>> cd70118335dcc458fc84cf6e5cc725f0cad4aabc
 
 # test 4, from Enchufa2
 # This 4th example is missing the end bracket and will not compile

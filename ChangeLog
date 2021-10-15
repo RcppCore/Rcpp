@@ -16,9 +16,6 @@
 	* src/attributes.cpp: Add `signature` attribute and syntax checks
 	* inst/tinytest/testRcppAttributePackage: Tests `signature` attribute
 	* inst/tinytest/test_attribute_package.R: Tests `signature` attribute
-2021-10-10  Travers Ching
-
-	* Added `signature` attribute to attributes.cpp
 
 2021-10-02  Dirk Eddelbuettel  <edd@debian.org>
 
