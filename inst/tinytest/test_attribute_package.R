@@ -1,5 +1,5 @@
-##  Copyright (C) 2010 - 2019  Dirk Eddelbuettel and Romain Francois and
-##                             Travers Ching
+##  Copyright (C) 2010 - 2020  Dirk Eddelbuettel and Romain Francois
+##  Copyright (C) 2021         Dirk Eddelbuettel, Romain Francois and Travers Ching
 ##
 ##  This file is part of Rcpp.
 ##
@@ -16,6 +16,10 @@
 ##  You should have received a copy of the GNU General Public License
 ##  along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes" && Sys.getenv("RunVerboseRcppTests") == "yes"
+
+if (! .runThisTest) exit_file("Set 'RunVerboseRcppTests' and 'RunAllRcppTests' to 'yes' to run.")
+
 td <- tempfile()
 cwd <- getwd()
 dir.create(td)
@@ -26,7 +30,7 @@ on.exit( { setwd(cwd); unlink(td, recursive = TRUE) } )
 R <- shQuote(file.path( R.home(component = "bin"), "R"))
 Rcpp::compileAttributes(pkg)
 cmd <- paste(R, "CMD build", pkg)
-invisible(system(cmd, intern=T))
+invisible(system(cmd, intern=TRUE))
 dir.create("templib")
 pkgfile <- paste0(pkg, "_1.0.tar.gz")
 install.packages(pkgfile, "templib", repos = NULL, type = "source")
@@ -119,7 +123,6 @@ expect_warning({
     }', verbose=T)
   })
 })
-expect_error(result)
 
 # test 4, from Enchufa2
 # This 4th example is missing the end bracket and will not compile
