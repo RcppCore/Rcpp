@@ -1,57 +1,3 @@
-
-<<<<<<< HEAD
-##  Copyright (C) 2010 - 2019  Dirk Eddelbuettel and Romain Francois and
-##                             Travers Ching
-=======
-##  Copyright (C) 2010 - 2019  Dirk Eddelbuettel and Romain Francois
->>>>>>> cd70118335dcc458fc84cf6e5cc725f0cad4aabc
-##
-##  This file is part of Rcpp.
-##
-##  Rcpp is free software: you can redistribute it and/or modify it
-##  under the terms of the GNU General Public License as published by
-##  the Free Software Foundation, either version 2 of the License, or
-##  (at your option) any later version.
-##
-##  Rcpp is distributed in the hope that it will be useful, but
-##  WITHOUT ANY WARRANTY; without even the implied warranty of
-##  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-##  GNU General Public License for more details.
-##
-##  You should have received a copy of the GNU General Public License
-##  along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
-
-td <- tempfile()
-cwd <- getwd()
-dir.create(td)
-pkg <- "testRcppAttributePackage"
-file.copy(pkg, td, recursive = TRUE) # simpler direct path thanks to tinytest
-setwd(td)
-on.exit( { setwd(cwd); unlink(td, recursive = TRUE) } )
-R <- shQuote(file.path( R.home(component = "bin"), "R"))
-Rcpp::compileAttributes(pkg)
-cmd <- paste(R, "CMD build", pkg)
-invisible(system(cmd, intern=T))
-dir.create("templib")
-pkgfile <- paste0(pkg, "_1.0.tar.gz")
-install.packages(pkgfile, "templib", repos = NULL, type = "source")
-require(pkg, lib.loc = "templib", character.only = TRUE)
-
-# Test Package
-options(verbose=TRUE)
-expect_equal(test_no_attributes(list("{A}"), FALSE),list("{A}", FALSE)) 
-expect_equal(test_signature(),list("{A}", TRUE))
-expect_equal(test_rng_false_signature_invisible_true(),list("{A}", TRUE))
-expect_equal(test_rng_false(list("{A}"), FALSE),list("{A}", FALSE)) 
-expect_equal(test_rng_true(list("{A}"), FALSE),list("{A}", FALSE))
-expect_equal(test_rng_true_signature(),list("{A}", TRUE))
-expect_equal(test_invisible_true_rng_true(list("{A}"), FALSE),list("{A}", FALSE))
-expect_equal(test_invisible_true(list("{A}"), FALSE),list("{A}", FALSE))
-expect_equal(test_invisible_true_signature(),list("{A}", TRUE))
-options(verbose=FALSE)
-
-# Test inline
-
 # test 0
 # This example should just run and not crash
 Rcpp::sourceCpp(code='
@@ -108,11 +54,7 @@ expect_error({
 # This third example should not compile because of missing end bracket }
 # The bracket within the signature is taken as the end bracket, which results in 
 # invalid R code. There are some additional warnings due to the incorrect syntax
-<<<<<<< HEAD
-expect_warning({
-=======
 suppressWarnings({
->>>>>>> cd70118335dcc458fc84cf6e5cc725f0cad4aabc
   expect_error({
     Rcpp::sourceCpp(code='
     #include <Rcpp.h>
@@ -128,10 +70,7 @@ suppressWarnings({
     }', verbose=T)
   })
 })
-<<<<<<< HEAD
-=======
 expect_error(result)
->>>>>>> cd70118335dcc458fc84cf6e5cc725f0cad4aabc
 
 # test 4, from Enchufa2
 # This 4th example is missing the end bracket and will not compile
@@ -183,7 +122,3 @@ expect_error({
 })
 
 
-remove.packages(pkg, lib="templib")
-unlink("templib", recursive = TRUE)
-setwd(cwd)
-unlink(pkgfile)

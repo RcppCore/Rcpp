@@ -394,8 +394,19 @@ namespace attributes {
             else
                 return false;
         }
-
+        
         const std::vector<std::string>& roxygen() const { return roxygen_; }
+        
+        std::string customRSignature() const {
+            Param sigParam = paramNamed(kExportSignature);
+            std::string sig = sigParam.value();
+            trimWhitespace(&sig);
+            if(sig.back() == '}')
+                sig = sig.substr(0, sig.size()-1);
+            if(sig.front() == '{')
+                sig.erase(0,1);
+            return sig;
+        }
 
         std::string customRSignature() const {
             Param sigParam = paramNamed(kExportSignature);
@@ -810,6 +821,8 @@ namespace attributes {
     // Standalone generation helpers (used by sourceCpp)
 
     std::string generateRArgList(const Function& function);
+    
+    bool checkRSignature(const Function& function, std::string args);
 
     bool checkRSignature(const Function& function, std::string args);
 
@@ -2479,7 +2492,6 @@ namespace attributes {
 
                 // build the parameter list
                 std::string args = generateRArgList(function);
-
                 // check if has a custom signature
                 if(attribute.hasParameter(kExportSignature)) {
                     args = attribute.customRSignature();
@@ -2488,7 +2500,6 @@ namespace attributes {
                         throw Rcpp::exception(rsig_err_msg.c_str());
                     }
                 }
-
                 // determine the function name
                 std::string name = attribute.exportedName();
 
