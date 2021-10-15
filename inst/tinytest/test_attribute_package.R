@@ -1,5 +1,6 @@
 
-##  Copyright (C) 2010 - 2019  Dirk Eddelbuettel and Romain Francois
+##  Copyright (C) 2010 - 2019  Dirk Eddelbuettel and Romain Francois and
+##                             Travers Ching
 ##
 ##  This file is part of Rcpp.
 ##
@@ -15,14 +16,6 @@
 ##
 ##  You should have received a copy of the GNU General Public License
 ##  along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
-
-## This now (Dec 2011) appears to fail on Windows
-.onWindows <- .Platform$OS.type == "windows"
-
-.runThisTest <- Sys.getenv("RunAllRcppTests") == "yes" && Sys.getenv("RunVerboseRcppTests") == "yes"
-
-if (! .runThisTest) exit_file("Set 'RunVerboseRcppTests' and 'RunAllRcppTests' to 'yes' to run.")
-if (.onWindows)     exit_file("Skipping on Windows.'")
 
 #.client.package <- function(pkg = "testRcppPackage") {
 td <- tempfile()
@@ -112,7 +105,7 @@ expect_error({
 # This third example should not compile because of missing end bracket }
 # The bracket within the signature is taken as the end bracket, which results in 
 # invalid R code. There are some additional warnings due to the incorrect syntax
-suppressWarnings({
+expect_warning({
   expect_error({
     Rcpp::sourceCpp(code='
     #include <Rcpp.h>
@@ -128,7 +121,6 @@ suppressWarnings({
     }', verbose=T)
   })
 })
-expect_error(result)
 
 # test 4, from Enchufa2
 # This 4th example is missing the end bracket and will not compile

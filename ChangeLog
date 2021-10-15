@@ -11,9 +11,11 @@
 
 	* .codecov.yml (comment): Disable codecov comments on PRs
 
-2021-10-10  Travers Ching
+2021-10-10  Travers Ching <traversc@gmail.com>
 
-	* Added `signature` attribute to attributes.cpp
+	* src/attributes.cpp: Add `signature` attribute and syntax checks
+	* inst/tinytest/testRcppAttributePackage: Tests `signature` attribute
+	* inst/tinytest/test_attribute_package.R: Tests `signature` attribute
 
 2021-10-02  Dirk Eddelbuettel  <edd@debian.org>
 
