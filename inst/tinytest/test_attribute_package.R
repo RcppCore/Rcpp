@@ -17,7 +17,6 @@
 ##  You should have received a copy of the GNU General Public License
 ##  along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#.client.package <- function(pkg = "testRcppPackage") {
 td <- tempfile()
 cwd <- getwd()
 dir.create(td)
@@ -27,8 +26,8 @@ setwd(td)
 on.exit( { setwd(cwd); unlink(td, recursive = TRUE) } )
 R <- shQuote(file.path( R.home(component = "bin"), "R"))
 Rcpp::compileAttributes(pkg)
-cmd <- paste(R, "CMD build", pkg, " >/dev/null 2>&1")
-system(cmd)
+cmd <- paste(R, "CMD build", pkg)
+invisible(system(cmd, intern=T))
 dir.create("templib")
 pkgfile <- paste0(pkg, "_1.0.tar.gz")
 install.packages(pkgfile, "templib", repos = NULL, type = "source")
