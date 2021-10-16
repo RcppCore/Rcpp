@@ -2,8 +2,7 @@
 // attributes.cpp: Rcpp R/C++ interface class library -- Rcpp attributes
 //
 // Copyright (C) 2012 - 2020  JJ Allaire, Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2021         JJ Allaire, Dirk Eddelbuettel, Romain Francois,
-//                            Iñaki Ucar and Travers Ching
+// Copyright (C) 2021         JJ Allaire, Dirk Eddelbuettel, Romain Francois, Iñaki Ucar and Travers Ching
 //
 // This file is part of Rcpp.
 //
@@ -810,8 +809,6 @@ namespace attributes {
     // Standalone generation helpers (used by sourceCpp)
 
     std::string generateRArgList(const Function& function);
-
-    bool checkRSignature(const Function& function, std::string args);
 
     bool checkRSignature(const Function& function, std::string args);
 

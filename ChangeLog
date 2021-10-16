@@ -1,9 +1,15 @@
+2021-10-15  Travers Ching  <traversc@gmail.com>
+
+	* inst/tinytest/testRcppAttributePackage: Tests `signature` attribute
+	* inst/tinytest/test_attribute_package.R: Tests `signature` attribute
+
 2021-10-13  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Switch JSS url to doi form per JSS request
 	* man/Rcpp-package.Rd: Idem
 	* man/RcppLdFlags.Rd: Idem
 	* inst/CITATION: Only use doi entries in three citEntry blocks
+
 2021-10-11  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Version, Date): Roll minor version
@@ -11,11 +17,9 @@
 
 	* .codecov.yml (comment): Disable codecov comments on PRs
 
-2021-10-10  Travers Ching <traversc@gmail.com>
+2021-10-10  Travers Ching  <traversc@gmail.com>
 
 	* src/attributes.cpp: Add `signature` attribute and syntax checks
-	* inst/tinytest/testRcppAttributePackage: Tests `signature` attribute
-	* inst/tinytest/test_attribute_package.R: Tests `signature` attribute
 
 2021-10-02  Dirk Eddelbuettel  <edd@debian.org>
 
