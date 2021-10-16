@@ -2,7 +2,8 @@
 // attributes.cpp: Rcpp R/C++ interface class library -- Rcpp attributes
 //
 // Copyright (C) 2012 - 2020  JJ Allaire, Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2021         JJ Allaire, Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
+// Copyright (C) 2021         JJ Allaire, Dirk Eddelbuettel, Romain Francois,
+//                            Iñaki Ucar and Travers Ching
 //
 // This file is part of Rcpp.
 //
@@ -393,9 +394,9 @@ namespace attributes {
             else
                 return false;
         }
-        
+
         const std::vector<std::string>& roxygen() const { return roxygen_; }
-        
+
         std::string customRSignature() const {
             Param sigParam = paramNamed(kExportSignature);
             std::string sig = sigParam.value();
@@ -809,6 +810,10 @@ namespace attributes {
     // Standalone generation helpers (used by sourceCpp)
 
     std::string generateRArgList(const Function& function);
+
+    bool checkRSignature(const Function& function, std::string args);
+
+    bool checkRSignature(const Function& function, std::string args);
 
     void initializeGlobals(std::ostream& ostr);
 
@@ -1438,11 +1443,12 @@ namespace attributes {
                                                     const std::string& input) {
         std::string::size_type blockstart = input.find_first_of(kParamBlockStart);
         std::string::size_type blockend = input.find_last_of(kParamBlockEnd);
-        
+
         const std::string delimiters(",");
         std::vector<Param> params;
         std::string::size_type current;
         std::string::size_type next = -1;
+        std::string::size_type signature_param_start = -1;
         do {								// #nocov
             next = input.find_first_not_of(delimiters, next + 1);
             if (next == std::string::npos)
@@ -1450,11 +1456,26 @@ namespace attributes {
             current = next;
             do {
                 next = input.find_first_of(delimiters, next + 1);
-            } while((next >= blockstart) && (next <= blockend) && 
+            } while((next >= blockstart) && (next <= blockend) &&
                 (next != std::string::npos));
             params.push_back(Param(input.substr(current, next - current)));
+            if(params.back().name() == kExportSignature) {
+                signature_param_start = current;
+            }
         } while(next != std::string::npos);
 
+        // if the signature param was found, then check that the name,
+        // start block and end block exist and are in the correct order
+        if(signature_param_start != static_cast<std::string::size_type>(-1)) {
+            bool sigchecks =
+                signature_param_start < blockstart &&
+                blockstart < blockend &&
+                blockstart != std::string::npos &&
+                blockend != std::string::npos;
+            if(!sigchecks) {
+                throw Rcpp::exception("signature parameter found but missing {}");
+            }
+        }
         return params;
     }
 
@@ -2460,12 +2481,14 @@ namespace attributes {
 
                 // build the parameter list
                 std::string args = generateRArgList(function);
-                
                 // check if has a custom signature
                 if(attribute.hasParameter(kExportSignature)) {
                     args = attribute.customRSignature();
+                    if(!checkRSignature(function, args)) {
+                        std::string rsig_err_msg = "Missing args in " + args;
+                        throw Rcpp::exception(rsig_err_msg.c_str());
+                    }
                 }
-                
                 // determine the function name
                 std::string name = attribute.exportedName();
 
@@ -2767,6 +2790,34 @@ namespace attributes {
                 argsOstr << ", ";
         }
         return argsOstr.str();
+    }
+
+    bool checkRSignature(const Function& function,
+                                             std::string args) {
+        std::vector<std::string> required_args;
+        const std::vector<Argument>& arguments = function.arguments();
+        for (size_t i = 0; i<arguments.size(); i++) {
+            const Argument& argument = arguments[i];
+            required_args.push_back(argument.name());
+        }
+        args = "function(" + args + ") {}";
+        Rcpp::Function parse = Rcpp::Environment::base_env()["parse"];
+        Rcpp::Function eval = Rcpp::Environment::base_env()["eval"];
+        Rcpp::Function formalArgs =
+            Rcpp::Environment::namespace_env("methods")["formalArgs"];
+
+        // If signature fails to parse, allow error to fall through
+        // as the error message is generally more descriptive
+        CharacterVector pargs_cv = formalArgs(eval(parse(_["text"] = args)));
+        std::vector<std::string> parsed_args =
+            Rcpp::as<std::vector<std::string>>(pargs_cv);
+
+        for(size_t i=0; i<required_args.size(); ++i) {
+            if(std::find(parsed_args.begin(), parsed_args.end(),
+                         required_args[i]) == parsed_args.end())
+                return false;
+        }
+        return true;
     }
 
     // Generate the C++ code required to initialize global objects
@@ -3374,15 +3425,19 @@ namespace {
                 if (!attribute.isExportedFunction())
                     continue;
                 const Function& function = attribute.function();
-                
+
                 // build the parameter list
                 std::string args = generateRArgList(function);
-                
+
                 // check if has a custom signature
                 if(attribute.hasParameter(kExportSignature)) {
                     args = attribute.customRSignature();
+                    if(!checkRSignature(function, args)) {
+                        std::string rsig_err_msg = "Missing args in " + args;
+                        throw Rcpp::exception(rsig_err_msg.c_str());
+                    }
                 }
-                
+
                 // export the function
                 ostr <<  attribute.exportedName()
                      << " <- Rcpp:::sourceCppFunction("
