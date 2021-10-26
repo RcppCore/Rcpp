@@ -400,8 +400,11 @@ namespace attributes {
             Param sigParam = paramNamed(kExportSignature);
             std::string sig = sigParam.value();
             trimWhitespace(&sig);
+            if(sig.empty()) return sig;
             if(sig.back() == '}')
                 sig = sig.substr(0, sig.size()-1);
+            // check sig.empty again since we deleted an element
+            if(sig.empty()) return sig;
             if(sig.front() == '{')
                 sig.erase(0,1);
             return sig;
@@ -1444,8 +1447,8 @@ namespace attributes {
         const std::string delimiters(",");
         std::vector<Param> params;
         std::string::size_type current;
-        std::string::size_type next = -1;
-        std::string::size_type signature_param_start = -1;
+        std::string::size_type next = std::string::npos;
+        std::string::size_type signature_param_start = std::string::npos;
         do {								// #nocov
             next = input.find_first_not_of(delimiters, next + 1);
             if (next == std::string::npos)
@@ -1463,7 +1466,7 @@ namespace attributes {
 
         // if the signature param was found, then check that the name,
         // start block and end block exist and are in the correct order
-        if(signature_param_start != static_cast<std::string::size_type>(-1)) {
+        if(signature_param_start !=  std::string::npos) {
             bool sigchecks =
                 signature_param_start < blockstart &&
                 blockstart < blockend &&
