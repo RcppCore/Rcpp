@@ -1,7 +1,17 @@
-comment:
-  layout: "header, diff, tree, changes"
-  behavior: default
-  require_changes: false  # if true: only post the comment if coverage changes
-  branches: null
-  flags: null
-  paths: null
+comment: false
+coverage:
+  status:
+    project:
+      default:
+        target: 70%    # the (on purpose low) required coverage value
+        threshold: 2%  # the permitted delta in hitting the target
+    patch:
+      default:
+        target: 0%     # the (on purpose low) required coverage value
+
+#  layout: "header, diff, tree, changes"
+#  behavior: default
+#  require_changes: false  # if true: only post the comment if coverage changes
+#  branches: null
+#  flags: null
+#  paths: null
