@@ -52,7 +52,7 @@ RcppCxxFlags <- function(cxx0x=FALSE) {
     if (.Platform$OS.type=="windows") {
         path <- asBuildPath(path)				# #nocov
     }
-    paste("-I", path, if (cxx0x && canUseCXX0X()) " -std=c++0x" else "", sep="")
+    paste0('-I"', path, if (cxx0x && canUseCXX0X()) '" -std=c++0x' else '')
 }
 
 ## Shorter names, and call cat() directly

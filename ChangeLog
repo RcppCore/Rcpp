@@ -1,3 +1,7 @@
+2021-11-11  Kevin Ushey  <kevinushey@gmail.com>
+
+	* R/RcppLdpath.R: CxxFlags() now quotes its include path
+
 2021-10-15  Travers Ching  <traversc@gmail.com>
 
 	* inst/tinytest/testRcppAttributePackage: Tests `signature` attribute
