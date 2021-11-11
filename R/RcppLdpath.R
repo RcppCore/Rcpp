@@ -47,12 +47,16 @@ canUseCXX0X <- function() { TRUE }  # .Call( "canUseCXX0X", PACKAGE = "Rcpp" )
 
 ## Provide compiler flags -- i.e. -I/path/to/Rcpp.h
 RcppCxxFlags <- function(cxx0x=FALSE) {
-    # path <- RcppLdPath()
+
     path <- Rcpp.system.file( "include" )
     if (.Platform$OS.type=="windows") {
         path <- asBuildPath(path)				# #nocov
     }
-    paste0('-I"', path, if (cxx0x && canUseCXX0X()) '" -std=c++0x' else '')
+
+    paste0(
+        '-I"', path, '"',
+        if (cxx0x && canUseCXX0X()) ' -std=c++0x' else ''
+    )
 }
 
 ## Shorter names, and call cat() directly
