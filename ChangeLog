@@ -1,3 +1,7 @@
+2021-11-14  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/RcppLdpath.R: Simplified as we no longer need to worry about CXX0X
+
 2021-11-11  Kevin Ushey  <kevinushey@gmail.com>
 
 	* R/RcppLdpath.R: CxxFlags() now quotes its include path
