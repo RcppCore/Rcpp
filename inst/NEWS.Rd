@@ -11,6 +11,8 @@
       extensive discussion in \ghit{1158}.
       \item A new \code{#define} allows default setting of finalizer
       calls for external pointers (Iñaki in \ghpr{1180} closing \ghit{1108}).
+      \item `Rcpp:::CxxFlags()` now quotes the include path generated,
+      closing \ghit{1188}.
     }
     \item Changes in Rcpp Documentation:
     \itemize{
