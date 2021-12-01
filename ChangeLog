@@ -1,3 +1,8 @@
+2021-11-30  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Remove Travis badge
+	* .travis.yml: Removed
+
 2021-11-15  Dirk Eddelbuettel  <edd@debian.org>
 
 	* docker/ci/Dockerfile: Minor cleanup
