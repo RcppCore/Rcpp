@@ -1,3 +1,10 @@
+2021-12-08  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/Rcpp: Added as new entry point
+	* inst/include/Rcpp/Light: Added as lighter-weight entry point
+	* inst/include/Rcpp/Lighter: Idem
+	* inst/include/Rcpp/Lightest: Idem
+
 2021-11-30  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Remove Travis badge
