@@ -1,3 +1,7 @@
+2021-12-24  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Update usage counts
+
 2021-12-16  Dirk Eddelbuettel  <edd@debian.org>
 
 	* vignettes/rmd/Rcpp.bib: Update JSS references to new doi scheme,
