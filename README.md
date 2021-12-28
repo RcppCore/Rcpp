@@ -81,6 +81,18 @@ Attributes](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-attributes.pd
 Additional documentation is available via the [Rcpp book](http://www.rcpp.org/book/)
 by Eddelbuettel (2013, Springer); see 'citation("Rcpp")' for details.
 
+### Performance
+
+Rcpp follows the C++ motto of _"you pay only for what you use"_ and imposes
+no _run-time_ performance penalty: Rcpp outperforms related packages in
+direct comparison, see for example [this repo for
+details](https://github.com/eddelbuettel/ldlasb).
+
+Compile-time performance can be tuned by selecting components. But it is also
+worth noting that use of [`ccache`](https://ccache.dev/) will (strongly)
+dominate all such possible component choices, we have [previously
+recommended](https://dirk.eddelbuettel.com/blog/2017/11/27/) its use.
+
 ### Examples
 
 The [Rcpp Gallery](https://gallery.rcpp.org) showcases over one hundred fully
