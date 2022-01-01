@@ -1,5 +1,7 @@
 2022-01-01  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Roll minor version
+
 	* inst/NEWS.Rd: Added entries for a few PRs since last release
 
 2021-12-28  Dirk Eddelbuettel  <edd@debian.org>
