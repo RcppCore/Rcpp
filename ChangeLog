@@ -4,6 +4,9 @@
 
 	* inst/NEWS.Rd: Added entries for a few PRs since last release
 
+	* vignettes/rmd/Rcpp.bib: Provide both url and doi entries
+	* inst/bib/Rcpp.bib: Idem
+
 2021-12-28  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Add section on performance
