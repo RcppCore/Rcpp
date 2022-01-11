@@ -1,3 +1,13 @@
+2022-01-11  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/rmd/*: Updated
+
+2022-01-10  Dirk Eddelbuettel  <edd@debian.org>
+
+        * vignettes/rmd/Rcpp.bib: Updated CRAN and R references
+        * inst/bib/Rcpp.bib: Idem
+        * vignettes/rmd/getCurrentVersionsOfCitedPackages.R: Updated
+
 2022-01-01  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
