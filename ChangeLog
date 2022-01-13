@@ -1,6 +1,15 @@
 2022-01-11  Dirk Eddelbuettel  <edd@debian.org>
 
-	* vignettes/rmd/*: Updated
+        * DESCRIPTION (Date, Version): Release 1.0.8
+
+        * inst/include/Rcpp/config.h: Idem
+        * inst/NEWS.Rd: Idem
+        * vignettes/rmd/Rcpp.bib: Idem
+        * inst/bib/Rcpp.bib: Idem
+	* vignettes/pdf/*: Rebuilt
+
+	* inst/include/Rcpp/r/headers.h: STRICT_R_HEADERS set by default
+	unless override RCPP_NO_STRICT_HEADERS is set (cf issue #1158)
 
 2022-01-10  Dirk Eddelbuettel  <edd@debian.org>
 
