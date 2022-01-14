@@ -1,5 +1,5 @@
 
-##  Copyright (C) 2019       	 Dirk Eddelbuettel
+##  Copyright (C) 2019 - 2022  Dirk Eddelbuettel
 ##
 ##  This file is part of Rcpp.
 ##
@@ -46,5 +46,5 @@ if (length(v) >= 4) {
 
 if (length(v) <= 4) {
     ## basic check: is #defined string version equal to computed string
-    expect_equal(pvstr, res$def_dev_str, info="current computed version equal defined dev string")
+    expect_true(grepl(pvstr, res$def_dev_str), info="current computed version equal defined dev string")
 }

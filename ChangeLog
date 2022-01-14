@@ -1,3 +1,8 @@
+2022-01-14  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/tinytest/test_packageversion.R: Comparison to 'dev' revision
+	version now tolerant of optional trailing zero (e.g. 1.0.8.0)
+
 2022-01-11  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Date, Version): Release 1.0.8
