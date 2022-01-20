@@ -1,3 +1,8 @@
+2022-01-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/attributes.cpp: Make three small changes to permit compilation
+	under C++98 now (while we consider just turning to C++11 overall)
+
 2022-01-14  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/tinytest/test_packageversion.R: Comparison to 'dev' revision
