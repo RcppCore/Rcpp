@@ -684,7 +684,8 @@ In this case, a call to `my_package_init()` will be added to the end of the auto
 ```{Rcpp, eval = FALSE}
 void my_package_init(DllInfo *dll);
 RcppExport void R_init_pkgname(DllInfo *dll) {
-    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_registerRoutines(dll, NULL, CallEntries,
+                       NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
     my_package_init(dll);
 }
