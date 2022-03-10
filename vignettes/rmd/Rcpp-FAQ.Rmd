@@ -642,13 +642,14 @@ what we show below.
 
 
 ### Using inline with Templated Code
+
 Most certainly, consider this simple example of a templated class
 which squares its argument:
 
 ```{r}
 inc <- 'template <typename T>
         class square :
-          public std::unary_function<T,T> {
+          public std::function<T(T)> {
             public:
               T operator()( T t) const {
                 return t*t;
@@ -684,7 +685,7 @@ will even run the R part at the end.
 #include <Rcpp.h>
 
 template <typename T> class square :
-    public std::unary_function<T,T> {
+    public std::function<T(T)> {
       public:
       T operator()( T t) const {
         return t*t ;

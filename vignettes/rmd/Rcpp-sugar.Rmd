@@ -137,7 +137,7 @@ high-level \proglang{R} syntax in \proglang{C++}. Hence, with \sugar, the
 \proglang{C++} version of `foo` now becomes:
 
 ```cpp
-Rcpp::NumericVector foo(Rcpp::NumericVector x, 
+Rcpp::NumericVector foo(Rcpp::NumericVector x,
                         Rcpp::NumericVector y) {
     return ifelse(x < y, x * x, -(y * y));
 }
@@ -308,7 +308,7 @@ length. Each element of the result expression evaluates to `TRUE` if
 the corresponding input is a missing value, or `FALSE` otherwise.
 
 ```cpp
-IntegerVector x = 
+IntegerVector x =
     IntegerVector::create(0, 1, NA_INTEGER, 3);
 
 is_na(x)
@@ -322,7 +322,7 @@ Given a sugar expression of any type, `seq_along` creates an
 integer sugar expression whose values go from 1 to the size of the input.
 
 ```cpp
-IntegerVector x = 
+IntegerVector x =
     IntegerVector::create( 0, 1, NA_INTEGER, 3 );
 
 IntegerVector y = seq_along(x);
@@ -337,7 +337,7 @@ second expression, since the abstract syntax tree is built at compile time.
 
 ### seq_len
 
-`seq_len` creates an integer sugar expression whose 
+`seq_len` creates an integer sugar expression whose
 \ith\ element expands to `i`. `seq_len` is particularly useful in
 conjunction with `sapply` and `lapply`.
 
@@ -411,7 +411,7 @@ called `result_type`
 
 ```cpp
 template <typename T>
-struct square : std::unary_function<T, T> {
+struct square : std::function<T(T)> {
     T operator()(const T& x){
         return x * x;
     }
@@ -491,9 +491,9 @@ beta, binom, cauchy, chisq, exp, f, gamma, geom, hyper, lnorm, logis, nbeta,
 nbinom, nbinom_mu, nchisq, nf, norm, nt, pois, t, unif, and weibull.
 
 Note that the parameterization used in these sugar functions may differ between
-the top-level functions exposed in an \proglang{R} session. For example, 
+the top-level functions exposed in an \proglang{R} session. For example,
 the internal \code{rexp} is parameterized by \code{scale},
-whereas the R-level \code{stats::rexp} is parameterized by \code{rate}. 
+whereas the R-level \code{stats::rexp} is parameterized by \code{rate}.
 Consult \href{http://cran.r-project.org/doc/manuals/r-release/R-exts.html#Distribution-functions}{Distribution Functions}
 for more details on the parameterization used for these sugar functions.
 
@@ -568,13 +568,13 @@ is given here:
 template <int RTYPE, bool na, typename VECTOR>
 class VectorBase {
 public:
-    struct r_type : 
+    struct r_type :
         traits::integral_constant<int,RTYPE>{};
     struct can_have_na :
         traits::integral_constant<bool,na>{};
-    
-    typedef typename 
-        traits::storage_type<RTYPE>::type 
+
+    typedef typename
+        traits::storage_type<RTYPE>::type
         stored_type;
 
     VECTOR& get_ref(){
@@ -586,18 +586,18 @@ public:
                            this)->operator[](i);
     }
 
-    inline int size() const { 
+    inline int size() const {
         return static_cast<const VECTOR*>(
-                           this)->size(); 
+                           this)->size();
     }
 
     /* definition ommited here */
     class iterator;
 
-    inline iterator begin() const { 
-        return iterator(*this, 0); 
+    inline iterator begin() const {
+        return iterator(*this, 0);
     }
-    inline iterator end() const { 
+    inline iterator end() const {
         return iterator(*this, size());
     }
 }
@@ -633,27 +633,27 @@ the template class `Rcpp::sugar::Sapply` is given below:
 template <int RTYPE, bool NA,
           typename T, typename Function>
 class Sapply : public VectorBase<
-    Rcpp::traits::r_sexptype_traits< typename 
+    Rcpp::traits::r_sexptype_traits< typename
         ::Rcpp::traits::result_of<Function>::type
     >::rtype,
     true,
     Sapply<RTYPE, NA, T, Function>
 > {
 public:
-    typedef typename 
+    typedef typename
       ::Rcpp::traits::result_of<Function>::type;
-    
+
     const static int RESULT_R_TYPE =
         Rcpp::traits::r_sexptype_traits<
             result_type>::rtype;
-    
+
     typedef Rcpp::VectorBase<RTYPE,NA,T> VEC;
-    
-    typedef typename 
+
+    typedef typename
         Rcpp::traits::r_vector_element_converter<
         RESULT_R_TYPE>::type
         converter_type;
-    
+
     typedef typename Rcpp::traits::storage_type<
         RESULT_R_TYPE>::type STORAGE;
 
@@ -663,9 +663,9 @@ public:
     inline STORAGE operator[]( int i ) const {
         return converter_type::get(fun(vec[i]));
     }
-    
-    inline int size() const { 
-        return vec.size(); 
+
+    inline int size() const {
+        return vec.size();
     }
 
 private:
@@ -675,13 +675,13 @@ private:
 
 // sugar
 
-template <int RTYPE, bool _NA_, 
+template <int RTYPE, bool _NA_,
           typename T, typename Function >
 inline sugar::Sapply<RTYPE, _NA_, T, Function>
 sapply(const Rcpp::VectorBase<RTYPE,_NA_,T>& t,
         Function fun) {
-    
-    return 
+
+    return
       sugar::Sapply<RTYPE,_NA_,T,Function>(t, fun);
 }
 ```
@@ -703,8 +703,8 @@ template class queries the template argument via the `Rcpp::traits::result_of`
 template.
 
 ```cpp
-typedef typename 
-    ::Rcpp::traits::result_of<Function>::type 
+typedef typename
+    ::Rcpp::traits::result_of<Function>::type
     result_type;
 ```
 
@@ -717,7 +717,7 @@ struct result_of{
     typedef typename T::result_type type;
 };
 
-template <typename RESULT_TYPE, 
+template <typename RESULT_TYPE,
           typename INPUT_TYPE>
 struct result_of<RESULT_TYPE (*)(INPUT_TYPE)> {
     typedef RESULT_TYPE type;
@@ -762,7 +762,7 @@ of a `REALSXP` expression is `double`.
 
 ```cpp
 typedef typename
-    Rcpp::traits::storage_type<RESULT_R_TYPE>::type 
+    Rcpp::traits::storage_type<RESULT_R_TYPE>::type
     STORAGE;
 ```
 
@@ -785,7 +785,7 @@ template <int RTYPE, bool NA,
           typename T, typename Function>
 class Sapply : public VectorBase<
     Rcpp::traits::r_sexptype_traits<
-        typename 
+        typename
         ::Rcpp::traits::result_of<Function>::type
     >::rtype,
     true,
@@ -799,13 +799,13 @@ is the manifestation of the _CRTP_.
 
 ### Constructor
 
- 
+
 The constructor of the `Sapply` class template is straightforward, it
 simply consists of holding the reference to the input expression and the
 function.
 
 ```cpp
-Sapply(const VEC& vec_, Function fun_): 
+Sapply(const VEC& vec_, Function fun_):
     vec(vec_), fun(fun_){}
 
 private:
@@ -825,8 +825,8 @@ and the converter. Both these methods are inline to maximize performance:
 inline STORAGE operator[](int i) const {
 	return converter_type::get(fun(vec[i]));
 }
-inline int size() const { 
-    return vec.size(); 
+inline int size() const {
+    return vec.size();
 }
 ```
 
