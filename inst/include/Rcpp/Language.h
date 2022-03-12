@@ -1,8 +1,7 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
+
 // Language.h: Rcpp R/C++ interface class library -- language objects (calls)
 //
-// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2022 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -35,8 +34,8 @@ namespace Rcpp{
     {
     public:
 
-        typedef typename DottedPairProxyPolicy<Language_Impl>::DottedPairProxy Proxy ;
-        typedef typename DottedPairProxyPolicy<Language_Impl>::const_DottedPairProxy const_Proxy ;
+        typedef typename DottedPairProxyPolicy<Language_Impl>::DottedPairProxy Proxy;
+        typedef typename DottedPairProxyPolicy<Language_Impl>::const_DottedPairProxy const_Proxy;
 
         RCPP_GENERATE_CTOR_ASSIGN(Language_Impl)
 
@@ -49,7 +48,7 @@ namespace Rcpp{
          * to a call using as.call
          */
         Language_Impl(SEXP x){
-            Storage::set__( r_cast<LANGSXP>(x) ) ;
+            Storage::set__( r_cast<LANGSXP>(x) );
         }
 
         /**
@@ -62,7 +61,7 @@ namespace Rcpp{
          * > call( "rnorm" )
          */
         explicit Language_Impl( const std::string& symbol ){
-            Storage::set__( Rf_lang1( Rf_install(symbol.c_str()) ) ) ;
+            Storage::set__( Rf_lang1( Rf_install(symbol.c_str()) ) );
         }
 
         /**
@@ -74,7 +73,7 @@ namespace Rcpp{
          * > call( "rnorm" )
          */
         explicit Language_Impl( const Symbol& symbol ){
-            Storage::set__( Rf_lang1( symbol ) ) ;
+            Storage::set__( Rf_lang1( symbol ) );
         }
 
         /**
@@ -83,7 +82,7 @@ namespace Rcpp{
          * @param function function to call
          */
         explicit Language_Impl( const Function& function) {
-            Storage::set__( Rf_lang1( function ) ) ;
+            Storage::set__( Rf_lang1( function ) );
         }
 
         /**
@@ -109,15 +108,15 @@ namespace Rcpp{
          * sets the symbol of the call
          */
         void setSymbol( const std::string& symbol){
-            setSymbol( Symbol( symbol ) ) ;
+            setSymbol( Symbol( symbol ) );
         }
 
         /**
          * sets the symbol of the call
          */
         void setSymbol( const Symbol& symbol ){
-            SEXP x = Storage::get__() ;
-            SETCAR( x, symbol ) ;
+            SEXP x = Storage::get__();
+            SETCAR( x, symbol );
             SET_TAG(x, R_NilValue);
         }
 
@@ -125,7 +124,7 @@ namespace Rcpp{
          * sets the function
          */
         void setFunction( const Function& function){
-            SEXP x = Storage::get__() ;
+            SEXP x = Storage::get__();
             SETCAR( x, function );
             SET_TAG(x, R_NilValue); /* probably not necessary */
         }
@@ -134,83 +133,91 @@ namespace Rcpp{
          * eval this call in the global environment
          */
         SEXP eval() const {
-            return Rcpp_fast_eval( Storage::get__(), R_GlobalEnv ) ;
+            return Rcpp_fast_eval( Storage::get__(), R_GlobalEnv );
         }
 
         /**
          * eval this call in the requested environment
          */
         SEXP eval(SEXP env) const {
-            return Rcpp_fast_eval( Storage::get__(), env ) ;
+            return Rcpp_fast_eval( Storage::get__(), env );
         }
 
         SEXP fast_eval() const {
-            return internal::Rcpp_eval_impl( Storage::get__(), R_GlobalEnv) ;
+            return internal::Rcpp_eval_impl( Storage::get__(), R_GlobalEnv);
         }
         SEXP fast_eval(SEXP env ) const {
-            return internal::Rcpp_eval_impl( Storage::get__(), env) ;
+            return internal::Rcpp_eval_impl( Storage::get__(), env);
         }
 
         void update( SEXP x){
-            SET_TYPEOF( x, LANGSXP ) ;
-            SET_TAG( x, R_NilValue ) ;
+            SET_TYPEOF( x, LANGSXP );
+            SET_TAG( x, R_NilValue );
         }
 
     };
 
-    typedef Language_Impl<PreserveStorage> Language ;
+    typedef Language_Impl<PreserveStorage> Language;
 
     template <typename RESULT_TYPE=SEXP>
     class fixed_call {
     public:
-        typedef RESULT_TYPE result_type ;
+        typedef RESULT_TYPE result_type;
 
         fixed_call( Language call_ ) : call(call_){}
         fixed_call( Function fun ) : call(fun){}
 
         RESULT_TYPE operator()(){
-            return as<RESULT_TYPE>( call.eval() ) ;
+            return as<RESULT_TYPE>( call.eval() );
         }
 
     private:
-        Language call ;
-    } ;
+        Language call;
+    };
 
     template <typename T, typename RESULT_TYPE = SEXP>
-    class unary_call : public std::unary_function<T,RESULT_TYPE> {
+#if __cplusplus < 201103L
+        class unary_call : public std::unary_function<T,RESULT_TYPE> {
+#else
+        class unary_call : public std::function<RESULT_TYPE(T)> {
+#endif
     public:
         unary_call( Language call_ ) : call(call_), proxy(call_,1) {}
         unary_call( Language call_, R_xlen_t index ) : call(call_), proxy(call_,index){}
         unary_call( Function fun ) : call( fun, R_NilValue), proxy(call,1) {}
 
         RESULT_TYPE operator()( const T& object ){
-            proxy = object ;
-            return as<RESULT_TYPE>( call.eval() ) ;
+            proxy = object;
+            return as<RESULT_TYPE>( call.eval() );
         }
 
     private:
-        Language call ;
-        Language::Proxy proxy ;
-    } ;
+        Language call;
+        Language::Proxy proxy;
+    };
 
     template <typename T1, typename T2, typename RESULT_TYPE = SEXP>
+#if __cplusplus < 201103L
     class binary_call : public std::binary_function<T1,T2,RESULT_TYPE> {
+#else
+        class binary_call : public std::function<RESULT_TYPE(T1,T2)> {
+#endif
     public:
         binary_call( Language call_ ) : call(call_), proxy1(call_,1), proxy2(call_,2) {}
         binary_call( Language call_, R_xlen_t index1, R_xlen_t index2 ) : call(call_), proxy1(call_,index1), proxy2(call_,index2){}
         binary_call( Function fun) : call(fun, R_NilValue, R_NilValue), proxy1(call,1), proxy2(call,2){}
 
         RESULT_TYPE operator()( const T1& o1, const T2& o2 ){
-            proxy1 = o1 ;
-            proxy2 = o2 ;
-            return as<RESULT_TYPE>( call.eval() ) ;
+            proxy1 = o1;
+            proxy2 = o2;
+            return as<RESULT_TYPE>( call.eval() );
         }
 
     private:
-        Language call ;
-        Language::Proxy proxy1 ;
-        Language::Proxy proxy2 ;
-    } ;
+        Language call;
+        Language::Proxy proxy1;
+        Language::Proxy proxy2;
+    };
 
 } // namespace Rcpp
 
