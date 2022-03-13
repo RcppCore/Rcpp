@@ -1,3 +1,11 @@
+2022-03-13  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+	* inst/include/Rcpp/config.h: Idem
+
+	* tests/tinytest.R: Disable full tests on four-digits release to not
+	exceed CRAN test time preference
+
 2022-03-10  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version

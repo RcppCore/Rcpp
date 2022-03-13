@@ -3,7 +3,7 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp hotfix release version 1.0.8.2 (2022-03-10)}{
+\section{Changes in Rcpp hotfix release version 1.0.8.3 (2022-03-13)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
@@ -22,6 +22,8 @@
     \item Changes in Rcpp Deployment:
     \itemize{
       \item Accomodate four digit version numbers in unit test (Dirk)
+      \item Do not run complete test suite to limit test time to CRAN
+      preference (Dirk)
     }
   }
 }
