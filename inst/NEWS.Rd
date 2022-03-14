@@ -3,7 +3,7 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp hotfix release version 1.0.8.3 (2022-03-13)}{
+\section{Changes in Rcpp hotfix release version 1.0.8.4 (2022-03-14)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
@@ -13,6 +13,8 @@
        \code{std::unary_function} and \code{std::binary_function} with
        \code{std::function} (Dirk in \ghpr{1202} fixing \ghit{1201} and
        CRAN request)
+       \code Upon removal from precious list, the tag is set to null
+       (Iñaki in \ghpr{1205} fixing \ghit{1203})
     }
     \item Changes in Rcpp Documentation:
     \itemize{

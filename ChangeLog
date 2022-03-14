@@ -1,3 +1,13 @@
+2022-03-14  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+	* inst/include/Rcpp/config.h: Idem
+
+2022-03-13  Iñaki Ucar  <iucar@fedoraproject.org>
+
+	* src/barrier.cpp: Untag tokens upon removal from the precious list,
+	so that the internal reference counter can be safely decremented by R
+
 2022-03-13  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
