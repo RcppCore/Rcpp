@@ -13,7 +13,7 @@
        \code{std::unary_function} and \code{std::binary_function} with
        \code{std::function} (Dirk in \ghpr{1202} fixing \ghit{1201} and
        CRAN request)
-       \code Upon removal from precious list, the tag is set to null
+       \item Upon removal from precious list, the tag is set to null
        (Iñaki in \ghpr{1205} fixing \ghit{1203})
     }
     \item Changes in Rcpp Documentation:
