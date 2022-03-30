@@ -30,7 +30,9 @@ namespace Rcpp{
     inline Date::Date(const std::string &s, const std::string &fmt) {
         Function strptime("strptime");	// we cheat and call strptime() from R
         Function asDate("as.Date");	// and we need to convert to Date
-        m_d = Rcpp::as<int>(asDate(strptime(s, fmt, "UTC")));
+        Language strptime_call(strptime, s, fmt, "UTC");
+        Language asDate_call(asDate, strptime_call.fast_eval());
+        m_d = Rcpp::as<int>(asDate_call.fast_eval());
         update_tm();
     }
 
