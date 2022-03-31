@@ -1,3 +1,8 @@
+2022-03-31 Alex Petty <pettyalex@gmail.com>
+
+        * inst/include/Rcpp/hash/hash.h: Replace <inttypes.h> with <cinttypes>
+        fixing a bug when consuming applications use <cinttypes>
+
 2022-03-14  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
