@@ -2,6 +2,7 @@
 
 	* vignettes/rmd/Rcpp-FAQ.Rmd: Add paragraph about Date(time) not
 	being aimed at parsing large quantities at once
+	* vignettes/pdf/Rcpp-FAQ.pdf: Idem
 
 	* vignettes/rmd/Rcpp.bib: Add four entries
         * inst/bib/Rcpp.bib: Idem
