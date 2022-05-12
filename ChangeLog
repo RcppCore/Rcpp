@@ -1,3 +1,7 @@
+2022-05-12  Dirk Eddelbuettel  <edd@debian.org>
+
+	* docker/ci/Dockerfile: Added xml2, also use more r-cran-* binaries
+
 2022-05-12  Marco Colombo <mar.colombo13@gmail.com>
 
 	* vignettes/rmd/Rcpp-FAQ.Rmd: Fixed typo

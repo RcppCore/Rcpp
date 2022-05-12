@@ -10,10 +10,13 @@ RUN apt-get update \
         && apt-get install -y --no-install-recommends \
                 libcurl4-openssl-dev \
                 libssl-dev \
+                r-cran-covr \
                 r-cran-inline \
                 r-cran-pkgkitten \
+                r-cran-tinytest \
+                r-cran-xml2 \
                 git \
-        && install.r covr rbenchmark tinytest
+        && install.r rbenchmark
 
 ENV _R_CHECK_FORCE_SUGGESTS_ FALSE
 ENV _R_CHECK_TESTS_NLINES_ 0
