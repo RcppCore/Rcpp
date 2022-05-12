@@ -1812,7 +1812,7 @@ The `Date` and `Datetime` classes, and their vector variants, go back a very
 long time to the very beginning of \pkg{Rcpp} and use in \pkg{RQuantLib}
 \citep{CRAN:RQuantLib} interfacing \pkg{QuantLib} \citep{QuantLib}. Their intent was,
 essentially, to hold (single) start and end values delineating an interval.  The
-design is far from optional, but the interface is now established. We have
+design is far from optimal, but the interface is now established. We have
 rewritten them once, and do not plan to rewrite them in the near future.  Those
 looking to _parse and convert_ many dates at once could look at \pkg{anytime}
 \citep{CRAN:anytime} where we use the Boost parser, or similar approaches using
