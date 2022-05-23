@@ -66,6 +66,7 @@ namespace Rcpp {
 #include <cfloat>
 #include <limits>
 #include <typeinfo>
+#include <utility>
 #include <Rcpp/sprintf.h>
 #include <R_ext/Callbacks.h>
 #include <R_ext/Visibility.h>

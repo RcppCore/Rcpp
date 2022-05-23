@@ -58,8 +58,11 @@ namespace Rcpp {
         }
 
         /** copy constructor */
-        String(const String& other) : data(other.get_sexp()), token(R_NilValue), valid(true), buffer_ready(false), enc(Rf_getCharCE(other.get_sexp())) {
-            token = Rcpp_PreciousPreserve(data);
+        String(const String& s) : data(R_NilValue), token(R_NilValue), buffer(s.buffer), valid(s.valid), buffer_ready(s.buffer_ready), enc(s.enc) {
+            if (!buffer_ready) {
+                data = s.get_sexp();
+                token = Rcpp_PreciousPreserve(data);
+            }
             RCPP_STRING_DEBUG("String(const String&)");
         }
 
@@ -111,12 +114,27 @@ namespace Rcpp {
         }
 
         /** from a std::string */
-        String(const std::string& s, cetype_t enc = CE_UTF8) : buffer(s), valid(false), buffer_ready(true), enc(enc) {
-            data = R_NilValue;
-            token = R_NilValue;
+        String(const std::string& s, cetype_t enc = CE_UTF8) : data(R_NilValue), token(R_NilValue), buffer(s), valid(false), buffer_ready(true), enc(enc) {
             RCPP_STRING_DEBUG("String(const std::string&, cetype_t)");
         }
+#ifdef RCPP_USING_CXX11
+        /** move constructor */
+        String(String&& s) : data(s.data), token(s.token), buffer(std::move(s.buffer)), valid(s.valid), buffer_ready(s.buffer_ready), enc(s.enc) {
+            // Erase s.
+            s.data = R_NilValue;
+            s.token = R_NilValue;
+            s.buffer = std::string();
+            s.valid = false;
+            s.buffer_ready = true;
+            s.enc = CE_UTF8;
+            RCPP_STRING_DEBUG("String(String&&)");
+        }
 
+        /** move a std::string */
+        String(std::string&& s, cetype_t enc = CE_UTF8) : data(R_NilValue), token(R_NilValue), buffer(s), valid(false), buffer_ready(true), enc(enc) {
+            RCPP_STRING_DEBUG("String(std::string&&, cetype_t)");
+        }
+#endif
         String(const std::wstring& s, cetype_t enc = CE_UTF8) : data(internal::make_charsexp(s)), token(R_NilValue), valid(true), buffer_ready(false), enc(enc) {
             token = Rcpp_PreciousPreserve(data);
             RCPP_STRING_DEBUG("String(const std::wstring&, cetype_t)");
@@ -220,14 +238,27 @@ namespace Rcpp {
             return *this;
         }
         inline String& operator=(const String& other) {
-            SEXP x = other.get_sexp();
-            if (data != x) {
-                data = x;
-                Rcpp_PreciousRelease(token);
-                token = Rcpp_PreciousPreserve(x);
+            if (other.buffer_ready) {
+                // Copy the buffer without creating a SEXP.
+                if (valid) {
+                    Rcpp_PreciousRelease(token);
+                    valid = false;
+                }
+                data = R_NilValue;
+                token = R_NilValue;
+                buffer = other.buffer;
+                buffer_ready = true;
+                enc = other.enc;
+            } else {
+                SEXP x = other.get_sexp();
+                if (data != x) {
+                    data = x;
+                    Rcpp_PreciousRelease(token);
+                    token = Rcpp_PreciousPreserve(x);
+                }
+                valid = true;
+                buffer_ready = false;
             }
-            valid = true;
-            buffer_ready = false;
             return *this;
         }
         inline String& operator=(const std::string& s) {
@@ -236,6 +267,30 @@ namespace Rcpp {
             buffer_ready = true;
             return *this;
         }
+#ifdef RCPP_USING_CXX11
+        inline String& operator=(String&& other) {
+            data = other.data;
+            token = other.token;
+            buffer = std::move(other.buffer);
+            valid = other.valid;
+            buffer_ready = other.buffer_ready;
+            enc = other.enc;
+            // Erase other.
+            other.data = R_NilValue;
+            other.token = R_NilValue;
+            other.buffer = std::string();
+            other.valid = false;
+            other.buffer_ready = true;
+            other.enc = CE_UTF8;
+            return *this;
+        }
+        inline String& operator=(std::string&& s) {
+          buffer = s;
+          valid = false;
+          buffer_ready = true;
+          return *this;
+        }
+#endif
         inline String& operator=(const char* s) {
             buffer = s;
             valid = false;

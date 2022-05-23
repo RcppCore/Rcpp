@@ -1,3 +1,12 @@
+2018-10-25  Dean Scarff  <dos@scarff.id.au>
+
+	* inst/include/Rcpp/String.h: Make less copies of strings by adding
+	move semantics and preserving the buffer/SEXP representation when
+	copying
+	* inst/include/RcppCommon.h: include <utility> for std::move
+	* inst/tinytest/cpp/String.cpp: Add unit tests
+	* inst/tinytest/test_string.R: Add unit tests
+
 2022-05-12  Dirk Eddelbuettel  <edd@debian.org>
 
 	* docker/ci/Dockerfile: Added xml2, also use more r-cran-* binaries

@@ -63,6 +63,22 @@ expect_equal( res, target )
 res <- test_ctor("abc")
 expect_identical(res, "abc")
 
+#    test.String.move.ctor <- function() {
+res <- test_move_ctor()
+expect_identical(res, c("", "test"))
+
+#    test.String.move.std.string.ctor <- function() {
+res <- test_move_std_string_ctor()
+expect_identical(res, "test")
+
+#    test.String.move.assignment <- function() {
+res <- test_move_assignment()
+expect_identical(res, c("", "test"))
+
+#    test.String.move.std.string.assignment <- function() {
+res <- test_move_std_string_assignment()
+expect_identical(res, "test")
+
 #    test.push.front <- function() {
 res <- test_push_front("def")
 expect_identical(res, "abcdef")
