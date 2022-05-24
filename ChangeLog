@@ -1,4 +1,4 @@
-2018-10-25  Dean Scarff  <dos@scarff.id.au>
+2022-05-23  Dean Scarff  <dos@scarff.id.au>
 
 	* inst/include/Rcpp/String.h: Make less copies of strings by adding
 	move semantics and preserving the buffer/SEXP representation when
