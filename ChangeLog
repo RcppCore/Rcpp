@@ -1,8 +1,11 @@
+2022-05-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/tinytest/test_string.R: Add C++11 conditioning for new unit tests
+
 2022-05-23  Dean Scarff  <dos@scarff.id.au>
 
-	* inst/include/Rcpp/String.h: Make less copies of strings by adding
-	move semantics and preserving the buffer/SEXP representation when
-	copying
+	* inst/include/Rcpp/String.h: Make less copies of strings via move
+	semantics and preserving the buffer/SEXP representation when copying
 	* inst/include/RcppCommon.h: include <utility> for std::move
 	* inst/tinytest/cpp/String.cpp: Add unit tests
 	* inst/tinytest/test_string.R: Add unit tests
