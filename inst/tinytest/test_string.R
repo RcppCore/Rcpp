@@ -1,5 +1,5 @@
 
-##  Copyright (C) 2012 - 2019  Dirk Eddelbuettel and Romain Francois
+##  Copyright (C) 2012 - 2022  Dirk Eddelbuettel and Romain Francois
 ##
 ##  This file is part of Rcpp.
 ##
@@ -62,6 +62,24 @@ expect_equal( res, target )
 #    test.String.ctor <- function() {
 res <- test_ctor("abc")
 expect_identical(res, "abc")
+
+if (Rcpp:::capabilities()[["Full C++11 support"]]) {
+    ##    test.String.move.ctor <- function() {
+    res <- test_move_ctor()
+    expect_identical(res, c("", "test"))
+
+    ##    test.String.move.std.string.ctor <- function() {
+    res <- test_move_std_string_ctor()
+    expect_identical(res, "test")
+
+    ##    test.String.move.assignment <- function() {
+    res <- test_move_assignment()
+    expect_identical(res, c("", "test"))
+
+    ##    test.String.move.std.string.assignment <- function() {
+    res <- test_move_std_string_assignment()
+    expect_identical(res, "test")
+}
 
 #    test.push.front <- function() {
 res <- test_push_front("def")

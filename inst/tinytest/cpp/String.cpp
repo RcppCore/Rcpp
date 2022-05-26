@@ -54,6 +54,35 @@ String test_ctor(String x) {
 }
 
 // [[Rcpp::export]]
+CharacterVector test_move_ctor() {
+  std::vector<String> v = { "test" };
+  String t = std::move( v[0] );
+  v.push_back( std::move( t ) );
+  return CharacterVector( v.begin(), v.end() );
+}
+
+// [[Rcpp::export]]
+String test_move_std_string_ctor() {
+  std::string s = "test";
+  return String( std::move( s ) );
+}
+
+// [[Rcpp::export]]
+CharacterVector test_move_assignment() {
+  std::vector<String> v = { "test", "abc" };
+  v[1] = std::move( v[0] );
+  return CharacterVector( v.begin(), v.end() );
+}
+
+// [[Rcpp::export]]
+String test_move_std_string_assignment() {
+  String x = "abc";
+  std::string s = "test";
+  x = std::move( s );
+  return x;
+}
+
+// [[Rcpp::export]]
 List test_compare_Strings( String aa, String bb ){
     return List::create(
         _["a  < b" ] = aa < bb,
