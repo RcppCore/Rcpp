@@ -1,3 +1,11 @@
+2022-07-01  Dirk Eddelbuettel  <edd@debian.org>
+
+	* man/dependsAttribute.Rd: Use https in URL
+	* man/exportAttribute.Rd: Idem
+	* man/interfacesAttribute.Rd: Idem
+	* DESCRIPTION (URL): Idem
+	* README.md: Idem, use Amazon page for Rcpp book
+
 2022-05-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
