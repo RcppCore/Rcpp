@@ -14,7 +14,7 @@
 [![BioConductor use](https://jangorecki.gitlab.io/rdeps/Rcpp/BioC_usage.svg?sanitize=true)](https://cran.r-project.org/package=Rcpp)
 [![StackOverflow](https://img.shields.io/badge/stackoverflow-rcpp-orange.svg)](https://stackoverflow.com/questions/tagged/rcpp)
 [![JSS](https://img.shields.io/badge/JSS-10.18637%2Fjss.v040.i08-brightgreen)](https://dx.doi.org/10.18637/jss.v040.i08)
-[![Springer useR!](https://img.shields.io/badge/Springer%20useR!-10.1007%2F978--1--4614--6868--4-brightgreen)](http://www.amazon.com/gp/product/1461468671/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1461468671&linkCode=as2&tag=rcpp-20&linkId=3P5LNUWOAQ2YMEJ6)
+[![Springer useR!](https://img.shields.io/badge/Springer%20useR!-10.1007%2F978--1--4614--6868--4-brightgreen)](https://www.amazon.com/gp/product/1461468671/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1461468671&linkCode=as2&tag=rcpp-20&linkId=3P5LNUWOAQ2YMEJ6)
 [![TAS](https://img.shields.io/badge/TAS-10.1080%2F00031305.2017.1375990-brightgreen)](https://dx.doi.org/10.1080/00031305.2017.1375990)
 
 ### Synopsis
@@ -37,7 +37,7 @@ provides a good entry point to Rcpp as do the [Rcpp
 website](https://www.rcpp.org), the [Rcpp
 page](https://dirk.eddelbuettel.com/code/rcpp.html) and the [Rcpp
 Gallery](https://gallery.rcpp.org). Full documentation is provided by the
-[Rcpp book](http://www.amazon.com/gp/product/1461468671/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1461468671&linkCode=as2&tag=rcpp-20&linkId=3P5LNUWOAQ2YMEJ6).
+[Rcpp book](https://www.amazon.com/gp/product/1461468671/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1461468671&linkCode=as2&tag=rcpp-20&linkId=3P5LNUWOAQ2YMEJ6).
 
 Other highlights:
 
@@ -65,7 +65,7 @@ See the [Rcpp-atttributes](https://cran.r-project.org/package=Rcpp/vignettes/Rcp
 
 ### Documentation
 
-The package ships with nine pdf vignettes, including a [recent introduction to
+The package ships with ten pdf vignettes, including a [recent introduction to
 Rcpp](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-introduction.pdf) now
 published as a [paper in
 TAS](https://amstat.tandfonline.com/doi/abs/10.1080/00031305.2017.1375990) (and as a
@@ -78,7 +78,7 @@ Among the other vignettes are the [Rcpp
 FAQ](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-FAQ.pdf) and the
 introduction to [Rcpp
 Attributes](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-attributes.pdf).
-Additional documentation is available via the [Rcpp book](http://www.amazon.com/gp/product/1461468671/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1461468671&linkCode=as2&tag=rcpp-20&linkId=3P5LNUWOAQ2YMEJ6)
+Additional documentation is available via the [Rcpp book](https://www.amazon.com/gp/product/1461468671/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1461468671&linkCode=as2&tag=rcpp-20&linkId=3P5LNUWOAQ2YMEJ6)
 by Eddelbuettel (2013, Springer); see 'citation("Rcpp")' for details.
 
 ### Performance
@@ -109,11 +109,13 @@ been factored out of Rcpp into the package RcppClassic, and it is still
 available for code relying on the older interface. New development should
 always use this Rcpp package instead.
 
-Other usage examples are provided by packages using Rcpp. As of late December 2021,
-there are 2469 [CRAN](https://cran.r-project.org) packages using Rcpp, a further
-242 [BioConductor](https://www.bioconductor.org) packages in its current release
+Other usage examples are provided by packages using Rcpp. As of early July 2022,
+there are 2560 [CRAN](https://cran.r-project.org) packages using Rcpp, a further
+252 [BioConductor](https://www.bioconductor.org) packages in its current release
 as well as an unknown number of GitHub, Bitbucket, R-Forge, ... repositories
-using Rcpp.  All these packages provide usage examples for Rcpp.
+using Rcpp.  All these packages provide usage examples for Rcpp. The package
+is in widespread use and has been downloaded over 61 million times (per the
+partial logs from the cloud mirrors of CRAN).
 
 ### Installation
 
@@ -183,7 +185,7 @@ previous issues can be searched as well.
 ### Authors
 
 Dirk Eddelbuettel, Romain Francois, JJ Allaire, Kevin Ushey, Qiang Kou,
-Nathan Russell, Doug Bates, and John Chambers
+Nathan Russell, Iñaki Ucar, Doug Bates, and John Chambers
 
 ### License
 
