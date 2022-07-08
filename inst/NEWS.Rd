@@ -3,7 +3,7 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp hotfix release version 1.0.8.4 (2022-03-14)}{
+\section{Changes in Rcpp hotfix release version 1.0.9 (2022-07-02)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
@@ -15,17 +15,23 @@
        CRAN request)
        \item Upon removal from precious list, the tag is set to null
        (Iñaki in \ghpr{1205} fixing \ghit{1203})
+       \item Move constructor and assignment for strings have been added
+       (Dean Scarff in \ghpr{1219}).
     }
     \item Changes in Rcpp Documentation:
     \itemize{
       \item Adjust one overflowing column (Bill Denney in \ghpr{1196} fixing
       \ghit{1195})
+      \item Correct a typo in the FAQ (Marco Colombo in \ghpr{1217})
     }
     \item Changes in Rcpp Deployment:
     \itemize{
       \item Accomodate four digit version numbers in unit test (Dirk)
       \item Do not run complete test suite to limit test time to CRAN
-      preference (Dirk)
+      preference (Dirk in \ghpr{1206})
+      \item Small updates to the CI test containers have been made
+      \item Some of changes also applied to an interim release
+      1.0.8.3 made for CRAN on 2022-03-14.
     }
   }
 }
