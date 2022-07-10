@@ -1,3 +1,9 @@
+2022-07-10  Dirk Eddelbuettel  <edd@debian.org>
+
+	* docker/ci-4.1/Dockerfile: Add Dockerfile for 4.1 series
+	* .github/workflows/ci.yaml: Add 4.1 to CI matrix
+	* .github/workflows/docker.yaml: Do not rebuild versioned ones
+
 2022-07-02  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Date, Version): Release 1.0.9

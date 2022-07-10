@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        tag: [ci, ci-dev, ci-4.0]
+        tag: [ci, ci-dev]
 
     steps:
     - name: Checkout
