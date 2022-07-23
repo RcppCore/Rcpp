@@ -3,8 +3,10 @@
 	* inst/include/Rcpp/r/headers.h: Unwind protection is enabled by default
 	unless `RCPP_NO_UNWIND_PROTECT` is defined (`RCPP_USE_UNWIND_PROTECT` is
 	not checked anymore and has no effect)
+	* inst/include/Rcpp/vector/Vector.h: Switch evaluation to `Rcpp_eval`
 	* R/Attributes.R: `[[Rcpp::plugins(unwindProtect)]]` is deprecated
 	* inst/tinytest/cpp/stack.cpp: Adapted
+	* inst/tinytest/test_exceptions.R: Adapted
 	* inst/tinytest/test_interface.R: Adapted
 	* inst/tinytest/testRcppInterfaceExporter/src/config.h: Removed
 
