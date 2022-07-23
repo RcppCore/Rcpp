@@ -3,6 +3,19 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
+\section{Changes in Rcpp release version x.x.x (xxxx-xx-xx)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Unwind protection is enabled by default (Iñaki in \ghpr{xxxx}).
+      It can be disabled by defining \code{RCPP_NO_UNWIND_PROTECT} before
+      including \code{Rcpp.h}. \code{RCPP_USE_UNWIND_PROTECT} is not checked
+      anymore and has no effect. The associated plugin \code{unwindProtect}
+      is therefore deprecated and will be removed in a future release.
+    }
+  }
+}
+
 \section{Changes in Rcpp hotfix release version 1.0.9 (2022-07-02)}{
   \itemize{
     \item Changes in Rcpp API:
