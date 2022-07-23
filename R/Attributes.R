@@ -1,5 +1,5 @@
 
-# Copyright (C) 2012 - 2021  JJ Allaire, Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2012 - 2022  JJ Allaire, Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -562,9 +562,11 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
                     PKG_LIBS="-fopenmp"))
 }
 
-.plugins[["unwindProtect"]] <- function() {
-    list(env = list(PKG_CPPFLAGS = "-DRCPP_USE_UNWIND_PROTECT"))
-}
+.plugins[["unwindProtect"]] <- function() { # nocov start
+    warning("unwindProtect is enabled by default and this plugin is deprecated.",
+            " It will be removed in a future version of Rcpp.")
+    list()
+} # nocov end
 
 # register a plugin
 registerPlugin <- function(name, plugin) {

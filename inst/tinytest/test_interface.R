@@ -1,5 +1,5 @@
 
-##  Copyright (C) 2018 - 2019  RStudio
+##  Copyright (C) 2018 - 2022  RStudio
 ##
 ##  This file is part of Rcpp.
 ##
@@ -64,9 +64,8 @@ on.exit(Sys.setenv(R_LIBS = old_libs_envvar), add = TRUE)
 sys_sep <- if (.Platform$OS.type == "windows") ";" else ":"
 Sys.setenv(R_LIBS = paste(c(lib_path, old_lib_paths), collapse = sys_sep))
 
-cfg <- "#define RCPP_USE_UNWIND_PROTECT"
-build_package(exporter_name, lib_path, config = cfg)
-build_package(user_name, lib_path, config = cfg)
+build_package(exporter_name, lib_path)
+build_package(user_name, lib_path)
 
 result <- tools::testInstalledPackage(user_name, lib.loc = lib_path, types = "test")
 
@@ -82,7 +81,7 @@ expect_equal(result, 0L)
 ## Now test client package without protected evaluation
 unlink(user_name, recursive = TRUE)
 unlink(paste0(user_name, "-tests"), recursive = TRUE)
-build_package(user_name, lib_path, config = character())
+build_package(user_name, lib_path, config = "#define RCPP_NO_UNWIND_PROTECT")
 
 result <- tools::testInstalledPackage(user_name, lib.loc = lib_path, types = "test")
 

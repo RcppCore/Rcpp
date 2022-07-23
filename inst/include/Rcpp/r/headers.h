@@ -95,7 +95,7 @@
 # pragma pop_macro("makedev")
 #endif
 
-#if (defined(RCPP_USE_UNWIND_PROTECT) && defined(R_VERSION) && R_VERSION >= R_Version(3, 5, 0))
+#if (!defined(RCPP_NO_UNWIND_PROTECT) && defined(R_VERSION) && R_VERSION >= R_Version(3, 5, 0))
 # define RCPP_USING_UNWIND_PROTECT
 #endif
 
