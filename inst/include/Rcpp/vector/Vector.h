@@ -1,7 +1,7 @@
 //
 // Vector.h: Rcpp R/C++ interface class library -- vectors
 //
-// Copyright (C) 2010 - 2020  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2022  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -1128,11 +1128,11 @@ public:
 public:
 
     inline SEXP eval() const {
-        return Rcpp_fast_eval( Storage::get__(), R_GlobalEnv ) ;
+        return Rcpp_eval( Storage::get__(), R_GlobalEnv ) ;
     }
 
     inline SEXP eval(SEXP env) const {
-        return Rcpp_fast_eval( Storage::get__(), env );
+        return Rcpp_eval( Storage::get__(), env );
     }
 
 
