@@ -1,3 +1,15 @@
+2022-07-23  Iñaki Ucar  <iucar@fedoraproject.org>
+
+	* inst/include/Rcpp/r/headers.h: Unwind protection is enabled by default
+	unless `RCPP_NO_UNWIND_PROTECT` is defined (`RCPP_USE_UNWIND_PROTECT` is
+	not checked anymore and has no effect)
+	* inst/include/Rcpp/vector/Vector.h: Switch evaluation to `Rcpp_eval`
+	* R/Attributes.R: `[[Rcpp::plugins(unwindProtect)]]` is deprecated
+	* inst/tinytest/cpp/stack.cpp: Adapted
+	* inst/tinytest/test_exceptions.R: Adapted
+	* inst/tinytest/test_interface.R: Adapted
+	* inst/tinytest/testRcppInterfaceExporter/src/config.h: Removed
+
 2022-07-10  Dirk Eddelbuettel  <edd@debian.org>
 
 	* docker/ci-4.1/Dockerfile: Add Dockerfile for 4.1 series

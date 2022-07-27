@@ -2,7 +2,7 @@
 //
 // misc.cpp: Rcpp R/C++ interface class library -- misc unit tests
 //
-// Copyright (C) 2013 - 2015  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2013 - 2022  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -19,7 +19,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-// [[Rcpp::plugins(unwindProtect,cpp11)]]
+// [[Rcpp::plugins(cpp11)]]
 
 #include <Rcpp.h>
 using namespace Rcpp;
