@@ -551,7 +551,7 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
         list(env = list(PKG_CXXFLAGS ="-std=c++20"))
 }
 
-# built-in C++23 plugin for C++20
+# built-in C++23 plugin for C++23
 .plugins[["cpp23"]] <- function() {
     if (getRversion() >= "4.3")         # with recent R versions, R can decide
         list(env = list(USE_CXX23 = "yes"))
