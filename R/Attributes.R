@@ -556,7 +556,7 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     if (getRversion() >= "4.3")         # with recent R versions, R can decide
         list(env = list(USE_CXX23 = "yes"))
     else
-        list(env = list(PKG_CXXFLAGS ="-std=c++20"))
+        list(env = list(PKG_CXXFLAGS ="-std=c++23"))
 }
 
 
