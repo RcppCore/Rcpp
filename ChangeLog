@@ -3,7 +3,8 @@
 	* DESCRIPTION (Version, Date): Roll minor version
 	* inst/include/Rcpp/config.h: Idem
 
-	* R/Attributes.R: Support C++20 and C++23 via plugins
+	* R/Attributes.R: Support C++20, C++23 and C++2b (for experimental /
+	incomplete support) via new plugins
 
 2022-07-27  Dirk Eddelbuettel  <edd@debian.org>
 

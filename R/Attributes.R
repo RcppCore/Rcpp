@@ -573,6 +573,11 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     list(env = list(PKG_CXXFLAGS ="-std=c++2a"))
 }
 
+## built-in C++2b plugin for compilers without C++23 support
+.plugins[["cpp2b"]] <- function() {
+    list(env = list(PKG_CXXFLAGS ="-std=c++2b"))
+}
+
 ## built-in OpenMP plugin
 .plugins[["openmp"]] <- function() {
     list(env = list(PKG_CXXFLAGS="-fopenmp",

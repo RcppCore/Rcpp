@@ -15,8 +15,8 @@
     }
     \item Changes in Rcpp Attributes:
     \itemize{
-      \item The C++20 and C+=23 standards are now supported via plugins
-      just like the other C++ standards (Dirk in \ghpr{1228})
+      \item The C++20, C++2b (experimental) and C++23 standards now have
+      plugin support like the other C++ standards (Dirk in \ghpr{1228})
     }
   }
 }
