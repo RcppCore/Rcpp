@@ -3,7 +3,7 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp release version 1.0.9.1 (2022-07-27)}{
+\section{Changes in Rcpp release version 1.0.9.2 (2022-09-20)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
@@ -12,6 +12,11 @@
       including \code{Rcpp.h}. \code{RCPP_USE_UNWIND_PROTECT} is not checked
       anymore and has no effect. The associated plugin \code{unwindProtect}
       is therefore deprecated and will be removed in a future release.
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item The C++20 and C+=23 standards are now supported via plugins
+      just like the other C++ standards (Dirk in \ghpr{1228})
     }
   }
 }
