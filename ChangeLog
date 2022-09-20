@@ -1,3 +1,7 @@
+2022-09-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/Attributes.R: Support C++20 and C++23 via plugins
+
 2022-07-27  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version

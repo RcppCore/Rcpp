@@ -543,6 +543,23 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
         list(env = list(PKG_CXXFLAGS ="-std=c++17"))
 }
 
+# built-in C++20 plugin for C++20
+.plugins[["cpp20"]] <- function() {
+    if (getRversion() >= "4.2")         # with recent R versions, R can decide
+        list(env = list(USE_CXX20 = "yes"))
+    else
+        list(env = list(PKG_CXXFLAGS ="-std=c++20"))
+}
+
+# built-in C++23 plugin for C++20
+.plugins[["cpp23"]] <- function() {
+    if (getRversion() >= "4.3")         # with recent R versions, R can decide
+        list(env = list(USE_CXX23 = "yes"))
+    else
+        list(env = list(PKG_CXXFLAGS ="-std=c++20"))
+}
+
+
 ## built-in C++1z plugin for C++17 standard under development
 ## note that as of Feb 2017 this is taken to be a moving target
 ## see https://gcc.gnu.org/projects/cxx-status.html
