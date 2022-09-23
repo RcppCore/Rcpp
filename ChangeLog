@@ -1,6 +1,6 @@
 2022-09-23  Kevin Ushey  <kevinushey@gmail.com>
 
-    * R/Module.R: Force 'finalize' method to be materialized
+	* R/Module.R: Force 'finalize' method to be materialized
 
 2022-09-20  Dirk Eddelbuettel  <edd@debian.org>
 
