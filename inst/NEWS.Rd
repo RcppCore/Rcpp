@@ -7,6 +7,9 @@
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
+      \item The 'finalize' method for Rcpp Modules is now eagerly materialized,
+      fixing an issue where errors can occur when Module finalizers are run.
+      (Kevin in \ghpr{1231})
       \item Unwind protection is enabled by default (Iñaki in \ghpr{1225}).
       It can be disabled by defining \code{RCPP_NO_UNWIND_PROTECT} before
       including \code{Rcpp.h}. \code{RCPP_USE_UNWIND_PROTECT} is not checked
