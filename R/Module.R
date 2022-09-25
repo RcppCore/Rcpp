@@ -131,6 +131,8 @@ new_dummyObject <- function(...)                                # #nocov
 
 # class method for $initialize
 cpp_object_initializer <- function(.self, .refClassDef, ..., .object_pointer){
+    # force finalize method to be materialized
+    invisible(.self$finalize)
     selfEnv <- as.environment(.self)
     ## generate the C++-side object and store its pointer, etc.
     ## access the private fields in the fieldPrototypes env.
