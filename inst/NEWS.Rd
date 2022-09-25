@@ -3,23 +3,23 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp release version 1.0.9.2 (2022-09-20)}{
+\section{Changes in Rcpp release version 1.0.9.3 (2022-09-25)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
-      \item The 'finalize' method for Rcpp Modules is now eagerly materialized,
-      fixing an issue where errors can occur when Module finalizers are run.
-      (Kevin in \ghpr{1231})
       \item Unwind protection is enabled by default (Iñaki in \ghpr{1225}).
       It can be disabled by defining \code{RCPP_NO_UNWIND_PROTECT} before
       including \code{Rcpp.h}. \code{RCPP_USE_UNWIND_PROTECT} is not checked
       anymore and has no effect. The associated plugin \code{unwindProtect}
       is therefore deprecated and will be removed in a future release.
+      \item The 'finalize' method for Rcpp Modules is now eagerly materialized,
+      fixing an issue where errors can occur when Module finalizers are run
+      (Kevin in \ghpr{1231} closing \ghit{1230}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{
       \item The C++20, C++2b (experimental) and C++23 standards now have
-      plugin support like the other C++ standards (Dirk in \ghpr{1228})
+      plugin support like the other C++ standards (Dirk in \ghpr{1228}).
     }
   }
 }

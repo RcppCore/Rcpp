@@ -1,3 +1,8 @@
+2022-09-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+	* inst/include/Rcpp/config.h (RCPP_DEV_VERSION): Idem
+
 2022-09-23  Kevin Ushey  <kevinushey@gmail.com>
 
 	* R/Module.R: Force 'finalize' method to be materialized
