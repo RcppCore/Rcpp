@@ -192,3 +192,17 @@ DataFrame DataFrame_PushZeroLength(){
   df1.push_back(v);
   return df1;
 }
+
+// issue #1232
+// [[Rcpp::export]]
+Rcpp::DataFrame DataFrame_PushOnEmpty() {
+    int n = 0;
+    Rcpp::IntegerVector foo(n);
+    Rcpp::CharacterVector bar(n);
+    Rcpp::CharacterVector baz(n);
+
+    Rcpp::List ll = Rcpp::List::create(Rcpp::Named("foo") = foo,
+                                       Rcpp::Named("bar") = bar);
+    ll.push_back(baz, "baz");
+    return Rcpp::DataFrame(ll);
+}

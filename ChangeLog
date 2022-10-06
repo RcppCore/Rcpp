@@ -1,3 +1,10 @@
+2022-10-06  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/tinytest/test_dataframe.R (test.DataFrame.PushZeroLength): Add
+	new test
+	* inst/tinytest/cpp/DataFrame.cpp (DataFrame_PushOnEmpty): C++
+	support for new test
+
 2022-10-04  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/DataFrame.h (set_type_after_push): Allow zero-row
