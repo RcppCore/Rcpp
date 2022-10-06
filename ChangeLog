@@ -1,3 +1,8 @@
+2022-10-04  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/DataFrame.h (set_type_after_push): Allow zero-row
+	data.frame objects to be grown by push_{back,front}()
+
 2022-09-25  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version

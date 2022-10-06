@@ -140,10 +140,12 @@ namespace Rcpp{
                     max_rows = Rf_xlength(*it);
                 }
             }
-            for (it = Parent::begin(); it != Parent::end(); ++it) {
-                if (Rf_xlength(*it) == 0 || ( Rf_xlength(*it) > 1 && max_rows % Rf_xlength(*it) != 0 )) {
-                    // We have a column that is not an integer fraction of the largest
-                    invalid_column_size = true;
+            if (max_rows > 0) {
+                for (it = Parent::begin(); it != Parent::end(); ++it) {
+                    if (Rf_xlength(*it) == 0 || ( Rf_xlength(*it) > 1 && max_rows % Rf_xlength(*it) != 0 )) {
+                        // We have a column that is not an integer fraction of the largest
+                        invalid_column_size = true;
+                    }
                 }
             }
             if (invalid_column_size) {
