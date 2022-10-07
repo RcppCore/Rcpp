@@ -113,3 +113,7 @@ expect_equal( DataFrame_PushReplicateLength(), df )
 
 #    test.DataFrame.PushZeroLength <- function(){
 expect_warning( DataFrame_PushZeroLength())
+
+## issue #1232: push on empty data.frame
+df <- DataFrame_PushOnEmpty()
+expect_equal(ncol(df), 3L)
