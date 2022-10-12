@@ -1,5 +1,8 @@
 2022-10-12  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Roll minor version
+	* inst/include/Rcpp/config.h (RCPP_DEV_VERSION): Idem
+
 	* R/Attributes.R (sourceCpp): Protect path to binary from spaces
 
 2022-10-06  Dirk Eddelbuettel  <edd@debian.org>
