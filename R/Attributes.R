@@ -129,7 +129,8 @@ sourceCpp <- function(file = "",
         }                                                       # #nocov end
 
         # grab components we need to build command
-        r <- normalizePath(file.path(R.home("bin"), "R"), winslash = "/", mustWork = FALSE)
+        r <- file.path(R.home("bin"), "R")
+        if (.Platform$OS.type == "windows") r <- shQuote(r)
         lib  <- context$dynlibFilename
         deps <- context$cppDependencySourcePaths
         src  <- context$cppSourceFilename
