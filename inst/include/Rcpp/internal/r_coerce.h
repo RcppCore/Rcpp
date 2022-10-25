@@ -246,14 +246,14 @@ inline const char* coerce_to_string<REALSXP>(double x){
 template <>
 inline const char* coerce_to_string<INTSXP >(int from) {
 	static char buffer[NB] ;
-    snprintf( buffer, NB, "%*d", integer_width(from), from );
+    snprintf(buffer, NB, "%*d", integer_width(from), from);
     return buffer ;
 }
 template <>
 inline const char* coerce_to_string<RAWSXP >(Rbyte from){
 	static char buff[3];
-    ::sprintf(buff, "%02x", from);
-    return buff ;
+    snprintf(buff, 3, "%02x", from);
+    return buff;
 }
 template <>
 inline const char* coerce_to_string<LGLSXP >(int from){
