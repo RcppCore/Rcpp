@@ -3,6 +3,11 @@
 	* inst/tinytest/cpp/coerce.cpp: add coerce unit tests
 	* inst/tinytest/test_coerce.R: idem
 
+2022-10-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/internal/r_coerce.h (coerce_to_string<RAWSXP >):
+	Replace last remaining sprintf with snprintf
+
 2022-10-12  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
