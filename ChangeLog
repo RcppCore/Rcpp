@@ -1,3 +1,8 @@
+2022-10-27  Kevin Ushey  <kevinushey@gmail.com>
+
+	* inst/tinytest/cpp/coerce.cpp: add coerce unit tests
+	* inst/tinytest/test_coerce.R: idem
+
 2022-10-12  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
