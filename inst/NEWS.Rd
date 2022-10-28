@@ -3,7 +3,7 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp release version 1.0.9.3 (2022-09-25)}{
+\section{Changes in Rcpp release version 1.0.9.6 (2022-10-27)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
@@ -15,11 +15,17 @@
       \item The 'finalize' method for Rcpp Modules is now eagerly materialized,
       fixing an issue where errors can occur when Module finalizers are run
       (Kevin in \ghpr{1231} closing \ghit{1230}).
+      \item Zero-row \code{data.frame} objects can receive \code{push_back}
+      or \code{push_front} (Dirk in \ghpr{1233} fixing \ghit{1232}).
+      \item One remaining \code{sprintf} has been replaced by
+      \code{snprintf} (Dirk and Kevin in \ghpr{1236} and \ghpr{1237}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{
       \item The C++20, C++2b (experimental) and C++23 standards now have
       plugin support like the other C++ standards (Dirk in \ghpr{1228}).
+      \item The source path for attributes received one more protection
+      from spaces (Dirk in \ghpr{1235} addressing \ghit{1234}).
     }
   }
 }
