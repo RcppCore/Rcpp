@@ -1,3 +1,7 @@
+2022-12-26  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .github/workflows/stale.yaml (jobs): Update actions/stale@v6
+
 2022-11-14  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .github/workflows/ci.yaml (jobs): Update to actions/checkout@v3
