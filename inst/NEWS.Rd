@@ -27,6 +27,10 @@
       \item The source path for attributes received one more protection
       from spaces (Dirk in \ghpr{1235} addressing \ghit{1234}).
     }
+    \item Changes in Rcpp Deployment:
+    \itemize{
+      \item Several GitHub Actions have been updated.
+    }
   }
 }
 
