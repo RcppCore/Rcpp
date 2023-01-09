@@ -1,8 +1,6 @@
-
-//
 // Date.cpp: Rcpp R/C++ interface class library -- Date type
 //
-// Copyright (C) 2010 - 2019  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2023  Dirk Eddelbuettel and Romain Francois
 //
 //    The mktime00() as well as the gmtime_() replacement function are
 //    Copyright (C) 2000 - 2010  The R Development Core Team.
@@ -85,10 +83,10 @@ namespace Rcpp {
         /* safety check for unbounded loops */
         if (year0 > 3000) {
             excess = (int)(year0/2000) - 1;				// #nocov start
-            year0 -= excess * 2000;
+            year0 -= (int)(excess * 2000);
         } else if (year0 < 0) {
             excess = -1 - (int)(-year0/2000);
-            year0 -= excess * 2000;					// #nocov end
+            year0 -= (int)(excess * 2000);					// #nocov end
         }
 
         for(i = 0; i < tm.tm_mon; i++) day += days_in_month[i];
@@ -450,7 +448,7 @@ struct tzhead {
     ** Normalize logic courtesy Paul Eggert.
     */
 
-    static int increment_overflow(int *const ip, int j) { 
+    static int increment_overflow(int *const ip, int j) {
         int const	i = *ip;
 
         /*
@@ -460,7 +458,7 @@ struct tzhead {
         ** or if j < INT_MIN - i; given i < 0, INT_MIN - i cannot overflow.
         */
         if ((i >= 0) ? (j > INT_MAX - i) : (j < INT_MIN - i))
-            return TRUE;							// #nocov 
+            return TRUE;							// #nocov
         *ip += j;
         return FALSE;
     }
@@ -476,10 +474,10 @@ struct tzhead {
                : *tp <= time_t_max - j))
             return TRUE;
         *tp += j;
-        return FALSE;								
+        return FALSE;
     }
 
-    static int_fast32_t detzcode(const char *const codep) { 	
+    static int_fast32_t detzcode(const char *const codep) {
         int_fast32_t result = (codep[0] & 0x80) ? -1 : 0;
         for (int i = 0; i < 4; ++i)
             result = (result << 8) | (codep[i] & 0xff);
@@ -628,7 +626,7 @@ struct tzhead {
 	return strp;
     }
 
-    // this routine modified / simplified / reduced in 2010 
+    // this routine modified / simplified / reduced in 2010
     static int tzload(const char * name, struct state * const sp, const int doextend) {
 	const char * p;
 	int	 i;
@@ -701,7 +699,7 @@ struct tzhead {
 	    }
 
 	}
-	nread = read(fid, u.buf, sizeof u.buf);
+	nread = (int)read(fid, u.buf, sizeof u.buf);
 	if (close(fid) < 0 || nread <= 0)
 	    return -1;
 	for (stored = 4; stored <= 8; stored *= 2) {
@@ -851,7 +849,7 @@ struct tzhead {
 		while (i < ts.timecnt &&
 		       sp->timecnt < TZ_MAX_TIMES) {
 		    sp->ats[sp->timecnt] = ts.ats[i];
-		    sp->types[sp->timecnt] = sp->typecnt + ts.types[i];
+		    sp->types[sp->timecnt] = (unsigned char)sp->typecnt + ts.types[i];
 		    ++sp->timecnt;
 		    ++i;
 		}
@@ -1217,7 +1215,7 @@ struct tzhead {
 		       &sp->chars[bp->tt_abbrind]) == 0;
 	}
 	return result;
-    } 									// #nocov end 
+    } 									// #nocov end
 
     static int leaps_thru_end_of(const int y) {
 	return (y >= 0) ? (y / 4 - y / 100 + y / 400) :
@@ -1316,7 +1314,7 @@ struct tzhead {
         }
         // Previously we returned 'year + base', so keep behaviour
         // It seems like R now returns just 'year - 1900' (as libc does)
-        // But better for continuity to do as before 
+        // But better for continuity to do as before
         tmp->tm_year = y + TM_YEAR_BASE;
         if (increment_overflow(&tmp->tm_year, -TM_YEAR_BASE))
             return NULL;							// #nocov

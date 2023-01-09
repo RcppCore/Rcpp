@@ -1,8 +1,7 @@
-//
 // attributes.cpp: Rcpp R/C++ interface class library -- Rcpp attributes
 //
 // Copyright (C) 2012 - 2020  JJ Allaire, Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2021 - 2022  JJ Allaire, Dirk Eddelbuettel, Romain Francois, Iñaki Ucar and Travers Ching
+// Copyright (C) 2021 - 2023  JJ Allaire, Dirk Eddelbuettel, Romain Francois, Iñaki Ucar and Travers Ching
 //
 // This file is part of Rcpp.
 //
@@ -1622,7 +1621,7 @@ namespace attributes {
         // Look for the signature termination ({ or ; not inside quotes)
         // on this line and then subsequent lines if necessary
         std::string signature;
-        for (int i = lineNumber; i<lines_.size(); i++) {
+        for (size_t i = lineNumber; i<lines_.size(); i++) {
             std::string line;
             line = lines_[i];
             bool insideQuotes = false;

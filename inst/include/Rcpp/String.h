@@ -2,7 +2,7 @@
 // String.h: Rcpp R/C++ interface class library -- single string
 //
 // Copyright (C) 2012 - 2020  Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2021         Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
+// Copyright (C) 2021 - 2023  Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -550,7 +550,7 @@ namespace Rcpp {
 #else
             if (buffer.find('\0') != std::string::npos)
                 throw embedded_nul_in_string();
-            return Rf_mkCharLenCE(buffer.c_str(), buffer.size(), enc);
+            return Rf_mkCharLenCE(buffer.c_str(), static_cast<int>(buffer.size()), enc);
 #endif
         }
 
