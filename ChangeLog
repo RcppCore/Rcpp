@@ -1,3 +1,11 @@
+2023-01-08  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/String.h: Address clang++-14 conversion warning
+	* inst/include/Rcpp/sugar/functions/mean.h: Idem
+	* inst/include/Rcpp/vector/Vector.h: Idem
+	* src/attributes.cpp: Idem
+	* src/date.cpp: Idem
+
 2022-12-29  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .github/workflows/docker.yaml (jobs): Update several actions

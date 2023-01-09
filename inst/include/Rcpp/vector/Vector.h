@@ -1,7 +1,6 @@
-//
 // Vector.h: Rcpp R/C++ interface class library -- vectors
 //
-// Copyright (C) 2010 - 2022  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2023  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -332,7 +331,7 @@ public:
     }
 
     inline iterator begin() { return cache.get() ; }
-    inline iterator end() { return cache.get() + size() ; }
+    inline iterator end() { return cache.get() + static_cast<int>(size()) ; }
     inline const_iterator begin() const{ return cache.get_const() ; }
     inline const_iterator end() const{ return cache.get_const() + size() ; }
     inline const_iterator cbegin() const{ return cache.get_const() ; }
