@@ -3,7 +3,7 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp release version 1.0.9.6 (2022-10-27)}{
+\section{Changes in Rcpp release version 1.0.10 (2023-01-12)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
@@ -19,6 +19,8 @@
       or \code{push_front} (Dirk in \ghpr{1233} fixing \ghit{1232}).
       \item One remaining \code{sprintf} has been replaced by
       \code{snprintf} (Dirk and Kevin in \ghpr{1236} and \ghpr{1237}).
+      \item Several conversion warnings found by \code{clang++} have been
+      addressed (Dirk in \ghpr{1240} and \ghpr{1241}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{
