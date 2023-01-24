@@ -20,6 +20,19 @@ Rcpp.system.file <- function(...){
     tools::file_path_as_absolute( base::system.file( ..., package = "Rcpp" ) )
 }
 
+## quote path if non-standard characters are used
+Rcpp.quoteNonStandard <- function(path, quoteAll = .Platform$OS.type!="unix") {
+    quoted <- shQuote(path)
+    if (quoteAll) {
+        quoted
+    } else {
+        # Select paths in which all characters do not need quoting
+        sel <- grepl("^[[:alnum:]/._~+@%-]*$", path)
+        # Quote remaining paths
+        ifelse(sel, path, quoted)
+    }
+}
+
 ## Use R's internal knowledge of path settings to find the lib/ directory
 ## plus optinally an arch-specific directory on system building multi-arch
 RcppLdPath <- function() {
@@ -51,7 +64,7 @@ RcppCxxFlags <- function(cxx0x=FALSE) {
     if (.Platform$OS.type=="windows") {
         path <- asBuildPath(path)				# #nocov
     }
-    paste0('-I"', path, '"')
+    paste0('-I', Rcpp.quoteNonStandard(path))
 }
 
 ## Shorter names, and call cat() directly

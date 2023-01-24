@@ -1,3 +1,7 @@
+2023-01-24  Lukasz Laniewski-Wollk  <llaniewski@meil.pw.edu.pl>
+
+	* R/RcppLdpath.R: CxxFlags() now quotes only non-standard paths on linux
+
 2023-01-08  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/String.h: Address clang++-14 conversion warning
