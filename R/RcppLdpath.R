@@ -21,16 +21,11 @@ Rcpp.system.file <- function(...){
 }
 
 ## quote path if non-standard characters are used
-Rcpp.quoteNonStandard <- function(path, quoteAll = .Platform$OS.type!="unix") {
-    quoted <- shQuote(path)
-    if (quoteAll) {
-        quoted
-    } else {
-        # Select paths in which all characters do not need quoting
-        sel <- grepl("^[[:alnum:]/._~+@%-]*$", path)
-        # Quote remaining paths
-        ifelse(sel, path, quoted)
-    }
+Rcpp.quoteNonStandard <- function(path) {
+    ## On unix, check if path has only characters that do not need quoting
+    noquote <- .Platform$OS.type == "unix" && grepl("^[[:alnum:]/._~+@%-]*$", path)
+    ## If no quoting needed return unchanged else quote input
+    if (noquote) path else shQuote(path)
 }
 
 ## Use R's internal knowledge of path settings to find the lib/ directory
