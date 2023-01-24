@@ -3,12 +3,12 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp hotfix release version 1.0.11 (2023-07-xx)}{
+\section{Changes in Rcpp rc version 1.0.11.1 for 1.0.11 (2023-07-xx)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
       \item \code{Rcpp:::CxxFlags()} now quotes only non-standard include path
-       on linux (closing \ghit{1242}).
+       on linux (Lukasz in \ghpr{1243} closing \ghit{1242}).
     }
   }
 }
@@ -46,7 +46,7 @@
   }
 }
 
-\section{Changes in Rcpp hotfix release version 1.0.9 (2022-07-02)}{
+\section{Changes in Rcpp release version 1.0.9 (2022-07-02)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
