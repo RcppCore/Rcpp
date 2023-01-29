@@ -1,3 +1,7 @@
+2023-01-29  Iñaki Ucar  <iucar@fedoraproject.org>
+
+	* inst/tinytest/test_xptr.R: Fix a couple of tests writing to stdout
+
 2023-01-24  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
