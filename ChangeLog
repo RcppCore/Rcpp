@@ -1,7 +1,6 @@
-2023-01-29  Dirk Eddelbuettel  <edd@debian.org>
+2023-01-29  Iñaki Ucar  <iucar@fedoraproject.org>
 
-	* inst/tinytest/test_xptr.R: Condition one test writing to stdout
-	on test verbosity environment variable being set
+	* inst/tinytest/test_xptr.R: Fix a couple of tests writing to stdout
 
 2023-01-24  Dirk Eddelbuettel  <edd@debian.org>
 
