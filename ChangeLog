@@ -1,3 +1,8 @@
+2023-01-29  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/tinytest/test_xptr.R: Condition one test writing to stdout
+	on test verbosity environment variable being set
+
 2023-01-24  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
