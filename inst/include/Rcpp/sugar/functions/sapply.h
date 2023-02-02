@@ -37,7 +37,7 @@ struct sapply_application_result_of
  	    typedef typename ::std::result_of<Function(typename SugarExpression::stored_type)>::type type;
     #else
         // since C++17, see https://en.cppreference.com/w/cpp/types/result_of
- 	    typedef typename ::std::invoke_result<Function(typename SugarExpression::stored_type)>::type type;
+        typedef typename ::std::invoke_result<Function, typename SugarExpression::stored_type>::type type;
     #endif
 #else
 	typedef typename ::Rcpp::traits::result_of<Function>::type type;
