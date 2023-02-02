@@ -3,12 +3,16 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp rc version 1.0.11.1 for 1.0.11 (2023-07-xx)}{
+\section{Changes in Rcpp rc version 1.0.10.2 for 1.0.11 (2023-07-xx)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
       \item \code{Rcpp:::CxxFlags()} now quotes only non-standard include path
-       on linux (Lukasz in \ghpr{1243} closing \ghit{1242}).
+      on linux (Lukasz in \ghpr{1243} closing \ghit{1242}).
+      \item Two unit tests no longer accidentally bark on stdout (Dirk and
+      Iñaki in \ghpr{1245}).
+      \item Compilation under C++ using \pkg{clang++} and its standard
+      library is enabled (Dirk in \ghpr{1248}) closing \ghit{1244}).
     }
   }
 }

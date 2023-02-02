@@ -1,5 +1,8 @@
 2023-02-02  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Roll minor version
+	* inst/include/Rcpp/config.h (RCPP_DEV_VERSION): Idem
+
 	* inst/include/Rcpp/sugar/functions/sapply.h: Enable compilation
 	under C++20 (using clang++ and its C++ library) via invoke_result
 
