@@ -1,3 +1,8 @@
+2023-02-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/sugar/functions/sapply.h: Enable compilation
+	under C++20 (using clang++ and its C++ library) via invoke_result
+
 2023-01-29  Iñaki Ucar  <iucar@fedoraproject.org>
 
 	* inst/tinytest/test_xptr.R: Fix a couple of tests writing to stdout

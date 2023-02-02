@@ -1,8 +1,7 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-//
+
 // sapply.h: Rcpp R/C++ interface class library -- sapply
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2023 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -33,7 +32,13 @@ template <typename Function, typename SugarExpression>
 struct sapply_application_result_of
 {
 #if defined(RCPP_USING_CXX0X_OR_LATER)
-	typedef typename ::std::result_of<Function(typename SugarExpression::stored_type)>::type type;
+    #if __cplusplus < 201703L
+        // deprecated by C++17, removed by C++2020, see https://en.cppreference.com/w/cpp/types/result_of
+ 	    typedef typename ::std::result_of<Function(typename SugarExpression::stored_type)>::type type;
+    #else
+        // since C++17, see https://en.cppreference.com/w/cpp/types/result_of
+        typedef typename ::std::invoke_result<Function, typename SugarExpression::stored_type>::type type;
+    #endif
 #else
 	typedef typename ::Rcpp::traits::result_of<Function>::type type;
 #endif
