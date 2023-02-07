@@ -1,3 +1,7 @@
+2023-02-07  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/tinytest/test_stats.R: Use more accurate value in R 4.3.0
+
 2023-02-06  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/CITATION: Update to new format preferred by r-devel
