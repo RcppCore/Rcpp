@@ -14,6 +14,16 @@
       \item Compilation under C++ using \pkg{clang++} and its standard
       library is enabled (Dirk in \ghpr{1248}) closing \ghit{1244}).
     }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item The CITATION file format has been updated (Dirk in \ghpr{1250}
+      fixing \ghit{1249}.
+    }
+    \item Changes in Rcpp Deployment:
+    \itemize{
+      \item A test for \code{qnorm} now uses the more accurate value from R
+      4.3.0 (Dirk in \ghpr{1252} fixing \ghit{1251}).
+    }
   }
 }
 
