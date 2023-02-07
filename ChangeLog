@@ -1,3 +1,7 @@
+2023-02-06  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/CITATION: Update to new format preferred by r-devel
+
 2023-02-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
