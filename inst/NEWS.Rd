@@ -13,6 +13,8 @@
       Iñaki in \ghpr{1245}).
       \item Compilation under C++ using \pkg{clang++} and its standard
       library is enabled (Dirk in \ghpr{1248}) closing \ghit{1244}).
+      \item Use backticks in a generated \code{.Call()} statement in
+      `RcppExports.R` (Dirk \ghpr{1256} closing \ghit{1255}).
     }
     \item Changes in Rcpp Documentation:
     \itemize{
