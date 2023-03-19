@@ -2541,9 +2541,11 @@ namespace attributes {
             ostr() << "methods::setLoadAction(function(ns) {" << std::endl;
             ostr() << "    .Call("
                    << (registration_ ? "`" : "'")
-                   <<  registerCCallableExportedName()
-                   << (registration_ ? "`" : "'")
-                   << ", PACKAGE = '" << package() << "')"
+                   << registerCCallableExportedName()
+                   << (registration_ ? "`" : "'");
+            if (!registration_)
+                ostr() << ", PACKAGE = '" << package() << "'";
+            ostr() << ")"
                    << std::endl << "})" << std::endl;		// #nocov end
         }
     }
