@@ -2539,8 +2539,13 @@ namespace attributes {
             ostr() << "# Register entry points for exported C++ functions"
                    << std::endl;
             ostr() << "methods::setLoadAction(function(ns) {" << std::endl;
-            ostr() << "    .Call('" << registerCCallableExportedName()
-                   << "', PACKAGE = '" << package() << "')"
+            ostr() << "    .Call("
+                   << (registration_ ? "`" : "'")
+                   << registerCCallableExportedName()
+                   << (registration_ ? "`" : "'");
+            if (!registration_)
+                ostr() << ", PACKAGE = '" << package() << "'";
+            ostr() << ")"
                    << std::endl << "})" << std::endl;		// #nocov end
         }
     }

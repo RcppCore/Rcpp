@@ -1,3 +1,11 @@
+2023-03-19  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll minor version
+	* inst/include/Rcpp/config.h (RCPP_DEV_VERSION): Idem
+
+	* src/attributes.cpp (RExportsGenerator::writeEnd): Replace a pair of
+	apostrophes with backticks in generated .Call() statemente
+
 2023-02-07  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/tinytest/test_stats.R: Use more accurate value in R 4.3.0
