@@ -1,3 +1,8 @@
+2023-03-24  Dirk Eddelbuettel  <edd@debian.org>
+
+	* docker/ci-dev/Dockerfile: During Debian freeze experimental repo is
+	renamed which leads to a hickup here so temporarily remove list file
+
 2023-03-24  Iñaki Ucar  <iucar@fedoraproject.org>
 
 	* inst/tinytest/test_xptr.R: Skip some tests on Windows
