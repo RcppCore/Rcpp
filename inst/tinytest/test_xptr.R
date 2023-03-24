@@ -19,6 +19,9 @@
 
 if (Sys.getenv("RunAllRcppTests") != "yes") exit_file("Set 'RunAllRcppTests' to 'yes' to run.")
 
+## used below
+.onWindows <- .Platform$OS.type == "windows"
+
 Rcpp::sourceCpp("cpp/XPtr.cpp")
 
 #    test.XPtr <- function(){
@@ -36,6 +39,8 @@ expect_true(xptr_release(xp), info = "check release of external pointer")
 expect_true(xptr_access_released(xp), info = "check access of released external pointer")
 
 expect_error(xptr_use_released(xp), info = "check exception on use of released external pointer")
+
+if (.onWindows) exit_file("Skipping remainder of file on Windows")
 
 # test finalizeOnExit default depending on RCPP_USE_FINALIZE_ON_EXIT
 file_path <- tempfile(fileext=".cpp")
