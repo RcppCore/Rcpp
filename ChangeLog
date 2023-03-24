@@ -1,3 +1,7 @@
+2023-03-24  Iñaki Ucar  <iucar@fedoraproject.org>
+
+	* inst/tinytest/test_xptr.R: Skip some tests on Windows
+
 2023-03-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
