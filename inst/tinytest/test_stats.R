@@ -243,11 +243,9 @@ expect_equal(runit_qnorm_log(c(-Inf, 0, 0.1)),
              list(lower = c(-Inf, Inf, NaN),
                   upper = c(Inf, -Inf, NaN)),
              info = "stats.qnorm" )
-if (getRversion() >= "4.3.0") {			# newer high-precision code in R 4.3.0
-    expect_equal(runit_qnorm_log(-1e5)$lower, -447.197893678525)
-} else { 								# older pre-R 4.3.0 value
-    expect_equal(runit_qnorm_log(-1e5)$lower, -447.1974945)
-}
+## newer high-precision code in R 4.3.0 has slightly different value
+## of -447.197893678525 so lowering tolerance a little
+expect_equal(runit_qnorm_log(-1e5)$lower, -447.1974945, tolerance=1e-6)
 
 #    test.stats.qpois.prob <- function( ) {
 vv <- seq(0, 1, by = 0.1)
