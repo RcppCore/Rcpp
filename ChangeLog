@@ -1,3 +1,8 @@
+2023-03-26  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/tinytest/test_stats.R: Revisit change from PR #1252; we now
+	use a slightly smaller tolerance to accomodate old and new value
+
 2023-03-25  Iñaki Ucar  <iucar@fedoraproject.org>
 
 	* R/Attributes.R: Switch to system2 to be able to capture stderr on error
