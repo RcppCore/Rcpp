@@ -1,3 +1,8 @@
+2023-03-27  Iñaki Ucar  <iucar@fedoraproject.org>
+
+	* R/Attributes.R: Remove command quoting, not needed anymore for system2()
+	* inst/tinytest/test_xptr.R: Update copyright
+
 2023-03-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll minor version
