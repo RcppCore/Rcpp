@@ -1,3 +1,7 @@
+2023-03-27  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .github/workflows/stale.yaml: Roll to v8
+
 2023-03-27  Iñaki Ucar  <iucar@fedoraproject.org>
 
 	* R/Attributes.R: Remove command quoting, not needed anymore for system2()
