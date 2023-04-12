@@ -57,7 +57,7 @@ jobs:
         run: ${{matrix.r }} CMD build --no-build-vignettes --no-manual .
 
       - name: Check
-        run: ${{ matrix.r }} CMD check --no-vignettes --no-manual Rcpp_*.tar.gz
+        run: CI=true ${{ matrix.r }} CMD check --no-vignettes --no-manual Rcpp_*.tar.gz
 
   #covr:
   #  runs-on: ubuntu-latest
