@@ -1,3 +1,7 @@
+2023-04-12  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .github/workflows/ci.yaml: Simplified container use
+
 2023-03-27  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .github/workflows/stale.yaml: Roll to v8
