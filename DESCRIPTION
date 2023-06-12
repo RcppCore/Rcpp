@@ -21,3 +21,4 @@ License: GPL (>= 2)
 BugReports: https://github.com/RcppCore/Rcpp/issues
 MailingList: rcpp-devel@lists.r-forge.r-project.org
 RoxygenNote: 6.1.1
+Encoding: UTF-8

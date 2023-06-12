@@ -1,3 +1,9 @@
+2023-06-12  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Two URL updates for appease R CMD check
+
+	* DESCRIPTION (Encoding): Somewhat belated addition
+
 2023-04-18  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Use app.codecov.io as base for codecov link
