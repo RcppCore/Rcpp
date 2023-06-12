@@ -30,7 +30,7 @@ represented as instances of `Rcpp::Environment`, functions are represented as
 `Rcpp::Function`, etc ...  The
 [Rcpp-introduction](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-introduction.pdf)
 vignette (now published as a
-[TAS paper](https://amstat.tandfonline.com/doi/abs/10.1080/00031305.2017.1375990); an
+[TAS paper](https://doi.org/10.1080/00031305.2017.1375990); an
 [earlier introduction](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-jss-2011.pdf)
 was also published as a [JSS paper](https://doi.org/10.18637/jss.v040.i08)
 provides a good entry point to Rcpp as do the [Rcpp
@@ -68,7 +68,7 @@ See the [Rcpp-atttributes](https://cran.r-project.org/package=Rcpp/vignettes/Rcp
 The package ships with ten pdf vignettes, including a [recent introduction to
 Rcpp](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-introduction.pdf) now
 published as a [paper in
-TAS](https://amstat.tandfonline.com/doi/abs/10.1080/00031305.2017.1375990) (and as a
+TAS](https://doi.org/10.1080/00031305.2017.1375990) (and as a
 [preprint in PeerJ](https://peerj.com/preprints/3188/)). Also available is an
 [earlier
 introduction](https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-jss-2011.pdf)
