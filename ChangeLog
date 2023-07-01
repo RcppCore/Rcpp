@@ -1,3 +1,9 @@
+2023-07-01  Dirk Eddelbuettel  <edd@debian.org>
+
+	* docker/ci-dev/Dockerfile: Make 'rm' more robust as 'rm -f'
+	* docker/ci-4.2/Dockerfile: Add new container for R 4.2.3
+	* .github/workflows/ci.yaml (jobs): Add entry for R 4.2.3
+
 2023-06-12  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version
