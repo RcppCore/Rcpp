@@ -1,3 +1,13 @@
+2023-07-03  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Date, Version): Release 1.0.11
+
+        * inst/include/Rcpp/config.h: Idem
+        * inst/NEWS.Rd: Idem
+        * vignettes/rmd/Rcpp.bib: Idem
+        * inst/bib/Rcpp.bib: Idem
+	* vignettes/pdf/*: Rebuilt
+
 2023-07-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Update usage numbers in Examples section
@@ -94,6 +104,13 @@
 2023-01-24  Lukasz Laniewski-Wollk  <llaniewski@meil.pw.edu.pl>
 
 	* R/RcppLdpath.R: CxxFlags() now quotes only non-standard paths on linux
+
+2023-01-22  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Date, Version): Release 1.0.10
+
+        * inst/include/Rcpp/config.h: Idem
+        * inst/NEWS.Rd: Idem
 
 2023-01-08  Dirk Eddelbuettel  <edd@debian.org>
 
