@@ -14,7 +14,7 @@
       \item Compilation under C++20 using \pkg{clang++} and its standard
       library is enabled (Dirk in \ghpr{1248} closing \ghit{1244}).
       \item Use backticks in a generated \code{.Call()} statement in
-      `RcppExports.R` (Dirk \ghpr{1256} closing \ghit{1255}).
+      \code{RcppExports.R} (Dirk \ghpr{1256} closing \ghit{1255}).
       \item Switch to \code{system2()} to capture standard error messages in
       error cases (Iñaki in \ghpr{1259} and \ghpr{1261} fixing \ghit{1257}).
     }
