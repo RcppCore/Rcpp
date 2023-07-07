@@ -11,7 +11,7 @@
       on linux (Lukasz in \ghpr{1243} closing \ghit{1242}).
       \item Two unit tests no longer accidentally bark on stdout (Dirk and
       Iñaki in \ghpr{1245}).
-      \item Compilation under C++ using \pkg{clang++} and its standard
+      \item Compilation under C++20 using \pkg{clang++} and its standard
       library is enabled (Dirk in \ghpr{1248} closing \ghit{1244}).
       \item Use backticks in a generated \code{.Call()} statement in
       `RcppExports.R` (Dirk \ghpr{1256} closing \ghit{1255}).
