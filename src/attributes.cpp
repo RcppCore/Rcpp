@@ -31,6 +31,7 @@
 #include <map>
 #include <set>
 #include <algorithm>
+#include <ostream> // for std::endl
 #include <fstream>
 #include <sstream>
 
