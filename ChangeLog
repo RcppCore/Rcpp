@@ -1,7 +1,13 @@
+2023-08-03  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version
+	* inst/include/Rcpp/config.h (RCPP_DEV_VERSION): Idem
+
 2023-08-03  Michael Chirico  <chiricom@google.com>
 
         * src/attributes.cpp: Directly `#include <ostream>` for `std::endl`
-        * src/date.cpp: Directly `#include <R_ext/Booelan.h>` for `TRUE` and `FALSE`
+        * src/date.cpp: Directly `#include <R_ext/Booelan.h>` for `TRUE` and
+	`FALSE`
 
 2023-07-03  Dirk Eddelbuettel  <edd@debian.org>
 
