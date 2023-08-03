@@ -25,6 +25,7 @@
 
 #define COMPILING_RCPP
 
+#include <R_ext/Boolean.h> // for TRUE,FALSE
 #include <Rcpp.h>
 #include <time.h>		// for gmtime
 #include <Rcpp/exceptions.h>
