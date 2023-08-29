@@ -1260,6 +1260,10 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
             if (!routine %in% routines) {
                 declaration <- grep(sprintf("^extern .* %s\\(.*$", routine), code,
                                     value = TRUE)
+                # FIXME: maybe we should extend this to *any* routine?
+                # or is there any case in which `void *` is not SEXP for a .Call?
+                if (routine == "run_testthat_tests")
+                    declaration <- gsub("void *", "SEXP", declaration, fixed=TRUE)
                 declarations <- c(declarations, sub("^extern", "RcppExport", declaration))
                 call_entries <- c(call_entries, match[[1]])			# #nocov end
             }
