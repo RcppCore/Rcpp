@@ -3,6 +3,21 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
+\section{Changes in Rcpp release version 1.0.12 (2024-01-xx)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Missing header includes as spotted by some recent tools were
+      added in two places (Michael Chirico in \ghpr{1272} closing \ghit{1271}).
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item Generated interface code from base R that fails under LTO is now
+      corrected (Iñaki in \ghpr{1274} fixing a StackOverflow issue).
+    }
+  }
+}
+
 \section{Changes in Rcpp release version 1.0.11 (2023-07-03)}{
   \itemize{
     \item Changes in Rcpp API:
