@@ -1,3 +1,7 @@
+2023-08-29  Iñaki Ucar  <iucar@fedoraproject.org>
+
+	* R/Attributes.R: Ad-hoc fix for testthat's C entrypoint in RcppExports.cpp
+
 2023-08-03  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version
