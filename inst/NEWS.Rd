@@ -15,6 +15,11 @@
       \item Generated interface code from base R that fails under LTO is now
       corrected (Iñaki in \ghpr{1274} fixing a StackOverflow issue).
     }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item The caption for third figure in the introductory vignette has
+      been corrected (Dirk in \ghpr{1277} fixing \ghit{1276}).
+    }
   }
 }
 

@@ -1,3 +1,9 @@
+2023-09-30  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/rmd/Rcpp-introduction.Rmd (Rcpp): Correct caption of
+	third figure (cf GitHub issue #1276)
+	* vignettes/pdf/Rcpp-introduction.pdf: Rebuilt
+
 2023-08-31  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version

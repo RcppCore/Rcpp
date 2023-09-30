@@ -873,7 +873,7 @@ Rcpp.package.skeleton("samplePkg")
 \begin{figure}
   \begin{center}
     \includegraphics[width=3in]{figures/samplePkg-files-light-bg.png}
-    \caption{Graphical annotation of the \texttt{is\_odd\_cpp} function.}
+    \caption{Illustration of \texttt{Rcpp.package.skeleton} function.}
     \label{fig:package-files}
   \end{center}
 \end{figure}
