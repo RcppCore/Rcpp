@@ -169,7 +169,7 @@ public:
     }
 
     inline reference operator[]( int i ) const {
-        return parent[ row + i * parent_nrow ] ;
+        return parent[ row + static_cast<R_xlen_t>(i) * parent_nrow ] ;
     }
 
     inline iterator begin(){

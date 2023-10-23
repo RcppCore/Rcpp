@@ -129,7 +129,7 @@ public:
 
     ConstMatrixColumn( const MATRIX& parent, int i ) :
         n(parent.nrow()),
-        const_start(parent.begin() + i *n)
+        const_start(parent.begin() + static_cast<R_xlen_t>(i) * n)
     {
         if( i < 0 || i >= parent.ncol() ) {
             const char* fmt = "Column index is out of bounds: "
