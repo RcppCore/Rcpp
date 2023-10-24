@@ -206,8 +206,8 @@ private:
     int parent_nrow ;
     int row ;
 
-    inline int get_parent_index(int i) const {
-        RCPP_DEBUG_4( "MatrixRow<%d>::get_parent_index(int = %d), parent_nrow = %d >> %d\n", RTYPE, i, parent_nrow, i*parent_nrow )
+    inline R_xlen_t get_parent_index(int i) const {
+        RCPP_DEBUG_4( "MatrixRow<%d>::get_parent_index(int = %d), parent_nrow = %d >> %d\n", RTYPE, i, parent_nrow, static_cast<R_xlen_t>(i) * parent_nrow )
         return static_cast<R_xlen_t>(i) * parent_nrow ;
     }
 } ;
@@ -332,7 +332,7 @@ private:
     int row ;
 
     inline R_xlen_t get_parent_index(int i) const {
-        RCPP_DEBUG_4( "ConstMatrixRow<%d>::get_parent_index(int = %d), parent_nrow = %d >> %d\n", RTYPE, i, parent_nrow, static_cast<R_xlen_t>(i) *parent_nrow )
+        RCPP_DEBUG_4( "ConstMatrixRow<%d>::get_parent_index(int = %d), parent_nrow = %d >> %d\n", RTYPE, i, parent_nrow, static_cast<R_xlen_t>(i) * parent_nrow )
         return static_cast<R_xlen_t>(i) * parent_nrow ;
     }
 } ;
