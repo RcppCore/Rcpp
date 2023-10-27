@@ -1,5 +1,8 @@
 2023-10-27  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Roll micro version
+	* inst/include/Rcpp/config.h (RCPP_DEV_VERSION): Idem
+
 	* R/tools.R: Correct missing Rd macros (spotted by R-devel CMD check)
 
 2023-10-22 Aaron Lun <infinite.monkeys.with.keyboards@gmail.com>
