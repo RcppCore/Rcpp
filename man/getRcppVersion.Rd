@@ -19,7 +19,7 @@ Helper function to report the package version of the R installation.
 }
 \details{
 While \code{packageVersion(Rcpp)} exports the version registers in
-{DESCRIPTION}, this version does get incremented more easily
+\code{DESCRIPTION}, this version does get incremented more easily
 during development and can therefore be higher than the released
 version.  The actual \code{#define} long used at the C++ level
 corresponds more to an \sQuote{API Version} which is now provided
