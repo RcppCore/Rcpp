@@ -4,6 +4,10 @@
 	* inst/include/Rcpp/config.h (RCPP_DEV_VERSION): Idem
 
 	* R/tools.R: Correct missing Rd macros (spotted by R-devel CMD check)
+2023-10-28  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/rmd/Rcpp-FAQ.Rmd: Updated and edited
+	* vignettes/rmd/Rcpp.bib: Updated
 
 2023-10-22 Aaron Lun <infinite.monkeys.with.keyboards@gmail.com>
 

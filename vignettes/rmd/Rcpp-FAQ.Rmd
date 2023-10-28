@@ -136,31 +136,26 @@ on pre-requisites for R package development.
 
 ## What compiler can I use
 
-On almost all platforms, the GNU Compiler Collection (or `gcc`, which
-is also the name of its \proglang{C} language compiler) has to be used along
-with the corresponding `g++` compiler for the \proglang{C++} language.
-A minimal suitable version is a final 4.2.* release; earlier 4.2.* were
-lacking some \proglang{C++} features (and even 4.2.1, still used on OS X as the
-last gcc release), has issues).
-
-Generally speaking, the default compilers on all the common platforms are suitable.
+On almost all platforms, the GNU Compiler Collection (or `gcc`, which is also
+the name of its \proglang{C} language compiler) can be used along with the
+corresponding `g++` compiler for the \proglang{C++} language. Depending on
+which C++ compilation standard one wishes to use, a suitably recent variant
+of the compiler may be needed. But these days the minimum standard of C++11
+is generally available, and the default compilers on all the common platforms
+are now suitable.
 
 Specific per-platform notes:
 
 \begin{description}
   \item[Windows] users need the \texttt{Rtools} package from the site maintained by
-    Duncan Murdoch which contains all the required tools in a single package;
-    complete instructions specific to Windows are in the `R Administration'
-    manual \citep[Appendix D]{R:Administration}. As of August 2014, it still
-    installs the \texttt{gcc/g++} 4.6.* compiler which limits the ability to use
-    modern C++ standards so only \code{s-std=c++0x} is supported. R 3.1.0 and
-    above detect this and set appropriate flags.
-  \item[OS X] users, as noted in the `R Administration' manual \citep[Appendix
+    Tomas Kalibera which contains all the required tools in a single package;
+    complete instructions specific to Windows are in the "R Administration"
+    manual \citep[Appendix D]{R:Administration}. No
+  \item[macOS] users, as noted in the "R Administration" manual \citep[Appendix
     C.4]{R:Administration}, need to install the Apple Developer Tools
-    (\textsl{e.g.}, \href{https://itunes.apple.com/us/app/xcode/id497799835?mt=12}{Xcode} (OS X $\le 10.8$) or \href{https://developer.apple.com/library/ios/technotes/tn2339/_index.html}{Xcode Command Line Tools} (OS X $\ge 10.9$) (as well as \texttt{gfortran} if \proglang{R} or
+    (\textsl{e.g.}, \href{https://developer.apple.com/library/ios/technotes/tn2339/_index.html}{Xcode Command Line Tools}  (as well as \texttt{gfortran} if \proglang{R} or
     Fortran-using packages are to be built); also see \faq{q:OSX} and
-    \faq{q:OSXArma} below. Depending on whether on OS X release before or after
-    Mavericks is used, different additional installation may be needed. Consult
+    \faq{q:OSXArma} below. This is frustratingly moving target; consult
     the \code{r-sig-mac} list (and its archives) for (current) details.
   \item[Linux] user need to install the standard developement packages. Some
     distributions provide helper packages which pull in all the required
@@ -169,30 +164,28 @@ Specific per-platform notes:
 
 The `clang` and `clang++` compilers from the LLVM project can
 also be used. On Linux, they are inter-operable with `gcc` et al. On
-OS X, they are unfortunately not ABI compatible.  The `clang++`
-compiler is interesting as it emits much more comprehensible error messages
-than `g++` (though `g++` 4.8 and 4.9 have caught up).
+macOS, they are unfortunately not ABI compatible.
 
-The Intel `icc` family has also been used successfully  as its output
-files can also be combined with those from `gcc`.
+In general, any compiler supported by R itself can be used.
 
 ## What other packages are useful
 
-Additional packages that we have found useful are:
+Additional packages that we have found useful are \pkg{inline} if one wants
+to create compiled functions _without_ the help of \pkg{Rcpp} as well as the different benchmarking
+and unit testing packages. A short list follows, it is not meant to be
+exhaustive as CRAN by now has \textsl{many} helpful packages:
 
 \begin{description}
 \item[\pkg{inline}] which is invaluable for direct compilation, linking and loading
   of short code snippets---but now effectively superseded by the Rcpp
   Attributes (see \faq{using-attributes} and
   \faq{prototype-using-attributes}) feature provided by \pkg{Rcpp};
-\item[\pkg{RUnit}] is used for unit testing; the package is recommended and
-  will be needed to re-run some of our tests but it is not strictly required
-  during use of \pkg{Rcpp};
-\item[\pkg{rbenchmark}] to run simple timing comparisons and benchmarks; it is also
-  recommended but not required.
-\item[\pkg{microbenchmark}] is an alternative for benchmarking.
-\item[\pkg{devtools}] can help the process of building, compiling and testing
-  a package but it too is entirely optional.
+  \item[\pkg{RUnit}, \pkg{tinytest}, \pkg{testthat}] can be used for unit
+  testing; \pkg{Rcpp} uses \pkg{tinytest} as it is ligthweight and installs the
+  tests along with the package by default but note that no testing package is
+  \textsl{required}: all are optional;
+\item[\pkg{rbenchmark}, \pkg{microbenchmark}] to run simple timing
+  comparisons and benchmarks; they are also  recommended but not required.
 \end{description}
 
 ## What licenses can I choose for my code
@@ -360,8 +353,8 @@ $ R CMD INSTALL mypkg && \
 The `-l` option calls 'suppressMessages(library(mypkg))' before executing the
 \proglang{R} expression. Several packages can be listed, separated by a comma.
 
-More choice are provide by the \pkg{devtools} package, and by using
-RStudio. See the respective documentation for details.
+More choices are provided by other packages and IDEs. See their respective
+documentation for details.
 
 ## But I want to compile my code with R CMD SHLIB {#using-r-cmd-shlib}
 
@@ -378,8 +371,6 @@ against.
 On the Linux command-line, you can do the following:
 
 ```{bash, eval = FALSE}
-$ # if Rcpp older than 0.11.0
-$ export PKG_LIBS=`Rscript -e "Rcpp:::LdFlags()"`
 $ export PKG_CXXFLAGS=\
               `Rscript -e "Rcpp:::CxxFlags()"`
 $ R CMD SHLIB myfile.cpp
@@ -395,10 +386,8 @@ Dirk's older 'Intro to HPC with R' tutorial slides).  It is still not
 recommended as there are tools and automation mechanisms that can do the work
 for you.
 
-\pkg{Rcpp} versions 0.11.0 or later can do with the definition of
-`PKG_LIBS` as a user-facing library is no longer needed (and hence no
-longer shipped with the package).  One still needs to set `PKG_CXXFLAGS`
-to tell R where the \pkg{Rcpp} headers files are located.
+Note that we always need to set `PKG_CXXFLAGS` (or equally `PKG_CPPFLAGS`) to tell R
+where the \pkg{Rcpp} headers files are located.
 
 Once `R CMD SHLIB` has created the dyanmically-loadable file (with
 extension `.so` on Linux, `.dylib` on OS X or `.dll` on
@@ -432,15 +421,12 @@ of packages using \pkg{Rcpp}. But this only helps in having \proglang{R}
 compute the location of the header files for us.
 
 The actual library location and argument still needs to be provided by the
-user. How to do so has been shown above, and we recommned you use either
-\faq{make-package} or \faq{using-inline} both which use the \pkg{Rcpp}
-function `Rcpp:::LdFlags()`.
+user. This topic can get complicated real quickly, and there is an entire
+vignette devoted to it, so see \citet{CRAN:Rcpp:Libraries}.
 
-If and when `LinkingTo` changes and lives up to its name, we will be
-sure to adapt \pkg{Rcpp} as well.
-
-An important change arrive with \pkg{Rcpp} release 0.11.0 and concern the
-automatic registration of functions; see Section~\ref{function-registration} below.
+Also note that an important change arrived with \pkg{Rcpp} release 0.11.0 and
+concerns the automatic registration of functions; see
+Section \ref{function-registration} below.
 
 
 ## Does \pkg{Rcpp} work on windows
@@ -491,13 +477,13 @@ able to mix. In such cases, it is better to provide collaborators with the
 ### OpenMP Support
 
 By default, the macOS operating environment lacks the ability to parallelize
-sections of code using the  \proglang{[OpenMP](http://openmp.org/wp/)}
-standard. Within \proglang{R} 3.4.*, the default developer environment was
-_changed_ to allow for \proglang{OpenMP} to be used on macOS by using
-a non-default toolchain provided by R Core Team maintainers for macOS.
-Having said this, it is still important to protect any reference to
-\proglang{OpenMP} as some users may not yet have the ability to
-use \proglang{OpenMP}.
+sections of code using the \proglang{OpenMP} standard (see
+\url{http://openmp.org/wp/}).  Within \proglang{R} 3.4.*, the default
+developer environment was _changed_ to allow for \proglang{OpenMP} to be used
+on macOS by using a non-default toolchain provided by R Core Team maintainers
+for macOS.  Having said this, it is still important to protect any reference
+to \proglang{OpenMP} as some users may not yet have the ability to use
+\proglang{OpenMP}.
 
 To setup the appropriate protection for using \proglang{OpenMP}, the process
 is two-fold. First, protect the inclusion of headers with:
@@ -552,12 +538,14 @@ is.
 ## Does \pkg{Rcpp} work on solaris/suncc
 
 Yes, it generally does.  But as we do not have access to such systems, some
-issues persist on the CRAN test systems.
+issues persist on the CRAN test systems. And now that more time has passed
+since the question was written, CRAN no longer tests on these platforms.
 
-## Does \pkg{Rcpp} work with Revolution R
+## Does \pkg{Rcpp} work with REvolution R
 
 We have not tested it yet. \pkg{Rcpp} might need a few tweaks to work
 with the compilers used by Revolution R (if those differ from the defaults).
+By now REvolution R is defunct too.
 
 ## Is it related to Rho (formerly CXXR)
 
@@ -568,6 +556,7 @@ unrelated.
 
 Rho / CXXR and \pkg{Rcpp} both want \proglang{R} to make more use of \proglang{C++}
 but they do it in very different ways.
+By now, Rho is long defunct too.
 
 ## How do I quickly prototype my code using Attributes {#prototype-using-attributes}
 
@@ -578,7 +567,7 @@ which is described in detail in its own vignette
 \rdoc{Rcpp}{cxxfunction} function.
 
 
-## What about the new 'no-linking' feature {#function-registration}
+## What about the 'no-linking' feature {#function-registration}
 
 Starting with \pkg{Rcpp} 0.11.0, functionality provided by \pkg{Rcpp} and
 used by packages built with \pkg{Rcpp} accessed via the registration facility
@@ -979,14 +968,14 @@ The quickest way is to modify the return value from an existing plugin. Here
 we use the default one from \pkg{Rcpp} itself in order to pass the new flag
 `-std=c++0x`. As it does not set the `PKG_CXXFLAGS` variable, we
 simply assign this. For other plugins, one may need to append to the existing
-values instead.
+values instead. An older example follow (but note that C++11 or newer is the
+default now with more recent R releases)
 
 ```{r, eval=FALSE}
 myplugin <- getPlugin("Rcpp")
 myplugin$env$PKG_CXXFLAGS <- "-std=c++11"
 f <- cxxfunction(signature(),
                  settings = myplugin, body = '
-    // fails without -std=c++0x
     std::vector<double> x = { 1.0, 2.0, 3.0 };
     return Rcpp::wrap(x);
 ')
@@ -994,7 +983,9 @@ f()
 ```
 
 For Rcpp Attributes, the attributes `Rcpp::plugin()` can be
-used. Currently supported plugins are for C++11 as well as for OpenMP.
+used. Currently supported plugins are for C++11 (which is now a standard for
+compilation with R, but used to be an opt-in), other compilation standards
+C++14, C++17, C++20, C++23, as well as for OpenMP.
 
 ## How can I set matrix row and column names
 
@@ -1183,16 +1174,17 @@ support from `src/Makevars`:
   the language standard which is useful for `sourceCpp()` etc. For
   packages, R has supported it since R 3.1.0 which added the option to select
   the language standard via `CXX_STD = CXX11`. As of early 2017, over 120
-  packages on CRAN use this.
+  packages on CRAN use this. As of R 4.0.0, this is the minimum standard and
+  no longer needed.
 - _C++14_: has been supported since early 2016 via a plugin selecting
   the language standard which is useful for `sourceCpp()` etc. For
   packages, R supports it since R 3.4.0 adding the option to select the language
-  standard via `CXX_STD = CXX14`.
-- _C++17_: is itself more experimental now, but if you have a compiler
-  supporting (at least parts of) it, you can use it via plugin (starting with
-  Rcpp 0.12.10) for use via `sourceCpp()`, or via `PKG_CXXFLAGS` or
-  other means to set compiler options. R support may be available at a later
-  date.
+  standard via `CXX_STD = CXX14`. It became the default with R 4.1.0.
+- _C++17_: it has been supported (with an appropriate compiler)  via plugin starting with
+  Rcpp 0.12.10, or use via `sourceCpp()`, or via `PKG_CXXFLAGS` or
+  other means to set compiler options. It became the default with R 4.3.0,
+  but compiler support may not be widespread.
+- _C++20_: It is also supported (given a suitable compiler) since Rcpp 1.0.11.
 
 ## How do I use it within (Python's) Conda setup?
 
@@ -1223,6 +1215,10 @@ trickier to set it manually.
 Beyond modules, RTTI support can also be turned off. this implies turning
 Modules support off as well so. To select this approach, use the
 `RCPP_NO_RTTI` define.
+
+Starting with version 1.0.8 of \pkg{Rcpp}, new headers \code{Rcpp/Light},
+\code{Rcpp/Lighter}, \code{Rcpp/Lightest} make this much easier as they
+exclude these different (layered) bits of functionality.
 
 # Support
 
@@ -1585,7 +1581,7 @@ under the specification for \proglang{C++11} or later version.
 
 There are three options to trigger compilation with  \proglang{C++11}.
 The first -- and most likely option to use -- will be the plugin support offered
-by \pkg{Rcpp} attributes. This is engaged by adding
+by \pkg{Rcpp} attributes. This can be engaged by adding
 `// [[Rcpp::plugins(cpp11)]]` to the top of the \proglang{C++} script.
 For diagnostic and illustrativative purposes, consider the following code
 which checks to see if `R_xlen_t` is available on your platform:
