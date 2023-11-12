@@ -134,7 +134,7 @@ means one needs:
 Also see the [RStudio documentation](http://www.rstudio.com/ide/docs/packages/prerequisites)
 on pre-requisites for R package development.
 
-## What compiler can I use
+## What compiler can I use {#q:what-compiler}
 
 On almost all platforms, the GNU Compiler Collection (or `gcc`, which is also
 the name of its \proglang{C} language compiler) can be used along with the
@@ -150,7 +150,7 @@ Specific per-platform notes:
   \item[Windows] users need the \texttt{Rtools} package from the site maintained by
     Tomas Kalibera which contains all the required tools in a single package;
     complete instructions specific to Windows are in the "R Administration"
-    manual \citep[Appendix D]{R:Administration}. No
+    manual \citep[Appendix D]{R:Administration}.
   \item[macOS] users, as noted in the "R Administration" manual \citep[Appendix
     C.4]{R:Administration}, need to install the Apple Developer Tools
     (\textsl{e.g.}, \href{https://developer.apple.com/library/ios/technotes/tn2339/_index.html}{Xcode Command Line Tools}  (as well as \texttt{gfortran} if \proglang{R} or
@@ -250,13 +250,10 @@ Template Library to sum the elements of a numeric vector.
 
 ```{r}
 fx <- cxxfunction(signature(x = "numeric"),
-    'NumericVector xx(x);
-     return wrap(
-              std::accumulate(xx.begin(),
-                              xx.end(),
-                              0.0)
-            );',
-    plugin = "Rcpp")
+  'NumericVector xx(x);
+   return wrap(std::accumulate(xx.begin(),
+                               xx.end(), 0.0));',
+   plugin = "Rcpp")
 res <- fx(seq(1, 10, by=0.5))
 res
 ```
@@ -291,9 +288,7 @@ The example above can now be rewritten as:
 
 ```{r}
 cppFunction('double accu(NumericVector x) {
-   return(
-      std::accumulate(x.begin(), x.end(), 0.0)
-   );
+  return(std::accumulate(x.begin(), x.end(), 0.0));
 }')
 res <- accu(seq(1, 10, by=0.5))
 res
@@ -337,11 +332,11 @@ the \proglang{R} expression following the `-e` switch. Such an
 expression can contain multiple statements separated by semicolons.
 \rdoc{utils}{Rscript} is available on all three core operating systems.
 
-On Linux, one can also use `r` from the `littler` package by Horner
-and Eddelbuettel which is an alternative front end to \proglang{R} designed
-for both `#!` (hashbang) scripting and command-line use. It has slightly
-faster start-up times than \rdoc{utils}{Rscript}; and both give a guaranteed clean
-slate as a new session is created.
+On Linux, one can also use `r` from the `littler` package
+\citep{CRAN:littler} which is an alternative front end to \proglang{R}
+designed for both `#!` (hashbang) scripting and command-line use. It has
+slightly faster start-up times than \rdoc{utils}{Rscript}; and both give a
+guaranteed clean slate as a new session is created.
 
 The example then becomes
 
@@ -390,7 +385,7 @@ Note that we always need to set `PKG_CXXFLAGS` (or equally `PKG_CPPFLAGS`) to te
 where the \pkg{Rcpp} headers files are located.
 
 Once `R CMD SHLIB` has created the dyanmically-loadable file (with
-extension `.so` on Linux, `.dylib` on OS X or `.dll` on
+extension `.so` on Linux, `.dylib` on macOS or `.dll` on
 Windows), it can be loaded in an R session via \rdoc{base}{dyn.load}, and the
 function can be executed via \rdoc{base}{.Call}.  Needless to say, we
 \emph{strongly} recommend using a package, or at least Rcpp Attributes as
@@ -443,6 +438,11 @@ Studio simply do not get along. As \pkg{Rcpp} is all about extending
 toolchain.  And \proglang{R} simply does not compile with Visual Studio. Go
 complain to its vendor if you are still upset.
 
+(These days the 'Code' editor derived from it is popular and can of course be
+used with \proglang{R} and \pkg{Rcpp}; see its documentation for the required
+plugins. Such use still falls back to the default compilers \proglang{R} is
+used with on the given system so see \faq{q:what-compiler} above.)
+
 ## I am having problems building Rcpp on macOS, any help  {#q:OSX}
 
 There are three known issues regarding Rcpp build problems on macOS.  If you are
@@ -462,7 +462,7 @@ manual.
 
 ### Differing macOS R Versions Leading to Binary Failures
 
-There are currently _three_ distinct versions of R for macOS.
+There are _three_ (or more) distinct versions of R for macOS.
 The first version is a legacy version meant for macOS 10.6 (Snow Leopard) -
 10.8 (Mountain Lion). The second version is for more recent system
 macOS 10.9 (Mavericks) and 10.10 (Yosemite). Finally, the third and most
@@ -477,8 +477,8 @@ able to mix. In such cases, it is better to provide collaborators with the
 ### OpenMP Support
 
 By default, the macOS operating environment lacks the ability to parallelize
-sections of code using the \proglang{OpenMP} standard (see
-\url{http://openmp.org/wp/}).  Within \proglang{R} 3.4.*, the default
+sections of code using the [\proglang{OpenMP}
+standard](http://openmp.org/wp/).  Within \proglang{R} 3.4.*, the default
 developer environment was _changed_ to allow for \proglang{OpenMP} to be used
 on macOS by using a non-default toolchain provided by R Core Team maintainers
 for macOS.  Having said this, it is still important to protect any reference
@@ -514,8 +514,8 @@ Below are additional resources that provide information regarding compiling Rcpp
 1. A helpful post was provided by Brian Ripley regarding the use of
    compiling R code with macOS in April 2014
    [on the `r-sig-mac` list](https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010835.html),
-   which is generally recommended for OS X-specific questions and further consultation.
-2. Another helpful write-up for installation / compilation on OS X Mavericks is provided
+   which is generally recommended for macOS-specific questions and further consultation.
+2. Another helpful write-up for installation / compilation on macOS Mavericks is provided
    [by the BioConductor project](http://www.bioconductor.org/developers/how-to/mavericks-howto/).
 3. Lastly, another resource that exists for installation / compilation
    help is provided at
@@ -625,7 +625,7 @@ Several dozen fully documented examples are provided at the
 > script and then initialize an instance of the class and call a method on
 > the class, all inline in R.
 
-This question was initially about using templates with \pkg{inline}, and we
+\noindent This question was initially about using templates with \pkg{inline}, and we
 show that (older) answer first. It is also easy with Rcpp Attributes which is
 what we show below.
 
@@ -733,11 +733,10 @@ arma::colvec z = Rcpp::as<arma::colvec>(z_) ;
 
 // calculate the result
 double result = arma::as_scalar(
-                 arma::trans(x) * arma::inv(Y) * z
-                );
+    arma::trans(x) * arma::inv(Y) * z);
 
 // return it to R
-return Rcpp::wrap( result );'
+return Rcpp::wrap(result);'
 
 writeLines(a, file = "myfile.cpp")
 ```
@@ -926,7 +925,7 @@ call---and will also run the small R example at the end.
 
 > How can I create my own plugin for use by the \pkg{inline} package?
 
-Here is an example which shows how to it using GSL libraries as an
+\noindent Here is an example which shows how to it using GSL libraries as an
 example. This is merely for demonstration, it is also not perfectly general
 as we do not detect locations first---but it serves as an example:
 
@@ -964,9 +963,9 @@ The same plugins can be used by Rcpp Attributes as well.
 
 > How can I pass another flag to the `g++` compiler without writing a new plugin?
 
-The quickest way is to modify the return value from an existing plugin. Here
-we use the default one from \pkg{Rcpp} itself in order to pass the new flag
-`-std=c++0x`. As it does not set the `PKG_CXXFLAGS` variable, we
+\noindent The quickest way is to modify the return value from an existing plugin. Here
+we use the default one from \pkg{Rcpp} itself in order to pass the flag
+`-std=c++11`. As it does not set the `PKG_CXXFLAGS` variable, we
 simply assign this. For other plugins, one may need to append to the existing
 values instead. An older example follow (but note that C++11 or newer is the
 default now with more recent R releases)
@@ -991,7 +990,7 @@ C++14, C++17, C++20, C++23, as well as for OpenMP.
 
 > Ok, I can create a matrix, but how do I set its row and columns names?
 
-Pretty much the same way as in \proglang{R} itself: We define a list with two
+\noindent Pretty much the same way as in \proglang{R} itself: We define a list with two
 character vectors, one each for row and column names, and assign this to the
 `dimnames` attribute:
 
@@ -1034,7 +1033,7 @@ Rcpp::List fun(void) {
 
 ## Why can long long types not be cast correctly
 
-That is a good and open question. We rely on the basic \proglang{R} types,
+\noindent That is a good and open question. We rely on the basic \proglang{R} types,
 notably `integer` and `numeric`.  These can be cast to and from
 \proglang{C++} types without problems.  But there are corner cases.  The
 following example, contributed by a user, shows that we cannot reliably cast
@@ -1069,11 +1068,16 @@ fit into `integer` types, up to 53 bit precision fits into
 for example from the [GNU Multiple Precision Arithmetic Library](http://gmplib.org/)
 may be an alternative.
 
+However, with care, and via the package \pkg{bit64}, \proglang{R} can use
+`integer64` as a type (but storing the 64 bits in a `double`), and
+\pkg{RcppInt64} \citep{CRAN:RcppInt64} can help with conversion back and
+forth.
+
 ## What LaTeX packages do I need to typeset the vignettes
 
 > I would like to typeset the vignettes. What do I need?
 
-The [TeXLive](https://www.tug.org/texlive/) distribution seems to get
+\noindent The [TeXLive](https://www.tug.org/texlive/) distribution seems to get
 bigger and bigger.  What you need to install may depend on your operating
 system.
 
@@ -1081,7 +1085,7 @@ Specific per-platform notes:
 
 - **Windows** users probably want the [MiKTeX](http://miktex.org/).
   Suggestions for a more detailed walk through would be appreciated.
-- **OS X** users seem to fall into camps which like or do not like brew /
+- **macOS** users seem to fall into camps which like or do not like brew /
   homebrew. One suggestion was to install
   [MacTeX](https://tug.org/mactex/mactex-download.html) but at
   approximately 2.5gb (as of January 2016) this is not lightweight.
@@ -1098,7 +1102,7 @@ Specific per-platform notes:
 
 > Ok, I would like to pass $N$ object but you only allow 20. How come?
 
-In essence, and in order to be able to compile it with the largest number of
+\noindent In essence, and in order to be able to compile it with the largest number of
 compilers, \pkg{Rcpp} is constrained by the older C++ standards which do not
 support variadic function arguments.  So we actually use macros and code
 generator scripts to explicitly enumerate arguments, and that number has to stop
@@ -1112,7 +1116,7 @@ nest lists.
 
 ## Can I use default function parameters with \pkg{Rcpp}
 
-Yes, you can use default parameters with _some_ limitations.
+\noindent Yes, you can use default parameters with _some_ limitations.
 The limitations are mainly related to string literals and empty vectors.
 This is what is currently supported:
 
@@ -1813,5 +1817,5 @@ rewritten them once, and do not plan to rewrite them in the near future.  Those
 looking to _parse and convert_ many dates at once could look at \pkg{anytime}
 \citep{CRAN:anytime} where we use the Boost parser, or similar approaches using
 the C++ headers-only libraries in packages \pkg{RcppCCTZ} \citep{CRAN:RcppCCTZ}
-\pkg{RcppDate} \citep{CRAN:RcppDate}. We are not likely to carry this over to
+and \pkg{RcppDate} \citep{CRAN:RcppDate}. We are not likely to carry this over to
 the \pkg{Rcpp} package as there are advantages in remaining dependency-free.
