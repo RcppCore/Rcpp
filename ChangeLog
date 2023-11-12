@@ -1,3 +1,15 @@
+2023-11-11  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/rmd/Rcpp-FAQ.Rmd: Updated and edited
+	* vignettes/pdf/Rcpp-FAQ.pdf: Updated
+	* vignettes/rmd/Rcpp.bib: Updated
+
+2023-10-28  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/rmd/Rcpp-FAQ.Rmd: Updated and edited
+	* vignettes/pdf/Rcpp-FAQ.pdf: Updated
+	* vignettes/rmd/Rcpp.bib: Updated
+
 2023-10-27  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version
