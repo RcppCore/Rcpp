@@ -1,6 +1,5 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
-// Copyright (C) 2015 - 2016  Dirk Eddelbuettel
+// Copyright (C) 2015 - 2023  Dirk Eddelbuettel
 //
 // This file is part of Rcpp.
 //
@@ -27,7 +26,7 @@ inline void print(SEXP s) {
 }
 
 inline void warningcall(SEXP call, const std::string & s) {
-    Rf_warningcall(call, s.c_str());
+    Rf_warningcall(call, "%s", s.c_str());
 }
 
 // also note that warning() is defined in file exceptions.h
@@ -35,4 +34,3 @@ inline void warningcall(SEXP call, const std::string & s) {
 }
 
 #endif
-

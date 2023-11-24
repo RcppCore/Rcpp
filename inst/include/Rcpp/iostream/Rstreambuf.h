@@ -1,9 +1,8 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // Rstreambuf.h: Rcpp R/C++ interface class library -- stream buffer
 //
 // Copyright (C) 2011 - 2020  Dirk Eddelbuettel, Romain Francois and Jelmer Ypma
-// Copyright (C) 2021         Dirk Eddelbuettel, Romain Francois, Jelmer Ypma and Iñaki Ucar
+// Copyright (C) 2021 - 2023  Dirk Eddelbuettel, Romain Francois, Jelmer Ypma and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -50,11 +49,11 @@ namespace Rcpp {
     };
 							// #nocov start
     template <> inline std::streamsize Rstreambuf<true>::xsputn(const char *s, std::streamsize num) {
-        Rprintf("%.*s", num, s);
+        Rprintf("%.*s", static_cast<int>(num), s);
         return num;
     }
     template <> inline std::streamsize Rstreambuf<false>::xsputn(const char *s, std::streamsize num) {
-        REprintf("%.*s", num, s);
+        REprintf("%.*s", static_cast<int>(num), s);
         return num;
     }
 
