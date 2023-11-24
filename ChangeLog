@@ -1,3 +1,12 @@
+2023-11-24  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version
+	* inst/include/Rcpp/config.h (RCPP_DEV_VERSION): Idem
+
+	* inst/include/Rcpp/iostream/Rstreambuf.h: Cast streamsize to int in
+	two spots
+	* inst/include/Rcpp/print.h (warningcall): Add missing '%s' format
+
 2023-11-11  Dirk Eddelbuettel  <edd@debian.org>
 
 	* vignettes/rmd/Rcpp-FAQ.Rmd: Updated and edited
