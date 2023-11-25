@@ -32,3 +32,6 @@ docker/*/*.sh
 
 ## Emacs
 *~
+
+## VSCode
+.vscode/
