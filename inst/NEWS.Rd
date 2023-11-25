@@ -8,7 +8,12 @@
     \item Changes in Rcpp API:
     \itemize{
       \item Missing header includes as spotted by some recent tools were
-      added in two places (Michael Chirico in \ghpr{1272} closing \ghit{1271}).
+      added in two places (Michael Chirico in \ghpr{1272} closing
+      \ghit{1271}).
+      \item Casts to avoid integer overflow in matrix row/col selections
+      have neem added (Aaron Lun \ghpr{1281}).
+      \item Three print format correction uncovered by R-devel were
+      applied with thanks to Tomas Kalibera (Dirk in \ghpr{1285}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{
@@ -19,6 +24,9 @@
     \itemize{
       \item The caption for third figure in the introductory vignette has
       been corrected (Dirk in \ghpr{1277} fixing \ghit{1276}).
+      \item A small formatting issue was correct in an Rd file as
+      noticed by R-devel (Dirk in \ghpr{1282}).
+      \item The Rcpp FAQ vignette has been updated (Dirk in \ghpr{1284}).
     }
   }
 }
