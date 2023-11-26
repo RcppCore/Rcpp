@@ -1,3 +1,8 @@
+2023-11-26  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/attributes.cpp (generateCpp): Add a format string for Rf_error
+	call to not run afoul of -Wformat-security
+
 2023-11-24  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version
