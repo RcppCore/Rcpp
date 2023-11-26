@@ -14,6 +14,8 @@
       have neem added (Aaron Lun \ghpr{1281}).
       \item Three print format correction uncovered by R-devel were
       applied with thanks to Tomas Kalibera (Dirk in \ghpr{1285}).
+      \item Correct a print format correction in the RcppExports glue code
+      (Dirk in \ghpr{1288} fixing \ghit{1287}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{
