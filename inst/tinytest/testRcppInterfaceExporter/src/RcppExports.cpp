@@ -8,6 +8,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // test_cpp_interface
 SEXP test_cpp_interface(SEXP x, bool fast);
 static SEXP _testRcppInterfaceExporter_test_cpp_interface_try(SEXP xSEXP, SEXP fastSEXP) {
@@ -38,7 +43,7 @@ RcppExport SEXP _testRcppInterfaceExporter_test_cpp_interface(SEXP xSEXP, SEXP f
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error(CHAR(rcpp_msgSEXP_gen));
+        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
