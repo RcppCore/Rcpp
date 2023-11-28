@@ -8,5 +8,5 @@ test_cpp_interface <- function(x, fast = FALSE) {
 
 # Register entry points for exported C++ functions
 methods::setLoadAction(function(ns) {
-    .Call('_testRcppInterfaceExporter_RcppExport_registerCCallable', PACKAGE = 'testRcppInterfaceExporter')
+    .Call(`_testRcppInterfaceExporter_RcppExport_registerCCallable`)
 })
