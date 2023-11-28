@@ -1,3 +1,8 @@
+2023-11-28  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/tinytest/testRcppInterfaceExporter/R/RcppExports.R: Regenerated
+	* inst/tinytest/testRcppInterfaceExporter/src/RcppExports.cpp: Idem
+
 2023-11-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version
