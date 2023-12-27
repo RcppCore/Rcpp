@@ -1,3 +1,7 @@
+2023-12-27  Dirk Eddelbuettel  <edd@debian.org>
+
+	* src/api.cpp (type2name): Refine OBJSXP return
+
 2023-12-21  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/api.cpp (type2name): Recognise OBJSXP added in R 4.4.0

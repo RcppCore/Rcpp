@@ -112,10 +112,11 @@ namespace Rcpp {
         case BCODESXP:  	return "BCODESXP";
         case EXTPTRSXP: 	return "EXTPTRSXP";
         case WEAKREFSXP:    return "WEAKREFSXP";
-#if R_Version >= R_Version(4,4,0)
-        case OBJSXP:    	return "OBJSXP"; 					// replaces S4SXP in R 4.4.0
-#endif
+#if R_Version >= R_Version(4,4,0)					// replaces S4SXP in R 4.4.0
+        case OBJSXP:    	return Rf_isS4(x) ? "S4SXP" : "OBJSXP"; 	// cf src/main/inspect.c
+#else
         case S4SXP:     	return "S4SXP";
+#endif
         default:
         return "<unknown>";
         }
