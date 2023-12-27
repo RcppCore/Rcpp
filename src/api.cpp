@@ -3,7 +3,7 @@
 // api.cpp: Rcpp R/C++ interface class library -- Rcpp api
 //
 // Copyright (C) 2012 - 2020  Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2021         Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
+// Copyright (C) 2021 - 2023  Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -89,30 +89,34 @@ namespace Rcpp {
     // [[Rcpp::register]]
     const char * type2name(SEXP x) {                            // #nocov start
         switch (TYPEOF(x)) {
-        case NILSXP:    return "NILSXP";
-        case SYMSXP:    return "SYMSXP";
-        case RAWSXP:    return "RAWSXP";
-        case LISTSXP:   return "LISTSXP";
-        case CLOSXP:    return "CLOSXP";
-        case ENVSXP:    return "ENVSXP";
-        case PROMSXP:   return "PROMSXP";
-        case LANGSXP:   return "LANGSXP";
+        case NILSXP:    	return "NILSXP";
+        case SYMSXP:    	return "SYMSXP";
+        case RAWSXP:    	return "RAWSXP";
+        case LISTSXP:   	return "LISTSXP";
+        case CLOSXP:    	return "CLOSXP";
+        case ENVSXP:    	return "ENVSXP";
+        case PROMSXP:   	return "PROMSXP";
+        case LANGSXP:   	return "LANGSXP";
         case SPECIALSXP:    return "SPECIALSXP";
         case BUILTINSXP:    return "BUILTINSXP";
-        case CHARSXP:   return "CHARSXP";
-        case LGLSXP:    return "LGLSXP";
-        case INTSXP:    return "INTSXP";
-        case REALSXP:   return "REALSXP";
-        case CPLXSXP:   return "CPLXSXP";
-        case STRSXP:    return "STRSXP";
-        case DOTSXP:    return "DOTSXP";
-        case ANYSXP:    return "ANYSXP";
-        case VECSXP:    return "VECSXP";
-        case EXPRSXP:   return "EXPRSXP";
-        case BCODESXP:  return "BCODESXP";
-        case EXTPTRSXP: return "EXTPTRSXP";
+        case CHARSXP:   	return "CHARSXP";
+        case LGLSXP:    	return "LGLSXP";
+        case INTSXP:    	return "INTSXP";
+        case REALSXP:   	return "REALSXP";
+        case CPLXSXP:   	return "CPLXSXP";
+        case STRSXP:    	return "STRSXP";
+        case DOTSXP:    	return "DOTSXP";
+        case ANYSXP:    	return "ANYSXP";
+        case VECSXP:    	return "VECSXP";
+        case EXPRSXP:   	return "EXPRSXP";
+        case BCODESXP:  	return "BCODESXP";
+        case EXTPTRSXP: 	return "EXTPTRSXP";
         case WEAKREFSXP:    return "WEAKREFSXP";
-        case S4SXP:     return "S4SXP";
+#if R_Version >= R_Version(4,4,0)					// replaces S4SXP in R 4.4.0
+        case OBJSXP:    	return Rf_isS4(x) ? "S4SXP" : "OBJSXP"; 	// cf src/main/inspect.c
+#else
+        case S4SXP:     	return "S4SXP";
+#endif
         default:
         return "<unknown>";
         }
