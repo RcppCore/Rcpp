@@ -1,3 +1,8 @@
+2024-01-01  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/rmd/Rcpp.bib: Updated to current versions of cited packages
+        * inst/bib/Rcpp.bib: Idem
+
 2023-12-27  Dirk Eddelbuettel  <edd@debian.org>
 
 	* src/api.cpp (type2name): Refine OBJSXP return
