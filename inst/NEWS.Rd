@@ -16,6 +16,8 @@
       applied with thanks to Tomas Kalibera (Dirk in \ghpr{1285}).
       \item Correct a print format correction in the RcppExports glue code
       (Dirk in \ghpr{1288} fixing \ghit{1287}).
+      \item The upcoming \code{OBJSXP} addition to R 4.4.0 is supported in
+      the \code{type2name} mapper (Dirk and Iñaki in \ghpr{1293}).
     }
     \item Changes in Rcpp Attributes:
     \itemize{
@@ -29,6 +31,13 @@
       \item A small formatting issue was correct in an Rd file as
       noticed by R-devel (Dirk in \ghpr{1282}).
       \item The Rcpp FAQ vignette has been updated (Dirk in \ghpr{1284}).
+      \item The \code{Rcpp.bib} file has been refreshed to current package
+      versions.
+    }
+    \item Changes in Rcpp Deployment:
+    \itemize{
+      \item The RcppExports file for an included test package has been
+      updated (Dirk in \ghpr{1289}).
     }
   }
 }
