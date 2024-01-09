@@ -1,3 +1,8 @@
+2024-01-09  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Remove StackOverflow badge which only works for
+	logged-in users and is unsuitable for the README
+
 2024-01-08  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Date, Version): Release 1.0.12
