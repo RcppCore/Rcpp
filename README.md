@@ -108,14 +108,14 @@ been factored out of Rcpp into the package RcppClassic, and it is still
 available for code relying on the older interface. New development should
 always use this Rcpp package instead.
 
-Other usage examples are provided by packages using Rcpp. As of early July
-2023, there are 2712 [CRAN](https://cran.r-project.org) packages using Rcpp
-(corresponding to 13.7% of all packages, and 59.5% of packages containing
-compiled code), a further 250 [BioConductor](https://www.bioconductor.org)
+Other usage examples are provided by packages using Rcpp. As of early January
+2024, there are 2791 [CRAN](https://cran.r-project.org) packages using Rcpp
+(corresponding to 13.8% of all packages, and 59.9% of packages containing
+compiled code), a further 254 [BioConductor](https://www.bioconductor.org)
 packages in its current release as well as an unknown number of GitHub,
 Bitbucket, R-Forge, ... repositories using Rcpp.  All these packages provide
 usage examples for Rcpp. The package is in widespread use and has been
-downloaded over 72.3 million times (per the partial logs from the cloud mirrors
+downloaded over 78.1 million times (per the partial logs from the cloud mirrors
 of CRAN).
 
 ### Installation
