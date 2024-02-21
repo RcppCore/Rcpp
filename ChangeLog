@@ -1,3 +1,8 @@
+2024-02-21  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/r/headers.h: Set R_NO_REMAP (and MAXELTSIZE)
+	only if not already defined (as will be needed with R 4.4.0)
+
 2024-01-09  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Update usage numbers
