@@ -1,6 +1,6 @@
 
 # Copyright (C) 2012 - 2022  JJ Allaire, Dirk Eddelbuettel and Romain Francois
-# Copyright (C) 2023         JJ Allaire, Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
+# Copyright (C) 2023 - 2024  JJ Allaire, Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 #
 # This file is part of Rcpp.
 #

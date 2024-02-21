@@ -1,7 +1,7 @@
 // headers.h: Rcpp R/C++ interface class library -- R headers
 //
 // Copyright (C) 2008 - 2009 Dirk Eddelbuettel
-// Copyright (C) 2009 - 2022 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2009 - 2024 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,8 +22,12 @@
 #define RCPP__R__HEADERS__H
 
 // include R headers, but set R_NO_REMAP and access everything via Rf_ prefixes
-#define MAXELTSIZE 8192
-#define R_NO_REMAP
+#ifndef MAXELTSIZE
+ #define MAXELTSIZE 8192
+#endif
+#ifndef R_NO_REMAP
+ #define R_NO_REMAP
+#endif
 
 // define strict headers for R to not clash on ERROR, MESSGAGE, etc
 #ifndef RCPP_NO_STRICT_R_HEADERS
