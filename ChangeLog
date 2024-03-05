@@ -1,5 +1,8 @@
 2024-03-05  Dirk Eddelbuettel  <edd@debian.org>
 
+	* docker/ci/Dockerfile: Switch the base container to r2u
+	* docker/plus/Dockerfile: Given r2u, install more binaries
+
 	* README.md: Add r-universe badge
 
 2024-02-21  Dirk Eddelbuettel  <edd@debian.org>

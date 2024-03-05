@@ -8,18 +8,20 @@ LABEL org.label-schema.license="GPL-2.0" \
 
 RUN apt-get update \
         && apt-get install -y --no-install-recommends \
+                r-cran-bh \
                 r-cran-bit64 \
                 r-cran-curl \
                 r-cran-httr \
                 r-cran-knitr \
                 r-cran-lazyeval \
+                r-cran-microbenchmark \
                 r-cran-openssl \
+                r-cran-pinp \
                 r-cran-rcpparmadillo \
                 r-cran-rcppeigen \
                 r-cran-rcppgsl \
                 r-cran-rmarkdown \
                 r-cran-runit \
-                r-cran-withr \
-        && install.r BH microbenchmark pinp
+                r-cran-withr
 
 CMD ["bash"]
