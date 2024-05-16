@@ -3,7 +3,7 @@
 [![CI](https://github.com/RcppCore/Rcpp/workflows/ci/badge.svg)](https://github.com/RcppCore/Rcpp/actions?query=workflow%3Aci)
 [![License](https://eddelbuettel.github.io/badges/GPL2+.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
 [![CRAN](https://www.r-pkg.org/badges/version/Rcpp)](https://cran.r-project.org/package=Rcpp)
-[![Dependencies](https://tinyverse.netlify.com/badge/Rcpp)](https://cran.r-project.org/package=Rcpp)
+[![Dependencies](https://tinyverse.netlify.app/badge/Rcpp)](https://cran.r-project.org/package=Rcpp)
 [![Coverage Status](https://codecov.io/gh/RcppCore/Rcpp/graph/badge.svg)](https://app.codecov.io/github/RcppCore/Rcpp?branch=master)
 [![Debian package](https://img.shields.io/debian/v/r-cran-rcpp/sid?color=brightgreen)](https://packages.debian.org/sid/r-cran-rcpp)
 [![r-universe](https://rcppcore.r-universe.dev/badges/Rcpp)](https://rcppcore.r-universe.dev/rcpp)

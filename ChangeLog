@@ -1,3 +1,7 @@
+2024-05-16  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Use tinyverse.netlify.app for dependency badge
+
 2024-03-05  Dirk Eddelbuettel  <edd@debian.org>
 
 	* docker/ci/Dockerfile: Switch the base container to r2u
