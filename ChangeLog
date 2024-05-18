@@ -1,3 +1,8 @@
+2024-05-18  Dirk Eddelbuettel  <edd@debian.org>
+
+	* docker/ci-4.3/Dockerfile: Add rcpp/ci-4.3 container for R 4.3.*
+	* .github/workflows/ci.yaml (jobs): Add rcpp/ci-4.3 to matrix
+
 2024-05-16  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Use tinyverse.netlify.app for dependency badge
