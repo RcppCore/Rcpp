@@ -28,8 +28,26 @@
 namespace Rcpp {
 
     namespace InternalFunctionWithStdFunction {
+        #if defined(HAS_VARIADIC_TEMPLATES) || defined(RCPP_USING_CXX11)
+            template<int...> struct index_sequence {};
 
+            template<int N, int... Is>
+            struct make_index_sequence : make_index_sequence<N-1, N-1, Is...> {};
+
+            template<int... Is>
+            struct make_index_sequence<0, Is...> : index_sequence<Is...> {};
+
+            template <typename RESULT_TYPE, typename... Us, int... Is>
+            RESULT_TYPE call_impl(const std::function<RESULT_TYPE(Us...)> &fun, SEXP* args, index_sequence<Is...>) {
+                return fun((typename traits::input_parameter<Us>::type(args[Is]))...);
+            }
+            template <typename RESULT_TYPE, typename... Us>
+            RESULT_TYPE call(const std::function<RESULT_TYPE(Us...)> &fun, SEXP* args) {
+                return call_impl(fun, args, make_index_sequence<sizeof...(Us)>{});
+            }
+        #else
         #include <Rcpp/generated/InternalFunctionWithStdFunction_call.h>
+        #endif
 
         template <typename RESULT_TYPE, typename... Args>
         class CppFunctionBaseFromStdFunction : public CppFunctionBase {
