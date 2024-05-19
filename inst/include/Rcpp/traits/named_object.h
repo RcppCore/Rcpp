@@ -66,16 +66,17 @@ template <typename T> struct is_named< named_object<T> > : public true_type {};
 template <> struct is_named< Rcpp::Argument > : public true_type {};
 
 
-template <typename... T> struct is_any_named : public false_type {};
-template <typename T> struct is_any_named<T> : public is_named<T>::type {};
+#if defined(HAS_VARIADIC_TEMPLATES) || defined(RCPP_USING_CXX11)
+    template <typename... T> struct is_any_named : public false_type {};
+    template <typename T> struct is_any_named<T> : public is_named<T>::type {};
 
-template <typename T, typename... TArgs>
-struct is_any_named<T, TArgs...>
-    : public std::conditional<
-                is_any_named<T>::value,
-                std::true_type,
-                is_any_named<TArgs...>>::type {};
-
+    template <typename T, typename... TArgs>
+    struct is_any_named<T, TArgs...>
+        : public std::conditional<
+                    is_any_named<T>::value,
+                    std::true_type,
+                    is_any_named<TArgs...>>::type {};
+#endif
 
 } // namespace traits
 } // namespace Rcpp
