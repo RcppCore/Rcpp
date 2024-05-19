@@ -23,24 +23,15 @@
 #ifndef Rcpp_InternalFunctionWithStdFunction_h
 #define Rcpp_InternalFunctionWithStdFunction_h
 
-#include <Rcpp/traits/index_sequence.h>
+#if defined(HAS_VARIADIC_TEMPLATES) || defined(RCPP_USING_CXX11)
+#include <Rcpp/internal/call.h>
+#endif
 #include <functional>
 
 namespace Rcpp {
 
     namespace InternalFunctionWithStdFunction {
-        #if defined(HAS_VARIADIC_TEMPLATES) || defined(RCPP_USING_CXX11)
-            template <typename RESULT_TYPE, typename... Us, int... Is>
-            RESULT_TYPE call_impl(const std::function<RESULT_TYPE(Us...)> &fun,
-                                    SEXP* args, traits::index_sequence<Is...>) {
-                return fun((typename traits::input_parameter<Us>::type(args[Is]))...);
-            }
-
-            template <typename RESULT_TYPE, typename... Us>
-            RESULT_TYPE call(const std::function<RESULT_TYPE(Us...)> &fun, SEXP* args) {
-                return call_impl(fun, args, traits::make_index_sequence<sizeof...(Us)>{});
-            }
-        #else
+        #if !defined(HAS_VARIADIC_TEMPLATES) && !defined(RCPP_USING_CXX11)
         #include <Rcpp/generated/InternalFunctionWithStdFunction_call.h>
         #endif
 
@@ -52,8 +43,7 @@ namespace Rcpp {
 
                 SEXP operator()(SEXP* args) {
                     BEGIN_RCPP
-                    auto result = call<RESULT_TYPE, Args...>(fun, args);
-                    return Rcpp::module_wrap<RESULT_TYPE>(result);
+                    return Rcpp::module_wrap<RESULT_TYPE>(call<RESULT_TYPE, Args...>(fun, args));
                     END_RCPP
                 }
 

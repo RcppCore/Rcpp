@@ -111,8 +111,21 @@
             return constructor( docstring, valid ) ;
         }
 
-#include <Rcpp/module/Module_generated_class_constructor.h>
-#include <Rcpp/module/Module_generated_class_factory.h>
+#if defined(HAS_VARIADIC_TEMPLATES) || defined(RCPP_USING_CXX11)
+    template <typename... T>
+    self& constructor( const char* docstring = 0, ValidConstructor valid = &yes_arity<sizeof...(T)> ){
+        AddConstructor( new Constructor<Class,T...> , valid, docstring ) ;
+        return *this ;
+    }
+    template <typename... T>
+    self& factory( Class* (*fun)(T...), const char* docstring = 0, ValidConstructor valid = &yes_arity<sizeof...(T)> ){
+        AddFactory( new Factory<Class,T...>(fun) , valid, docstring ) ;
+        return *this ;
+    }
+#else
+    #include <Rcpp/module/Module_generated_class_constructor.h>
+    #include <Rcpp/module/Module_generated_class_factory.h>
+#endif
 
     public:
 

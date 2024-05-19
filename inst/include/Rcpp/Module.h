@@ -23,6 +23,7 @@
 #define Rcpp_Module_h
 
 #include <Rcpp/config.h>
+#include <Rcpp/internal/call.h>
 
 namespace Rcpp{
 
@@ -85,10 +86,110 @@ namespace Rcpp{
 
 #include <Rcpp/module/CppFunction.h>
 #include <Rcpp/module/get_return_type.h>
-#include <Rcpp/module/Module_generated_get_signature.h>
 
-    // templates CppFunction0, ..., CppFunction65
-#include <Rcpp/module/Module_generated_CppFunction.h>
+#if defined(HAS_VARIADIC_TEMPLATES) || defined(RCPP_USING_CXX11)
+namespace Rcpp {
+    template <typename RESULT_TYPE, typename... T>
+    inline void signature(std::string& s, const char* name) {
+        s.clear();
+        s += get_return_type<RESULT_TYPE>();
+        s += " ";
+        s += name;
+        s += "(";
+        int n = sizeof...(T);
+        int i = 0;
+        int dummy[] = { (s += get_return_type<T>(), s += (++i == n ? "" : ", "), 0)... };
+        (void)dummy;
+        s += ")";
+    }
+
+    template <typename RESULT_TYPE, typename... T>
+    class CppFunctionN : public CppFunction {
+        public:
+            CppFunctionN(RESULT_TYPE (*fun)(T...), const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
+
+            SEXP operator()(SEXP* args) {
+                BEGIN_RCPP
+                RESULT_TYPE result = call<RESULT_TYPE, T...>(ptr_fun, args);
+                return Rcpp::module_wrap<RESULT_TYPE>(result);
+                END_RCPP
+            }
+
+            inline int nargs() { return sizeof...(T); }
+            inline void signature(std::string& s, const char* name) { Rcpp::signature<RESULT_TYPE, T...>(s, name); }
+            inline DL_FUNC get_function_ptr() { return (DL_FUNC)ptr_fun; }
+
+        private:
+            RESULT_TYPE (*ptr_fun)(T...);
+    };
+    template <typename... T>
+    class CppFunctionN<void, T...> : public CppFunction {
+        public:
+            CppFunctionN(void (*fun)(T...), const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
+
+            SEXP operator()(SEXP* args) {
+                BEGIN_RCPP
+                call<void, T...>(ptr_fun, args);
+                END_RCPP
+            }
+
+            inline int nargs() { return sizeof...(T); }
+            inline void signature(std::string& s, const char* name) { Rcpp::signature<void, T...>(s, name); }
+            inline DL_FUNC get_function_ptr() { return (DL_FUNC)ptr_fun; }
+
+        private:
+            void (*ptr_fun)(T...);
+    };
+
+    template <typename RESULT_TYPE, typename... T>
+    class CppFunction_WithFormalsN : public CppFunction {
+        public:
+            CppFunction_WithFormalsN(RESULT_TYPE (*fun)(T...), Rcpp::List formals_, const char* docstring = 0) :
+                CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
+
+            SEXP operator()(SEXP* args) {
+                BEGIN_RCPP
+                RESULT_TYPE result = call<RESULT_TYPE, T...>(ptr_fun, args);
+                return Rcpp::module_wrap<RESULT_TYPE>(result);
+                END_RCPP
+            }
+
+            inline int nargs() { return sizeof...(T); }
+            inline void signature(std::string& s, const char* name) { Rcpp::signature<RESULT_TYPE, T...>(s, name); }
+            SEXP get_formals() { return formals; }
+            inline DL_FUNC get_function_ptr() { return (DL_FUNC)ptr_fun; }
+
+        private:
+            Rcpp::List formals;
+            RESULT_TYPE (*ptr_fun)(T...);
+    };
+    template <typename... T>
+    class CppFunction_WithFormalsN<void, T...> : public CppFunction {
+        public:
+            CppFunction_WithFormalsN(void (*fun)(T...), Rcpp::List formals_, const char* docstring = 0) :
+                CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
+
+            SEXP operator()(SEXP* args) {
+                BEGIN_RCPP
+                call<void, T...>(ptr_fun, args);
+                END_RCPP
+            }
+
+            inline int nargs() { return sizeof...(T); }
+            inline void signature(std::string& s, const char* name) { Rcpp::signature<void, T...>(s, name); }
+            SEXP get_formals() { return formals; }
+            inline DL_FUNC get_function_ptr() { return (DL_FUNC)ptr_fun; }
+
+        private:
+            Rcpp::List formals;
+            void (*ptr_fun)(T...);
+    };
+}
+#else
+    #include <Rcpp/module/Module_generated_get_signature.h>
+        // templates CppFunction0, ..., CppFunction65
+    #include <Rcpp/module/Module_generated_CppFunction.h>
+#endif
 #include <Rcpp/module/class_Base.h>
 #include <Rcpp/module/Module.h>
 
@@ -129,12 +230,85 @@ namespace Rcpp{
     private:
         ParentMethod* parent_method_pointer ;
     } ;
+#if defined(HAS_VARIADIC_TEMPLATES) || defined(RCPP_USING_CXX11)
+template <typename... T>
+inline void ctor_signature(std::string& s, const std::string& classname) {
+    s.assign(classname);
+    s += "(";
+    int n = sizeof...(T);
+    int i = 0;
+    int dummy[] = { (s += get_return_type<T>(), s += (++i == n ? "" : ", "), 0)... };
+    (void)dummy;
+    s += ")";
+}
+template <typename Class>
+class Constructor_Base {
+public:
+    virtual Class* get_new( SEXP* args, int nargs ) = 0 ;
+    virtual int nargs() = 0 ;
+    virtual void signature(std::string& s, const std::string& class_name) = 0 ;
+} ;
 
+template <typename Class, typename... T>
+class Constructor: public Constructor_Base<Class> {
+public:
+    virtual Class* get_new( SEXP* args, int nargs ){
+        return get_new_impl(args, nargs, traits::make_index_sequence<sizeof...(T)>());
+    }
+    virtual int nargs(){ return sizeof...(T) ; }
+    virtual void signature(std::string& s, const std::string& class_name ){
+        ctor_signature<T...>(s, class_name) ;
+    }
+
+private:
+    template <int... Is>
+    Class* get_new_impl(SEXP* args, int nargs, traits::index_sequence<Is...>) {
+        return new Class( as<T>(args[Is])... ) ;
+    }
+};
+
+template <typename Class>
+class Factory_Base {
+public:
+    virtual Class* get_new( SEXP* args, int nargs ) = 0 ;
+    virtual int nargs() = 0 ;
+    virtual void signature(std::string& s, const std::string& class_name) = 0 ;
+} ;
+
+template <typename Class, typename... T>
+class Factory : public Factory_Base<Class> {
+public:
+    Factory( Class* (*fun)(T...) ) : ptr_fun(fun){}
+    virtual Class* get_new( SEXP* args, int nargs ){
+        return get_new( args, traits::make_index_sequence<sizeof...(T)>() ) ;
+    }
+    virtual int nargs(){ return sizeof...(T) ; }
+    virtual void signature(std::string& s, const std::string& class_name ){
+        ctor_signature<T...>(s, class_name) ;
+    }
+private:
+    template<std::size_t... I>
+    Class* get_new( SEXP* args, traits::index_sequence<I...> ){
+        return ptr_fun( bare_as<T>(args[I])... ) ;
+    }
+    Class* (*ptr_fun)(T...) ;
+} ;
+
+inline bool yes( SEXP* /*args*/, int /* nargs */ ){
+    return true ;
+}
+
+template<int n>
+bool yes_arity( SEXP* /* args */ , int nargs){
+    return nargs == n ;
+}
+
+#else
 #include <Rcpp/module/Module_generated_ctor_signature.h>
 #include <Rcpp/module/Module_generated_Constructor.h>
 #include <Rcpp/module/Module_generated_Factory.h>
-
 #include <Rcpp/module/Module_generated_class_signature.h>
+#endif
 
     typedef bool (*ValidConstructor)(SEXP*,int) ;
     typedef bool (*ValidMethod)(SEXP*,int) ;
@@ -368,8 +542,28 @@ namespace Rcpp{
     } ;
 }
 
-// function factories
-#include <Rcpp/module/Module_generated_function.h>
+#if defined(HAS_VARIADIC_TEMPLATES) || defined(RCPP_USING_CXX11)
+namespace Rcpp {
+    template <typename RESULT_TYPE, typename... T>
+    void function(const char* name_,  RESULT_TYPE (*fun)(T... t), const char* docstring = 0) {
+        Rcpp::Module* scope = ::getCurrentScope();
+        if (scope) {
+            scope->Add(name_, new CppFunctionN<RESULT_TYPE, T...>(fun, docstring));
+        }
+    }
+
+    template <typename RESULT_TYPE, typename... T>
+    void function(const char* name_,  RESULT_TYPE (*fun)(T... t), Rcpp::List formals, const char* docstring = 0) {
+        Rcpp::Module* scope = ::getCurrentScope();
+        if (scope) {
+            scope->Add(name_, new CppFunction_WithFormalsN<RESULT_TYPE, T...>(fun, formals, docstring));
+        }
+    }
+}
+#else
+    // function factories
+    #include <Rcpp/module/Module_generated_function.h>
+#endif
 
 namespace Rcpp {
 
