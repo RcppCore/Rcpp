@@ -43,7 +43,8 @@ namespace Rcpp {
 
                 SEXP operator()(SEXP* args) {
                     BEGIN_RCPP
-                    return Rcpp::module_wrap<RESULT_TYPE>(call<RESULT_TYPE, Args...>(fun, args));
+                    auto result = call<RESULT_TYPE, Args...>(fun, args);
+                    return Rcpp::module_wrap<RESULT_TYPE>(result);
                     END_RCPP
                 }
 

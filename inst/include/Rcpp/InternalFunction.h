@@ -47,13 +47,13 @@ namespace Rcpp{
                     )
                 );
         }
-        //template <typename RESULT_TYPE, typename... T>
-        //InternalFunction_Impl(RESULT_TYPE (*fun)(T...)) {
-        //    set(XPtr<CppFunctionN<RESULT_TYPE, T...> >(new CppFunctionN<RESULT_TYPE, T...>(fun), true));
-        //}
+        template <typename RESULT_TYPE, typename... T>
+        InternalFunction_Impl(RESULT_TYPE (*fun)(T...)) {
+            set(XPtr<CppFunctionN<RESULT_TYPE, T...> >(new CppFunctionN<RESULT_TYPE, T...>(fun), true));
+        }
 #else
-#endif
         #include <Rcpp/generated/InternalFunction__ctors.h>
+#endif
 
         void update(SEXP){}
     private:
