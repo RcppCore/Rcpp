@@ -291,10 +291,22 @@
         AddMethod( name_, new const_CppMethodN<Class,RESULT_TYPE,T...>(fun), valid, docstring);
         return *this;
     }
+    template <typename RESULT_TYPE, typename... T>
+    self& method(const char* name_, RESULT_TYPE (*fun)(Class*, T...),
+                const char* docstring = 0, ValidMethod valid = &yes_arity<sizeof...(T)>) {
+        AddMethod( name_, new Pointer_CppMethodN<Class,RESULT_TYPE,T...>(fun), valid, docstring);
+        return *this;
+    }
+    template <typename RESULT_TYPE, typename... T>
+    self& const_method(const char* name_, RESULT_TYPE (*fun)(const Class*, T...),
+                const char* docstring = 0, ValidMethod valid = &yes_arity<sizeof...(T)>) {
+        AddMethod( name_, new Const_Pointer_CppMethodN<Class,RESULT_TYPE,T...>(fun), valid, docstring);
+        return *this;
+    }
 #else
     #include <Rcpp/module/Module_generated_method.h>
+    #include <Rcpp/module/Module_generated_Pointer_method.h>
 #endif
-#include <Rcpp/module/Module_generated_Pointer_method.h>
 
         bool has_method( const std::string& m){
             return vec_methods.find(m) != vec_methods.end() ;
