@@ -108,7 +108,7 @@ namespace Rcpp {
             
             SEXP operator()(SEXP* args) {
                 BEGIN_RCPP
-                return call<RESULT_TYPE, T...>(ptr_fun, args);
+                return call<decltype(ptr_fun), RESULT_TYPE, T...>(ptr_fun, args);
                 END_RCPP
             }
             
@@ -178,78 +178,78 @@ namespace Rcpp{
         ParentMethod* parent_method_pointer ;
     } ;
 #if defined(HAS_VARIADIC_TEMPLATES) || defined(RCPP_USING_CXX11)
-template <typename... T>
-inline void ctor_signature(std::string& s, const std::string& classname) {
-    s.assign(classname);
-    s += "(";
-    int n = sizeof...(T);
-    int i = 0;
-    // Using initializer list as c++11 implementation of a fold expression
-    (void)std::initializer_list<int>{
-        (s += get_return_type<T>(), s += (++i == n ? "" : ", "), 0)... };
-    s += ")";
-}
-template <typename Class>
-class Constructor_Base {
-public:
-    virtual Class* get_new( SEXP* args, int nargs ) = 0 ;
-    virtual int nargs() = 0 ;
-    virtual void signature(std::string& s, const std::string& class_name) = 0 ;
-} ;
-
-template <typename Class, typename... T>
-class Constructor: public Constructor_Base<Class> {
-public:
-    virtual Class* get_new( SEXP* args, int nargs ){
-        return get_new_impl(args, nargs, traits::make_index_sequence<sizeof...(T)>());
+    template <typename... T>
+    inline void ctor_signature(std::string& s, const std::string& classname) {
+        s.assign(classname);
+        s += "(";
+        int n = sizeof...(T);
+        int i = 0;
+        // Using initializer list as c++11 implementation of a fold expression
+        (void)std::initializer_list<int>{
+            (s += get_return_type<T>(), s += (++i == n ? "" : ", "), 0)... };
+        s += ")";
     }
-    virtual int nargs(){ return sizeof...(T) ; }
-    virtual void signature(std::string& s, const std::string& class_name ){
-        ctor_signature<T...>(s, class_name) ;
+    template <typename Class>
+    class Constructor_Base {
+    public:
+        virtual Class* get_new( SEXP* args, int nargs ) = 0 ;
+        virtual int nargs() = 0 ;
+        virtual void signature(std::string& s, const std::string& class_name) = 0 ;
+    } ;
+
+    template <typename Class, typename... T>
+    class Constructor: public Constructor_Base<Class> {
+    public:
+        virtual Class* get_new( SEXP* args, int nargs ){
+            return get_new_impl(args, nargs, traits::make_index_sequence<sizeof...(T)>());
+        }
+        virtual int nargs(){ return sizeof...(T) ; }
+        virtual void signature(std::string& s, const std::string& class_name ){
+            ctor_signature<T...>(s, class_name) ;
+        }
+
+    private:
+        template <int... Is>
+        Class* get_new_impl(SEXP* args, int nargs, traits::index_sequence<Is...>) {
+            return new Class( as<T>(args[Is])... ) ;
+        }
+    };
+
+    template <typename Class>
+    class Factory_Base {
+    public:
+        virtual Class* get_new( SEXP* args, int nargs ) = 0 ;
+        virtual int nargs() = 0 ;
+        virtual void signature(std::string& s, const std::string& class_name) = 0 ;
+    } ;
+
+    template <typename Class, typename... T>
+    class Factory : public Factory_Base<Class> {
+    public:
+        Factory( Class* (*fun)(T...) ) : ptr_fun(fun){}
+        virtual Class* get_new( SEXP* args, int nargs ){
+            return get_new( args, traits::make_index_sequence<sizeof...(T)>() ) ;
+        }
+        virtual int nargs(){ return sizeof...(T) ; }
+        virtual void signature(std::string& s, const std::string& class_name ){
+            ctor_signature<T...>(s, class_name) ;
+        }
+    private:
+        template<std::size_t... I>
+        Class* get_new( SEXP* args, traits::index_sequence<I...> ){
+            return ptr_fun( bare_as<T>(args[I])... ) ;
+        }
+        Class* (*ptr_fun)(T...) ;
+    } ;
+
+    inline bool yes( SEXP* /*args*/, int /* nargs */ ){
+        return true ;
     }
 
-private:
-    template <int... Is>
-    Class* get_new_impl(SEXP* args, int nargs, traits::index_sequence<Is...>) {
-        return new Class( as<T>(args[Is])... ) ;
+    template<int n>
+    bool yes_arity( SEXP* /* args */ , int nargs){
+        return nargs == n ;
     }
-};
-
-template <typename Class>
-class Factory_Base {
-public:
-    virtual Class* get_new( SEXP* args, int nargs ) = 0 ;
-    virtual int nargs() = 0 ;
-    virtual void signature(std::string& s, const std::string& class_name) = 0 ;
-} ;
-
-template <typename Class, typename... T>
-class Factory : public Factory_Base<Class> {
-public:
-    Factory( Class* (*fun)(T...) ) : ptr_fun(fun){}
-    virtual Class* get_new( SEXP* args, int nargs ){
-        return get_new( args, traits::make_index_sequence<sizeof...(T)>() ) ;
-    }
-    virtual int nargs(){ return sizeof...(T) ; }
-    virtual void signature(std::string& s, const std::string& class_name ){
-        ctor_signature<T...>(s, class_name) ;
-    }
-private:
-    template<std::size_t... I>
-    Class* get_new( SEXP* args, traits::index_sequence<I...> ){
-        return ptr_fun( bare_as<T>(args[I])... ) ;
-    }
-    Class* (*ptr_fun)(T...) ;
-} ;
-
-inline bool yes( SEXP* /*args*/, int /* nargs */ ){
-    return true ;
-}
-
-template<int n>
-bool yes_arity( SEXP* /* args */ , int nargs){
-    return nargs == n ;
-}
 
 #else
 #include <Rcpp/module/Module_generated_ctor_signature.h>
@@ -382,187 +382,65 @@ bool yes_arity( SEXP* /* args */ , int nargs){
     } ;
 
 #if defined(HAS_VARIADIC_TEMPLATES) || defined(RCPP_USING_CXX11)
-    template <typename Class, typename RESULT_TYPE, typename... T> class CppMethodN : public CppMethod<Class> {
+    template <bool IsConst,typename Class, typename RESULT_TYPE, typename... T>
+    class CppMethodImplN : public CppMethod<Class> {
     public:
-        typedef RESULT_TYPE (Class::*Method)(T...);
+        typedef typename std::conditional<IsConst, RESULT_TYPE (Class::*)(T...) const,
+                                            RESULT_TYPE (Class::*)(T...)>::type Method;
         typedef CppMethod<Class> method_class;
         typedef typename Rcpp::traits::remove_const_and_reference<RESULT_TYPE>::type CLEANED_RESULT_TYPE;
 
-        CppMethodN(Method m) : method_class(), met(m) {}
+        CppMethodImplN(Method m) : method_class(), met(m) {}
         SEXP operator()(Class* object, SEXP* args) {
-            return Rcpp::module_wrap<CLEANED_RESULT_TYPE>(operator_impl(object, args, traits::make_index_sequence<sizeof...(T)>()));
+            // Can't pass pointer to member function directly to `call()`, so wrap it in a lambda
+            auto f = [&object, this](T... cpp_args) -> CLEANED_RESULT_TYPE {
+                return (object->*met)(cpp_args...);
+            };
+            return call<decltype(f), CLEANED_RESULT_TYPE, T...>(f, args);
         }
         inline int nargs() { return sizeof...(T); }
-        inline bool is_void() { return false; }
-        inline bool is_const() { return false; }
+        inline bool is_void() { return std::is_void<RESULT_TYPE>::value; }
+        inline bool is_const() { return IsConst; }
         inline void signature(std::string& s, const char* name) { Rcpp::signature<RESULT_TYPE,T...>(s, name); }
     private:
         Method met;
-
-        template <int... Is>
-        RESULT_TYPE operator_impl(Class* object, SEXP* args, traits::index_sequence<Is...>) {
-            return (object->*met)((typename traits::input_parameter<T>::type(args[Is]))...);
-        }
     };
+    
+    template <typename Class, typename RESULT_TYPE, typename... T>
+    using CppMethodN = CppMethodImplN<false, Class, RESULT_TYPE, T...>;
+    
+    template <typename Class, typename RESULT_TYPE, typename... T>
+    using const_CppMethodN = CppMethodImplN<true, Class, RESULT_TYPE, T...>;
 
-    template <typename Class, typename... T> class CppMethodN<Class, void, T...> : public CppMethod<Class> {
+    template <bool IsConst, typename Class, typename RESULT_TYPE, typename... T>
+    class Pointer_CppMethodImplN : public CppMethod<Class> {
     public:
-        typedef void (Class::*Method)(T...);
-        typedef CppMethod<Class> method_class;
-
-        CppMethodN(Method m) : method_class(), met(m) {}
-        SEXP operator()(Class* object, SEXP* args) {
-            operator_impl(object, args, traits::make_index_sequence<sizeof...(T)>());
-            return R_NilValue;
-        }
-        inline int nargs() { return sizeof...(T); }
-        inline bool is_void() { return true; }
-        inline bool is_const() { return false; }
-        inline void signature(std::string& s, const char* name) { Rcpp::signature<void_type,T...>(s, name); }
-    private:
-        Method met;
-        template <int... Is>
-        void operator_impl(Class* object, SEXP* args, traits::index_sequence<Is...>) {
-            (object->*met)((typename traits::input_parameter<T>::type(args[Is]))...);
-        }
-    };
-
-    template <typename Class, typename RESULT_TYPE, typename... T> class const_CppMethodN : public CppMethod<Class> {
-    public:
-        typedef RESULT_TYPE (Class::*Method)(T...) const;
+        typedef typename std::conditional<IsConst, RESULT_TYPE (*)(const Class*, T...),
+                                            RESULT_TYPE (*)(Class*, T...)>::type Method;
         typedef CppMethod<Class> method_class;
         typedef typename Rcpp::traits::remove_const_and_reference<RESULT_TYPE>::type CLEANED_RESULT_TYPE;
 
-        const_CppMethodN(Method m) : method_class(), met(m) {}
+        Pointer_CppMethodImplN(Method m) : method_class(), met(m) {}
         SEXP operator()(Class* object, SEXP* args) {
-            return Rcpp::module_wrap<CLEANED_RESULT_TYPE>(operator_impl(object, args, traits::make_index_sequence<sizeof...(T)>()));
+            // Need to have `object` as the first argument to the function, so wrap it in a lambda
+            auto f = [&object, this](T... cpp_args) -> CLEANED_RESULT_TYPE {
+                return met(object, cpp_args...);
+            };
+            return call<decltype(f), CLEANED_RESULT_TYPE, T...>(f, args);
         }
         inline int nargs() { return sizeof...(T); }
-        inline bool is_void() { return false; }
-        inline bool is_const() { return true; }
+        inline bool is_void() { return std::is_void<RESULT_TYPE>::value;}
+        inline bool is_const() { return IsConst; }
         inline void signature(std::string& s, const char* name) { Rcpp::signature<RESULT_TYPE,T...>(s, name); }
     private:
         Method met;
-
-        template <int... Is>
-        RESULT_TYPE operator_impl(Class* object, SEXP* args, traits::index_sequence<Is...>) {
-            return (object->*met)((typename traits::input_parameter<T>::type(args[Is]))...);
-        }
     };
-
-    template <typename Class, typename... T> class const_CppMethodN<Class, void, T...> : public CppMethod<Class> {
-    public:
-        typedef void (Class::*Method)(T...) const;
-        typedef CppMethod<Class> method_class;
-
-        const_CppMethodN(Method m) : method_class(), met(m) {}
-        SEXP operator()(Class* object, SEXP* args) {
-            operator_impl(object, args, traits::make_index_sequence<sizeof...(T)>());
-            return R_NilValue;
-        }
-        inline int nargs() { return sizeof...(T); }
-        inline bool is_void() { return true; }
-        inline bool is_const() { return true; }
-        inline void signature(std::string& s, const char* name) { Rcpp::signature<void_type,T...>(s, name); }
-    private:
-        Method met;
-        template <int... Is>
-        void operator_impl(Class* object, SEXP* args, traits::index_sequence<Is...>) {
-            (object->*met)((typename traits::input_parameter<T>::type(args[Is]))...);
-        }
-    };
-
-    template <typename Class, typename RESULT_TYPE, typename... T> class Pointer_CppMethodN : public CppMethod<Class> {
-    public:
-        typedef RESULT_TYPE (*Method)(Class*, T...);
-        typedef CppMethod<Class> method_class;
-        typedef typename Rcpp::traits::remove_const_and_reference<RESULT_TYPE>::type CLEANED_RESULT_TYPE;
-
-        Pointer_CppMethodN(Method m) : method_class(), met(m) {}
-        SEXP operator()(Class* object, SEXP* args) {
-            return Rcpp::module_wrap<CLEANED_RESULT_TYPE>(operator_impl(object, args, traits::make_index_sequence<sizeof...(T)>()));
-        }
-        inline int nargs() { return sizeof...(T); }
-        inline bool is_void() { return false; }
-        inline bool is_const() { return false; }
-        inline void signature(std::string& s, const char* name) { Rcpp::signature<RESULT_TYPE,T...>(s, name); }
-    private:
-        Method met;
-
-        template <int... Is>
-        RESULT_TYPE operator_impl(Class* object, SEXP* args, traits::index_sequence<Is...>) {
-            return met(object, (typename traits::input_parameter<T>::type(args[Is]))...);
-        }
-    };
-
-    template <typename Class, typename... T> class Pointer_CppMethodN<Class, void, T...> : public CppMethod<Class> {
-    public:
-        typedef void (*Method)(Class*, T...);
-        typedef CppMethod<Class> method_class;
-
-        Pointer_CppMethodN(Method m) : method_class(), met(m) {}
-        SEXP operator()(Class* object, SEXP* args) {
-            operator_impl(object, args, traits::make_index_sequence<sizeof...(T)>());
-            return R_NilValue;
-        }
-        inline int nargs() { return sizeof...(T); }
-        inline bool is_void() { return true; }
-        inline bool is_const() { return false; }
-        inline void signature(std::string& s, const char* name) { Rcpp::signature<void_type,T...>(s, name); }
-    private:
-        Method met;
-
-        template <int... Is>
-        void operator_impl(Class* object, SEXP* args, traits::index_sequence<Is...>) {
-            met(object, (typename traits::input_parameter<T>::type(args[Is]))...);
-        }
-    };
-
-    template <typename Class, typename RESULT_TYPE, typename... T> class Const_Pointer_CppMethodN : public CppMethod<Class> {
-    public:
-        typedef RESULT_TYPE (*Method)(const Class*, T...);
-        typedef CppMethod<Class> method_class;
-        typedef typename Rcpp::traits::remove_const_and_reference<RESULT_TYPE>::type CLEANED_RESULT_TYPE;
-
-        Const_Pointer_CppMethodN(Method m) : method_class(), met(m) {}
-        SEXP operator()(Class* object, SEXP* args) {
-            return Rcpp::module_wrap<CLEANED_RESULT_TYPE>(operator_impl(object, args, traits::make_index_sequence<sizeof...(T)>()));
-        }
-        inline int nargs() { return sizeof...(T); }
-        inline bool is_void() { return false; }
-        inline bool is_const() { return true; }
-        inline void signature(std::string& s, const char* name) { Rcpp::signature<RESULT_TYPE,T...>(s, name); }
-    private:
-        Method met;
-
-        template <int... Is>
-        RESULT_TYPE operator_impl(Class* object, SEXP* args, traits::index_sequence<Is...>) {
-            return met(object, (typename traits::input_parameter<T>::type(args[Is]))...);
-        }
-    };
-
-    template <typename Class, typename... T> class Const_Pointer_CppMethodN<Class, void, T...> : public CppMethod<Class> {
-    public:
-        typedef void (*Method)(const Class*, T...);
-        typedef CppMethod<Class> method_class;
-
-        Const_Pointer_CppMethodN(Method m) : method_class(), met(m) {}
-        SEXP operator()(Class* object, SEXP* args) {
-            operator_impl(object, args, traits::make_index_sequence<sizeof...(T)>());
-            return R_NilValue;
-        }
-        inline int nargs() { return sizeof...(T); }
-        inline bool is_void() { return true; }
-        inline bool is_const() { return true; }
-        inline void signature(std::string& s, const char* name) { Rcpp::signature<void_type,T...>(s, name); }
-    private:
-        Method met;
-
-        template <int... Is>
-        void operator_impl(Class* object, SEXP* args, traits::index_sequence<Is...>) {
-            met(object, (typename traits::input_parameter<T>::type(args[Is]))...);
-        }
-    };
+    
+    template <typename Class, typename RESULT_TYPE, typename... T>
+    using Pointer_CppMethodN = Pointer_CppMethodImplN<false, Class, RESULT_TYPE, T...>;
+    
+    template <typename Class, typename RESULT_TYPE, typename... T>
+    using Const_Pointer_CppMethodN = Pointer_CppMethodImplN<true, Class, RESULT_TYPE, T...>;
 #else
     #include <Rcpp/module/Module_generated_CppMethod.h>
     #include <Rcpp/module/Module_generated_Pointer_CppMethod.h>

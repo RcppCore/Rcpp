@@ -43,7 +43,7 @@ namespace Rcpp {
 
                 SEXP operator()(SEXP* args) {
                     BEGIN_RCPP
-                    return call<RESULT_TYPE, Args...>(fun, args);
+                    return call<decltype(fun), RESULT_TYPE, Args...>(fun, args);
                     END_RCPP
                 }
 
