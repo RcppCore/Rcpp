@@ -43,29 +43,12 @@ namespace Rcpp {
 
                 SEXP operator()(SEXP* args) {
                     BEGIN_RCPP
-                    auto result = call<RESULT_TYPE, Args...>(fun, args);
-                    return Rcpp::module_wrap<RESULT_TYPE>(result);
+                    return call<RESULT_TYPE, Args...>(fun, args);
                     END_RCPP
                 }
 
             private:
                 const std::function<RESULT_TYPE(Args...)> fun;
-        };
-
-        template <typename... Args>
-        class CppFunctionBaseFromStdFunction<void, Args...> : public CppFunctionBase {
-             public:
-                 CppFunctionBaseFromStdFunction(const std::function<void(Args...)> &fun) : fun(fun) {}
-                 virtual ~CppFunctionBaseFromStdFunction() {}
-
-                 SEXP operator()(SEXP* args) {
-                     BEGIN_RCPP
-                     call<void, Args...>(fun, args);
-                     END_RCPP
-                 }
-
-            private:
-                 const std::function<void(Args...)> fun;
         };
 
     } // namespace InternalFunctionWithStdFunction

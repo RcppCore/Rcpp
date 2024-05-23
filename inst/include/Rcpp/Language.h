@@ -104,13 +104,13 @@ namespace Rcpp{
          */
         #if defined(HAS_VARIADIC_TEMPLATES) || defined(RCPP_USING_CXX11)
             template <typename... T>
-            Language_Impl( const std::string& symbol, const T&... t) {
-                Storage::set__( pairlist(Rf_install( symbol.c_str() ), t...) );
+            Language_Impl(const std::string& symbol, const T&... t) {
+                Storage::set__(pairlist(Rf_install(symbol.c_str()), t...) );
             }
 
             template <typename... T>
-            Language_Impl( const Function& function, const T&... t) {
-                Storage::set__( pairlist( function, t...) );
+            Language_Impl(const Function& function, const T&... t) {
+                Storage::set__(pairlist(function, t...));
             }
         #else
             #include <Rcpp/generated/Language__ctors.h>

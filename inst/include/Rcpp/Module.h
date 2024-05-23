@@ -92,14 +92,12 @@ namespace Rcpp {
     template <typename RESULT_TYPE, typename... T>
     inline void signature(std::string& s, const char* name) {
         s.clear();
-        s += get_return_type<RESULT_TYPE>();
-        s += " ";
-        s += name;
-        s += "(";
+        s += get_return_type<RESULT_TYPE>() + " " + name + "(";
         int n = sizeof...(T);
         int i = 0;
-        int dummy[] = { (s += get_return_type<T>(), s += (++i == n ? "" : ", "), 0)... };
-        (void)dummy;
+        // Using initializer list as c++11 implementation of a fold expression
+        (void)std::initializer_list<int>{
+            (s += get_return_type<T>(), s += (++i == n ? "" : ", "), 0)... };
         s += ")";
     }
 
@@ -107,14 +105,13 @@ namespace Rcpp {
     class CppFunctionN : public CppFunction {
         public:
             CppFunctionN(RESULT_TYPE (*fun)(T...), const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
-
+            
             SEXP operator()(SEXP* args) {
                 BEGIN_RCPP
-                RESULT_TYPE result = call<RESULT_TYPE, T...>(ptr_fun, args);
-                return Rcpp::module_wrap<RESULT_TYPE>(result);
+                return call<RESULT_TYPE, T...>(ptr_fun, args);
                 END_RCPP
             }
-
+            
             inline int nargs() { return sizeof...(T); }
             inline void signature(std::string& s, const char* name) { Rcpp::signature<RESULT_TYPE, T...>(s, name); }
             inline DL_FUNC get_function_ptr() { return (DL_FUNC)ptr_fun; }
@@ -122,67 +119,17 @@ namespace Rcpp {
         private:
             RESULT_TYPE (*ptr_fun)(T...);
     };
-    template <typename... T>
-    class CppFunctionN<void, T...> : public CppFunction {
-        public:
-            CppFunctionN(void (*fun)(T...), const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
-
-            SEXP operator()(SEXP* args) {
-                BEGIN_RCPP
-                call<void, T...>(ptr_fun, args);
-                END_RCPP
-            }
-
-            inline int nargs() { return sizeof...(T); }
-            inline void signature(std::string& s, const char* name) { Rcpp::signature<void, T...>(s, name); }
-            inline DL_FUNC get_function_ptr() { return (DL_FUNC)ptr_fun; }
-
-        private:
-            void (*ptr_fun)(T...);
-    };
-
+    
     template <typename RESULT_TYPE, typename... T>
-    class CppFunction_WithFormalsN : public CppFunction {
+    class CppFunction_WithFormalsN : public CppFunctionN<RESULT_TYPE, T...> {
         public:
             CppFunction_WithFormalsN(RESULT_TYPE (*fun)(T...), Rcpp::List formals_, const char* docstring = 0) :
-                CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
+                CppFunctionN<RESULT_TYPE, T...>(fun, docstring), formals(formals_) {}
 
-            SEXP operator()(SEXP* args) {
-                BEGIN_RCPP
-                RESULT_TYPE result = call<RESULT_TYPE, T...>(ptr_fun, args);
-                return Rcpp::module_wrap<RESULT_TYPE>(result);
-                END_RCPP
-            }
-
-            inline int nargs() { return sizeof...(T); }
-            inline void signature(std::string& s, const char* name) { Rcpp::signature<RESULT_TYPE, T...>(s, name); }
             SEXP get_formals() { return formals; }
-            inline DL_FUNC get_function_ptr() { return (DL_FUNC)ptr_fun; }
 
         private:
             Rcpp::List formals;
-            RESULT_TYPE (*ptr_fun)(T...);
-    };
-    template <typename... T>
-    class CppFunction_WithFormalsN<void, T...> : public CppFunction {
-        public:
-            CppFunction_WithFormalsN(void (*fun)(T...), Rcpp::List formals_, const char* docstring = 0) :
-                CppFunction(docstring), formals(formals_), ptr_fun(fun) {}
-
-            SEXP operator()(SEXP* args) {
-                BEGIN_RCPP
-                call<void, T...>(ptr_fun, args);
-                END_RCPP
-            }
-
-            inline int nargs() { return sizeof...(T); }
-            inline void signature(std::string& s, const char* name) { Rcpp::signature<void, T...>(s, name); }
-            SEXP get_formals() { return formals; }
-            inline DL_FUNC get_function_ptr() { return (DL_FUNC)ptr_fun; }
-
-        private:
-            Rcpp::List formals;
-            void (*ptr_fun)(T...);
     };
 }
 #else
@@ -237,8 +184,9 @@ inline void ctor_signature(std::string& s, const std::string& classname) {
     s += "(";
     int n = sizeof...(T);
     int i = 0;
-    int dummy[] = { (s += get_return_type<T>(), s += (++i == n ? "" : ", "), 0)... };
-    (void)dummy;
+    // Using initializer list as c++11 implementation of a fold expression
+    (void)std::initializer_list<int>{
+        (s += get_return_type<T>(), s += (++i == n ? "" : ", "), 0)... };
     s += ")";
 }
 template <typename Class>
