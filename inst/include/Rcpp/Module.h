@@ -235,7 +235,7 @@ namespace Rcpp{
             ctor_signature<T...>(s, class_name) ;
         }
     private:
-        template<std::size_t... I>
+        template<int... I>
         Class* get_new( SEXP* args, traits::index_sequence<I...> ){
             return ptr_fun( bare_as<T>(args[I])... ) ;
         }
