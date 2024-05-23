@@ -1,3 +1,9 @@
+2024-05-23 Andrew Johnson <andrew.johnson@arjohnsonau.com>
+        
+        * Added variadic templates to be used instead of the generated code
+        in `Rcpp/generated` and `Rcpp/module` when compiling with C++11 or
+        later.
+
 2024-05-18  Dirk Eddelbuettel  <edd@debian.org>
 
 	* docker/ci-4.3/Dockerfile: Add rcpp/ci-4.3 container for R 4.3.*
