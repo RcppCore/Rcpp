@@ -1,8 +1,13 @@
-2024-05-23 Andrew Johnson <andrew.johnson@arjohnsonau.com>
-        
-        * Added variadic templates to be used instead of the generated code
-        in `Rcpp/generated` and `Rcpp/module` when compiling with C++11 or
-        later.
+2024-05-26  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version
+	* inst/include/Rcpp/config.h (RCPP_DEV_VERSION): Idem
+
+2024-05-23  Andrew Johnson  <andrew.johnson@arjohnsonau.com>
+
+        * inst/include/Rcpp/: Added variadic templates to be used instead of
+	the generated code in `Rcpp/generated` and `Rcpp/module` when
+	compiling with C++11 or later.
 
 2024-05-18  Dirk Eddelbuettel  <edd@debian.org>
 

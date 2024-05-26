@@ -3,6 +3,21 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
+\section{Changes in Rcpp release version 1.0.13 (2024-xx-yy)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Set R_NO_REMAP if not already defined (Dirk in \ghpr{1296})
+      \item Add variadic templates to be used instead of generated code
+      (Andrew Johnson in \ghpr{1303}
+    }
+    \item Changes in Rcpp Deployment:
+    \itemize{
+      \item Small updates to the CI test containers have been made (\ghpr{1304})
+    }
+  }
+}
+
 \section{Changes in Rcpp release version 1.0.12 (2024-01-08)}{
   \itemize{
     \item Changes in Rcpp API:
