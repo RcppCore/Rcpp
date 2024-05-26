@@ -35,8 +35,14 @@ public:
 	DottedPair_Impl(SEXP x) {
 	    Storage::set__(x) ;
 	}
-
-	#include <Rcpp/generated/DottedPair__ctors.h>
+  #if defined(HAS_VARIADIC_TEMPLATES) || defined(RCPP_USING_CXX11)
+		template <typename... T>
+		DottedPair_Impl(const T&... args) {
+			Storage::set__(pairlist(args...));
+		}
+	#else
+		#include <Rcpp/generated/DottedPair__ctors.h>
+	#endif
 
 	void update(SEXP){}
 

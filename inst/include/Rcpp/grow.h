@@ -70,7 +70,18 @@ namespace Rcpp {
         return grow(Rf_mkString(head), y);
     }
 
-    #include <Rcpp/generated/grow__pairlist.h>
+    #if defined(HAS_VARIADIC_TEMPLATES) || defined(RCPP_USING_CXX11)
+        template <typename T1>
+        SEXP pairlist(const T1& t1) {
+            return grow( t1, R_NilValue ) ;
+        }
+        template <typename T, typename... TArgs>
+        SEXP pairlist(const T& t1, const TArgs&... args) {
+            return grow(t1, pairlist(args...));
+        }
+    #else
+        #include <Rcpp/generated/grow__pairlist.h>
+    #endif
 
 } // namespace Rcpp
 

@@ -82,7 +82,14 @@ namespace Rcpp{
             return Rcpp_fast_eval(call, R_GlobalEnv);
         }
 
-        #include <Rcpp/generated/Function__operator.h>
+        #if defined(HAS_VARIADIC_TEMPLATES) || defined(RCPP_USING_CXX11)
+            template <typename... T>
+            SEXP operator()(const T&... args) const {
+            return invoke(pairlist(args...), R_GlobalEnv);
+            }
+        #else
+            #include <Rcpp/generated/Function__operator.h>
+        #endif
 
         /**
          * Returns the environment of this function

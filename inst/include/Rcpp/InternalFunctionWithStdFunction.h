@@ -23,13 +23,17 @@
 #ifndef Rcpp_InternalFunctionWithStdFunction_h
 #define Rcpp_InternalFunctionWithStdFunction_h
 
+#if defined(HAS_VARIADIC_TEMPLATES) || defined(RCPP_USING_CXX11)
+#include <Rcpp/internal/call.h>
+#endif
 #include <functional>
 
 namespace Rcpp {
 
     namespace InternalFunctionWithStdFunction {
-
+        #if !defined(HAS_VARIADIC_TEMPLATES) && !defined(RCPP_USING_CXX11)
         #include <Rcpp/generated/InternalFunctionWithStdFunction_call.h>
+        #endif
 
         template <typename RESULT_TYPE, typename... Args>
         class CppFunctionBaseFromStdFunction : public CppFunctionBase {
@@ -39,29 +43,12 @@ namespace Rcpp {
 
                 SEXP operator()(SEXP* args) {
                     BEGIN_RCPP
-                    auto result = call<RESULT_TYPE, Args...>(fun, args);
-                    return Rcpp::module_wrap<RESULT_TYPE>(result);
+                    return call<decltype(fun), RESULT_TYPE, Args...>(fun, args);
                     END_RCPP
                 }
 
             private:
                 const std::function<RESULT_TYPE(Args...)> fun;
-        };
-
-        template <typename... Args>
-        class CppFunctionBaseFromStdFunction<void, Args...> : public CppFunctionBase {
-             public:
-                 CppFunctionBaseFromStdFunction(const std::function<void(Args...)> &fun) : fun(fun) {}
-                 virtual ~CppFunctionBaseFromStdFunction() {}
-
-                 SEXP operator()(SEXP* args) {
-                     BEGIN_RCPP
-                     call<void, Args...>(fun, args);
-                     END_RCPP
-                 }
-
-            private:
-                 const std::function<void(Args...)> fun;
         };
 
     } // namespace InternalFunctionWithStdFunction
