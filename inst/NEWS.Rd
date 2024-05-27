@@ -1810,8 +1810,7 @@
     }
     \item Changes in Rcpp sugar:
     \itemize{
-      \item New function \code{na_omit} based on the StackOverflow thread
-      \url{http://stackoverflow.com/questions/15953768/}
+      \item New function \code{na_omit} based on a StackOverflow thread
       \item New function \code{is_finite} and \code{is_infinite} that
       reproduces the behavior of R's \code{is.finite} and
       \code{is.infinite} functions

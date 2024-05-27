@@ -1,3 +1,8 @@
+2024-05-27  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Remove link references to StackOverflow
+	* inst/NEWS.Rd: Idem
+
 2024-05-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version
