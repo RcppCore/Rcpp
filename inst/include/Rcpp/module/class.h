@@ -1,5 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
+
 // class.h: Rcpp R/C++ interface class library -- Rcpp modules
 //
 // Copyright (C) 2012 - 2013 Dirk Eddelbuettel and Romain Francois
@@ -136,8 +135,8 @@
         SEXP newInstance( SEXP* args, int nargs ){
             BEGIN_RCPP
                 signed_constructor_class* p ;
-            int n = constructors.size() ;
-            for( int i=0; i<n; i++ ){
+            size_t n = constructors.size() ;
+            for( size_t i=0; i<n; i++ ){
                 p = constructors[i];
                 bool ok = (p->valid)(args, nargs) ;
                 if( ok ){
@@ -148,7 +147,7 @@
 
             signed_factory_class* pfact ;
             n = factories.size() ;
-            for( int i=0; i<n; i++){
+            for( size_t i=0; i<n; i++){
               pfact = factories[i] ;
               bool ok = (pfact->valid)(args, nargs) ;
               if( ok ){
@@ -162,15 +161,15 @@
                 }
 
         bool has_default_constructor(){
-            int n = constructors.size() ;
+            size_t n = constructors.size() ;
             signed_constructor_class* p ;
-            for( int i=0; i<n; i++ ){
+            for( size_t i=0; i<n; i++ ){
                 p = constructors[i];
                 if( p->nargs() == 0 ) return true ;
             }
             n = factories.size() ;
             signed_factory_class* pfact ;
-            for( int i=0; i<n; i++ ){
+            for( size_t i=0; i<n; i++ ){
                 pfact = factories[i];
                 if( pfact->nargs() == 0 ) return true ;
             }
@@ -182,10 +181,10 @@
 
                 vec_signed_method* mets = reinterpret_cast< vec_signed_method* >( R_ExternalPtrAddr( method_xp ) ) ;
             typename vec_signed_method::iterator it = mets->begin() ;
-            int n = mets->size() ;
+            size_t n = mets->size() ;
             method_class* m = 0 ;
             bool ok = false ;
-            for( int i=0; i<n; i++, ++it ){
+            for( size_t i=0; i<n; i++, ++it ){
                 if( ( (*it)->valid )( args, nargs) ){
                     m = (*it)->method ;
                     ok = true ;
@@ -209,10 +208,10 @@
 
                 vec_signed_method* mets = reinterpret_cast< vec_signed_method* >( R_ExternalPtrAddr( method_xp ) ) ;
             typename vec_signed_method::iterator it = mets->begin() ;
-            int n = mets->size() ;
+            size_t n = mets->size() ;
             method_class* m = 0 ;
             bool ok = false ;
-            for( int i=0; i<n; i++, ++it ){
+            for( size_t i=0; i<n; i++, ++it ){
                 if( ( (*it)->valid )( args, nargs) ){
                     m = (*it)->method ;
                     ok = true ;
@@ -231,10 +230,10 @@
 
                 vec_signed_method* mets = reinterpret_cast< vec_signed_method* >( R_ExternalPtrAddr( method_xp ) ) ;
             typename vec_signed_method::iterator it = mets->begin() ;
-            int n = mets->size() ;
+            size_t n = mets->size() ;
             method_class* m = 0 ;
             bool ok = false ;
-            for( int i=0; i<n; i++, ++it ){
+            for( size_t i=0; i<n; i++, ++it ){
                 if( ( (*it)->valid )( args, nargs) ){
                     m = (*it)->method ;
                     ok = true ;
@@ -326,19 +325,19 @@
         }
 
         Rcpp::CharacterVector method_names(){
-            int n = 0 ;
-            int s = vec_methods.size() ;
+            size_t n = 0 ;
+            size_t s = vec_methods.size() ;
             typename map_vec_signed_method::iterator it = vec_methods.begin( ) ;
-            for( int i=0; i<s; i++, ++it){
+            for( size_t i=0; i<s; i++, ++it){
                 n += (it->second)->size() ;
             }
             Rcpp::CharacterVector out(n) ;
             it = vec_methods.begin() ;
-            int k = 0 ;
-            for( int i=0; i<s; i++, ++it){
+            size_t k = 0 ;
+            for( size_t i=0; i<s; i++, ++it){
                 n = (it->second)->size() ;
                 std::string name = it->first ;
-                for( int j=0; j<n; j++, k++){
+                for( size_t j=0; j<n; j++, k++){
                     out[k] = name ;
                 }
             }
@@ -346,21 +345,21 @@
         }
 
         Rcpp::IntegerVector methods_arity(){
-            int n = 0 ;
-            int s = vec_methods.size() ;
+            size_t n = 0 ;
+            size_t s = vec_methods.size() ;
             typename map_vec_signed_method::iterator it = vec_methods.begin( ) ;
-            for( int i=0; i<s; i++, ++it){
+            for( size_t i=0; i<s; i++, ++it){
                 n += (it->second)->size() ;
             }
             Rcpp::CharacterVector mnames(n) ;
             Rcpp::IntegerVector res(n) ;
             it = vec_methods.begin() ;
-            int k = 0 ;
-            for( int i=0; i<s; i++, ++it){
+            size_t k = 0 ;
+            for( size_t i=0; i<s; i++, ++it){
                 n = (it->second)->size() ;
                 std::string name = it->first ;
                 typename vec_signed_method::iterator m_it = (it->second)->begin() ;
-                for( int j=0; j<n; j++, k++, ++m_it){
+                for( size_t j=0; j<n; j++, k++, ++m_it){
                     mnames[k] = name ;
                     res[k] = (*m_it)->nargs() ;
                 }
@@ -370,21 +369,21 @@
         }
 
         Rcpp::LogicalVector methods_voidness(){
-            int n = 0 ;
-            int s = vec_methods.size() ;
+            size_t n = 0 ;
+            size_t s = vec_methods.size() ;
             typename map_vec_signed_method::iterator it = vec_methods.begin( ) ;
-            for( int i=0; i<s; i++, ++it){
+            for( size_t i=0; i<s; i++, ++it){
                 n += (it->second)->size() ;
             }
             Rcpp::CharacterVector mnames(n) ;
             Rcpp::LogicalVector res(n) ;
             it = vec_methods.begin() ;
-            int k = 0 ;
-            for( int i=0; i<s; i++, ++it){
+            size_t k = 0 ;
+            for( size_t i=0; i<s; i++, ++it){
                 n = (it->second)->size() ;
                 std::string name = it->first ;
                 typename vec_signed_method::iterator m_it = (it->second)->begin() ;
-                for( int j=0; j<n; j++, k++, ++m_it){
+                for( size_t j=0; j<n; j++, k++, ++m_it){
                     mnames[k] = name ;
                     res[k] = (*m_it)->is_void() ;
                 }
@@ -395,21 +394,21 @@
 
 
         Rcpp::CharacterVector property_names(){
-            int n = properties.size() ;
+            size_t n = properties.size() ;
             Rcpp::CharacterVector out(n) ;
             typename PROPERTY_MAP::iterator it = properties.begin( ) ;
-            for( int i=0; i<n; i++, ++it){
+            for( size_t i=0; i<n; i++, ++it){
                 out[i] = it->first ;
             }
             return out ;
         }
 
         Rcpp::List property_classes(){
-            int n = properties.size() ;
+            size_t n = properties.size() ;
             Rcpp::CharacterVector pnames(n) ;
             Rcpp::List out(n) ;
             typename PROPERTY_MAP::iterator it = properties.begin( ) ;
-            for( int i=0; i<n; i++, ++it){
+            for( size_t i=0; i<n; i++, ++it){
                 pnames[i] = it->first ;
                 out[i] = it->second->get_class() ;
             }
@@ -418,12 +417,12 @@
         }
 
         Rcpp::CharacterVector complete(){
-            int n = vec_methods.size() - specials ;
-            int ntotal = n + properties.size() ;
+            size_t n = vec_methods.size() - specials ;
+            size_t ntotal = n + properties.size() ;
             Rcpp::CharacterVector out(ntotal) ;
             typename map_vec_signed_method::iterator it = vec_methods.begin( ) ;
             std::string buffer ;
-            int i=0 ;
+            size_t i=0 ;
             for( ; i<n; ++it){
                 buffer = it->first ;
                 if( buffer[0] == '[' ) continue ;
@@ -459,11 +458,11 @@
 
 
         Rcpp::List fields( const XP_Class& class_xp ){
-            int n = properties.size() ;
+            size_t n = properties.size() ;
             Rcpp::CharacterVector pnames(n) ;
             Rcpp::List out(n) ;
             typename PROPERTY_MAP::iterator it = properties.begin( ) ;
-            for( int i=0; i<n; i++, ++it){
+            for( size_t i=0; i<n; i++, ++it){
                 pnames[i] = it->first ;
                 out[i] = S4_field<Class>( it->second, class_xp ) ;
             }
@@ -476,12 +475,12 @@
             #if RCPP_DEBUG_LEVEL > 0
                 Rf_PrintValue( class_xp ) ;
             #endif
-            int n = vec_methods.size() ;
+            size_t n = vec_methods.size() ;
             Rcpp::CharacterVector mnames(n) ;
             Rcpp::List res(n) ;
             typename map_vec_signed_method::iterator it = vec_methods.begin( ) ;
             vec_signed_method* v;
-            for( int i=0; i<n; i++, ++it){
+            for( size_t i=0; i<n; i++, ++it){
                 mnames[i] = it->first ;
                 v = it->second ;
                 res[i] = S4_CppOverloadedMethods<Class>( v , class_xp, it->first.c_str(), buffer ) ;
@@ -491,10 +490,10 @@
         }
 
         Rcpp::List getConstructors( const XP_Class& class_xp, std::string& buffer){
-            int n = constructors.size() ;
+            size_t n = constructors.size() ;
             Rcpp::List out(n) ;
             typename vec_signed_constructor::iterator it = constructors.begin( ) ;
-            for( int i=0; i<n; i++, ++it){
+            for( size_t i=0; i<n; i++, ++it){
                 out[i] = S4_CppConstructor<Class>( *it , class_xp, name, buffer ) ;
             }
             return out ;

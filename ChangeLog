@@ -2,6 +2,12 @@
 
 	* README.md: Remove link references to StackOverflow
 	* inst/NEWS.Rd: Idem
+	* inst/include/Rcpp/Module.h (S4_CppOverloadedMethods): Add cast to int
+	to avoid warnings under 'clang++-17 -Wconversion -Wno-sign-conversion'
+	* inst/include/Rcpp/vector/Vector.h (Vector): Idem
+	* inst/include/Rcpp/module/class.h: Switch variable to size_t to avoid
+	to avoid warnings under 'clang++-17 -Wconversion -Wno-sign-conversion'
+	* inst/tinytest/testRcppClass/src/init.c: Add void to signature
 
 2024-05-26  Dirk Eddelbuettel  <edd@debian.org>
 
