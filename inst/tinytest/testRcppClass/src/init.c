@@ -3,15 +3,15 @@
 #include <stdlib.h> // for NULL
 #include <R_ext/Rdynload.h>
 
-/* FIXME: 
+/* FIXME:
    Check these declarations against the C/Fortran source code.
 */
 
 /* .Call calls */
-extern SEXP rcpp_hello_world_cpp();
-extern SEXP _rcpp_module_boot_NumEx();
-extern SEXP _rcpp_module_boot_RcppClassModule();
-extern SEXP _rcpp_module_boot_stdVector();
+extern SEXP rcpp_hello_world_cpp(void);
+extern SEXP _rcpp_module_boot_NumEx(void);
+extern SEXP _rcpp_module_boot_RcppClassModule(void);
+extern SEXP _rcpp_module_boot_stdVector(void);
 
 static const R_CallMethodDef CallEntries[] = {
     {"rcpp_hello_world_cpp", (DL_FUNC) &rcpp_hello_world_cpp, 0},

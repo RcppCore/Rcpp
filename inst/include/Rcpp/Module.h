@@ -1,5 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
+
 // Module.h: Rcpp R/C++ interface class library -- Rcpp modules
 //
 // Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
@@ -105,13 +104,13 @@ namespace Rcpp {
     class CppFunctionN : public CppFunction {
         public:
             CppFunctionN(RESULT_TYPE (*fun)(T...), const char* docstring = 0) : CppFunction(docstring), ptr_fun(fun) {}
-            
+
             SEXP operator()(SEXP* args) {
                 BEGIN_RCPP
                 return call<decltype(ptr_fun), RESULT_TYPE, T...>(ptr_fun, args);
                 END_RCPP
             }
-            
+
             inline int nargs() { return sizeof...(T); }
             inline void signature(std::string& s, const char* name) { Rcpp::signature<RESULT_TYPE, T...>(s, name); }
             inline DL_FUNC get_function_ptr() { return (DL_FUNC)ptr_fun; }
@@ -119,7 +118,7 @@ namespace Rcpp {
         private:
             RESULT_TYPE (*ptr_fun)(T...);
     };
-    
+
     template <typename RESULT_TYPE, typename... T>
     class CppFunction_WithFormalsN : public CppFunctionN<RESULT_TYPE, T...> {
         public:
@@ -351,7 +350,7 @@ namespace Rcpp{
         typedef std::vector<signed_method_class*> vec_signed_method ;
 
         S4_CppOverloadedMethods( vec_signed_method* m, const XP_Class& class_xp, const char* name, std::string& buffer ) : Reference( "C++OverloadedMethods" ){
-            int n = m->size() ;
+            int n = static_cast<int>(m->size()) ;
             Rcpp::LogicalVector voidness(n), constness(n) ;
             Rcpp::CharacterVector docstrings(n), signatures(n) ;
             Rcpp::IntegerVector nargs(n) ;
@@ -405,10 +404,10 @@ namespace Rcpp{
     private:
         Method met;
     };
-    
+
     template <typename Class, typename RESULT_TYPE, typename... T>
     using CppMethodN = CppMethodImplN<false, Class, RESULT_TYPE, T...>;
-    
+
     template <typename Class, typename RESULT_TYPE, typename... T>
     using const_CppMethodN = CppMethodImplN<true, Class, RESULT_TYPE, T...>;
 
@@ -435,10 +434,10 @@ namespace Rcpp{
     private:
         Method met;
     };
-    
+
     template <typename Class, typename RESULT_TYPE, typename... T>
     using Pointer_CppMethodN = Pointer_CppMethodImplN<false, Class, RESULT_TYPE, T...>;
-    
+
     template <typename Class, typename RESULT_TYPE, typename... T>
     using Const_Pointer_CppMethodN = Pointer_CppMethodImplN<true, Class, RESULT_TYPE, T...>;
 #else
@@ -661,4 +660,3 @@ static VARIABLE_IS_NOT_USED SEXP moduleSym = NULL;
     Rcpp_fast_eval( __load_module_call__, R_GlobalEnv );
 
 #endif
-
