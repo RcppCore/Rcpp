@@ -1,3 +1,8 @@
+2024-06-01  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/internal/Proxy_Iterator.h (Proxy_Iterator):
+	Switch to R_xlen_t ('clang++-17 -Wconversion -Wno-sign-conversion')
+
 2024-05-28  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version

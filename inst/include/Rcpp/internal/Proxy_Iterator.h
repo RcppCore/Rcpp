@@ -1,6 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-/* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
-//
+
 // Proxy_Iterator.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
@@ -31,7 +29,7 @@ class Proxy_Iterator {
 public:
 		typedef PROXY& reference ;
 		typedef PROXY* pointer ;
-		typedef int difference_type ;
+		typedef R_xlen_t difference_type ;
 		typedef PROXY value_type;
 		typedef std::random_access_iterator_tag iterator_category ;
 
@@ -122,4 +120,3 @@ private:
 }
 
 #endif
-
