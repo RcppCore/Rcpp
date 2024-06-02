@@ -1,5 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-//
+
 // SubMatrix.h: Rcpp R/C++ interface class library -- sub matrices
 //
 // Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
@@ -40,8 +39,8 @@ public:
     {}
 
     inline R_xlen_t size() const { return ((R_xlen_t)ncol()) * nrow() ; }
-    inline int ncol() const { return nc ; }
-    inline int nrow() const { return nr ; }
+    inline R_xlen_t ncol() const { return nc ; }
+    inline R_xlen_t nrow() const { return nr ; }
 
     inline Proxy operator()(int i, int j) const {
         return iter[ i + j*m_nr ] ;
@@ -52,16 +51,16 @@ public:
 private:
     MATRIX& m ;
     vec_iterator iter ;
-    int m_nr, nc, nr ;
+    R_xlen_t m_nr, nc, nr ;
 } ;
 
 template <int RTYPE, template <class> class StoragePolicy >
-Matrix<RTYPE,StoragePolicy>::Matrix( const SubMatrix<RTYPE>& sub ) : VECTOR( Rf_allocMatrix( RTYPE, sub.nrow(), sub.ncol() )), nrows(sub.nrow()) {
-    int nc = sub.ncol() ;
+Matrix<RTYPE,StoragePolicy>::Matrix( const SubMatrix<RTYPE>& sub ) : VECTOR( Rf_allocMatrix( RTYPE, (int)sub.nrow(), (int)sub.ncol() )), nrows((int)sub.nrow()) {
+    R_xlen_t nc = sub.ncol() ;
     iterator start = VECTOR::begin() ;
 	iterator rhs_it ;
-	for( int j=0; j<nc; j++){
-	    rhs_it = sub.column_iterator(j) ;
+	for( R_xlen_t j=0; j<nc; j++){
+	    rhs_it = sub.column_iterator((int)j) ;
 	    for( int i=0; i<nrows; i++, ++start){
 	        *start = rhs_it[i] ;
 	    }

@@ -1,6 +1,4 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-/* :tabSize=4:indentSize=4:noTabs=false:folding=explicit:collapseFolds=1: */
-//
+
 // export.h: Rcpp R/C++ interface class library --
 //
 // Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
@@ -111,7 +109,8 @@ namespace Rcpp{
 			STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE>(y) ;
 			R_xlen_t size = ::Rf_xlength(y)  ;
 			for( R_xlen_t i=0; i<size; i++){
-				res[i] =  start[i] ;
+                T ii{i};
+				res[ii] =  start[i] ;
 			}
 		}
 
