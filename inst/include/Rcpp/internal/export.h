@@ -109,8 +109,7 @@ namespace Rcpp{
 			STORAGE* start = ::Rcpp::internal::r_vector_start<RTYPE>(y) ;
 			R_xlen_t size = ::Rf_xlength(y)  ;
 			for( R_xlen_t i=0; i<size; i++){
-                T ii{i};
-				res[ii] =  start[i] ;
+				res[i] =  start[i] ;
 			}
 		}
 
