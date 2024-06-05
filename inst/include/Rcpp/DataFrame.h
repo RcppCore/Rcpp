@@ -137,7 +137,7 @@ namespace Rcpp{
         }
 
         void set_type_after_push(){
-            int max_rows = 0;
+            R_xlen_t max_rows = 0;
             bool invalid_column_size = false;
             List::iterator it;
             // Get the maximum number of rows

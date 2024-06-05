@@ -593,7 +593,7 @@ public:
         return false ;
     }
 
-    int findName(const std::string& name) const {
+    R_xlen_t findName(const std::string& name) const {
         SEXP names = RCPP_GET_NAMES(Storage::get__());
         if (Rf_isNull(names)) stop("'names' attribute is null");
         R_xlen_t n = Rf_xlength(names);
