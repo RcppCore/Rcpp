@@ -35,22 +35,59 @@ namespace traits{
 		typedef typename r_vector_const_proxy<RTYPE>::type const_proxy ;
 		typedef typename storage_type<RTYPE>::type storage_type ;
 
-		r_vector_cache() : start(0){} ;
+		r_vector_cache() : start(0), size(0) {} ;
+
 		inline void update( const VECTOR& v ) {
-		    start = ::Rcpp::internal::r_vector_start<RTYPE>(v) ;
+			start = ::Rcpp::internal::r_vector_start<RTYPE>(v) ;
+			size = v.size();
 		}
+
 		inline iterator get() const { return start; }
 		inline const_iterator get_const() const { return start; }
 
-		inline proxy ref() { return *start ;}
-		inline proxy ref(R_xlen_t i) { return start[i] ; }
+		inline proxy ref() {
+#ifndef RCPP_NO_BOUNDS_CHECK
+			check_index(0) ;
+#endif
+			return start[0];
+		}
 
-		inline proxy ref() const { return *start ;}
-		inline proxy ref(R_xlen_t i) const { return start[i] ; }
+		inline proxy ref() const {
+#ifndef RCPP_NO_BOUNDS_CHECK
+			check_index(0) ;
+#endif
+			return start[0] ;
+		}
 
-		private:
-			iterator start ;
+		inline proxy ref(R_xlen_t i) {
+#ifndef RCPP_NO_BOUNDS_CHECK
+			check_index(i) ;
+#endif
+			return start[i] ;
+		}
+
+
+		inline proxy ref(R_xlen_t i) const {
+#ifndef RCPP_NO_BOUNDS_CHECK
+			check_index(i) ;
+#endif
+			return start[i] ;
+		}
+
+	private:
+
+#ifndef RCPP_NO_BOUNDS_CHECK
+		void check_index(R_xlen_t i) const {
+			if (i >= size) {
+				stop("index error");
+			}
+		}
+#endif
+
+		iterator start ;
+		R_xlen_t size ;
 	} ;
+
 	template <int RTYPE, template <class> class StoragePolicy = PreserveStorage>
 	class proxy_cache{
 	public:

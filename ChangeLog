@@ -2,6 +2,8 @@
 
 	* inst/include/Rcpp/internal/r_vector.h: Use template specializations to
 	avoid DATAPTR usage
+	* inst/include/Rcpp/vector/traits.h: Implement bounds checks in
+	r_vector_cache access
 
 2024-06-02  Dirk Eddelbuettel  <edd@debian.org>
 
