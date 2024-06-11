@@ -79,8 +79,8 @@ namespace traits{
 		void update( const VECTOR& v ){
 			p = const_cast<VECTOR*>(&v) ;
 		}
-		inline iterator get() const { check_index(0); return iterator( proxy(*p, 0 ) ) ;}
-		inline const_iterator get_const() const { check_index(0); return const_iterator( const_proxy(*p, 0) ) ; }
+		inline iterator get() const { return iterator( proxy(*p, 0 ) ) ;}
+		inline const_iterator get_const() const { return const_iterator( const_proxy(*p, 0) ) ; }
 
 		inline proxy ref() { check_index(0); return proxy(*p,0) ; }
 		inline proxy ref(R_xlen_t i) { check_index(i); return proxy(*p,i);}
