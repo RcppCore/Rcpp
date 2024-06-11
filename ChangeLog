@@ -1,3 +1,8 @@
+2024-06-11  Kevin Ushey  <kevinushey@gmail.com>
+
+	* inst/include/Rcpp/internal/r_vector.h: Use template specializations to
+	avoid DATAPTR usage
+
 2024-06-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/internal/export.h: More R_xlen_t switching

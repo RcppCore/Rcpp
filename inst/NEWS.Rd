@@ -9,9 +9,11 @@
     \itemize{
       \item Set R_NO_REMAP if not already defined (Dirk in \ghpr{1296})
       \item Add variadic templates to be used instead of generated code
-      (Andrew Johnson in \ghpr{1303}
+      (Andrew Johnson in \ghpr{1303})
       \item Count variables were switches to \code{size_t} to avoid warnings
       about conversion-narrowing (Dirk in \ghpr{1307})
+      \item Rcpp now avoids the usage of the (non-API) DATAPTR function when
+      accessing the contents of Rcpp Vector objects where possible.
     }
     \item Changes in Rcpp Deployment:
     \itemize{
