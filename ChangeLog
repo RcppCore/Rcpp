@@ -4,6 +4,9 @@
 	avoid DATAPTR usage
 	* inst/include/Rcpp/vector/traits.h: Implement bounds checks in
 	r_vector_cache access
+	* inst/tinytest/cpp/Vector.cpp: Add unit tests
+	* inst/tinytest/test_vector.R: Add unit tests
+	* tests/tinytest.R: Test in serial by default
 
 2024-06-02  Dirk Eddelbuettel  <edd@debian.org>
 
