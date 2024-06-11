@@ -93,8 +93,8 @@ namespace traits{
 
 		void check_index(R_xlen_t i) const {
 #ifndef RCPP_NO_BOUNDS_CHECK
-			if (i >= size) {
-				stop("subscript out of bounds (index %s >= vector size %s)", i, size);
+			if (i >= p->size()) {
+				stop("subscript out of bounds (index %s >= vector size %s)", i, p->size());
 			}
 #endif
 		}

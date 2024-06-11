@@ -13,7 +13,10 @@
       \item Count variables were switches to \code{size_t} to avoid warnings
       about conversion-narrowing (Dirk in \ghpr{1307})
       \item Rcpp now avoids the usage of the (non-API) DATAPTR function when
-      accessing the contents of Rcpp Vector objects where possible.
+      accessing the contents of Rcpp Vector objects where possible. (Kevin in
+      \ghpr{1310})
+      \item Rcpp now throws an R error on out-of-bounds Vector accesses. (Kevin
+      in \ghpr{1310})
     }
     \item Changes in Rcpp Deployment:
     \itemize{
