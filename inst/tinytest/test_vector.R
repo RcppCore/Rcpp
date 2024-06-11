@@ -694,3 +694,7 @@ expect_equal(data, data2)
 #    test.CharacterVector_test_equality <- function(){
 expect_true( !CharacterVector_test_equality("foo", "bar") )
 expect_true( !CharacterVector_test_equality_crosspolicy("foo", "bar") )
+
+
+expect_error(NumericVector_test_out_of_bounds_read())
+expect_error(CharacterVector_test_out_of_bounds_read())

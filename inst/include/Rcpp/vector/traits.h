@@ -45,44 +45,21 @@ namespace traits{
 		inline iterator get() const { return start; }
 		inline const_iterator get_const() const { return start; }
 
-		inline proxy ref() {
-#ifndef RCPP_NO_BOUNDS_CHECK
-			check_index(0) ;
-#endif
-			return start[0];
-		}
+		inline proxy ref() { check_index(0); return start[0] ;}
+		inline proxy ref(R_xlen_t i) { check_index(i); return start[i] ; }
 
-		inline proxy ref() const {
-#ifndef RCPP_NO_BOUNDS_CHECK
-			check_index(0) ;
-#endif
-			return start[0] ;
-		}
-
-		inline proxy ref(R_xlen_t i) {
-#ifndef RCPP_NO_BOUNDS_CHECK
-			check_index(i) ;
-#endif
-			return start[i] ;
-		}
-
-
-		inline proxy ref(R_xlen_t i) const {
-#ifndef RCPP_NO_BOUNDS_CHECK
-			check_index(i) ;
-#endif
-			return start[i] ;
-		}
+		inline proxy ref() const { check_index(0); return start[0] ;}
+		inline proxy ref(R_xlen_t i) const { check_index(i); return start[i] ; }
 
 	private:
 
-#ifndef RCPP_NO_BOUNDS_CHECK
 		void check_index(R_xlen_t i) const {
+#ifndef RCPP_NO_BOUNDS_CHECK
 			if (i >= size) {
 				stop("subscript out of bounds (index %s >= vector size %s)", i, size);
 			}
-		}
 #endif
+		}
 
 		iterator start ;
 		R_xlen_t size ;
@@ -102,18 +79,25 @@ namespace traits{
 		void update( const VECTOR& v ){
 			p = const_cast<VECTOR*>(&v) ;
 		}
-		inline iterator get() const { return iterator( proxy(*p, 0 ) ) ;}
-		// inline const_iterator get_const() const { return const_iterator( *p ) ;}
-		inline const_iterator get_const() const { return const_iterator( const_proxy(*p, 0) ) ; }
+		inline iterator get() const { check_index(0); return iterator( proxy(*p, 0 ) ) ;}
+		inline const_iterator get_const() const { check_index(0); return const_iterator( const_proxy(*p, 0) ) ; }
 
-		inline proxy ref() { return proxy(*p,0) ; }
-		inline proxy ref(R_xlen_t i) { return proxy(*p,i);}
+		inline proxy ref() { check_index(0); return proxy(*p,0) ; }
+		inline proxy ref(R_xlen_t i) { check_index(i); return proxy(*p,i);}
 
-		inline const_proxy ref() const { return const_proxy(*p,0) ; }
-		inline const_proxy ref(R_xlen_t i) const { return const_proxy(*p,i);}
+		inline const_proxy ref() const { check_index(0); return const_proxy(*p,0) ; }
+		inline const_proxy ref(R_xlen_t i) const { check_index(i); return const_proxy(*p,i);}
 
 	private:
 		VECTOR* p ;
+
+		void check_index(R_xlen_t i) const {
+#ifndef RCPP_NO_BOUNDS_CHECK
+			if (i >= size) {
+				stop("subscript out of bounds (index %s >= vector size %s)", i, size);
+			}
+#endif
+		}
 	} ;
 
 	// regular types for INTSXP, REALSXP, ...
