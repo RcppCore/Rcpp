@@ -696,8 +696,9 @@ expect_true( !CharacterVector_test_equality("foo", "bar") )
 expect_true( !CharacterVector_test_equality_crosspolicy("foo", "bar") )
 
 # https://github.com/RcppCore/Rcpp/issues/1308
-expect_error(NumericVector_test_out_of_bounds_read(numeric(0), 0))
-expect_error(NumericVector_test_out_of_bounds_read(numeric(1), 1))
-expect_error(CharacterVector_test_out_of_bounds_read(character(0), 0))
-expect_error(CharacterVector_test_out_of_bounds_read(character(1), 1))
+# tests disabled since these could trigger UBSAN warnings / crashes
+#expect_warning(NumericVector_test_out_of_bounds_read(numeric(0), 0))
+#expect_warning(NumericVector_test_out_of_bounds_read(numeric(1), 1))
+#expect_warning(CharacterVector_test_out_of_bounds_read(character(0), 0))
+#expect_warning(CharacterVector_test_out_of_bounds_read(character(1), 1))
 
