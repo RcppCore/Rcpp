@@ -133,9 +133,9 @@ public:
 
 private:
 
-    #ifndef RCPP_NO_BOUNDS_CHECK
     template <typename IDX>
     void check_indices(IDX* x, R_xlen_t n, R_xlen_t size) {
+#ifndef RCPP_NO_BOUNDS_CHECK
         for (IDX i=0; i < n; ++i) {
             if (x[i] < 0 or x[i] >= size) {
                 if(std::numeric_limits<IDX>::is_integer && size > std::numeric_limits<IDX>::max()) {
@@ -144,11 +144,8 @@ private:
                 stop("index error");
             }
         }
+#endif
     }
-    #else
-    template <typename IDX>
-    void check_indices(IDX* x, IDX n, IDX size) {}
-    #endif
 
     void get_indices( traits::identity< traits::int2type<INTSXP> > t ) {
         indices.reserve(rhs_n);
