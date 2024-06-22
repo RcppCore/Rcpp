@@ -43,5 +43,5 @@ if (requireNamespace("tinytest", quietly=TRUE)) {
     ## there are several more granular ways to test files in a tinytest directory,
     ## see its package vignette; tests can also run once the package is installed
     ## using the same command `test_package(pkgName)`, or by director or file
-    tinytest::test_package("Rcpp", ncpu=getOption("Ncpus", 1))
+    tinytest::test_package("Rcpp")
 }

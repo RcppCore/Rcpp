@@ -69,7 +69,7 @@ for (file in grep("RcppExports.R", R_files, invert=TRUE, value=TRUE)) {
     code <- readLines(file)
     fn <- eval(parse(text=paste(code, collapse="\n")))
     fn_name <- gsub(".*/(.*)\\.R$", "\\1", file)
-    checkIdentical(fn, get(fn_name),
+    checkIdentical(fn, base::get(fn_name),
                    sprintf("we parsed the function '%s' correctly", fn_name)
                    )
 }

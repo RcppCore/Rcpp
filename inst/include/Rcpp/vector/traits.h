@@ -35,22 +35,36 @@ namespace traits{
 		typedef typename r_vector_const_proxy<RTYPE>::type const_proxy ;
 		typedef typename storage_type<RTYPE>::type storage_type ;
 
-		r_vector_cache() : start(0){} ;
+		r_vector_cache() : start(0), size(0) {} ;
+
 		inline void update( const VECTOR& v ) {
-		    start = ::Rcpp::internal::r_vector_start<RTYPE>(v) ;
+			start = ::Rcpp::internal::r_vector_start<RTYPE>(v) ;
+			size = v.size();
 		}
+
 		inline iterator get() const { return start; }
 		inline const_iterator get_const() const { return start; }
 
-		inline proxy ref() { return *start ;}
-		inline proxy ref(R_xlen_t i) { return start[i] ; }
+		inline proxy ref() { check_index(0); return start[0] ;}
+		inline proxy ref(R_xlen_t i) { check_index(i); return start[i] ; }
 
-		inline proxy ref() const { return *start ;}
-		inline proxy ref(R_xlen_t i) const { return start[i] ; }
+		inline proxy ref() const { check_index(0); return start[0] ;}
+		inline proxy ref(R_xlen_t i) const { check_index(i); return start[i] ; }
 
-		private:
-			iterator start ;
+	private:
+
+		void check_index(R_xlen_t i) const {
+#ifndef RCPP_NO_BOUNDS_CHECK
+			if (i >= size) {
+				warning("subscript out of bounds (index %s >= vector size %s)", i, size);
+			}
+#endif
+		}
+
+		iterator start ;
+		R_xlen_t size ;
 	} ;
+
 	template <int RTYPE, template <class> class StoragePolicy = PreserveStorage>
 	class proxy_cache{
 	public:
@@ -66,17 +80,24 @@ namespace traits{
 			p = const_cast<VECTOR*>(&v) ;
 		}
 		inline iterator get() const { return iterator( proxy(*p, 0 ) ) ;}
-		// inline const_iterator get_const() const { return const_iterator( *p ) ;}
 		inline const_iterator get_const() const { return const_iterator( const_proxy(*p, 0) ) ; }
 
-		inline proxy ref() { return proxy(*p,0) ; }
-		inline proxy ref(R_xlen_t i) { return proxy(*p,i);}
+		inline proxy ref() { check_index(0); return proxy(*p,0) ; }
+		inline proxy ref(R_xlen_t i) { check_index(i); return proxy(*p,i);}
 
-		inline const_proxy ref() const { return const_proxy(*p,0) ; }
-		inline const_proxy ref(R_xlen_t i) const { return const_proxy(*p,i);}
+		inline const_proxy ref() const { check_index(0); return const_proxy(*p,0) ; }
+		inline const_proxy ref(R_xlen_t i) const { check_index(i); return const_proxy(*p,i);}
 
 	private:
 		VECTOR* p ;
+
+		void check_index(R_xlen_t i) const {
+#ifndef RCPP_NO_BOUNDS_CHECK
+			if (i >= p->size()) {
+				warning("subscript out of bounds (index %s >= vector size %s)", i, p->size());
+			}
+#endif
+		}
 	} ;
 
 	// regular types for INTSXP, REALSXP, ...

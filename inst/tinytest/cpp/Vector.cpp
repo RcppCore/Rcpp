@@ -886,3 +886,13 @@ bool CharacterVector_test_equality_crosspolicy(CharacterVector x, Vector<STRSXP,
 
     return std::equal(x.begin(), x.end(), y.begin());
 }
+
+// [[Rcpp::export]]
+double NumericVector_test_out_of_bounds_read(NumericVector v, R_xlen_t i) {
+    return v[i];
+}
+
+// [[Rcpp::export]]
+SEXP CharacterVector_test_out_of_bounds_read(CharacterVector v, R_xlen_t i) {
+    return v[i];
+}
