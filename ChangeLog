@@ -1,3 +1,8 @@
+2024-06-22  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version
+	* inst/include/Rcpp/config.h (RCPP_DEV_VERSION): Idem
+
 2024-06-11  Kevin Ushey  <kevinushey@gmail.com>
 
 	* inst/include/Rcpp/internal/r_vector.h: Use template specializations to
