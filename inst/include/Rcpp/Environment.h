@@ -84,12 +84,7 @@ namespace Rcpp{
          */
         SEXP ls(bool all) const {
             SEXP env = Storage::get__() ;
-            if( is_user_database() ){
-                R_ObjectTable *tb = (R_ObjectTable*) R_ExternalPtrAddr(HASHTAB(env));
-                return tb->objects(tb) ;
-            } else {
-                return R_lsInternal( env, all ? TRUE : FALSE ) ;
-            }
+            return R_lsInternal( env, all ? TRUE : FALSE ) ;
             return R_NilValue ;
         }
 
@@ -316,14 +311,6 @@ namespace Rcpp{
             if( !exists( name) ) throw no_such_binding(name) ;
             SEXP nameSym = Rf_install(name.c_str());
             return R_BindingIsActive(nameSym, Storage::get__()) ;
-        }
-
-        /**
-         * Indicates if this is a user defined database.
-         */
-        bool is_user_database() const {
-            SEXP env = Storage::get__() ;
-            return OBJECT(env) && Rf_inherits(env, "UserDefinedDatabase") ;
         }
 
         /**
