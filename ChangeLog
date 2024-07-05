@@ -25,7 +25,6 @@
 	* inst/include/Rcpp/Language.h: Avoid using SET_TYPEOF
 	* inst/include/Rcpp/Pairlist.h: Idem
 	* inst/include/Rcpp/r_cast.h: Idem
-	* R/coerce.R: Add coerce helper for LANGSXP => LISTSXP
 
 2024-06-22  Dirk Eddelbuettel  <edd@debian.org>
 

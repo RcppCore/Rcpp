@@ -144,7 +144,11 @@ namespace Rcpp {
         }
         template<>
         inline SEXP r_true_cast<LISTSXP>(SEXP x) {
-            return convert_using_rfunction(x, "as.pairlist" );
+            if (TYPEOF(x) == LANGSXP) {
+                return CONS(CAR(x), CDR(x));
+            } else {
+                return convert_using_rfunction(x, "as.pairlist" );
+            }
         }
         template<>
         inline SEXP r_true_cast<LANGSXP>(SEXP x) {
