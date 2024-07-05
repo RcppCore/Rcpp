@@ -163,7 +163,9 @@ namespace Rcpp{
         }
 
         void update( SEXP x){
-            SET_TYPEOF( x, LANGSXP );
+            if (TYPEOF(x) != LANGSXP) {
+                stop("cannot convert object of type %s to LANGSXP", Rf_type2char(TYPEOF(x)));
+            }
             SET_TAG( x, R_NilValue );
         }
 

@@ -143,16 +143,7 @@ namespace Rcpp {
         }
         template<>
         inline SEXP r_true_cast<LISTSXP>(SEXP x) {
-            switch( TYPEOF(x) ){
-            case LANGSXP:
-                {
-                    Shield<SEXP> y( Rf_duplicate( x ));
-                    SET_TYPEOF(y,LISTSXP);
-                    return y;
-                }
-            default:
-                return convert_using_rfunction(x, "as.pairlist" );
-            }
+            return convert_using_rfunction(x, "as.pairlist" );
         }
         template<>
         inline SEXP r_true_cast<LANGSXP>(SEXP x) {
