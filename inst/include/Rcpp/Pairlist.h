@@ -50,9 +50,9 @@ namespace Rcpp{
         #else
             #include <Rcpp/generated/Pairlist__ctors.h>
         #endif
-        void update(SEXP x){
+        void update(SEXP x) {
             if (TYPEOF(x) != LISTSXP) {
-                stop("Cannot convert object of type %s to LISTSXP", Rf_type2char(TYPEOF(x)));
+                Storage::set__(r_cast<LISTSXP>(x));
             }
         }
     } ;

@@ -162,9 +162,9 @@ namespace Rcpp{
             return internal::Rcpp_eval_impl( Storage::get__(), env);
         }
 
-        void update( SEXP x){
+        void update(SEXP x) {
             if (TYPEOF(x) != LANGSXP) {
-                stop("cannot convert object of type %s to LANGSXP", Rf_type2char(TYPEOF(x)));
+                Storage::set__(r_cast<LANGSXP>(x));
             }
             SET_TAG( x, R_NilValue );
         }
