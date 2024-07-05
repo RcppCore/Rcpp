@@ -29,11 +29,12 @@ namespace Rcpp {
 
         inline SEXP convert_using_rfunction(SEXP x, const char* const fun) { 	// #nocov start
             Armor<SEXP> res;
-            try{
+            try {
                 SEXP funSym = Rf_install(fun);
                 Shield<SEXP> call(Rf_lang2(funSym, x));
-                res = Rcpp_fast_eval(call, R_GlobalEnv);
-            } catch( eval_error& e) {
+                Shield<SEXP> envir(R_FindNamespace(Rf_mkString("Rcpp")));
+                res = Rcpp_fast_eval(call, envir);
+            } catch (eval_error& e) {
                 const char* fmt = "Could not convert using R function: %s.";
                 throw not_compatible(fmt, fun);
             }
