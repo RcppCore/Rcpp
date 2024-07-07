@@ -177,7 +177,7 @@ private:
         const SEXP* namesPtr = RCPP_STRING_PTR(names);
         const SEXP* rhsPtr = RCPP_STRING_PTR(rhs);
         for (R_xlen_t i = 0; i < rhs_n; ++i) {
-            SEXP* match = std::find(namesPtr, namesPtr + lhs_n, *(rhsPtr + i));
+            const SEXP* match = std::find(namesPtr, namesPtr + lhs_n, *(rhsPtr + i));
             if (match == namesPtr + lhs_n)
                 stop("not found");
             indices.push_back(match - namesPtr);
