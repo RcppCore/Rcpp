@@ -174,8 +174,8 @@ private:
         indices.reserve(rhs_n);
         SEXP names = Rf_getAttrib(lhs, R_NamesSymbol);
         if (Rf_isNull(names)) stop("names is null");
-        SEXP* namesPtr = STRING_PTR(names);
-        SEXP* rhsPtr = STRING_PTR(rhs);
+        const SEXP* namesPtr = RCPP_STRING_PTR(names);
+        const SEXP* rhsPtr = RCPP_STRING_PTR(rhs);
         for (R_xlen_t i = 0; i < rhs_n; ++i) {
             SEXP* match = std::find(namesPtr, namesPtr + lhs_n, *(rhsPtr + i));
             if (match == namesPtr + lhs_n)
