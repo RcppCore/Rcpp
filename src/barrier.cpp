@@ -54,7 +54,8 @@ void char_set_string_elt(SEXP x, R_xlen_t i, const char* value) {
 
 // [[Rcpp::register]]
 SEXP* get_string_ptr(SEXP x) {
-    return RCPP_STRING_PTR(x);
+    // TODO: should we deprecate this?
+    return const_cast<SEXP*>(RCPP_STRING_PTR(x));
 }
 
 // [[Rcpp::register]]
