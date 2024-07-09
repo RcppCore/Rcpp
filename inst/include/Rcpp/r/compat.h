@@ -22,13 +22,15 @@
 #ifndef RCPP_R_COMPAT_H
 #define RCPP_R_COMPAT_H
 
-#if defined(STRING_PTR_RO)
+#include <Rversion.h>
+
+#if R_VERSION >= R_Version(4, 4, 0)
 # define RCPP_STRING_PTR STRING_PTR_RO
 #else
 # define RCPP_STRING_PTR STRING_PTR
 #endif
 
-#if defined(VECTOR_PTR_RO)
+#if R_VERSION >= R_Version(4, 4, 0)
 # define RCPP_VECTOR_PTR VECTOR_PTR_RO
 #else
 # define RCPP_VECTOR_PTR VECTOR_PTR
