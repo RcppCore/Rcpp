@@ -37,7 +37,7 @@ public:
 
 		SEXP_Iterator( ): ptr(){} ;
 		SEXP_Iterator( const SEXP_Iterator& other) : ptr(other.ptr){} ;
-		SEXP_Iterator( const VECTOR& vec ) : ptr( get_vector_ptr(vec) ){} ;
+		SEXP_Iterator( const VECTOR& vec ) : ptr( RCPP_VECTOR_PTR(vec) ){} ;
 
 		SEXP_Iterator& operator=(const SEXP_Iterator& other){ ptr = other.ptr ; return *this ;}
 

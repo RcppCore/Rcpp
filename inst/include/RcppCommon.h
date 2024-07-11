@@ -28,6 +28,7 @@
 // #define RCPP_DEBUG_MODULE_LEVEL 1
 
 #include <Rcpp/r/headers.h>
+#include <Rcpp/r/compat.h>
 
 /**
  * \brief Rcpp API
