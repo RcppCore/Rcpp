@@ -3,7 +3,7 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp release version 1.0.13 (2024-xx-yy)}{
+\section{Changes in Rcpp release version 1.0.13 (2024-07-11)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
@@ -17,6 +17,8 @@
       \ghpr{1310})
       \item Rcpp now emits an R warning on out-of-bounds Vector accesses. This
       may become an error in a future Rcpp release. (Kevin in \ghpr{1310})
+      \item Switch \code{VECTOR_PTR} and \code{STRING_PTR} to new API-compliant
+      \code{RO} variants (Kevin in \ghpr{1317} fixing \ghit{1316})
     }
     \item Changes in Rcpp Deployment:
     \itemize{
