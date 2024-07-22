@@ -19,7 +19,7 @@
 2024-07-05  Kevin Ushey  <kevinushey@gmail.com>
 
 	* inst/include/Rcpp/Environment.h: Drop support for UserDefinedDatabase
-  [ merged 2024-07-22 after release of Rcpp 1.0.13 ]
+	[ merged 2024-07-22 after release of Rcpp 1.0.13 ]
 
 2024-06-22  Dirk Eddelbuettel  <edd@debian.org>
 
