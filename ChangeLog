@@ -1,6 +1,25 @@
+2024-07-11  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Date, Version): Release 1.0.13
+
+        * inst/include/Rcpp/config.h: Idem
+        * inst/NEWS.Rd: Idem
+        * vignettes/rmd/Rcpp.bib: Idem
+        * inst/bib/Rcpp.bib: Idem
+	* vignettes/pdf/*: Rebuilt
+
+2024-07-07  Kevin Ushey  <kevinushey@gmail.com>
+
+	* inst/include/Rcpp/internal/SEXP_Iterator.h: Avoid using VECTOR_PTR
+	* inst/include/Rcpp/vector/Subsetter.h: Avoid using STRING_PTR
+	* inst/include/RcppCommon.h: Include compatibility defines
+	* src/barrier.cpp: Avoid using {STRING/VECTOR}_PTR
+	* inst/include/Rcpp/r/compat.h: Include compatibility defines
+
 2024-07-05  Kevin Ushey  <kevinushey@gmail.com>
 
-	* inst/include/Rcpp/Environment.h: Drop support for UserDefinedDatabase.
+	* inst/include/Rcpp/Environment.h: Drop support for UserDefinedDatabase
+  [ merged 2024-07-22 after release of Rcpp 1.0.13 ]
 
 2024-06-22  Dirk Eddelbuettel  <edd@debian.org>
 

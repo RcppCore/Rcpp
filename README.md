@@ -6,7 +6,7 @@
 [![Dependencies](https://tinyverse.netlify.app/badge/Rcpp)](https://cran.r-project.org/package=Rcpp)
 [![Coverage Status](https://codecov.io/gh/RcppCore/Rcpp/graph/badge.svg)](https://app.codecov.io/github/RcppCore/Rcpp?branch=master)
 [![Debian package](https://img.shields.io/debian/v/r-cran-rcpp/sid?color=brightgreen)](https://packages.debian.org/sid/r-cran-rcpp)
-[![r-universe](https://rcppcore.r-universe.dev/badges/Rcpp)](https://rcppcore.r-universe.dev/rcpp)
+[![r-universe](https://rcppcore.r-universe.dev/badges/Rcpp)](https://rcppcore.r-universe.dev/Rcpp)
 [![Last Commit](https://img.shields.io/github/last-commit/RcppCore/Rcpp)](https://github.com/RcppCore/Rcpp)
 [![Downloads (monthly)](https://cranlogs.r-pkg.org/badges/Rcpp?color=brightgreen)](https://www.r-pkg.org/pkg/Rcpp)
 [![Downloads (total)](https://cranlogs.r-pkg.org/badges/grand-total/Rcpp?color=brightgreen)](https://www.r-pkg.org/pkg/Rcpp)
