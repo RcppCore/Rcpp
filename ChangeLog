@@ -1,3 +1,8 @@
+2024-07-24  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version
+	* inst/include/Rcpp/config.h (RCPP_DEV_VERSION): Idem
+
 2024-07-11  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Date, Version): Release 1.0.13
@@ -24,6 +29,7 @@
 	* inst/include/Rcpp/Language.h: Avoid using SET_TYPEOF
 	* inst/include/Rcpp/Pairlist.h: Idem
 	* inst/include/Rcpp/r_cast.h: Idem
+	[ merged 2024-07-24 after release of Rcpp 1.0.13 ]
 
 2024-06-22  Dirk Eddelbuettel  <edd@debian.org>
 
