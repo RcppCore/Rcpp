@@ -50,8 +50,10 @@ namespace Rcpp{
         #else
             #include <Rcpp/generated/Pairlist__ctors.h>
         #endif
-        void update(SEXP x){
-            SET_TYPEOF( x, LISTSXP ) ;
+        void update(SEXP x) {
+            if (TYPEOF(x) != LISTSXP) {
+                Storage::set__(r_cast<LISTSXP>(x));
+            }
         }
     } ;
 

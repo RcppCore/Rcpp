@@ -21,6 +21,10 @@
 	* inst/include/Rcpp/Environment.h: Drop support for UserDefinedDatabase
 	[ merged 2024-07-22 after release of Rcpp 1.0.13 ]
 
+	* inst/include/Rcpp/Language.h: Avoid using SET_TYPEOF
+	* inst/include/Rcpp/Pairlist.h: Idem
+	* inst/include/Rcpp/r_cast.h: Idem
+
 2024-06-22  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version
