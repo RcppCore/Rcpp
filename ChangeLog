@@ -1,3 +1,8 @@
+2024-08-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/tinytest/test_sugar.R: Skip one more NA related test on arm64
+	and macOS as failure is seen at r-universe on arm64
+
 2024-08-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* Contributing.md: Refreshed content
