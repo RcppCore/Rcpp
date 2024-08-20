@@ -1,3 +1,7 @@
+2024-08-19  Dirk Eddelbuettel  <edd@debian.org>
+
+	* Contributing.md: Refreshed content
+
 2024-07-30  Dirk Eddelbuettel  <edd@debian.org>
 
 	* vignettes/rmd/Rcpp-modules.Rmd (are): Add short two-sentence

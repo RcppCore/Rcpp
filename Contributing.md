@@ -35,24 +35,29 @@ to the [ChangeLog](https://github.com/RcppCore/Rcpp/blob/master/ChangeLog) and
 [NEWS](https://github.com/RcppCore/Rcpp/blob/master/inst/NEWS.Rd) are also
 appreciated.
 
-Please note that C++ code in Rcpp must adhere to the C++98 standard. C++11 (and
-above) extensions are allowed, but must be appropriately guarded so that such
-code still successfully compiles under the C++98 standard.
+Please note that C++ code in Rcpp must adhere to the prvailing C++ standards
+as selected by the current R version ("R-release") and the upcoming R version
+("R-devel"). These days, _Modern C++_ is well supported provided recent
+compilers are used. As of 2024, R has supported C++17 for the past two
+release cycles.  We tend to be a little more conservative with Rcpp and still
+support C++98 / C++11 as we know some users may be confronted with ancient
+compilers.
 
 ### Coding Style
 
 It would be nice if the contributed code followed existing conventions for
 whitespace and indentation.  We mostly follow the R Core style for with four
-spaces, and curlies where K&R would put them.
+spaces, and curlies where K&R would put them. Our
+[editorconfig](https://editorconfig.org/) [configuration
+file](https://github.com/RcppCore/Rcpp/blob/master/.editorconfig) selects
+reasonable defaults.
 
 ### Asking Questions
 
 Please direct general questions to the
 [Rcpp-devel](http://lists.r-forge.r-project.org/cgi-bin/mailman/listinfo/rcpp-devel)
-mailing list (preferred, note that only subscribers can post), or alternatively
-post a question on
-[Stack Overflow](http://stackoverflow.com/questions/tagged/rcpp) using the
-`[Rcpp]` tag.
+mailing list (preferred, note that only subscribers can post), or post an
+issue at GitHub.
 
 Are you a new user of Rcpp? You might find the
 [vignettes](https://cran.r-project.org/package=Rcpp) helpful in getting
