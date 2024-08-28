@@ -86,7 +86,7 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
                                                      "Description", "License")),
                    "Imports" = paste(imports, collapse = ", "),
                    "LinkingTo" = "Rcpp",
-                   "Authors@R" = sprintf(r"(person("%s", "%s", role = c("aut", "cre"), email = "%s"))",
+                   "Authors@R" = sprintf("person(\"%s\", \"%s\", role = c(\"aut\", \"cre\"), email = \"%s\")",
                                          paste(splitname[-length(splitname)], collapse=" "),
                                          splitname[length(splitname)],
                                          email))
