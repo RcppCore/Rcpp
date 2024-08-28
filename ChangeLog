@@ -1,3 +1,8 @@
+2024-08-28  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/Rcpp.package.skeleton.R: Create DESCRIPTION with Auhors@R fiel
+	* inst/tinytest/test_rcpp_package_skeleton.R: Adjust tests
+
 2024-08-20  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/tinytest/test_sugar.R: Skip one more NA related test on arm64
