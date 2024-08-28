@@ -81,18 +81,27 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
     DESCRIPTION <- file.path(root, "DESCRIPTION")
     if (file.exists(DESCRIPTION)) {
         imports <- c(if (isTRUE(module)) "methods", sprintf("Rcpp (>= %s)", getRcppVersion()))
-        x <- cbind(read.dcf(DESCRIPTION),
+        splitname <- strsplit(author, " ")[[1]]
+        x <- cbind(read.dcf(DESCRIPTION,  fields = c("Package", "Type", "Title", "Version", "Date",
+                                                     "Description", "License")),
                    "Imports" = paste(imports, collapse = ", "),
-                   "LinkingTo" = "Rcpp")
-        x[, "Author"] <- author
-        x[, "Maintainer"] <- sprintf("%s <%s>", maintainer, email)
+                   "LinkingTo" = "Rcpp",
+                   "Authors@R" = sprintf("person(\"%s\", \"%s\", role = c(\"aut\", \"cre\"), email = \"%s\")",
+                                         paste(splitname[-length(splitname)], collapse=" "),
+                                         splitname[length(splitname)],
+                                         email))
+        #x[, "Author"] <- author
+        #x[, "Maintainer"] <- sprintf("%s <%s>", maintainer, email)
         x[, "License"] <- license
-        x[, "Title"] <- "What the Package Does in One 'Title Case' Line"
-        x[, "Description"] <- "One paragraph description of what the package does as one or more full sentences."
+        x[, "Title"] <- "Concise Summary of What the Package Does"
+        x[, "Description"] <- "More about what it does (maybe more than one line)."
         message( " >> added Imports: Rcpp" )
         message( " >> added LinkingTo: Rcpp" )
         write.dcf(x, file = DESCRIPTION)
-
+        write.dcf(x[1, c("Package", "Type", "Title", "Version", "Date",
+                         "Authors@R", "Description", "License", "Imports", "LinkingTo"),
+                    drop = FALSE],
+                  file = DESCRIPTION)
     }
 
     ## add useDynLib and importFrom to NAMESPACE

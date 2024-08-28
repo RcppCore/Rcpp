@@ -45,10 +45,10 @@ checkTrue( "foo" %in% list.files(path), "pkg path generated as named" )
 
 ## check the DESCRIPTION
 DESCRIPTION <- as.list( read.dcf( file.path(pkg_path, "DESCRIPTION") )[1,] )
-checkTrue( DESCRIPTION["Author"] == "Boo-Boo Bear",
-          "wrote the Author field in DESCRIPTION" )
-checkTrue( DESCRIPTION["Maintainer"] == "Yogi Bear <yogibear@yogimail.com>",
-          "wrote the Maintainer field in DESCRIPTION")
+checkEqual(gsub("\\n", " ", DESCRIPTION["Authors@R"]),  # need to neutralise a line break
+           'person("Boo-Boo", "Bear", role = c("aut", "cre"), email = "yogibear@yogimail.com")',
+           "wrote the Authors@R field in DESCRIPTION" )
+checkTrue( DESCRIPTION["Date"] == format(Sys.Date()), "uses current date in DESCRIPTION")
 checkTrue( DESCRIPTION["License"] == "An Opensource License",
           "wrote the License field in DESCRIPTION" )
 checkTrue( DESCRIPTION["LinkingTo"] == "Rcpp",
