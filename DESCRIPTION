@@ -1,10 +1,23 @@
 Package: Rcpp
 Title: Seamless R and C++ Integration
-Version: 1.0.13
-Date: 2024-07-11
-Author: Dirk Eddelbuettel, Romain Francois, JJ Allaire, Kevin Ushey, Qiang Kou,
- Nathan Russell, Inaki Ucar, Douglas Bates and John Chambers
-Maintainer: Dirk Eddelbuettel <edd@debian.org>
+Version: 1.0.13-1
+Date: 2024-11-01
+Authors@R: c(person("Dirk", "Eddelbuettel", role = c("aut", "cre"), email = "edd@debian.org",
+                    comment = c(ORCID = "0000-0001-6419-907X")),
+             person("Romain", "Francois", role = "aut",
+                    comment = c(ORCID = "0000-0002-2444-4226")),
+             person("JJ", "Allaire", role = "aut",
+                    comment = c(ORCID = "0000-0003-0174-9868")),
+             person("Kevin", "Ushey", role = "aut",
+                    comment = c(ORCID = "0000-0003-2880-7407")),
+             person("Qiang", "Kou", role = "aut",
+                    comment = c(ORCID = "0000-0001-6786-5453")),
+             person("Nathan", "Russell", role = "aut"),
+             person("Iñaki", "Ucar", role = "aut",
+                    comment = c(ORCID = "0000-0001-6403-5550")),
+             person("Doug", "Bates", role = "aut",
+                    comment = c(ORCID = "0000-0001-8316-9503")),
+             person("John", "Chambers", role = "aut"))
 Description: The 'Rcpp' package provides R functions as well as C++ classes which
  offer a seamless integration of R and C++. Many R data types and objects can be
  mapped back and forth to C++ equivalents which facilitates both writing of new

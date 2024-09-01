@@ -1,3 +1,34 @@
+2024-08-31  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Authors@R): Added
+
+2024-08-28  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/Rcpp.package.skeleton.R: Create DESCRIPTION with Auhors@R fiel
+	* inst/tinytest/test_rcpp_package_skeleton.R: Adjust tests
+
+2024-08-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/tinytest/test_sugar.R: Skip one more NA related test on arm64
+	and macOS as failure is seen at r-universe on arm64
+
+	* .github/workflows/macos.yaml: Add basic r-ci setup but dialed-down
+	to macOS only (as Linux is covered via multiple Docker setups)
+
+2024-08-19  Dirk Eddelbuettel  <edd@debian.org>
+
+	* Contributing.md: Refreshed content
+
+2024-07-30  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/rmd/Rcpp-modules.Rmd (are): Add short two-sentence
+	illustration following GitHub issue #1322
+
+2024-07-24  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version
+	* inst/include/Rcpp/config.h (RCPP_DEV_VERSION): Idem
+
 2024-07-11  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Date, Version): Release 1.0.13
