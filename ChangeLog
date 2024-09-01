@@ -1,3 +1,7 @@
+2024-08-31  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Authors@R): Added
+
 2024-08-28  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/Rcpp.package.skeleton.R: Create DESCRIPTION with Auhors@R fiel
