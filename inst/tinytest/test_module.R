@@ -22,10 +22,24 @@ if( ! Rcpp:::capabilities()[["Rcpp modules"]] ) exit_file("Skipping as no Module
 
 Rcpp::sourceCpp("cpp/Module.cpp")
 
+# checks the presence of "invisible", added when the function returns void
+is_void <- function(call) {
+    if (length(grep("invisible", deparse(call))) == 0)
+        return(FALSE)
+    return(TRUE)
+}
+
 #    test.Module <- function(){
 expect_equal( bar( 2L ), 4L )
 expect_equal( foo( 2L, 10.0 ), 20.0 )
 expect_equal( hello(), "hello" )
+
+expect_false(is_void(bar@.Data))
+expect_false(is_void(foo@.Data))
+expect_false(is_void(hello@.Data))
+expect_true(is_void(bla@.Data))
+expect_true(is_void(bla1@.Data))
+expect_true(is_void(bla2@.Data))
 
 w <- new( ModuleWorld )
 expect_equal( w$greet(), "hello" )
@@ -38,12 +52,23 @@ expect_equal( w$greet(), "hello world const ref" )
 w$clear( )
 expect_equal( w$greet(), "" )
 
+expect_false(is_void(w$greet))
+expect_true(is_void(w$set))
+expect_true(is_void(w$set_ref))
+expect_true(is_void(w$set_const_ref))
+expect_true(is_void(w$clear))
+
 #    test.Module.exposed.class <- function(){
 test <- new( ModuleTest, 3.0 )
 expect_equal( Test_get_x_const_ref(test), 3.0 )
 expect_equal( Test_get_x_const_pointer(test), 3.0 )
 expect_equal( Test_get_x_ref(test), 3.0 )
 expect_equal( Test_get_x_pointer(test), 3.0 )
+
+expect_false(is_void(Test_get_x_const_ref@.Data))
+expect_false(is_void(Test_get_x_const_pointer@.Data))
+expect_false(is_void(Test_get_x_ref@.Data))
+expect_false(is_void(Test_get_x_pointer@.Data))
 
 expect_equal( attr_Test_get_x_const_ref(test), 3.0 )
 expect_equal( attr_Test_get_x_const_pointer(test), 3.0 )
