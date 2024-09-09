@@ -70,7 +70,7 @@ namespace Rcpp {
         return grow(Rf_mkString(head), y);
     }
 
-    #if defined(HAS_VARIADIC_TEMPLATES) || defined(RCPP_USING_CXX11)
+    #if defined(HAS_VARIADIC_TEMPLATES)
         template <typename T1>
         SEXP pairlist(const T1& t1) {
             return grow( t1, R_NilValue ) ;

@@ -117,7 +117,7 @@ namespace Rcpp{
         static DataFrame_Impl create(){
             return DataFrame_Impl() ;
         }
-        #if defined(HAS_VARIADIC_TEMPLATES) || defined(RCPP_USING_CXX11)
+        #if defined(HAS_VARIADIC_TEMPLATES)
             template <typename... T>
             static DataFrame_Impl create(const T&... args) {
                 return DataFrame_Impl::from_list(Parent::create(args...));

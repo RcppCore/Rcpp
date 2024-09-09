@@ -82,7 +82,7 @@ namespace Rcpp{
             return Rcpp_fast_eval(call, R_GlobalEnv);
         }
 
-        #if defined(HAS_VARIADIC_TEMPLATES) || defined(RCPP_USING_CXX11)
+        #if defined(HAS_VARIADIC_TEMPLATES)
             template <typename... T>
             SEXP operator()(const T&... args) const {
             return invoke(pairlist(args...), R_GlobalEnv);

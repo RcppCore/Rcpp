@@ -35,7 +35,7 @@ public:
 	DottedPair_Impl(SEXP x) {
 	    Storage::set__(x) ;
 	}
-  #if defined(HAS_VARIADIC_TEMPLATES) || defined(RCPP_USING_CXX11)
+  #if defined(HAS_VARIADIC_TEMPLATES)
 		template <typename... T>
 		DottedPair_Impl(const T&... args) {
 			Storage::set__(pairlist(args...));

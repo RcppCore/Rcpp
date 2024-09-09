@@ -110,7 +110,7 @@
             return constructor( docstring, valid ) ;
         }
 
-#if defined(HAS_VARIADIC_TEMPLATES) || defined(RCPP_USING_CXX11)
+#if defined(HAS_VARIADIC_TEMPLATES)
     template <typename... T>
     self& constructor( const char* docstring = 0, ValidConstructor valid = &yes_arity<sizeof...(T)> ){
         AddConstructor( new Constructor<Class,T...> , valid, docstring ) ;
@@ -265,7 +265,7 @@
             return *this ;
         }
 
-#if defined(HAS_VARIADIC_TEMPLATES) || defined(RCPP_USING_CXX11)
+#if defined(HAS_VARIADIC_TEMPLATES)
     template <typename RESULT_TYPE, typename... T>
     self& method(const char* name_, RESULT_TYPE (Class::*fun)(T...),
                 const char* docstring = 0, ValidMethod valid = &yes_arity<sizeof...(T)>) {

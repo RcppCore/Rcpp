@@ -23,7 +23,7 @@
 #ifndef Rcpp_InternalFunctionWithStdFunction_h
 #define Rcpp_InternalFunctionWithStdFunction_h
 
-#if defined(HAS_VARIADIC_TEMPLATES) || defined(RCPP_USING_CXX11)
+#if defined(HAS_VARIADIC_TEMPLATES)
 #include <Rcpp/internal/call.h>
 #endif
 #include <functional>

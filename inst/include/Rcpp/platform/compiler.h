@@ -68,7 +68,7 @@
     #if __cplusplus >= 201103L
         #define RCPP_USING_CXX11
         #if __INTEL_COMPILER >= 1210
-            // #define HAS_VARIADIC_TEMPLATES
+            #define HAS_VARIADIC_TEMPLATES
         #endif
         #if __INTEL_COMPILER >= 1100
             #define HAS_STATIC_ASSERT
@@ -78,7 +78,7 @@
     #if __cplusplus >= 201103L
         #define RCPP_USING_CXX11
         #if __has_feature(cxx_variadic_templates)
-            // #define HAS_VARIADIC_TEMPLATES
+            #define HAS_VARIADIC_TEMPLATES
         #endif
         #if __has_feature(cxx_static_assert)
             #define HAS_STATIC_ASSERT
@@ -87,7 +87,7 @@
 #elif defined(__GNUC__)
     #ifdef __GXX_EXPERIMENTAL_CXX0X__
         #if GCC_VERSION >= 40300
-            // #define HAS_VARIADIC_TEMPLATES
+            #define HAS_VARIADIC_TEMPLATES
             #define HAS_STATIC_ASSERT
         #endif
     #endif

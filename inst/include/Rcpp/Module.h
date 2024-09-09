@@ -86,7 +86,7 @@ namespace Rcpp{
 #include <Rcpp/module/CppFunction.h>
 #include <Rcpp/module/get_return_type.h>
 
-#if defined(HAS_VARIADIC_TEMPLATES) || defined(RCPP_USING_CXX11)
+#if defined(HAS_VARIADIC_TEMPLATES)
 namespace Rcpp {
     template <typename RESULT_TYPE, typename... T>
     inline void signature(std::string& s, const char* name) {
@@ -176,7 +176,7 @@ namespace Rcpp{
     private:
         ParentMethod* parent_method_pointer ;
     } ;
-#if defined(HAS_VARIADIC_TEMPLATES) || defined(RCPP_USING_CXX11)
+#if defined(HAS_VARIADIC_TEMPLATES)
     template <typename... T>
     inline void ctor_signature(std::string& s, const std::string& classname) {
         s.assign(classname);
@@ -380,7 +380,7 @@ namespace Rcpp{
 
     } ;
 
-#if defined(HAS_VARIADIC_TEMPLATES) || defined(RCPP_USING_CXX11)
+#if defined(HAS_VARIADIC_TEMPLATES)
     template <bool IsConst,typename Class, typename RESULT_TYPE, typename... T>
     class CppMethodImplN : public CppMethod<Class> {
     public:
@@ -551,7 +551,7 @@ namespace Rcpp{
     } ;
 }
 
-#if defined(HAS_VARIADIC_TEMPLATES) || defined(RCPP_USING_CXX11)
+#if defined(HAS_VARIADIC_TEMPLATES)
 namespace Rcpp {
     template <typename RESULT_TYPE, typename... T>
     void function(const char* name_,  RESULT_TYPE (*fun)(T... t), const char* docstring = 0) {
