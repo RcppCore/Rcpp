@@ -1,3 +1,9 @@
+2024-09-12  Iñaki Ucar  <iucar@fedoraproject.org>
+
+	* vignettes/.gitignore: Refinement to ignore more files under rmd/
+	* vignettes/pdf/*: Rebuilt with Ghostscript 10.03.1
+	* vignettes/*.pdf: Idem
+
 2024-08-31  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Authors@R): Added
