@@ -8,3 +8,6 @@ Rcpp-*.tex
 unitTests-results/
 rmd/figures/bootstrap.pdf
 rmd/OLDbackup
+rmd/*_cache
+rmd/*.pdf
+rmd/*.cls
