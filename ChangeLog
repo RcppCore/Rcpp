@@ -1,3 +1,8 @@
+2024-09-17  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version
+	* inst/include/Rcpp/config.h (RCPP_DEV_VERSION): Idem
+
 2024-09-12  Iñaki Ucar  <iucar@fedoraproject.org>
 
 	* vignettes/.gitignore: Refinement to ignore more files under rmd/
@@ -10,7 +15,7 @@
 
 2024-08-28  Dirk Eddelbuettel  <edd@debian.org>
 
-	* R/Rcpp.package.skeleton.R: Create DESCRIPTION with Auhors@R fiel
+	* R/Rcpp.package.skeleton.R: Create DESCRIPTION with Auhors@R file
 	* inst/tinytest/test_rcpp_package_skeleton.R: Adjust tests
 
 2024-08-20  Dirk Eddelbuettel  <edd@debian.org>

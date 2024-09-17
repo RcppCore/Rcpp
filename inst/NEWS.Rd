@@ -11,6 +11,14 @@
       \ghpr{1314} fixing \ghit{1313})
       \item The \code{SET_TYPEOF} function and macro is no longer used (Kevin in
       \ghpr{1315} fixing \ghit{1312})
+      \item The Rcpp Modules vignette was extended slightly following
+      \ghit{1322}
+      \item One unit tests for arm64 macOS has been adjusted; a macOS
+      continuous integration runner was added
+      \item Authors@R is now used in DESCRIPTION as mandated by CRAN, the
+      \code{Rcpp.package.skeleton()} function also creates it
+      \item The pdf vignettes have been regenerated under Ghostscript 10.03.1
+      to avoid a false positive by a Windows virus scanner (Iñaki in \ghpr{1331})
     }
   }
 }
