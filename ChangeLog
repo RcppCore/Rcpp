@@ -1,3 +1,8 @@
+2024-09-29  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/vector/Vector.h: Remove a cast as R_xlen_t
+	is returned now
+
 2024-09-17  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version
