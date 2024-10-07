@@ -1,3 +1,23 @@
+2024-10-07  Iñaki Ucar  <iucar@fedoraproject.org>
+
+	* inst/include/Rcpp/platform/compiler.h: Uncomment HAS_VARIADIC_TEMPLATES
+	macro definition
+	* src/api.cpp: Simplify checks for variadic templates
+	* inst/include/Rcpp/DataFrame.h: Idem
+	* inst/include/Rcpp/DottedPair.h: Idem
+	* inst/include/Rcpp/Function.h: Idem
+	* inst/include/Rcpp/InternalFunctionWithStdFunction.h: Idem
+	* inst/include/Rcpp/Language.h: Idem
+	* inst/include/Rcpp/Pairlist.h: Idem
+	* inst/include/Rcpp/grow.h: Idem
+	* inst/include/Rcpp/internal/call.h: Idem
+	* inst/include/Rcpp/module/class.h: Idem
+	* inst/include/Rcpp/traits/index_sequence.h: Idem
+	* inst/include/Rcpp/traits/named_object.h: Idem
+	* inst/include/Rcpp/vector/Vector.h: Idem
+	* inst/include/Rcpp/Module.h: Idem + add missing is_void method
+	* inst/tinytest/test_module.R: Add test for void functions and methods
+
 2024-10-04  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version to 1.0.13.3
