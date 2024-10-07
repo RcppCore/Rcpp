@@ -1122,7 +1122,7 @@ public:
         return Vector( 0 ) ;
     }
 
-    #if defined(HAS_VARIADIC_TEMPLATES) || defined(RCPP_USING_CXX11)
+    #if defined(HAS_VARIADIC_TEMPLATES)
         public:
             template <typename... T>
             static Vector create(const T&... t){

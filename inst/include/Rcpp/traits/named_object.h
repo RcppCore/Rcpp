@@ -66,7 +66,7 @@ template <typename T> struct is_named< named_object<T> > : public true_type {};
 template <> struct is_named< Rcpp::Argument > : public true_type {};
 
 
-#if defined(HAS_VARIADIC_TEMPLATES) || defined(RCPP_USING_CXX11)
+#if defined(HAS_VARIADIC_TEMPLATES)
     template <typename... T> struct is_any_named : public false_type {};
     template <typename T> struct is_any_named<T> : public is_named<T>::type {};
 

@@ -2,7 +2,7 @@
 #define RCPP_TRAITS_INDEX_SEQUENCE_H
 
 
-#if defined(HAS_VARIADIC_TEMPLATES) || defined(RCPP_USING_CXX11)
+#if defined(HAS_VARIADIC_TEMPLATES)
 
 namespace Rcpp {
 namespace traits {

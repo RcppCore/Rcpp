@@ -257,7 +257,7 @@ SEXP rcpp_capabilities() {
 
 // [[Rcpp::internal]]
 SEXP rcpp_can_use_cxx0x() {                                     // #nocov start
-    #if defined(HAS_VARIADIC_TEMPLATES) || defined(RCPP_USING_CXX11)
+    #if defined(HAS_VARIADIC_TEMPLATES)
         return Rf_ScalarLogical(TRUE);
     #else
         return Rf_ScalarLogical(FALSE);
