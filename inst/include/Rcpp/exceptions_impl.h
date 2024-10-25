@@ -23,15 +23,16 @@
 
 // disable demangler on platforms where we have no support
 #ifndef RCPP_DEMANGLER_ENABLED
-# if defined(_WIN32)     || \
-    defined(__FreeBSD__) || \
-    defined(__NetBSD__)  || \
-    defined(__OpenBSD__) || \
-    defined(__CYGWIN__)  || \
-    defined(__sun)       || \
-    defined(_AIX)        || \
-    defined(__MUSL__)    || \
-    defined(__HAIKU__)   || \
+# if defined(_WIN32)       || \
+    defined(__FreeBSD__)   || \
+    defined(__NetBSD__)    || \
+    defined(__OpenBSD__)   || \
+    defined(__DragonFly__) || \
+    defined(__CYGWIN__)    || \
+    defined(__sun)         || \
+    defined(_AIX)          || \
+    defined(__MUSL__)      || \
+    defined(__HAIKU__)     || \
     defined(__ANDROID__)
 #  define RCPP_DEMANGLER_ENABLED 0
 # elif defined(__GNUC__)  || defined(__clang__)
