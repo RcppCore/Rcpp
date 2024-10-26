@@ -1,11 +1,19 @@
+2024-10-26  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version to 1.0.13.4
+	* inst/include/Rcpp/config.h (RCPP_DEV_VERSION): Idem
+
+	* .github/workflows/ci.yaml (jobs): Roll checkout action to v4
+
 2024-10-26  Gábor Csárdi  <csardi.gabor@gmail.com>
 
-	* inst/include/Rcpp/exceptions_impl.h: check for DragonFlyBSD to fix compilation
+	* inst/include/Rcpp/exceptions_impl.h: check for DragonFlyBSD to fix
+	compilation
 
 2024-10-07  Iñaki Ucar  <iucar@fedoraproject.org>
 
-	* inst/include/Rcpp/platform/compiler.h: Uncomment HAS_VARIADIC_TEMPLATES
-	macro definition
+	* inst/include/Rcpp/platform/compiler.h: Uncomment
+	HAS_VARIADIC_TEMPLATES macro definition
 	* src/api.cpp: Simplify checks for variadic templates
 	* inst/include/Rcpp/DataFrame.h: Idem
 	* inst/include/Rcpp/DottedPair.h: Idem
@@ -20,7 +28,8 @@
 	* inst/include/Rcpp/traits/named_object.h: Idem
 	* inst/include/Rcpp/vector/Vector.h: Idem
 	* inst/include/Rcpp/Module.h: Idem + add missing is_void method
-	* inst/tinytest/test_module.R: Add test for void functions and methods
+	* inst/tinytest/test_module.R: Add test for void functions and
+	methods
 
 2024-10-04  Dirk Eddelbuettel  <edd@debian.org>
 
