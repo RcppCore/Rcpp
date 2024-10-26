@@ -13,6 +13,8 @@
       \ghpr{1315} fixing \ghit{1312})
       \item An errorneous cast to \code{int} affecting large return object
       has been removed (Dirk in \ghpr{1335} fixing \ghpr{1334})
+      \item Compilation on DragonFlyBSD is now supported (Gábor Csárdi in
+      \ghpr{1338})
     }
     \item Changes in Rcpp Deployment:
     \itemize{

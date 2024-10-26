@@ -1,7 +1,7 @@
 Package: Rcpp
 Title: Seamless R and C++ Integration
-Version: 1.0.13.3
-Date: 2024-10-04
+Version: 1.0.13.4
+Date: 2024-10-26
 Authors@R: c(person("Dirk", "Eddelbuettel", role = c("aut", "cre"), email = "edd@debian.org",
                     comment = c(ORCID = "0000-0001-6419-907X")),
              person("Romain", "Francois", role = "aut",
