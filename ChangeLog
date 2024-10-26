@@ -1,3 +1,7 @@
+2024-10-26  Gábor Csárdi  <csardi.gabor@gmail.com>
+
+	* inst/include/Rcpp/exceptions_impl.h: check for DragonFlyBSD to fix compilation
+
 2024-10-07  Iñaki Ucar  <iucar@fedoraproject.org>
 
 	* inst/include/Rcpp/platform/compiler.h: Uncomment HAS_VARIADIC_TEMPLATES
