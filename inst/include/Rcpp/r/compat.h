@@ -24,13 +24,13 @@
 
 #include <Rversion.h>
 
-#if R_VERSION >= R_Version(4, 4, 2)
+#if R_VERSION >= R_Version(4, 5, 0)
 # define RCPP_STRING_PTR STRING_PTR_RO
 #else
 # define RCPP_STRING_PTR STRING_PTR
 #endif
 
-#if R_VERSION >= R_Version(4, 4, 2)
+#if R_VERSION >= R_Version(4, 5, 0)
 # define RCPP_VECTOR_PTR VECTOR_PTR_RO
 #else
 # define RCPP_VECTOR_PTR VECTOR_PTR
