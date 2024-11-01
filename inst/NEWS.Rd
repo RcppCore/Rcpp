@@ -3,6 +3,20 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
+\section{Changes in Rcpp release version 1.0.13-1 (2024-11-01)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Use read-only \code{VECTOR_PTR} and \code{STRING_PTR} only with
+      with R 4.5.0 or later (Kevin in \ghpr{1342} fixing \ghit{1341})
+    }
+    \item Changes in Rcpp Deployment:
+    \itemize{
+      \item Authors@R is now used in DESCRIPTION as mandated by CRAN
+    }
+  }
+}
+
 \section{Changes in Rcpp release version 1.0.13 (2024-07-11)}{
   \itemize{
     \item Changes in Rcpp API:
