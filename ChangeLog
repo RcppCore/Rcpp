@@ -1,3 +1,8 @@
+2024-11-01  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version to 1.0.13.5
+	* inst/include/Rcpp/config.h (RCPP_DEV_VERSION): Idem
+
 2024-10-31  Kevin Ushey  <kevinushey@gmail.com>
 
 	* inst/include/Rcpp/r/compat.h: Require R (>= 4.5.0) for new APIs

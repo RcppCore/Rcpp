@@ -15,6 +15,8 @@
       has been removed (Dirk in \ghpr{1335} fixing \ghpr{1334})
       \item Compilation on DragonFlyBSD is now supported (Gábor Csárdi in
       \ghpr{1338})
+      \item Use read-only \code{VECTOR_PTR} and \code{STRING_PTR} only with
+      with R 4.5.0 or later (Kevin in \ghpr{1342} fixing \ghit{1341})
     }
     \item Changes in Rcpp Deployment:
     \itemize{
