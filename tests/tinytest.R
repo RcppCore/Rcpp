@@ -1,21 +1,15 @@
 
 if (requireNamespace("tinytest", quietly=TRUE)) {
 
-    ## Set a seed to make the test deterministic
-    set.seed(42)
-
-    ## R makes us do this (but tinytest now sets it too)
-    Sys.setenv("R_TESTS"="")
-
     ## Force tests to be executed if in dev release which we define as
     ## having a sub-release, eg 0.9.15.5 is one whereas 0.9.16 is not
-    if (length(strsplit(packageDescription("Rcpp")$Version, "\\.")[[1]]) > 3) {	# dev rel, and
+    if (length(strsplit(format(packageVersion("Rcpp")), "\\.")[[1]]) > 3) {	# dev rel, and
         if (Sys.getenv("RunAllRcppTests") != "no") { 			# if env.var not yet set
-            message("Setting \"RunAllRcppTests\"=\"yes\" for development release\n")
+            message("Setting \"RunAllRcppTests\"=\"yes\" for development release")
             Sys.setenv("RunAllRcppTests"="yes")
         }
         if (Sys.getenv("RunVerboseRcppTests") != "no") { 		# if env.var not yet set
-            message("Setting \"RunVerboseRcppTests\"=\"yes\" for development release\n")
+            message("Setting \"RunVerboseRcppTests\"=\"yes\" for development release")
             Sys.setenv("RunVerboseRcppTests"="yes")
         }
     }
