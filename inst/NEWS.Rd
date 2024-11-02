@@ -21,16 +21,31 @@
     \item Changes in Rcpp Deployment:
     \itemize{
       \item One unit tests for arm64 macOS has been adjusted; a macOS
-      continuous integration runner was added
+      continuous integration runner was added (Dirk in \ghpr{1324})
       \item Authors@R is now used in DESCRIPTION as mandated by CRAN, the
-      \code{Rcpp.package.skeleton()} function also creates it
+      \code{Rcpp.package.skeleton()} function also creates it (Dirk in
+      \ghpr{1325} and \ghpr{1327})
     }
     \item Changes in Rcpp Documentation:
     \itemize{
       \item The Rcpp Modules vignette was extended slightly following
-      \ghit{1322}
+      \ghit{1322} (Dirk)
       \item Pdf vignettes have been regenerated under Ghostscript 10.03.1 to
       avoid a false positive by a Windows virus scanner (Iñaki in \ghpr{1331})
+    }
+  }
+}
+
+\section{Changes in Rcpp 'hot-fix' release version 1.0.13-1 (2024-11-01)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Use read-only \code{VECTOR_PTR} and \code{STRING_PTR} only with
+      with R 4.5.0 or later (Kevin in \ghpr{1342} fixing \ghit{1341})
+    }
+    \item Changes in Rcpp Deployment:
+    \itemize{
+      \item Authors@R is now used in DESCRIPTION as mandated by CRAN
     }
   }
 }
