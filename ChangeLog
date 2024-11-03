@@ -1,3 +1,14 @@
+2024-11-03  Marco Colombo <mar.colombo13@gmail.com>
+	* vignettes/rmd/Rcpp-FAQ.Rmd: Fixed typos
+	* vignettes/rmd/Rcpp-attributes.Rmd: Idem
+	* vignettes/rmd/Rcpp-extending.Rmd: Idem
+	* vignettes/rmd/Rcpp-introduction.Rmd: Idem
+	* vignettes/rmd/Rcpp-libraries.Rmd: Idem
+	* vignettes/rmd/Rcpp-modules.Rmd: Idem
+	* vignettes/rmd/Rcpp-package.Rmd: Idem
+	* vignettes/rmd/Rcpp-quickref.Rmd: Idem
+	* vignettes/rmd/Rcpp-sugar.Rmd: Idem
+
 2024-11-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* tests/tinytest.R: Minor code edit, removal of two no longer
