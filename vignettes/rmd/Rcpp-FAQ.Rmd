@@ -42,7 +42,7 @@ fontsize: 9pt
 # Optional: Force one-column layout, default is two-column
 #one_column: true
 
-# Optional: Enables lineo mode, but only if one_column mode is also true
+# Optional: Enables lineno mode, but only if one_column mode is also true
 #lineno: true
 
 # Optional: Enable one-sided layout, default is two-sided
@@ -111,7 +111,7 @@ vignette("Rcpp-attributes")
 ```
 
 If you do not have \pkg{Rcpp} installed, these documents should also be available
-whereever you found this document, \textsl{i.e.,} on every mirror site of CRAN.
+wherever you found this document, \textsl{i.e.,} on every mirror site of CRAN.
 
 ## What do I need
 
@@ -157,7 +157,7 @@ Specific per-platform notes:
     Fortran-using packages are to be built); also see \faq{q:OSX} and
     \faq{q:OSXArma} below. This is frustratingly moving target; consult
     the \code{r-sig-mac} list (and its archives) for (current) details.
-  \item[Linux] user need to install the standard developement packages. Some
+  \item[Linux] user need to install the standard development packages. Some
     distributions provide helper packages which pull in all the required
     packages; the \texttt{r-base-dev} package on Debian and Ubuntu is an example.
 \end{description}
@@ -181,7 +181,7 @@ exhaustive as CRAN by now has \textsl{many} helpful packages:
   Attributes (see \faq{using-attributes} and
   \faq{prototype-using-attributes}) feature provided by \pkg{Rcpp};
   \item[\pkg{RUnit}, \pkg{tinytest}, \pkg{testthat}] can be used for unit
-  testing; \pkg{Rcpp} uses \pkg{tinytest} as it is ligthweight and installs the
+  testing; \pkg{Rcpp} uses \pkg{tinytest} as it is lightweight and installs the
   tests along with the package by default but note that no testing package is
   \textsl{required}: all are optional;
 \item[\pkg{rbenchmark}, \pkg{microbenchmark}] to run simple timing
@@ -301,12 +301,12 @@ the supplied code and makes it available under the selected identifier.
 Similarly, \rdoc{Rcpp}{sourceCpp} can read in a file and compile, link and load
 the code therein.
 
-## How do I convert my prototyped code to a package {#from-inline-to-package}
+## How do I convert my prototype code to a package {#from-inline-to-package}
 
 Since release 0.3.5 of \pkg{inline}, one can combine \faq{using-inline} and
 \faq{make-package}. See `help("package.skeleton-methods")` once
 \pkg{inline} is loaded and use the skeleton-generating functionality to
-transform a prototyped function into the minimal structure of a package.
+transform a prototype function into the minimal structure of a package.
 After that you can proceed with working on the package in the spirit of
 \faq{make-package}.
 
@@ -384,7 +384,7 @@ for you.
 Note that we always need to set `PKG_CXXFLAGS` (or equally `PKG_CPPFLAGS`) to tell R
 where the \pkg{Rcpp} headers files are located.
 
-Once `R CMD SHLIB` has created the dyanmically-loadable file (with
+Once `R CMD SHLIB` has created the dynamically-loadable file (with
 extension `.so` on Linux, `.dylib` on macOS or `.dll` on
 Windows), it can be loaded in an R session via \rdoc{base}{dyn.load}, and the
 function can be executed via \rdoc{base}{.Call}.  Needless to say, we
@@ -551,7 +551,7 @@ By now REvolution R is defunct too.
 
 Rho, previously known as CXXR, is an ambitious project that aims to
 totally refactor the \proglang{R} interpreter in \proglang{C++}. There
-are a few similaritites with \pkg{Rcpp} but the projects are
+are a few similarities with \pkg{Rcpp} but the projects are
 unrelated.
 
 Rho / CXXR and \pkg{Rcpp} both want \proglang{R} to make more use of \proglang{C++}
@@ -1110,7 +1110,7 @@ at some limit. We chose 20.
 
 A good discussion is available at
 [this StackOverflow question](http://stackoverflow.com/questions/27371543)
-concering data.frame creation with \pkg{Rcpp}. One solution offers a custom
+concerning data.frame creation with \pkg{Rcpp}. One solution offers a custom
 `ListBuilder` class to circumvent the limit; another suggests to simply
 nest lists.
 
@@ -1171,7 +1171,7 @@ But of course.  In a nutshell, this boils down to \emph{what your compiler
 [Rcpp Gallery article](http://gallery.rcpp.org/articles/rcpp-and-c++11-c++14-c++17/) providing more detail.  What follows in an abridged summary.
 
 You can always \emph{locally} set appropriate `PKG_CXXFLAGS` as an
-environment variable, or via `~/.R/Makevars`. You can also plugins and/or R
+environment variable, or via `~/.R/Makevars`. You can also set plugins and/or R
 support from `src/Makevars`:
 
 - _C++11_: has been supported since early 2013 via a plugin selecting
@@ -1239,7 +1239,7 @@ and all three formats are also available a zip-archives:
 
 ## Does it really work
 
-We take quality seriously and have developped an extensive unit test suite to
+We take quality seriously and have developed an extensive unit test suite to
 cover many possible uses of the \pkg{Rcpp} API.
 
 We are always on the look for more coverage in our testing. Please let us know
@@ -1452,7 +1452,7 @@ circumvented as it is really a pointer to the underlying R object.
 ## Issues with implicit conversion from an \pkg{Rcpp} object to a scalar or other \pkg{Rcpp} object
 
 Not all \pkg{Rcpp} expressions are directly compatible with
-`operator=`.  Compability issues stem from many \pkg{Rcpp} objects and
+`operator=`.  Compatibility issues stem from many \pkg{Rcpp} objects and
 functions returning an intermediary result which requires an explicit
 conversion.  In such cases, the user may need to assist the compiler
 with the conversion.
@@ -1587,7 +1587,7 @@ There are three options to trigger compilation with  \proglang{C++11}.
 The first -- and most likely option to use -- will be the plugin support offered
 by \pkg{Rcpp} attributes. This can be engaged by adding
 `// [[Rcpp::plugins(cpp11)]]` to the top of the \proglang{C++} script.
-For diagnostic and illustrativative purposes, consider the following code
+For diagnostic and illustrative purposes, consider the following code
 which checks to see if `R_xlen_t` is available on your platform:
 
 ```{Rcpp}
@@ -1732,7 +1732,7 @@ figure out what routines need to be registered. If an older `RcppExports.R` file
 is discovered, its out-of-date symbol names get picked up, and registration
 rules for those symbols get written as well. This will register more symbols for
 the package than are actually defined, leading to an error. This point has been
-discussed at some length both in the GitHub issue tickes, on StackOverflow and
+discussed at some length both in the GitHub issue tickets, on StackOverflow and
 elsewhere.
 
 So if your autogenerated file fails, and a `symbols not found` error is reported

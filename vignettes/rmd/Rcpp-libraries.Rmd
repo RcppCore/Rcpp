@@ -18,7 +18,7 @@ doi_footer: "https://arxiv.org/abs/1911.06416"
 
 # Abstract
 abstract: |
-  We desribe how we extend R with an external C++ code library by using the Rcpp
+  We describe how we extend R with an external C++ code library by using the Rcpp
   package. Our working example uses the recent machine learning library and application
   'Corels' providing optimal yet easily interpretable rule lists \citep{arxiv:corels}
   which we bring to R in the form of the \pkg{RcppCorels} package
@@ -141,7 +141,7 @@ The first step in getting a new package combing R and C++ is often the creation 
 Rcpp package.  There are several helper functions to choose from. A natural first choice
 is `Rcpp.package.skeleton()` from the \pkg{Rcpp} package \citep{CRAN:Rcpp}. It can be
 improved by having the optional helper package \pkg{pkgKitten} \citep{CRAN:pkgKitten}
-around as its `kitten()` function smoothes some rougher edges left by the underlying Base
+around as its `kitten()` function smooths some rougher edges left by the underlying Base
 R function `package.skeleton()`. This step is shown below in then appendix, and
 corresponds to the first commit, followed by a first edit of file `DESCRIPTION`.
 
@@ -154,7 +154,7 @@ it.
 
 Given a basic package with C++ support, we can now turn to integrating the external
 package.  This complexity of this step can, as alluded to earlier, vary from very easy to
-very complex.  Simple cases include just dependending on library headers which can either
+very complex.  Simple cases include just depending on library headers which can either
 be copied to the package, or be provided by another package such as \pkg{BH}
 \citep{CRAN:BH}. It may also be a dependency on a fairly standard library available on
 most if not all systems.  The graphics formats bmp, jpeg or png may be example; text
@@ -243,7 +243,7 @@ fs::dir_tree("../../../rcppcorels/inst/sample_data")
 ## Set up working example
 
 Combining the two preceding steps, we can now offer an illustrative example. It is
-included in the helpd page for function `corels()` and can be run from R via
+included in the help page for function `corels()` and can be run from R via
 `example("corels")`.
 
 ```r
@@ -279,7 +279,7 @@ arguments default values are used.
 
 ## Finesse Library Dependencies
 
-One common difficulty when bringing an extermal library to R via a package consists in dealing with
+One common difficulty when bringing an external library to R via a package consists in dealing with
 an external dependency. In the case of 'Corels', the GNU GMP library for multi-precision arithmetic
 is an optional extension which, if available, improves and accelerates internal processing.
 

@@ -46,7 +46,7 @@ fontsize: 9pt
 # Optional: Force one-column layout, default is two-column
 #one_column: true
 
-# Optional: Enables lineo mode, but only if one_column mode is also true
+# Optional: Enables lineno mode, but only if one_column mode is also true
 #lineno: true
 
 # Optional: Enable one-sided layout, default is two-sided

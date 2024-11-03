@@ -48,7 +48,7 @@ fontsize: 9pt
 # Optional: Force one-column layout, default is two-column
 #one_column: true
 
-# Optional: Enables lineo mode, but only if one_column mode is also true
+# Optional: Enables lineno mode, but only if one_column mode is also true
 #lineno: true
 
 # Optional: Enable one-sided layout, default is two-sided
@@ -161,7 +161,7 @@ $
 \end{ShadedResult}
 
 Using \rdoc{Rcpp}{Rcpp.package.skeleton} is by far the simplest approach
-as it fulfills two roles. It creates the complete set of files needed for a
+as it fulfils two roles. It creates the complete set of files needed for a
 package, and it also includes the different components needed for using
 \pkg{Rcpp} that we discuss in the following sections.
 
@@ -292,7 +292,7 @@ new standard, however, is much easier and is described below.
 
 Unfortunately, the `LinkingTo` declaration in itself was not
 enough to link to the user \proglang{C++} library of \pkg{Rcpp}. Until more
-explicit support for libraries is added to \proglang{R}, ones needes to manually
+explicit support for libraries is added to \proglang{R}, ones needs to manually
 add the \pkg{Rcpp} library to the `PKG_LIBS` variable in the
 `Makevars` and `Makevars.win` files. (This has now changed with
 release 0.11.0; see below).
@@ -487,5 +487,5 @@ detail, and references to further examples were provided.
 
 [^1]: Setting `attributes` to `TRUE` is the default. This document
     does not cover the behavior of `Rcpp.package.skeleton` when `attributes` is set
-    to `FALSE` as we try to encourage package developpers to use
+    to `FALSE` as we try to encourage package developers to use
     attributes. 

@@ -41,7 +41,7 @@ fontsize: 9pt
 # Optional: Force one-column layout, default is two-column
 #one_column: true
 
-# Optional: Enables lineo mode, but only if one_column mode is also true
+# Optional: Enables lineno mode, but only if one_column mode is also true
 #lineno: true
 
 # Optional: Enable one-sided layout, default is two-sided
@@ -399,7 +399,7 @@ RNGScope scope;
 // In some cases (e.g. rnorm), dist-specific
 // arguments can be omitted; when in doubt, 
 // specify all dist-specific arguments. The use 
-// of doublesrather than integers for dist-
+// of doubles rather than integers for dist-
 // specific arguments is recommended. Unless
 // explicitly specified, log=FALSE.
 
