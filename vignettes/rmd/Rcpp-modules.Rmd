@@ -46,7 +46,7 @@ fontsize: 9pt
 # Optional: Force one-column layout, default is two-column
 #one_column: true
 
-# Optional: Enables lineo mode, but only if one_column mode is also true
+# Optional: Enables lineno mode, but only if one_column mode is also true
 #lineno: true
 
 # Optional: Enable one-sided layout, default is two-sided
@@ -93,7 +93,7 @@ vignette: >
 
 Exposing \proglang{C++} functionality to \proglang{R} is greatly facilitated
 by the \pkg{Rcpp} package and its underlying \proglang{C++} library
-\citep{CRAN:Rcpp,JSS:Rcpp}. \pkg{Rcpp} smoothes many of the rough edges in
+\citep{CRAN:Rcpp,JSS:Rcpp}. \pkg{Rcpp} smooths many of the rough edges in
 \proglang{R} and \proglang{C++} integration by replacing the traditional
 \proglang{R} Application Programming Interface (API) described in
 '\textsl{Writing R Extensions}' \citep{R:Extensions} with a consistent set of \proglang{C++}
@@ -955,7 +955,7 @@ setMethod("show", yada$World , function(object) {
                  object$greet())
     writeLines(msg)
 } )
-yada$World$new() # implictly calls show
+yada$World$new() # implicitly calls show
 ```
 
 TODO: mention R inheritance (John ?)

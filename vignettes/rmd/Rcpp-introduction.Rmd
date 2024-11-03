@@ -59,7 +59,7 @@ output:
     pinp::pinp:
         collapse: true
 
-# Local additiona of a few definitions we use
+# Local additions of a few definitions we use
 header-includes: >
   \newcommand{\TODO}{\marginnote{TODO}}
   \newcommand{\rlang}{\textit{R }}
@@ -144,7 +144,7 @@ statement is now added: _Interfaces to other software are part of \rlangns_.
 
 This last addition is profound. If and when suitable and performant
 software for a task exists, it is in fact desirable to have a (preferably
-also perfomant) interface to this software from \rlangns.
+also performant) interface to this software from \rlangns.
 \cite{Chambers:2016:ExtR} discusses several possible approaches for simpler
 interfaces and illustrates them with reference implementations to both \python\ and
 \julia. However, the most performant interface for \rlang is provided at the
@@ -155,7 +155,7 @@ analysts and data scientists, aiming to enable them to use---and
 create--- further _interfaces_ for \rlang which aid the _mission_ while
 staying true to the _prime directive_.  Adding interfaces in such a way is in
 fact a natural progression from the earliest designs for its predecessor
-\slang which was after all designed to provide a more useable 'interface' to
+\slang which was after all designed to provide a more usable 'interface' to
 underlying routines in \fortranns.
 
 The rest of the paper is structured as follows. We start by discussing
@@ -188,7 +188,7 @@ elements can be obtained in different ways. Some of these are addressed in the _
 the Rtools kit provided by R Core available at <https://cran.r-project.org/bin/windows/Rtools/>.
 Details of these installation steps are beyond the scope of this
 paper. However, many external resources exist that provide detailed
-installation guides for \rlang toolschains in
+installation guides for \rlang toolchains in
 [Windows](http://thecoatlessprofessor.com/programming/rcpp/install-rtools-for-rcpp/)
 and
 [macOS](http://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-os-x/).
@@ -354,7 +354,7 @@ convolve_cpp(const NumericVector& a,
 
 To deploy such code from within an \rlang script or session, first save it into a new
 file---which could be called **convolve.cpp**---in either the working directory, a
-temporary directoy or a project directory. Then from within the \rlang session,
+temporary directory or a project directory. Then from within the \rlang session,
 use `Rcpp::sourceCpp("convolve.cpp")` (possibly using a path as well as the filename). This
 not only compiles, links and loads the code within the external file but also adds the
 necessary "glue" to make the \rcpp function available in the \rlang environment. Once the
@@ -481,7 +481,7 @@ evalCpp("R::rnorm(0, 1)")
 
 One important aspect of the behind-the-scenes code generation for the single expression
 (as well as all code created via _Rcpp Attributes_) is the automatic preservation of the
-state of the random nunber generators in \rlangns.  This means that from a given seed, we will
+state of the random number generators in \rlangns.  This means that from a given seed, we will
 receive _identical_ draws of random numbers whether we access them from \rlang or via \cpp code
 accessing the same generators (via the \rcpp interfaces). To illustrate, the
 same number is drawn via \rlang code after resetting the seed:
