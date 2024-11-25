@@ -3,6 +3,9 @@
 	* DESCRIPTION (Version, Date): Roll micro version to 1.0.13.6
 	* inst/include/Rcpp/config.h (RCPP_DEV_VERSION): Idem
 
+	* inst/tinytest/test_date.R: Minor adjustment to datetime format test
+	following R Dev Day change for R bug 17350 (and issue #1347 here)
+
 2024-11-25  Simon Guest  <simon.guest@tesujimath.org>
 
 	* src/attributes.cpp: fix CPP source having to be writable

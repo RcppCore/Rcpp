@@ -194,7 +194,7 @@ expect_equal(Datetime_format(d,"%Y-%m-%d %H:%M:%S"),
              format(d, "%Y-%m-%d %H:%M:%OS"),
              info="Datetime.formating.default")
 expect_equal(Datetime_format(d, "%Y/%m/%d %H:%M:%S"),
-             format(d, "%Y/%m/%d %H:%M:%OS"),
+             format(d, "%Y/%m/%d %H:%M:%OS6"),
              info="Datetime.formating.given.format")
 expect_equal(Datetime_ostream(d),
              format(d, "%Y-%m-%d %H:%M:%OS"),
