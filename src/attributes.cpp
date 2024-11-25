@@ -3279,7 +3279,7 @@ namespace {
 
             // copy the source file to the build dir
             Rcpp::Function filecopy = Rcpp::Environment::base_env()["file.copy"];
-            filecopy(cppSourcePath_, generatedCppSourcePath(), true);
+            filecopy(cppSourcePath_, generatedCppSourcePath(), true, Rcpp::_["copy.mode"] = false);
 
             // parse attributes
             SourceFileAttributesParser sourceAttributes(cppSourcePath_, "", true);
