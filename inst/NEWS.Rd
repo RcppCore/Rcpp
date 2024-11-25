@@ -18,6 +18,11 @@
       \item Use read-only \code{VECTOR_PTR} and \code{STRING_PTR} only with
       with R 4.5.0 or later (Kevin in \ghpr{1342} fixing \ghit{1341})
     }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item The \code{sourceCpp()} function can now handle input files with
+      read-only modes (Simon Guest in \ghpr{1346} fixing \ghit{1345})
+    }
     \item Changes in Rcpp Deployment:
     \itemize{
       \item One unit tests for arm64 macOS has been adjusted; a macOS
@@ -31,7 +36,10 @@
       \item The Rcpp Modules vignette was extended slightly following
       \ghit{1322} (Dirk)
       \item Pdf vignettes have been regenerated under Ghostscript 10.03.1 to
-      avoid a false positive by a Windows virus scanner (Iñaki in \ghpr{1331})
+      avoid a false positive by a Windows virus scanner (Iñaki in
+      \ghpr{1331})
+      \item A (large) number of (old) typos have been corrected in the
+      vignettes (Marco Colombo in \ghpr{1344})
     }
   }
 }

@@ -1,3 +1,8 @@
+2024-11-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version to 1.0.13.6
+	* inst/include/Rcpp/config.h (RCPP_DEV_VERSION): Idem
+
 2024-11-25  Simon Guest  <simon.guest@tesujimath.org>
 
 	* src/attributes.cpp: fix CPP source having to be writable
