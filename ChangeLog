@@ -1,3 +1,6 @@
+2024-11-25  Simon Guest <simon.guest@tesujimath.org>
+    * src/attributes.cpp: fix CPP source having to be writable
+
 2024-11-03  Marco Colombo  <mar.colombo13@gmail.com>
 
 	* vignettes/rmd/Rcpp-FAQ.Rmd: Fixed typos
