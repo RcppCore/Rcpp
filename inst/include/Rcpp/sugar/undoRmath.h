@@ -1,8 +1,6 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-//
 // undoRmath.h: Rcpp R/C++ interface class library -- undo the macros set by Rmath.h
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2024 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,7 +20,17 @@
 #ifndef RCPP_SUGAR_UNDORMATH_H
 #define RCPP_SUGAR_UNDORMATH_H
 
-// undo some of the mess of Rmath
+// Reverse-depends checks found rare cases where R_Version would not evaluate
+// So here we, if needed, we first undefine ...
+#ifdef R_Version
+#undef R_Version
+#endif
+// ... and then repeat the definition from Rversion.h
+#define R_Version(v,p,s) (((v) * 65536) + ((p) * 256) + (s))
+
+// Undo some of the definitions in Rmath -- but only prior to R 4.5.0
+#if R_VERSION < R_Version(4,5,0)
+
 #undef sign
 #undef trunc
 #undef rround
@@ -163,5 +171,6 @@
 #undef tetragamma
 #undef trigamma
 
+#endif
 
 #endif

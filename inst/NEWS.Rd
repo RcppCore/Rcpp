@@ -17,6 +17,8 @@
       \ghpr{1338})
       \item Use read-only \code{VECTOR_PTR} and \code{STRING_PTR} only with
       with R 4.5.0 or later (Kevin in \ghpr{1342} fixing \ghit{1341})
+      \item As R 4.5.0 or later prefix math functions, make undefine in Rcpp
+      Sugar version dependent (Dirk in \ghpr{1352} fixing \ghit{1351})
     }
     \item Changes in Rcpp Attributes:
     \itemize{
