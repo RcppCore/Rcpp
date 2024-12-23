@@ -9,8 +9,8 @@
     \itemize{
       \item Support for user-defined databases has been removed (Kevin in
       \ghpr{1314} fixing \ghit{1313})
-      \item The \code{SET_TYPEOF} function and macro is no longer used (Kevin in
-      \ghpr{1315} fixing \ghit{1312})
+      \item The \code{SET_TYPEOF} function and macro is no longer used (Kevin
+      in \ghpr{1315} fixing \ghit{1312})
       \item An errorneous cast to \code{int} affecting large return object
       has been removed (Dirk in \ghpr{1335} fixing \ghpr{1334})
       \item Compilation on DragonFlyBSD is now supported (Gábor Csárdi in
@@ -30,6 +30,8 @@
       \item Authors@R is now used in DESCRIPTION as mandated by CRAN, the
       \code{Rcpp.package.skeleton()} function also creates it (Dirk in
       \ghpr{1325} and \ghpr{1327})
+      \item A single datetime format test has been adjusted to match a change
+      in R-devel (Dirk in \ghpr{1348} fixing \ghit{1347})
     }
     \item Changes in Rcpp Documentation:
     \itemize{
