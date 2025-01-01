@@ -1,3 +1,8 @@
+2025-01-01  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/Benchmark/Timer.h (R_NO_REMAP): Protect include
+	with preceding #ifndef now that R 4.5.0 will set this too
+
 2024-11-25  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version to 1.0.13.6

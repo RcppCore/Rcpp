@@ -1,8 +1,6 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // Timer.h: Rcpp R/C++ interface class library -- Rcpp benchmark utility
 //
-// Copyright (C) 2012 - 2014  JJ Allaire, Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2025  JJ Allaire, Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -26,7 +24,9 @@
 #include <vector>
 #include <string>
 
-#define R_NO_REMAP
+#ifndef R_NO_REMAP
+    #define R_NO_REMAP
+#endif
 #include <Rinternals.h>
 
 #if defined(_WIN32)
