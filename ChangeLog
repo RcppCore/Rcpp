@@ -1,3 +1,13 @@
+2025-01-11  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Date, Version): Release 1.0.14
+
+        * inst/include/Rcpp/config.h: Idem
+        * inst/NEWS.Rd: Idem
+        * vignettes/rmd/Rcpp.bib: Idem
+        * inst/bib/Rcpp.bib: Idem
+	* vignettes/pdf/*: Rebuilt
+
 2025-01-01  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/Benchmark/Timer.h (R_NO_REMAP): Protect include
