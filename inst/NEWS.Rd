@@ -11,11 +11,11 @@
       \ghpr{1314} fixing \ghit{1313})
       \item The \code{SET_TYPEOF} function and macro is no longer used (Kevin
       in \ghpr{1315} fixing \ghit{1312})
-      \item An errorneous cast to \code{int} affecting large return object
+      \item An erroneous cast to \code{int} affecting large return object
       has been removed (Dirk in \ghpr{1335} fixing \ghpr{1334})
       \item Compilation on DragonFlyBSD is now supported (Gábor Csárdi in
       \ghpr{1338})
-      \item Use read-only \code{VECTOR_PTR} and \code{STRING_PTR} only with
+      \item Use read-only \code{VECTOR_PTR} and \code{STRING_PTR} only 
       with R 4.5.0 or later (Kevin in \ghpr{1342} fixing \ghit{1341})
     }
     \item Changes in Rcpp Attributes:
@@ -92,7 +92,7 @@
       added in two places (Michael Chirico in \ghpr{1272} closing
       \ghit{1271}).
       \item Casts to avoid integer overflow in matrix row/col selections
-      have neem added (Aaron Lun \ghpr{1281}).
+      have been added (Aaron Lun \ghpr{1281}).
       \item Three print format correction uncovered by R-devel were
       applied with thanks to Tomas Kalibera (Dirk in \ghpr{1285}).
       \item Correct a print format correction in the RcppExports glue code
