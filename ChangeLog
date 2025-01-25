@@ -1,3 +1,9 @@
+2025-01-25  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/rmd/Rcpp-libraries.Rdm: Add mention of PACKAGE_types.h
+	* vignettes/rmd/Rcpp.bib: Add AsioHeaders
+	* inst/bib/Rcpp.bib: Idem
+
 2025-01-18  Ben Bolker  <bolker@mcmaster.ca>
 
 	* inst/NEWS.Rd: fix trivial typos in NEWS file
