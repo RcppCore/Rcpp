@@ -165,7 +165,7 @@ package) containing the required \code{\#include} statement for the type(s) will
 compilation; see the 'Rcpp Attributes' vignette for details \citep{CRAN:Rcpp:Attributes}.
 
 It may also be a dependency on a fairly standard library available on most if
-not all systems.  The graphics formats bmp, jpeg or png may be example; text
+not all systems.  The graphics formats bmp, jpeg or png may be an example; text
 formats like JSON or XML are another.  One difficulty, though, may be that
 _run-time_ support does not always guarantee _compile-time_ support. In these
 cases, a `-dev` or `-devel` package may need to be installed.
