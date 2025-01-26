@@ -154,15 +154,24 @@ it.
 
 Given a basic package with C++ support, we can now turn to integrating the external
 package.  This complexity of this step can, as alluded to earlier, vary from very easy to
-very complex.  Simple cases include just depending on library headers which can either
-be copied to the package, or be provided by another package such as \pkg{BH}
-\citep{CRAN:BH}. It may also be a dependency on a fairly standard library available on
-most if not all systems.  The graphics formats bmp, jpeg or png may be example; text
-formats like JSON or XML are another.  One difficulty, though, may be that _run-time_
-support does not always guarantee _compile-time_ support. In these cases, a `-dev` or
-`-devel` package may need to be installed.
+very complex.  Simple cases include just depending on library headers which can either be
+copied to the package, or be provided by another package such as \pkg{BH} \citep{CRAN:BH}
+or \pkg{AsioHeaders} \citep{CRAN:AsioHeaders} or many other examples.
 
-In the concrete case of Corels, we
+One aspect worth noting is that if you include a type in your function interface it will
+also be part of the generated \code{RcppExports.cpp}. In this case adding a file
+\code{PACKAGE\_types.h} (where \code{PACKAGE} is to be replaced with the name of your
+package) containing the required \code{\#include} statement for the type(s) will permit
+compilation; see the 'Rcpp Attributes' vignette for details \citep{CRAN:Rcpp:Attributes}.
+
+It may also be a dependency on a fairly standard library available on most if
+not all systems.  The graphics formats bmp, jpeg or png may be an example; text
+formats like JSON or XML are another.  One difficulty, though, may be that
+_run-time_ support does not always guarantee _compile-time_ support. In these
+cases, a `-dev` or `-devel` package may need to be installed.
+
+Here, we use a third approach and copy files. Discussing the two other means
+fully is beyond the scope of this shorter note. So in the concrete case of Corels, we
 
 - copied all existing C++ source and header files over into the `src/` directory;
 - renamed all header files from `*.hh` to `*.h` to comply with an R preference;
