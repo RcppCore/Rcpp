@@ -3,6 +3,18 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
+\section{Changes in Rcpp release version 1.0.15 (2025-07-xx)}{
+  \itemize{
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item Several typos were correct in the NEWS file (Ben Bolker in
+      \ghpr{1354})
+      \item The Rcpp Libraries vignette mentions \code{PACKAGE_types.h} to
+      declare types used in \code{RcppExports.cpp} (Dirk in \ghpr{1355})
+    }
+  }
+}
+
 \section{Changes in Rcpp release version 1.0.14 (2025-01-11)}{
   \itemize{
     \item Changes in Rcpp API:
@@ -15,7 +27,7 @@
       has been removed (Dirk in \ghpr{1335} fixing \ghpr{1334})
       \item Compilation on DragonFlyBSD is now supported (Gábor Csárdi in
       \ghpr{1338})
-      \item Use read-only \code{VECTOR_PTR} and \code{STRING_PTR} only 
+      \item Use read-only \code{VECTOR_PTR} and \code{STRING_PTR} only
       with R 4.5.0 or later (Kevin in \ghpr{1342} fixing \ghit{1341})
     }
     \item Changes in Rcpp Attributes:

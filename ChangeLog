@@ -1,3 +1,9 @@
+2025-01-26  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+
+	* inst/include/Rcpp/config.h: Idem
+
 2025-01-25  Dirk Eddelbuettel  <edd@debian.org>
 
 	* vignettes/rmd/Rcpp-libraries.Rdm: Add mention of PACKAGE_types.h
