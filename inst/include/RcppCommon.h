@@ -54,6 +54,9 @@ namespace Rcpp {
 #include <iomanip>
 #include <sstream>
 #include <string>
+#if __cplusplus >= 201703L
+#include <string_view>
+#endif
 #include <list>
 #include <map>
 #include <set>

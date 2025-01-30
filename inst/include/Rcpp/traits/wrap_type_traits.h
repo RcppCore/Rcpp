@@ -82,6 +82,9 @@ template <> struct wrap_type_traits<unsigned int> { typedef wrap_type_primitive_
 template <> struct wrap_type_traits<bool> { typedef wrap_type_primitive_tag wrap_category; } ;
 template <> struct wrap_type_traits<std::string> { typedef wrap_type_primitive_tag wrap_category; } ;
 template <> struct wrap_type_traits<std::wstring> { typedef wrap_type_primitive_tag wrap_category; } ;
+#if __cplusplus >= 201703L
+template <> struct wrap_type_traits<std::string_view> { typedef wrap_type_primitive_tag wrap_category; } ;
+#endif
 template <> struct wrap_type_traits<Rcpp::String> { typedef wrap_type_primitive_tag wrap_category; } ;
 template <> struct wrap_type_traits<char> { typedef wrap_type_primitive_tag wrap_category; } ;
 template <> struct wrap_type_traits<wchar_t> { typedef wrap_type_primitive_tag wrap_category; } ;

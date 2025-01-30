@@ -66,6 +66,12 @@ namespace Rcpp {
             return make_charsexp__impl__cstring(st.c_str());
         }
 
+#if __cplusplus >= 201703L
+        inline SEXP make_charsexp__impl__cstring(std::string_view st) {
+            return Rf_mkCharLen(st.data(), st.size());
+        }
+#endif
+
     	template <typename T>
     	inline SEXP make_charsexp__impl(const T& s, Rcpp::traits::true_type) {
             return make_charsexp__impl__wstring(s);
