@@ -304,3 +304,10 @@ SEXP vector_Foo(){
     vec[1] = Foo( 3 ) ;
     return wrap(vec) ;
 }
+
+// [[Rcpp::plugins(cpp17)]]
+// [[Rcpp::export]]
+SEXP test_wrap_string_view(){
+    std::string_view sv = "test string value";
+    return wrap(sv);
+}
