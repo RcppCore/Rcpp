@@ -132,3 +132,6 @@ expect_equal(sapply( vector_Foo(), function(.) .$get() ), c(2, 3),
 
 #    test.wrap.custom.class <- function() {
 expect_equal(test_wrap_custom_class(), 42)
+
+#    test.wrap.string_view <- function() {
+expect_equal(test_wrap_string_view(), "test string value")

@@ -1,3 +1,12 @@
+2025-01-31  Lev Kandel  <lmakhlis@google.com>
+
+	* inst/include/Rcpp/internal/wrap.h: Add support for std::string_view
+	* inst/include/Rcpp/traits/r_type_traits.h: Idem
+	* inst/include/Rcpp/traits/wrap_type_traits.h: Idem
+	* inst/include/RcppCommon.h: Include <string_view>
+	* inst/tinytest/cpp/wrap.cpp: Add unit test for wrap(std::string_view)
+	* inst/tinytest/test_wrap.R: Idem
+
 2025-01-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date

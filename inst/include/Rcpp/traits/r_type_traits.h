@@ -141,6 +141,9 @@ template<> struct r_type_traits<Rcomplex>{ typedef r_type_primitive_tag r_catego
 template<> struct r_type_traits<bool>{ typedef r_type_primitive_tag r_category ; } ;
 template<> struct r_type_traits<std::string>{ typedef r_type_string_tag r_category ; } ;
 template<> struct r_type_traits<std::wstring>{ typedef r_type_string_tag r_category ; } ;
+#if __cplusplus >= 201703L
+template<> struct r_type_traits<std::string_view>{ typedef r_type_string_tag r_category ; } ;
+#endif
 template<> struct r_type_traits<char>{ typedef r_type_string_tag r_category ; } ;
 template<> struct r_type_traits<wchar_t>{ typedef r_type_string_tag r_category ; } ;
 
