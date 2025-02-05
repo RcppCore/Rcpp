@@ -5,6 +5,11 @@
 
 \section{Changes in Rcpp release version 1.0.15 (2025-07-xx)}{
   \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item The \code{std::string_view} type is now covered by \code{wrap()}
+      (Lev Kandel in \ghpr{1356} as discussed in \ghit{1357})
+    }
     \item Changes in Rcpp Documentation:
     \itemize{
       \item Several typos were correct in the NEWS file (Ben Bolker in

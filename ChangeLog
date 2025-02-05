@@ -1,3 +1,9 @@
+2025-02-05  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+
+	* inst/include/Rcpp/config.h: Idem
+
 2025-01-31  Lev Kandel  <lmakhlis@google.com>
 
 	* inst/include/Rcpp/internal/wrap.h: Add support for std::string_view
