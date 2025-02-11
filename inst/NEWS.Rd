@@ -17,6 +17,11 @@
       \item The Rcpp Libraries vignette mentions \code{PACKAGE_types.h} to
       declare types used in \code{RcppExports.cpp} (Dirk in \ghpr{1355})
     }
+    \item Changes in Rcpp Deployment:
+    \itemize{
+      \item \code{Rcpp.package.skeleton()} creates \sQuote{URL} and
+      \sQuote{BugReports} if given a github username (Dirk \ghpr{1358})
+    }
   }
 }
 
