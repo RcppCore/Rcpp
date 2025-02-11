@@ -86,9 +86,9 @@ owd <- getwd()
 setwd(path)
 R <- shQuote( file.path( R.home( component = "bin" ), "R" ))
 system( paste(R, "CMD build", pkg_path) )
-checkTrue( file.exists("foo_1.0.tar.gz"), "can successfully R CMD build the pkg")
+checkTrue( file.exists("foo_0.0.1.tar.gz"), "can successfully R CMD build the pkg")
 dir.create("templib")
-install.packages("foo_1.0.tar.gz", file.path(path, "templib"), repos=NULL, type="source")
+install.packages("foo_0.0.1.tar.gz", file.path(path, "templib"), repos=NULL, type="source")
 require("foo", file.path(path, "templib"), character.only=TRUE)
 
 
@@ -141,7 +141,7 @@ checkTrue(file.exists( file.path(src_path, "rcpp_module.cpp")),
 
 on.exit(unlink(pkg_path, recursive=TRUE))
 on.exit( setwd(owd), add=TRUE )
-on.exit( unlink( file.path(path, "foo_1.0.tar.gz") ), add=TRUE)
+on.exit( unlink( file.path(path, "foo_0.0.1.tar.gz") ), add=TRUE)
 on.exit( unlink( file.path(path, "templib"), recursive=TRUE), add=TRUE )
 on.exit( unlink(pkg_path, recursive=TRUE), add=TRUE )
 on.exit(unlink(pkg_path, recursive=TRUE), add=TRUE)
