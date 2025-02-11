@@ -1,4 +1,4 @@
-# Copyright (C) 2009 - 2021  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2009 - 2025  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -24,6 +24,7 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
                                   maintainer = if (missing(author)) "Your Name"
                                                else author,
                                   email = "your@email.com",
+                                  githubuser = NA_character_,
                                   license = "GPL (>= 2)") {
 
     havePkgKitten <- requireNamespace("pkgKitten", quietly=TRUE)
@@ -90,18 +91,26 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
                                          paste(splitname[-length(splitname)], collapse=" "),
                                          splitname[length(splitname)],
                                          email))
-        #x[, "Author"] <- author
-        #x[, "Maintainer"] <- sprintf("%s <%s>", maintainer, email)
+        fields_written <- c("Package", "Type", "Title", "Version", "Date",
+                            "Authors@R", "Description", "License", "Imports", "LinkingTo")
+        if (!is.na(githubuser)) {
+            x <- cbind(x, matrix("", 1, 1, dimnames=list("", "URL")))
+            x[1, "URL"] <- paste0("https://github.com/", githubuser, "/", name)
+            x <- cbind(x, matrix("", 1, 1, dimnames=list("", "BugReports")))
+            x[1, "BugReports"] <- paste0("https://github.com/", githubuser, "/", name, "/issues")
+
+            fields_written <- c("Package", "Type", "Title", "Version", "Date",
+                                "Authors@R", "Description", "URL", "BugReports",
+                                "License", "Imports", "LinkingTo")
+            }
+
         x[, "License"] <- license
         x[, "Title"] <- "Concise Summary of What the Package Does"
         x[, "Description"] <- "More about what it does (maybe more than one line)."
+        x[, "Version"] <- "0.0.1"
         message( " >> added Imports: Rcpp" )
         message( " >> added LinkingTo: Rcpp" )
-        write.dcf(x, file = DESCRIPTION)
-        write.dcf(x[1, c("Package", "Type", "Title", "Version", "Date",
-                         "Authors@R", "Description", "License", "Imports", "LinkingTo"),
-                    drop = FALSE],
-                  file = DESCRIPTION)
+        write.dcf(x[1, fields_written, drop = FALSE], file = DESCRIPTION)
     }
 
     ## add useDynLib and importFrom to NAMESPACE

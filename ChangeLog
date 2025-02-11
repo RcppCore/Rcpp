@@ -1,3 +1,14 @@
+2025-02-11  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/Rcpp.package.skeleton.R (Rcpp.package.skeleton): Support optional
+	argument 'github_user' to populate URL and BugReports if given
+	* man/Rcpp.package.skeleton.Rd: Document new optional argument
+
+	* R/Rcpp.package.skeleton.R (Rcpp.package.skeleton): Default version
+	is now '0.0.1' and not '1.0'
+	* inst/tinytest/test_rcpp_package_skeleton.R: Adjust test accordingly
+	* inst/tinytest/test_expose_class.R: Idem
+
 2025-02-05  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date

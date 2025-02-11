@@ -77,7 +77,7 @@ setwd(path)
 on.exit( setwd(owd), add=TRUE )
 R <- shQuote( file.path( R.home( component = "bin" ), "R" ))
 system( paste(R, "CMD build", pkg_path) )
-gz_name <- paste0(pkg_name, "_1.0.tar.gz")
+gz_name <- paste0(pkg_name, "_0.0.1.tar.gz")
 expect_true( file.exists(gz_name), info = "can successfully R CMD build the pkg")
 
 ## check install + require

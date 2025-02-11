@@ -4,20 +4,20 @@
 Create a skeleton for a new package depending on Rcpp
 }
 \description{
-	\code{Rcpp.package.skeleton} automates the creation of 
-	a new source package that intends to use features of Rcpp. 
-	
+	\code{Rcpp.package.skeleton} automates the creation of
+	a new source package that intends to use features of Rcpp.
+
 	It is based on the \link[utils]{package.skeleton} function
 	which it executes first.
 }
 \usage{
-Rcpp.package.skeleton(name = "anRpackage", list = character(), 
-	environment = .GlobalEnv, path = ".", force = FALSE, 
+Rcpp.package.skeleton(name = "anRpackage", list = character(),
+	environment = .GlobalEnv, path = ".", force = FALSE,
 	code_files = character(), cpp_files = character(),
-	example_code = TRUE, attributes = TRUE, module = FALSE, 
-	author = "Your Name", 
-	maintainer = if(missing( author)) "Your Name" else author, 
-	email = "your@email.com", 
+	example_code = TRUE, attributes = TRUE, module = FALSE,
+	author = "Your Name",
+	maintainer = if(missing( author)) "Your Name" else author,
+	email = "your@email.com", githubuser = NA_character_,
 	license = "GPL (>= 2)"
 	)
 }
@@ -35,42 +35,43 @@ Rcpp.package.skeleton(name = "anRpackage", list = character(),
 	\item{author}{Author of the package.}
 	\item{maintainer}{Maintainer of the package.}
 	\item{email}{Email of the package maintainer.}
+	\item{githubuser}{GitHub username for URL and BugReports, if present.}
 	\item{license}{License of the package.}
 }
 \details{
-	In addition to \link[utils]{package.skeleton} : 
-	
-	The \samp{DESCRIPTION} file gains an Imports line requesting that 
+	In addition to \link[utils]{package.skeleton} :
+
+	The \samp{DESCRIPTION} file gains an Imports line requesting that
 	the package depends on Rcpp and a LinkingTo line so that the package
 	finds Rcpp header files.
-	
+
 	The \samp{NAMESPACE} gains a \code{useDynLib} directive as well
 	as an \code{importFrom(Rcpp, evalCpp} to ensure instantiation of Rcpp.
-	
-	The \samp{src} directory is created if it does not exists. 
-	
+
+	The \samp{src} directory is created if it does not exists.
+
 	If \code{cpp_files} are provided then they will be copied to the \samp{src}
 	directory.
-	
-	If the \code{example_code} argument is set to \code{TRUE}, 
+
+	If the \code{example_code} argument is set to \code{TRUE},
 	example files \samp{rcpp_hello_world.h} and \samp{rcpp_hello_world.cpp}
-	are also created in the \samp{src}. An R file \samp{rcpp_hello_world.R} is 
+	are also created in the \samp{src}. An R file \samp{rcpp_hello_world.R} is
 	expanded in the \samp{R} directory, the \code{rcpp_hello_world} function
 	defined in this files makes use of the C++ function \samp{rcpp_hello_world}
-	defined in the C++ file. These files are given as an example and should 
+	defined in the C++ file. These files are given as an example and should
 	eventually by removed from the generated package.
-	
+
 	If the \code{attributes} argument is \code{TRUE}, then rather than generate
 	the example files as described above, a single \samp{rcpp_hello_world.cpp}
-	file is created in the \samp{src} directory and it's attributes are 
-	compiled using the \code{\link{compileAttributes}} function. This leads to 
+	file is created in the \samp{src} directory and it's attributes are
+	compiled using the \code{\link{compileAttributes}} function. This leads to
 	the files \samp{RcppExports.R} and \samp{RcppExports.cpp} being generated.
-	They are automatically regenerated from \emph{scratch} each time 
-	\code{\link{compileAttributes}} is called. Therefore, one should 
+	They are automatically regenerated from \emph{scratch} each time
+	\code{\link{compileAttributes}} is called. Therefore, one should
 	\strong{not} modify by hand either of the \samp{RcppExports} files.
-	
-	If the \code{module} argument is \code{TRUE}, a sample Rcpp module will 
-	be generated as well. 
+
+	If the \code{module} argument is \code{TRUE}, a sample Rcpp module will
+	be generated as well.
 }
 \value{
 Nothing, used for its side effects
@@ -105,4 +106,3 @@ vignette( "Rcpp-modules" )
 }
 }
 \keyword{ programming }
-

@@ -38,10 +38,10 @@ require(pkg, lib.loc = "templib", character.only = TRUE)
 
 # Test Package
 options(verbose=TRUE)
-expect_equal(test_no_attributes(list("{A}"), FALSE),list("{A}", FALSE)) 
+expect_equal(test_no_attributes(list("{A}"), FALSE),list("{A}", FALSE))
 expect_equal(test_signature(),list("{A}", TRUE))
 expect_equal(test_rng_false_signature_invisible_true(),list("{A}", TRUE))
-expect_equal(test_rng_false(list("{A}"), FALSE),list("{A}", FALSE)) 
+expect_equal(test_rng_false(list("{A}"), FALSE),list("{A}", FALSE))
 expect_equal(test_rng_true(list("{A}"), FALSE),list("{A}", FALSE))
 expect_equal(test_rng_true_signature(),list("{A}", TRUE))
 expect_equal(test_invisible_true_rng_true(list("{A}"), FALSE),list("{A}", FALSE))
@@ -105,7 +105,7 @@ expect_error({
 
 # test 3, from Enchufa2
 # This third example should not compile because of missing end bracket }
-# The bracket within the signature is taken as the end bracket, which results in 
+# The bracket within the signature is taken as the end bracket, which results in
 # invalid R code. There are some additional warnings due to the incorrect syntax
 expect_warning({
   expect_error({
