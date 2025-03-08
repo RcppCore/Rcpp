@@ -99,7 +99,11 @@ namespace Rcpp{
             if( TYPEOF(fun) != CLOSXP ) {
                 throw not_a_closure(Rf_type2char(TYPEOF(fun)));
             }
-            return CLOENV(fun) ;
+            #if (defined(R_VERSION) && R_VERSION >= R_Version(4,5,0))
+            return R_ClosureEnv(fun);
+            #else
+            return CLOENV(fun);
+            #endif
         }
 
         /**
