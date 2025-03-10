@@ -12,7 +12,7 @@
       \item A last remaining \code{DATAPTR} use has been converted to
       \code{DATAPTR_RO} (Dirk in \ghpr{1359})
       \item Under R 4.5.0 or later, \code{R_ClosureEnv} is used instead of
-      \code{CLOENV} (Dirk in \ghpr{1360})
+      \code{CLOENV} (Dirk in \ghpr{1361} fixing \ghpr{1360})
     }
     \item Changes in Rcpp Documentation:
     \itemize{
