@@ -1,3 +1,12 @@
+2025-03-07  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+
+	* inst/include/Rcpp/config.h: Idem
+
+	* src/barrier.cpp (dataptr): Replace remaining DATAPTR with
+	DATAPTR_RO for suitable R greater than 3.5.0
+
 2025-02-11  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/Rcpp.package.skeleton.R (Rcpp.package.skeleton): Support optional

@@ -76,7 +76,13 @@ SEXP* get_vector_ptr(SEXP x) {
 
 // [[Rcpp::register]]
 void* dataptr(SEXP x) {
+#if R_VERSION >= R_Version(3,5,0)
+    // DATAPTR_RO was introduced with R 3.5.0
+    return const_cast<void*>(DATAPTR_RO(x));
+#else
+    // this will get your wrists slapped under recent R CMD check ...
     return DATAPTR(x);
+#endif
 }
 
 // [[Rcpp::register]]
