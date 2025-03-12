@@ -1,7 +1,16 @@
+2025-03-10  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+	* inst/include/Rcpp/config.h: Idem
+
+2025-03-08  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/Function.h: Use R_ClosureEnv instead of
+	deprecated CLOENV if under R >= 4.5.0
+
 2025-03-07  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
-
 	* inst/include/Rcpp/config.h: Idem
 
 	* src/barrier.cpp (dataptr): Replace remaining DATAPTR with
@@ -21,7 +30,6 @@
 2025-02-05  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
-
 	* inst/include/Rcpp/config.h: Idem
 
 2025-01-31  Lev Kandel  <lmakhlis@google.com>
@@ -36,7 +44,6 @@
 2025-01-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
-
 	* inst/include/Rcpp/config.h: Idem
 
 2025-01-25  Dirk Eddelbuettel  <edd@debian.org>
