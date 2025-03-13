@@ -1,5 +1,8 @@
 2025-03-13  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Roll micro version and date
+	* inst/include/Rcpp/config.h: Idem
+
 	* inst/include/Rcpp/Environment.h: Switch from R_lsInternal to
 	R_lsInternal3 as the former is now outlawed
 
