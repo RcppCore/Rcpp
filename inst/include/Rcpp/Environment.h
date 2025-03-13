@@ -84,7 +84,7 @@ namespace Rcpp{
          */
         SEXP ls(bool all) const {
             SEXP env = Storage::get__() ;
-            return R_lsInternal( env, all ? TRUE : FALSE ) ;
+            return R_lsInternal3(env, all ? TRUE : FALSE, TRUE);
             return R_NilValue ;
         }
 
