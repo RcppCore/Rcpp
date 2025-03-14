@@ -522,18 +522,12 @@ namespace Rcpp {
          * quite a cryptic message
          */
 	template <typename T>
-        inline SEXP wrap_dispatch_unknown_iterable(const T& object, ::Rcpp::traits::false_type) {
-            RCPP_DEBUG_1("wrap_dispatch_unknown_iterable<%s>(., false )", DEMANGLE(T))
-	    // here we know that T is not convertible to SEXP
-	    #ifdef HAS_STATIC_ASSERT
-                static_assert(!sizeof(T), "cannot convert type to SEXP");
-            #else
-                // leave the cryptic message
-                SEXP x = object;
-                return x;
-            #endif
-            return R_NilValue; // -Wall
-        }
+    inline SEXP wrap_dispatch_unknown_iterable(const T& object, ::Rcpp::traits::false_type) {
+        RCPP_DEBUG_1("wrap_dispatch_unknown_iterable<%s>(., false )", DEMANGLE(T))
+        // here we know that T is not convertible to SEXP
+        static_assert(!sizeof(T), "cannot convert type to SEXP");
+        return R_NilValue; // -Wall
+    }
 
 	template <typename T>
         inline SEXP wrap_dispatch_unknown_iterable__logical(const T& object, ::Rcpp::traits::true_type) {
@@ -936,7 +930,7 @@ namespace Rcpp {
          if (v != NULL)
              return Rf_mkString(v);
          else
-             return R_NilValue; 			// #nocov 
+             return R_NilValue; 			// #nocov
      }
 
      /**
