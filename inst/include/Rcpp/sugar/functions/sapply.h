@@ -21,9 +21,8 @@
 #ifndef Rcpp__sugar__sapply_h
 #define Rcpp__sugar__sapply_h
 
-#if defined(RCPP_USING_CXX0X_OR_LATER)
-	#include <type_traits> // ::std::result_of
-#endif
+// This used to be conditional on a define and test in compiler.h
+#include <type_traits> // ::std::result_of
 
 namespace Rcpp{
 namespace sugar{
@@ -31,7 +30,7 @@ namespace sugar{
 template <typename Function, typename SugarExpression>
 struct sapply_application_result_of
 {
-#if defined(RCPP_USING_CXX0X_OR_LATER)
+#if __cplusplus >= 201103L
     #if __cplusplus < 201703L
         // deprecated by C++17, removed by C++2020, see https://en.cppreference.com/w/cpp/types/result_of
  	    typedef typename ::std::result_of<Function(typename SugarExpression::stored_type)>::type type;
@@ -40,9 +39,10 @@ struct sapply_application_result_of
         typedef typename ::std::invoke_result<Function, typename SugarExpression::stored_type>::type type;
     #endif
 #else
+    // TODO this else branch can likely go
 	typedef typename ::Rcpp::traits::result_of<Function>::type type;
 #endif
-} ;
+};
 
 // template <typename Function, typename SugarExpression>
 // using sapply_application_result_of_t = typename sapply_application_result_of<Function, SugarExpression>::type;
