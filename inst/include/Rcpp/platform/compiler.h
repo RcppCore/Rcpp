@@ -22,22 +22,17 @@
 
 // NB: A vast list valid identifiers is at these wiki pages:
 //     http://sourceforge.net/p/predef/wiki/Home/
-#if defined(__GNUC__) || defined(__SUNPRO_CC) || defined(__clang__) || defined(__INTEL_COMPILER)
-#define GOOD_COMPILER_FOR_RCPP
-#else
+#if !defined(__GNUC__) && !defined(__SUNPRO_CC) && !defined(__clang__) && !defined(__INTEL_COMPILER)
 #error "This compiler is not supported"
 #endif
 
-// New simpler test and minimal standard: C++11 or else we die
+// Simpler test and minimal standard: C++11 or else we die
 #if __cplusplus < 201103L
 #error "The C++ compilation standard is too old: use C++11 or newer."
 #endif
 
-#ifdef __GNUC__
-    #define GCC_VERSION (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
-#endif
-
 // C++11 features -- that used to be carefully tested for or worked around via CXX0X / TR1
+// These defines are all planned to get removed just how a number have already been removed. One at a time...
 #define RCPP_USING_CXX11
 #define HAS_VARIADIC_TEMPLATES
 #include <cmath>
@@ -49,7 +44,7 @@
 #define RCPP_USING_UNORDERED_SET
 #define RCPP_UNORDERED_SET std::unordered_set
 
-#ifdef __GNUC__
+#if defined(__GNUC__)
   #define RCPP_HAS_DEMANGLING
 #endif
 
