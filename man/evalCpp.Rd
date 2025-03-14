@@ -62,7 +62,7 @@ evalCpp("__cplusplus")
 evalCpp("std::numeric_limits<double>::max()")
 
 # areMacrosDefined is no longer exported but accessible via ':::'
-Rcpp:::areMacrosDefined(c("__cplusplus", "GCC_VERSION"))
+Rcpp:::areMacrosDefined(c("__cplusplus", "RCPP_VERSION"))
 
 }
 }
