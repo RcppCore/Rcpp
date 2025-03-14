@@ -1,8 +1,6 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
 // compiler.h: Rcpp R/C++ interface class library -- check compiler
 //
-// Copyright (C) 2012 - 2013  Dirk Eddelbuettel, Romain Francois, and Kevin Ushey
+// Copyright (C) 2012 - 2025  Dirk Eddelbuettel, Romain Francois, and Kevin Ushey
 //
 // This file is part of Rcpp.
 //
@@ -43,99 +41,72 @@
 # error "This compiler is not supported"
 #endif
 
+#if __cplusplus < 201103L
+# error "The C++ compilation standard is too old: use C++11 or newer."
+#endif
+
 #ifdef __GNUC__
     #define GCC_VERSION (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
-    // g++ 4.5 does not seem to like some of the fast indexing
-    #if GCC_VERSION >= 40500
-        #define IS_GCC_450_OR_LATER
-    #endif
-    // g++ 4.6 switches from exception_defines.h to bits/exception_defines.h
-    #if GCC_VERSION < 40600
-        #define IS_EARLIER_THAN_GCC_460
-    #endif
-    #if GCC_VERSION >= 40600
-        #define IS_GCC_460_OR_LATER
-    #endif
 #endif
 
-// Check for the presence of C++0x (or later) support
-#if defined(__GXX_EXPERIMENTAL_CXX0X__) || (__cplusplus >= 201103L)
-  #define RCPP_USING_CXX0X_OR_LATER
-#endif
+// TODO: Clean in a subsequent round
+#define RCPP_USING_CXX0X_OR_LATER
 
-// Check C++0x/11 features
+// Check C++11 features (could/should work generally)
 #if defined(__INTEL_COMPILER)
-    #if __cplusplus >= 201103L
-        #define RCPP_USING_CXX11
-        #if __INTEL_COMPILER >= 1210
-            #define HAS_VARIADIC_TEMPLATES
-        #endif
-        #if __INTEL_COMPILER >= 1100
-            #define HAS_STATIC_ASSERT
-        #endif
+    #define RCPP_USING_CXX11
+    #if __INTEL_COMPILER >= 1210
+        #define HAS_VARIADIC_TEMPLATES
+    #endif
+    #if __INTEL_COMPILER >= 1100
+        #define HAS_STATIC_ASSERT
     #endif
 #elif defined(__clang__)
-    #if __cplusplus >= 201103L
-        #define RCPP_USING_CXX11
-        #if __has_feature(cxx_variadic_templates)
-            #define HAS_VARIADIC_TEMPLATES
-        #endif
-        #if __has_feature(cxx_static_assert)
-            #define HAS_STATIC_ASSERT
-        #endif
+    #define RCPP_USING_CXX11
+    #if __has_feature(cxx_variadic_templates)
+        #define HAS_VARIADIC_TEMPLATES
+    #endif
+    #if __has_feature(cxx_static_assert)
+        #define HAS_STATIC_ASSERT
     #endif
 #elif defined(__GNUC__)
-    #ifdef __GXX_EXPERIMENTAL_CXX0X__
-        #if GCC_VERSION >= 40300
-            #define HAS_VARIADIC_TEMPLATES
-            #define HAS_STATIC_ASSERT
-        #endif
+    #define RCPP_USING_CXX11
+    #if __has_feature(cxx_variadic_templates)
+        #define HAS_VARIADIC_TEMPLATES
     #endif
-	#if GCC_VERSION >= 40800 && __cplusplus >= 201103L
-		#define RCPP_USING_CXX11
-	#endif
+    #if __has_feature(cxx_static_assert)
+        #define HAS_STATIC_ASSERT
+    #endif
 #endif
 
-// Check C++0x headers
+// Check C++0x headers (TODO remove when no longer needed below)
 #include <cmath>
 #if defined(__INTEL_COMPILER) || (defined(__GNUC__) && !defined(__clang__))
-    #if defined(__GLIBCXX__) && defined(__GXX_EXPERIMENTAL_CXX0X__)
-        #if GCC_VERSION >= 40400
-            #define HAS_CXX0X_UNORDERED_MAP
-            #define HAS_CXX0X_UNORDERED_SET
-            #define HAS_CXX0X_INITIALIZER_LIST
-        #endif
-    #endif
+    #define HAS_CXX0X_UNORDERED_MAP
+    #define HAS_CXX0X_UNORDERED_SET
+    #define HAS_CXX0X_INITIALIZER_LIST
 #elif defined(__clang__)
-    #if __cplusplus >= 201103L
-        #if __has_include(<unordered_map>)
-            #define HAS_CXX0X_UNORDERED_MAP
-        #endif
-        #if __has_include(<unordered_set>)
-            #define HAS_CXX0X_UNORDERED_SET
-        #endif
-        #if __has_include(<initializer_list>)
-            #define HAS_CXX0X_INITIALIZER_LIST
-        #endif
+    #if __has_include(<unordered_map>)
+        #define HAS_CXX0X_UNORDERED_MAP
+    #endif
+    #if __has_include(<unordered_set>)
+        #define HAS_CXX0X_UNORDERED_SET
+    #endif
+    #if __has_include(<initializer_list>)
+        #define HAS_CXX0X_INITIALIZER_LIST
     #endif
 #endif
 
-// Check TR1 Headers
+// Check TR1 Headers (TODO remove when no longer needed below)
 #if defined(__INTEL_COMPILER) || (defined(__GNUC__) && !defined(__clang__))
-    #if defined(__GLIBCXX__)
-        #if GCC_VERSION >= 40400 || ( GCC_VERSION >= 40201 && defined(__APPLE__) )
-            #define HAS_TR1_UNORDERED_MAP
-            #define HAS_TR1_UNORDERED_SET
-        #endif
-    #endif
+    #define HAS_TR1_UNORDERED_MAP
+    #define HAS_TR1_UNORDERED_SET
 #elif defined(__clang__)
-    #if __cplusplus >= 201103L
-        #if __has_include(<tr1/unordered_map>)
-            #define HAS_TR1_UNORDERED_MAP
-        #endif
-        #if __has_include(<tr1/unordered_set>)
-            #define HAS_TR1_UNORDERED_SET
-        #endif
+    #if __has_include(<tr1/unordered_map>)
+        #define HAS_TR1_UNORDERED_MAP
+    #endif
+    #if __has_include(<tr1/unordered_set>)
+        #define HAS_TR1_UNORDERED_SET
     #endif
 #endif
 
@@ -144,10 +115,11 @@
 #endif
 
 // Conditionally include headers
-#ifdef HAS_CXX0X_INITIALIZER_LIST
+// #ifdef HAS_CXX0X_INITIALIZER_LIST
 #include <initializer_list>
-#endif
+// #endif
 
+// TODO: Simplify further: First case should work generally
 #ifdef RCPP_USING_CXX11
     #if defined(HAS_CXX0X_UNORDERED_MAP)
         #include <unordered_map>
