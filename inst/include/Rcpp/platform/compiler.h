@@ -42,9 +42,6 @@
 #define HAS_VARIADIC_TEMPLATES
 #define HAS_STATIC_ASSERT
 #include <cmath>
-#define HAS_CXX0X_UNORDERED_MAP
-#define HAS_CXX0X_UNORDERED_SET
-#define HAS_CXX0X_INITIALIZER_LIST
 #include <initializer_list>
 #include <unordered_map>
 #define RCPP_USING_UNORDERED_MAP
