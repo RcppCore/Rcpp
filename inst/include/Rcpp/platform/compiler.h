@@ -70,13 +70,10 @@
         #define HAS_STATIC_ASSERT
     #endif
 #elif defined(__GNUC__)
+    // given the check about __cplusplus we can unconditionally define
     #define RCPP_USING_CXX11
-    #if __has_feature(cxx_variadic_templates)
-        #define HAS_VARIADIC_TEMPLATES
-    #endif
-    #if __has_feature(cxx_static_assert)
-        #define HAS_STATIC_ASSERT
-    #endif
+    #define HAS_VARIADIC_TEMPLATES
+    #define HAS_STATIC_ASSERT
 #endif
 
 // Check C++0x headers (TODO remove when no longer needed below)
