@@ -40,7 +40,6 @@
 // C++11 features -- that used to be carefully tested for or worked around via CXX0X / TR1
 #define RCPP_USING_CXX11
 #define HAS_VARIADIC_TEMPLATES
-#define HAS_STATIC_ASSERT
 #include <cmath>
 #include <initializer_list>
 #include <unordered_map>
