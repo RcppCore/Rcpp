@@ -76,49 +76,37 @@
     #define HAS_STATIC_ASSERT
 #endif
 
-// Check C++0x headers (TODO remove when no longer needed below)
+// C++11 features -- that used to be carefully tested for or worked around via CXX0X / TR1
 #include <cmath>
-#if defined(__INTEL_COMPILER) || (defined(__GNUC__) && !defined(__clang__))
-    #define HAS_CXX0X_UNORDERED_MAP
-    #define HAS_CXX0X_UNORDERED_SET
-    #define HAS_CXX0X_INITIALIZER_LIST
-#elif defined(__clang__)
-    #if __has_include(<unordered_map>)
-        #define HAS_CXX0X_UNORDERED_MAP
-    #endif
-    #if __has_include(<unordered_set>)
-        #define HAS_CXX0X_UNORDERED_SET
-    #endif
-    #if __has_include(<initializer_list>)
-        #define HAS_CXX0X_INITIALIZER_LIST
-    #endif
-#endif
+#define HAS_CXX0X_UNORDERED_MAP
+#define HAS_CXX0X_UNORDERED_SET
+#define HAS_CXX0X_INITIALIZER_LIST
 
-// Check TR1 Headers (TODO remove when no longer needed below)
-#if defined(__INTEL_COMPILER) || (defined(__GNUC__) && !defined(__clang__))
-    #define HAS_TR1_UNORDERED_MAP
-    #define HAS_TR1_UNORDERED_SET
-#elif defined(__clang__)
-    #if __has_include(<tr1/unordered_map>)
-        #define HAS_TR1_UNORDERED_MAP
-    #endif
-    #if __has_include(<tr1/unordered_set>)
-        #define HAS_TR1_UNORDERED_SET
-    #endif
-#endif
+// // Check TR1 Headers (TODO remove when no longer needed below)
+// #if defined(__INTEL_COMPILER) || (defined(__GNUC__) && !defined(__clang__))
+//     #define HAS_TR1_UNORDERED_MAP
+//     #define HAS_TR1_UNORDERED_SET
+// #elif defined(__clang__)
+//     #if __has_include(<tr1/unordered_map>)
+//         #define HAS_TR1_UNORDERED_MAP
+//     #endif
+//     #if __has_include(<tr1/unordered_set>)
+//         #define HAS_TR1_UNORDERED_SET
+//     #endif
+// #endif
 
-#if defined(HAS_TR1_UNORDERED_MAP) && defined(HAS_TR1_UNORDERED_SET)
-#define HAS_TR1
-#endif
+// #if defined(HAS_TR1_UNORDERED_MAP) && defined(HAS_TR1_UNORDERED_SET)
+// #define HAS_TR1
+// #endif
 
 // Conditionally include headers
 // #ifdef HAS_CXX0X_INITIALIZER_LIST
 #include <initializer_list>
 // #endif
 
-// TODO: Simplify further: First case should work generally
-#ifdef RCPP_USING_CXX11
-    #if defined(HAS_CXX0X_UNORDERED_MAP)
+// // TODO: Simplify further: First case should work generally
+// #ifdef RCPP_USING_CXX11
+//     #if defined(HAS_CXX0X_UNORDERED_MAP)
         #include <unordered_map>
         #define RCPP_USING_UNORDERED_MAP
         #define RCPP_UNORDERED_MAP std::unordered_map
@@ -126,8 +114,8 @@
     //     #include <map>
     //     #define RCPP_USING_MAP
     //     #define RCPP_UNORDERED_MAP std::map
-    #endif
-    #if defined(HAS_CXX0X_UNORDERED_SET)
+    // #endif
+    // #if defined(HAS_CXX0X_UNORDERED_SET)
         #include <unordered_set>
         #define RCPP_USING_UNORDERED_SET
         #define RCPP_UNORDERED_SET std::unordered_set
@@ -135,27 +123,27 @@
     //     #include <set>
     //     #define RCPP_USING_SET
     //     #define RCPP_UNORDERED_SET std::set
-    #endif
-#else
-    #if defined(HAS_TR1_UNORDERED_MAP)
-        #include <tr1/unordered_map>
-        #define RCPP_USING_TR1_UNORDERED_MAP
-        #define RCPP_UNORDERED_MAP std::tr1::unordered_map
-    // #else
-    //     #include <map>
-    //     #define RCPP_USING_MAP
-    //     #define RCPP_UNORDERED_MAP std::map
-    #endif
-    #if defined(HAS_TR1_UNORDERED_SET)
-        #include <tr1/unordered_set>
-        #define RCPP_USING_TR1_UNORDERED_SET
-        #define RCPP_UNORDERED_SET std::tr1::unordered_set
-    // #else
-    //     #include <set>
-    //     #define RCPP_USING_SET
-    //     #define RCPP_UNORDERED_SET std::set
-    #endif
-#endif
+    // #endif
+// #else
+//     #if defined(HAS_TR1_UNORDERED_MAP)
+//         #include <tr1/unordered_map>
+//         #define RCPP_USING_TR1_UNORDERED_MAP
+//         #define RCPP_UNORDERED_MAP std::tr1::unordered_map
+//     // #else
+//     //     #include <map>
+//     //     #define RCPP_USING_MAP
+//     //     #define RCPP_UNORDERED_MAP std::map
+//     #endif
+//     #if defined(HAS_TR1_UNORDERED_SET)
+//         #include <tr1/unordered_set>
+//         #define RCPP_USING_TR1_UNORDERED_SET
+//         #define RCPP_UNORDERED_SET std::tr1::unordered_set
+//     // #else
+//     //     #include <set>
+//     //     #define RCPP_USING_SET
+//     //     #define RCPP_UNORDERED_SET std::set
+//     #endif
+// #endif
 
 #ifdef __GNUC__
   #define RCPP_HAS_DEMANGLING
