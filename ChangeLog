@@ -1,3 +1,14 @@
+2025-03-18  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/module/class.h: Use variadic templates unconditionally
+	* inst/include/Rcpp/grow.h: Idem
+
+        * inst/include/Rcpp/module/Module_generated_class_constructor.h: Removed
+        * inst/include/Rcpp/module/Module_generated_class_factory.h: Idem
+        * inst/include/Rcpp/module/Module_generated_method.h: Idem
+        * inst/include/Rcpp/module/Module_generated_Pointer_method.h: Idem
+	* inst/include/Rcpp/generated/grow__pairlist.h: Idem
+
 2025-03-15  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
