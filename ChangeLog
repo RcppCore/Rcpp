@@ -1,3 +1,19 @@
+2025-03-15  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+	* inst/include/Rcpp/config.h: Idem
+
+	* inst/include/Rcpp/platform/compiler.h: Simplified and shortened
+	establishing C++11 as baseline; further PRs to complete this
+	* inst/include/Rcpp/String.h: Unconditionally use std::hash with C++11
+	* inst/include/Rcpp/wrap.h: Unconditionally use static_assert
+	* inst/include/Rcpp/sugar/functions/sapply.h: Use std::result_of
+	(with C++11 or C++14) or std::invoke_result (C++17 or later)
+	* inst/include/Rcpp/sugar/functions/table.h: Use std::map
+	* inst/include/Rcpp/sugar/sets.h: Use std::unordered_{set,map}
+	* man/evalCpp.Rd: Update example
+	* src/api.cpp: Simplify rcpp_capabilities assignment
+
 2025-03-13  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date

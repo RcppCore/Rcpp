@@ -5,16 +5,16 @@
 Evaluate a C++ Expression
 }
 \description{
-Evaluates a C++ expression. This creates a C++ function using 
-\code{\link{cppFunction}} and calls it to get the result. 
+Evaluates a C++ expression. This creates a C++ function using
+\code{\link{cppFunction}} and calls it to get the result.
 }
 \usage{
-evalCpp(code, depends = character(), plugins = character(), includes = character(), 
+evalCpp(code, depends = character(), plugins = character(), includes = character(),
         rebuild = FALSE, cacheDir = getOption("rcpp.cache.dir", tempdir()),
         showOutput = verbose, verbose = getOption("verbose"))
 
-areMacrosDefined(names, depends = character(), includes = character(), 
-        rebuild = FALSE, showOutput = verbose, 
+areMacrosDefined(names, depends = character(), includes = character(),
+        rebuild = FALSE, showOutput = verbose,
         verbose = getOption("verbose"))
 }
 \arguments{
@@ -47,10 +47,10 @@ see \code{\link{cppFunction}}
 }
 }
 \note{
-    The result type of the C++ expression must be compatible with \code{Rcpp::wrap}.     
+    The result type of the C++ expression must be compatible with \code{Rcpp::wrap}.
 }
 \value{
-    The result of the evaluated C++ expression. 
+    The result of the evaluated C++ expression.
 }
 \seealso{
 \code{\link{sourceCpp}}, \code{\link{cppFunction}}
@@ -58,10 +58,11 @@ see \code{\link{cppFunction}}
 \examples{
 \dontrun{
 
-evalCpp( "__cplusplus" )
-evalCpp( "std::numeric_limits<double>::max()" )
-    
-areMacrosDefined( c("__cplusplus", "HAS_TR1" ) )
+evalCpp("__cplusplus")
+evalCpp("std::numeric_limits<double>::max()")
+
+# areMacrosDefined is no longer exported but accessible via ':::'
+Rcpp:::areMacrosDefined(c("__cplusplus", "RCPP_VERSION"))
 
 }
 }

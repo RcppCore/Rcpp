@@ -171,32 +171,12 @@ SEXP as_character_externalptr(SEXP xp) {
 SEXP rcpp_capabilities() {
     Shield<SEXP> cap(Rf_allocVector(LGLSXP, 13));
     Shield<SEXP> names(Rf_allocVector(STRSXP, 13));
-    #ifdef HAS_VARIADIC_TEMPLATES
-        LOGICAL(cap)[0] = TRUE;
-    #else
-        LOGICAL(cap)[0] = FALSE;
-    #endif
-    #ifdef HAS_CXX0X_INITIALIZER_LIST
-        LOGICAL(cap)[1] = TRUE;
-    #else
-        LOGICAL(cap)[1] = FALSE;
-    #endif
-    /* exceptions are always supported */
-    LOGICAL(cap)[2] = TRUE;
-
-    #ifdef HAS_TR1_UNORDERED_MAP
-        LOGICAL(cap)[3] = TRUE;
-    #else
-       LOGICAL(cap)[3] = FALSE;
-    #endif
-
-    #ifdef HAS_TR1_UNORDERED_SET
-        LOGICAL(cap)[4] = TRUE;
-    #else
-        LOGICAL(cap)[4] = FALSE;
-    #endif
-
-    LOGICAL(cap)[5] = TRUE;
+    LOGICAL(cap)[0] = TRUE; // HAS_VARIADIC_TEMPLATES
+    LOGICAL(cap)[1] = TRUE; // HAS_CXX0X_INITIALIZER_LIST
+    LOGICAL(cap)[2] = TRUE; /* exceptions are always supported */
+    LOGICAL(cap)[3] = TRUE; // HAS_TR1_UNORDERED_MAP
+    LOGICAL(cap)[4] = TRUE; // HAS_TR1_UNORDERED_SET
+    LOGICAL(cap)[5] = TRUE; // Modules (TODO respect header choice ?)
 
     #ifdef RCPP_HAS_DEMANGLING
         LOGICAL(cap)[6] = TRUE;
@@ -204,7 +184,7 @@ SEXP rcpp_capabilities() {
        LOGICAL(cap)[6] = FALSE;
     #endif
 
-       LOGICAL(cap)[7] = FALSE;
+    LOGICAL(cap)[7] = FALSE; // Classic API
 
     #ifdef RCPP_HAS_LONG_LONG_TYPES
         LOGICAL(cap)[8] = TRUE;
@@ -212,23 +192,9 @@ SEXP rcpp_capabilities() {
         LOGICAL(cap)[8] = FALSE;
     #endif
 
-    #ifdef HAS_CXX0X_UNORDERED_MAP
-      LOGICAL(cap)[9] = TRUE;
-    #else
-      LOGICAL(cap)[9] = FALSE;
-    #endif
-
-    #ifdef HAS_CXX0X_UNORDERED_SET
-      LOGICAL(cap)[10] = TRUE;
-    #else
-      LOGICAL(cap)[10] = FALSE;
-    #endif
-
-    #ifdef RCPP_USING_CXX11
-      LOGICAL(cap)[11] = TRUE;
-    #else
-      LOGICAL(cap)[11] = FALSE;
-    #endif
+    LOGICAL(cap)[9] = TRUE; // HAS_CXX0X_UNORDERED_MAP
+    LOGICAL(cap)[10] = TRUE; // HAS_CXX0X_UNORDERED_SET
+    LOGICAL(cap)[11] = TRUE; // RCPP_USING_CXX11
 
     #ifdef RCPP_NEW_DATE_DATETIME_VECTORS
       LOGICAL(cap)[12] = TRUE;

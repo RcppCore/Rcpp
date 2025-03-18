@@ -1,8 +1,6 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-//
 // table.h: Rcpp R/C++ interface class library -- table match
 //
-// Copyright (C) 2012 - 2013   Dirk Eddelbuettel, Romain Francois, and Kevin Ushey
+// Copyright (C) 2012 - 2025   Dirk Eddelbuettel, Romain Francois, and Kevin Ushey
 //
 // This file is part of Rcpp.
 //
@@ -55,36 +53,6 @@ private:
     R_xlen_t index ;
 } ;
 
-// we define a different Table class depending on whether we are using
-// std::map or not
-#ifdef RCPP_USING_MAP
-
-template <int RTYPE, typename TABLE_T>
-class Table {
-public:
-    typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-
-    Table( const TABLE_T& table ): hash() {
-        std::for_each( table.begin(), table.end(), Inserter(hash) ) ;
-    }
-
-    inline operator IntegerVector() const {
-        R_xlen_t n = hash.size() ;
-        IntegerVector result = no_init(n) ;
-        CharacterVector names = no_init(n) ;
-        std::for_each( hash.begin(), hash.end(), Grabber<HASH, RTYPE>(result, names) ) ;
-        result.names() = names ;
-        return result ;
-    }
-
-private:
-    typedef RCPP_UNORDERED_MAP<STORAGE, int, internal::NAComparator<STORAGE> >HASH ;
-    typedef CountInserter<HASH,STORAGE> Inserter ;
-    HASH hash ;
-};
-
-#else
-
 template <int RTYPE, typename TABLE_T>
 class Table {
 public:
@@ -118,8 +86,6 @@ private:
 
 };
 
-#endif // USING_RCPP_MAP
-
 } // sugar
 
 template <int RTYPE, bool NA, typename T>
@@ -130,4 +96,3 @@ inline IntegerVector table( const VectorBase<RTYPE,NA,T>& x ){
 
 } // Rcpp
 #endif
-
