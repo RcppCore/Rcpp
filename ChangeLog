@@ -38,6 +38,9 @@
 	* inst/include/Rcpp/generated/Pairlist__ctors.h: Idem
 	* inst/include/Rcpp/generated/InternalFunction__ctors.h: Idem
 
+	* inst/include/Rcpp/platform/compiler.h: No longer define HAS_VARIADIC_TEMPLATES
+	* src/api.cpp (rcpp_can_use_cxx0x): Return true unconditionally
+
 2025-03-15  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date

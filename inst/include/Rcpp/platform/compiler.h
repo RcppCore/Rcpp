@@ -34,7 +34,6 @@
 // C++11 features -- that used to be carefully tested for or worked around via CXX0X / TR1
 // These defines are all planned to get removed just how a number have already been removed. One at a time...
 #define RCPP_USING_CXX11
-#define HAS_VARIADIC_TEMPLATES
 #include <cmath>
 #include <initializer_list>
 #include <unordered_map>

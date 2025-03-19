@@ -223,11 +223,7 @@ SEXP rcpp_capabilities() {
 
 // [[Rcpp::internal]]
 SEXP rcpp_can_use_cxx0x() {                                     // #nocov start
-    #if defined(HAS_VARIADIC_TEMPLATES)
-        return Rf_ScalarLogical(TRUE);
-    #else
-        return Rf_ScalarLogical(FALSE);
-    #endif
+    return Rf_ScalarLogical(TRUE);
 }
 
 
@@ -239,7 +235,6 @@ SEXP rcpp_can_use_cxx11() {
         return Rf_ScalarLogical(FALSE);
     #endif
 }
-
 
 // [[Rcpp::register]]
 SEXP stack_trace(const char* file, int line) {
