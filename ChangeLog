@@ -8,6 +8,8 @@
 	* inst/include/Rcpp/internal/call.h: Idem
 	* inst/include/Rcpp/InternalFunctionWithStdFunction.h: Idem
 	* inst/include/Rcpp/Module.h: Idem
+	* inst/include/Rcpp/traits/index_sequence.h: Idem
+	* inst/include/Rcpp/traits/named_object.h: Idem
 
         * inst/include/Rcpp/module/Module_generated_class_constructor.h: Removed
         * inst/include/Rcpp/module/Module_generated_class_factory.h: Idem
