@@ -1,7 +1,7 @@
 
 // Language.h: Rcpp R/C++ interface class library -- language objects (calls)
 //
-// Copyright (C) 2010 - 2022 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2025 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -102,19 +102,15 @@ namespace Rcpp{
          * 0.0 is wrapped as a numeric vector using wrap( const& double )
          * ...
          */
-        #if defined(HAS_VARIADIC_TEMPLATES)
-            template <typename... T>
-            Language_Impl(const std::string& symbol, const T&... t) {
-                Storage::set__(pairlist(Rf_install(symbol.c_str()), t...) );
-            }
+        template <typename... T>
+        Language_Impl(const std::string& symbol, const T&... t) {
+            Storage::set__(pairlist(Rf_install(symbol.c_str()), t...) );
+        }
 
-            template <typename... T>
-            Language_Impl(const Function& function, const T&... t) {
-                Storage::set__(pairlist(function, t...));
-            }
-        #else
-            #include <Rcpp/generated/Language__ctors.h>
-        #endif
+        template <typename... T>
+        Language_Impl(const Function& function, const T&... t) {
+            Storage::set__(pairlist(function, t...));
+        }
 
         /**
          * sets the symbol of the call
