@@ -4,6 +4,7 @@
 	* inst/include/Rcpp/grow.h: Idem
 	* inst/include/Rcpp/DottedPair.h: Idem
 	* inst/include/Rcpp/Vector.h: Idem
+	* inst/include/Rcpp/Function.h: Idem
 
         * inst/include/Rcpp/module/Module_generated_class_constructor.h: Removed
         * inst/include/Rcpp/module/Module_generated_class_factory.h: Idem
@@ -12,6 +13,7 @@
 	* inst/include/Rcpp/generated/grow__pairlist.h: Idem
 	* inst/include/Rcpp/generated/DottedPair__ctors.h: Idem
 	* inst/include/Rcpp/generated/Vector__create.h: Idem
+	* inst/include/Rcpp/generated/Function__operator.h: Idem
 
 2025-03-15  Dirk Eddelbuettel  <edd@debian.org>
 
