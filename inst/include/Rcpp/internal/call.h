@@ -4,13 +4,10 @@
 #include <Rcpp/traits/index_sequence.h>
 #include <functional>
 
-#if defined(HAS_VARIADIC_TEMPLATES)
-
 namespace Rcpp {
 namespace internal {
 // Utility struct so that we can pass a pack of types between functions
 template <typename... T> struct type_pack {};
-
 
 /**
  * This specialisation is for functions that return a value, whereas the below
@@ -52,7 +49,5 @@ SEXP call(const F& fun, SEXP* args) {
                                 traits::make_index_sequence<sizeof...(Us)>{});
 }
 } // namespace Rcpp
-
-#endif
 
 #endif
