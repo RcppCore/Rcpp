@@ -39,7 +39,6 @@ public:
 	DottedPair_Impl(const T&... args) {
         Storage::set__(pairlist(args...));
     }
-    // RM #include <Rcpp/generated/DottedPair__ctors.h>
 
 	void update(SEXP){}
 
