@@ -26,9 +26,7 @@
 
 #include <Rcpp/grow.h>
 
-#ifdef RCPP_USING_CXX11
 #include <Rcpp/InternalFunctionWithStdFunction.h>
-#endif
 
 namespace Rcpp{
 
@@ -37,7 +35,6 @@ namespace Rcpp{
 
         RCPP_GENERATE_CTOR_ASSIGN(InternalFunction_Impl)
 
-#ifdef RCPP_USING_CXX11
         template <typename RESULT_TYPE, typename... Args>
         InternalFunction_Impl(const std::function<RESULT_TYPE(Args...)> &fun) {
             set(
@@ -51,9 +48,6 @@ namespace Rcpp{
         InternalFunction_Impl(RESULT_TYPE (*fun)(T...)) {
             set(XPtr<CppFunctionN<RESULT_TYPE, T...> >(new CppFunctionN<RESULT_TYPE, T...>(fun), true));
         }
-#else
-        #include <Rcpp/generated/InternalFunction__ctors.h>
-#endif
 
         void update(SEXP){}
     private:

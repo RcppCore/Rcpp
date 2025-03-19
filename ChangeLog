@@ -13,6 +13,7 @@
 	* inst/include/Rcpp/Language.h: Idem
 	* inst/include/Rcpp/DataFrame.h: Idem
 	* inst/include/Rcpp/PairList.h: Idem
+	* inst/include/Rcpp/InternalFunction.h: Idem
 
         * inst/include/Rcpp/module/Module_generated_class_constructor.h: Removed
         * inst/include/Rcpp/module/Module_generated_class_factory.h: Idem
@@ -35,6 +36,7 @@
 	* inst/include/Rcpp/generated/Language__ctors.h: Idem
 	* inst/include/Rcpp/generated/DataFrame_generated.h: Idem
 	* inst/include/Rcpp/generated/Pairlist__ctors.h: Idem
+	* inst/include/Rcpp/generated/InternalFunction__ctors.h: Idem
 
 2025-03-15  Dirk Eddelbuettel  <edd@debian.org>
 
