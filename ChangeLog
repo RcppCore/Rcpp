@@ -7,6 +7,7 @@
 	* inst/include/Rcpp/Function.h: Idem
 	* inst/include/Rcpp/internal/call.h: Idem
 	* inst/include/Rcpp/InternalFunctionWithStdFunction.h: Idem
+	* inst/include/Rcpp/Module.h: Idem
 
         * inst/include/Rcpp/module/Module_generated_class_constructor.h: Removed
         * inst/include/Rcpp/module/Module_generated_class_factory.h: Idem
@@ -17,6 +18,15 @@
 	* inst/include/Rcpp/generated/Vector__create.h: Idem
 	* inst/include/Rcpp/generated/Function__operator.h: Idem
 	* inst/include/Rcpp/generated/InternalFunctionWithStdFunction_call.h: Idem
+        * inst/include/Rcpp/module/Module_generated_Constructor.h: Idem
+        * inst/include/Rcpp/module/Module_generated_CppFunction.h: Idem
+        * inst/include/Rcpp/module/Module_generated_CppMethod.h: Idem
+        * inst/include/Rcpp/module/Module_generated_Factory.h: Idem
+        * inst/include/Rcpp/module/Module_generated_Pointer_CppMethod.h: Idem
+        * inst/include/Rcpp/module/Module_generated_class_signature.h: Idem
+        * inst/include/Rcpp/module/Module_generated_ctor_signature.h: Idem
+        * inst/include/Rcpp/module/Module_generated_function.h: Idem
+        * inst/include/Rcpp/module/Module_generated_get_signature.h: Idem
 
 2025-03-15  Dirk Eddelbuettel  <edd@debian.org>
 

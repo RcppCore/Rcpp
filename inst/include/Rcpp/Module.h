@@ -1,7 +1,7 @@
 
 // Module.h: Rcpp R/C++ interface class library -- Rcpp modules
 //
-// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2025 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -86,7 +86,6 @@ namespace Rcpp{
 #include <Rcpp/module/CppFunction.h>
 #include <Rcpp/module/get_return_type.h>
 
-#if defined(HAS_VARIADIC_TEMPLATES)
 namespace Rcpp {
     template <typename RESULT_TYPE, typename... T>
     inline void signature(std::string& s, const char* name) {
@@ -132,11 +131,7 @@ namespace Rcpp {
             Rcpp::List formals;
     };
 }
-#else
-    #include <Rcpp/module/Module_generated_get_signature.h>
-        // templates CppFunction0, ..., CppFunction65
-    #include <Rcpp/module/Module_generated_CppFunction.h>
-#endif
+
 #include <Rcpp/module/class_Base.h>
 #include <Rcpp/module/Module.h>
 
@@ -177,7 +172,7 @@ namespace Rcpp{
     private:
         ParentMethod* parent_method_pointer ;
     } ;
-#if defined(HAS_VARIADIC_TEMPLATES)
+
     template <typename... T>
     inline void ctor_signature(std::string& s, const std::string& classname) {
         s.assign(classname);
@@ -250,13 +245,6 @@ namespace Rcpp{
     bool yes_arity( SEXP* /* args */ , int nargs){
         return nargs == n ;
     }
-
-#else
-#include <Rcpp/module/Module_generated_ctor_signature.h>
-#include <Rcpp/module/Module_generated_Constructor.h>
-#include <Rcpp/module/Module_generated_Factory.h>
-#include <Rcpp/module/Module_generated_class_signature.h>
-#endif
 
     typedef bool (*ValidConstructor)(SEXP*,int) ;
     typedef bool (*ValidMethod)(SEXP*,int) ;
@@ -381,7 +369,7 @@ namespace Rcpp{
 
     } ;
 
-#if defined(HAS_VARIADIC_TEMPLATES)
+
     template <bool IsConst,typename Class, typename RESULT_TYPE, typename... T>
     class CppMethodImplN : public CppMethod<Class> {
     public:
@@ -441,10 +429,8 @@ namespace Rcpp{
 
     template <typename Class, typename RESULT_TYPE, typename... T>
     using Const_Pointer_CppMethodN = Pointer_CppMethodImplN<true, Class, RESULT_TYPE, T...>;
-#else
-    #include <Rcpp/module/Module_generated_CppMethod.h>
-    #include <Rcpp/module/Module_generated_Pointer_CppMethod.h>
-#endif
+
+
 
     template <typename Class>
     class CppProperty {
@@ -552,7 +538,7 @@ namespace Rcpp{
     } ;
 }
 
-#if defined(HAS_VARIADIC_TEMPLATES)
+
 namespace Rcpp {
     template <typename RESULT_TYPE, typename... T>
     void function(const char* name_,  RESULT_TYPE (*fun)(T... t), const char* docstring = 0) {
@@ -570,10 +556,7 @@ namespace Rcpp {
         }
     }
 }
-#else
-    // function factories
-    #include <Rcpp/module/Module_generated_function.h>
-#endif
+
 
 namespace Rcpp {
 
