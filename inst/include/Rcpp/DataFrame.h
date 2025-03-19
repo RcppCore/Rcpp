@@ -2,7 +2,7 @@
 //
 // DataFrame.h: Rcpp R/C++ interface class library -- data frames
 //
-// Copyright (C) 2010 - 2021  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2025  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -117,14 +117,10 @@ namespace Rcpp{
         static DataFrame_Impl create(){
             return DataFrame_Impl() ;
         }
-        #if defined(HAS_VARIADIC_TEMPLATES)
-            template <typename... T>
-            static DataFrame_Impl create(const T&... args) {
-                return DataFrame_Impl::from_list(Parent::create(args...));
-            }
-        #else
-            #include <Rcpp/generated/DataFrame_generated.h>
-        #endif
+        template <typename... T>
+        static DataFrame_Impl create(const T&... args) {
+            return DataFrame_Impl::from_list(Parent::create(args...));
+        }
 
     private:
         void set__(SEXP x){

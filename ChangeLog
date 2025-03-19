@@ -11,6 +11,7 @@
 	* inst/include/Rcpp/traits/index_sequence.h: Idem
 	* inst/include/Rcpp/traits/named_object.h: Idem
 	* inst/include/Rcpp/Language.h: Idem
+	* inst/include/Rcpp/DataFrame.h: Idem
 
         * inst/include/Rcpp/module/Module_generated_class_constructor.h: Removed
         * inst/include/Rcpp/module/Module_generated_class_factory.h: Idem
@@ -31,6 +32,7 @@
         * inst/include/Rcpp/module/Module_generated_function.h: Idem
         * inst/include/Rcpp/module/Module_generated_get_signature.h: Idem
 	* inst/include/Rcpp/generated/Language__ctors.h: Idem
+	* inst/include/Rcpp/generated/DataFrame_generated.h: Idem
 
 2025-03-15  Dirk Eddelbuettel  <edd@debian.org>
 
