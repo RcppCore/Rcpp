@@ -13,6 +13,12 @@
       \code{DATAPTR_RO} (Dirk in \ghpr{1359})
       \item Under R 4.5.0 or later, \code{R_ClosureEnv} is used instead of
       \code{CLOENV} (Dirk in \ghpr{1361} fixing \ghpr{1360})
+      \item Use of \code{lsInternal} switched to \code{lsInternal3} (Dirk in
+      #1362)
+      \item Removed compiler detection macro in a header cleanup setting
+      C++11 as the minunum (Dirk in \ghpr{1364} closing \ghit{1363})
+      \item Variadic templates are now used onconditionally given C++11 (Dirk
+      in \ghpr{1367} closing \ghit{1366})
     }
     \item Changes in Rcpp Documentation:
     \itemize{
@@ -24,7 +30,7 @@
     \item Changes in Rcpp Deployment:
     \itemize{
       \item \code{Rcpp.package.skeleton()} creates \sQuote{URL} and
-      \sQuote{BugReports} if given a github username (Dirk \ghpr{1358})
+      \sQuote{BugReports} if given a GitHub username (Dirk \ghpr{1358})
     }
   }
 }
