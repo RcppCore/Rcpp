@@ -1,6 +1,6 @@
 // Vector.h: Rcpp R/C++ interface class library -- vectors
 //
-// Copyright (C) 2010 - 2024  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2025  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -1120,55 +1120,55 @@ public:
         return Vector( 0 ) ;
     }
 
-    #if defined(HAS_VARIADIC_TEMPLATES)
-        public:
-            template <typename... T>
-            static Vector create(const T&... t){
-                return create__dispatch( typename traits::integral_constant<bool,
-                    traits::is_any_named<T...>::value
-                >::type(), t... ) ;
-            }
+public:
+    template <typename... T>
+    static Vector create(const T&... t){
+        return create__dispatch( typename traits::integral_constant<bool,
+                                 traits::is_any_named<T...>::value
+                                 >::type(), t... ) ;
+    }
 
-        private:
-            template <typename... T>
-            static Vector create__dispatch(traits::false_type, const T&... t){
-                Vector res(sizeof...(T)) ;
-                iterator it(res.begin());
-                create_dispatch_impl(it, t...);
-                return res;
-            }
-            template <typename... T>
-            static Vector create__dispatch( traits::true_type, const T&... t) {
-                Vector res(sizeof...(T)) ;
-                Shield<SEXP> names(::Rf_allocVector(STRSXP, sizeof...(T)));
-                int index = 0;
-                iterator it(res.begin());
-                replace_element_impl(it, names, index, t...);
-                res.attr("names") = names;
-                return res;
-            }
-            template <typename T>
-            static void create_dispatch_impl(iterator& it, const T& t) {
-                *it = converter_type::get(t);
-            }
+private:
+    template <typename... T>
+    static Vector create__dispatch(traits::false_type, const T&... t){
+        Vector res(sizeof...(T)) ;
+        iterator it(res.begin());
+        create_dispatch_impl(it, t...);
+        return res;
+    }
 
-            template <typename T, typename... TArgs>
-            static void create_dispatch_impl(iterator& it, const T& t, const TArgs&... args) {
-                *it = converter_type::get(t);
-                create_dispatch_impl(++it, args...);
-            }
-            template <typename T>
-            static void replace_element_impl(iterator& it, Shield<SEXP>& names, int& index, const T& t) {
-                replace_element(it, names, index, t);
-            }
-            template <typename T, typename... TArgs>
-            static void replace_element_impl(iterator& it, Shield<SEXP>& names, int& index, const T& t, const TArgs&... args) {
-                replace_element(it, names, index, t);
-                replace_element_impl(++it, names, ++index, args...);
-            }
-    #else
-        #include <Rcpp/generated/Vector__create.h>
-    #endif
+    template <typename... T>
+    static Vector create__dispatch( traits::true_type, const T&... t) {
+        Vector res(sizeof...(T)) ;
+        Shield<SEXP> names(::Rf_allocVector(STRSXP, sizeof...(T)));
+        int index = 0;
+        iterator it(res.begin());
+        replace_element_impl(it, names, index, t...);
+        res.attr("names") = names;
+        return res;
+    }
+
+    template <typename T>
+    static void create_dispatch_impl(iterator& it, const T& t) {
+        *it = converter_type::get(t);
+    }
+
+    template <typename T, typename... TArgs>
+    static void create_dispatch_impl(iterator& it, const T& t, const TArgs&... args) {
+        *it = converter_type::get(t);
+        create_dispatch_impl(++it, args...);
+    }
+
+    template <typename T>
+    static void replace_element_impl(iterator& it, Shield<SEXP>& names, int& index, const T& t) {
+        replace_element(it, names, index, t);
+    }
+
+    template <typename T, typename... TArgs>
+    static void replace_element_impl(iterator& it, Shield<SEXP>& names, int& index, const T& t, const TArgs&... args) {
+        replace_element(it, names, index, t);
+        replace_element_impl(++it, names, ++index, args...);
+    }
 
 public:
 

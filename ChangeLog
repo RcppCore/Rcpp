@@ -1,3 +1,49 @@
+2025-03-18  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+	* inst/include/Rcpp/config.h: Idem
+
+	* inst/include/Rcpp/module/class.h: Use variadic templates unconditionally
+	* inst/include/Rcpp/grow.h: Idem
+	* inst/include/Rcpp/DottedPair.h: Idem
+	* inst/include/Rcpp/Vector.h: Idem
+	* inst/include/Rcpp/Function.h: Idem
+	* inst/include/Rcpp/internal/call.h: Idem
+	* inst/include/Rcpp/InternalFunctionWithStdFunction.h: Idem
+	* inst/include/Rcpp/Module.h: Idem
+	* inst/include/Rcpp/traits/index_sequence.h: Idem
+	* inst/include/Rcpp/traits/named_object.h: Idem
+	* inst/include/Rcpp/Language.h: Idem
+	* inst/include/Rcpp/DataFrame.h: Idem
+	* inst/include/Rcpp/PairList.h: Idem
+	* inst/include/Rcpp/InternalFunction.h: Idem
+
+        * inst/include/Rcpp/module/Module_generated_class_constructor.h: Removed
+        * inst/include/Rcpp/module/Module_generated_class_factory.h: Idem
+        * inst/include/Rcpp/module/Module_generated_method.h: Idem
+        * inst/include/Rcpp/module/Module_generated_Pointer_method.h: Idem
+	* inst/include/Rcpp/generated/grow__pairlist.h: Idem
+	* inst/include/Rcpp/generated/DottedPair__ctors.h: Idem
+	* inst/include/Rcpp/generated/Vector__create.h: Idem
+	* inst/include/Rcpp/generated/Function__operator.h: Idem
+	* inst/include/Rcpp/generated/InternalFunctionWithStdFunction_call.h: Idem
+        * inst/include/Rcpp/module/Module_generated_Constructor.h: Idem
+        * inst/include/Rcpp/module/Module_generated_CppFunction.h: Idem
+        * inst/include/Rcpp/module/Module_generated_CppMethod.h: Idem
+        * inst/include/Rcpp/module/Module_generated_Factory.h: Idem
+        * inst/include/Rcpp/module/Module_generated_Pointer_CppMethod.h: Idem
+        * inst/include/Rcpp/module/Module_generated_class_signature.h: Idem
+        * inst/include/Rcpp/module/Module_generated_ctor_signature.h: Idem
+        * inst/include/Rcpp/module/Module_generated_function.h: Idem
+        * inst/include/Rcpp/module/Module_generated_get_signature.h: Idem
+	* inst/include/Rcpp/generated/Language__ctors.h: Idem
+	* inst/include/Rcpp/generated/DataFrame_generated.h: Idem
+	* inst/include/Rcpp/generated/Pairlist__ctors.h: Idem
+	* inst/include/Rcpp/generated/InternalFunction__ctors.h: Idem
+
+	* inst/include/Rcpp/platform/compiler.h: No longer define HAS_VARIADIC_TEMPLATES
+	* src/api.cpp (rcpp_can_use_cxx0x): Return true unconditionally
+
 2025-03-15  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date

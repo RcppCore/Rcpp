@@ -2,7 +2,7 @@
 //
 // DottedPair.h: Rcpp R/C++ interface class library -- dotted pair list template
 //
-// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2025 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -35,14 +35,10 @@ public:
 	DottedPair_Impl(SEXP x) {
 	    Storage::set__(x) ;
 	}
-  #if defined(HAS_VARIADIC_TEMPLATES)
-		template <typename... T>
-		DottedPair_Impl(const T&... args) {
-			Storage::set__(pairlist(args...));
-		}
-	#else
-		#include <Rcpp/generated/DottedPair__ctors.h>
-	#endif
+    template <typename... T>
+	DottedPair_Impl(const T&... args) {
+        Storage::set__(pairlist(args...));
+    }
 
 	void update(SEXP){}
 

@@ -2,7 +2,7 @@
 // named_object.h: Rcpp R/C++ interface class library -- named SEXP
 //
 // Copyright (C) 2010 - 2020  Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2021         Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
+// Copyright (C) 2021 - 2025  Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -65,18 +65,15 @@ template <typename T> struct is_named : public false_type{};
 template <typename T> struct is_named< named_object<T> > : public true_type {};
 template <> struct is_named< Rcpp::Argument > : public true_type {};
 
+template <typename... T> struct is_any_named : public false_type {};
+template <typename T> struct is_any_named<T> : public is_named<T>::type {};
 
-#if defined(HAS_VARIADIC_TEMPLATES)
-    template <typename... T> struct is_any_named : public false_type {};
-    template <typename T> struct is_any_named<T> : public is_named<T>::type {};
-
-    template <typename T, typename... TArgs>
-    struct is_any_named<T, TArgs...>
-        : public std::conditional<
-                    is_any_named<T>::value,
-                    std::true_type,
-                    is_any_named<TArgs...>>::type {};
-#endif
+template <typename T, typename... TArgs>
+struct is_any_named<T, TArgs...>
+    : public std::conditional<
+    is_any_named<T>::value,
+    std::true_type,
+    is_any_named<TArgs...>>::type {};
 
 } // namespace traits
 } // namespace Rcpp

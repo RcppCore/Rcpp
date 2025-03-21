@@ -1,9 +1,8 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
 // InternalFunction_with_std_function.h: Rcpp R/C++ interface class library -- exposing C++ std::function's
 //
-// Copyright (C) 2014  Christian Authmann
-// Copyright (C) 2015  Romain Francois and Dirk Eddelbuettel
+// Copyright (C) 2014 - 2025  Christian Authmann
+// Copyright (C) 2015 - 2025  Romain Francois and Dirk Eddelbuettel
 //
 // This file is part of Rcpp.
 //
@@ -23,17 +22,12 @@
 #ifndef Rcpp_InternalFunctionWithStdFunction_h
 #define Rcpp_InternalFunctionWithStdFunction_h
 
-#if defined(HAS_VARIADIC_TEMPLATES)
 #include <Rcpp/internal/call.h>
-#endif
 #include <functional>
 
 namespace Rcpp {
 
     namespace InternalFunctionWithStdFunction {
-        #if !defined(HAS_VARIADIC_TEMPLATES) && !defined(RCPP_USING_CXX11)
-        #include <Rcpp/generated/InternalFunctionWithStdFunction_call.h>
-        #endif
 
         template <typename RESULT_TYPE, typename... Args>
         class CppFunctionBaseFromStdFunction : public CppFunctionBase {

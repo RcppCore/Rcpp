@@ -1,9 +1,6 @@
 #ifndef RCPP_TRAITS_INDEX_SEQUENCE_H
 #define RCPP_TRAITS_INDEX_SEQUENCE_H
 
-
-#if defined(HAS_VARIADIC_TEMPLATES)
-
 namespace Rcpp {
 namespace traits {
   /**
@@ -21,7 +18,5 @@ namespace traits {
   struct make_index_sequence<0, Is...> : index_sequence<Is...> {};
 }
 }
-
-#endif
 
 #endif
