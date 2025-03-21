@@ -2,7 +2,7 @@
 //
 // wrap.cpp: Rcpp R/C++ interface class library -- wrap unit tests
 //
-// Copyright (C) 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2013 - 2025  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -167,10 +167,6 @@ SEXP nonnull_const_char(){
     const char *p = "foo";
     return wrap(p) ;
 }
-
-#ifdef RCPP_USING_CXX11
-// [[Rcpp::plugins(cpp11)]]
-#endif
 
 // [[Rcpp::export]]
 IntegerVector unordered_map_string_int(){

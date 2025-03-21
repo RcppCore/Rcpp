@@ -1,3 +1,13 @@
+2025-03-21  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/String.h: Remove explicit RCPP_USING_CXX11 as
+	use of C++11 (or newer) is both implicit and ensuredIdem
+	* inst/include/Rcpp/macros/dispatch.h: Idem
+	* inst/include/Rcpp/platform/compiler.h: Idem
+	* inst/include/Rcpp/unwindProtect.h: Idem
+	* inst/tinytest/cpp/wrap.cpp: Idem
+	* src/api.cpp: Idem
+
 2025-03-18  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date

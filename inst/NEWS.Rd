@@ -30,7 +30,7 @@
     \item Changes in Rcpp Deployment:
     \itemize{
       \item \code{Rcpp.package.skeleton()} creates \sQuote{URL} and
-      \sQuote{BugReports} if given a GitHub username (Dirk \ghpr{1358})
+      \sQuote{BugReports} if given a GitHub username (Dirk in \ghpr{1358})
     }
   }
 }

@@ -229,11 +229,7 @@ SEXP rcpp_can_use_cxx0x() {                                     // #nocov start
 
 // [[Rcpp::internal]]
 SEXP rcpp_can_use_cxx11() {
-    #if defined(RCPP_USING_CXX11)
-        return Rf_ScalarLogical(TRUE);
-    #else
-        return Rf_ScalarLogical(FALSE);
-    #endif
+    return Rf_ScalarLogical(TRUE);
 }
 
 // [[Rcpp::register]]
