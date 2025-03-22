@@ -19,6 +19,8 @@
       C++11 as the minunum (Dirk in \ghpr{1364} closing \ghit{1363})
       \item Variadic templates are now used onconditionally given C++11 (Dirk
       in \ghpr{1367} closing \ghit{1366})
+      \item Remove \code{RCPP_USING_CXX11} as a \code{#define} as C++11 is
+      now a given (Dirk in \ghpr{1369})
     }
     \item Changes in Rcpp Documentation:
     \itemize{
