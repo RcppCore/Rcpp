@@ -2,7 +2,7 @@
 // String.h: Rcpp R/C++ interface class library -- single string
 //
 // Copyright (C) 2012 - 2020  Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2021 - 2023  Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
+// Copyright (C) 2021 - 2025  Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -117,7 +117,7 @@ namespace Rcpp {
         String(const std::string& s, cetype_t enc = CE_UTF8) : data(R_NilValue), token(R_NilValue), buffer(s), valid(false), buffer_ready(true), enc(enc) {
             RCPP_STRING_DEBUG("String(const std::string&, cetype_t)");
         }
-#ifdef RCPP_USING_CXX11
+
         /** move constructor */
         String(String&& s) : data(s.data), token(s.token), buffer(std::move(s.buffer)), valid(s.valid), buffer_ready(s.buffer_ready), enc(s.enc) {
             // Erase s.
@@ -134,7 +134,7 @@ namespace Rcpp {
         String(std::string&& s, cetype_t enc = CE_UTF8) : data(R_NilValue), token(R_NilValue), buffer(s), valid(false), buffer_ready(true), enc(enc) {
             RCPP_STRING_DEBUG("String(std::string&&, cetype_t)");
         }
-#endif
+
         String(const std::wstring& s, cetype_t enc = CE_UTF8) : data(internal::make_charsexp(s)), token(R_NilValue), valid(true), buffer_ready(false), enc(enc) {
             token = Rcpp_PreciousPreserve(data);
             RCPP_STRING_DEBUG("String(const std::wstring&, cetype_t)");
@@ -267,7 +267,6 @@ namespace Rcpp {
             buffer_ready = true;
             return *this;
         }
-#ifdef RCPP_USING_CXX11
         inline String& operator=(String&& other) {
             data = other.data;
             token = other.token;
@@ -290,7 +289,6 @@ namespace Rcpp {
           buffer_ready = true;
           return *this;
         }
-#endif
         inline String& operator=(const char* s) {
             buffer = s;
             valid = false;

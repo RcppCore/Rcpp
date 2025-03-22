@@ -2,7 +2,7 @@
 // unwind.h: Rcpp R/C++ interface class library -- Unwind Protect
 //
 // Copyright (C) 2018 - 2020  RStudio
-// Copyright (C) 2021         RStudio, Dirk Eddelbuettel and Iñaki Ucar
+// Copyright (C) 2021 - 2025  RStudio, Dirk Eddelbuettel and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -23,11 +23,7 @@
 #define RCPP_UNWINDPROTECT_H
 
 #include <csetjmp>
-
-#ifdef RCPP_USING_CXX11
 #include <functional>
-#endif
-
 
 namespace Rcpp { namespace internal {
 
@@ -45,12 +41,10 @@ inline void maybeJump(void* unwind_data, Rboolean jump) {
     }
 }
 
-#ifdef RCPP_USING_CXX11
 inline SEXP unwindProtectUnwrap(void* data) {
     std::function<SEXP(void)>* callback = (std::function<SEXP(void)>*) data;
     return (*callback)();
 }
-#endif
 
 }} // namespace Rcpp::internal
 
@@ -76,11 +70,9 @@ inline SEXP unwindProtect(SEXP (*callback)(void* data), void* data) {
                              token);
 }
 
-#ifdef RCPP_USING_CXX11
 inline SEXP unwindProtect(std::function<SEXP(void)> callback) {
     return unwindProtect(&internal::unwindProtectUnwrap, &callback);
 }
-#endif
 
 } // namespace Rcpp
 
