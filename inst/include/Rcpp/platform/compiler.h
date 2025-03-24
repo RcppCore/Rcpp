@@ -1,6 +1,7 @@
 // compiler.h: Rcpp R/C++ interface class library -- check compiler
 //
 // Copyright (C) 2012 - 2025  Dirk Eddelbuettel, Romain Francois, and Kevin Ushey
+// Copyright (C) 2025         Dirk Eddelbuettel, Romain Francois, Kevin Ushey and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -36,11 +37,13 @@
 #include <cmath>
 #include <initializer_list>
 #include <unordered_map>
-#define RCPP_USING_UNORDERED_MAP
-#define RCPP_UNORDERED_MAP std::unordered_map
+#define RCPP_UNORDERED_MAP \
+    _Pragma("GCC warning \"RCPP_UNORDERED_MAP is deprecated, use std::unordered_map instead\"") \
+    std::unordered_map
 #include <unordered_set>
-#define RCPP_USING_UNORDERED_SET
-#define RCPP_UNORDERED_SET std::unordered_set
+#define RCPP_UNORDERED_SET \
+    _Pragma("GCC warning \"RCPP_UNORDERED_SET is deprecated, use std::unordered_set instead\"") \
+    std::unordered_set
 
 #if defined(__GNUC__)
   #define RCPP_HAS_DEMANGLING

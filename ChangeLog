@@ -24,6 +24,17 @@
 	* inst/include/Rcpp/algorithm.h: Idem
 	* inst/include/Rcpp/traits/is_arithmetic.h: Idem
 	* inst/include/Rcpp/traits/longlong.h: Idem
+2025-03-24 Iñaki Ucar <iucar@fedoraproject.org>
+
+	* inst/include/Rcpp/platform/compiler.h: Remove definitions of
+	RCPP_USING_UNORDERED_MAP and RCPP_USING_UNORDERED_SET, deprecate macros
+	RCPP_UNORDERED_MAP and RCPP_UNORDERED_SET
+	* inst/include/Rcpp/sugar/sets.h: Remove redefinition of macros
+	* inst/include/Rcpp/sugar/functions/self_match.h: Replace macros with
+	std::unordered_map and std::unordered_set respectively
+	* inst/include/Rcpp/sugar/functions/setdiff.h: Idem
+	* inst/include/Rcpp/sugar/functions/table.h: Idem
+	* inst/tinytest/cpp/wrap.cpp: Idem
 
 2025-03-21  Dirk Eddelbuettel  <edd@debian.org>
 

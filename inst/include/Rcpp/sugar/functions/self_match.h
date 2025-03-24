@@ -2,7 +2,8 @@
 //
 // self_match.h: Rcpp R/C++ interface class library -- self match
 //
-// Copyright (C) 2012   Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2024  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2025         Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -57,7 +58,7 @@ public:
     inline operator IntegerVector() const { return result ; }
 
 private:
-    typedef RCPP_UNORDERED_MAP<STORAGE, int> HASH ;
+    typedef std::unordered_map<STORAGE, int> HASH ;
     typedef SelfInserter<HASH,STORAGE> Inserter ;
     HASH hash ;
     IntegerVector result ;

@@ -20,9 +20,6 @@
 #ifndef Rcpp__sugar__sets_h
 #define Rcpp__sugar__sets_h
 
-#define RCPP_UNORDERED_SET std::unordered_set
-#define RCPP_UNORDERED_MAP std::unordered_map
-
 namespace std {
     template<>
     struct hash<Rcpp::String> {

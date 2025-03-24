@@ -1,6 +1,7 @@
 // table.h: Rcpp R/C++ interface class library -- table match
 //
 // Copyright (C) 2012 - 2025   Dirk Eddelbuettel, Romain Francois, and Kevin Ushey
+// Copyright (C) 2025          Dirk Eddelbuettel, Romain Francois, Kevin Ushey and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -77,7 +78,7 @@ public:
     }
 
 private:
-    typedef RCPP_UNORDERED_MAP<STORAGE, int> HASH ;
+    typedef std::unordered_map<STORAGE, int> HASH ;
     typedef CountInserter<HASH,STORAGE> Inserter ;
     HASH hash ;
 
