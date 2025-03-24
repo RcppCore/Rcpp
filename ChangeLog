@@ -5,6 +5,15 @@
 	* inst/include/Rcpp/exceptions/cpp11/exceptions.h: Removed
 	* inst/include/Rcpp/exceptions/cpp98/exceptions.h: Idem
 
+	* src/attributes.cpp: Remove obsolete pre-C+11 paths based on __cplusplus
+	define checks
+	* inst/tinytest/cpp/sugar.cpp: Idem
+	* inst/include/Rcpp/Language.h: Idem
+	* inst/include/Rcpp/StringTransformer.h: Idem
+	* inst/include/Rcpp/algorithm.h: Idem
+	* inst/include/Rcpp/utils/tinyformat.h: Idem
+	* inst/include/Rcpp/longlong.h: Idem, unconditional RCPP_HAS_LONG_LONG_TYPES
+
 2025-03-21  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date

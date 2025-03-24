@@ -186,11 +186,7 @@ namespace Rcpp{
     };
 
     template <typename T, typename RESULT_TYPE = SEXP>
-#if __cplusplus < 201103L
-        class unary_call : public std::unary_function<T,RESULT_TYPE> {
-#else
         class unary_call : public std::function<RESULT_TYPE(T)> {
-#endif
     public:
         unary_call( Language call_ ) : call(call_), proxy(call_,1) {}
         unary_call( Language call_, R_xlen_t index ) : call(call_), proxy(call_,index){}
@@ -207,11 +203,7 @@ namespace Rcpp{
     };
 
     template <typename T1, typename T2, typename RESULT_TYPE = SEXP>
-#if __cplusplus < 201103L
-    class binary_call : public std::binary_function<T1,T2,RESULT_TYPE> {
-#else
         class binary_call : public std::function<RESULT_TYPE(T1,T2)> {
-#endif
     public:
         binary_call( Language call_ ) : call(call_), proxy1(call_,1), proxy2(call_,2) {}
         binary_call( Language call_, R_xlen_t index1, R_xlen_t index2 ) : call(call_), proxy1(call_,index1), proxy2(call_,index2){}

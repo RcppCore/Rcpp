@@ -3,7 +3,7 @@
 // tinyformat.h: Rcpp R/C++ interface class library -- tinyformat.h wrapper
 //
 // Copyright (C) 2008 - 2009  Dirk Eddelbuettel
-// Copyright (C) 2009 - 2017  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2009 - 2025  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -27,14 +27,7 @@ namespace Rcpp {
 void stop(const std::string& message);
 }
 #define TINYFORMAT_ERROR(REASON) ::Rcpp::stop(REASON)
-
-#if __cplusplus >= 201103L
 #define TINYFORMAT_USE_VARIADIC_TEMPLATES
-#else
-// Don't use C++11 features (support older compilers)
-#define TINYFORMAT_NO_VARIADIC_TEMPLATES
-#endif
-
 #define TINYFORMAT_ASSERT(cond) do if (!(cond)) ::Rcpp::stop("Assertion failed"); while(0)
 
 #include "tinyformat/tinyformat.h"
