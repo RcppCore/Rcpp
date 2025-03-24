@@ -27,8 +27,7 @@
 2025-03-24 Iñaki Ucar <iucar@fedoraproject.org>
 
 	* inst/include/Rcpp/platform/compiler.h: Remove definitions of
-	RCPP_USING_UNORDERED_MAP and RCPP_USING_UNORDERED_SET, deprecate macros
-	RCPP_UNORDERED_MAP and RCPP_UNORDERED_SET
+	RCPP_USING_UNORDERED_MAP and RCPP_USING_UNORDERED_SET
 	* inst/include/Rcpp/sugar/sets.h: Remove redefinition of macros
 	* inst/include/Rcpp/sugar/functions/self_match.h: Replace macros with
 	std::unordered_map and std::unordered_set respectively
