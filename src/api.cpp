@@ -3,7 +3,7 @@
 // api.cpp: Rcpp R/C++ interface class library -- Rcpp api
 //
 // Copyright (C) 2012 - 2020  Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2021 - 2023  Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
+// Copyright (C) 2021 - 2025  Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -185,13 +185,7 @@ SEXP rcpp_capabilities() {
     #endif
 
     LOGICAL(cap)[7] = FALSE; // Classic API
-
-    #ifdef RCPP_HAS_LONG_LONG_TYPES
-        LOGICAL(cap)[8] = TRUE;
-    #else
-        LOGICAL(cap)[8] = FALSE;
-    #endif
-
+    LOGICAL(cap)[8] = TRUE; // RCPP_HAS_LONG_LONG_TYPES
     LOGICAL(cap)[9] = TRUE; // HAS_CXX0X_UNORDERED_MAP
     LOGICAL(cap)[10] = TRUE; // HAS_CXX0X_UNORDERED_SET
     LOGICAL(cap)[11] = TRUE; // RCPP_USING_CXX11

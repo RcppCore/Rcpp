@@ -2,7 +2,7 @@
 //
 // longlong.h: Rcpp R/C++ interface class library -- long long traits
 //
-// Copyright (C) 2013  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2013 - 2025  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -22,8 +22,6 @@
 #ifndef RCPP_TRAITS_LONG_LONG_H
 #define RCPP_TRAITS_LONG_LONG_H
 
-#if defined(RCPP_HAS_LONG_LONG_TYPES)
-
 namespace Rcpp{
     namespace traits{
 
@@ -39,6 +37,5 @@ namespace Rcpp{
         template <> struct wrap_type_traits<rcpp_ulong_long_type> { typedef wrap_type_primitive_tag wrap_category; } ;
     }
 }
-#endif
 
 #endif

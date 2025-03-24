@@ -3,7 +3,7 @@
 //
 // is_wide_string.h: Rcpp R/C++ interface class library -- traits to help wrap
 //
-// Copyright (C) 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2013 - 2025 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -58,14 +58,12 @@ namespace traits{
 
     template<>
     struct is_arithmetic<const long> : public true_type { };
-    
+
     template<>
     struct is_arithmetic<unsigned long> : public true_type { };
 
     template<>
     struct is_arithmetic<const unsigned long> : public true_type { };
-
-#if defined(RCPP_HAS_LONG_LONG_TYPES)
 
     template<>
     struct is_arithmetic<rcpp_long_long_type> : public true_type { };
@@ -78,8 +76,6 @@ namespace traits{
 
     template<>
     struct is_arithmetic<const rcpp_ulong_long_type> : public true_type { };
-
-#endif
 
     template<>
     struct is_arithmetic<float> : public true_type { };
