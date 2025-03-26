@@ -2,7 +2,8 @@
 //
 // algorithm.h: Rcpp R/C++ interface class library -- data frames
 //
-// Copyright (C) 2016 - 2017  Daniel C. Dillon
+// Copyright (C) 2016 - 2024  Daniel C. Dillon
+// Copyright (C) 2025         Daniel C. Dillon and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -22,14 +23,6 @@
 #ifndef Rcpp__Algorithm_h
 #define Rcpp__Algorithm_h
 
-#if __cplusplus >= 201103L || __INTEL_CXX11_MODE__ == 1
-#    define RCPP_CONSTEXPR_FUNC constexpr
-#    define RCPP_CONSTEXPR_VAR constexpr
-#else
-#    define RCPP_CONSTEXPR_FUNC
-#    define RCPP_CONSTEXPR_VAR const
-#endif
-
 namespace Rcpp {
 namespace algorithm {
 
@@ -38,9 +31,7 @@ namespace helpers {
     typedef struct {char a[2];} CTYPE_SHORT;
     typedef struct {char a[3];} CTYPE_INT;
     typedef struct {char a[4];} CTYPE_LONG;
-#ifdef RCPP_HAS_LONG_LONG_TYPES
     typedef struct {char a[5];} CTYPE_LONG_LONG;
-#endif
     typedef struct {char a[6];} CTYPE_FLOAT;
     typedef struct {char a[7];} CTYPE_DOUBLE;
     typedef struct {char a[8];} CTYPE_LONG_DOUBLE;
@@ -49,9 +40,7 @@ namespace helpers {
     typedef struct {char a[11];} CTYPE_UNSIGNED_SHORT;
     typedef struct {char a[12];} CTYPE_UNSIGNED_INT;
     typedef struct {char a[13];} CTYPE_UNSIGNED_LONG;
-#ifdef RCPP_HAS_LONG_LONG_TYPES
     typedef struct {char a[14];} CTYPE_UNSIGNED_LONG_LONG;
-#endif
     typedef struct {char a[128];} CTYPE_UNKNOWN;
 
     template< std::size_t I >
@@ -69,10 +58,8 @@ namespace helpers {
     template<>
     struct ctype_helper< sizeof(CTYPE_LONG) > { typedef long type; static const bool value = true; };
 
-#ifdef RCPP_HAS_LONG_LONG_TYPES
     template<>
     struct ctype_helper< sizeof(CTYPE_LONG_LONG) > { typedef rcpp_long_long_type type; static const bool value = true; };
-#endif
 
     template<>
     struct ctype_helper< sizeof(CTYPE_FLOAT) > { typedef float type; static const bool value = true; };
@@ -98,11 +85,8 @@ namespace helpers {
     template<>
     struct ctype_helper< sizeof(CTYPE_UNSIGNED_LONG) > { typedef unsigned long type; static const bool value = true; };
 
-#ifdef RCPP_HAS_LONG_LONG_TYPES
     template<>
     struct ctype_helper< sizeof(CTYPE_UNSIGNED_LONG_LONG) > { typedef rcpp_ulong_long_type type; static const bool value = true; };
-#endif
-
 
     template< typename T >
     struct ctype
@@ -111,9 +95,7 @@ namespace helpers {
         static CTYPE_SHORT test(const short &);
         static CTYPE_INT test(const int &);
         static CTYPE_LONG test(const long &);
-#ifdef RCPP_HAS_LONG_LONG_TYPES
         static CTYPE_LONG_LONG test(const rcpp_long_long_type &);
-#endif
         static CTYPE_FLOAT test(const float &);
         static CTYPE_DOUBLE test(const double &);
         static CTYPE_LONG_DOUBLE test(const long double &);
@@ -122,9 +104,7 @@ namespace helpers {
         static CTYPE_UNSIGNED_SHORT test(const unsigned short &);
         static CTYPE_UNSIGNED_INT test(const unsigned int &);
         static CTYPE_UNSIGNED_LONG test(const unsigned long &);
-#ifdef RCPP_HAS_LONG_LONG_TYPES
         static CTYPE_UNSIGNED_LONG_LONG test(const rcpp_ulong_long_type &);
-#endif
         static CTYPE_UNKNOWN test(...);
 
         static T make();
@@ -139,9 +119,7 @@ namespace helpers {
         static CTYPE_SHORT test(const short &);
         static CTYPE_INT test(const int &);
         static CTYPE_LONG test(const long &);
-#ifdef RCPP_HAS_LONG_LONG_TYPES
         static CTYPE_LONG_LONG test(const rcpp_long_long_type &);
-#endif
         static CTYPE_FLOAT test(const float &);
         static CTYPE_DOUBLE test(const double &);
         static CTYPE_LONG_DOUBLE test(const long double &);
@@ -150,9 +128,7 @@ namespace helpers {
         static CTYPE_UNSIGNED_SHORT test(const unsigned short &);
         static CTYPE_UNSIGNED_INT test(const unsigned int &);
         static CTYPE_UNSIGNED_LONG test(const unsigned long &);
-#ifdef RCPP_HAS_LONG_LONG_TYPES
         static CTYPE_UNSIGNED_LONG_LONG test(const rcpp_ulong_long_type &);
-#endif
         static CTYPE_UNKNOWN test(...);
 
         static T make();
@@ -167,29 +143,29 @@ namespace helpers {
     template<>
     struct rtype_helper< double > {
         typedef double type;
-        static RCPP_CONSTEXPR_VAR int RTYPE = REALSXP;
+        static constexpr int RTYPE = REALSXP;
         static inline double NA() { return NA_REAL; }
-        static inline RCPP_CONSTEXPR_FUNC double ZERO() { return 0.0; }
-        static inline RCPP_CONSTEXPR_FUNC double ONE() { return 1.0; }
+        static inline constexpr double ZERO() { return 0.0; }
+        static inline constexpr double ONE() { return 1.0; }
     };
 
     template<>
     struct rtype_helper< int > {
         typedef int type;
-        static RCPP_CONSTEXPR_VAR int RTYPE = INTSXP;
+        static constexpr int RTYPE = INTSXP;
         static inline int NA() { return NA_INTEGER; }
-        static inline RCPP_CONSTEXPR_FUNC int ZERO() { return 0; }
-        static inline RCPP_CONSTEXPR_FUNC int ONE() { return 1; }
+        static inline constexpr int ZERO() { return 0; }
+        static inline constexpr int ONE() { return 1; }
     };
 
     template< typename T >
     struct rtype {
         typedef typename rtype_helper< typename ctype< T >::type >::type type;
         typedef rtype_helper< typename ctype< T >::type > helper_type;
-        static RCPP_CONSTEXPR_VAR int RTYPE = helper_type::RTYPE;
+        static constexpr int RTYPE = helper_type::RTYPE;
         static inline T NA() { return helper_type::NA(); }
-        static inline RCPP_CONSTEXPR_FUNC T ZERO() { return helper_type::ZERO(); }
-        static inline RCPP_CONSTEXPR_FUNC T ONE() { return helper_type::ONE(); }
+        static inline constexpr T ZERO() { return helper_type::ZERO(); }
+        static inline constexpr T ONE() { return helper_type::ONE(); }
     };
 
     struct log {
@@ -482,8 +458,5 @@ void sqrt(InputIterator begin, InputIterator end, OutputIterator out) {
 
 } // namespace algorithm
 } // namespace Rcpp
-
-#undef RCPP_CONSTEXPR_FUNC
-#undef RCPP_CONSTEXPR_VAR
 
 #endif

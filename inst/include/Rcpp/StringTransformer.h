@@ -1,7 +1,7 @@
 
 // clone.h: Rcpp R/C++ interface class library -- clone RObject's
 //
-// Copyright (C) 2010 - 2022 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2025 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -26,11 +26,7 @@
 namespace Rcpp{
 
 	template <typename UnaryOperator>
-#if __cplusplus < 201103L
-	    class StringTransformer : public std::unary_function<const char*, const char*> {
-#else
         class StringTransformer : public std::function<const char*(const char*)> {
-#endif
 		public:
 		StringTransformer( const UnaryOperator& op_ ): op(op_), buffer(){}
 		~StringTransformer(){}

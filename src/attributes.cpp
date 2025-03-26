@@ -1,7 +1,7 @@
 // attributes.cpp: Rcpp R/C++ interface class library -- Rcpp attributes
 //
 // Copyright (C) 2012 - 2020  JJ Allaire, Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2021 - 2023  JJ Allaire, Dirk Eddelbuettel, Romain Francois, Iñaki Ucar and Travers Ching
+// Copyright (C) 2021 - 2025  JJ Allaire, Dirk Eddelbuettel, Romain Francois, Iñaki Ucar and Travers Ching
 //
 // This file is part of Rcpp.
 //
@@ -401,19 +401,11 @@ namespace attributes {
             std::string sig = sigParam.value();
             trimWhitespace(&sig);
             if (sig.empty()) return sig;
-#if __cplusplus < 201103L
-            if (sig[sig.size() - 1] == '}')
-#else
             if (sig.back() == '}')
-#endif
                 sig = sig.substr(0, sig.size()-1);
             // check sig.empty again since we deleted an element
             if (sig.empty()) return sig;
-#if __cplusplus < 201103L
-            if (sig[0] == '{')
-#else
             if (sig.front() == '{')
-#endif
                 sig.erase(0,1);
             return sig;
         }

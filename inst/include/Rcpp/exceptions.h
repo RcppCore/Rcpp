@@ -2,7 +2,8 @@
 // exceptions.h: Rcpp R/C++ interface class library -- exceptions
 //
 // Copyright (C) 2010 - 2020  Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2021 - 2020  Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
+// Copyright (C) 2021 - 2024  Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
+// Copyright (C) 2025         Dirk Eddelbuettel, Romain Francois, Iñaki Ucar and James J Balamuta
 //
 // This file is part of Rcpp.
 //
@@ -170,19 +171,30 @@ struct LongjumpException {
     }
 };
 
-} // namespace Rcpp
+    #define RCPP_ADVANCED_EXCEPTION_CLASS(__CLASS__, __WHAT__)                        \
+    class __CLASS__ : public std::exception {                                         \
+        public:                                                                       \
+            __CLASS__( ) throw() : message( std::string(__WHAT__) + "." ){}           \
+            __CLASS__( const std::string& message ) throw() :                         \
+            message( std::string(__WHAT__) + ": " + message + "."){}                  \
+            template <typename... Args>                                               \
+            __CLASS__( const char* fmt, Args&&... args ) throw() :                    \
+                message(  tfm::format(fmt, std::forward<Args>(args)... ) ){}          \
+            virtual ~__CLASS__() throw(){}                                            \
+            virtual const char* what() const throw() { return message.c_str(); }      \
+            private:                                                                  \
+                std::string message;                                                  \
+    };
 
+    template <typename... Args>
+    inline void warning(const char* fmt, Args&&... args ) {
+        Rf_warning("%s", tfm::format(fmt, std::forward<Args>(args)... ).c_str());
+    }
 
-// Determine whether to use variadic templated RCPP_ADVANCED_EXCEPTION_CLASS,
-// warning, and stop exception functions or to use the generated argument macro
-// based on whether the compiler supports c++11 or not.
-#if __cplusplus >= 201103L
-# include <Rcpp/exceptions/cpp11/exceptions.h>
-#else
-# include <Rcpp/exceptions/cpp98/exceptions.h>
-#endif
-
-namespace Rcpp {
+    template <typename... Args>
+    inline void NORET stop(const char* fmt, Args&&... args) {
+        throw Rcpp::exception( tfm::format(fmt, std::forward<Args>(args)... ).c_str() );
+    }
 
     #define RCPP_EXCEPTION_CLASS(__CLASS__,__WHAT__)                               \
     class __CLASS__ : public std::exception{                                       \

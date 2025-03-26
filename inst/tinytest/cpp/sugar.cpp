@@ -1,7 +1,7 @@
 
 // sugar.cpp: Rcpp R/C++ interface class library -- sugar unit tests
 //
-// Copyright (C) 2012 - 2022  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2025  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -23,11 +23,7 @@ using namespace Rcpp ;
 
 template <typename T>
 
-#if __cplusplus < 201103L
-class square : public std::unary_function<T,T> {
-#else
 class square : public std::function<T(T)> {
-#endif
 public:
 	T operator()( T t) const { return t*t ; }
 } ;
