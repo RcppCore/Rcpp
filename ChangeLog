@@ -1,3 +1,19 @@
+2025-03-26  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+	* inst/include/Rcpp/config.h: Idem
+
+2025-03-26 Iñaki Ucar <iucar@fedoraproject.org>
+
+	* inst/include/Rcpp/platform/compiler.h: Remove definitions of
+	RCPP_USING_UNORDERED_MAP and RCPP_USING_UNORDERED_SET
+	* inst/include/Rcpp/sugar/sets.h: Remove redefinition of macros
+	* inst/include/Rcpp/sugar/functions/self_match.h: Replace macros with
+	std::unordered_map and std::unordered_set respectively
+	* inst/include/Rcpp/sugar/functions/setdiff.h: Idem
+	* inst/include/Rcpp/sugar/functions/table.h: Idem
+	* inst/tinytest/cpp/wrap.cpp: Idem
+
 2025-03-24  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date

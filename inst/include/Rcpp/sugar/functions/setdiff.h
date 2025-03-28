@@ -2,7 +2,8 @@
 //
 // setdiff.h: Rcpp R/C++ interface class library -- setdiff
 //
-// Copyright (C) 2012 - 2014  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2024  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2025         Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -60,7 +61,7 @@ namespace sugar{
         }
 
     private:
-        typedef RCPP_UNORDERED_SET<STORAGE> SET ;
+        typedef std::unordered_set<STORAGE> SET ;
         typedef typename SET::const_iterator ITERATOR ;
         SET lhs_set ;
         SET rhs_set ;
@@ -89,7 +90,7 @@ namespace sugar{
         }
 
     private:
-        typedef RCPP_UNORDERED_SET<STORAGE> SET ;
+        typedef std::unordered_set<STORAGE> SET ;
         typedef typename SET::const_iterator ITERATOR ;
         SET lhs_set ;
         SET rhs_set ;
@@ -123,7 +124,7 @@ namespace sugar{
         }
 
     private:
-        typedef RCPP_UNORDERED_SET<STORAGE> SET ;
+        typedef std::unordered_set<STORAGE> SET ;
         typedef typename SET::const_iterator ITERATOR ;
         SET intersect ;
 
@@ -148,7 +149,7 @@ namespace sugar{
         }
 
     private:
-        typedef RCPP_UNORDERED_SET<STORAGE> SET ;
+        typedef std::unordered_set<STORAGE> SET ;
         typedef typename SET::const_iterator ITERATOR ;
         SET result ;
 
