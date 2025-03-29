@@ -2,7 +2,8 @@
 //
 // lapply.h: Rcpp R/C++ interface class library -- lapply
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2024 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2025        Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -33,7 +34,7 @@ class Lapply : public VectorBase<
 > {
 public:
 	typedef Rcpp::VectorBase<RTYPE,NA,T> VEC ;
-	typedef typename ::Rcpp::traits::result_of<Function>::type result_type ;
+	typedef typename ::Rcpp::traits::result_of<Function, T>::type result_type ;
 
 	Lapply( const VEC& vec_, Function fun_ ) :
 		vec(vec_), fun(fun_){}

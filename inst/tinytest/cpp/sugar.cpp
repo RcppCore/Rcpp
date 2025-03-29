@@ -2,6 +2,7 @@
 // sugar.cpp: Rcpp R/C++ interface class library -- sugar unit tests
 //
 // Copyright (C) 2012 - 2025  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2025         Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -22,7 +23,6 @@
 using namespace Rcpp ;
 
 template <typename T>
-
 class square : public std::function<T(T)> {
 public:
 	T operator()( T t) const { return t*t ; }
@@ -222,8 +222,55 @@ NumericVector runit_na_omit( NumericVector xx ){
 }
 
 // [[Rcpp::export]]
-List runit_lapply( IntegerVector xx){
+List runit_lapply( NumericVector xx ){
+    List res = lapply( xx, square<double>() );
+    return res ;
+}
+
+// [[Rcpp::export]]
+List runit_lapply_rawfun( NumericVector xx){
+    List res = lapply( xx, raw_square );
+    return res ;
+}
+
+// [[Rcpp::export]]
+List runit_lapply_lambda(NumericVector xx){
+    List res = lapply(xx, [](double x) { return x*x; });
+    return res;
+}
+
+// [[Rcpp::export]]
+List runit_lapply_seq( IntegerVector xx){
     List res = lapply( xx, seq_len );
+    return res ;
+}
+
+// [[Rcpp::export]]
+NumericVector runit_mapply2(NumericVector xx, NumericVector yy){
+    NumericVector res = mapply(xx, yy, std::plus<double>());
+    return res;
+}
+
+// [[Rcpp::export]]
+NumericVector runit_mapply2_lambda(NumericVector xx, NumericVector yy){
+    NumericVector res = mapply(xx, yy, [](double x, double y) { return x+y; });
+    return res;
+}
+
+// [[Rcpp::export]]
+NumericVector runit_mapply3_lambda(NumericVector xx, NumericVector yy, NumericVector zz){
+    NumericVector res = mapply(xx, yy, zz, [](double x, double y, double z) { return x+y+z; });
+    return res;
+}
+
+// [[Rcpp::export]]
+LogicalVector runit_mapply2_logical(NumericVector xx, NumericVector yy){
+    return all(mapply(xx, yy, std::plus<double>()) < 100.0);
+}
+
+// [[Rcpp::export]]
+List runit_mapply2_list(IntegerVector xx, IntegerVector yy){
+    List res = mapply(xx, yy, seq);
     return res ;
 }
 
@@ -325,6 +372,12 @@ NumericVector runit_sapply( NumericVector xx ){
 NumericVector runit_sapply_rawfun( NumericVector xx){
     NumericVector res = sapply( xx, raw_square );
     return res ;
+}
+
+// [[Rcpp::export]]
+NumericVector runit_sapply_lambda(NumericVector xx){
+    NumericVector res = sapply(xx, [](double x) { return x*x; });
+    return res;
 }
 
 // [[Rcpp::export]]
@@ -441,6 +494,12 @@ IntegerVector runit_rev( IntegerVector xx ){
 // [[Rcpp::export]]
 NumericMatrix runit_outer( NumericVector xx, NumericVector yy){
     NumericMatrix m = outer( xx, yy, std::plus<double>() ) ;
+    return m ;
+}
+
+// [[Rcpp::export]]
+NumericMatrix runit_outer_lambda(NumericVector xx, NumericVector yy){
+    NumericMatrix m = outer(xx, yy, [](double x, double y) { return x + y; });
     return m ;
 }
 

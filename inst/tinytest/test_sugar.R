@@ -1,5 +1,6 @@
 
-##  Copyright (C) 2010 - 2023  Dirk Eddelbuettel and Romain Francois
+##  Copyright (C) 2010 - 2024  Dirk Eddelbuettel and Romain Francois
+##  Copyright (C) 2025         Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 ##
 ##  This file is part of Rcpp.
 ##
@@ -302,7 +303,47 @@ expect_equal( fx( c(1:10) ), fx( c(1:10) ) )
 
 #    test.sugar.lapply <- function( ){
 fx <- runit_lapply
+expect_equal( fx( 1:10 ), as.list((1:10)^2) )
+
+
+#    test.sugar.lapply.rawfun <- function( ){
+fx <- runit_lapply_rawfun
+expect_equal( fx( 1:10 ), as.list((1:10)^2) )
+
+
+#    test.sugar.lapply.lambda <- function( ){
+fx <- runit_lapply_lambda
+expect_equal( fx( 1:10 ), as.list((1:10)^2) )
+
+
+#    test.sugar.lapply.seq <- function( ){
+fx <- runit_lapply_seq
 expect_equal( fx( 1:10 ), lapply( 1:10, seq_len ) )
+
+
+#    test.sugar.mapply2 <- function( ){
+fx <- runit_mapply2
+expect_equal( fx(1:10, 1:10) , 1:10+1:10 )
+
+
+#    test.sugar.mapply2.lambda <- function( ){
+fx <- runit_mapply2_lambda
+expect_equal( fx(1:10, 1:10) , 1:10+1:10 )
+
+
+#    test.sugar.mapply3.lambda <- function( ){
+fx <- runit_mapply3_lambda
+expect_equal( fx(1:10, 1:10, 1:10) , 1:10+1:10+1:10 )
+
+
+#    test.sugar.mapply2.logical <- function( ){
+fx <- runit_mapply2_logical
+expect_true( fx(1:10, 1:10)  )
+
+
+#    test.sugar.mapply2.list <- function( ){
+fx <- runit_mapply2_list
+expect_equal( fx(1:10, 1:10*2) , mapply(seq, 1:10, 1:10*2) )
 
 
 #    test.sugar.minus <- function( ){
@@ -377,6 +418,11 @@ expect_equal( fx(1:10) , (1:10)^2 )
 
 #    test.sugar.sapply.rawfun <- function( ){
 fx <- runit_sapply_rawfun
+expect_equal( fx(1:10) , (1:10)^2 )
+
+
+#    test.sugar.sapply.lambda <- function( ){
+fx <- runit_sapply_lambda
 expect_equal( fx(1:10) , (1:10)^2 )
 
 
@@ -487,6 +533,13 @@ expect_equal(fx(1:100), list( pos = 96:100, neg = 6:100 ))
 
 #    test.sugar.matrix.outer <- function( ){
 fx <- runit_outer
+x <- 1:2
+y <- 1:5
+expect_equal( fx(x,y) , outer(x,y,"+") )
+
+
+#    test.sugar.matrix.outer.lambda <- function( ){
+fx <- runit_outer_lambda
 x <- 1:2
 y <- 1:5
 expect_equal( fx(x,y) , outer(x,y,"+") )
