@@ -1,3 +1,8 @@
+2025-03-31  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+	* inst/include/Rcpp/config.h: Idem
+
 2025-03-29 Iñaki Ucar <iucar@fedoraproject.org>
 
 	* inst/include/Rcpp/traits/result_of.h: Reimplement traits::result_of using
