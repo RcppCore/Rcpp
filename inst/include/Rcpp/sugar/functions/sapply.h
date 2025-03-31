@@ -22,9 +22,6 @@
 #ifndef Rcpp__sugar__sapply_h
 #define Rcpp__sugar__sapply_h
 
-// This used to be conditional on a define and test in compiler.h
-#include <type_traits> // ::std::result_of
-
 namespace Rcpp{
 namespace sugar{
 

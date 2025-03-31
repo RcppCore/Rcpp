@@ -40,12 +40,7 @@ struct result_of{
 
 template <typename T>
 struct result_of<T>{
-    typename T::result_type type ;
-} ;
-
-template <typename RESULT_TYPE, typename... Args>
-struct result_of< RESULT_TYPE (*)(Args...) >{
-    typedef RESULT_TYPE type ;
+    typedef typename T::result_type type ;
 } ;
 
 }
