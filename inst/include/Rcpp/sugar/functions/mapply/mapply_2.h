@@ -2,7 +2,8 @@
 //
 // mapply_2.h: Rcpp R/C++ interface class library -- mapply_2
 //
-// Copyright (C) 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2024 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2025        Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -32,13 +33,13 @@ template <int RTYPE,
 >
 class Mapply_2 : public VectorBase<
 	Rcpp::traits::r_sexptype_traits<
-		typename ::Rcpp::traits::result_of<Function>::type
+		typename ::Rcpp::traits::result_of<Function, T_1, T_2>::type
 	>::rtype ,
 	true ,
 	Mapply_2<RTYPE,NA_1,T_1,NA_2,T_2,Function>
 > {
 public:
-	typedef typename ::Rcpp::traits::result_of<Function>::type result_type ;
+	typedef typename ::Rcpp::traits::result_of<Function, T_1, T_2>::type result_type ;
 
 	Mapply_2( const T_1& vec_1_, const T_2& vec_2_, Function fun_ ) :
 		vec_1(vec_1_), vec_2(vec_2_), fun(fun_){}
@@ -62,14 +63,14 @@ template <int RTYPE,
 class Mapply_2_Vector_Primitive : public
     VectorBase<
 	    Rcpp::traits::r_sexptype_traits<
-	    	typename ::Rcpp::traits::result_of<Function>::type
+	    	typename ::Rcpp::traits::result_of<Function, T_1>::type
 	    >::rtype ,
 	    true ,
 	    Mapply_2_Vector_Primitive<RTYPE,NA_1,T_1,PRIM_2,Function>
     >
 {
 public:
-	typedef typename ::Rcpp::traits::result_of<Function>::type result_type ;
+	typedef typename ::Rcpp::traits::result_of<Function, T_1>::type result_type ;
 
 	Mapply_2_Vector_Primitive( const T_1& vec_1_, PRIM_2 prim_2_, Function fun_ ) :
 		vec_1(vec_1_), prim_2(prim_2_), fun(fun_){}
@@ -93,14 +94,14 @@ template <int RTYPE,
 class Mapply_2_Primitive_Vector : public
     VectorBase<
 	    Rcpp::traits::r_sexptype_traits<
-	    	typename ::Rcpp::traits::result_of<Function>::type
+	    	typename ::Rcpp::traits::result_of<Function, T_2>::type
 	    >::rtype ,
 	    true ,
 	    Mapply_2_Primitive_Vector<RTYPE,PRIM_1,NA_2,T_2,Function>
     >
 {
 public:
-	typedef typename ::Rcpp::traits::result_of<Function>::type result_type ;
+	typedef typename ::Rcpp::traits::result_of<Function, T_2>::type result_type ;
 
 	Mapply_2_Primitive_Vector( PRIM_1 prim_1_, const T_2& vec_2_, Function fun_ ) :
 		prim_1(prim_1_), vec_2(vec_2_), fun(fun_){}

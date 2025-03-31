@@ -3,7 +3,8 @@
 //
 // result_of.h: Rcpp R/C++ interface class library -- traits to help wrap
 //
-// Copyright (C) 2010 - 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2024 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2025        Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -26,24 +27,20 @@
 namespace Rcpp{
 namespace traits{
 
-template <typename T>
+template <typename T, typename... Args>
 struct result_of{
-	typedef typename T::result_type type ;
+#if __cplusplus < 201703L
+    // deprecated by C++17, removed by C++2020, see https://en.cppreference.com/w/cpp/types/result_of
+    typedef typename ::std::result_of<T(typename Args::stored_type...)>::type type;
+#else
+    // since C++17, see https://en.cppreference.com/w/cpp/types/result_of
+    typedef typename ::std::invoke_result<T, typename Args::stored_type...>::type type;
+#endif
 } ;
 
-template <typename RESULT_TYPE, typename INPUT_TYPE>
-struct result_of< RESULT_TYPE (*)(INPUT_TYPE) >{
-	typedef RESULT_TYPE type ;
-} ;
-
-template <typename RESULT_TYPE, typename U1, typename U2>
-struct result_of< RESULT_TYPE (*)(U1, U2) >{
-	typedef RESULT_TYPE type ;
-} ;
-
-template <typename RESULT_TYPE, typename U1, typename U2, typename U3>
-struct result_of< RESULT_TYPE (*)(U1, U2, U3) >{
-	typedef RESULT_TYPE type ;
+template <typename T>
+struct result_of<T>{
+    typedef typename T::result_type type ;
 } ;
 
 }

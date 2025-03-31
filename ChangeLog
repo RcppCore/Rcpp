@@ -1,3 +1,21 @@
+2025-03-31  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+	* inst/include/Rcpp/config.h: Idem
+
+2025-03-29 Iñaki Ucar <iucar@fedoraproject.org>
+
+	* inst/include/Rcpp/traits/result_of.h: Reimplement traits::result_of using
+	std::result_of (up to C++14) or std::invoke_result (C++17 or later), which
+	supports previous use cases and enables lambdas
+	* inst/include/Rcpp/sugar/functions/sapply.h: Use new result_of interface
+	* inst/include/Rcpp/sugar/functions/lapply.h: Idem
+	* inst/include/Rcpp/sugar/functions/mapply/mapply_2.h: Idem
+	* inst/include/Rcpp/sugar/functions/mapply/mapply_3.h: Idem
+	* inst/include/Rcpp/sugar/matrix/outer.h: Idem
+	* inst/tinytest/cpp/sugar.cpp: New tests for previous sugar functions
+	* inst/tinytest/test_sugar.R: Idem
+
 2025-03-26  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
