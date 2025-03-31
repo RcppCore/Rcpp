@@ -43,6 +43,11 @@ struct result_of<T>{
     typename T::result_type type ;
 } ;
 
+template <typename RESULT_TYPE, typename... Args>
+struct result_of< RESULT_TYPE (*)(Args...) >{
+    typedef RESULT_TYPE type ;
+} ;
+
 }
 }
 
