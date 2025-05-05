@@ -24,8 +24,8 @@ Rcpp::sourceCpp("cpp/sugar.cpp")
 ## There are some (documented, see https://blog.r-project.org/2020/11/02/will-r-work-on-apple-silicon/index.html)
 ## issues with NA propagation on arm64 / macOS. We not (yet ?) do anything special so we just skip some tests
 isArmMacOs <- Sys.info()[["sysname"]] == "Darwin" && Sys.info()[["machine"]] == "arm64"
-## This also seems to hit arm64 on Linux
-isArmLinux <- Sys.info()[["sysname"]] == "Linux" && Sys.info()[["machine"]] == "arm64"
+## This also seems to hit arm64 on Linux (aka 'aarch64' here)
+isArmLinux <- Sys.info()[["sysname"]] == "Linux" && Sys.info()[["machine"]] == "aarch64"
 
 ## Needed for a change in R 3.6.0 reducing a bias in very large samples
 suppressWarnings(RNGversion("3.5.0"))
