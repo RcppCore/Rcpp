@@ -28,6 +28,9 @@ jobs:
       - name: Setup
         uses: eddelbuettel/github-actions/r-ci@master
 
+      - name: Sys.info
+        run: Rscript -e 'print(Sys.info()); print(.Platform)'
+
       - name: Dependencies
         run: ./run.sh install_deps
 
