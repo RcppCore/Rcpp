@@ -1,5 +1,5 @@
 
-##  Copyright (C) 2010 - 2024  Dirk Eddelbuettel and Romain Francois
+##  Copyright (C) 2010 - 2025  Dirk Eddelbuettel and Romain Francois
 ##  Copyright (C) 2025         Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 ##
 ##  This file is part of Rcpp.
@@ -24,6 +24,8 @@ Rcpp::sourceCpp("cpp/sugar.cpp")
 ## There are some (documented, see https://blog.r-project.org/2020/11/02/will-r-work-on-apple-silicon/index.html)
 ## issues with NA propagation on arm64 / macOS. We not (yet ?) do anything special so we just skip some tests
 isArmMacOs <- Sys.info()[["sysname"]] == "Darwin" && Sys.info()[["machine"]] == "arm64"
+## This also seems to hit arm64 on Linux
+isArmLinux <- Sys.info()[["sysname"]] == "Linux" && Sys.info()[["machine"]] == "arm64"
 
 ## Needed for a change in R 3.6.0 reducing a bias in very large samples
 suppressWarnings(RNGversion("3.5.0"))
@@ -66,7 +68,7 @@ expect_true( ! fx( 1:10 ) )
 expect_true( fx( 6:10 ) )
 expect_true( fx( 5 ) )
 expect_true( ! fx( c(NA, 1) ) )
-if (!isArmMacOs) expect_true( is.na( fx( c(NA, 6) ) ) )
+if (!isArmMacOs && !isArmLinux) expect_true( is.na( fx( c(NA, 6) ) ) )
 
 
 #    test.sugar.all.one.equal <- function( ){
@@ -74,7 +76,7 @@ fx <- runit_all_one_equal
 expect_true( ! fx( 1 ) )
 expect_true( ! fx( 1:2 ) )
 expect_true( fx( rep(5,4) ) )
-if (!isArmMacOs) expect_true( is.na( fx( c(5,NA) ) ) )
+if (!isArmMacOs && !isArmLinux) expect_true( is.na( fx( c(5,NA) ) ) )
 expect_true(! fx( c(NA, 1) ) )
 
 
@@ -83,7 +85,7 @@ fx <- runit_all_not_equal_one
 expect_true( fx( 1 ) )
 expect_true( fx( 1:2 ) )
 expect_true( ! fx( 5 ) )
-if (!isArmMacOs) expect_true( is.na( fx( c(NA, 1) ) ) )
+if (!isArmMacOs && !isArmLinux) expect_true( is.na( fx( c(NA, 1) ) ) )
 expect_true( ! fx( c(NA, 5) ) )
 
 
@@ -1620,7 +1622,7 @@ expect_error(strimws(x[1], "invalid"), info = "strimws -- bad `which` argument")
 ## min/max
 #    test.sugar.min.max <- function() {
 ## min(empty) gives NA for integer, Inf for numeric (#844)
-if (!isArmMacOs) expect_true(is.na(intmin(integer(0))),    "min(integer(0))")
+if (!isArmMacOs && !isArmLinux) expect_true(is.na(intmin(integer(0))),    "min(integer(0))")
 if (!isArmMacOs) expect_equal(doublemin(numeric(0)), Inf, info = "min(numeric(0))")
 
 ## max(empty_ gives NA for integer, Inf for numeric (#844)

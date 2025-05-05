@@ -1,3 +1,10 @@
+2025-05-05  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/tinytest/test_sugar.R: Condition four NA-related tests away on
+	arm64 on Linux too
+
+	* .github/workflows/macos.yaml (jobs): Add ubuntu-24.04-arm to matrix
+
 2025-04-15  Dirk Eddelbuettel  <edd@debian.org>
 
 	* docker/ci-4.4/Dockerfile: Added based on r-base:4.4.3

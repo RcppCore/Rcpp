@@ -17,6 +17,7 @@ jobs:
           - {os: macos-latest}
           - {os: macos-13}
           #- {os: ubuntu-latest}
+          - {os: ubuntu-24.04-arm}
 
     runs-on: ${{ matrix.os }}
 
