@@ -3,7 +3,8 @@
 	* inst/tinytest/test_sugar.R: Condition four NA-related tests away on
 	arm64 on Linux too
 
-	* .github/workflows/macos.yaml (jobs): Add ubuntu-24.04-arm to matrix
+	* .github/workflows/linuxarm.yaml (jobs): Add ubuntu-24.04-arm as
+	optional workflow_dispatch run
 
 2025-04-15  Dirk Eddelbuettel  <edd@debian.org>
 

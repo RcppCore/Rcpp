@@ -1,10 +1,11 @@
 # Run CI for R using https://eddelbuettel.github.io/r-ci/
 
-name: macos
+name: linuxarm
 
 on:
-  push:
-  pull_request:
+  #push:
+  #pull_request:
+  workflow_dispatch:
 
 env:
   _R_CHECK_FORCE_SUGGESTS_: "false"
@@ -14,10 +15,8 @@ jobs:
     strategy:
       matrix:
         include:
-          - {os: macos-latest}
-          - {os: macos-13}
           #- {os: ubuntu-latest}
-          #- {os: ubuntu-24.04-arm}
+          - {os: ubuntu-24.04-arm}
 
     runs-on: ${{ matrix.os }}
 
