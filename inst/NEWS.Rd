@@ -33,6 +33,8 @@
     \itemize{
       \item \code{Rcpp.package.skeleton()} creates \sQuote{URL} and
       \sQuote{BugReports} if given a GitHub username (Dirk in \ghpr{1358})
+      \item Tests involving NA propagation are skipped under linux-arm64 as
+      they are under macos-arm (Dirk in \ghpr{1379} closing \ghit{1378})
     }
   }
 }
