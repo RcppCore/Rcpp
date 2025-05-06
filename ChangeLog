@@ -1,5 +1,8 @@
 2025-05-06  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Roll micro version and date
+	* inst/include/Rcpp/config.h: Idem
+
 	* R/Attributes.R: Support C++26 via plugin
 
 2025-05-05  Dirk Eddelbuettel  <edd@debian.org>
