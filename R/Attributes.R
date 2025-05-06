@@ -560,6 +560,13 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
         list(env = list(PKG_CXXFLAGS ="-std=c++23"))
 }
 
+# built-in C++26 plugin for C++26
+.plugins[["cpp26"]] <- function() {
+    if (getRversion() >= "4.5")         # with recent R versions, R can decide
+        list(env = list(USE_CXX26 = "yes"))
+    else
+        list(env = list(PKG_CXXFLAGS ="-std=c++26"))
+}
 
 ## built-in C++1z plugin for C++17 standard under development
 ## note that as of Feb 2017 this is taken to be a moving target
