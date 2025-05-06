@@ -1,3 +1,7 @@
+2025-05-06  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/Attributes.R: Support C++26 via plugin
+
 2025-05-05  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/tinytest/test_sugar.R: Condition four NA-related tests away on
