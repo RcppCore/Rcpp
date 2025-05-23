@@ -2,7 +2,7 @@
 //
 // newDateVector.h: Rcpp R/C++ interface class library -- Date vector support
 //
-// Copyright (C) 2016         Dirk Eddelbuettel
+// Copyright (C) 2016 - 2025  Dirk Eddelbuettel
 //
 // This file is part of Rcpp.
 //
@@ -28,6 +28,10 @@ namespace Rcpp {
 
     class newDateVector : public NumericVector {
     public:
+        newDateVector() : NumericVector() {
+            setClass();
+        }
+
         template <int RTYPE, bool NA, typename VEC>
         newDateVector(const VectorBase<RTYPE,NA,VEC>& vec) : NumericVector(vec) {
             setClass();

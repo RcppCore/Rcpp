@@ -1,3 +1,9 @@
+2025-05-23  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/date_datetime/newDateVector.h: Add default
+	constructor
+	* inst/include/Rcpp/date_datetime/newDatetimeVector.h: Idem
+
 2025-05-06  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
