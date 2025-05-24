@@ -4,6 +4,9 @@
 	constructor
 	* inst/include/Rcpp/date_datetime/newDatetimeVector.h: Idem
 
+	* inst/tinytest/test_date.R: Add tests
+	* inst/tinytest/cpp/dates.cpp: Idem
+
 2025-05-06  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
