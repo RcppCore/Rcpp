@@ -1,8 +1,7 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
+
 // dates.cpp: Rcpp R/C++ interface class library -- Date + Datetime tests
 //
-// Copyright (C) 2010 - 2013   Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2025   Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -245,4 +244,12 @@ bool has_na_dtv(const Rcpp::DatetimeVector d) {
     return Rcpp::is_true(Rcpp::any(Rcpp::is_na(d)));
 }
 
+// [[Rcpp::export]]
+Rcpp::DateVector default_ctor_datevector() {
+    return Rcpp::DateVector();
+}
 
+// [[Rcpp::export]]
+Rcpp::DatetimeVector default_ctor_datetimevector() {
+    return Rcpp::DatetimeVector();
+}
