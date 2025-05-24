@@ -246,7 +246,7 @@ expect_true(has_na_dtv(dvt) == TRUE, info="DatetimeVector.NAtest.withNA")
 dv <- default_ctor_datevector()
 expect_true(inherits(dv, "Date"))
 expect_equal(length(dv), 0L)
-expect_equal(dv, as.Date(double()))
+expect_equal(dv, as.Date(double(), origin="1970-01-01")) # origin for R < 4.3.0
 
 ## default ctor: datetime
 dtv <- default_ctor_datetimevector()
