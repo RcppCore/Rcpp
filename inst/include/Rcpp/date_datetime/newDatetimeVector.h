@@ -28,10 +28,14 @@ namespace Rcpp {
 
     class newDatetimeVector : public NumericVector {
     public:
+        newDatetimeVector(const char* tz = "") : NumericVector() {
+            setClass(tz);
+        }
+
         template <int RTYPE, bool NA, typename VEC>
         newDatetimeVector(const VectorBase<RTYPE,NA,VEC>& other, const char* tz = "") :
             NumericVector(other) {
-            setClass(tz); 
+            setClass(tz);
         }
 
         newDatetimeVector(SEXP vec, const char* tz = "") :

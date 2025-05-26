@@ -1,5 +1,5 @@
 
-##  Copyright (C) 2010 - 2019   Dirk Eddelbuettel and Romain Francois
+##  Copyright (C) 2010 - 2025   Dirk Eddelbuettel and Romain Francois
 ##
 ##  This file is part of Rcpp.
 ##
@@ -241,3 +241,15 @@ dvt <- Sys.time() + 0:2
 expect_true(has_na_dtv(dvt) == FALSE, info="DatetimeVector.NAtest.withoutNA")
 dvt[1] <- NA
 expect_true(has_na_dtv(dvt) == TRUE, info="DatetimeVector.NAtest.withNA")
+
+## default ctor: date
+dv <- default_ctor_datevector()
+expect_true(inherits(dv, "Date"))
+expect_equal(length(dv), 0L)
+expect_equal(dv, as.Date(double(), origin="1970-01-01")) # origin for R < 4.3.0
+
+## default ctor: datetime
+dtv <- default_ctor_datetimevector()
+expect_true(inherits(dtv, "POSIXct"))
+expect_equal(length(dtv), 0L)
+expect_equal(dtv, as.POSIXct(double(), origin="1970-01-01"))  # origin for R < 4.3.0
