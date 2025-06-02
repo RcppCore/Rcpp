@@ -272,3 +272,10 @@ Formula runit_formula_SEXP(SEXP form){
     return f;
 }
 
+// [[Rcpp::export]]
+SEXP runit_language_modify(Function f) {
+    auto v = NumericVector::create(0.0, 1.0);
+    Rcpp::Language call(f, v);
+    v[0] = 999.0;
+    return CADR(call);
+}
