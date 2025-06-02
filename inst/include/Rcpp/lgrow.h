@@ -28,7 +28,7 @@
 namespace Rcpp {
 
 inline SEXP lgrow(SEXP head, SEXP tail) {
-    return LCONS(head, tail);
+    return Rf_lcons(head, tail);
 }
 
 namespace internal {
