@@ -2,9 +2,9 @@
 
 	* inst/include/Rcpp.h: Avoid copy when creating Language objects
 	* inst/include/Rcpp/Language.h: Idem
+	* inst/include/Rcpp/lgrow.h: Idem
 	* inst/tinytest/cpp/language.cpp: Idem
 	* inst/tinytest/test_language.R: Idem
-	* inst/include/Rcpp/lgrow.h: Idem
 
 2025-05-27  Dirk Eddelbuettel  <edd@debian.org>
 
