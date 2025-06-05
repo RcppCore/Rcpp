@@ -104,12 +104,12 @@ namespace Rcpp{
          */
         template <typename... T>
         Language_Impl(const std::string& symbol, const T&... t) {
-            Storage::set__(pairlist(Rf_install(symbol.c_str()), t...) );
+            Storage::set__(langlist(Rf_install(symbol.c_str()), t...) );
         }
 
         template <typename... T>
         Language_Impl(const Function& function, const T&... t) {
-            Storage::set__(pairlist(function, t...));
+            Storage::set__(langlist(function, t...));
         }
 
         /**

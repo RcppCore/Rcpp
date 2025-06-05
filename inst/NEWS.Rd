@@ -7,6 +7,8 @@
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
+      \item Fixed an issue where Rcpp::Language would duplicate its arguments
+      (Kevin in \ghpr{1388}, fixing \ghit{1386})
       \item The \code{std::string_view} type is now covered by \code{wrap()}
       (Lev Kandel in \ghpr{1356} as discussed in \ghit{1357})
       \item A last remaining \code{DATAPTR} use has been converted to

@@ -32,6 +32,7 @@
 #include <Rcpp/Reference.h>
 #include <Rcpp/clone.h>
 #include <Rcpp/grow.h>
+#include <Rcpp/lgrow.h>
 #include <Rcpp/Dimension.h>
 
 #include <Rcpp/Symbol.h>

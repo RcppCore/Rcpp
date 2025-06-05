@@ -139,3 +139,5 @@ expect_equal( runit_formula_SEXP( "x ~ y + z" ), x ~ y + z, info = "Formula( SEX
 expect_equal( runit_formula_SEXP( parse( text = "x ~ y + z") ), x ~ y + z, info = "Formula( SEXP = EXPRSXP )" )
 expect_equal( runit_formula_SEXP( list( "x ~ y + z") ), x ~ y + z, info = "Formula( SEXP = VECSXP(1 = STRSXP) )" )
 expect_equal( runit_formula_SEXP( list( x ~ y + z) ), x ~ y + z, info = "Formula( SEXP = VECSXP(1 = formula) )" )
+
+expect_equal( runit_language_modify(sum), c(999, 1), info = "Language objects don't duplicate their arguments" )
