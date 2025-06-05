@@ -7,8 +7,6 @@
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
-      \item Fixed an issue where Rcpp::Language would duplicate its arguments
-      (Kevin in \ghpr{1388}, fixing \ghit{1386})
       \item The \code{std::string_view} type is now covered by \code{wrap()}
       (Lev Kandel in \ghpr{1356} as discussed in \ghit{1357})
       \item A last remaining \code{DATAPTR} use has been converted to
@@ -23,6 +21,20 @@
       in \ghpr{1367} closing \ghit{1366})
       \item Remove \code{RCPP_USING_CXX11} as a \code{#define} as C++11 is
       now a given (Dirk in \ghpr{1369})
+      \item Additional cleanup for \code{__cplusplus} checks (Iñaki in
+      \ghpr{1371} fixing \ghit{1370})
+      \item Unordered set construction no longer needs a macro for the
+      pre-C++11 case (Iñaki in \ghpr{1372})
+      \item Lambdas are supported in a Rcpp Sugar functions (Iñaki in \ghpr{1373})
+      \item The Date(time)Vector classes now have default ctor (Dirk in
+      \ghpr{1385} closing \ghpr{1384})
+      \item Fixed an issue where Rcpp::Language would duplicate its arguments
+      (Kevin in \ghpr{1388}, fixing \ghit{1386})
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item The C++26 standard now has plugin support (Dirk in \ghpr{1381}
+      closing \ghit{1380})
     }
     \item Changes in Rcpp Documentation:
     \itemize{
@@ -35,6 +47,7 @@
     \itemize{
       \item \code{Rcpp.package.skeleton()} creates \sQuote{URL} and
       \sQuote{BugReports} if given a GitHub username (Dirk in \ghpr{1358})
+      \item R 4.4.* has been added to the CI matrix (Dirk in \ghpr{1376})
       \item Tests involving NA propagation are skipped under linux-arm64 as
       they are under macos-arm (Dirk in \ghpr{1379} closing \ghit{1378})
     }
