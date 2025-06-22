@@ -2,6 +2,8 @@
 
 	* vignettes/rmd/Rcpp.bib: Use doi references for CRAN packages,
 	update versions, update some package titles
+	* inst/bib/Rcpp.bib: Idem
+	* vignettes/pdf/*: Re-rendered
 
 2025-06-05  Dirk Eddelbuettel  <edd@debian.org>
 
