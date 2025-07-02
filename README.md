@@ -13,9 +13,9 @@
 [![CRAN use](https://jangorecki.gitlab.io/rdeps/Rcpp/CRAN_usage.svg?sanitize=true)](https://cran.r-project.org/package=Rcpp)
 [![CRAN indirect](https://jangorecki.gitlab.io/rdeps/Rcpp/indirect_usage.svg?sanitize=true)](https://cran.r-project.org/package=Rcpp)
 [![BioConductor use](https://jangorecki.gitlab.io/rdeps/Rcpp/BioC_usage.svg?sanitize=true)](https://cran.r-project.org/package=Rcpp)
-[![JSS](https://img.shields.io/badge/JSS-10.18637%2Fjss.v040.i08-brightgreen)](https://dx.doi.org/10.18637/jss.v040.i08)
+[![JSS](https://img.shields.io/badge/JSS-10.18637%2Fjss.v040.i08-brightgreen)](https://doi.org/10.18637/jss.v040.i08)
 [![Springer useR!](https://img.shields.io/badge/Springer%20useR!-10.1007%2F978--1--4614--6868--4-brightgreen)](https://www.amazon.com/gp/product/1461468671/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1461468671&linkCode=as2&tag=rcpp-20&linkId=3P5LNUWOAQ2YMEJ6)
-[![TAS](https://img.shields.io/badge/TAS-10.1080%2F00031305.2017.1375990-brightgreen)](https://dx.doi.org/10.1080/00031305.2017.1375990)
+[![TAS](https://img.shields.io/badge/TAS-10.1080%2F00031305.2017.1375990-brightgreen)](https://doi.org/10.1080/00031305.2017.1375990)
 
 ### Synopsis
 
@@ -109,14 +109,14 @@ been factored out of Rcpp into the package RcppClassic, and it is still
 available for code relying on the older interface. New development should
 always use this Rcpp package instead.
 
-Other usage examples are provided by packages using Rcpp. As of early January
-2024, there are 2791 [CRAN](https://cran.r-project.org) packages using Rcpp
-(corresponding to 13.8% of all packages, and 59.9% of packages containing
-compiled code), a further 254 [BioConductor](https://www.bioconductor.org)
+Other usage examples are provided by packages using Rcpp. As of early July
+2025, there are 3043 [CRAN](https://cran.r-project.org) packages using Rcpp
+(corresponding to 13.6% of all packages, and 61.3% of packages containing
+compiled code), a further 271 [BioConductor](https://www.bioconductor.org)
 packages in its current release as well as an unknown number of GitHub,
 Bitbucket, R-Forge, ... repositories using Rcpp.  All these packages provide
 usage examples for Rcpp. The package is in widespread use and has been
-downloaded over 78.1 million times (per the partial logs from the cloud mirrors
+downloaded over 100.6 million times (per the partial logs from the cloud mirrors
 of CRAN).
 
 ### Installation

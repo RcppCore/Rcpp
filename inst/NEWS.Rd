@@ -3,10 +3,11 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp release version 1.0.15 (2025-07-xx)}{
+\section{Changes in Rcpp release version 1.1.0 (2025-07-01)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
+      \item C++11 is now the required minimal C++ standard
       \item The \code{std::string_view} type is now covered by \code{wrap()}
       (Lev Kandel in \ghpr{1356} as discussed in \ghit{1357})
       \item A last remaining \code{DATAPTR} use has been converted to
@@ -42,6 +43,8 @@
       \ghpr{1354})
       \item The Rcpp Libraries vignette mentions \code{PACKAGE_types.h} to
       declare types used in \code{RcppExports.cpp} (Dirk in \ghpr{1355})
+      \item The vignettes bibliography file was updated to current package
+      versions, and now uses doi references (Dirk in \ghpr{1389})
     }
     \item Changes in Rcpp Deployment:
     \itemize{
