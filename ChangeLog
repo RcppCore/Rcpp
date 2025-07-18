@@ -1,3 +1,15 @@
+2025-07-18  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+	* inst/include/Rcpp/config.h: Idem
+
+	* R/asis.R (asisWeave, asisTangle): Borrowed with thanks from R.rsp
+	and shortened / simplified to provide 'asis' vignette processor
+	* R/zzz.R (.onLoad): Register new vignette processor
+	* vignettes/*.asis: New files with vignette info from .Rnw files
+	* vignettes/pdf/*.pdf: Moved to directory vignettes/
+	* vignettes/*.Rnw: Removed
+
 2025-07-01  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Date, Version): Release 1.1.0

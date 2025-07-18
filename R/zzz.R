@@ -1,4 +1,4 @@
-# Copyright (C) 2009 - 2016  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2009 - 2025  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -20,7 +20,8 @@
 .classes_map <- new.env()
 
 .onLoad <- function(libname, pkgname){
-    new_dummyObject(.dummyInstancePointer)   # nocov
+    new_dummyObject(.dummyInstancePointer)   						# nocov start
+
+    tools::vignetteEngine("asis", package = pkgname, pattern = "[.](pdf|html)[.]asis$",
+                          weave = asisWeave, tangle = asisTangle)	# nocov end
 }
-
-
