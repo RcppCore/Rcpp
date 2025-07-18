@@ -9,6 +9,8 @@
 	* vignettes/*.asis: New files with vignette info from .Rnw files
 	* vignettes/pdf/*.pdf: Moved to directory vignettes/
 	* vignettes/*.Rnw: Removed
+	* man/asisWeave.Rd: Documentation
+	* NAMESPACE: Export asisWeave and asisTangle
 
 2025-07-01  Dirk Eddelbuettel  <edd@debian.org>
 

@@ -28,4 +28,3 @@ string, which is then compared to the given minimal version.
 \author{
 Dirk Eddelbuettel
 }
-
