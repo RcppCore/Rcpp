@@ -4,7 +4,7 @@
 
 ##' Simple \sQuote{asis} Vignette Processor
 ##'
-##' To pass pre-made pdf vignette vignettes through \dQuote{as is}, a simple vignette
+##' To pass pre-made pdf vignettes through \dQuote{as is}, a simple vignette
 ##' process is added. It is derived from the more feature-complete one in the \pkg{R.rsp}
 ##' package. To use it, add files named like the pdf file plus an appended \code{.asis}
 ##' with the vignette metainformation and register the vignette processor, see the examples.
