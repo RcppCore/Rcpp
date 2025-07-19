@@ -23,14 +23,14 @@ The respective filename is returned, invisibly
 Simple \sQuote{asis} Vignette Processor
 }
 \details{
-To pass pre-made pdf vignette vignettes through \dQuote{as is}, a simple vignette
+To pass pre-made pdf vignettes through \dQuote{as is}, a simple vignette
 process is added. It is derived from the more feature-complete one in the \pkg{R.rsp}
 package. To use it, add files named like the pdf file plus an appended \code{.asis}
 with the vignette metainformation and register the vignette processor, see the examples.
 }
 \examples{
 # To register this vignette engine in another package, add
-# \code{VignetteBuilder: Rcpp} as well as \code{Suggests: Rcpp} to \code{DESCRIPTION}
+# \code{VignetteBuilder: Rcpp} as well as \code{Suggests: Rcpp} to \code{DESCRIPTON}
 # which uses the registration this package provides via
 \dontrun{tools::vignetteEngine("asis", package = pkgname, pattern = "[.](pdf|html)[.]asis$",
                                weave = asisWeave, tangle = asisTangle)}
