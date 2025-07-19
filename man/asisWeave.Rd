@@ -30,7 +30,7 @@ with the vignette metainformation and register the vignette processor, see the e
 }
 \examples{
 # To register this vignette engine in another package, add
-# \code{VignetteBuilder: Rcpp} as well as \code{Suggests: Rcpp} to \code{DESCRIPTON}
+# \code{VignetteBuilder: Rcpp} as well as \code{Suggests: Rcpp} to \code{DESCRIPTION}
 # which uses the registration this package provides via
 \dontrun{tools::vignetteEngine("asis", package = pkgname, pattern = "[.](pdf|html)[.]asis$",
                                weave = asisWeave, tangle = asisTangle)}
