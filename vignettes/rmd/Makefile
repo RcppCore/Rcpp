@@ -7,7 +7,7 @@ rmdvignettes := 	$(rmdsources:.Rmd=.pdf)
 %.pdf:			%.Rmd
 			Rscript -e 'rmarkdown::render("$<")'
 			Rscript -e 'tools::compactPDF("$@", gs_quality="ebook")'
-			cp -vax $@ ../pdf
+			cp -vax $@ ..
 
 all:			${rmdvignettes} Rcpp-jss-2011.pdf
 
@@ -19,7 +19,7 @@ Rcpp-jss-2011.pdf:	Rcpp-jss-2011.tex
 			bibtex Rcpp-jss-2011.aux
 			Rscript -e 'tools::texi2pdf("$<", texi2dvi="pdflatex")'
 			Rscript -e 'tools::compactPDF("$@", gs_quality="ebook")'
-			cp -vax $@ ../pdf
+			cp -vax $@ ..
 
 clean:
 			@rm -rf *.aux *.log *.out *.toc *.tex *.pdf Rcpp-introduction_cache Rcpp-libraries_cache pinp.cls Rcpp-jss-2011.bbl Rcpp-jss-2011.blg auto

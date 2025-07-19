@@ -3,6 +3,16 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
+\section{Changes in Rcpp release version 1.1.1 (2026-01-xx)}{
+  \itemize{
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item Vignettes are now processed via a new "asis" processor adopted
+      from \pkg{R.rsp} (Dirk in \ghpr{1394} fixing \ghit{1393})
+    }
+  }
+}
+
 \section{Changes in Rcpp release version 1.1.0 (2025-07-01)}{
   \itemize{
     \item Changes in Rcpp API:
