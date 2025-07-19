@@ -1,3 +1,8 @@
+2025-07-19  Dirk Eddelbuettel  <edd@debian.org>
+
+        * vignettes/rmd/Rcpp.bib: Use DOI for R citation
+        * inst/bib/Rcpp.bib: Idem
+
 2025-07-18  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
