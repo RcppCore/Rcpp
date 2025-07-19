@@ -1,5 +1,5 @@
 ## These two functions are borrowed with grateful appreciation from the R.rsp package
-## by Henrik Bengtsson licensend under LPGL (>= 2.1) and somewhat simplified / shortened
+## by Henrik Bengtsson licensed under LGPL (>= 2.1) and somewhat simplified / shortened
 ## feature-reduced here. Please see the R.rsp for a full-featured version and documentation
 
 ##' Simple \sQuote{asis} Vignette Processor
