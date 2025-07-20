@@ -1,3 +1,8 @@
+2025-07-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/compilerCheck.R: Remove unused function
+	* man/compilerCheck.Rd: Remove its documentation
+
 2025-07-19  Dirk Eddelbuettel  <edd@debian.org>
 
         * vignettes/rmd/Rcpp.bib: Use DOI for R citation
