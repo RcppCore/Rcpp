@@ -53,12 +53,6 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      #- name: Bootstrap
-      #  run: |
-      #    curl -OLs https://eddelbuettel.github.io/r-ci/run.sh
-      #    chmod 0755 run.sh
-      #    ./run.sh bootstrap
-
       - name: SessionInfo
         run: ${{ matrix.r }} -q -e 'sessionInfo()'
 
@@ -74,8 +68,13 @@ jobs:
       - name: Checkout Project
         uses: actions/checkout@v5
 
-      - name: Container
-        run: docker pull rcpp/ci
+      - name: Setup
+        uses: eddelbuettel/github-actions/r-ci@master
+
+      - name: Dependencies
+        run: ./run.sh install_deps
 
       - name: Coverage
-        run: docker run --rm -i -v ${PWD}:/mnt -w /mnt -e CODECOV_TOKEN=${{secrets.CODECOV_TOKEN }} rcpp/ci r -l covr -e 'codecov(type="tests", quiet=FALSE)'
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        run: ./run.sh coverage

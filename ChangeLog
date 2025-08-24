@@ -3,6 +3,9 @@
 	* .github/workflows/ci.yaml (jobs): Re-enable coverage, roll checkout
 	action to v5
 
+	* inst/tinytest/test_sugar.R: For now, park two tests of complex
+	matrix row and col means under R-devel, this could be a R-devel issue
+
 2025-07-20  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
