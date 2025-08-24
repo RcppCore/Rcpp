@@ -1,3 +1,8 @@
+2025-08-24  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .github/workflows/ci.yaml (jobs): Re-enable coverage, roll checkout
+	action to v5
+
 2025-07-20  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date

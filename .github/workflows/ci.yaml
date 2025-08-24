@@ -51,7 +51,7 @@ jobs:
             r: RD
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       #- name: Bootstrap
       #  run: |
@@ -68,14 +68,14 @@ jobs:
       - name: Check
         run: CI=true ${{ matrix.r }} CMD check --no-vignettes --no-manual Rcpp_*.tar.gz
 
-  #covr:
-  #  runs-on: ubuntu-latest
-  #  steps:
-  #    - name: Checkout Project
-  #      uses: actions/checkout@v3
-  #
-  #    - name: Container
-  #      run: docker pull rcpp/ci
-  #
-  #    - name: Coverage
-  #      run: docker run --rm -i -v ${PWD}:/mnt -w /mnt -e CODECOV_TOKEN=${{secrets.CODECOV_TOKEN }} rcpp/ci r -l covr -e 'codecov()'
+  covr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v5
+
+      - name: Container
+        run: docker pull rcpp/ci
+
+      - name: Coverage
+        run: docker run --rm -i -v ${PWD}:/mnt -w /mnt -e CODECOV_TOKEN=${{secrets.CODECOV_TOKEN }} rcpp/ci r -l covr -e 'codecov(type="tests", quiet=FALSE)'
