@@ -1,3 +1,8 @@
+2025-08-26  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/tinytest/test_sugar.R: For r-devel, use apply(x, DIM, mean,
+	na.rm=TRUE) instead of (row|col)Means for complex NA valued matrices
+
 2025-08-24  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .github/workflows/ci.yaml (jobs): Re-enable coverage, roll checkout

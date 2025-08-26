@@ -1269,11 +1269,20 @@ expect_equal(cx_col_sums(x), colSums(x), info = "complex / colSums / keep NA / m
 expect_equal(cx_col_sums(x, TRUE), colSums(x, TRUE), info = "complex / colSums / rm NA / mixed input")
 
 expect_equal(cx_row_means(x), rowMeans(x), info = "complex / rowMeans / keep NA / mixed input")
-if (getRversion() < "4.6.0") expect_equal(cx_row_means(x, TRUE), rowMeans(x, TRUE), info = "complex / rowMeans / rm NA / mixed input") ## TODO FIXME R-devel
+if (getRversion() < "4.6.0") {
+    expect_equal(cx_row_means(x, TRUE), rowMeans(x, TRUE), info = "complex / rowMeans / rm NA / mixed input")
+} else {
+    ## TODO FIXME R-devel has borked rowMeans / colMeans for complex matrices with NA values
+    expect_equal(cx_row_means(x, TRUE), apply(x, 1, mean, na.rm=TRUE), info = "complex / rowMeans / rm NA / mixed input")
+}
 
 expect_equal(cx_col_means(x), colMeans(x), info = "complex / colMeans / keep NA / mixed input")
-if (getRversion() < "4.6.0") expect_equal(cx_col_means(x, TRUE), colMeans(x, TRUE), info = "complex / colMeans / rm NA / mixed input") ## TODO FIXME R-devel
-
+if (getRversion() < "4.6.0") {
+    expect_equal(cx_col_means(x, TRUE), colMeans(x, TRUE), info = "complex / colMeans / rm NA / mixed input")
+} else {
+    ## TODO FIXME R-devel has borked rowMeans / colMeans for complex matrices with NA values
+    expect_equal(cx_col_means(x, TRUE), apply(x, 2, mean, na.rm=TRUE), info = "complex / rowMeans / rm NA / mixed input")
+}
 
 x[] <- NA_complex_
 
