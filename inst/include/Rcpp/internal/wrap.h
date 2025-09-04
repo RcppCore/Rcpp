@@ -68,7 +68,7 @@ namespace Rcpp {
 
 #if __cplusplus >= 201703L
         inline SEXP make_charsexp__impl__cstring(std::string_view st) {
-            return Rf_mkCharLen(st.data(), st.size());
+            return Rf_mkCharLen(st.data(), static_cast<int>(st.size()));
         }
 #endif
 
