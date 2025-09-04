@@ -5,10 +5,17 @@
 
 \section{Changes in Rcpp release version 1.1.1 (2026-01-xx)}{
   \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item An unused old R function for a compiler version check has been
+      removed after checking no known package uses it (Dirk in \ghpr{1395})
+      \item A narrowing warning is avoided via a cast (Dirk in \ghpr{1398})
+    }
     \item Changes in Rcpp Documentation:
     \itemize{
       \item Vignettes are now processed via a new "asis" processor adopted
       from \pkg{R.rsp} (Dirk in \ghpr{1394} fixing \ghit{1393})
+      \item R is now cited via its DOI (Dirk)
     }
   }
 }
