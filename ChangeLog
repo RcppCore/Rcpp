@@ -1,3 +1,11 @@
+2025-10-13  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+	* inst/include/Rcpp/config.h: Idem
+
+	* inst/tinytest/test_sugar.R: Simplify and generalize the August fix
+	as we no longer need to control for R-devel which has been corrected
+
 2025-09-04  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
