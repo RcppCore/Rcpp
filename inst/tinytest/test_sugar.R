@@ -1274,7 +1274,7 @@ expect_equal(cx_row_means(x, TRUE), apply(x, 1, mean, na.rm=TRUE), info = "compl
 
 expect_equal(cx_col_means(x), colMeans(x), info = "complex / colMeans / keep NA / mixed input")
 expect_equal(cx_col_means(x, TRUE), colMeans(x, TRUE), info = "complex / colMeans / rm NA / mixed input")
-expect_equal(cx_col_means(x, TRUE), apply(x, 2, mean, na.rm=TRUE), info = "complex / rowMeans / rm NA / mixed input")
+expect_equal(cx_col_means(x, TRUE), apply(x, 2, mean, na.rm=TRUE), info = "complex / colMeans / rm NA / mixed input")
 
 x[] <- NA_complex_
 
