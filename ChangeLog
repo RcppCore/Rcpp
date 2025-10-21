@@ -1,3 +1,8 @@
+2025-10-21 Iñaki Ucar <iucar@fedoraproject.org>
+
+	* inst/include/Rcpp/exceptions_impl.h: use __has_include to simplify checks
+	to enable demangling, making them robust for more platforms
+
 2025-10-13  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
