@@ -1,7 +1,8 @@
 // exceptions_impl.h: Rcpp R/C++ interface class library -- exceptions
 //
 // Copyright (C) 2012 - 2019  Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2020         Dirk Eddelbuettel, Romain Francois, and Joshua N. Pritikin
+// Copyright (C) 2020 - 2024  Dirk Eddelbuettel, Romain Francois, and Joshua N. Pritikin
+// Copyright (C) 2025         Dirk Eddelbuettel, Romain Francois, Joshua N. Pritikin, and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -21,25 +22,15 @@
 #ifndef Rcpp__exceptions_impl__h
 #define Rcpp__exceptions_impl__h
 
-// disable demangler on platforms where we have no support
+// enable demangler on platforms where execinfo.h is present
 #ifndef RCPP_DEMANGLER_ENABLED
-# if defined(_WIN32)       || \
-    defined(__FreeBSD__)   || \
-    defined(__NetBSD__)    || \
-    defined(__OpenBSD__)   || \
-    defined(__DragonFly__) || \
-    defined(__CYGWIN__)    || \
-    defined(__sun)         || \
-    defined(_AIX)          || \
-    defined(__MUSL__)      || \
-    defined(__HAIKU__)     || \
-    defined(__ANDROID__)
-#  define RCPP_DEMANGLER_ENABLED 0
-# elif defined(__GNUC__)  || defined(__clang__)
-#  include <execinfo.h>
-#  define RCPP_DEMANGLER_ENABLED 1
-# else
-#  define RCPP_DEMANGLER_ENABLED 0
+# define RCPP_DEMANGLER_ENABLED 0
+# if defined __has_include
+#  if __has_include (<execinfo.h>)
+#   include <execinfo.h>
+#   undef RCPP_DEMANGLER_ENABLED
+#   define RCPP_DEMANGLER_ENABLED 1
+#  endif
 # endif
 #endif
 
