@@ -17,8 +17,16 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
+#ifndef Rcpp_macros_mask_h
+#define Rcpp_macros_mask_h
+
+#define RCPP_NO_MASK_EMPTY()
+#define RCPP_NO_MASK(id) id RCPP_NO_MASK_EMPTY()
+
 #ifndef RCPP_NO_MASK_RF_ERROR
-#define Rf_error \
+#define Rf_error(...) \
     _Pragma("GCC warning \"Invalid use of Rf_error, use Rcpp::stop instead\"") \
-    Rcpp::stop
+    Rcpp::stop(__VA_ARGS__)
+#endif
+
 #endif

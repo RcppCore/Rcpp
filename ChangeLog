@@ -12,10 +12,8 @@
 	* inst/include/Rcpp/macros/mask.h: Mask Rf_error with Rcpp::stop with
 	a warning at compilation time, unless RCPP_NO_MASK_RF_ERROR is defined
 	* inst/include/RcppCommon.h: Include the previous file in the last place
-	* inst/tinytest/cpp/stack.cpp: Define RCPP_NO_MASK_RF_ERROR to enable
-	Rf_error for this test
-	* src/attributes.cpp: Undef then re-include masking to allow generated
-	interface call to Rf_error
+	* src/attributes.cpp: Use RCPP_NO_MASK to protect call to Rf_error
+	* inst/tinytest/cpp/stack.cpp: Idem
 	* inst/tinytest/testRcppInterfaceExporter/src/RcppExports.cpp: Idem
 
 2025-10-21 Iñaki Ucar <iucar@fedoraproject.org>

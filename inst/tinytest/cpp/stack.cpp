@@ -22,7 +22,6 @@
 
 // [[Rcpp::plugins(cpp11)]]
 
-#define RCPP_NO_MASK_RF_ERROR
 #include <Rcpp.h>
 using namespace Rcpp;
 
@@ -57,7 +56,7 @@ SEXP testSendInterrupt() {
 SEXP maybeThrow(void* data) {
     bool* fail = (bool*) data;
     if (*fail)
-        Rf_error("throw!");
+        RCPP_NO_MASK(Rf_error)("throw!");
     else
         return NumericVector::create(42);
 }
