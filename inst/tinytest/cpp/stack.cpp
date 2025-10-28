@@ -2,7 +2,8 @@
 //
 // misc.cpp: Rcpp R/C++ interface class library -- misc unit tests
 //
-// Copyright (C) 2013 - 2022  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2013 - 2024  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2025         Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -21,6 +22,7 @@
 
 // [[Rcpp::plugins(cpp11)]]
 
+#define RCPP_NO_MASK_RF_ERROR
 #include <Rcpp.h>
 using namespace Rcpp;
 

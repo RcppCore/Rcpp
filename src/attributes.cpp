@@ -2953,7 +2953,9 @@ namespace attributes {
                      << "    if (rcpp_isError_gen) {" << std::endl
                      << "        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);" << std::endl
                      << "        UNPROTECT(1);" << std::endl
+                     << "        #undef Rf_error" << std::endl
                      << "        Rf_error(\"%s\", CHAR(rcpp_msgSEXP_gen));" << std::endl
+                     << "        #include <Rcpp/macros/mask.h>" << std::endl
                      << "    }" << std::endl
                      << "    UNPROTECT(1);" << std::endl
                      << "    return rcpp_result_gen;" << std::endl
