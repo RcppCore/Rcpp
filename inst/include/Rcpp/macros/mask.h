@@ -18,7 +18,7 @@
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifndef RCPP_NO_MASK_RF_ERROR
- #define Rf_error \
-     _Pragma("GCC warning \"Invalid use of Rf_error, use Rcpp::stop instead\"") \
-     Rcpp::stop
+#define Rf_error \
+    _Pragma("GCC warning \"Invalid use of Rf_error, use Rcpp::stop instead\"") \
+    Rcpp::stop
 #endif
