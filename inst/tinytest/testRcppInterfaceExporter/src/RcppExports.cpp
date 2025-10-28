@@ -43,7 +43,11 @@ RcppExport SEXP _testRcppInterfaceExporter_test_cpp_interface(SEXP xSEXP, SEXP f
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
+    #ifdef RCPP_NO_MASK
         RCPP_NO_MASK(Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
+    #else
+        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+    #endif
     }
     UNPROTECT(1);
     return rcpp_result_gen;
