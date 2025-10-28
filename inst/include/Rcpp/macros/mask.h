@@ -25,7 +25,9 @@
 
 #ifndef RCPP_NO_MASK_RF_ERROR
 #define Rf_error(...) \
-    _Pragma("GCC warning \"Invalid use of Rf_error, use Rcpp::stop instead\"") \
+    _Pragma("GCC warning \"Use of Rf_error() replaced with Rcpp::stop(). Calls \
+to Rf_error() in C++ contexts are unsafe: consider using Rcpp::stop() instead, \
+or define RCPP_NO_MASK_RF_ERROR if this is a false positive.\"") \
     Rcpp::stop(__VA_ARGS__)
 #endif
 
