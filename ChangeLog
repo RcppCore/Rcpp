@@ -12,7 +12,7 @@
 	* inst/include/Rcpp/macros/mask.h: Mask Rf_error with Rcpp::stop with
 	a warning at compilation time, unless RCPP_NO_MASK_RF_ERROR is defined
 	* inst/include/RcppCommon.h: Include the previous file in the last place
-	* src/attributes.cpp: Use RCPP_NO_MASK to protect call to Rf_error
+	* src/attributes.cpp: Use parentheses to protect call to Rf_error
 	* inst/tinytest/cpp/stack.cpp: Idem
 	* inst/tinytest/testRcppInterfaceExporter/src/RcppExports.cpp: Idem
 

@@ -56,7 +56,7 @@ SEXP testSendInterrupt() {
 SEXP maybeThrow(void* data) {
     bool* fail = (bool*) data;
     if (*fail)
-        RCPP_NO_MASK(Rf_error)("throw!");
+        (Rf_error)("throw!"); // prevent masking
     else
         return NumericVector::create(42);
 }

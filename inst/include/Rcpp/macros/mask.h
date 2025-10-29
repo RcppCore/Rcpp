@@ -20,9 +20,6 @@
 #ifndef Rcpp_macros_mask_h
 #define Rcpp_macros_mask_h
 
-#define RCPP_NO_MASK_EMPTY()
-#define RCPP_NO_MASK(id) id RCPP_NO_MASK_EMPTY()
-
 #ifndef RCPP_NO_MASK_RF_ERROR
 #define Rf_error(...) \
     _Pragma("GCC warning \"Use of Rf_error() replaced with Rcpp::stop(). Calls \
