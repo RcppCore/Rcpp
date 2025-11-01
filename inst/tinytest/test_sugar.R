@@ -708,6 +708,8 @@ expect_equal(sort(unique(x)), sort(runit_unique_dbl(x)), info = "unique / numeri
 x <- c(x, NA, NA)
 expect_equal(sort(unique(x), na.last = TRUE), sort(runit_unique_dbl(x), na.last = TRUE), info = "unique / numeric / with NA")
 
+x <- c(x, -0.0, +0.0)
+expect_equal(sort(unique(x)), sort(runit_unique_dbl(x)), info = "unique / numeric / with signed 0s")
 
 #    test.sort_unique <- function() {
 set.seed(123)
