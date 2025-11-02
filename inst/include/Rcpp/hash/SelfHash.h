@@ -99,7 +99,7 @@ namespace sugar{
 
     template <>
     inline double SelfHash<REALSXP>::normalize(double val) const {
-        /* double is a bit tricky - we nave to normalize 0.0, NA and NaN */
+        /* double is a bit tricky - we have to normalize 0.0, NA and NaN */
         if (val == 0.0) val = 0.0;
         if (internal::Rcpp_IsNA(val)) val = NA_REAL;
         else if (internal::Rcpp_IsNaN(val)) val = R_NaN;
