@@ -4,7 +4,8 @@
 //
 // Copyright (C) 2010, 2011   Simon Urbanek
 // Copyright (C) 2012 - 2013  Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2014 - 2021  Dirk Eddelbuettel, Romain Francois and Kevin Ushey
+// Copyright (C) 2014 - 2024  Dirk Eddelbuettel, Romain Francois and Kevin Ushey
+// Copyright (C) 2025         Dirk Eddelbuettel, Romain Francois, Kevin Ushey and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -159,13 +160,15 @@ namespace Rcpp{
         #endif
         }
 
+        STORAGE normalize(STORAGE val) const { return val; }
+
         inline bool not_equal(const STORAGE& lhs, const STORAGE& rhs) {
-            return ! internal::NAEquals<STORAGE>()(lhs, rhs);
+            return ! internal::NAEquals<STORAGE>()(normalize(lhs), rhs);
         }
 
         bool add_value(int i){
             RCPP_DEBUG_2( "%s::add_value(%d)", DEMANGLE(IndexHash), i )
-            STORAGE val = src[i++] ;
+            STORAGE val = normalize(src[i++]);
             uint32_t addr = get_addr(val) ;
             while (data[addr] && not_equal( src[data[addr] - 1], val)) {
               addr++;
@@ -200,6 +203,15 @@ namespace Rcpp{
     } ;
 
     template <>
+    inline double IndexHash<REALSXP>::normalize(double val) const {
+        /* double is a bit tricky - we have to normalize 0.0, NA and NaN */
+        if (val == 0.0) val = 0.0;
+        if (internal::Rcpp_IsNA(val)) val = NA_REAL;
+        else if (internal::Rcpp_IsNaN(val)) val = R_NaN;
+        return val;
+    }
+
+    template <>
     inline uint32_t IndexHash<INTSXP>::get_addr(int value) const {
         return RCPP_HASH(value) ;
     }
@@ -211,10 +223,6 @@ namespace Rcpp{
           uint32_t u[2];
         };
       union dint_u val_u;
-      /* double is a bit tricky - we nave to normalize 0.0, NA and NaN */
-      if (val == 0.0) val = 0.0;
-      if (internal::Rcpp_IsNA(val)) val = NA_REAL;
-      else if (internal::Rcpp_IsNaN(val)) val = R_NaN;
       val_u.d = val;
       addr = RCPP_HASH(val_u.u[0] + val_u.u[1]);
       return addr ;

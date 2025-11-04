@@ -1,3 +1,9 @@
+2025-11-01 Iñaki Ucar <iucar@fedoraproject.org>
+
+	* inst/include/Rcpp/hash/IndexHash.h: Normalize values for all comparisons
+	* inst/include/Rcpp/hash/SelfHash.h: Idem
+	* inst/tinytest/test_sugar.R: Add test for signed zeroes
+
 2025-10-21 Iñaki Ucar <iucar@fedoraproject.org>
 
 	* inst/include/Rcpp/exceptions_impl.h: use __has_include to simplify checks
