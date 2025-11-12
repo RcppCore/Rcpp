@@ -105,9 +105,8 @@
 	* inst/include/RcppCommon.h: Call new header as first thing
 2025-11-12 Iñaki Ucar <iucar@fedoraproject.org>
 
-	* inst/include/Rcpp/macros/mask.h: Lay the ground for Rf_error masking,
-	unless RCPP_NO_MASK_RF_ERROR is defined; the new define just generates a
-	compilation note, which will become a warning + masking in a future release
+	* inst/include/Rcpp/macros/mask.h: Lay the ground for Rf_error masking
+	with a message at compilation time unless RCPP_NO_MASK_RF_ERROR is defined
 	* inst/include/RcppCommon.h: Include the previous file in the last place
 	* src/attributes.cpp: Use parentheses to protect call to Rf_error
 	* inst/tinytest/cpp/stack.cpp: Idem
