@@ -2,7 +2,8 @@
 //
 // misc.cpp: Rcpp R/C++ interface class library -- misc unit tests
 //
-// Copyright (C) 2013 - 2022  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2013 - 2024  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2025         Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -55,7 +56,7 @@ SEXP testSendInterrupt() {
 SEXP maybeThrow(void* data) {
     bool* fail = (bool*) data;
     if (*fail)
-        Rf_error("throw!");
+        (Rf_error)("throw!"); // prevent masking
     else
         return NumericVector::create(42);
 }

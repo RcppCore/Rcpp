@@ -103,6 +103,15 @@
 	* inst/include/Rcpp/r/check_r_headers.h: New header to check if R.h
 	or related R headers were installed first
 	* inst/include/RcppCommon.h: Call new header as first thing
+2025-11-12 Iñaki Ucar <iucar@fedoraproject.org>
+
+	* inst/include/Rcpp/macros/mask.h: Lay the ground for Rf_error masking,
+	unless RCPP_NO_MASK_RF_ERROR is defined; the new define just generates a
+	compilation note, which will become a warning + masking in a future release
+	* inst/include/RcppCommon.h: Include the previous file in the last place
+	* src/attributes.cpp: Use parentheses to protect call to Rf_error
+	* inst/tinytest/cpp/stack.cpp: Idem
+	* inst/tinytest/testRcppInterfaceExporter/src/RcppExports.cpp: Idem
 
 2025-11-04  Dirk Eddelbuettel  <edd@debian.org>
 
@@ -116,7 +125,7 @@
 
 2025-10-21 Iñaki Ucar <iucar@fedoraproject.org>
 
-	* inst/include/Rcpp/exceptions_impl.h: use __has_include to simplify checks
+	* inst/include/Rcpp/exceptions_impl.h: Use __has_include to simplify checks
 	to enable demangling, making them robust for more platforms
 
 2025-10-13  Dirk Eddelbuettel  <edd@debian.org>
