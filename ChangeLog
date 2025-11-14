@@ -106,7 +106,7 @@
 2025-11-12 Iñaki Ucar <iucar@fedoraproject.org>
 
 	* inst/include/Rcpp/macros/mask.h: Lay the ground for Rf_error masking
-	with a message at compilation time unless RCPP_NO_MASK_RF_ERROR is defined
+	with a warning at compilation time unless RCPP_NO_MASK_RF_ERROR is defined
 	* inst/include/RcppCommon.h: Include the previous file in the last place
 	* src/attributes.cpp: Use parentheses to protect call to Rf_error
 	* inst/tinytest/cpp/stack.cpp: Idem
