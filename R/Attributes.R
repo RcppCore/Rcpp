@@ -588,8 +588,39 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
 
 ## built-in OpenMP plugin
 .plugins[["openmp"]] <- function() {
-    list(env = list(PKG_CXXFLAGS="-fopenmp",
-                    PKG_LIBS="-fopenmp"))
+
+    # Default flags for non-macOS systems
+    cxxflags <- "-fopenmp"
+    libs <- "-fopenmp"
+
+    # Check if we're on macOS
+    if (Sys.info()[['sysname']] == "Darwin") {
+        # Get the C++ compiler from R CMD config CXX
+        r_cmd <- file.path(R.home('bin'), 'R')
+        cxx <- tryCatch({
+            system2(r_cmd, c("CMD", "config", "CXX"), stdout = TRUE, stderr = FALSE)
+        }, error = function(e) "")
+
+        if (length(cxx) > 0 && nzchar(cxx[1])) {
+            # Extract just the compiler command (remove any flags)
+            cxx_compiler <- strsplit(cxx[1], "\\s+")[[1]][1]
+
+            # Check if it's Apple clang by querying the compiler version
+            compiler_version <- tryCatch({
+                system2(cxx_compiler, "--version", stdout = TRUE, stderr = FALSE)
+            }, error = function(e) character(0))
+
+            # If we detect Apple clang, use -Xclang -fopenmp
+            if (length(compiler_version) > 0 && any(grepl("Apple", compiler_version, ignore.case = TRUE))) {
+                cxxflags <- "-Xclang -fopenmp"
+                libs <- "-lomp"
+            }
+            # Otherwise it's gcc and regular -fopenmp works
+        }
+    }
+
+    list(env = list(PKG_CXXFLAGS = cxxflags,
+                    PKG_LIBS = libs))
 }
 
 .plugins[["unwindProtect"]] <- function() { # nocov start
