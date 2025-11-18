@@ -8,6 +8,9 @@
 	* inst/include/Rcpp/r/check_r_headers.h: New header to check if R.h
 	or related R headers were installed first
 	* inst/include/RcppCommon.h: Call new header as first thing
+2025-11-18  James J Balamuta  <balamut2@illinois.edu>
+
+        * R/Attributes.R: Updated OpenMP Plugin's flags on macOS
 
 2025-11-04  Dirk Eddelbuettel  <edd@debian.org>
 
