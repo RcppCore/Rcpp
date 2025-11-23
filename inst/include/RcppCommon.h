@@ -27,6 +27,7 @@
 // #define RCPP_DEBUG_LEVEL 1
 // #define RCPP_DEBUG_MODULE_LEVEL 1
 
+#include <Rcpp/r/check_r_headers.h>
 #include <Rcpp/r/headers.h>
 #include <Rcpp/r/compat.h>
 
