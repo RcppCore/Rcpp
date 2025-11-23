@@ -21,6 +21,10 @@
 #ifndef RCPP__R__HEADERS__H
 #define RCPP__R__HEADERS__H
 
+#if defined(R_R_H) & defined(USING_R)
+#pragma message "R.h has been included before the Rcpp headers. This can lead to hard-to-debug errors and is not necessary. See https://github.com/RcppCore/Rcpp/issues/14xx"
+#endif
+
 // include R headers, but set R_NO_REMAP and access everything via Rf_ prefixes
 #ifndef MAXELTSIZE
  #define MAXELTSIZE 8192
