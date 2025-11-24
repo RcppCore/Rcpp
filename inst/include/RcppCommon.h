@@ -4,7 +4,7 @@
 //
 // Copyright (C) 2008 - 2009  Dirk Eddelbuettel
 // Copyright (C) 2009 - 2020  Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2021         Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
+// Copyright (C) 2021 - 2025  Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
