@@ -594,28 +594,41 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     libs <- "-fopenmp"
 
     # Check if we're on macOS
-    if (Sys.info()[['sysname']] == "Darwin") {
+    if (Sys.info()[["sysname"]] == "Darwin") {
         # Get the C++ compiler from R CMD config CXX
-        r_cmd <- file.path(R.home('bin'), 'R')
+        r_cmd <- file.path(R.home("bin"), "R")
         cxx <- tryCatch({
             system2(r_cmd, c("CMD", "config", "CXX"), stdout = TRUE, stderr = FALSE)
         }, error = function(e) "")
 
         if (length(cxx) > 0 && nzchar(cxx[1])) {
-            # Extract just the compiler command (remove any flags)
-            cxx_compiler <- strsplit(cxx[1], "\\s+")[[1]][1]
-
-            # Check if it's Apple clang by querying the compiler version
+            # Check compiler version using full command (this includes any flags)
             compiler_version <- tryCatch({
-                system2(cxx_compiler, "--version", stdout = TRUE, stderr = FALSE)
+                system(paste(cxx[1], "--version"), intern = TRUE, ignore.stderr = TRUE)
             }, error = function(e) character(0))
 
-            # If we detect Apple clang, use -Xclang -fopenmp
-            if (length(compiler_version) > 0 && any(grepl("Apple", compiler_version, ignore.case = TRUE))) {
-                cxxflags <- "-Xclang -fopenmp"
-                libs <- "-lomp"
+            if (length(compiler_version) > 0) {
+                # Check for Apple clang
+                is_apple_clang <- any(grepl("Apple", compiler_version, ignore.case = TRUE))
+                # Check for Homebrew clang
+                is_homebrew_clang <- any(grepl("Homebrew", compiler_version, ignore.case = TRUE))
+
+                if (is_apple_clang) {
+                    # Apple clang requires -Xclang -fopenmp
+                    cxxflags <- "-Xclang -fopenmp"
+                    libs <- "-lomp"
+                } else if (is_homebrew_clang) {
+                    # Homebrew clang needs include/lib paths for the added libomp formula
+                    # Determine prefix based on architecture (arm64 vs x86_64)
+                    arch <- Sys.info()[["machine"]]
+                    brew_prefix <- if (arch == "arm64") "/opt/homebrew" else "/usr/local"
+
+                    cxxflags <- paste("-Xclang -fopenmp",
+                                      paste0("-I", brew_prefix, "/opt/libomp/include"))
+                    libs <- paste(paste0("-L", brew_prefix, "/opt/libomp/lib"), "-lomp")
+                }
+                # Otherwise it's gcc and regular -fopenmp works (defaults are fine)
             }
-            # Otherwise it's gcc and regular -fopenmp works
         }
     }
 
