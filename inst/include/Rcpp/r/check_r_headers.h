@@ -23,8 +23,8 @@
 // Allow an escape hatch
 #if !defined(RCPP_NO_R_HEADERS_CHECK)
 
-  #if defined(R_R_H) & defined(USING_R)
-    #pragma message "R.h has been included before any Rcpp headers. This can lead to hard-to-debug errors, and is generally not necessary. See https://github.com/RcppCore/Rcpp/issues/1410"
+  #if defined(R_R_H) && defined(USING_R)
+    #pragma message "R.h has been included before any Rcpp headers. This can lead to hard-to-debug errors, and is not necessary. See https://github.com/RcppCore/Rcpp/issues/1410"
   #endif
 
   #if defined(RINTERFACE_H_)
@@ -32,11 +32,11 @@
   #endif
 
   #if defined(R_INTERNALS_H_)
-    #pragma message "Rinternals.h has been included before any Rcpp headers. This can lead to hard-to-debug errors, and is generally not necessary. See https://github.com/RcppCore/Rcpp/issues/1410"
+    #pragma message "Rinternals.h has been included before any Rcpp headers. This can lead to hard-to-debug errors, and is not necessary. See https://github.com/RcppCore/Rcpp/issues/1410"
   #endif
 
   #if defined(R_DEFINES_H_)
-    #pragma message "Rdefines.h has been included before any Rcpp headers. This can lead to hard-to-debug errors, and is generally not necessary. See https://github.com/RcppCore/Rcpp/issues/1410"
+    #pragma message "Rdefines.h has been included before any Rcpp headers. This can lead to hard-to-debug errors, and is not necessary. See https://github.com/RcppCore/Rcpp/issues/1410"
   #endif
 
 #endif  // escape hatch '!defined(RCPP_NO_R_HEADERS_CHECK)'
