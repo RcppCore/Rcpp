@@ -10,12 +10,24 @@
       \item An unused old R function for a compiler version check has been
       removed after checking no known package uses it (Dirk in \ghpr{1395})
       \item A narrowing warning is avoided via a cast (Dirk in \ghpr{1398})
+      \item Demangling checks have been simplified (Iñaki in \ghpr{1401}
+      addressing \ghit{1400})
+      \item The treatment of signed zeros is now improved in the Sugar code
+      (Iñaki in \ghpr{1404})
+      \item A message is shown if \code{R.h} is included before Rcpp headers
+      as this can lead to errors (Dirk in \ghpr{1411} closing \ghit{1410})
     }
     \item Changes in Rcpp Documentation:
     \itemize{
       \item Vignettes are now processed via a new "asis" processor adopted
       from \pkg{R.rsp} (Dirk in \ghpr{1394} fixing \ghit{1393})
       \item R is now cited via its DOI (Dirk)
+    }
+    \item Changes in Rcpp Deployment:
+    \itemize{
+      \item A temporary change in R-devel concerning NA part in complex variables
+      was accommodated, and then reverted (Dirk in \ghpr{1399} fixing \ghit{1397})
+      \item The macOS CI runners now use macos-14 (Dirk in \ghpr{1405})
     }
   }
 }
