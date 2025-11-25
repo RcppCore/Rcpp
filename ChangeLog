@@ -1,3 +1,14 @@
+2025-11-24  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/r/check_r_headers.h: Add RCPP_NO_R_HEADERS_CHECK
+	override to skip new check
+
+2025-11-23  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/r/check_r_headers.h: New header to check if R.h
+	or related R headers were installed first
+	* inst/include/RcppCommon.h: Call new header as first thing
+
 2025-11-04  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .github/workflows/macos.yaml (jobs): Roll macos-13 to macos-14
