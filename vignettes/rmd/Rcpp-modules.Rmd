@@ -1258,14 +1258,6 @@ package's namespace. For example, a package defining modules
 RcppModules: yada, stdVector, NumEx
 ```
 
-The `loadRcppModules` function has a single argument `direct`
-with a default value of `TRUE`. With this default value, all content
-from the module is exposed directly in the package namespace. If set to
-`FALSE`, all content is exposed as components of the module.
-
-Note: This approach is **deprecated** as of Rcpp 0.12.5, and now triggers a
-warning message. Eventually this function will be withdrawn.
-
 ### Just expose the module
 
 Alternatively to exposing a module's content via `loadModule`,

@@ -80,9 +80,6 @@ John Chambers
 }
 \seealso{
 \code{\link{setRcppClass}()} to avoid the explicit call.
-
-\code{\link{loadRcppModules}()} for a (deprecated) shotgun procedure to load all
-modules.
 }
 \examples{
 \dontrun{
