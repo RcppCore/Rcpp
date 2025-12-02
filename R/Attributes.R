@@ -592,14 +592,29 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
 
 .openmpPluginDarwin <- function() {
 
+    # generate a test script for compilation
+    script <- tempfile("openmp-detect-", fileext = ".cpp")
+    writeLines("", con = script)
+    on.exit(unlink(script, force = TRUE), add = TRUE)
+
     # get the C++ compiler from R
     r <- file.path(R.home("bin"), "R")
-    cxx <- tryCatch(
-        system2(r, c("CMD", "config", "CXX"), stdout = TRUE),
+    output <- tryCatch(
+        system2(r, c("CMD", "SHLIB", "--dry-run", shQuote(script)), stdout = TRUE),
         condition = identity
     )
-    if (inherits(cxx, "condition"))
+    if (inherits(output, "condition"))
         return(.openmpPluginDefault())
+
+    # extract the compiler invocation from the shlib output
+    # use some heuristics here...
+    index <- grep("make would use", output)
+    compile <- output[[index + 1L]]
+
+    # use everything up to the first include flag, which is normally
+    # the R headers from CPPFLAGS
+    idx <- regexpr(" -I", compile, fixed = TRUE)
+    cxx <- substring(compile, 1L, idx - 1L)
 
     # check the compiler version
     command <- paste(cxx, "--version")
@@ -613,29 +628,21 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     # if we're using Apple clang, use alternate flags
     # assume libomp was installed following https://mac.r-project.org/openmp/
     if (any(grepl("Apple clang", version))) {
-
         cxxflags <- "-Xclang -fopenmp"
         libs <- "-lomp"
-
     }
 
     # if we're using Homebrew clang, add in libomp include paths
     else if (any(grepl("Homebrew clang", version))) {
-
-        # ensure Homebrew paths are included during compilation
         machine <- Sys.info()[["machine"]]
         prefix <- if (machine == "arm64") "/opt/homebrew" else "/usr/local"
-
-        # build flags
         cxxflags <- sprintf("-I%s/opt/libomp/include -fopenmp", prefix)
         libs <- sprintf("-L%s/opt/libomp/lib -fopenmp", prefix)
 
     # otherwise, use default -fopenmp flags for other compilers (LLVM clang; gcc)
     } else {
-
         cxxflags <- "-fopenmp"
         libs <- "-fopenmp"
-
     }
 
     list(env = list(PKG_CXXFLAGS = cxxflags, PKG_LIBS = libs))
