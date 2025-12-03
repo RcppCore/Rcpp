@@ -33,6 +33,7 @@ Rcpp.quoteNonStandard <- function(path) {
 RcppLdPath <- function() {
     #.Deprecated(msg=paste("This function is now deprecated as it has not",
     #                      "been needed since 2013."))
+    message("'RcppLdPath' has not been needed since 2013 (!!) and may get removed in 2027. Please update your 'Makevars'.")
     ""
 }
 
@@ -47,6 +48,7 @@ RcppLdPath <- function() {
 RcppLdFlags <- function() {
     #.Deprecated(msg=paste("This function is now deprecated as it has not",
     #                      "been needed since 2013."))
+    message("'RcppLdFlags' has not been needed since 2013 (!!) and may get removed in 2027. Please update your 'Makevars'.")
     ""
 }
 
@@ -67,11 +69,13 @@ RcppCxxFlags <- function(cxx0x=FALSE) {
 CxxFlags <- function(cxx0x=FALSE) {
     #.Deprecated(msg=paste("This function is now deprecated as R uses minimally",
     #                      "viable compilers om all platforme."))
+    message("'CxxFlags' has not been needed since 2013 (!!) and may get removed in 2027. Please update your 'Makevars'.")
     cat(RcppCxxFlags(cxx0x=cxx0x))				# #nocov
 }
 
 ## LdFlags defaults to static linking on the non-Linux platforms Windows and OS X
 LdFlags <- function() {
+    message("'LdFlags' has not been needed since 2013 (!!) and may get removed in 2027. Please update your 'Makevars'.")
     cat(RcppLdFlags())
 }
 
@@ -83,11 +87,13 @@ RcppCapabilities <- capabilities <- function() .Call( rcpp_capabilities )
 RcppCxx0xFlags <- function() {
     #.Deprecated(msg=paste("This function is now deprecated as R uses minimally",
     #                      "viable compilers om all platforme."))
+    message("'RcppCxx0xFlags' has not been needed since 2013 (!!) and may get removed in 2027. Please update your 'Makevars'.")
     script <- Rcpp.system.file( "discovery", "cxx0x.R" )	# #nocov start
     flag <- capture.output( source( script ) )
     flag
 }
 
 Cxx0xFlags <- function() {
+    message("'Cxx0xFlags' has not been needed since 2013 (!!) and may get removed in 2027. Please update your 'Makevars'.")
     cat(RcppCxx0xFlags())									# #nocov end
 }

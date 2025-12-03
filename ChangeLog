@@ -2,6 +2,11 @@
 
 	* R/Attributes.R: Update OpenMP plugin for macOS
 
+2025-11-29  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/RcppLdpath.R: Revisit deprecation warnings via 'message()' to be
+	turned into warning or deprecation in 12 or more months 'when suitable'
+
 2025-11-24  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/r/check_r_headers.h: Add RCPP_NO_R_HEADERS_CHECK
