@@ -16,6 +16,13 @@
       (Iñaki in \ghpr{1404})
       \item A message is shown if \code{R.h} is included before Rcpp headers
       as this can lead to errors (Dirk in \ghpr{1411} closing \ghit{1410})
+      \item The long-deprecated function \code{loadRcppModules()} has been
+      removed (Dirk in \ghpr{1416} closing \ghit{1415})
+    }
+    \item Changes in Rcpp Attributes:
+    \itemize{
+      \item The OpenMP plugin has been generalized for different macOS
+      compiler installations (Kevin in \ghpr{1414})
     }
     \item Changes in Rcpp Documentation:
     \itemize{
@@ -28,6 +35,8 @@
       \item A temporary change in R-devel concerning NA part in complex variables
       was accommodated, and then reverted (Dirk in \ghpr{1399} fixing \ghit{1397})
       \item The macOS CI runners now use macos-14 (Dirk in \ghpr{1405})
+      \item Old helper functions use \code{message()} to signal they are not used,
+      deprecation and removal to follow (Dirk in \ghpr{1413} closing \ghit{1412})
     }
   }
 }
