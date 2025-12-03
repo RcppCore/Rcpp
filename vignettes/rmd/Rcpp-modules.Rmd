@@ -1236,28 +1236,6 @@ The `loadModule` function has an argument `what` to control which objects are
 exposed in the package namespace. The special value `TRUE` means that all
 objects are exposed.
 
-### Deprecated legacy method using loadRcppModules
-
-Prior to release 0.9.11, where `loadModule` was introduced,
-loading all functions and classes from a module
-into a package namespace was achieved using the `loadRcppModules` function
-within the `.onLoad` body.
-
-```{r, eval=FALSE}
-.onLoad <- function(libname, pkgname) {
-    loadRcppModules()
-}
-```
-
-This will look in the package's `DESCRIPTION` file for the `RcppModules`
-field, load each declared module and populate their contents into the
-package's namespace. For example, a package defining modules
-`yada`, `stdVector`, `NumEx` would have this declaration:
-
-```
-RcppModules: yada, stdVector, NumEx
-```
-
 ### Just expose the module
 
 Alternatively to exposing a module's content via `loadModule`,
