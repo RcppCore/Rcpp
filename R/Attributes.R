@@ -586,10 +586,74 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     list(env = list(PKG_CXXFLAGS ="-std=c++2b"))
 }
 
+.openmpPluginDefault <- function() {
+    list(env = list(PKG_CXXFLAGS = "-fopenmp", PKG_LIBS = "-fopenmp"))
+}
+
+.openmpPluginDarwin <- function() {
+
+    # generate a test script for compilation
+    script <- tempfile("openmp-detect-", fileext = ".cpp")
+    writeLines("", con = script)
+    on.exit(unlink(script, force = TRUE), add = TRUE)
+
+    # get the C++ compiler from R
+    r <- file.path(R.home("bin"), "R")
+    output <- tryCatch(
+        system2(r, c("CMD", "SHLIB", "--dry-run", shQuote(script)), stdout = TRUE),
+        condition = identity
+    )
+    if (inherits(output, "condition"))
+        return(.openmpPluginDefault())
+
+    # extract the compiler invocation from the shlib output
+    # use some heuristics here...
+    index <- grep("make would use", output)
+    compile <- output[[index + 1L]]
+
+    # use everything up to the first include flag, which is normally
+    # the R headers from CPPFLAGS
+    idx <- regexpr(" -I", compile, fixed = TRUE)
+    cxx <- substring(compile, 1L, idx - 1L)
+
+    # check the compiler version
+    command <- paste(cxx, "--version")
+    version <- tryCatch(
+        system(command, intern = TRUE),
+        condition = identity
+    )
+    if (inherits(version, "condition"))
+        return(.openmpPluginDefault())
+
+    # if we're using Apple clang, use alternate flags
+    # assume libomp was installed following https://mac.r-project.org/openmp/
+    if (any(grepl("Apple clang", version))) {
+        cxxflags <- "-Xclang -fopenmp"
+        libs <- "-lomp"
+    }
+
+    # if we're using Homebrew clang, add in libomp include paths
+    else if (any(grepl("Homebrew clang", version))) {
+        machine <- Sys.info()[["machine"]]
+        prefix <- if (machine == "arm64") "/opt/homebrew" else "/usr/local"
+        cxxflags <- sprintf("-I%s/opt/libomp/include -fopenmp", prefix)
+        libs <- sprintf("-L%s/opt/libomp/lib -fopenmp", prefix)
+
+    # otherwise, use default -fopenmp flags for other compilers (LLVM clang; gcc)
+    } else {
+        cxxflags <- "-fopenmp"
+        libs <- "-fopenmp"
+    }
+
+    list(env = list(PKG_CXXFLAGS = cxxflags, PKG_LIBS = libs))
+
+}
+
 ## built-in OpenMP plugin
-.plugins[["openmp"]] <- function() {
-    list(env = list(PKG_CXXFLAGS="-fopenmp",
-                    PKG_LIBS="-fopenmp"))
+.plugins[["openmp"]] <- if (Sys.info()[["sysname"]] == "Darwin") {
+    .openmpPluginDarwin
+} else {
+    .openmpPluginDefault
 }
 
 .plugins[["unwindProtect"]] <- function() { # nocov start
