@@ -1,6 +1,3 @@
-2025-12-01  Kevin Ushey <kevinushey@gmail.com>
-
-	* R/Attributes.R: Update OpenMP plugin for macOS
 2025-12-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/loadRcppModules.R: Remove file with function deprecated years ago
@@ -9,6 +6,10 @@
 	* man/loadModule.Rd: Idem
 	* man/Rcpp-deprecated.Rd: Idem
 	* vignettes/rmd/Rcpp-modules.Rmd: Idem
+
+2025-12-01  Kevin Ushey <kevinushey@gmail.com>
+
+	* R/Attributes.R: Update OpenMP plugin for macOS
 
 2025-11-29  Dirk Eddelbuettel  <edd@debian.org>
 
