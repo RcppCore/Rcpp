@@ -7,9 +7,6 @@
 }
 \details{
   \itemize{
-  \item \code{\link{loadRcppModules}} calls should now be replaced by
-  \code{\link{loadModule}} calls, one per Module.
-
   \item \code{\link{LdFlags}} and \code{\link{RcppLdFlags}} are no
   longer required as no library is provided (or needed) by Rcpp (as it
   was up until release 0.10.1).
