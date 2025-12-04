@@ -28,7 +28,6 @@
 using namespace Rcpp;
 
 #include "internal.h"
-#include <R_ext/PrtUtil.h>
 
 #ifdef RCPP_HAS_DEMANGLING
 #include <cxxabi.h>
