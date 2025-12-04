@@ -1,3 +1,9 @@
+2025-12-04  Iñaki Ucar <iucar@fedoraproject.org>
+
+	* inst/include/Rcpp/r/headers.h: Include <R_ext/Visibility.h>
+	* inst/include/RcppCommon.h: Drop <R_ext/Callbacks.h>, not used anymore
+	and dropped from the API; drop <R_ext/Visibility.h>, included above
+
 2025-12-03  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date

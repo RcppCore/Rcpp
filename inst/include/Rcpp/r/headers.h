@@ -72,6 +72,7 @@
 #include <R_ext/Complex.h>
 #include <R_ext/Parse.h>
 #include <R_ext/Rdynload.h>
+#include <R_ext/Visibility.h>
 #include <Rversion.h>
 
 /* Ensure NORET defined (normally provided by R headers with R >= 3.2.0) */
