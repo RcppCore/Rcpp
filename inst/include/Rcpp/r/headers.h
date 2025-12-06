@@ -2,6 +2,7 @@
 //
 // Copyright (C) 2008 - 2009 Dirk Eddelbuettel
 // Copyright (C) 2009 - 2024 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2025        Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -72,6 +73,7 @@
 #include <R_ext/Complex.h>
 #include <R_ext/Parse.h>
 #include <R_ext/Rdynload.h>
+#include <R_ext/Visibility.h>
 #include <Rversion.h>
 
 /* Ensure NORET defined (normally provided by R headers with R >= 3.2.0) */
