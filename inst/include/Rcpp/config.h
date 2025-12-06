@@ -31,7 +31,7 @@
 #define RCPP_VERSION_STRING     "1.1.0"
 
 // the current source snapshot (using four components, if a fifth is used in DESCRIPTION we ignore it)
-#define RCPP_DEV_VERSION        RcppDevVersion(1,1,0,7)
-#define RCPP_DEV_VERSION_STRING "1.1.0.7"
+#define RCPP_DEV_VERSION        RcppDevVersion(1,1,0,8)
+#define RCPP_DEV_VERSION_STRING "1.1.0.8"
 
 #endif

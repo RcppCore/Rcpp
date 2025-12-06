@@ -18,6 +18,8 @@
       as this can lead to errors (Dirk in \ghpr{1411} closing \ghit{1410})
       \item The long-deprecated function \code{loadRcppModules()} has been
       removed (Dirk in \ghpr{1416} closing \ghit{1415})
+      \item Some includes from R were refactored to accommodate R-devel
+      changes (Iñaki in \ghpr{1418} addressing \ghit{1417})
     }
     \item Changes in Rcpp Attributes:
     \itemize{
