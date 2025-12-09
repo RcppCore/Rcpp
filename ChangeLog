@@ -103,6 +103,7 @@
 	* inst/include/Rcpp/r/check_r_headers.h: New header to check if R.h
 	or related R headers were installed first
 	* inst/include/RcppCommon.h: Call new header as first thing
+
 2025-11-12 Iñaki Ucar <iucar@fedoraproject.org>
 
 	* inst/include/Rcpp/macros/mask.h: Lay the ground for Rf_error masking
