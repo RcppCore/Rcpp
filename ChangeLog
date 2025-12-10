@@ -2,6 +2,9 @@
 
 	* inst/tinytest/test_system.R: Wrap suppressMessages() around three
 	tests for long-obsolete linker and compiler flags
+2025-12-10  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/Rmath.h: Do not access Rf_rnbeta
 
 2025-12-06  Dirk Eddelbuettel  <edd@debian.org>
 
