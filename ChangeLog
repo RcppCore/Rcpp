@@ -8,6 +8,7 @@
 	* inst/include/Rcpp/config.h: Idem
 
 	* inst/include/Rcpp/Rmath.h: Do not access Rf_rnbeta
+	* inst/include/Rcpp/sugar/undoRmath.h: Remove #undef
 
 2025-12-06  Dirk Eddelbuettel  <edd@debian.org>
 
