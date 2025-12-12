@@ -1,5 +1,5 @@
 
-##  Copyright (C) 2016 - 2019  Dirk Eddelbuettel
+##  Copyright (C) 2016 - 2025  Dirk Eddelbuettel
 ##
 ##  This file is part of Rcpp.
 ##
@@ -24,9 +24,9 @@ inc_sys <- tools::file_path_as_absolute( base::system.file("include", package = 
 expect_equal(inc_rcpp, inc_sys, info = "Rcpp.system.file")
 
 #    test.RcppLd <- function() {
-expect_true(Rcpp:::RcppLdPath() == "", info = "RcppLdPath")
-expect_true(Rcpp:::RcppLdFlags() == "", info = "RcppLdFlags")
-expect_equal(Rcpp:::LdFlags(), NULL, info = "LdFlags")
+expect_true(suppressMessages(Rcpp:::RcppLdPath()) == "", info = "RcppLdPath")
+expect_true(suppressMessages(Rcpp:::RcppLdFlags()) == "", info = "RcppLdFlags")
+expect_equal(suppressMessages(Rcpp:::LdFlags()), NULL, info = "LdFlags")
 
 #    test.RcppCxx <- function() {
 expect_true(Rcpp:::canUseCXX0X(), info = "canUseCXX0X")
