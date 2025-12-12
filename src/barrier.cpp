@@ -2,7 +2,7 @@
 // barrier.cpp: Rcpp R/C++ interface class library -- write barrier
 //
 // Copyright (C) 2010 - 2020  Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2021 - 2022  Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
+// Copyright (C) 2021 - 2025  Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -150,7 +150,11 @@ SEXP get_rcpp_cache() {
         Rcpp::Shield<SEXP> call(Rf_lang2(getNamespaceSym, RcppString));
         Rcpp::Shield<SEXP> RCPP(Rf_eval(call, R_GlobalEnv));
 
+#if R_VERSION < R_Version(4,5,0)
         Rcpp_cache = Rf_findVarInFrame(RCPP, Rf_install(".rcpp_cache"));
+#else
+        Rcpp_cache = R_getVar(Rf_install(".rcpp_cache"), RCPP, TRUE);
+#endif
         Rcpp_cache_know = true;
     }
     return Rcpp_cache;
