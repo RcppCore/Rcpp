@@ -146,7 +146,7 @@
 #undef rhyper
 #undef rlnorm
 #undef rlogis
-#undef rnbeta
+//#undef rnbeta
 #undef rnbinom
 #undef rnchisq
 #undef rnf

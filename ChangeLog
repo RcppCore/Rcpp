@@ -3,6 +3,14 @@
 	* inst/tinytest/test_system.R: Wrap suppressMessages() around three
 	tests for long-obsolete linker and compiler flags
 
+2025-12-10  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+	* inst/include/Rcpp/config.h: Idem
+
+	* inst/include/Rcpp/Rmath.h: Do not access Rf_rnbeta
+	* inst/include/Rcpp/sugar/undoRmath.h: Remove #undef
+
 2025-12-06  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date

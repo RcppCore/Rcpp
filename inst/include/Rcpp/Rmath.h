@@ -1,8 +1,7 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
+
 // Rmath.h: Rcpp R/C++ interface class library -- Wrappers for R's Rmath API
 //
-// Copyright (C) 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012-2025  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -160,7 +159,7 @@ namespace R {
     inline double dnbeta(double x, double a, double b, double ncp, int lg)		{ return ::Rf_dnbeta(x, a, b, ncp, lg); }
     inline double pnbeta(double x, double a, double b, double ncp, int lt, int lg)	{ return ::Rf_pnbeta(x, a, b, ncp, lt, lg); }
     inline double qnbeta(double p, double a, double b, double ncp, int lt, int lg)	{ return ::Rf_qnbeta(p, a, b, ncp, lt, lg); }
-    inline double rnbeta(double a, double b, double np)					{ return ::Rf_rnbeta(a, b, np); }
+    //inline double rnbeta(double a, double b, double np)					{ return ::Rf_rnbeta(a, b, np); }
 
     /* Non-central F Distribution */
     inline double dnf(double x, double df1, double df2, double ncp, int lg)		{ return ::Rf_dnf(x, df1, df2, ncp, lg); }
