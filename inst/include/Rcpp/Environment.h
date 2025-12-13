@@ -100,7 +100,7 @@ namespace Rcpp{
 #if R_VERSION < R_Version(4,5,0)
             SEXP res = Rf_findVarInFrame( env, nameSym ) ;
 #else
-            SEXP res = R_getVarEx(nameSym, env, TRUE, R_UnboundValue);
+            SEXP res = R_getVarEx(nameSym, env, FALSE, R_UnboundValue);
 #endif
             if( res == R_UnboundValue ) return R_NilValue ;
 
@@ -123,7 +123,7 @@ namespace Rcpp{
 #if R_VERSION < R_Version(4,5,0)
             SEXP res = Rf_findVarInFrame( env, name ) ;
 #else
-            SEXP res = R_getVarEx(name, env, TRUE, R_UnboundValue);
+            SEXP res = R_getVarEx(name, env, FALSE, R_UnboundValue);
 #endif
 
             if( res == R_UnboundValue ) return R_NilValue ;
