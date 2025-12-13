@@ -3,6 +3,11 @@
 	* inst/tinytest/test_system.R: Wrap suppressMessages() around three
 	tests for long-obsolete linker and compiler flags
 
+	* inst/include/Rcpp/Environment.h: Replace use of Rf_findVarInFrame
+	with R_getVarEx (or R_getVar) if R 4.5.0 or later is used
+	* inst/include/Rcpp/Function.h: Idem
+	* src/barrier.cpp: Idem
+
 2025-12-10  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
