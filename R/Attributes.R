@@ -515,7 +515,7 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
 ## this is the default in g++-6.1 and later
 ## per https://gcc.gnu.org/projects/cxx-status.html#cxx14
 .plugins[["cpp14"]] <- function() {
-    list(env = list(PKG_CXXFLAGS ="-std=c++14"))
+    list(env = list(USE_CXX14 = "yes"))
 }
 
 # built-in C++1y plugin for C++14 and C++17 standard under development
