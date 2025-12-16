@@ -1,9 +1,8 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
+
 // Environment.h: Rcpp R/C++ interface class library -- access R environments
 //
 // Copyright (C) 2009 - 2013  Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2014 - 2020  Dirk Eddelbuettel, Romain Francois and Kevin Ushey
+// Copyright (C) 2014 - 2025  Dirk Eddelbuettel, Romain Francois and Kevin Ushey
 //
 // This file is part of Rcpp.
 //
@@ -98,8 +97,11 @@ namespace Rcpp{
         SEXP get(const std::string& name) const {
             SEXP env = Storage::get__() ;
             SEXP nameSym = Rf_install(name.c_str());
+#if R_VERSION < R_Version(4,5,0)
             SEXP res = Rf_findVarInFrame( env, nameSym ) ;
-
+#else
+            SEXP res = R_getVarEx(nameSym, env, FALSE, R_UnboundValue);
+#endif
             if( res == R_UnboundValue ) return R_NilValue ;
 
             /* We need to evaluate if it is a promise */
@@ -118,7 +120,11 @@ namespace Rcpp{
         */
         SEXP get(Symbol name) const {
             SEXP env = Storage::get__() ;
+#if R_VERSION < R_Version(4,5,0)
             SEXP res = Rf_findVarInFrame( env, name ) ;
+#else
+            SEXP res = R_getVarEx(name, env, FALSE, R_UnboundValue);
+#endif
 
             if( res == R_UnboundValue ) return R_NilValue ;
 
@@ -140,7 +146,11 @@ namespace Rcpp{
         SEXP find( const std::string& name) const{
             SEXP env = Storage::get__() ;
             SEXP nameSym = Rf_install(name.c_str());
+#if R_VERSION < R_Version(4,5,0)
             SEXP res = Rf_findVar( nameSym, env ) ;
+#else
+            SEXP res = R_getVarEx(nameSym, env, TRUE, R_UnboundValue);
+#endif
 
             if( res == R_UnboundValue ) throw binding_not_found(name) ;
 
@@ -159,8 +169,11 @@ namespace Rcpp{
         */
         SEXP find(Symbol name) const{
             SEXP env = Storage::get__() ;
+#if R_VERSION < R_Version(4,5,0)
             SEXP res = Rf_findVar( name, env ) ;
-
+#else
+            SEXP res = R_getVarEx(name, env, TRUE, R_UnboundValue);
+#endif
             if( res == R_UnboundValue ) {
                 // Pass on the const char* to the RCPP_EXCEPTION_CLASS's
                 // const std::string& requirement
@@ -184,7 +197,11 @@ namespace Rcpp{
          */
         bool exists( const std::string& name ) const {
             SEXP nameSym = Rf_install(name.c_str());
+#if R_VERSION < R_Version(4,5,0)
             SEXP res = Rf_findVarInFrame( Storage::get__() , nameSym  ) ;
+#else
+            SEXP res = R_getVarEx(nameSym, Storage::get__(), FALSE, R_UnboundValue);
+#endif
             return res != R_UnboundValue ;
         }
 
