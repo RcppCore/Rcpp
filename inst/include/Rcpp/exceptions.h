@@ -153,7 +153,7 @@ inline void resumeJump(SEXP token) {
     ::R_ReleaseObject(token);
     ::R_ContinueUnwind(token);
     Rf_error("Internal error: Rcpp longjump failed to resume");
-}
+}                                                           // #nocov end
 
 }} // namespace Rcpp::internal
 
