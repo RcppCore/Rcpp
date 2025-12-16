@@ -118,11 +118,7 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
     lines <- readLines(NAMESPACE)
     ns <- file(NAMESPACE, open="w")
     if (!any(grepl("useDynLib", lines))) {
-        if (getRversion() >= "3.4.0") {
-            lines <- c(sprintf( "useDynLib(%s, .registration=TRUE)", name), lines)
-        } else {
-            lines <- c(sprintf( "useDynLib(%s)", name), lines)				# #nocov
-        }
+        lines <- c(sprintf( "useDynLib(%s, .registration=TRUE)", name), lines)
         writeLines(lines, con = ns)
         message(" >> added useDynLib directive to NAMESPACE" )
     }
@@ -202,14 +198,10 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
     # generate native routines if we aren't using attributes (which already generate
     # them automatically) and we have at least R 3.4
     if (!attributes) {
-        if (getRversion() >= "3.4.0") {
-            con <- file(file.path(src, "init.c"), "wt")
-            tools::package_native_routine_registration_skeleton(root, con=con)
-            close(con)
-            message(" >> created init.c for package registration")
-        } else {
-            message(" >> R version older than 3.4.0 detected, so NO file init.c created.")	# #nocov
-        }
+        con <- file(file.path(src, "init.c"), "wt")
+        tools::package_native_routine_registration_skeleton(root, con=con)
+        close(con)
+        message(" >> created init.c for package registration")
     }
 
     lines <- readLines(package.doc <- file.path( root, "man", sprintf("%s-package.Rd", name)))

@@ -3,6 +3,16 @@
 	* DESCRIPTION (Version, Date): Roll micro version and date
 	* inst/include/Rcpp/config.h: Idem
 
+	* src/barrier.cpp (dataptr): Remove check for 'R (>= 3.5.0)'
+	* inst/include/Rcpp/Rmath.h: Remove check for 'R (>= 3.1.2)'
+	* inst/include/Rcpp/Symbol.h: Remove check for 'R (>= 3.2.0)'
+	* inst/include/Rcpp/exceptions.h: Remove check for 'R (>= 3.5.0)'
+	* inst/include/Rcpp/r/headers.h: Idem
+
+	* R/Attributes.R: Remove multiple checks for R version < 3.5.0
+	* R/Rcpp.package.skeleton.R: Idem
+	* inst/tinytest/testRcppInterfaceUser/tests/tests.R: Remove one check
+
 2025-12-12  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/tinytest/test_system.R: Wrap suppressMessages() around three

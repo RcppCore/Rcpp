@@ -499,21 +499,11 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
 
 # built-in C++98 plugin
 .plugins[["cpp98"]] <- function() {
-    if (getRversion() >= "3.4")         # with recent R versions, R can decide
-        list(env = list(USE_CXX98 = "yes"))
-    else
-        list(env = list(PKG_CXXFLAGS ="-std=c++98"))
+    list(env = list(USE_CXX98 = "yes"))
 }
                                         # built-in C++11 plugin
 .plugins[["cpp11"]] <- function() {
-    if (getRversion() >= "3.4")         # with recent R versions, R can decide
-        list(env = list(USE_CXX11 = "yes"))
-    else if (getRversion() >= "3.1")    # with recent R versions, R can decide
-        list(env = list(USE_CXX1X = "yes"))
-    else if (.Platform$OS.type == "windows")
-        list(env = list(PKG_CXXFLAGS = "-std=c++0x"))
-    else                                # g++-4.8.1 or later
-        list(env = list(PKG_CXXFLAGS ="-std=c++11"))
+    list(env = list(USE_CXX11 = "yes"))
 }
 
 # built-in C++11 plugin for older g++ compiler
@@ -525,10 +515,7 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
 ## this is the default in g++-6.1 and later
 ## per https://gcc.gnu.org/projects/cxx-status.html#cxx14
 .plugins[["cpp14"]] <- function() {
-    if (getRversion() >= "3.4")         # with recent R versions, R can decide
-        list(env = list(USE_CXX14 = "yes"))
-    else
-        list(env = list(PKG_CXXFLAGS ="-std=c++14"))
+    list(env = list(PKG_CXXFLAGS ="-std=c++14"))
 }
 
 # built-in C++1y plugin for C++14 and C++17 standard under development
@@ -538,10 +525,7 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
 
 # built-in C++17 plugin for C++17 standard (g++-6 or later)
 .plugins[["cpp17"]] <- function() {
-    if (getRversion() >= "3.4")         # with recent R versions, R can decide
-        list(env = list(USE_CXX17 = "yes"))
-    else
-        list(env = list(PKG_CXXFLAGS ="-std=c++17"))
+    list(env = list(USE_CXX17 = "yes"))
 }
 
 # built-in C++20 plugin for C++20
@@ -1303,41 +1287,39 @@ sourceCppFunction <- function(func, isVoid, dll, symbol) {
     declarations = character()
     call_entries = character()
 
-    # if we are running R 3.4 or higher we can use an internal utility function
+    # we are running R 3.4 or higher so we can use an internal utility function
     # to automatically discover additional native routines that require registration
-    if (getRversion() >= "3.4") {
 
-        # determine the package directory
-        pkgdir <- dirname(dirname(targetFile))
+    # determine the package directory
+    pkgdir <- dirname(dirname(targetFile))
 
-        # get the generated code from R
-        con <- textConnection(object = NULL, open = "w")
-        on.exit(close(con), add = TRUE)
-        tools::package_native_routine_registration_skeleton(
-            dir = pkgdir,
-            con = con,
-            character_only = FALSE
-        )
-        code <- textConnectionValue(con)
+    # get the generated code from R
+    con <- textConnection(object = NULL, open = "w")
+    on.exit(close(con), add = TRUE)
+    tools::package_native_routine_registration_skeleton(
+        dir = pkgdir,
+        con = con,
+        character_only = FALSE
+    )
+    code <- textConnectionValue(con)
 
-        # look for lines containing call entries
-        matches <- regexec('^\\s+\\{"([^"]+)",.*$', code)
-        matches <- regmatches(code, matches)
-        matches <- Filter(x = matches, function(x) {
-            length(x) > 0											# #nocov start
-        })
-        for (match in matches) {
-            routine <- match[[2]]
-            if (!routine %in% routines) {
-                declaration <- grep(sprintf("^extern .* %s\\(.*$", routine), code,
-                                    value = TRUE)
-                # FIXME: maybe we should extend this to *any* routine?
-                # or is there any case in which `void *` is not SEXP for a .Call?
-                if (routine == "run_testthat_tests")
-                    declaration <- gsub("void *", "SEXP", declaration, fixed=TRUE)
-                declarations <- c(declarations, sub("^extern", "RcppExport", declaration))
-                call_entries <- c(call_entries, match[[1]])			# #nocov end
-            }
+    # look for lines containing call entries
+    matches <- regexec('^\\s+\\{"([^"]+)",.*$', code)
+    matches <- regmatches(code, matches)
+    matches <- Filter(x = matches, function(x) {
+        length(x) > 0											# #nocov start
+    })
+    for (match in matches) {
+        routine <- match[[2]]
+        if (!routine %in% routines) {
+            declaration <- grep(sprintf("^extern .* %s\\(.*$", routine), code,
+                                value = TRUE)
+            # FIXME: maybe we should extend this to *any* routine?
+            # or is there any case in which `void *` is not SEXP for a .Call?
+            if (routine == "run_testthat_tests")
+                declaration <- gsub("void *", "SEXP", declaration, fixed=TRUE)
+            declarations <- c(declarations, sub("^extern", "RcppExport", declaration))
+            call_entries <- c(call_entries, match[[1]])			# #nocov end
         }
     }
 

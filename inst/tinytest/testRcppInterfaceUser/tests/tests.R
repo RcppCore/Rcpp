@@ -43,9 +43,7 @@ x <- withRestarts(
 
 stopifnot(identical(x, "value"))
 
-if (getRversion() >= "3.5.0") {
-    stopifnot(
-        testRcppInterfaceUser::peek_flag("cpp_interface_downstream"),
-        testRcppInterfaceExporter::peek_flag("cpp_interface_upstream")
-    )
-}
+stopifnot(
+    testRcppInterfaceUser::peek_flag("cpp_interface_downstream"),
+    testRcppInterfaceExporter::peek_flag("cpp_interface_upstream")
+)

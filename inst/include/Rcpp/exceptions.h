@@ -151,9 +151,7 @@ inline void resumeJump(SEXP token) {
         token = getLongjumpToken(token);
     }
     ::R_ReleaseObject(token);
-#if (defined(R_VERSION) && R_VERSION >= R_Version(3, 5, 0))
     ::R_ContinueUnwind(token);
-#endif														// #nocov end
     Rf_error("Internal error: Rcpp longjump failed to resume");
 }
 
