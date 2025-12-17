@@ -29,14 +29,10 @@ rm -f confdefs.h config.log config.status \
 	vignettes/*.tex vignettes/*.bbl vignettes/*.blg \
 	vignettes/*.toc vignettes/*.tpt vignettes/*.xwm
 
-for d in inst/tinytest/testRcppAttributePackage/inst/include \
-        inst/tinytest/testRcppAttributePackage/inst \
-        inst/tinytest/testRcppAttributePackage/R; do
-    test -d ${d} && rmdir ${d}
-done
-
 rm -rf	autom4te.cache inst/lib/ inst/doc/man/ inst/doc/html/ inst/doc/latex/ \
-        inst/doc/auto inst/bib/auto inst/doc/Rcpp-*/auto/ src-* vignettes/auto
+        inst/doc/auto inst/bib/auto inst/doc/Rcpp-*/auto/ src-* vignettes/auto \
+        inst/tinytest/testRcppAttributePackage/inst \
+        inst/tinytest/testRcppAttributePackage/R
 
 find . -name \*~ -exec rm {} \;
 find . -name \*.flc -exec rm {} \;
