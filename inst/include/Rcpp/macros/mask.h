@@ -20,14 +20,26 @@
 #ifndef Rcpp_macros_mask_h
 #define Rcpp_macros_mask_h
 
-#ifndef RCPP_NO_MASK_RF_ERROR
-#define Rf_error(...) \
-    _Pragma("GCC warning \"Use of Rf_error() instead of Rcpp::stop(). Calls \
+namespace Rcpp {
+namespace internal {
+
+template<typename... Args>
+void Rf_error(const char *format, Args... args) {
+    ::Rf_error(format, args...);
+#ifndef COMPILING_RCPP
+# pragma message "Use of Rf_error() instead of Rcpp::stop(). Calls \
 to Rf_error() in C++ contexts are unsafe: consider using Rcpp::stop() instead, \
 or define RCPP_NO_MASK_RF_ERROR if this is a false positive. More info:\n\
  - https://github.com/RcppCore/Rcpp/issues/1247\n\
- - https://github.com/RcppCore/Rcpp/pull/1402\"") \
-    Rf_error(__VA_ARGS__)
+ - https://github.com/RcppCore/Rcpp/pull/1402"
+#endif
+}
+
+} // internal
+} // Rcpp
+
+#ifndef RCPP_NO_MASK_RF_ERROR
+#define Rf_error(...) Rcpp::internal::Rf_error(__VA_ARGS__)
 #endif
 
 #endif
