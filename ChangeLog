@@ -1,3 +1,8 @@
+2025-12-21  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .github/workflows/docker.yaml: Add workflow_dispatch, update
+	checkout action
+
 2025-12-19  Dirk Eddelbuettel  <edd@debian.org>
 
 	* man/RcppUnitTests.Rd: Removed outdated help page
