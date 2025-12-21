@@ -127,6 +127,9 @@ void registerFunctions(){
     RCPP_REGISTER(Rcpp_precious_remove)
     RCPP_REGISTER(Rcpp_cout_get)
     RCPP_REGISTER(Rcpp_cerr_get)
+
+    RCPP_REGISTER(get_attr_names)
+    RCPP_REGISTER(get_row_count)
     #undef RCPP_REGISTER
 }
 

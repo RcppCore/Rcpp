@@ -67,6 +67,15 @@ namespace Rcpp{
         // compact form thereby allocating a huge vector when we just want
         // the row.names. Hence this workaround.
         inline int nrow() const {
+#if R_VERSION >= R_Version(4, 6, 0)
+            SEXP v = R_mapAttrib(Parent::get__(), get_row_count, R_NilValue);
+            if (v != NULL && TYPEOF(v) == INTSXP) {
+                return INTEGER(v)[0];
+            } else {
+                // TODO: error?
+                return NA_INTEGER;
+            }
+#else
             SEXP rn = R_NilValue ;
             SEXP att = ATTRIB( Parent::get__() )  ;
             while( att != R_NilValue ){
@@ -81,9 +90,10 @@ namespace Rcpp{
             if (TYPEOF(rn) == INTSXP && LENGTH(rn) == 2 && INTEGER(rn)[0] == NA_INTEGER)
                 return std::abs(INTEGER(rn)[1]);
             return LENGTH(rn);
+#endif
         }
 
-	template <typename T>
+        template <typename T>
         void push_back( const T& object){
             Parent::push_back(object);
             set_type_after_push();

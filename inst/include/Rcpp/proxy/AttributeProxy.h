@@ -78,16 +78,25 @@ public:
     }
 
     std::vector<std::string> attributeNames() const {
-        std::vector<std::string> v ;
+        std::vector<std::string> v;
+#if R_VERSION >= R_Version(4, 6, 0)
+        R_mapAttrib(static_cast<const CLASS&>(*this).get__(), get_attr_names, (void *) &v);
+#else
         SEXP attrs = ATTRIB( static_cast<const CLASS&>(*this).get__());
         while( attrs != R_NilValue ){
             v.push_back( std::string(CHAR(PRINTNAME(TAG(attrs)))) ) ;
             attrs = CDR( attrs ) ;
         }
+#endif
         return v ;
     }
 
     bool hasAttribute( const std::string& attr) const {
+#if R_VERSION >= R_Version(4, 6, 0)
+        std::vector<std::string> v = attributeNames();
+        auto it = std::find(v.begin(), v.end(), attr);
+        return it != v.end();   // if found 'it' points to element equal to 'attr'
+#else
         SEXP attrs = ATTRIB(static_cast<const CLASS&>(*this).get__());
         while( attrs != R_NilValue ){
             if( attr == CHAR(PRINTNAME(TAG(attrs))) ){
@@ -96,6 +105,7 @@ public:
             attrs = CDR( attrs ) ;
         }
         return false; /* give up */
+#endif
     }
 
 
