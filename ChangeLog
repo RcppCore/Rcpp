@@ -1,13 +1,14 @@
 2025-12-21  Dirk Eddelbuettel  <edd@debian.org>
 
-	* .github/workflows/docker.yaml: Add workflow_dispatch, update
-	checkout action
 	* inst/include/Rcpp/DataFrame.h (nrow): Rewritten using R_mapAttrib()
 	avoiding ATTRIB() likely to be removed by R 4.6.0
 	* inst/include/Rcpp/proxy/AttributeProxy.h (attributeNames): Idem
 	* src/utilities.cpp: Add two helper functions used by R_mapAttrib()
 	* inst/include/Rcpp/routines.h: Register two new helper functions
 	* src/rcpp_init.cpp (registerFunctions): Idem
+
+	* .github/workflows/docker.yaml: Add workflow_dispatch, update
+	checkout action
 
 2025-12-19  Dirk Eddelbuettel  <edd@debian.org>
 
