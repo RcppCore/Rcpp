@@ -78,24 +78,27 @@ public:
     }
 
     std::vector<std::string> attributeNames() const {
-        std::vector<std::string> v ;
+        std::vector<std::string> v;
+#if R_VERSION >= R_Version(4, 6, 0)
+        auto visitor = [](SEXP name, SEXP attr, void* data) -> SEXP {
+            std::vector<std::string>* ptr = static_cast<std::vector<std::string>*>(data);
+            std::string s{CHAR(Rf_asChar(name))};
+            ptr->push_back(s);
+            return NULL;
+        };
+        R_mapAttrib(static_cast<const CLASS&>(*this).get__(), visitor, static_cast<void*>(&v));
+#else
         SEXP attrs = ATTRIB( static_cast<const CLASS&>(*this).get__());
         while( attrs != R_NilValue ){
             v.push_back( std::string(CHAR(PRINTNAME(TAG(attrs)))) ) ;
             attrs = CDR( attrs ) ;
         }
-        return v ;
+#endif
+        return v;
     }
 
-    bool hasAttribute( const std::string& attr) const {
-        SEXP attrs = ATTRIB(static_cast<const CLASS&>(*this).get__());
-        while( attrs != R_NilValue ){
-            if( attr == CHAR(PRINTNAME(TAG(attrs))) ){
-                return true ;
-            }
-            attrs = CDR( attrs ) ;
-        }
-        return false; /* give up */
+    bool hasAttribute(const std::string& attr) const {
+        return static_cast<const CLASS&>(*this).attr(attr) != R_NilValue;
     }
 
 
