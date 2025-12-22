@@ -62,17 +62,13 @@ namespace Rcpp{
 
         // By definition, the number of rows in a data.frame is contained
         // in its row.names attribute. Since R 3.5.0 this is returned as a
-        // compact sequence from which we can just take the length
-        //   Shield<SEXP> rn = Rf_getAttrib(Parent::get__(), R_RowNamesSymbol);
-        //   return Rf_xlength(rn);
+        // compact sequence from which we can just take the (x)length
         // But as this makes an allocation an even simpler check on length as
         // discussed in #1430 is also possible and preferable. We also switch
         // to returning R_xlen_t which as upcast from int is safe
         inline R_xlen_t nrow() const {
-            SEXP x = Parent::get__();
-            // We can simplify: zero row DFs have no names, else length of all vector same
-            // by design constraint so can use vector length for desired row count
-            return (XLENGTH(x) == 0) ? 0 : XLENGTH(VECTOR_ELT(x, 0));
+            Shield<SEXP> rn = Rf_getAttrib(Parent::get__(), R_RowNamesSymbol);
+            return Rf_xlength(rn);
         }
 
         template <typename T>

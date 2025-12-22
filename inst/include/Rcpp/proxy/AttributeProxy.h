@@ -80,7 +80,13 @@ public:
     std::vector<std::string> attributeNames() const {
         std::vector<std::string> v;
 #if R_VERSION >= R_Version(4, 6, 0)
-        R_mapAttrib(static_cast<const CLASS&>(*this).get__(), get_attr_names, (void *) &v);
+        auto visitor = [](SEXP name, SEXP attr, void* data) -> SEXP {
+            std::vector<std::string>* ptr = static_cast<std::vector<std::string>*>(data);
+            std::string s{CHAR(Rf_asChar(name))};
+            ptr->push_back(s);
+            return NULL;
+        };
+        R_mapAttrib(static_cast<const CLASS&>(*this).get__(), visitor, static_cast<void*>(&v));
 #else
         SEXP attrs = ATTRIB( static_cast<const CLASS&>(*this).get__());
         while( attrs != R_NilValue ){
@@ -88,14 +94,28 @@ public:
             attrs = CDR( attrs ) ;
         }
 #endif
-        return v ;
+        return v;
     }
 
-    bool hasAttribute( const std::string& attr) const {
+    struct AttributeProxyStruct {
+        const std::string* match;
+        bool found;
+    };
+
+    bool hasAttribute(const std::string& attr) const {
 #if R_VERSION >= R_Version(4, 6, 0)
-        std::vector<std::string> v = attributeNames();
-        auto it = std::find(v.begin(), v.end(), attr);
-        return it != v.end();   // if found 'it' points to element equal to 'attr'
+        auto visitor = [](SEXP name, SEXP attr, void* data) -> SEXP {
+            AttributeProxyStruct *ptr = static_cast<struct AttributeProxyStruct*>(data);
+            if (ptr->found) return Rf_ScalarInteger(1); 	// already found
+            if (*(ptr->match) == CHAR(Rf_asChar(name))) {
+                ptr->found = true; 							// signal we have match
+                return Rf_ScalarInteger(1);
+            }
+            return NULL;           							// continue
+        };
+        AttributeProxyStruct str{&attr, false};
+        R_mapAttrib(static_cast<const CLASS&>(*this).get__(), visitor, static_cast<void*>(&str));
+        return str.found;
 #else
         SEXP attrs = ATTRIB(static_cast<const CLASS&>(*this).get__());
         while( attrs != R_NilValue ){

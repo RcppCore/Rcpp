@@ -74,8 +74,6 @@ SEXP          reset_current_error();
 int           error_occured();
 SEXP          rcpp_get_current_error();
 // void          print(SEXP s);
-SEXP          get_attr_names(SEXP t, SEXP a, void* d);
-SEXP          get_row_count(SEXP t, SEXP a, void* d);
 
 #else
 
@@ -310,12 +308,6 @@ inline attribute_hidden SEXP rcpp_get_current_error(){
 //     static Fun fun = GET_CALLABLE("print");
 //     fun(s);
 // }
-
-inline attribute_hidden SEXP get_attr_names(SEXP tag, SEXP attr, void* data){
-    typedef SEXP (*Fun)(SEXP, SEXP, void*);
-    static Fun fun = GET_CALLABLE("get_attr_names");
-    return fun(tag, attr, data);
-}
 
 #endif
 
