@@ -1,5 +1,8 @@
 2025-12-22  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Roll micro version and date
+	* inst/include/Rcpp/config.h: Idem
+
 	* inst/include/Rcpp/DataFrame.h (nrow): Simplified per #1430 discussion
 	relying on compact sequence representation removing use of ATTRIB
 	* inst/include/Rcpp/proxy/AttributeProxy.h (hasAttribute): For R
