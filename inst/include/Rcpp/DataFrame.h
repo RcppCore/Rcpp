@@ -68,7 +68,7 @@ namespace Rcpp{
         // the row.names. Hence this workaround.
         inline int nrow() const {
 #if R_VERSION >= R_Version(4, 6, 0)
-            SEXP v = R_mapAttrib(Parent::get__(), get_row_count, R_NilValue);
+            Shield<SEXP> v = R_mapAttrib(Parent::get__(), get_row_count, R_NilValue);
             if (v != NULL && TYPEOF(v) == INTSXP) {
                 return INTEGER(v)[0];
             } else {

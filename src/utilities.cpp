@@ -19,8 +19,9 @@
 
 #define COMPILING_RCPP
 
-#include <vector>
+#include <cmath>
 #include <string>
+#include <vector>
 #include <Rcpp/Lighter>
 
 // See WRE Section 6.22.6 'Working with attributes' under R 4.6.0 or later
@@ -35,7 +36,7 @@ SEXP get_attr_names(SEXP tag, SEXP attr, void* data) {
 }
 
 // See WRE Section 6.22.6 'Working with attributes' under R 4.6.0 or later
-// This function extract the number of rows in a data frame
+// This function extracts the number of rows in a data frame
 // It is used DataFrame_impl::nrow() in a call to R_mapAttrib()
 // [[Rcpp::register]]
 SEXP get_row_count(SEXP tag, SEXP attr, void* data) {
