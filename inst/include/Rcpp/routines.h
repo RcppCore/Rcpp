@@ -317,13 +317,6 @@ inline attribute_hidden SEXP get_attr_names(SEXP tag, SEXP attr, void* data){
     return fun(tag, attr, data);
 }
 
-inline attribute_hidden SEXP get_row_count(SEXP tag, SEXP attr, void* data){
-    typedef SEXP (*Fun)(SEXP, SEXP, void*);
-    static Fun fun = GET_CALLABLE("get_row_count");
-    return fun(tag, attr, data);
-}
-
-
 #endif
 
 

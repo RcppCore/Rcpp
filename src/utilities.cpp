@@ -34,22 +34,3 @@ SEXP get_attr_names(SEXP tag, SEXP attr, void* data) {
     vecptr->push_back(s);
     return NULL;
 }
-
-// See WRE Section 6.22.6 'Working with attributes' under R 4.6.0 or later
-// This function extracts the number of rows in a data frame
-// It is used DataFrame_impl::nrow() in a call to R_mapAttrib()
-// [[Rcpp::register]]
-SEXP get_row_count(SEXP tag, SEXP attr, void* data) {
-    if (tag == R_RowNamesSymbol) {
-        if (TYPEOF(attr) == INTSXP && LENGTH(attr) == 2 && INTEGER(attr)[0] == NA_INTEGER) {
-            int n = std::abs(INTEGER(attr)[1]);
-            //Rcpp::Rcout << "Seeing " << n << std::endl;
-            return Rf_ScalarInteger(n);
-        }
-        if (Rf_isNull(attr)) {
-            return Rf_ScalarInteger(0);
-        }
-        return Rf_ScalarInteger(LENGTH(attr));
-    }
-    return NULL;
-}
