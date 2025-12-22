@@ -20,6 +20,14 @@
       removed (Dirk in \ghpr{1416} closing \ghit{1415})
       \item Some includes from R were refactored to accommodate R-devel
       changes (Iñaki in \ghpr{1418} addressing \ghit{1417})
+      \item An accessor to \code{Rf_rnbeta} has been removed (Dirk in
+      \ghpr{1419} also addressing \ghit{1420})
+      \item Code accessing \code{Rf_findVarInFrame} now uses
+      \code{R_getVarEx} (Dirk in \ghpr{1423} fixing \ghit{1421})
+      \item Code conditional on the R version now expects at least R 3.5.0;
+      older code has been removed (Dirk in \ghpr{1426} fixing \ghit{1425})
+      \item The \code{ATTRIB} entry point to the R API is not longer used
+      (Dirk in \ghpr{1430} addressing \ghit{1429})
     }
     \item Changes in Rcpp Attributes:
     \itemize{
@@ -31,6 +39,8 @@
       \item Vignettes are now processed via a new "asis" processor adopted
       from \pkg{R.rsp} (Dirk in \ghpr{1394} fixing \ghit{1393})
       \item R is now cited via its DOI (Dirk)
+      \item A (very) stale help page has been removed (Dirk in \ghpr{1428}
+      fixing \ghit{1427})
     }
     \item Changes in Rcpp Deployment:
     \itemize{
@@ -38,7 +48,10 @@
       was accommodated, and then reverted (Dirk in \ghpr{1399} fixing \ghit{1397})
       \item The macOS CI runners now use macos-14 (Dirk in \ghpr{1405})
       \item Old helper functions use \code{message()} to signal they are not used,
-      deprecation and removal to follow (Dirk in \ghpr{1413} closing \ghit{1412})
+      deprecation and removal to follow (Dirk in \ghpr{1413} closing
+      \ghit{1412})
+      \item Three tests were being silenced following \ghpr{1413} (Dirk in
+      \ghpr{1422})
     }
   }
 }
