@@ -67,7 +67,7 @@ namespace Rcpp{
         // discussed in #1430 is also possible and preferable. We also switch
         // to returning R_xlen_t which as upcast from int is safe
         inline R_xlen_t nrow() const {
-            Shield<SEXP> rn = Rf_getAttrib(Parent::get__(), R_RowNamesSymbol);
+            Shield<SEXP> rn{Rf_getAttrib(Parent::get__(), R_RowNamesSymbol)};
             return Rf_xlength(rn);
         }
 
