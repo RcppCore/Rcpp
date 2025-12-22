@@ -97,35 +97,8 @@ public:
         return v;
     }
 
-    struct AttributeProxyStruct {
-        const std::string* match;
-        bool found;
-    };
-
     bool hasAttribute(const std::string& attr) const {
-#if R_VERSION >= R_Version(4, 6, 0)
-        auto visitor = [](SEXP name, SEXP attr, void* data) -> SEXP {
-            AttributeProxyStruct *ptr = static_cast<struct AttributeProxyStruct*>(data);
-            if (ptr->found) return Rf_ScalarInteger(1); 	// already found
-            if (*(ptr->match) == CHAR(Rf_asChar(name))) {
-                ptr->found = true; 							// signal we have match
-                return Rf_ScalarInteger(1);
-            }
-            return NULL;           							// continue
-        };
-        AttributeProxyStruct str{&attr, false};
-        R_mapAttrib(static_cast<const CLASS&>(*this).get__(), visitor, static_cast<void*>(&str));
-        return str.found;
-#else
-        SEXP attrs = ATTRIB(static_cast<const CLASS&>(*this).get__());
-        while( attrs != R_NilValue ){
-            if( attr == CHAR(PRINTNAME(TAG(attrs))) ){
-                return true ;
-            }
-            attrs = CDR( attrs ) ;
-        }
-        return false; /* give up */
-#endif
+        return static_cast<const CLASS&>(*this).attr(attr) != R_NilValue;
     }
 
 
