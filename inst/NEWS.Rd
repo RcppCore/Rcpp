@@ -14,6 +14,8 @@
       addressing \ghit{1400})
       \item The treatment of signed zeros is now improved in the Sugar code
       (Iñaki in \ghpr{1404})
+      \item Preparations for phasing out use of \code{Rf_error} have been
+      made (Iñaki in \ghpr{1407})
       \item A message is shown if \code{R.h} is included before Rcpp headers
       as this can lead to errors (Dirk in \ghpr{1411} closing \ghit{1410})
       \item The long-deprecated function \code{loadRcppModules()} has been
