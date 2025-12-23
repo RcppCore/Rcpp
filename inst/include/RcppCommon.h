@@ -190,4 +190,6 @@ namespace Rcpp {
 
 #include <Rcpp/internal/wrap.h>
 
+#include <Rcpp/macros/mask.h>
+
 #endif
