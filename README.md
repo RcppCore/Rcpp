@@ -134,20 +134,20 @@ install.packages("Rcpp")
 
 #### Release Candidates
 
-For the last several releases, we also made interim _candidate_ releases available
-on the [Rcpp Drat Repo](https://RcppCore.github.io/drat/).  Versions from a
-[drat](https://github.com/eddelbuettel/drat) repo can be installed either by
-just temporarily setting the [drat](https://github.com/eddelbuettel/drat) repo as in
+We generally make interim _candidate_ releases available via the [r-universe
+page](https://rcppcore.r-universe.dev/Rcpp).  It provides a standard R repository which
+corresponds to the current main branch in the source repository. Both binary and source
+versions can be installed via
 
 ```R
-install.packages("Rcpp", repos="https://RcppCore.github.io/drat")
+install.packages("Rcpp", repos = c("https://rcppcore.r-universe.dev",
+                                   "https://cloud.r-project.org"))
 ```
 
-or by setting a [drat](https://github.com/eddelbuettel/drat) repo more permanently
-(as described in the documentation of the [drat](https://github.com/eddelbuettel/drat)
-package).
+where other repos can be set as needed.
 
-Testing the release candidates prior to actual release help. Please run this if you can.
+Testing the release candidates prior to the actual release helps. Please run
+this if you can.
 
 #### Source
 

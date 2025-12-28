@@ -1,3 +1,7 @@
+2025-12-28  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Replace installation from drat section with r-universe
+
 2025-12-22  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
