@@ -136,7 +136,7 @@ install.packages("Rcpp")
 
 We generally make interim _candidate_ releases available via the [r-universe
 page](https://rcppcore.r-universe.dev/Rcpp).  It provides a standard R repository which
-correspond to the current main branch in the source repository. Both binary and source
+corresponds to the current main branch in the source repository. Both binary and source
 versions can be installed via
 
 ```R
