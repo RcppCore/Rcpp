@@ -1,6 +1,18 @@
 
 if (requireNamespace("tinytest", quietly=TRUE)) {
 
+    ## if OMP_THREAD_LIMIT is set, and its value is 2, we have a good
+    ## idea of where we are and we likely do not want to run all tests
+    if (Sys.getenv("OMP_THREAD_LIMIT", unset="") != "" &&   # it is set
+        Sys.getenv("OMP_THREAD_LIMIT") == "2") {            # value is two
+        if (Sys.getenv("RunAllRcppTests", "") != "") {      # if unset
+            Sys.setenv("RunAllRcppTests"="no")
+        }
+        if (Sys.getenv("RunVerboseRcppTests", "") != "") {  # if unset
+            Sys.setenv("RunVerboseRcppTests"="no")
+        }
+    }
+
     ## Force tests to be executed if in dev release which we define as
     ## having a sub-release, eg 0.9.15.5 is one whereas 0.9.16 is not
     if (length(strsplit(format(packageVersion("Rcpp")), "\\.")[[1]]) > 3) {	# dev rel, and
