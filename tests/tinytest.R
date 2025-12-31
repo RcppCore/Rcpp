@@ -3,8 +3,7 @@ if (requireNamespace("tinytest", quietly=TRUE)) {
 
     ## if OMP_THREAD_LIMIT is set, and its value is 2, we have a good
     ## idea of where we are and we likely do not want to run all tests
-    if (Sys.getenv("OMP_THREAD_LIMIT", unset="") != "" &&   # it is set
-        Sys.getenv("OMP_THREAD_LIMIT") == "2") {            # value is two
+    if (Sys.getenv("OMP_THREAD_LIMIT", unset="") == "2") {  # set and 2
         if (Sys.getenv("RunAllRcppTests", "") != "") {      # if unset
             Sys.setenv("RunAllRcppTests"="no")
         }
