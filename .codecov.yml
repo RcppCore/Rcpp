@@ -1,4 +1,5 @@
 comment: false
+
 coverage:
   status:
     project:
@@ -8,6 +9,9 @@ coverage:
     patch:
       default:
         target: 0%     # the (on purpose low) required coverage value
+
+ignore:
+  - 'R/inline.R'	# function factory setup confuses codecov
 
 #  layout: "header, diff, tree, changes"
 #  behavior: default
