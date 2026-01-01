@@ -2,7 +2,7 @@
 // barrier.cpp: Rcpp R/C++ interface class library -- write barrier
 //
 // Copyright (C) 2010 - 2020  Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2021 - 2025  Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
+// Copyright (C) 2021 - 2026  Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -103,13 +103,13 @@ void Rcpp_precious_init() {
 	R_PreserveObject(Rcpp_precious); 			    // and protect
 }
 // [[Rcpp::register]]
-void Rcpp_precious_teardown() {
+void Rcpp_precious_teardown() {						// #nocov start
     R_ReleaseObject(Rcpp_precious);                 // release resource
-}
+}													// #nocov end
 // [[Rcpp::register]]
 SEXP Rcpp_precious_preserve(SEXP object) {
     if (object == R_NilValue) {
-        return R_NilValue;
+        return R_NilValue;							// #nocov
     }
     PROTECT(object);
     SEXP cell = PROTECT(CONS(Rcpp_precious, CDR(Rcpp_precious)));

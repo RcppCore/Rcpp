@@ -20,6 +20,8 @@
 	* inst/include/Rcpp/as.h: Idem
 	* inst/include/Rcpp/exceptions.h: Idem
 	* inst/include/Rcpp/r_cast.h: Idem
+	* src/attributes.cpp: Idem
+	* src/barrier.cpp: Idem
 
 2025-12-30  Dirk Eddelbuettel  <edd@debian.org>
 
