@@ -1,8 +1,7 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
+
 // as.h: Rcpp R/C++ interface class library -- convert SEXP to C++ objects
 //
-// Copyright (C) 2009 - 2015  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2009 - 2026  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -30,8 +29,8 @@ namespace Rcpp {
 
         template <typename T> T primitive_as(SEXP x) {
             if (::Rf_length(x) != 1) {
-                const char* fmt = "Expecting a single value: [extent=%i].";
-                throw ::Rcpp::not_compatible(fmt, ::Rf_length(x));
+                const char* fmt = "Expecting a single value: [extent=%i]."; // #nocov
+                throw ::Rcpp::not_compatible(fmt, ::Rf_length(x));			// #nocov
             }
             const int RTYPE = ::Rcpp::traits::r_sexptype_traits<T>::rtype;
             Shield<SEXP> y(r_cast<RTYPE>(x));
@@ -45,14 +44,14 @@ namespace Rcpp {
         }
 
         inline const char* check_single_string(SEXP x) {
-            if (TYPEOF(x) == CHARSXP) return CHAR(x);
+            if (TYPEOF(x) == CHARSXP) return CHAR(x);						// #nocov start
             if (! ::Rf_isString(x) || Rf_length(x) != 1) {
                 const char* fmt = "Expecting a single string value: "
                                   "[type=%s; extent=%i].";
                 throw ::Rcpp::not_compatible(fmt,
                                              Rf_type2char(TYPEOF(x)),
                                              Rf_length(x));
-            }
+            }																// #nocov end
 
             return CHAR(STRING_ELT(::Rcpp::r_cast<STRSXP>(x), 0));
         }

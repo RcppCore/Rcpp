@@ -3,7 +3,7 @@
 //
 // Copyright (C) 2010 - 2020  Dirk Eddelbuettel and Romain Francois
 // Copyright (C) 2021 - 2024  Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
-// Copyright (C) 2025         Dirk Eddelbuettel, Romain Francois, Iñaki Ucar and James J Balamuta
+// Copyright (C) 2025 - 2026  Dirk Eddelbuettel, Romain Francois, Iñaki Ucar and James J Balamuta
 //
 // This file is part of Rcpp.
 //
@@ -153,7 +153,7 @@ inline void resumeJump(SEXP token) {
     ::R_ReleaseObject(token);
     ::R_ContinueUnwind(token);
     Rf_error("Internal error: Rcpp longjump failed to resume");
-}                                                           // #nocov end
+}
 
 }} // namespace Rcpp::internal
 
@@ -187,7 +187,7 @@ struct LongjumpException {
     template <typename... Args>
     inline void warning(const char* fmt, Args&&... args ) {
         Rf_warning("%s", tfm::format(fmt, std::forward<Args>(args)... ).c_str());
-    }
+    }                                                           // #nocov end
 
     template <typename... Args>
     inline void NORET stop(const char* fmt, Args&&... args) {

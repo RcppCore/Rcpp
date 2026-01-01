@@ -1,7 +1,7 @@
 
 // Module.h: Rcpp R/C++ interface class library -- Rcpp modules
 //
-// Copyright (C) 2010 - 2025 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2026 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -571,7 +571,7 @@ namespace Rcpp {
     public:
         typedef XPtr<class_Base> XP_Class ;
         typedef Rcpp::XPtr<Rcpp::Module> XP ;
-        CppClass( SEXP x) : S4(x){};
+        CppClass( SEXP x) : S4(x){};			// #nocov
 
         CppClass( Module* p, class_Base* cl, std::string& buffer ) : S4("C++Class") {
 	        XP_Class clxp( cl, false, R_NilValue, R_NilValue ) ;

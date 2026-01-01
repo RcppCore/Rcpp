@@ -1,8 +1,7 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-//
+
 // proxy.h: Rcpp R/C++ interface class library -- proxies
 //
-// Copyright (C) 2010 - 2018  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2026  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -182,7 +181,7 @@ namespace internal{
 			R_xlen_t index = 0 ;
 			try{
 				index = parent.offset(name) ;
-				parent[ index ] = rhs ;
+				parent[ index ] = rhs ;  // #nocov
 			} catch( const index_out_of_bounds& ex ){
 				parent.push_back( rhs, name );
 			}

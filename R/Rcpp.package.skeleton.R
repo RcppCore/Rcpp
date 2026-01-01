@@ -1,4 +1,4 @@
-# Copyright (C) 2009 - 2025  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2009 - 2026  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -93,7 +93,7 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
                                          email))
         fields_written <- c("Package", "Type", "Title", "Version", "Date",
                             "Authors@R", "Description", "License", "Imports", "LinkingTo")
-        if (!is.na(githubuser)) {
+        if (!is.na(githubuser)) {					# #nocov start
             x <- cbind(x, matrix("", 1, 1, dimnames=list("", "URL")))
             x[1, "URL"] <- paste0("https://github.com/", githubuser, "/", name)
             x <- cbind(x, matrix("", 1, 1, dimnames=list("", "BugReports")))
@@ -102,7 +102,7 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
             fields_written <- c("Package", "Type", "Title", "Version", "Date",
                                 "Authors@R", "Description", "URL", "BugReports",
                                 "License", "Imports", "LinkingTo")
-            }
+            }										# #nocov end
 
         x[, "License"] <- license
         x[, "Title"] <- "Concise Summary of What the Package Does"
@@ -136,7 +136,7 @@ Rcpp.package.skeleton <- function(name = "anRpackage", list = character(),
 
     ## update the package description help page
     if (havePkgKitten) {                # if pkgKitten is available, use it
-        pkgKitten::playWithPerPackageHelpPage(name, path, maintainer, email)
+        pkgKitten::playWithPerPackageHelpPage(name, path, maintainer, email) # #nocov
     } else {
         .playWithPerPackageHelpPage(name, path, maintainer, email)			# #nocov
     }

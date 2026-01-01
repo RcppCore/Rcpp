@@ -1,3 +1,28 @@
+2026-01-01  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/Attributes.R: Additional or adjusted #nocov tags
+	* R/Rcpp.package.skeleton.R: Idem
+	* R/RcppLdpath.R: Idem
+	* R/asis.R: Idem
+	* R/inline.R: Idem
+	* inst/include/Rcpp/api/meat/Rcpp_eval.h: Idem
+	* inst/include/Rcpp/internal/caster.h: Idem
+	* inst/include/Rcpp/internal/export.h: Idem
+	* inst/include/Rcpp/proxy/NamesProxy.h: Idem
+	* inst/include/Rcpp/proxy/SlotProxy.h: Idem
+	* inst/include/Rcpp/vector/Vector.h: Idem
+	* inst/include/Rcpp/vector/proxy.h: Idem
+	* inst/include/Rcpp/vector/traits.h: Idem
+	* inst/include/Rcpp/Environment.h: Idem
+	* inst/include/Rcpp/Function.h: Idem
+	* inst/include/Rcpp/Module.h: Idem
+	* inst/include/Rcpp/S4.h: Idem
+	* inst/include/Rcpp/as.h: Idem
+	* inst/include/Rcpp/exceptions.h: Idem
+	* inst/include/Rcpp/r_cast.h: Idem
+	* src/attributes.cpp: Idem
+	* src/barrier.cpp: Idem
+
 2025-12-30  Dirk Eddelbuettel  <edd@debian.org>
 
 	* tests/tinytest.R: Refine decision of when not to run all tests even

@@ -1,4 +1,4 @@
-# Copyright (C) 2010 - 2021  John Chambers, Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2026  John Chambers, Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #

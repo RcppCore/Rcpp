@@ -28,7 +28,7 @@ public:
     public:
         SlotProxy( CLASS& v, const std::string& name) : parent(v), slot_name(Rf_install(name.c_str())) {
             if( !R_has_slot( v, slot_name) ){
-                throw no_such_slot(name);
+                throw no_such_slot(name);		// #nocov
             }
         }
 

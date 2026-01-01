@@ -1,8 +1,7 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
-//
+
 // traits.h: Rcpp R/C++ interface class library -- support traits for vector
 //
-// Copyright (C) 2010 - 2018 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2026 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -56,7 +55,7 @@ namespace traits{
 		void check_index(R_xlen_t i) const {
 #ifndef RCPP_NO_BOUNDS_CHECK
 			if (i >= size) {
-				warning("subscript out of bounds (index %s >= vector size %s)", i, size);
+				warning("subscript out of bounds (index %s >= vector size %s)", i, size); // #nocov
 			}
 #endif
 		}
@@ -94,7 +93,7 @@ namespace traits{
 		void check_index(R_xlen_t i) const {
 #ifndef RCPP_NO_BOUNDS_CHECK
 			if (i >= p->size()) {
-				warning("subscript out of bounds (index %s >= vector size %s)", i, p->size());
+				warning("subscript out of bounds (index %s >= vector size %s)", i, p->size()); // #nocov
 			}
 #endif
 		}
