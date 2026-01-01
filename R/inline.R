@@ -1,4 +1,4 @@
-# Copyright (C) 2009 - 2017  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2009 - 2026  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -24,7 +24,7 @@ Rcpp.plugin.maker <- function(include.before = "",
                               Makevars      = NULL ,
                               Makevars.win  = NULL,
                               package       = "Rcpp") {
-    function(...) {
+    function(...) {		# #nocov
         includes <- sprintf("%s
 #include <Rcpp.h>
 %s
@@ -43,7 +43,7 @@ using namespace Rcpp;", include.before, include.after)
                     includes = includes,
                     LinkingTo = LinkingTo ,
                     body = function( x ) {
-                        sprintf( "BEGIN_RCPP\n%s\nEND_RCPP", x )
+                        sprintf( "BEGIN_RCPP\n%s\nEND_RCPP", x )  # #nocov
                     },
                     Depends = Depends,
                     Imports = Imports)
@@ -54,4 +54,3 @@ using namespace Rcpp;", include.before, include.after)
 }
 
 inlineCxxPlugin <- Rcpp.plugin.maker()
-
