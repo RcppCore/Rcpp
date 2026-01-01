@@ -77,11 +77,11 @@ namespace Rcpp{
 
 		template <typename InputIterator, typename value_type>
 		void export_range__dispatch( SEXP x, InputIterator first, ::Rcpp::traits::r_type_string_tag ) {
-			if( ! ::Rf_isString( x) ) {
+			if( ! ::Rf_isString( x) ) {					// #nocov start
 			    const char* fmt = "Expecting a string vector: "
 			                      "[type=%s; required=STRSXP].";
 			    throw ::Rcpp::not_compatible(fmt, Rf_type2char(TYPEOF(x)) );
-			}
+			}											// #nocov end
 
 			R_xlen_t n = ::Rf_xlength(x) ;
 			for( R_xlen_t i=0; i<n; i++, ++first ){

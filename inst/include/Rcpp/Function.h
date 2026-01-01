@@ -1,7 +1,7 @@
 
 // Function.h: Rcpp R/C++ interface class library -- functions (also primitives and builtins)
 //
-// Copyright (C) 2010 - 2025  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2026  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -42,12 +42,12 @@ namespace Rcpp{
             case BUILTINSXP:
                 Storage::set__(x);
                 break;
-            default:
+            default:						// #nocov start
                 const char* fmt = "Cannot convert object to a function: "
                                   "[type=%s; target=CLOSXP, SPECIALSXP, or "
                                   "BUILTINSXP].";
                 throw not_compatible(fmt, Rf_type2char(TYPEOF(x)));
-            }
+            }								// #nocov end
         }
 
         /**

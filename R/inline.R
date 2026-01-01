@@ -23,8 +23,8 @@ Rcpp.plugin.maker <- function(include.before = "",
                               libs          = "",
                               Makevars      = NULL ,
                               Makevars.win  = NULL,
-                              package       = "Rcpp") {
-    function(...) {		# #nocov
+                              package       = "Rcpp") {  	# #nocov start
+    function(...) {
         includes <- sprintf("%s
 #include <Rcpp.h>
 %s
@@ -37,7 +37,7 @@ Rcpp.plugin.maker <- function(include.before = "",
 #define END_RCPP
 #endif
 
-using namespace Rcpp;", include.before, include.after)
+using namespace Rcpp;", include.before, include.after)      # #nocov end
 
         out <- list(env = list( PKG_LIBS = libs ),
                     includes = includes,

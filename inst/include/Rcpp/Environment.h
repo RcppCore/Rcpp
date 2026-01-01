@@ -106,7 +106,7 @@ namespace Rcpp{
 
             /* We need to evaluate if it is a promise */
             if( TYPEOF(res) == PROMSXP){
-                res = internal::Rcpp_eval_impl( res, env ) ;
+                res = internal::Rcpp_eval_impl( res, env ) ;  // #nocov
             }
             return res ;
         }
