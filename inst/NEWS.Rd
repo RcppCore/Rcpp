@@ -41,6 +41,8 @@
       \item R is now cited via its DOI (Dirk)
       \item A (very) stale help page has been removed (Dirk in \ghpr{1428}
       fixing \ghit{1427})
+      \item The main README.md was updated emphasizing r-universe in favor of
+      the local drat repos (Dirk in \ghpr{1431})
     }
     \item Changes in Rcpp Deployment:
     \itemize{
@@ -54,6 +56,8 @@
       \ghit{1412})
       \item Three tests were being silenced following \ghpr{1413} (Dirk in
       \ghpr{1422})
+      \item The heuristic whether to run all available tests was refined
+      (Dirk in \ghpr{1434} addressing \ghit{1433})
     }
   }
 }
