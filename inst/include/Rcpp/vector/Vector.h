@@ -1,6 +1,6 @@
 // Vector.h: Rcpp R/C++ interface class library -- vectors
 //
-// Copyright (C) 2010 - 2025  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2026  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -345,10 +345,10 @@ public:
         return cache.ref( offset(i) ) ;
     }
 
-    inline Proxy at( const size_t& i) {
+    inline Proxy at( const size_t& i) {												// #nocov start
        return cache.ref( offset(i) ) ;
     }
-    inline const_Proxy at( const size_t& i) const {									// #nocov start
+    inline const_Proxy at( const size_t& i) const {
        return cache.ref( offset(i) ) ;
     }																				// #nocov end
 

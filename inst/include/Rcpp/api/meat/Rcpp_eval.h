@@ -38,8 +38,8 @@ inline SEXP Rcpp_protected_eval(void* eval_data) {
 }
 
 // This is used internally instead of Rf_eval() to make evaluation safer
-inline SEXP Rcpp_eval_impl(SEXP expr, SEXP env) {
-    return Rcpp_fast_eval(expr, env);
+inline SEXP Rcpp_eval_impl(SEXP expr, SEXP env) { // #nocov
+    return Rcpp_fast_eval(expr, env);  // #nocov
 }
 
 #else // R < 3.5.0

@@ -30,7 +30,7 @@
 ##' #   %\VignettePackage{Rcpp}
 ##' #   %\VignetteEncoding{UTF-8}
 ##' #   %\VignetteEngine{Rcpp::asis}
-asisWeave <- function (file, ...) {
+asisWeave <- function (file, ...) {								# #nocov start
     output <- tools::file_path_sans_ext(basename(file))
     if (!file.exists(output)) {
         outputS <- file.path("..", "inst", "doc", output)
@@ -53,4 +53,4 @@ asisTangle <- function (file, ..., pattern = "(|[.][^.]*)[.]asis$") {
     filenameR <- sprintf("%s.R", fullname)
     cat(sprintf("### This is an R script tangled from '%s'\n", filename), file = filenameR)
     invisible(filenameR)
-}
+}																# #nocov end

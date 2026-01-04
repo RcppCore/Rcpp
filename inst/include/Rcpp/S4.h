@@ -1,8 +1,7 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
+
 // S4.h: Rcpp R/C++ interface class library -- S4 objects
 //
-// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2026 Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -38,10 +37,10 @@ namespace Rcpp{
          *
          * @param x must be an S4 object
          */
-        S4_Impl(SEXP x) {
+        S4_Impl(SEXP x) {				// #nocov start
             if( ! ::Rf_isS4(x) ) throw not_s4() ;
             Storage::set__(x) ;
-        }
+        }								// #nocov end
 
         S4_Impl& operator=( SEXP other ){
             Storage::set__( other ) ;
@@ -57,7 +56,7 @@ namespace Rcpp{
         S4_Impl( const std::string& klass ){
             Shield<SEXP> x( R_do_new_object(R_do_MAKE_CLASS(klass.c_str())) );
             if (!Rf_inherits(x, klass.c_str()))
-                throw S4_creation_error( klass ) ;
+                throw S4_creation_error( klass ) ; // #nocov
             Storage::set__(x) ;
         }
 

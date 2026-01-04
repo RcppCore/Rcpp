@@ -50,14 +50,14 @@ public:
             Shield<SEXP> safe_x(x);
 
             /* check if we can use a fast version */
-            if( TYPEOF(x) == STRSXP && parent.size() == Rf_length(x) ){
+            if( TYPEOF(x) == STRSXP && parent.size() == Rf_length(x) ){		// #nocov start
                 Rf_namesgets(parent, x);
             } else {
                 /* use the slower and more flexible version (callback to R) */
                 SEXP namesSym = Rf_install( "names<-" );
                 Shield<SEXP> call(Rf_lang3(namesSym, parent, x));
                 Shield<SEXP> new_vec(Rcpp_fast_eval(call, R_GlobalEnv));
-                parent.set__(new_vec);
+                parent.set__(new_vec);										// #nocov end
             }
 
         }

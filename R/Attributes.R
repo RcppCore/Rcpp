@@ -1,6 +1,6 @@
 
 # Copyright (C) 2012 - 2022  JJ Allaire, Dirk Eddelbuettel and Romain Francois
-# Copyright (C) 2023 - 2024  JJ Allaire, Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
+# Copyright (C) 2023 - 2026  JJ Allaire, Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 #
 # This file is part of Rcpp.
 #
@@ -571,7 +571,7 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
 }
 
 .openmpPluginDefault <- function() {
-    list(env = list(PKG_CXXFLAGS = "-fopenmp", PKG_LIBS = "-fopenmp"))
+    list(env = list(PKG_CXXFLAGS = "-fopenmp", PKG_LIBS = "-fopenmp"))			# #nocov start
 }
 
 .openmpPluginDarwin <- function() {
@@ -629,7 +629,7 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
         libs <- "-fopenmp"
     }
 
-    list(env = list(PKG_CXXFLAGS = cxxflags, PKG_LIBS = libs))
+    list(env = list(PKG_CXXFLAGS = cxxflags, PKG_LIBS = libs))				# #nocov end
 
 }
 

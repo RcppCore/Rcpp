@@ -1,4 +1,4 @@
-# Copyright (C) 2010 - 2021  Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2026  Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -25,7 +25,7 @@ Rcpp.quoteNonStandard <- function(path) {
     ## On unix, check if path has only characters that do not need quoting
     noquote <- .Platform$OS.type == "unix" && grepl("^[[:alnum:]/._~+@%-]*$", path)
     ## If no quoting needed return unchanged else quote input
-    if (noquote) path else shQuote(path)
+    if (noquote) path else shQuote(path)  # #nocov
 }
 
 ## Use R's internal knowledge of path settings to find the lib/ directory
@@ -66,11 +66,11 @@ RcppCxxFlags <- function(cxx0x=FALSE) {
 
 ## Shorter names, and call cat() directly
 ## CxxFlags defaults to no using c++0x extensions are these are considered non-portable
-CxxFlags <- function(cxx0x=FALSE) {
+CxxFlags <- function(cxx0x=FALSE) {				# #nocov start
     #.Deprecated(msg=paste("This function is now deprecated as R uses minimally",
     #                      "viable compilers om all platforme."))
     message("'CxxFlags' has not been needed since 2013 (!!) and may get removed in 2027. Please update your 'Makevars'.")
-    cat(RcppCxxFlags(cxx0x=cxx0x))				# #nocov
+    cat(RcppCxxFlags(cxx0x=cxx0x))				# #nocov end
 }
 
 ## LdFlags defaults to static linking on the non-Linux platforms Windows and OS X
@@ -84,11 +84,11 @@ RcppCapabilities <- capabilities <- function() .Call( rcpp_capabilities )
 
 # compile, load and call the cxx0x.c script to identify whether
 # the compiler is GCC >= 4.3
-RcppCxx0xFlags <- function() {
+RcppCxx0xFlags <- function() {								# #nocov start
     #.Deprecated(msg=paste("This function is now deprecated as R uses minimally",
     #                      "viable compilers om all platforme."))
     message("'RcppCxx0xFlags' has not been needed since 2013 (!!) and may get removed in 2027. Please update your 'Makevars'.")
-    script <- Rcpp.system.file( "discovery", "cxx0x.R" )	# #nocov start
+    script <- Rcpp.system.file( "discovery", "cxx0x.R" )
     flag <- capture.output( source( script ) )
     flag
 }

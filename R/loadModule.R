@@ -1,4 +1,4 @@
-# Copyright (C) 2010 - 2015  John Chambers, Dirk Eddelbuettel and Romain Francois
+# Copyright (C) 2010 - 2026  John Chambers, Dirk Eddelbuettel and Romain Francois
 #
 # This file is part of Rcpp.
 #
@@ -54,12 +54,12 @@ loadModule <- function( module, what = character(), loadNow,
         if(exists(metaName, envir = env, inherits = FALSE))
             loadM <- get(metaName, envir = env)
     }
-    else if(is(module, "Module")) {	
-        loadM <- as.environment(module)		# #nocov
-        module <- get(loadM, "moduleName")      # #nocov
+    else if(is(module, "Module")) {			# #nocov start
+        loadM <- as.environment(module)
+        module <- get(loadM, "moduleName")
     }
     else
-        stop(gettextf("Argument \"module\" should be a module or the name of a module: got an object of class \"%s\"", class(module)))
+        stop(gettextf("Argument \"module\" should be a module or the name of a module: got an object of class \"%s\"", class(module)))  # #nocov end
     if(missing(loadNow)) { # test it
         if(is.null(loadM))
             loadM <- tryCatch(Module( module, mustStart = TRUE, where = env ),
@@ -104,7 +104,7 @@ loadModule <- function( module, what = character(), loadNow,
         assignAs <- .moduleNames(what)
         for( i in seq_along(what) ) {
             if(.botched)
-                assign(assignAs[[i]], NULL, envir = storage)
+                assign(assignAs[[i]], NULL, envir = storage)    # #nocov
             else
                 assign(assignAs[[i]], get(what[[i]], envir = storage), envir = env)
         }
@@ -120,4 +120,3 @@ loadModule <- function( module, what = character(), loadNow,
         invisible(myCall)					# #nocov
     }
 }
-
