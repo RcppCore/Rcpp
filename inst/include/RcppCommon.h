@@ -1,10 +1,9 @@
 
-//
 // RcppCommon.h: Rcpp R/C++ interface class library -- common include and defines statements
 //
 // Copyright (C) 2008 - 2009  Dirk Eddelbuettel
 // Copyright (C) 2009 - 2020  Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2021 - 2025  Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
+// Copyright (C) 2021 - 2026  Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -132,9 +131,7 @@ namespace Rcpp {
 #include <Rcpp/exceptions.h>
 #include <Rcpp/proxy/proxy.h>
 
-#ifdef RCPP_USING_UNWIND_PROTECT
-  #include <Rcpp/unwindProtect.h>
-#endif
+#include <Rcpp/unwindProtect.h>
 
 #include <Rcpp/lang.h>
 #include <Rcpp/complex.h>

@@ -1,4 +1,5 @@
-// Copyright (C) 2013 Romain Francois
+// Copyright (C) 2013 - 2025 Romain Francois
+// Copyright (C) 2026        Romain Francois and Dirk Eddelbuettel
 //
 // This file is part of Rcpp.
 //
@@ -24,8 +25,6 @@
 
 namespace Rcpp { namespace internal {
 
-#ifdef RCPP_USING_UNWIND_PROTECT
-
 struct EvalData {
     SEXP expr;
     SEXP env;
@@ -42,35 +41,15 @@ inline SEXP Rcpp_eval_impl(SEXP expr, SEXP env) { // #nocov
     return Rcpp_fast_eval(expr, env);  // #nocov
 }
 
-#else // R < 3.5.0
-
-// Fall back to Rf_eval() when the protect-unwind API is unavailable
-inline SEXP Rcpp_eval_impl(SEXP expr, SEXP env) {
-    return ::Rf_eval(expr, env);
-}
-
-#endif
-
 }} // namespace Rcpp::internal
 
 
 namespace Rcpp {
 
-#ifdef RCPP_USING_UNWIND_PROTECT
-
 inline SEXP Rcpp_fast_eval(SEXP expr, SEXP env) {
     internal::EvalData data(expr, env);
     return unwindProtect(&internal::Rcpp_protected_eval, &data);
 }
-
-#else
-
-inline SEXP Rcpp_fast_eval(SEXP expr, SEXP env) {
-    return Rcpp_eval(expr, env);
-}
-
-#endif
-
 
 inline SEXP Rcpp_eval(SEXP expr, SEXP env) {
 

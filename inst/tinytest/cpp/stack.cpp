@@ -65,10 +65,7 @@ SEXP maybeThrow(void* data) {
 SEXP testUnwindProtect(Environment indicator, bool fail) {
     unwindIndicator my_data(indicator);
     SEXP out = R_NilValue;
-
-#ifdef RCPP_USING_UNWIND_PROTECT
     out = Rcpp::unwindProtect(&maybeThrow, &fail);
-#endif
     return out;
 }
 
@@ -77,11 +74,7 @@ SEXP testUnwindProtect(Environment indicator, bool fail) {
 SEXP testUnwindProtectLambda(Environment indicator, bool fail) {
     unwindIndicator my_data(indicator);
     SEXP out = R_NilValue;
-
-#ifdef RCPP_USING_UNWIND_PROTECT
     out = Rcpp::unwindProtect([&] () { return maybeThrow(&fail); });
-#endif
-
     return out;
 }
 
@@ -100,10 +93,6 @@ struct FunctionObj {
 SEXP testUnwindProtectFunctionObject(Environment indicator, bool fail) {
     unwindIndicator my_data(indicator);
     SEXP out = R_NilValue;
-
-#ifdef RCPP_USING_UNWIND_PROTECT
     out = Rcpp::unwindProtect(FunctionObj(10, fail));
-#endif
-
     return out;
 }
