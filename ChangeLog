@@ -3,6 +3,9 @@
 	* DESCRIPTION (Version, Date): Roll micro version and date
 	* inst/include/Rcpp/config.h: Idem
 
+	* vignettes/rmd/Rcpp.bib: Update package versions dates
+	* inst/bib/Rcpp.bib: Idem
+
 2026-01-04  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/RcppCommon.h: No longer require RCPP_USING_UNWIND_PROTECT
