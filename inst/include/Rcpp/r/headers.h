@@ -2,7 +2,7 @@
 //
 // Copyright (C) 2008 - 2009 Dirk Eddelbuettel
 // Copyright (C) 2009 - 2024 Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2025        Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
+// Copyright (C) 2025 -      Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -99,10 +99,6 @@
 
 #ifdef RCPP_HAS_MAKEDEV_MACRO
 # pragma pop_macro("makedev")
-#endif
-
-#if !defined(RCPP_NO_UNWIND_PROTECT)
-# define RCPP_USING_UNWIND_PROTECT
 #endif
 
 #endif /* RCPP__R__HEADERS__H */

@@ -81,16 +81,18 @@ expect_equal(result, 0L)
 ## Now test client package without protected evaluation
 unlink(user_name, recursive = TRUE)
 unlink(paste0(user_name, "-tests"), recursive = TRUE)
-build_package(user_name, lib_path, config = "#define RCPP_NO_UNWIND_PROTECT")
 
-result <- tools::testInstalledPackage(user_name, lib.loc = lib_path, types = "test")
+## no longer supported in code
+## build_package(user_name, lib_path, config = "#define RCPP_NO_UNWIND_PROTECT")
 
-if (result) {
-    log <- file.path(paste0(user_name, "-tests"), "tests.Rout.fail")
-    cat(">> UNPROTECTED tests.Rout.fail", readLines(log), sep = "\n", file = stderr())
-}
+## result <- tools::testInstalledPackage(user_name, lib.loc = lib_path, types = "test")
 
-expect_equal(result, 0L)
+## if (result) {
+##     log <- file.path(paste0(user_name, "-tests"), "tests.Rout.fail")
+##     cat(">> UNPROTECTED tests.Rout.fail", readLines(log), sep = "\n", file = stderr())
+## }
+
+## expect_equal(result, 0L)
 
 on.exit({
     setwd(old_wd)
