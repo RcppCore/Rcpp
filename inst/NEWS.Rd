@@ -28,6 +28,8 @@
       older code has been removed (Dirk in \ghpr{1426} fixing \ghit{1425})
       \item The non-API \code{ATTRIB} entry point to the R API is no longer
       used (Dirk in \ghpr{1430} addressing \ghit{1429})
+      \item The unwind-protect mechanism is now used unconditionally (Dirk
+      in \ghpr{1437} closing \ghit{1436})
     }
     \item Changes in Rcpp Attributes:
     \itemize{
@@ -58,6 +60,8 @@
       \ghpr{1422})
       \item The heuristic whether to run all available tests was refined
       (Dirk in \ghpr{1434} addressing \ghit{1433})
+      \item Coverage has been tweaked via additional \code{#nocov} tags (Dirk
+      in \ghpr{1435})
     }
   }
 }
