@@ -1,3 +1,16 @@
+2026-01-06  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+	* inst/include/Rcpp/config.h: Idem
+
+2026-01-04  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/RcppCommon.h: No longer require RCPP_USING_UNWIND_PROTECT
+	* inst/include/Rcpp/r/headers.h: Idem
+	* inst/include/Rcpp/api/meat/Rcpp_eval.h: Idem
+	* inst/tinytest/cpp/stack.cpp: No longer test with RCPP_USING_UNWIND_PROTECT
+	* inst/tinytest/test_interface.R: Idem
+
 2026-01-01  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/Attributes.R: Additional or adjusted #nocov tags
@@ -22,13 +35,6 @@
 	* inst/include/Rcpp/r_cast.h: Idem
 	* src/attributes.cpp: Idem
 	* src/barrier.cpp: Idem
-2026-01-04  Dirk Eddelbuettel  <edd@debian.org>
-
-	* inst/include/RcppCommon.h: No longer require RCPP_USING_UNWIND_PROTECT
-	* inst/include/Rcpp/r/headers.h: Idem
-	* inst/include/Rcpp/api/meat/Rcpp_eval.h: Idem
-	* inst/tinytest/cpp/stack.cpp: No longer test with RCPP_USING_UNWIND_PROTECT
-	* inst/tinytest/test_interface.R: Idem
 
 2025-12-30  Dirk Eddelbuettel  <edd@debian.org>
 
