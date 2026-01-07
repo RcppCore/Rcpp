@@ -11,13 +11,12 @@ rmdvignettes := 	$(rmdsources:.Rmd=.pdf)
 
 all:			${rmdvignettes} Rcpp-jss-2011.pdf
 
-Rcpp-jss-2011.tex:	Rcpp-jss-2011.Rnw
-			Rscript -e 'Sweave("$<")'
-
-Rcpp-jss-2011.pdf:	Rcpp-jss-2011.tex
-			Rscript -e 'tools::texi2pdf("$<", texi2dvi="pdflatex")'
+Rcpp-jss-2011.pdf:	Rcpp-jss-2011.Rnw
+			Rscript -e 'Sweave("Rcpp-jss-2011.Rnw")'
+			pdflatex Rcpp-jss-2011.tex
 			bibtex Rcpp-jss-2011.aux
-			Rscript -e 'tools::texi2pdf("$<", texi2dvi="pdflatex")'
+			pdflatex Rcpp-jss-2011.tex
+			pdflatex Rcpp-jss-2011.tex
 			Rscript -e 'tools::compactPDF("$@", gs_quality="ebook")'
 			cp -vax $@ ..
 

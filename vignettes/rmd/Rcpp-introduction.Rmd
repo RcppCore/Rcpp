@@ -625,7 +625,7 @@ in place of `sample(n, n, replace = TRUE)` to sample row ids. This is an
 equivalent substitution since equal weight is being placed upon all row ids and
 replacement is allowed.\footnote{For more flexibility in sampling see Christian Gunning's
 Sample extension for \pkg{RcppArmadillo} and
-\href{http://gallery.rcpp.org/articles/using-the-Rcpp-based-sample-implementation/}{Rcpp Gallery: Using the \pkg{RcppArmadillo}-based Implementation of R's sample()} or consider using the \code{Rcpp::sample()} sugar function added in 0.12.9 by Nathan Russell.}
+\href{https://gallery.rcpp.org/articles/using-the-Rcpp-based-sample-implementation/}{Rcpp Gallery: Using the \pkg{RcppArmadillo}-based Implementation of R's sample()} or consider using the \code{Rcpp::sample()} sugar function added in 0.12.9 by Nathan Russell.}
 Note that the upper bound of the interval, `n`, will never be reached. While
 this may seem flawed, it is important to note that vectors and matrices in
 \cpp use a zero-based indexing system, meaning that they begin at 0 instead of 1
@@ -718,7 +718,7 @@ classes \citep{Sanderson+Curtin:2016} via the \pkg{RcppArmadillo} package
 running this example, the \pkg{RcppArmadillo} package must be installed using
 `install.packages('RcppArmadillo')`.\footnote{macOS users may encounter `-lgfortran`
 and `-lquadmath` errors on compilations with this package if the development environment
-is not appropriately set up. \href{https://cran.r-project.org/web/packages/Rcpp/vignettes/Rcpp-FAQ.pdf}{Section 2.16 of the Rcpp FAQ} provides details regarding the necessary `gfortran` binaries.}
+is not appropriately set up. \href{https://cran.r-project.org/package=Rcpp/vignettes/Rcpp-FAQ.pdf}{Section 2.16 of the Rcpp FAQ} provides details regarding the necessary `gfortran` binaries.}
 One important caveat when using additional packages
 within the \rcpp ecosystem is the correct header file may not be `Rcpp.h`.
 In a majority of cases, the additional package ships a dedicated header

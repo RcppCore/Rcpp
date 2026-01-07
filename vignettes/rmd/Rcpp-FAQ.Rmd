@@ -478,7 +478,7 @@ able to mix. In such cases, it is better to provide collaborators with the
 
 By default, the macOS operating environment lacks the ability to parallelize
 sections of code using the [\proglang{OpenMP}
-standard](https://www.openmp.org/wp/).  Within \proglang{R} 3.4.*, the default
+standard](https://www.openmp.org/specifications/).  Within \proglang{R} 3.4.*, the default
 developer environment was _changed_ to allow for \proglang{OpenMP} to be used
 on macOS by using a non-default toolchain provided by R Core Team maintainers
 for macOS.  Having said this, it is still important to protect any reference
@@ -1257,8 +1257,7 @@ You can also use [StackOverflow via its 'rcpp' tag](https://stackoverflow.com/qu
 ## Where can I read old questions and answers
 
 The normal [Rcpp-devel](https://lists.r-forge.r-project.org/cgi-bin/mailman/listinfo/rcpp-devel)
-mailing list hosting at R-forge contains an archive, which can be
-[searched via swish](https://lists.r-forge.r-project.org/mailman/swish.cgi?query=listname=rcpp-devel).
+mailing list hosting at R-forge contains an archive.
 
 Alternatively, one can also use
 [Mail-Archive on Rcpp-devel](http://www.mail-archive.com/rcpp-devel@lists.r-forge.r-project.org/info.html)

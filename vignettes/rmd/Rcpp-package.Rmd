@@ -76,7 +76,7 @@ header-includes: >
   \newcommand{\proglang}[1]{\textsf{#1}}
   \newcommand{\pkg}[1]{\textbf{#1}}
   \newcommand{\faq}[1]{FAQ~\ref{#1}}
-  \newcommand{\rdoc}[2]{\href{http://www.rdocumentation.org/packages/#1/functions/#2}{\code{#2}}}
+  \newcommand{\rdoc}[2]{\code{#2}}
   \newcommand{\sugar}{\textsl{Rcpp sugar}~}
 
 vignette: >
