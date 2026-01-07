@@ -11,9 +11,9 @@ author:
     affiliation: b
 address:
   - code: a
-    address: Debian and R Projects; Chicago, IL, USA; \url{edd@debian.org}
+    address: Debian and R Projects; Chicago, IL, USA; \code{edd@debian.org}
   - code: b
-    address: Depts of Informatics and Statistics, Univ. of Illinois at Urbana-Champaign; Champaign, IL, USA; \url{balamut2@illinois.edu}
+    address: Depts of Informatics and Statistics, Univ. of Illinois at Urbana-Champaign; Champaign, IL, USA; \code{balamut2@illinois.edu}
 
 # For footer text  TODO(fold into template, allow free form two-authors)
 lead_author_surname: Eddelbuettel and Balamuta
@@ -189,10 +189,9 @@ the Rtools kit provided by R Core available at <https://cran.r-project.org/bin/w
 Details of these installation steps are beyond the scope of this
 paper. However, many external resources exist that provide detailed
 installation guides for \rlang toolchains in
-[Windows](http://thecoatlessprofessor.com/programming/rcpp/install-rtools-for-rcpp/)
+[Windows](https://blog.thecoatlessprofessor.com/programming/rcpp/install-rtools-for-rcpp/index.html)
 and
-[macOS](http://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-os-x/).
-
+[macOS](https://blog.thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-os-x/index.html).
 As a first step, and chiefly to establish that the toolchain is set up correctly, consider
 a minimal use case such as the following:
 

@@ -40,14 +40,14 @@
   Debian Project \\
   River Forest, IL, United States of America\\
   E-mail: \email{edd@debian.org}\\
-  URL: \url{http://dirk.eddelbuettel.com/}\\
+  URL: \url{https://dirk.eddelbuettel.com/}\\
 
   Romain Fran\c{c}ois\\
   Professional \proglang{R} Enthusiast\\
   1 rue du Puits du Temple\\
   34 000 Montpellier, France \\
   E-mail: \email{romain@r-enthusiasts.com}\\
-  URL: \url{http://romainfrancois.blog.free.fr/}
+  URL: \url{https://github.com/romainfrancois}
 }
 
 %% need no \usepackage{Sweave.sty}
@@ -101,7 +101,7 @@ as opposed to the traditional \proglang{R} API. Many more examples are available
 the package, both as explicit examples and as part of the numerous unit tests.
 %
 The \pkg{Rcpp} package is available from the Comprehensive \proglang{R} Archive Network (CRAN)
-at \url{http://CRAN.R-project.org/package=Rcpp}.
+at \url{https://CRAN.R-project.org/package=Rcpp}.
 
 \makeatletter
 \if@nojss

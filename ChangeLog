@@ -1,3 +1,9 @@
+2026-01-07  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/rmd/Rcpp.bib: Update to several URLs
+	* inst/bib/Rcpp.bib: Idem
+	* vignettes/rmd/*: Idem
+
 2026-01-06  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date

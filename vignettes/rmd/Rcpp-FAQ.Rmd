@@ -10,9 +10,9 @@ author:
 
 address:
   - code: a
-    address: \url{http://dirk.eddelbuettel.com}
+    address: \url{https://dirk.eddelbuettel.com}
   - code: b
-    address: \url{https://romain.rbind.io/}
+    address: \url{https://github.com/romainfrancois}
 
 # For footer text
 lead_author_surname: Eddelbuettel and François
@@ -75,7 +75,7 @@ header-includes: >
   \newcommand{\proglang}[1]{\textsf{#1}}
   \newcommand{\pkg}[1]{\textbf{#1}}
   \newcommand{\faq}[1]{FAQ~\ref{#1}}
-  \newcommand{\rdoc}[2]{\href{http://www.rdocumentation.org/packages/#1/functions/#2}{\code{#2}}}
+  \newcommand{\rdoc}[2]{\code{#2}}
 
 vignette: >
   %\VignetteIndexEntry{Rcpp-FAQ}
@@ -131,7 +131,7 @@ means one needs:
   `--enable-shared-lib` option;
 - standard development tools such as `make` etc.
 
-Also see the [RStudio documentation](http://www.rstudio.com/ide/docs/packages/prerequisites)
+Also see the [RStudio documentation](https://support.posit.co/hc/en-us/articles/200486498-Package-Development-Prerequisites)
 on pre-requisites for R package development.
 
 ## What compiler can I use {#q:what-compiler}
@@ -153,7 +153,7 @@ Specific per-platform notes:
     manual \citep[Appendix D]{R:Administration}.
   \item[macOS] users, as noted in the "R Administration" manual \citep[Appendix
     C.4]{R:Administration}, need to install the Apple Developer Tools
-    (\textsl{e.g.}, \href{https://developer.apple.com/library/ios/technotes/tn2339/_index.html}{Xcode Command Line Tools}  (as well as \texttt{gfortran} if \proglang{R} or
+    (\textsl{e.g.}, \href{https://developer.apple.com/library/archive/technotes/tn2339/_index.html}{Xcode Command Line Tools}  (as well as \texttt{gfortran} if \proglang{R} or
     Fortran-using packages are to be built); also see \faq{q:OSX} and
     \faq{q:OSXArma} below. This is frustratingly moving target; consult
     the \code{r-sig-mac} list (and its archives) for (current) details.
@@ -478,7 +478,7 @@ able to mix. In such cases, it is better to provide collaborators with the
 
 By default, the macOS operating environment lacks the ability to parallelize
 sections of code using the [\proglang{OpenMP}
-standard](http://openmp.org/wp/).  Within \proglang{R} 3.4.*, the default
+standard](https://www.openmp.org/wp/).  Within \proglang{R} 3.4.*, the default
 developer environment was _changed_ to allow for \proglang{OpenMP} to be used
 on macOS by using a non-default toolchain provided by R Core Team maintainers
 for macOS.  Having said this, it is still important to protect any reference
@@ -516,10 +516,10 @@ Below are additional resources that provide information regarding compiling Rcpp
    [on the `r-sig-mac` list](https://stat.ethz.ch/pipermail/r-sig-mac/2014-April/010835.html),
    which is generally recommended for macOS-specific questions and further consultation.
 2. Another helpful write-up for installation / compilation on macOS Mavericks is provided
-   [by the BioConductor project](http://www.bioconductor.org/developers/how-to/mavericks-howto/).
+   [by the BioConductor project](https://contributions.bioconductor.org/cmavericks-best-practices.html).
 3. Lastly, another resource that exists for installation / compilation
    help is provided at
-   <http://thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-os-x/>.
+   <https://blog.thecoatlessprofessor.com/programming/r-compiler-tools-for-rcpp-on-os-x/index.html>.
 
 \textbf{Note:} If you are running into trouble compiling code with \pkg{RcppArmadillo}, please also see \faq{q:OSXArma} listed below.
 
@@ -612,11 +612,11 @@ The following questions were asked on the
 [Rcpp-devel](https://lists.r-forge.r-project.org/cgi-bin/mailman/listinfo/rcpp-devel)
 mailing list, which is our preferred place to ask questions as it guarantees
 exposure to a number of advanced Rcpp users.  The
-[StackOverflow tag for rcpp](http://stackoverflow.com/questions/tagged/rcpp)
+[StackOverflow tag for rcpp](https://stackoverflow.com/questions/tagged/rcpp)
 is an alternative; that site is also easily searchable.
 
 Several dozen fully documented examples are provided at the
-[Rcpp Gallery](http://gallery.rcpp.org) -- which is also open for new contributions.
+[Rcpp Gallery](https://gallery.rcpp.org) -- which is also open for new contributions.
 
 
 ## Can I use templates with \pkg{Rcpp}
@@ -718,7 +718,7 @@ operations. That is a mouthful of words meaning that it makes the code go
 faster by using fiendishly clever ways available via the so-called template
 meta programming, an advanced \proglang{C++} technique.
 Also, the \pkg{RcppEigen} package \citep{JSS:RcppEigen} provides an alternative using the
-[Eigen](http://eigen.tuxfamily.org) template library.
+[Eigen](https://libeigen.gitlab.io) template library.
 
 ### Using inline with RcppArmadillo {#using-inline-armadillo}
 
@@ -757,7 +757,7 @@ The focus is on the code `arma::trans(x) * arma::inv(Y) * z`, which
 performs the same operation as the R code `t(x) %*% solve(Y) %*% z`,
 although Armadillo turns it into only one operation, which makes it quite fast.
 Armadillo benchmarks against other \proglang{C++} matrix algebra libraries
-are provided on [the Armadillo website](http://arma.sourceforge.net/speed.html).
+are provided on [the Armadillo website](https://arma.sourceforge.net/speed.html).
 
 It should be noted that code below depends on the version `0.3.5` of
 \pkg{inline} and the version `0.2.2` of \pkg{RcppArmadillo}.
@@ -896,7 +896,7 @@ C
 Armadillo supports a full range of common linear algebra operations.
 
 The \pkg{RcppEigen} package provides an alternative using the
-[Eigen](http://eigen.tuxfamily.org) template library.
+[Eigen](https://libeigen.gitlab.io) template library.
 
 Rcpp Attributes, once again, makes this even easier:
 
@@ -1065,7 +1065,7 @@ suggestion or fix for casting 64-bit integer values: 32-bit integer values
 fit into `integer` types, up to 53 bit precision fits into
 `numeric` and beyond that truly large integers may have to converted
 (rather crudely) to text and re-parsed. Using a different representation as
-for example from the [GNU Multiple Precision Arithmetic Library](http://gmplib.org/)
+for example from the [GNU Multiple Precision Arithmetic Library](https://gmplib.org/)
 may be an alternative.
 
 However, with care, and via the package \pkg{bit64}, \proglang{R} can use
@@ -1083,7 +1083,7 @@ system.
 
 Specific per-platform notes:
 
-- **Windows** users probably want the [MiKTeX](http://miktex.org/).
+- **Windows** users probably want the [MiKTeX](https://miktex.org/).
   Suggestions for a more detailed walk through would be appreciated.
 - **macOS** users seem to fall into camps which like or do not like brew /
   homebrew. One suggestion was to install
@@ -1109,7 +1109,7 @@ generator scripts to explicitly enumerate arguments, and that number has to stop
 at some limit. We chose 20.
 
 A good discussion is available at
-[this StackOverflow question](http://stackoverflow.com/questions/27371543)
+[this StackOverflow question](https://stackoverflow.com/questions/27371543)
 concerning data.frame creation with \pkg{Rcpp}. One solution offers a custom
 `ListBuilder` class to circumvent the limit; another suggests to simply
 nest lists.
@@ -1168,7 +1168,7 @@ Note: In `cpp`, the default `bool` values are `true` and
 
 But of course.  In a nutshell, this boils down to \emph{what your compiler
   supports}, and also \emph{what R supports}.  We expanded a little on this in
-[Rcpp Gallery article](http://gallery.rcpp.org/articles/rcpp-and-c++11-c++14-c++17/) providing more detail.  What follows in an abridged summary.
+[Rcpp Gallery article](https://gallery.rcpp.org/articles/rcpp-and-c++11-c++14-c++17/) providing more detail.  What follows in an abridged summary.
 
 You can always \emph{locally} set appropriate `PKG_CXXFLAGS` as an
 environment variable, or via `~/.R/Makevars`. You can also set plugins and/or R
@@ -1201,7 +1201,7 @@ conda install gxx_linux-64
 helps within this environment as it installs the corresponding
 `x86_64-conda_cos6-linux-gnu-c++` compiler. Documentation for this and other
 systems is provided
-[at this page](https://conda.io/docs/user-guide/tasks/build-packages/compiler-tools.html).
+[at this page](https://docs.conda.io/docs/user-guide/tasks/build-packages/compiler-tools.html).
 
 ## Can I speed up compilation?
 
@@ -1230,12 +1230,12 @@ exclude these different (layered) bits of functionality.
 
 You bet. We use \proglang{doxygen} to generate html, latex and man page
 documentation from the source. The html documentation is available for
-[browsing](http://dirk.eddelbuettel.com/code/rcpp/html/index.html), as a
-[very large pdf file](http://dirk.eddelbuettel.com/code/rcpp/Rcpp_refman.pdf),
+[browsing](https://dirk.eddelbuettel.com/code/rcpp/html/index.html), as a
+[very large pdf file](https://dirk.eddelbuettel.com/code/rcpp/Rcpp_refman.pdf),
 and all three formats are also available a zip-archives:
-[html](http://dirk.eddelbuettel.com/code/rcpp/rcpp-doc-html.zip),
-[latex](http://dirk.eddelbuettel.com/code/rcpp/rcpp-doc-latex.zip), and
-[man](http://dirk.eddelbuettel.com/code/rcpp/rcpp-doc-man.zip).
+[html](https://dirk.eddelbuettel.com/code/rcpp/rcpp-doc-html.zip),
+[latex](https://dirk.eddelbuettel.com/code/rcpp/rcpp-doc-latex.zip), and
+[man](https://dirk.eddelbuettel.com/code/rcpp/rcpp-doc-man.zip).
 
 ## Does it really work
 
@@ -1252,13 +1252,13 @@ The
 mailing list hosted at R-forge is by far the best place.  You may also want
 to look at the list archives to see if your question has been asked before.
 
-You can also use [StackOverflow via its 'rcpp' tag](http://stackoverflow.com/questions/tagged/rcpp).
+You can also use [StackOverflow via its 'rcpp' tag](https://stackoverflow.com/questions/tagged/rcpp).
 
 ## Where can I read old questions and answers
 
 The normal [Rcpp-devel](https://lists.r-forge.r-project.org/cgi-bin/mailman/listinfo/rcpp-devel)
 mailing list hosting at R-forge contains an archive, which can be
-[searched via swish](http://lists.r-forge.r-project.org/mailman/swish.cgi?query=listname=rcpp-devel).
+[searched via swish](https://lists.r-forge.r-project.org/mailman/swish.cgi?query=listname=rcpp-devel).
 
 Alternatively, one can also use
 [Mail-Archive on Rcpp-devel](http://www.mail-archive.com/rcpp-devel@lists.r-forge.r-project.org/info.html)
@@ -1278,7 +1278,7 @@ You can also spread the word about \pkg{Rcpp}. There are many packages on CRAN
 that use \proglang{C++}, yet are not using \pkg{Rcpp}. You could blog about
 it, or get the word out otherwise.
 
-Last but not least the [Rcpp Gallery](http://gallery.rcpp.org) is open
+Last but not least the [Rcpp Gallery](https://gallery.rcpp.org) is open
 for user contributions.
 
 ## I don't like it. How can I help {#dont-like-help}
@@ -1302,7 +1302,7 @@ From late 2008 to late 2013, we used the
 which contained \pkg{Rcpp} and a number of related packages. It still has the full
 history as well as number of support files.
 
-We have since switched to a [Git repository at Github](http://github.com/RcppCore/Rcpp)
+We have since switched to a [Git repository at Github](https://github.com/RcppCore/Rcpp)
 for \pkg{Rcpp} (as well as for \pkg{RcppArmadillo} and \pkg{RcppEigen}).
 
 # Known Issues
@@ -1573,7 +1573,7 @@ elements. With the release of \proglang{R}'s 3.0.0, long vector support was adde
 allow for largest vector possible to increase up to $2^{52}$ elements on x64 bit
 operating systems (c.f. [Long Vectors help entry](https://stat.ethz.ch/R-manual/R-devel/library/base/html/LongVectors.html)).
 Once this was established, support for long vectors within the \pkg{Rcpp} paradigm
-was introduced with \pkg{Rcpp} version 0.12.0 (c.f [\pkg{Rcpp} 0.12.0 annoucement](http://dirk.eddelbuettel.com/blog/2015/07/25/)).
+was introduced with \pkg{Rcpp} version 0.12.0 (c.f [\pkg{Rcpp} 0.12.0 annoucement](https://dirk.eddelbuettel.com/blog/2015/07/25/)).
 
 However, the requirement for using long vectors in \pkg{Rcpp} necessitates the
 presence of compiler support for the `R_xlen_t`, which is platform

@@ -107,7 +107,7 @@ involved, so it is useful to check inter-license compatibility, as well as gener
 usability of the license in question. Several sites can help via license recommendations,
 and checks for interoperability. One example is the site at
 [choosealicense.com](https://choosealicense.com/) (which is backed by GitHub) can help, as
-can [tldrlegal.com](https://tldrlegal.com/).  License choice is a complex topic, and
+can [tldrlegal.com](https://www.tldrlegal.com/).  License choice is a complex topic, and
 general recommendations are difficult to make besides the key point of sticking to
 already-established and known licenses.
 

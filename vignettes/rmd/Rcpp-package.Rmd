@@ -1,5 +1,5 @@
 ---
-title: Writing a package that uses \pkg{Rcpp} 
+title: Writing a package that uses \pkg{Rcpp}
 
 # Use letters for affiliations
 author:
@@ -10,9 +10,9 @@ author:
 
 address:
   - code: a
-    address: \url{http://dirk.eddelbuettel.com}
+    address: \url{https://dirk.eddelbuettel.com}
   - code: b
-    address: \url{https://romain.rbind.io/}
+    address: \url{https://github.com/romainfrancois}
 
 # For footer text
 lead_author_surname: Eddelbuettel and François
@@ -167,7 +167,7 @@ package, and it also includes the different components needed for using
 
 ## \proglang{C++} code
 
-If the `attributes` argument is set to `TRUE`[^1], the 
+If the `attributes` argument is set to `TRUE`[^1], the
 following \proglang{C++} file is included in the `src/` directory:
 
 ```cpp
@@ -177,9 +177,9 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 List rcpp_hello_world() {
 
-    CharacterVector x = 
+    CharacterVector x =
         CharacterVector::create("foo", "bar");
-    NumericVector y   = 
+    NumericVector y   =
         NumericVector::create( 0.0, 1.0 ) ;
     List z            = List::create( x, y ) ;
 
@@ -240,7 +240,7 @@ that uses the \proglang{C++} function.
 #        10BE3573-1514-4C36-9D1C-5A225CD40393
 
 rcpp_hello_world <- function() {
-    .Call('mypackage_rcpp_hello_world', 
+    .Call('mypackage_rcpp_hello_world',
           PACKAGE = 'mypackage')
 }
 ```
@@ -283,7 +283,7 @@ indicates that the client package needs to use header files exposed by
 ## Now optional: `Makevars` and `Makevars.win`
 
 This behaviour changed with \pkg{Rcpp} release 0.11.0. These files used to be
-mandatory, now they are merely optional. 
+mandatory, now they are merely optional.
 
 We will describe the old setting first as it was in use for a few years. The
 new standard, however, is much easier and is described below.
@@ -324,7 +324,7 @@ PKG_LIBS = $(shell \
 
 As of release 0.11.0, this is no longer needed as client packages obtain the
 required code from \pkg{Rcpp} via explicit function registration. The user
-does not have to do anything.  
+does not have to do anything.
 
 This means that `PKG_LIBS` can now be empty---unless some client
 libraries are needed.  For example, \pkg{RcppCNPy} needs compression support
@@ -345,7 +345,7 @@ importFrom(Rcpp, evalCpp)
 This file serves three purposes. First, it ensure that the dynamic library
 contained in the package we are creating via
 \rdoc{Rcpp}{Rcpp.package.skeleton} will be loaded and thereby made
-available to the newly created \proglang{R} package. 
+available to the newly created \proglang{R} package.
 
 Second, it declares which functions should be globally visible from the
 namespace of this package. As a reasonable default, we export all functions.
@@ -460,7 +460,7 @@ and \pkg{minqa} \citep{CRAN:minqa}. Several other packages follow older (but sti
 and appropriate) instructions. They can serve examples on how to get data to
 and from \proglang{C++} routines, but should not be considered templates for
 how to connect to \pkg{Rcpp}. The full list of packages using \pkg{Rcpp} can
-be found at the [CRAN page](http://CRAN.R-project.org/package=Rcpp) of
+be found at the [CRAN page](https://CRAN.R-project.org/package=Rcpp) of
 \pkg{Rcpp}.
 
 # Other compilers
@@ -488,4 +488,4 @@ detail, and references to further examples were provided.
 [^1]: Setting `attributes` to `TRUE` is the default. This document
     does not cover the behavior of `Rcpp.package.skeleton` when `attributes` is set
     to `FALSE` as we try to encourage package developers to use
-    attributes. 
+    attributes.

@@ -10,9 +10,9 @@ author:
 
 address:
   - code: a
-    address: \url{http://dirk.eddelbuettel.com}
+    address: \url{https://dirk.eddelbuettel.com}
   - code: b
-    address: \url{https://romain.rbind.io/}
+    address: \url{https://github.com/romainfrancois}
 
 # For footer text
 lead_author_surname: Eddelbuettel and François
@@ -173,7 +173,7 @@ NumericMatrix zz2 = xx( Range(0,2), Range(0,2));
 # Inline C++ Compile in R
 
 ```{r, eval = FALSE}
-## Note - this is R code. 
+## Note - this is R code.
 ## cppFunction in Rcpp allows rapid testing.
 require(Rcpp)
 
@@ -221,11 +221,11 @@ RcppExport SEXP myCfun( SEXP x, SEXP y) {
     // Pointer is faster, but changes to xx
     // propagate to R ( xx -> x == Rx).
     NumericVector xx(x);
-    
+
     // clone is slower and uses extra memory.
     // Safe. No side effects.
     NumericVector yy(clone(y));
-    
+
     xx[0] = yy[0] = -1.5;
     int zz = xx[0];
 
@@ -299,18 +299,18 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 double muRcpp(NumericVector x){
     int n = x.size(); // Size of vector
-    double sum = 0;   // Sum value  
-    
+    double sum = 0;   // Sum value
+
     // For loop, note cpp index shift to 0
-    for(int i = 0; i < n; i++){ 
+    for(int i = 0; i < n; i++){
         // Shorthand for sum = sum + x[i]
-        sum += x[i];     
+        sum += x[i];
     }
-    
+
     return sum/n;  // Obtain and return the Mean
 }
 
-// Place dependent functions above call or 
+// Place dependent functions above call or
 // declare the function definition with:
 double muRcpp(NumericVector x);
 
@@ -320,12 +320,12 @@ double varRcpp(NumericVector x, bool bias = true){
     double mean = muRcpp(x);
     double sum = 0;
     int n = x.size();
-    
-    for(int i = 0; i < n; i++){   
+
+    for(int i = 0; i < n; i++){
         sum += pow(x[i] - mean, 2.0); // Square
     }
-    
-    return sum/(n-bias); // Return variance 
+
+    return sum/(n-bias); // Return variance
 }
 ```
 
@@ -397,8 +397,8 @@ RNGScope scope;
 // For details see Section 6.7.1--Distribution
 // functions of the `Writing R Extensions' manual.
 // In some cases (e.g. rnorm), dist-specific
-// arguments can be omitted; when in doubt, 
-// specify all dist-specific arguments. The use 
+// arguments can be omitted; when in doubt,
+// specify all dist-specific arguments. The use
 // of doubles rather than integers for dist-
 // specific arguments is recommended. Unless
 // explicitly specified, log=FALSE.
@@ -477,7 +477,7 @@ Environment e = glob.new_child();
 
 ```cpp
 // Do NOT expect to have a performance gain
-// when calling R functions from R! 
+// when calling R functions from R!
 
 // Retrieve functions from default loaded env.
 Function rnorm("rnorm");
@@ -485,7 +485,7 @@ rnorm(100, _["mean"] = 10.2, _["sd"] = 3.2 );
 
 // Passing in an R function and obtaining results
 // Make sure function conforms with return type!
-NumericVector callFunction(NumericVector x, 
+NumericVector callFunction(NumericVector x,
                            Function f) {
     NumericVector res = f(x);
     return res;

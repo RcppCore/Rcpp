@@ -12,11 +12,11 @@ author:
 
 address:
   - code: a
-    address: \url{https://rstudio.com}
+    address: \url{https://posit.co}
   - code: b
-    address: \url{http://dirk.eddelbuettel.com}
+    address: \url{https://dirk.eddelbuettel.com}
   - code: c
-    address: \url{https://romain.rbind.io/}
+    address: \url{https://github.com/romainfrancois}
 
 # For footer text  TODO(fold into template, allow free form two-authors)
 lead_author_surname: Allaire, Eddelbuettel, François

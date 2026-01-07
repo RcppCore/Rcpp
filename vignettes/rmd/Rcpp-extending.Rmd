@@ -10,9 +10,9 @@ author:
 
 address:
   - code: a
-    address: \url{http://dirk.eddelbuettel.com}
+    address: \url{https://dirk.eddelbuettel.com}
   - code: b
-    address: \url{https://romain.rbind.io/}
+    address: \url{https://github.com/romainfrancois}
 
 # For footer text
 lead_author_surname: Eddelbuettel and François
