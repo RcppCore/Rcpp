@@ -166,11 +166,9 @@ we cannot test on outdated versions of R or your OS.
 
 ### Support
 
-The best place for questions is the
-[Rcpp-devel](https://lists.r-forge.r-project.org/cgi-bin/mailman/listinfo/rcpp-devel)
-mailing list hosted at R-forge.  Note that in order to keep spam down, you must
-be a subscriber in order to post.  One can also consult the list archives to see
-if your question has been asked before.
+The best place for questions is the [discussion section of the GitHub
+repo](https://github.com/RcppCore/Rcpp/discussions) as the previously used mailing list at R-forge
+is no longer operational.
 
 The [issue tickets at the GitHub repo](https://github.com/RcppCore/Rcpp/issues)
 are the primary bug reporting interface.  As with the other web resources,
