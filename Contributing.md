@@ -54,10 +54,9 @@ reasonable defaults.
 
 ### Asking Questions
 
-Please direct general questions to the
-[Rcpp-devel](http://lists.r-forge.r-project.org/cgi-bin/mailman/listinfo/rcpp-devel)
-mailing list (preferred, note that only subscribers can post), or post an
-issue at GitHub.
+Please direct general questions to the [discussion section of the GitHub
+repo](https://github.com/RcppCore/Rcpp/discussions), or post an issue at
+GitHub.
 
 Are you a new user of Rcpp? You might find the
 [vignettes](https://cran.r-project.org/package=Rcpp) helpful in getting
