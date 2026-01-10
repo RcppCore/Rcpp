@@ -1,8 +1,15 @@
+2026-01-08  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Date, Version): Release 1.1.1
+
+        * inst/include/Rcpp/config.h: Idem
+        * inst/NEWS.Rd: Idem
+
 2026-01-07  Dirk Eddelbuettel  <edd@debian.org>
 
 	* vignettes/pdf/*: Rebuilt
 
-	* vignettes/rmd/Rcpp.bib: Update to several URLs
+	* vignettes/rmd/Rcpp.bib: Updates to several URLs
 	* inst/bib/Rcpp.bib: Idem
 	* vignettes/rmd/*: Idem
 	* README.md: Idem

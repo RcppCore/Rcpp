@@ -1,7 +1,7 @@
 Package: Rcpp
 Title: Seamless R and C++ Integration
-Version: 1.1.0.14
-Date: 2026-01-06
+Version: 1.1.1
+Date: 2026-01-07
 Authors@R: c(person("Dirk", "Eddelbuettel", role = c("aut", "cre"), email = "edd@debian.org",
                     comment = c(ORCID = "0000-0001-6419-907X")),
              person("Romain", "Francois", role = "aut",
@@ -33,7 +33,6 @@ Suggests: tinytest, inline, rbenchmark, pkgKitten (>= 0.1.2)
 URL: https://www.rcpp.org, https://dirk.eddelbuettel.com/code/rcpp.html, https://github.com/RcppCore/Rcpp
 License: GPL (>= 2)
 BugReports: https://github.com/RcppCore/Rcpp/issues
-MailingList: rcpp-devel@lists.r-forge.r-project.org
 RoxygenNote: 6.1.1
 Encoding: UTF-8
 VignetteBuilder: Rcpp

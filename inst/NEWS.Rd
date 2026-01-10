@@ -3,7 +3,7 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp release version 1.1.1 (2026-01-xx)}{
+\section{Changes in Rcpp release version 1.1.1 (2026-01-08)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
@@ -62,6 +62,11 @@
       (Dirk in \ghpr{1434} addressing \ghit{1433})
       \item Coverage has been tweaked via additional \code{#nocov} tags (Dirk
       in \ghpr{1435})
+    }
+    \item Non-release Changes:
+    \itemize{
+      \item Two interim non-releases 1.1.0.8.1 and .2 were made in order to
+      unblock CRAN due to changes in R-devel rather than Rcpp
     }
   }
 }
