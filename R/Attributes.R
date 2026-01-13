@@ -62,9 +62,9 @@ sourceCpp <- function(file = "",
 
     # validate that there are no spaces in the path on windows
     if (.Platform$OS.type == "windows") {
-        if (grepl(' ', basename(file), fixed=TRUE)) {
+        if (grepl(' ', basename(file), fixed=TRUE)) {    # #nocov start
             stop("The filename '", basename(file), "' contains spaces. This ",
-                 "is not permitted.")
+                 "is not permitted.")					 # #nocov end
         }
     } else {
         if (windowsDebugDLL) {
@@ -73,7 +73,7 @@ sourceCpp <- function(file = "",
                         "non-Windows platforms.")
             }
             windowsDebugDLL <- FALSE    # now we do not need to deal with OS choice below
-        }							
+        }
     }
 
     # get the context (does code generation as necessary)
@@ -325,7 +325,7 @@ cppFunction <- function(code,
     if (length(exported$functions) == 0)
         stop("No function definition found")
     else if (length(exported$functions) > 1)
-        stop("More than one function definition")
+        stop("More than one function definition")  # #nocov
     else {
         functionName <- exported$functions[[1]]
         invisible(get(functionName, env))
