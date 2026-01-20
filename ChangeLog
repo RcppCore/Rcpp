@@ -1,3 +1,8 @@
+2026-01-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/date_datetime/Datetime.h (format): Correct a
+	format string reflecting 'unsigned int' rather than 'int'
+
 2026-01-12  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date

@@ -1,8 +1,7 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
+
 // Datetime.h: Rcpp R/C++ interface class library -- Datetime (POSIXct)
 //
-// Copyright (C) 2010 - 2016  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2026  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -80,7 +79,7 @@ namespace Rcpp {
             if (res == 0) {
                 return std::string("");
             } else {
-                res = ::snprintf(txtsec, 63, "%s.%06d", txtiso, m_us);
+                res = ::snprintf(txtsec, 63, "%s.%06u", txtiso, m_us);
                 if (res <= 0) {
                     return std::string("");
                 } else {
