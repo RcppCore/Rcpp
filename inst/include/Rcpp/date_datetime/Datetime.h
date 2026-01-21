@@ -79,7 +79,7 @@ namespace Rcpp {
             if (res == 0) {
                 return std::string("");
             } else {
-                res = ::snprintf(txtsec, 63, "%s.%06u", txtiso, m_us);
+                res = ::snprintf(txtsec, 63, "%s.%06d", txtiso, m_us);
                 if (res <= 0) {
                     return std::string("");
                 } else {
@@ -93,7 +93,7 @@ namespace Rcpp {
     private:
         double m_dt;            // fractional seconds since epoch
         struct tm m_tm;         // standard time representation
-        unsigned int m_us;      // microsecond (to complement m_tm)
+        int m_us;               // microsecond (to complement m_tm)
 
         // update m_tm based on m_dt
         void update_tm() {
