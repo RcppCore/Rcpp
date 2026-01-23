@@ -11,6 +11,8 @@
       complexity (Dirk in \ghpr{1445} addressing \ghit{1442})
       \item An internal state component for \code{Datetime} is now \code{int}
       (Dirk in \ghpr{1448} and \ghpr{1449} fixing \ghpr{1447})
+      \item Three new (in R 4.6.0) attribute accessors are used conditionally
+      (Dirk in \ghpr{1450} closing \ghit{1432})
     }
   }
 }
