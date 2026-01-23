@@ -1,8 +1,7 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
+
 // DataFrame.h: Rcpp R/C++ interface class library -- data frames
 //
-// Copyright (C) 2010 - 2025  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2026  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -67,8 +66,12 @@ namespace Rcpp{
         // discussed in #1430 is also possible and preferable. We also switch
         // to returning R_xlen_t which as upcast from int is safe
         inline R_xlen_t nrow() const {
+#if R_VERSION < R_Version(4,6,0)
             Shield<SEXP> rn{Rf_getAttrib(Parent::get__(), R_RowNamesSymbol)};
             return Rf_xlength(rn);
+#else
+            return R_nrow(Parent::get__());
+#endif
         }
 
         template <typename T>
