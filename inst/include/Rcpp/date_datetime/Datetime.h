@@ -1,8 +1,7 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
-//
+
 // Datetime.h: Rcpp R/C++ interface class library -- Datetime (POSIXct)
 //
-// Copyright (C) 2010 - 2016  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2026  Dirk Eddelbuettel and Romain Francois
 //
 // This file is part of Rcpp.
 //
@@ -94,7 +93,7 @@ namespace Rcpp {
     private:
         double m_dt;            // fractional seconds since epoch
         struct tm m_tm;         // standard time representation
-        unsigned int m_us;      // microsecond (to complement m_tm)
+        int m_us;               // microsecond (to complement m_tm)
 
         // update m_tm based on m_dt
         void update_tm() {

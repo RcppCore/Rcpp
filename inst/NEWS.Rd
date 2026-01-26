@@ -3,6 +3,20 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
+\section{Changes in Rcpp release version 1.1.2 [unreleased] (expected 2026-07-xx)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Use of \code{execinfo.h} is again conditional to avoid build
+      complexity (Dirk in \ghpr{1445} addressing \ghit{1442})
+      \item An internal state component for \code{Datetime} is now \code{int}
+      (Dirk in \ghpr{1448} and \ghpr{1449} fixing \ghpr{1447})
+      \item Three new (in R 4.6.0) attribute accessors are used conditionally
+      (Dirk in \ghpr{1450} closing \ghit{1432})
+    }
+  }
+}
+
 \section{Changes in Rcpp release version 1.1.1 (2026-01-08)}{
   \itemize{
     \item Changes in Rcpp API:

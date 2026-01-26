@@ -1,3 +1,26 @@
+2026-01-23  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/DataFrame.h (nrow): Use R_nrow() with R >= 4.6.0
+	* inst/include/Rcpp/proxy/AttributeProxy.h (attributeNames): Use
+	R_getAttribNames() with R >= 4.6.0;
+	* inst/include/Rcpp/proxy/AttributeProxy.h (hasAttribute): Use
+	R_hasAttrib with R >= 4.6.0
+
+2026-01-22  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+	* inst/include/Rcpp/config.h: Idem
+
+2026-01-21  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/date_datetime/Datetime.h: Fractional seconds type
+	switched to 'int' for consistency, print format string re-adjusted
+
+2026-01-20  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/date_datetime/Datetime.h (format): Correct a
+	format string reflecting 'unsigned int' rather than 'int'
+
 2026-01-13  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/tinytest/cpp/attributes_extended.cpp: New unit tests
