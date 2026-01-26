@@ -55,16 +55,16 @@ sourceCpp <- function(file = "",
     file <- normalizePath(file, winslash = "/")
 
     # error if the file extension isn't one supported by R CMD SHLIB
-    if (! tools::file_ext(file) %in% c("cc", "cpp")) {          # #nocov start
+    if (! tools::file_ext(file) %in% c("cc", "cpp")) {
         stop("The filename '", basename(file), "' does not have an ",
              "extension of .cc or .cpp so cannot be compiled.")
-    }                                                           # #nocov end
+    }
 
     # validate that there are no spaces in the path on windows
-    if (.Platform$OS.type == "windows") {                       # #nocov start
-        if (grepl(' ', basename(file), fixed=TRUE)) {
+    if (.Platform$OS.type == "windows") {
+        if (grepl(' ', basename(file), fixed=TRUE)) {    # #nocov start
             stop("The filename '", basename(file), "' contains spaces. This ",
-                 "is not permitted.")
+                 "is not permitted.")					 # #nocov end
         }
     } else {
         if (windowsDebugDLL) {
@@ -73,7 +73,7 @@ sourceCpp <- function(file = "",
                         "non-Windows platforms.")
             }
             windowsDebugDLL <- FALSE    # now we do not need to deal with OS choice below
-        }							# #nocov end
+        }
     }
 
     # get the context (does code generation as necessary)
@@ -323,9 +323,9 @@ cppFunction <- function(code,
 
     # verify that a single function was exported and return it
     if (length(exported$functions) == 0)
-        stop("No function definition found")					# #nocov
+        stop("No function definition found")
     else if (length(exported$functions) > 1)
-        stop("More than one function definition")				# #nocov
+        stop("More than one function definition")  # #nocov
     else {
         functionName <- exported$functions[[1]]
         invisible(get(functionName, env))
@@ -417,7 +417,7 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     pkgdir <- normalizePath(pkgdir, winslash = "/")
     descFile <- file.path(pkgdir,"DESCRIPTION")
     if (!file.exists(descFile))
-        stop("pkgdir must refer to the directory containing an R package")		# #nocov
+        stop("pkgdir must refer to the directory containing an R package")
     pkgDesc <- read.dcf(descFile)[1,]
     pkgname = .readPkgDescField(pkgDesc, "Package")
     depends <- c(.readPkgDescField(pkgDesc, "Depends", character()),
@@ -429,7 +429,7 @@ compileAttributes <- function(pkgdir = ".", verbose = getOption("verbose")) {
     # check the NAMESPACE file to see if dynamic registration is enabled
     namespaceFile <- file.path(pkgdir, "NAMESPACE")
     if (!file.exists(namespaceFile))
-        stop("pkgdir must refer to the directory containing an R package")		# #nocov
+        stop("pkgdir must refer to the directory containing an R package")
     pkgNamespace <- readLines(namespaceFile, warn = FALSE)
     registration <- any(grepl("^\\s*useDynLib.*\\.registration\\s*=\\s*TRUE.*$", pkgNamespace))
 

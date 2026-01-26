@@ -357,12 +357,12 @@ namespace attributes {
             // check for explicit name parameter
             if (hasParameter(kExportName))
             {
-                return paramNamed(kExportName).value();		// #nocov
+                return paramNamed(kExportName).value();
             }
             // otherwise un-named parameter in the first slot
             else if (!params().empty() && params()[0].value().empty())
             {
-                return params()[0].name();			// #nocov
+                return params()[0].name();
             }
             // otherwise the actual function name
             {
@@ -370,17 +370,17 @@ namespace attributes {
             }
         }
 
-        std::string exportedCppName() const {			// #nocov start
+        std::string exportedCppName() const {
             std::string name = exportedName();
             std::replace(name.begin(), name.end(), '.', '_');
             return name;
-        }							// #nocov end
+        }
 
         bool rng() const {
             Param rngParam = paramNamed(kExportRng);
             if (!rngParam.empty())
-                return rngParam.value() == kParamValueTrue ||	// #nocov
-                       rngParam.value() == kParamValueTRUE;  	// #nocov
+                return rngParam.value() == kParamValueTrue ||
+                       rngParam.value() == kParamValueTRUE;  
             else
                 return true;
         }
@@ -388,8 +388,8 @@ namespace attributes {
         bool invisible() const {
             Param invisibleParam = paramNamed(kExportInvisible);
             if (!invisibleParam.empty())
-                return invisibleParam.value() == kParamValueTrue ||	// #nocov
-                       invisibleParam.value() == kParamValueTRUE;  	// #nocov
+                return invisibleParam.value() == kParamValueTrue ||
+                       invisibleParam.value() == kParamValueTRUE;  
             else
                 return false;
         }
