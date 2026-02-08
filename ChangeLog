@@ -21,6 +21,16 @@
 	* inst/include/Rcpp/date_datetime/Datetime.h (format): Correct a
 	format string reflecting 'unsigned int' rather than 'int'
 
+2026-01-13  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/tinytest/cpp/attributes_extended.cpp: New unit tests
+	* inst/tinytest/test_attributes_extended.R: Idem
+	* inst/tinytest/test_compile_attributes_errors.R: Idem
+	* inst/tinytest/test_cppfunction_errors.R: Idem
+	* inst/tinytest/test_sourcecpp_errors.R: Idem
+	* R/Attributes.R: Remove #nocov tags
+	* src/attributes.cpp: Idem
+
 2026-01-12  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
