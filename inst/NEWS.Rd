@@ -13,6 +13,8 @@
       (Dirk in \ghpr{1448} and \ghpr{1449} fixing \ghpr{1447})
       \item Three new (in R 4.6.0) attribute accessors are used conditionally
       (Dirk in \ghpr{1450} closing \ghit{1432})
+      \item An UBSAN error in the Sugar-based NA comparison has been
+      corrected Iñaki in \ghpr{1453} fixing \ghit{1452}
     }
   }
 }

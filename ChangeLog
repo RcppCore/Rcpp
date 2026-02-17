@@ -1,3 +1,9 @@
+2026-02-17  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+	* inst/include/Rcpp/config.h: Idem
+	* inst/NEWS.Rd: Updated
+
 2026-02-17  Iñaki Ucar <iucar@fedoraproject.org>
 
 	* inst/include/Rcpp/sugar/operators/Comparator_With_One_Value.h: Fix UB
