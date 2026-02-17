@@ -2,7 +2,8 @@
 //
 // LessThan.h: Rcpp R/C++ interface class library -- vector operators
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2025 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2026        Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -56,7 +57,7 @@ private:
 	inline int rhs_is_na(int i) const { return rhs ; }
 	inline int rhs_is_not_na(int i) const {
 		STORAGE x = lhs[i] ;
-		return Rcpp::traits::is_na<RTYPE>(x) ? x : op( x, rhs ) ;
+		return Rcpp::traits::is_na<RTYPE>(x) ? NA_INTEGER : op( x, rhs ) ;
 	}
 
 } ;

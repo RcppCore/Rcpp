@@ -1,3 +1,8 @@
+2026-02-17  Iñaki Ucar <iucar@fedoraproject.org>
+
+	* inst/include/Rcpp/sugar/operators/Comparator_With_One_Value.h: Fix UB
+	for non-integer RTYPEs in comparator
+
 2026-01-23  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/DataFrame.h (nrow): Use R_nrow() with R >= 4.6.0
