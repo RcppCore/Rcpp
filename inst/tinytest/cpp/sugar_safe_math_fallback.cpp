@@ -1,9 +1,7 @@
-// -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 8 -*-
+
+// sugar_safe_math.cpp: Rcpp R/C++ interface class library -- safe math unit tests
 //
-// sugar.h: Rcpp R/C++ interface class library -- main file for Rcpp::sugar
-//
-// Copyright (C) 2010 - 2025 Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2026        Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
+// Copyright (C) 2026         Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -20,18 +18,20 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef RCPP_SUGAR_H
-#define RCPP_SUGAR_H
+#define define safe_math__has_builtin(x) 0
+#include <Rcpp.h>
 
-#include <Rcpp/sugar/tools/iterator.h>
-#include <Rcpp/sugar/tools/safe_math.h>
-#include <Rcpp/sugar/block/block.h>
+// [[Rcpp::export]]
+int safe_add_fallback(int a, int b){
+    return RCPP_SAFE_ADD(a, b);
+}
 
-#include <Rcpp/hash/hash.h>
+// [[Rcpp::export]]
+int safe_sub_fallback(int a, int b){
+    return RCPP_SAFE_SUB(a, b);
+}
 
-#include <Rcpp/sugar/operators/operators.h>
-#include <Rcpp/sugar/functions/functions.h>
-#include <Rcpp/sugar/matrix/matrix_functions.h>
-
-
-#endif
+// [[Rcpp::export]]
+int safe_mul_fallback(int a, int b){
+    return RCPP_SAFE_MUL(a, b);
+}

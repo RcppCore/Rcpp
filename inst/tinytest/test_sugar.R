@@ -1,6 +1,6 @@
 
-##  Copyright (C) 2010 - 2025  Dirk Eddelbuettel and Romain Francois
-##  Copyright (C) 2025         Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
+##  Copyright (C) 2010 - 2024  Dirk Eddelbuettel and Romain Francois
+##  Copyright (C) 2025 - 2026  Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 ##
 ##  This file is part of Rcpp.
 ##
@@ -20,6 +20,8 @@
 if (Sys.getenv("RunAllRcppTests") != "yes") exit_file("Set 'RunAllRcppTests' to 'yes' to run.")
 
 Rcpp::sourceCpp("cpp/sugar.cpp")
+Rcpp::sourceCpp("cpp/sugar_safe_math.cpp")
+Rcpp::sourceCpp("cpp/sugar_safe_math_fallback.cpp")
 
 ## There are some (documented, see https://blog.r-project.org/2020/11/02/will-r-work-on-apple-silicon/index.html)
 ## issues with NA propagation on arm64 / macOS. We not (yet ?) do anything special so we just skip some tests
@@ -28,6 +30,22 @@ isArm <- Sys.info()[["machine"]] == "arm64" || Sys.info()[["machine"]] == "aarch
 
 ## Needed for a change in R 3.6.0 reducing a bias in very large samples
 suppressWarnings(RNGversion("3.5.0"))
+
+#    test.sugar.safe_math
+expect_equal(safe_add(3, 2), 5)
+expect_error(safe_add(.Machine$integer.max, 2))
+expect_equal(safe_sub(3, 2), 1)
+expect_error(safe_sub(.Machine$integer.min, 2))
+expect_equal(safe_mul(3, 2), 6)
+expect_error(safe_mul(.Machine$integer.max, 2))
+
+expect_equal(safe_add_fallback(3, 2), 5)
+expect_error(safe_add_fallback(.Machine$integer.max, 2))
+expect_equal(safe_sub_fallback(3, 2), 1)
+expect_error(safe_sub_fallback(.Machine$integer.min, 2))
+expect_equal(safe_mul_fallback(3, 2), 6)
+expect_error(safe_mul_fallback(.Machine$integer.max, 2))
+
 
 #    test.sugar.abs <- function( ){
 x <- rnorm(10)
