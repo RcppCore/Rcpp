@@ -18,7 +18,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Rcpp.  If not, see <http://www.gnu.org/licenses/>.
 
-#define define safe_math__has_builtin(x) 0
+#define safe_math__has_builtin(x) 0
 #include <Rcpp.h>
 
 // [[Rcpp::export]]
