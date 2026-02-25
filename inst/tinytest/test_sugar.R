@@ -653,12 +653,21 @@ x[4] <- NA
 expect_equal( fx(x), sum(x) )
 
 
-#    test.sugar.cumsum <- function(){
-fx <- runit_cumsum
-x <- rnorm( 10 )
-expect_equal( fx(x), cumsum(x) )
+#    test.sugar.cumsum_nv <- function(){
+fx <- runit_cumsum_nv
+x <- rnorm(10)
+expect_equal(fx(x), cumsum(x))
 x[4] <- NA
-expect_equal( fx(x), cumsum(x) )
+expect_equal(fx(x), cumsum(x))
+
+
+#    test.sugar.cumsum_iv <- function() {
+expect_error(runit_cumsum_iv(c(2, .Machine$integer.max)), "overflow")
+fx <- runit_cumsum_iv
+x <- as.integer(rpois(10, 5))
+expect_equal(fx(x), cumsum(x))
+x[4] <- NA
+expect_equal(fx(x), cumsum(x))
 
 
 #    test.sugar.asvector <- function(){

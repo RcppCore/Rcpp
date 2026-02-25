@@ -2,7 +2,8 @@
 //
 // cumsum.h: Rcpp R/C++ interface class library -- cumsum
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2025 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2026        Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -45,7 +46,7 @@ public:
 		    current = object[i] ;
 		    if( Rcpp::traits::is_na<RTYPE>(current) )
 		        return result ;
-		    result[i] = result[i-1] + current ;
+		    result[i] = RCPP_SAFE_ADD(result[i-1], current);
 		}
 		return result ;
 	}

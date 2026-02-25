@@ -1,8 +1,8 @@
 
 // sugar.cpp: Rcpp R/C++ interface class library -- sugar unit tests
 //
-// Copyright (C) 2012 - 2025  Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2025         Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
+// Copyright (C) 2012 - 2024  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2025 - 2026  Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -609,8 +609,14 @@ double runit_sum( NumericVector xx){
 }
 
 // [[Rcpp::export]]
-NumericVector runit_cumsum( NumericVector xx ){
+NumericVector runit_cumsum_nv( NumericVector xx ){
     NumericVector res = cumsum( xx ) ;
+    return res ;
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_cumsum_iv( IntegerVector xx ){
+    IntegerVector res = cumsum( xx ) ;
     return res ;
 }
 
