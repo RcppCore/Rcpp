@@ -33,18 +33,18 @@ suppressWarnings(RNGversion("3.5.0"))
 
 #    test.sugar.safe_math
 expect_equal(safe_add(3, 2), 5)
-expect_error(safe_add(.Machine$integer.max, 2))
+expect_error(safe_add(.Machine$integer.max, 2), "overflow")
 expect_equal(safe_sub(3, 2), 1)
-expect_error(safe_sub(.Machine$integer.min, 2))
+expect_error(safe_sub(-.Machine$integer.max, 2), "overflow")
 expect_equal(safe_mul(3, 2), 6)
-expect_error(safe_mul(.Machine$integer.max, 2))
+expect_error(safe_mul(.Machine$integer.max, 2), "overflow")
 
 expect_equal(safe_add_fallback(3, 2), 5)
-expect_error(safe_add_fallback(.Machine$integer.max, 2))
+expect_error(safe_add_fallback(.Machine$integer.max, 2), "overflow")
 expect_equal(safe_sub_fallback(3, 2), 1)
-expect_error(safe_sub_fallback(.Machine$integer.min, 2))
+expect_error(safe_sub_fallback(-.Machine$integer.max, 2), "overflow")
 expect_equal(safe_mul_fallback(3, 2), 6)
-expect_error(safe_mul_fallback(.Machine$integer.max, 2))
+expect_error(safe_mul_fallback(.Machine$integer.max, 2), "overflow")
 
 
 #    test.sugar.abs <- function( ){
