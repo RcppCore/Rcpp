@@ -228,6 +228,7 @@ expect_true( identical( fx( NA, 1 ), NA ) )
 
 
 #    test.sugar.diff <- function( ){
+expect_error(runit_diff_int(c(1, 2, -.Machine$integer.max)), "overflow")
 x <- as.integer(round(rnorm(100,1,100)))
 expect_equal( runit_diff_int(x) , diff(x) )
 x <- rnorm( 100 )
