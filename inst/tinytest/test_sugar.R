@@ -1189,6 +1189,11 @@ expect_equal(dbl_col_means(x, TRUE), colMeans(x, TRUE), info = "numeric / colMea
 ## {row,col}{Sums,Means} integer tests
 #    test.sugar.rowMeans_integer <- function() {
 
+x <- matrix(rep(.Machine$integer.max, 4), 2)
+
+expect_error(int_row_sums(x), "overflow")
+expect_error(int_col_sums(x), "overflow")
+
 x <- matrix(as.integer(rnorm(9) * 1e4), 3)
 
 expect_equal(int_row_sums(x), rowSums(x), info = "integer / rowSums / keep NA / clean input")

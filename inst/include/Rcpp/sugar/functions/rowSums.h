@@ -1,8 +1,9 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; indent-tabs-mode: nil; -*-
 //
-// rowSums.h: Rcpp R/C++ interface class library -- rowSums, colSums, rowMeans, colMeans 
+// rowSums.h: Rcpp R/C++ interface class library -- rowSums, colSums, rowMeans, colMeans
 //
-// Copyright (C) 2016 Nathan Russell
+// Copyright (C) 2016 - 2025 Nathan Russell
+// Copyright (C) 2026        Nathan Russell and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -27,33 +28,12 @@ namespace sugar {
 namespace detail {
 
 
-inline bool check_na(double x) {
-    return ISNAN(x);
-}
-
-inline bool check_na(int x) {
-    return x == NA_INTEGER;
-}
-
-inline bool check_na(Rboolean x) {
-    return x == NA_LOGICAL;
-}
-
-inline bool check_na(SEXP x) {
-    return x == NA_STRING;
-}
-
-inline bool check_na(Rcomplex x) {
-    return ISNAN(x.r) || ISNAN(x.i);
-}
-
-
 inline void incr(double* lhs, double rhs) {
     *lhs += rhs;
 }
 
 inline void incr(int* lhs, int rhs) {
-    *lhs += rhs;
+    *lhs = RCPP_SAFE_ADD(*lhs, rhs);
 }
 
 inline void incr(Rcomplex* lhs, const Rcomplex& rhs) {
@@ -159,12 +139,12 @@ public:
 //      INTSXP output
 //
 //      int + NA_LOGICAL (NA_INTEGER) != NA_INTEGER, as is the
-//      case with NA_REAL, so we specialize for these two SEXPTYPES 
-//      and do explicit accounting of NAs.  
-//      
+//      case with NA_REAL, so we specialize for these two SEXPTYPES
+//      and do explicit accounting of NAs.
+//
 //      The two specializations, while necessary, are redundant, hence
-//      the macro. The same applies to the 'na.rm = TRUE' variant, and 
-//      likewise for colSums, rowMeans, and colMeans. 
+//      the macro. The same applies to the 'na.rm = TRUE' variant, and
+//      likewise for colSums, rowMeans, and colMeans.
 //
 #define ROW_SUMS_IMPL_KEEPNA(__RTYPE__)                                                                     \
                                                                                                             \
@@ -178,10 +158,6 @@ private:                                                                        
     typedef typename return_traits::type return_vector;                                                     \
     typedef typename traits::storage_type<return_traits::rtype>::type stored_type;                          \
                                                                                                             \
-    struct bit {                                                                                            \
-        unsigned char x : 1;                                                                                \
-    };                                                                                                      \
-                                                                                                            \
 public:                                                                                                     \
     RowSumsImpl(const MatrixBase<__RTYPE__, NA, T>& ref_)                                                   \
         : ref(ref_)                                                                                         \
@@ -191,29 +167,22 @@ public:                                                                         
         R_xlen_t i, j, nr = ref.nrow(), nc = ref.ncol();                                                    \
         return_vector res(nr);                                                                              \
                                                                                                             \
-        std::vector<bit> na_flags(nr);                                                                      \
-                                                                                                            \
         for (j = 0; j < nc; j++) {                                                                          \
             for (i = 0; i < nr; i++) {                                                                      \
-                if (detail::check_na(ref(i, j))) {                                                          \
-                    na_flags[i].x |= 0x1;                                                                   \
-                }                                                                                           \
-                detail::incr(&res[i], ref(i, j));                                                           \
-            }                                                                                               \
-        }                                                                                                   \
-                                                                                                            \
-        for (i = 0; i < nr; i++) {                                                                          \
-            if (na_flags[i].x) {                                                                            \
-                res[i] = NA_INTEGER;                                                                        \
+                if (traits::is_na<__RTYPE__>(res[i]))                                                       \
+                    continue;                                                                               \
+                if (traits::is_na<__RTYPE__>(ref(i, j)))                                                    \
+                    res[i] = traits::get_na<__RTYPE__>();                                                   \
+                else detail::incr(&res[i], ref(i, j));                                                      \
             }                                                                                               \
         }                                                                                                   \
                                                                                                             \
         return res;                                                                                         \
     }                                                                                                       \
-}; 
+};
 
-ROW_SUMS_IMPL_KEEPNA(LGLSXP) 
-ROW_SUMS_IMPL_KEEPNA(INTSXP) 
+ROW_SUMS_IMPL_KEEPNA(LGLSXP)
+ROW_SUMS_IMPL_KEEPNA(INTSXP)
 
 #undef ROW_SUMS_IMPL_KEEPNA
 
@@ -246,7 +215,7 @@ public:
         for (j = 0; j < nc; j++) {
             for (i = 0; i < nr; i++) {
                 current = ref(i, j);
-                if (!detail::check_na(current)) {
+                if (!traits::is_na<RTYPE>(current)) {
                     detail::incr(&res[i], current);
                 }
             }
@@ -287,7 +256,7 @@ public:                                                                         
         for (j = 0; j < nc; j++) {                                                                          \
             for (i = 0; i < nr; i++) {                                                                      \
                 current = ref(i, j);                                                                        \
-                if (!detail::check_na(current)) {                                                           \
+                if (!traits::is_na<__RTYPE__>(current)) {                                                   \
                     detail::incr(&res[i], current);                                                         \
                 }                                                                                           \
             }                                                                                               \
@@ -295,10 +264,10 @@ public:                                                                         
                                                                                                             \
         return res;                                                                                         \
     }                                                                                                       \
-}; 
+};
 
-ROW_SUMS_IMPL_RMNA(LGLSXP) 
-ROW_SUMS_IMPL_RMNA(INTSXP) 
+ROW_SUMS_IMPL_RMNA(LGLSXP)
+ROW_SUMS_IMPL_RMNA(INTSXP)
 
 #undef ROW_SUMS_IMPL_RMNA
 
@@ -362,10 +331,6 @@ private:                                                                        
     typedef typename return_traits::type return_vector;                                                     \
     typedef typename traits::storage_type<return_traits::rtype>::type stored_type;                          \
                                                                                                             \
-    struct bit {                                                                                            \
-        unsigned char x : 1;                                                                                \
-    };                                                                                                      \
-                                                                                                            \
 public:                                                                                                     \
     ColSumsImpl(const MatrixBase<__RTYPE__, NA, T>& ref_)                                                   \
         : ref(ref_)                                                                                         \
@@ -375,20 +340,13 @@ public:                                                                         
         R_xlen_t i, j, nr = ref.nrow(), nc = ref.ncol();                                                    \
         return_vector res(nc);                                                                              \
                                                                                                             \
-        std::vector<bit> na_flags(nc);                                                                      \
-                                                                                                            \
         for (j = 0; j < nc; j++) {                                                                          \
             for (i = 0; i < nr; i++) {                                                                      \
-                if (detail::check_na(ref(i, j))) {                                                          \
-                    na_flags[j].x |= 0x1;                                                                   \
-                }                                                                                           \
-                detail::incr(&res[j], ref(i, j));                                                           \
-            }                                                                                               \
-        }                                                                                                   \
-                                                                                                            \
-        for (j = 0; j < nc; j++) {                                                                          \
-            if (na_flags[j].x) {                                                                            \
-                res[j] = NA_INTEGER;                                                                        \
+                if (traits::is_na<__RTYPE__>(res[j]))                                                       \
+                    continue;                                                                               \
+                if (traits::is_na<__RTYPE__>(ref(i, j)))                                                    \
+                    res[j] = traits::get_na<__RTYPE__>();                                                   \
+                else detail::incr(&res[j], ref(i, j));                                                      \
             }                                                                                               \
         }                                                                                                   \
                                                                                                             \
@@ -396,11 +354,11 @@ public:                                                                         
     }                                                                                                       \
 };
 
-COL_SUMS_IMPL_KEEPNA(LGLSXP) 
-COL_SUMS_IMPL_KEEPNA(INTSXP) 
+COL_SUMS_IMPL_KEEPNA(LGLSXP)
+COL_SUMS_IMPL_KEEPNA(INTSXP)
 
 #undef COL_SUMS_IMPL_KEEPNA
-    
+
 //  ColSums
 //      na.rm = TRUE
 //      default input
@@ -430,7 +388,7 @@ public:
         for (j = 0; j < nc; j++) {
             for (i = 0; i < nr; i++) {
                 current = ref(i, j);
-                if (!detail::check_na(current)) {
+                if (!traits::is_na<RTYPE>(current)) {
                     detail::incr(&res[j], current);
                 }
             }
@@ -471,7 +429,7 @@ public:                                                                         
         for (j = 0; j < nc; j++) {                                                                          \
             for (i = 0; i < nr; i++) {                                                                      \
                 current = ref(i, j);                                                                        \
-                if (!detail::check_na(current)) {                                                           \
+                if (!traits::is_na<__RTYPE__>(current)) {                                                   \
                     detail::incr(&res[j], current);                                                         \
                 }                                                                                           \
             }                                                                                               \
@@ -481,8 +439,8 @@ public:                                                                         
     }                                                                                                       \
 };
 
-COL_SUMS_IMPL_RMNA(LGLSXP) 
-COL_SUMS_IMPL_RMNA(INTSXP) 
+COL_SUMS_IMPL_RMNA(LGLSXP)
+COL_SUMS_IMPL_RMNA(INTSXP)
 
 #undef COL_SUMS_IMPL_RMNA
 
@@ -553,10 +511,6 @@ private:                                                                        
     typedef typename return_traits::type return_vector;                                                         \
     typedef typename traits::storage_type<return_traits::rtype>::type stored_type;                              \
                                                                                                                 \
-    struct bit {                                                                                                \
-        unsigned char x : 1;                                                                                    \
-    };                                                                                                          \
-                                                                                                                \
 public:                                                                                                         \
     RowMeansImpl(const MatrixBase<__RTYPE__, NA, T>& ref_)                                                      \
         : ref(ref_)                                                                                             \
@@ -566,34 +520,29 @@ public:                                                                         
         R_xlen_t i, j, nr = ref.nrow(), nc = ref.ncol();                                                        \
         return_vector res(nr);                                                                                  \
                                                                                                                 \
-        std::vector<bit> na_flags(nc);                                                                          \
-                                                                                                                \
         for (j = 0; j < nc; j++) {                                                                              \
             for (i = 0; i < nr; i++) {                                                                          \
-                if (detail::check_na(ref(i, j))) {                                                              \
-                    na_flags[i].x |= 0x1;                                                                       \
-                }                                                                                               \
-                detail::incr(&res[i], ref(i, j));                                                               \
+                if (traits::is_na<REALSXP>(res[i]))                                                             \
+                    continue;                                                                                   \
+                if (traits::is_na<__RTYPE__>(ref(i, j)))                                                        \
+                    res[i] = traits::get_na<REALSXP>();                                                         \
+                else detail::incr(&res[i], ref(i, j));                                                          \
             }                                                                                                   \
         }                                                                                                       \
                                                                                                                 \
-        for (i = 0; i < nr; i++) {                                                                              \
-            if (!na_flags[i].x) {                                                                               \
+        for (i = 0; i < nr; i++)                                                                                \
+            if (!traits::is_na<REALSXP>(res[i]))                                                                \
                 detail::div(&res[i], nc);                                                                       \
-            } else {                                                                                            \
-                res[i] = NA_REAL;                                                                               \
-            }                                                                                                   \
-        }                                                                                                       \
                                                                                                                 \
         return res;                                                                                             \
     }                                                                                                           \
 };
 
-ROW_MEANS_IMPL_KEEPNA(LGLSXP) 
-ROW_MEANS_IMPL_KEEPNA(INTSXP) 
+ROW_MEANS_IMPL_KEEPNA(LGLSXP)
+ROW_MEANS_IMPL_KEEPNA(INTSXP)
 
 #undef ROW_MEANS_IMPL_KEEPNA
-    
+
 // RowMeans
 //      na.rm = TRUE
 //      default input
@@ -625,7 +574,7 @@ public:
         for (j = 0; j < nc; j++) {
             for (i = 0; i < nr; i++) {
                 current = ref(i, j);
-                if (!detail::check_na(current)) {
+                if (!traits::is_na<RTYPE>(current)) {
                     detail::incr(&res[i], ref(i, j));
                     ++n_ok[i];
                 }
@@ -674,7 +623,7 @@ public:                                                                         
                                                                                                                 \
         for (j = 0; j < nc; j++) {                                                                              \
             for (i = 0; i < nr; i++) {                                                                          \
-                if (!detail::check_na(ref(i, j))) {                                                             \
+                if (!traits::is_na<__RTYPE__>(ref(i, j))) {                                                     \
                     detail::incr(&res[i], ref(i, j));                                                           \
                     ++n_ok[i];                                                                                  \
                 }                                                                                               \
@@ -693,8 +642,8 @@ public:                                                                         
     }                                                                                                           \
 };
 
-ROW_MEANS_IMPL_RMNA(LGLSXP) 
-ROW_MEANS_IMPL_RMNA(INTSXP) 
+ROW_MEANS_IMPL_RMNA(LGLSXP)
+ROW_MEANS_IMPL_RMNA(INTSXP)
 
 #undef ROW_MEANS_IMPL_RMNA
 
@@ -762,10 +711,6 @@ private:                                                                        
     typedef typename return_traits::type return_vector;                                                         \
     typedef typename traits::storage_type<return_traits::rtype>::type stored_type;                              \
                                                                                                                 \
-    struct bit {                                                                                                \
-        unsigned char x : 1;                                                                                    \
-    };                                                                                                          \
-                                                                                                                \
 public:                                                                                                         \
     ColMeansImpl(const MatrixBase<__RTYPE__, NA, T>& ref_)                                                      \
         : ref(ref_)                                                                                             \
@@ -775,31 +720,26 @@ public:                                                                         
         R_xlen_t i, j, nr = ref.nrow(), nc = ref.ncol();                                                        \
         return_vector res(nc);                                                                                  \
                                                                                                                 \
-        std::vector<bit> na_flags(nc);                                                                          \
-                                                                                                                \
         for (j = 0; j < nc; j++) {                                                                              \
             for (i = 0; i < nr; i++) {                                                                          \
-                if (detail::check_na(ref(i, j))) {                                                              \
-                    na_flags[j].x |= 0x1;                                                                       \
-                }                                                                                               \
-                detail::incr(&res[j], ref(i, j));                                                               \
+                if (traits::is_na<REALSXP>(res[j]))                                                             \
+                    continue;                                                                                   \
+                if (traits::is_na<__RTYPE__>(ref(i, j)))                                                        \
+                    res[j] = traits::get_na<REALSXP>();                                                         \
+                else detail::incr(&res[j], ref(i, j));                                                          \
             }                                                                                                   \
         }                                                                                                       \
                                                                                                                 \
-        for (j = 0; j < nc; j++) {                                                                              \
-            if (!na_flags[j].x) {                                                                               \
+        for (j = 0; j < nc; j++)                                                                                \
+            if (!traits::is_na<REALSXP>(res[j]))                                                                \
                 detail::div(&res[j], nr);                                                                       \
-            } else {                                                                                            \
-                res[j] = NA_REAL;                                                                               \
-            }                                                                                                   \
-        }                                                                                                       \
                                                                                                                 \
         return res;                                                                                             \
     }                                                                                                           \
 };
 
-COL_MEANS_IMPL_KEEPNA(LGLSXP) 
-COL_MEANS_IMPL_KEEPNA(INTSXP) 
+COL_MEANS_IMPL_KEEPNA(LGLSXP)
+COL_MEANS_IMPL_KEEPNA(INTSXP)
 
 #undef COL_MEANS_IMPL_KEEPNA
 
@@ -834,7 +774,7 @@ public:
         for (j = 0; j < nc; j++) {
             for (i = 0; i < nr; i++) {
                 current = ref(i, j);
-                if (!detail::check_na(current)) {
+                if (!traits::is_na<RTYPE>(current)) {
                     detail::incr(&res[j], ref(i, j));
                     ++n_ok[j];
                 }
@@ -883,7 +823,7 @@ public:                                                                         
                                                                                                                 \
         for (j = 0; j < nc; j++) {                                                                              \
             for (i = 0; i < nr; i++) {                                                                          \
-                if (!detail::check_na(ref(i, j))) {                                                             \
+                if (!traits::is_na<__RTYPE__>(ref(i, j))) {                                                     \
                     detail::incr(&res[j], ref(i, j));                                                           \
                     ++n_ok[j];                                                                                  \
                 }                                                                                               \
@@ -902,11 +842,11 @@ public:                                                                         
     }                                                                                                           \
 };
 
-COL_MEANS_IMPL_RMNA(LGLSXP) 
-COL_MEANS_IMPL_RMNA(INTSXP) 
+COL_MEANS_IMPL_RMNA(LGLSXP)
+COL_MEANS_IMPL_RMNA(INTSXP)
 
 #undef COL_MEANS_IMPL_RMNA
-    
+
 //  ColMeans
 //      Input with template parameter NA = false
 //      ColMeansImpl<..., NA_RM = false>
