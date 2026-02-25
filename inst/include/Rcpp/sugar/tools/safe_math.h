@@ -30,12 +30,13 @@
 # endif
 #endif
 
-#define RCPP_SAFE_ADD(a, b) Rcpp::sugar::safe_add(a, b, __func__)
-#define RCPP_SAFE_SUB(a, b) Rcpp::sugar::safe_sub(a, b, __func__)
-#define RCPP_SAFE_MUL(a, b) Rcpp::sugar::safe_mul(a, b, __func__)
+#define RCPP_SAFE_ADD(a, b) Rcpp::sugar::detail::safe_add(a, b, __func__)
+#define RCPP_SAFE_SUB(a, b) Rcpp::sugar::detail::safe_sub(a, b, __func__)
+#define RCPP_SAFE_MUL(a, b) Rcpp::sugar::detail::safe_mul(a, b, __func__)
 
 namespace Rcpp {
 namespace sugar {
+namespace detail {
 
     inline void stop_overflow(const char* caller) {
         if (caller)
@@ -124,6 +125,7 @@ namespace sugar {
     inline typename std::enable_if<!std::is_integral<T>::value, T>::type
     safe_mul(T a, T b, const char* caller = nullptr) { return a * b; }
 
+} // namespace detail
 } // namespace sugar
 } // namespace Rcpp
 
