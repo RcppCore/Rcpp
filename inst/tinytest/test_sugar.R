@@ -845,6 +845,7 @@ expect_equal(fx(x), cumprod(x))
 
 
 #    test.sugar.cumprod_iv <- function() {
+expect_error(runit_cumprod_iv(c(2, .Machine$integer.max)), "overflow")
 fx <- runit_cumprod_iv
 x <- as.integer(rpois(10, 5))
 expect_equal(fx(x), cumprod(x))

@@ -2,7 +2,8 @@
 //
 // cumsum.h: Rcpp R/C++ interface class library -- cumsum
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2025 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2026        Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -33,23 +34,23 @@ public:
     typedef Rcpp::Vector<RTYPE> VECTOR;
 
     Cumprod(const VEC_TYPE& object_) : object(object_) {}
-    
+
     VECTOR get() const {
         R_xlen_t n = object.size();
         VECTOR result(n, Rcpp::traits::get_na<RTYPE>());
         STORAGE current = object[0];
-        
+
         if (Rcpp::traits::is_na<RTYPE>(current)) return result;
         result[0] = current;
         for (R_xlen_t i = 1; i < n; i++) {
             current = object[i];
             if (Rcpp::traits::is_na<RTYPE>(current)) return result;
-            result[i] = result[i-1] * current;
+            result[i] = RCPP_SAFE_MUL(result[i-1], current);
         }
         return result ;
     }
 private:
-    const VEC_TYPE& object;    
+    const VEC_TYPE& object;
 };
 
 } // sugar
@@ -72,5 +73,5 @@ inline sugar::Cumprod<CPLXSXP, NA, T> cumprod(const VectorBase<CPLXSXP, NA, T>& 
 
 
 } // Rcpp
-#endif // Rcpp__sugar__cumprod_h 
+#endif // Rcpp__sugar__cumprod_h
 
