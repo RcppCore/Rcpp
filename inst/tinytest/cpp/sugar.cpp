@@ -604,7 +604,12 @@ List runit_log1p( NumericVector xx){
 }
 
 // [[Rcpp::export]]
-double runit_sum( NumericVector xx){
+double runit_sum_nv( NumericVector xx){
+    return sum( xx ) ;
+}
+
+// [[Rcpp::export]]
+int runit_sum_iv( IntegerVector xx){
     return sum( xx ) ;
 }
 

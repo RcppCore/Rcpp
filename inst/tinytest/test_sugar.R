@@ -645,12 +645,21 @@ expect_equal(fx(10:6,5:1),
                   VP = psigamma( 10:6, 5 )))
 
 
-#    test.sugar.sum <- function(){
-fx <- runit_sum
+#    test.sugar.sum_nv <- function(){
+fx <- runit_sum_nv
 x <- rnorm( 10 )
 expect_equal( fx(x), sum(x) )
 x[4] <- NA
 expect_equal( fx(x), sum(x) )
+
+
+#    test.sugar.sum_iv <- function() {
+expect_error(runit_sum_iv(c(2, .Machine$integer.max)), "overflow")
+fx <- runit_sum_iv
+x <- as.integer(rpois(10, 5))
+expect_equal(fx(x), sum(x))
+x[4] <- NA
+expect_equal(fx(x), sum(x))
 
 
 #    test.sugar.cumsum_nv <- function(){
