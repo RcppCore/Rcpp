@@ -367,6 +367,9 @@ expect_equal( fx(1:10, 1:10*2) , mapply(seq, 1:10, 1:10*2) )
 
 
 #    test.sugar.minus <- function( ){
+expect_error(runit_minus_ivv(-.Machine$integer.max, 2), "overflow")
+expect_error(runit_minus_ivp(-.Machine$integer.max, 2), "overflow")
+expect_error(runit_minus_ipv(-.Machine$integer.max, 2), "overflow")
 fx <- runit_minus
 expect_equal(fx(1:10) ,
              list( (1:10)-10L, 10L-(1:10), rep(0L,10), (1:10)-10L, 10L-(1:10)  ))

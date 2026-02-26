@@ -286,6 +286,21 @@ List runit_minus( IntegerVector xx ){
 }
 
 // [[Rcpp::export]]
+IntegerVector runit_minus_ivv( IntegerVector x, IntegerVector y ){
+    return x - y;
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_minus_ivp( IntegerVector x, int y ){
+    return x - y;
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_minus_ipv( int x, IntegerVector y ){
+    return x - y;
+}
+
+// [[Rcpp::export]]
 LogicalVector runit_any_equal_not( NumericVector xx, NumericVector yy){
     return any( !( xx == yy) ) ;
 }
