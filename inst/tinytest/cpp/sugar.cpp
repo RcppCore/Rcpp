@@ -349,6 +349,15 @@ List runit_minus_seqlen(){
 }
 
 // [[Rcpp::export]]
+List runit_times_seqlen(){
+    return List::create(
+        seq_len(10) * 10,
+        10 * seq_len(10),
+        seq_len(10) * seq_len(10)
+    ) ;
+}
+
+// [[Rcpp::export]]
 LogicalVector runit_plus_all( IntegerVector xx ){
     return all( (xx+xx) < 10 ) ;
 }
@@ -465,6 +474,21 @@ List runit_times( IntegerVector xx ){
         10 * yy,
         NA_INTEGER * xx
     ) ;
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_times_ivv( IntegerVector x, IntegerVector y ){
+    return x * y;
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_times_ivp( IntegerVector x, int y ){
+    return x * y;
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_times_ipv( int x, IntegerVector y ){
+    return x * y;
 }
 
 // [[Rcpp::export]]

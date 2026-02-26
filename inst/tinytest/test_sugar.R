@@ -485,10 +485,18 @@ expect_equal(fx( seq(-10, 10, length.out = 51), -25:25 ),
 
 
 #    test.sugar.times <- function( ){
+expect_error(runit_times_ivv(.Machine$integer.max, 2), "overflow")
+expect_error(runit_times_ivp(.Machine$integer.max, 2), "overflow")
+expect_error(runit_times_ipv(.Machine$integer.max, 2), "overflow")
 fx <- runit_times
 expect_equal(fx(1:10) ,
              list(10L*(1:10), 10L*(1:10), (1:10)*(1:10), (1:10)*(1:10)*(1:10),
                   c(NA,(2:10)*(2:10)), c(NA,10L*(2:10)), c(NA,10L*(2:10)), rep( NA_integer_, 10L )))
+
+
+#    test.sugar.times.seqlen <- function( ){
+fx <- runit_times_seqlen
+expect_equal( fx() , list( seq(10, 100, 10), seq(10, 100, 10), 1:10*1:10) )
 
 
 #    test.sugar.divides <- function( ){
