@@ -371,14 +371,14 @@ namespace sugar{
 	public:
 		typedef typename Rcpp::VectorBase<RTYPE,false,T> VEC_TYPE ;
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-		typedef typename Rcpp::traits::Extractor<REALSXP,false,T>::type VEC_EXT ;
+		typedef typename Rcpp::traits::Extractor<RTYPE,false,T>::type VEC_EXT ;
 
 		Minus_Primitive_Vector( STORAGE lhs_, const VEC_TYPE& rhs_ ) :
 			lhs(lhs_), rhs(rhs_.get_ref()), lhs_na( Rcpp::traits::is_na<RTYPE>(lhs_) ) {}
 
 		inline STORAGE operator[]( R_xlen_t i ) const {
 			if( lhs_na ) return lhs ;
-		    return RCPP_SAFE_SUB(lhs, rhs[i]);
+		    return lhs - rhs[i];
 		}
 
 		inline R_xlen_t size() const { return rhs.size() ; }

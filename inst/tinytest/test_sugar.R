@@ -375,6 +375,11 @@ expect_equal(fx(1:10) ,
              list( (1:10)-10L, 10L-(1:10), rep(0L,10), (1:10)-10L, 10L-(1:10)  ))
 
 
+#    test.sugar.minus.seqlen <- function( ){
+fx <- runit_minus_seqlen
+expect_equal( fx() , list( -9:0, 9:0, rep(0, 10)) )
+
+
 #    test.sugar.any.equal.not <- function( ){
 fx <- runit_any_equal_not
 expect_true( ! fx( 1, 1 ) )
@@ -385,6 +390,9 @@ expect_true( is.na( fx( NA, 1 ) ) )
 
 
 #    test.sugar.plus <- function( ){
+expect_error(runit_plus_ivv(.Machine$integer.max, 2), "overflow")
+expect_error(runit_plus_ivp(.Machine$integer.max, 2), "overflow")
+expect_error(runit_plus_ipv(.Machine$integer.max, 2), "overflow")
 fx <- runit_plus
 expect_equal( fx(1:10) , list( 11:20,11:20,1:10+1:10, 3*(1:10))  )
 

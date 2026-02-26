@@ -316,12 +316,36 @@ List runit_plus( IntegerVector xx ){
 }
 
 // [[Rcpp::export]]
+IntegerVector runit_plus_ivv( IntegerVector x, IntegerVector y ){
+    return x + y;
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_plus_ivp( IntegerVector x, int y ){
+    return x + y;
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_plus_ipv( int x, IntegerVector y ){
+    return x + y;
+}
+
+// [[Rcpp::export]]
 List runit_plus_seqlen(){
     return List::create(
 	    seq_len(10) + 10,
 	    10 + seq_len(10),
 	    seq_len(10) + seq_len(10)
 	    ) ;
+}
+
+// [[Rcpp::export]]
+List runit_minus_seqlen(){
+    return List::create(
+        seq_len(10) - 10,
+        10 - seq_len(10),
+        seq_len(10) - seq_len(10)
+    ) ;
 }
 
 // [[Rcpp::export]]
