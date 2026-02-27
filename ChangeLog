@@ -1,3 +1,9 @@
+2026-02-27  Iñaki Ucar <iucar@fedoraproject.org>
+
+	* inst/include/Rcpp/sugar/functions/max.h: Fix UB for empty integer
+	* inst/include/Rcpp/sugar/functions/min.h: Idem
+	* inst/tinytest/test_sugar.R: Adapt tests
+
 2026-02-26  Iñaki Ucar <iucar@fedoraproject.org>
 
 	* inst/include/Rcpp/sugar/tools/safe_math.h: New header implementing safe

@@ -1685,12 +1685,10 @@ expect_error(strimws(x[1], "invalid"), info = "strimws -- bad `which` argument")
 ## 21 July 2018
 ## min/max
 #    test.sugar.min.max <- function() {
-## min(empty) gives NA for integer, Inf for numeric (#844)
-if (!isArm) expect_true(is.na(intmin(integer(0))),    "min(integer(0))")
+expect_error(intmin(integer(0)), "missing argument")
 if (!isArm) expect_equal(doublemin(numeric(0)), Inf, info = "min(numeric(0))")
 
-## max(empty_ gives NA for integer, Inf for numeric (#844)
-expect_true(is.na(intmax(integer(0))),     "max(integer(0))")
+expect_error(intmax(integer(0)), "missing argument")
 expect_equal(doublemax(numeric(0)), -Inf, info = "max(numeric(0))")
 
 ## 'normal' values
