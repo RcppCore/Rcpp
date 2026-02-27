@@ -1,7 +1,8 @@
 
 // max.h: Rcpp R/C++ interface class library -- max
 //
-// Copyright (C) 2012 - 2018  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2025  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2026         Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -33,7 +34,11 @@ namespace sugar{
 
         operator STORAGE() const {
             R_xlen_t n = obj.size();
-            if (n == 0) return(static_cast<STORAGE>(R_NegInf));
+            if (n == 0) {
+                if (RTYPE != REALSXP)
+                    Rcpp::stop("missing argument to max");
+                return(static_cast<STORAGE>(R_NegInf));
+            }
 
             STORAGE max, current ;
             max = obj[0] ;
@@ -60,7 +65,11 @@ namespace sugar{
 
         operator STORAGE() const {
             R_xlen_t n = obj.size();
-            if (n == 0) return(static_cast<STORAGE>(R_NegInf));
+            if (n == 0) {
+                if (RTYPE != REALSXP)
+                    Rcpp::stop("missing argument to max");
+                return(static_cast<STORAGE>(R_NegInf));
+            }
 
             STORAGE max, current ;
             max = obj[0] ;

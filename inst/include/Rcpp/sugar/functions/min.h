@@ -1,7 +1,8 @@
 
 // Min.h: Rcpp R/C++ interface class library -- min
 //
-// Copyright (C) 2012 - 2018  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2025  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2026         Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -33,7 +34,11 @@ namespace sugar{
 
         operator STORAGE() const {
             R_xlen_t n = obj.size();
-            if (n == 0) return(static_cast<STORAGE>(R_PosInf));
+            if (n == 0) {
+                if (RTYPE != REALSXP)
+                    Rcpp::stop("missing argument to min");
+                return(static_cast<STORAGE>(R_PosInf));
+            }
 
             STORAGE min, current ;
             min = obj[0] ;
@@ -60,7 +65,11 @@ namespace sugar{
 
         operator STORAGE() const {
             R_xlen_t n = obj.size();
-            if (n == 0) return(static_cast<STORAGE>(R_PosInf));
+            if (n == 0) {
+                if (RTYPE != REALSXP)
+                    Rcpp::stop("missing argument to min");
+                return(static_cast<STORAGE>(R_PosInf));
+            }
 
             STORAGE min, current ;
             min = obj[0] ;
