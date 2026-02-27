@@ -106,10 +106,10 @@ public:
 	inline STORAGE operator[]( R_xlen_t i ) const {
 		STORAGE y = lhs[i+1] ;
 		if( previous_index != i ) previous = lhs[i] ;
-		STORAGE diff = RCPP_SAFE_SUB(y, previous);
+		STORAGE res = RCPP_SAFE_SUB(y, previous);
 		previous = y ;
 		previous_index = i+1 ;
-		return RCPP_SAFE_SUB(y, previous);
+		return res;
 	}
 	inline R_xlen_t size() const { return lhs.size() - 1 ; }
 

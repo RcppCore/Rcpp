@@ -6,10 +6,12 @@
 
 	* inst/include/Rcpp/sugar/functions/cumprod.h: Use the previous operations
 	* inst/include/Rcpp/sugar/functions/cumsum.h: Idem
-	* inst/include/Rcpp/sugar/functions/diff.h: Idem
+	* inst/include/Rcpp/sugar/functions/diff.h: Idem, also fixed a bug where
+	the diff was recomputed instead of returning the calculated value
 	* inst/include/Rcpp/sugar/functions/rowSums.h: Idem
 	* inst/include/Rcpp/sugar/functions/sum.h: Idem
-	* inst/include/Rcpp/sugar/operators/minus.h: Idem
+	* inst/include/Rcpp/sugar/operators/minus.h: Idem, also fixed a bug for
+	an incorrect Extractor specialization in Minus_Primitive_Vector
 	* inst/include/Rcpp/sugar/operators/plus.h: Idem
 	* inst/include/Rcpp/sugar/operators/times.h: Idem
 
