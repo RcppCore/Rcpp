@@ -92,7 +92,7 @@ namespace sugar{
 		inline STORAGE operator[]( R_xlen_t i ) const {
 			STORAGE y = rhs[i] ;
 			if( Rcpp::traits::is_na<RTYPE>( y ) ) return y ;
-			return RCPP_SAFE_SUB(lhs[i], y);
+			return lhs[i] - y;
 		}
 
 		inline R_xlen_t size() const { return lhs.size() ; }
@@ -141,7 +141,7 @@ namespace sugar{
 		inline STORAGE operator[]( R_xlen_t i ) const {
 			STORAGE x = lhs[i] ;
 			if( Rcpp::traits::is_na<RTYPE>( x ) ) return x ;
-			return RCPP_SAFE_SUB(x, rhs[i]);
+			return x - rhs[i];
 		}
 
 		inline R_xlen_t size() const { return lhs.size() ; }
@@ -189,7 +189,7 @@ namespace sugar{
 			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
 
 		inline STORAGE operator[]( R_xlen_t i ) const {
-			return RCPP_SAFE_SUB(lhs[i], rhs[i]);
+			return lhs[i] - rhs[i];
 		}
 
 		inline R_xlen_t size() const { return lhs.size() ; }
@@ -285,7 +285,7 @@ namespace sugar{
 		inline STORAGE operator[]( R_xlen_t i ) const {
 			if( rhs_na ) return rhs ;
 			STORAGE x = lhs[i] ;
-			return Rcpp::traits::is_na<RTYPE>(x) ? x : RCPP_SAFE_SUB(x, rhs);
+			return Rcpp::traits::is_na<RTYPE>(x) ? x : x - rhs;
 		}
 
 		inline R_xlen_t size() const { return lhs.size() ; }

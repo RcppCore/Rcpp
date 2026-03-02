@@ -331,29 +331,35 @@ IntegerVector runit_plus_ipv( int x, IntegerVector y ){
 }
 
 // [[Rcpp::export]]
-List runit_plus_seqlen(){
+List runit_plus_seqlen(IntegerVector xx){
     return List::create(
 	    seq_len(10) + 10,
 	    10 + seq_len(10),
-	    seq_len(10) + seq_len(10)
+	    seq_len(10) + seq_len(10),
+	    seq_len(10) + xx,
+	    xx + seq_len(10)
 	    ) ;
 }
 
 // [[Rcpp::export]]
-List runit_minus_seqlen(){
+List runit_minus_seqlen(IntegerVector xx){
     return List::create(
         seq_len(10) - 10,
         10 - seq_len(10),
-        seq_len(10) - seq_len(10)
+        seq_len(10) - seq_len(10),
+        seq_len(10) - xx,
+        xx - seq_len(10)
     ) ;
 }
 
 // [[Rcpp::export]]
-List runit_times_seqlen(){
+List runit_times_seqlen(IntegerVector xx){
     return List::create(
         seq_len(10) * 10,
         10 * seq_len(10),
-        seq_len(10) * seq_len(10)
+        seq_len(10) * seq_len(10),
+        seq_len(10) * xx,
+        xx * seq_len(10)
     ) ;
 }
 

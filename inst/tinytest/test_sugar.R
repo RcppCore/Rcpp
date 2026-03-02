@@ -377,7 +377,7 @@ expect_equal(fx(1:10) ,
 
 #    test.sugar.minus.seqlen <- function( ){
 fx <- runit_minus_seqlen
-expect_equal( fx() , list( -9:0, 9:0, rep(0, 10)) )
+expect_equal( fx(1:10) , list( -9:0, 9:0, rep(0, 10), rep(0, 10), rep(0, 10)) )
 
 
 #    test.sugar.any.equal.not <- function( ){
@@ -399,7 +399,7 @@ expect_equal( fx(1:10) , list( 11:20,11:20,1:10+1:10, 3*(1:10))  )
 
 #    test.sugar.plus.seqlen <- function( ){
 fx <- runit_plus_seqlen
-expect_equal( fx() , list( 11:20,11:20, 1:10+1:10)  )
+expect_equal( fx(1:10) , list( 11:20,11:20, 1:10+1:10, 1:10+1:10, 1:10+1:10)  )
 
 
 #    test.sugar.plus.all <- function( ){
@@ -496,7 +496,7 @@ expect_equal(fx(1:10) ,
 
 #    test.sugar.times.seqlen <- function( ){
 fx <- runit_times_seqlen
-expect_equal( fx() , list( seq(10, 100, 10), seq(10, 100, 10), 1:10*1:10) )
+expect_equal( fx(1:10) , list( seq(10, 100, 10), seq(10, 100, 10), 1:10*1:10, 1:10*1:10, 1:10*1:10) )
 
 
 #    test.sugar.divides <- function( ){

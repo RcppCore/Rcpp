@@ -97,7 +97,7 @@ namespace sugar{
 		inline STORAGE operator[]( R_xlen_t i ) const {
 			STORAGE rhs_ = rhs[i] ;
 			if( traits::is_na<RTYPE>(rhs_) ) return rhs_ ;
-			return RCPP_SAFE_MUL(lhs[i], rhs_);
+			return lhs[i] * rhs_;
 		}
 
 		inline R_xlen_t size() const { return lhs.size() ; }
@@ -149,7 +149,7 @@ namespace sugar{
 		inline STORAGE operator[]( R_xlen_t i ) const {
 			STORAGE lhs_ = lhs[i] ;
 			if( traits::is_na<RTYPE>(lhs_) ) return lhs_ ;
-			return RCPP_SAFE_MUL(lhs_, rhs[i]);
+			return lhs_ * rhs[i];
 		}
 
 		inline R_xlen_t size() const { return lhs.size() ; }
@@ -198,7 +198,7 @@ namespace sugar{
 			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){}
 
 		inline STORAGE operator[]( R_xlen_t i ) const {
-			return RCPP_SAFE_MUL(lhs[i], rhs[i]);
+			return lhs[i] * rhs[i];
 		}
 
 		inline R_xlen_t size() const { return lhs.size() ; }
@@ -248,7 +248,7 @@ namespace sugar{
 		inline STORAGE operator[]( R_xlen_t i ) const {
 			if( rhs_na ) return rhs ;
 			STORAGE x = lhs[i] ;
-			return Rcpp::traits::is_na<RTYPE>(x) ? x : RCPP_SAFE_MUL(x, rhs) ;
+			return Rcpp::traits::is_na<RTYPE>(x) ? x : RCPP_SAFE_MUL(x, rhs);
 		}
 
 		inline R_xlen_t size() const { return lhs.size() ; }
@@ -346,7 +346,7 @@ namespace sugar{
 
 		inline STORAGE operator[]( R_xlen_t i ) const {
 			STORAGE x = lhs[i] ;
-			return Rcpp::traits::is_na<RTYPE>(x) ? x : RCPP_SAFE_MUL(x, rhs);
+			return Rcpp::traits::is_na<RTYPE>(x) ? x : x * rhs;
 		}
 
 		inline R_xlen_t size() const { return lhs.size() ; }
@@ -392,7 +392,7 @@ namespace sugar{
 			lhs(lhs_.get_ref()), rhs(rhs_) {}
 
 		inline STORAGE operator[]( R_xlen_t i ) const {
-			return RCPP_SAFE_MUL(rhs, lhs[i]);
+			return rhs * lhs[i];
 		}
 
 		inline R_xlen_t size() const { return lhs.size() ; }
