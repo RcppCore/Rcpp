@@ -2,7 +2,8 @@
 //
 // sum.h: Rcpp R/C++ interface class library -- sum
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2025 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2026        Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -42,7 +43,7 @@ public:
 		    current = object[i] ;
 		    if( Rcpp::traits::is_na<RTYPE>(current) )
 		        return Rcpp::traits::get_na<RTYPE>() ;
-		    result += current ;
+		    result = RCPP_SAFE_ADD(result, current);
 		}
 		return result ;
 	}
@@ -84,7 +85,7 @@ public:
 		STORAGE result = 0 ;
 		R_xlen_t n = object.size() ;
 		for( R_xlen_t i=0; i<n; i++){
-		    result += object[i] ;
+		    result = RCPP_SAFE_ADD(result, object[i]);
 		}
 		return result ;
 	}

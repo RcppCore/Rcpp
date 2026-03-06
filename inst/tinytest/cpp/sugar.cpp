@@ -1,8 +1,8 @@
 
 // sugar.cpp: Rcpp R/C++ interface class library -- sugar unit tests
 //
-// Copyright (C) 2012 - 2025  Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2025         Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
+// Copyright (C) 2012 - 2024  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2025 - 2026  Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -286,6 +286,21 @@ List runit_minus( IntegerVector xx ){
 }
 
 // [[Rcpp::export]]
+IntegerVector runit_minus_ivv( IntegerVector x, IntegerVector y ){
+    return x - y;
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_minus_ivp( IntegerVector x, int y ){
+    return x - y;
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_minus_ipv( int x, IntegerVector y ){
+    return x - y;
+}
+
+// [[Rcpp::export]]
 LogicalVector runit_any_equal_not( NumericVector xx, NumericVector yy){
     return any( !( xx == yy) ) ;
 }
@@ -301,12 +316,51 @@ List runit_plus( IntegerVector xx ){
 }
 
 // [[Rcpp::export]]
-List runit_plus_seqlen(){
+IntegerVector runit_plus_ivv( IntegerVector x, IntegerVector y ){
+    return x + y;
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_plus_ivp( IntegerVector x, int y ){
+    return x + y;
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_plus_ipv( int x, IntegerVector y ){
+    return x + y;
+}
+
+// [[Rcpp::export]]
+List runit_plus_seqlen(IntegerVector xx){
     return List::create(
 	    seq_len(10) + 10,
 	    10 + seq_len(10),
-	    seq_len(10) + seq_len(10)
+	    seq_len(10) + seq_len(10),
+	    seq_len(10) + xx,
+	    xx + seq_len(10)
 	    ) ;
+}
+
+// [[Rcpp::export]]
+List runit_minus_seqlen(IntegerVector xx){
+    return List::create(
+        seq_len(10) - 10,
+        10 - seq_len(10),
+        seq_len(10) - seq_len(10),
+        seq_len(10) - xx,
+        xx - seq_len(10)
+    ) ;
+}
+
+// [[Rcpp::export]]
+List runit_times_seqlen(IntegerVector xx){
+    return List::create(
+        seq_len(10) * 10,
+        10 * seq_len(10),
+        seq_len(10) * seq_len(10),
+        seq_len(10) * xx,
+        xx * seq_len(10)
+    ) ;
 }
 
 // [[Rcpp::export]]
@@ -426,6 +480,21 @@ List runit_times( IntegerVector xx ){
         10 * yy,
         NA_INTEGER * xx
     ) ;
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_times_ivv( IntegerVector x, IntegerVector y ){
+    return x * y;
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_times_ivp( IntegerVector x, int y ){
+    return x * y;
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_times_ipv( int x, IntegerVector y ){
+    return x * y;
 }
 
 // [[Rcpp::export]]
@@ -604,13 +673,24 @@ List runit_log1p( NumericVector xx){
 }
 
 // [[Rcpp::export]]
-double runit_sum( NumericVector xx){
+double runit_sum_nv( NumericVector xx){
     return sum( xx ) ;
 }
 
 // [[Rcpp::export]]
-NumericVector runit_cumsum( NumericVector xx ){
+int runit_sum_iv( IntegerVector xx){
+    return sum( xx ) ;
+}
+
+// [[Rcpp::export]]
+NumericVector runit_cumsum_nv( NumericVector xx ){
     NumericVector res = cumsum( xx ) ;
+    return res ;
+}
+
+// [[Rcpp::export]]
+IntegerVector runit_cumsum_iv( IntegerVector xx ){
+    IntegerVector res = cumsum( xx ) ;
     return res ;
 }
 

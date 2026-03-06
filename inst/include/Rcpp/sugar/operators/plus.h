@@ -2,7 +2,8 @@
 //
 // plus.h: Rcpp R/C++ interface class library -- operator+
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2025 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2026        Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -42,7 +43,7 @@ namespace sugar{
 			STORAGE lhs_ = lhs[i] ;
 			if( traits::is_na<RTYPE>(lhs_) ) return lhs_ ;
 			STORAGE rhs_ = rhs[i] ;
-			return traits::is_na<RTYPE>(rhs_) ? rhs_ : (lhs_ + rhs_) ;
+			return traits::is_na<RTYPE>(rhs_) ? rhs_ : RCPP_SAFE_ADD(lhs_, rhs_);
 		}
 
 		inline R_xlen_t size() const { return lhs.size() ; }
@@ -99,7 +100,7 @@ namespace sugar{
 		inline STORAGE operator[]( R_xlen_t i ) const {
 			STORAGE rhs_ = rhs[i] ;
 			if( traits::is_na<RTYPE>(rhs_) ) return rhs_ ;
-			return lhs[i] + rhs_  ;
+			return lhs[i] + rhs_;
 		}
 
 		inline R_xlen_t size() const { return lhs.size() ; }
@@ -152,7 +153,7 @@ namespace sugar{
 		inline STORAGE operator[]( R_xlen_t i ) const {
 			STORAGE lhs_ = lhs[i] ;
 			if( traits::is_na<RTYPE>(lhs_) ) return lhs_ ;
-			return lhs_ + rhs[i]  ;
+			return lhs_ + rhs[i];
 		}
 
 		inline R_xlen_t size() const { return lhs.size() ; }
@@ -204,7 +205,7 @@ namespace sugar{
 			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){}
 
 		inline STORAGE operator[]( R_xlen_t i ) const {
-			return lhs[i] + rhs[i]  ;
+			return lhs[i] + rhs[i];
 		}
 
 		inline R_xlen_t size() const { return lhs.size() ; }
@@ -250,7 +251,6 @@ namespace sugar{
 	public:
 		typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-
 		typedef typename Rcpp::traits::Extractor< RTYPE, NA, T>::type EXT ;
 
 		Plus_Vector_Primitive( const VEC_TYPE& lhs_, STORAGE rhs_ ) :
@@ -260,7 +260,7 @@ namespace sugar{
 		inline STORAGE operator[]( R_xlen_t i ) const {
 			if( rhs_na ) return rhs ;
 			STORAGE x = lhs[i] ;
-			return Rcpp::traits::is_na<RTYPE>(x) ? x : (x + rhs) ;
+			return Rcpp::traits::is_na<RTYPE>(x) ? x : RCPP_SAFE_ADD(x, rhs);
 		}
 
 		inline R_xlen_t size() const { return lhs.size() ; }
@@ -308,7 +308,7 @@ namespace sugar{
 			lhs(lhs_.get_ref()), rhs(rhs_), rhs_na( Rcpp::traits::is_na<RTYPE>(rhs_) ) {}
 
 		inline STORAGE operator[]( R_xlen_t i ) const {
-			return rhs_na ? rhs : (rhs + lhs[i] ) ;
+			return rhs_na ? rhs : (rhs + lhs[i]);
 		}
 
 		inline R_xlen_t size() const { return lhs.size() ; }
@@ -360,7 +360,7 @@ namespace sugar{
 
 		inline STORAGE operator[]( R_xlen_t i ) const {
 			STORAGE x = lhs[i] ;
-			return Rcpp::traits::is_na<RTYPE>(x) ? x : (x + rhs) ;
+			return Rcpp::traits::is_na<RTYPE>(x) ? x : x + rhs;
 		}
 
 		inline R_xlen_t size() const { return lhs.size() ; }
@@ -407,7 +407,7 @@ namespace sugar{
 			lhs(lhs_.get_ref()), rhs(rhs_) {}
 
 		inline STORAGE operator[]( R_xlen_t i ) const {
-			return rhs + lhs[i] ;
+			return rhs + lhs[i];
 		}
 
 		inline R_xlen_t size() const { return lhs.size() ; }

@@ -2,7 +2,8 @@
 //
 // diff.h: Rcpp R/C++ interface class library -- diff
 //
-// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2025 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2026        Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -51,7 +52,7 @@ public:
             set_previous(i+1, y ) ;
             return traits::get_na<RTYPE>() ; // NA
         }
-        STORAGE res = y - previous ;
+        STORAGE res = RCPP_SAFE_SUB(y, previous);
         set_previous( i+1, y) ;
         return res ;
 	}
@@ -81,7 +82,7 @@ public:
 	inline double operator[]( R_xlen_t i ) const {
 		double y = lhs[i+1] ;
 		if( previous_index != i ) previous = lhs[i] ;
-		double res = y - previous ;
+		double res = RCPP_SAFE_SUB(y, previous);
 		previous = y ;
 		previous_index = i+1 ;
 		return res ;
@@ -105,10 +106,10 @@ public:
 	inline STORAGE operator[]( R_xlen_t i ) const {
 		STORAGE y = lhs[i+1] ;
 		if( previous_index != i ) previous = lhs[i] ;
-		STORAGE diff = y - previous ;
+		STORAGE res = RCPP_SAFE_SUB(y, previous);
 		previous = y ;
 		previous_index = i+1 ;
-		return y - previous ;
+		return res;
 	}
 	inline R_xlen_t size() const { return lhs.size() - 1 ; }
 

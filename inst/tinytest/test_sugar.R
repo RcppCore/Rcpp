@@ -1,6 +1,6 @@
 
-##  Copyright (C) 2010 - 2025  Dirk Eddelbuettel and Romain Francois
-##  Copyright (C) 2025         Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
+##  Copyright (C) 2010 - 2024  Dirk Eddelbuettel and Romain Francois
+##  Copyright (C) 2025 - 2026  Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 ##
 ##  This file is part of Rcpp.
 ##
@@ -20,6 +20,8 @@
 if (Sys.getenv("RunAllRcppTests") != "yes") exit_file("Set 'RunAllRcppTests' to 'yes' to run.")
 
 Rcpp::sourceCpp("cpp/sugar.cpp")
+Rcpp::sourceCpp("cpp/sugar_safe_math.cpp")
+Rcpp::sourceCpp("cpp/sugar_safe_math_fallback.cpp")
 
 ## There are some (documented, see https://blog.r-project.org/2020/11/02/will-r-work-on-apple-silicon/index.html)
 ## issues with NA propagation on arm64 / macOS. We not (yet ?) do anything special so we just skip some tests
@@ -28,6 +30,22 @@ isArm <- Sys.info()[["machine"]] == "arm64" || Sys.info()[["machine"]] == "aarch
 
 ## Needed for a change in R 3.6.0 reducing a bias in very large samples
 suppressWarnings(RNGversion("3.5.0"))
+
+#    test.sugar.safe_math
+expect_equal(safe_add(3, 2), 5)
+expect_error(safe_add(.Machine$integer.max, 2), "overflow")
+expect_equal(safe_sub(3, 2), 1)
+expect_error(safe_sub(-.Machine$integer.max, 2), "overflow")
+expect_equal(safe_mul(3, 2), 6)
+expect_error(safe_mul(.Machine$integer.max, 2), "overflow")
+
+expect_equal(safe_add_fallback(3, 2), 5)
+expect_error(safe_add_fallback(.Machine$integer.max, 2), "overflow")
+expect_equal(safe_sub_fallback(3, 2), 1)
+expect_error(safe_sub_fallback(-.Machine$integer.max, 2), "overflow")
+expect_equal(safe_mul_fallback(3, 2), 6)
+expect_error(safe_mul_fallback(.Machine$integer.max, 2), "overflow")
+
 
 #    test.sugar.abs <- function( ){
 x <- rnorm(10)
@@ -210,6 +228,7 @@ expect_true( identical( fx( NA, 1 ), NA ) )
 
 
 #    test.sugar.diff <- function( ){
+expect_error(runit_diff_int(c(1, 2, -.Machine$integer.max)), "overflow")
 x <- as.integer(round(rnorm(100,1,100)))
 expect_equal( runit_diff_int(x) , diff(x) )
 x <- rnorm( 100 )
@@ -348,9 +367,17 @@ expect_equal( fx(1:10, 1:10*2) , mapply(seq, 1:10, 1:10*2) )
 
 
 #    test.sugar.minus <- function( ){
+expect_error(runit_minus_ivv(-.Machine$integer.max, 2), "overflow")
+expect_error(runit_minus_ivp(-.Machine$integer.max, 2), "overflow")
+expect_error(runit_minus_ipv(-.Machine$integer.max, 2), "overflow")
 fx <- runit_minus
 expect_equal(fx(1:10) ,
              list( (1:10)-10L, 10L-(1:10), rep(0L,10), (1:10)-10L, 10L-(1:10)  ))
+
+
+#    test.sugar.minus.seqlen <- function( ){
+fx <- runit_minus_seqlen
+expect_equal( fx(1:10) , list( -9:0, 9:0, rep(0, 10), rep(0, 10), rep(0, 10)) )
 
 
 #    test.sugar.any.equal.not <- function( ){
@@ -363,13 +390,16 @@ expect_true( is.na( fx( NA, 1 ) ) )
 
 
 #    test.sugar.plus <- function( ){
+expect_error(runit_plus_ivv(.Machine$integer.max, 2), "overflow")
+expect_error(runit_plus_ivp(.Machine$integer.max, 2), "overflow")
+expect_error(runit_plus_ipv(.Machine$integer.max, 2), "overflow")
 fx <- runit_plus
 expect_equal( fx(1:10) , list( 11:20,11:20,1:10+1:10, 3*(1:10))  )
 
 
 #    test.sugar.plus.seqlen <- function( ){
 fx <- runit_plus_seqlen
-expect_equal( fx() , list( 11:20,11:20, 1:10+1:10)  )
+expect_equal( fx(1:10) , list( 11:20,11:20, 1:10+1:10, 1:10+1:10, 1:10+1:10)  )
 
 
 #    test.sugar.plus.all <- function( ){
@@ -455,10 +485,18 @@ expect_equal(fx( seq(-10, 10, length.out = 51), -25:25 ),
 
 
 #    test.sugar.times <- function( ){
+expect_error(runit_times_ivv(.Machine$integer.max, 2), "overflow")
+expect_error(runit_times_ivp(.Machine$integer.max, 2), "overflow")
+expect_error(runit_times_ipv(.Machine$integer.max, 2), "overflow")
 fx <- runit_times
 expect_equal(fx(1:10) ,
              list(10L*(1:10), 10L*(1:10), (1:10)*(1:10), (1:10)*(1:10)*(1:10),
                   c(NA,(2:10)*(2:10)), c(NA,10L*(2:10)), c(NA,10L*(2:10)), rep( NA_integer_, 10L )))
+
+
+#    test.sugar.times.seqlen <- function( ){
+fx <- runit_times_seqlen
+expect_equal( fx(1:10) , list( seq(10, 100, 10), seq(10, 100, 10), 1:10*1:10, 1:10*1:10, 1:10*1:10) )
 
 
 #    test.sugar.divides <- function( ){
@@ -626,20 +664,38 @@ expect_equal(fx(10:6,5:1),
                   VP = psigamma( 10:6, 5 )))
 
 
-#    test.sugar.sum <- function(){
-fx <- runit_sum
+#    test.sugar.sum_nv <- function(){
+fx <- runit_sum_nv
 x <- rnorm( 10 )
 expect_equal( fx(x), sum(x) )
 x[4] <- NA
 expect_equal( fx(x), sum(x) )
 
 
-#    test.sugar.cumsum <- function(){
-fx <- runit_cumsum
-x <- rnorm( 10 )
-expect_equal( fx(x), cumsum(x) )
+#    test.sugar.sum_iv <- function() {
+expect_error(runit_sum_iv(c(2, .Machine$integer.max)), "overflow")
+fx <- runit_sum_iv
+x <- as.integer(rpois(10, 5))
+expect_equal(fx(x), sum(x))
 x[4] <- NA
-expect_equal( fx(x), cumsum(x) )
+expect_equal(fx(x), sum(x))
+
+
+#    test.sugar.cumsum_nv <- function(){
+fx <- runit_cumsum_nv
+x <- rnorm(10)
+expect_equal(fx(x), cumsum(x))
+x[4] <- NA
+expect_equal(fx(x), cumsum(x))
+
+
+#    test.sugar.cumsum_iv <- function() {
+expect_error(runit_cumsum_iv(c(2, .Machine$integer.max)), "overflow")
+fx <- runit_cumsum_iv
+x <- as.integer(rpois(10, 5))
+expect_equal(fx(x), cumsum(x))
+x[4] <- NA
+expect_equal(fx(x), cumsum(x))
 
 
 #    test.sugar.asvector <- function(){
@@ -826,6 +882,7 @@ expect_equal(fx(x), cumprod(x))
 
 
 #    test.sugar.cumprod_iv <- function() {
+expect_error(runit_cumprod_iv(c(2, .Machine$integer.max)), "overflow")
 fx <- runit_cumprod_iv
 x <- as.integer(rpois(10, 5))
 expect_equal(fx(x), cumprod(x))
@@ -1159,6 +1216,11 @@ expect_equal(dbl_col_means(x, TRUE), colMeans(x, TRUE), info = "numeric / colMea
 
 ## {row,col}{Sums,Means} integer tests
 #    test.sugar.rowMeans_integer <- function() {
+
+x <- matrix(rep(.Machine$integer.max, 4), 2)
+
+expect_error(int_row_sums(x), "overflow")
+expect_error(int_col_sums(x), "overflow")
 
 x <- matrix(as.integer(rnorm(9) * 1e4), 3)
 

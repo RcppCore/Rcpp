@@ -4,6 +4,28 @@
 	* inst/include/Rcpp/sugar/functions/min.h: Idem
 	* inst/tinytest/test_sugar.R: Adapt tests
 
+2026-02-26  Iñaki Ucar <iucar@fedoraproject.org>
+
+	* inst/include/Rcpp/sugar/tools/safe_math.h: New header implementing safe
+	versions of add/sub/mul operations for integral types
+	* inst/include/Rcpp/sugar/sugar.h: Includes the previous header
+
+	* inst/include/Rcpp/sugar/functions/cumprod.h: Use the previous operations
+	* inst/include/Rcpp/sugar/functions/cumsum.h: Idem
+	* inst/include/Rcpp/sugar/functions/diff.h: Idem, also fixed a bug where
+	the diff was recomputed instead of returning the calculated value
+	* inst/include/Rcpp/sugar/functions/rowSums.h: Idem
+	* inst/include/Rcpp/sugar/functions/sum.h: Idem
+	* inst/include/Rcpp/sugar/operators/minus.h: Idem, also fixed a bug for
+	an incorrect Extractor specialization in Minus_Primitive_Vector
+	* inst/include/Rcpp/sugar/operators/plus.h: Idem
+	* inst/include/Rcpp/sugar/operators/times.h: Idem
+
+	* inst/tinytest/test_sugar.R: New tests covering the new operations
+	* inst/tinytest/cpp/sugar.cpp: Idem
+	* inst/tinytest/cpp/sugar_safe_math.cpp: Idem
+	* inst/tinytest/cpp/sugar_safe_math_fallback.cpp: Idem
+
 2026-02-17  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
