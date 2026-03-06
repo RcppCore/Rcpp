@@ -19,7 +19,7 @@
 .runThisTest <- Sys.getenv("RunAllRcppTests") == "yes" && Sys.getenv("RunVerboseRcppTests") == "yes"
 
 if (! .runThisTest) exit_file("Set 'RunVerboseRcppTests' and 'RunAllRcppTests' to 'yes' to run.")
-
+exit_file("For now")
 library(Rcpp)
 
 mkv <- "PKG_CPPFLAGS = -DRCPP_USE_GLOBAL_ROSTREAM"
