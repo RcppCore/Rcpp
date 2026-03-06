@@ -1,3 +1,9 @@
+2026-03-06  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+	* inst/include/Rcpp/config.h: Idem
+	* inst/NEWS.Rd: Updated
+
 2026-02-27  Iñaki Ucar <iucar@fedoraproject.org>
 
 	* inst/include/Rcpp/sugar/functions/max.h: Fix UB for empty integer

@@ -14,7 +14,11 @@
       \item Three new (in R 4.6.0) attribute accessors are used conditionally
       (Dirk in \ghpr{1450} closing \ghit{1432})
       \item An UBSAN error in the Sugar-based NA comparison has been
-      corrected Iñaki in \ghpr{1453} fixing \ghit{1452}
+      corrected (Iñaki in \ghpr{1453} fixing \ghit{1452})
+      \item Treatment of Inf outside of integer range in Sugar function has
+      been corrected (Iñaki in \ghpr{1458} fixing \ghit{1455})
+      \item Integer overflow protection has been added for sugar functions
+      (Iñaki in \ghpr{1457} fixing \ghpr{1454})
     }
   }
 }
