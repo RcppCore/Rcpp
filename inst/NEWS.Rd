@@ -19,6 +19,8 @@
       been corrected (Iñaki in \ghpr{1458} fixing \ghit{1455})
       \item Integer overflow protection has been added for sugar functions
       (Iñaki in \ghpr{1457} fixing \ghpr{1454})
+      \item The parent environment is now accessed via \code{R_ParentEnv}
+      (Dirk in \ghpr{1460} fixing \ghit{1459})
     }
   }
 }
