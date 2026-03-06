@@ -1,8 +1,8 @@
 
 // Environment.h: Rcpp R/C++ interface class library -- access R environments
 //
-// Copyright (C) 2009 - 2013  Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2014 - 2025  Dirk Eddelbuettel, Romain Francois and Kevin Ushey
+// Copyright (C) 2009-2013  Dirk Eddelbuettel and Romain François
+// Copyright (C) 2014-2026  Dirk Eddelbuettel, Romain François and Kevin Ushey
 //
 // This file is part of Rcpp.
 //
@@ -389,7 +389,11 @@ namespace Rcpp{
          * The parent environment of this environment
          */
         Environment_Impl parent() const {
+#if R_VERSION < R_Version(4,5,0)
             return Environment_Impl( ENCLOS(Storage::get__()) ) ;
+#else
+            return Environment_Impl(R_ParentEnv(Storage::get__()));
+#endif
         }
 
         /**

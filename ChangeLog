@@ -1,5 +1,8 @@
 2026-03-06  Dirk Eddelbuettel  <edd@debian.org>
 
+	* inst/include/Rcpp/Environment.h: For R 4.5.0 or later, use
+	R_ParentEnv instead of ENCLOS to reach parent environment
+
 	* DESCRIPTION (Version, Date): Roll micro version and date
 	* inst/include/Rcpp/config.h: Idem
 	* inst/NEWS.Rd: Updated
