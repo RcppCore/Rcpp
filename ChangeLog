@@ -1,3 +1,7 @@
+2026-03-26  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/bib/Rcpp.bib: Refreshed a few more references
+
 2026-03-06  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date (twice)
