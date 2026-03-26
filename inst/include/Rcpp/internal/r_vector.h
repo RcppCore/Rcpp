@@ -3,7 +3,8 @@
 //
 // r_vector.h: Rcpp R/C++ interface class library -- information about R vectors
 //
-// Copyright (C) 2010 - 2017  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2025  Dirk Eddelbuettel and Romain François
+// Copyright (C) 2026         Dirk Eddelbuettel, Romain François and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -36,6 +37,8 @@ typename Rcpp::traits::storage_type<RTYPE>::type* r_vector_start(SEXP x) {
 #define RCPP_VECTOR_START_IMPL(__RTYPE__, __ACCESSOR__)                                              \
     template <>                                                                                      \
     inline typename Rcpp::traits::storage_type<__RTYPE__>::type* r_vector_start<__RTYPE__>(SEXP x) { \
+        if (Rf_xlength(x) == 0)                                                                      \
+            return NULL;                                                                             \
         return __ACCESSOR__(x);                                                                      \
     }
 
