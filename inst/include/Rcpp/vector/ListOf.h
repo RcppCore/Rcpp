@@ -1,6 +1,7 @@
 // ListOf.h: Rcpp R/C++ interface class library -- templated List container
 //
-// Copyright (C) 2014 Dirk Eddelbuettel, Romain Francois and Kevin Ushey
+// Copyright (C) 2014 - 2025  Dirk Eddelbuettel, Romain François and Kevin Ushey
+// Copyright (C) 2026         Dirk Eddelbuettel, Romain François, Kevin Ushey and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -24,9 +25,9 @@ namespace Rcpp {
 
 template <typename T>
 class ListOf
-    : public NamesProxyPolicy<T>
-    , public AttributeProxyPolicy<T>
-    , public RObjectMethods<T>
+    : public NamesProxyPolicy<ListOf<T>>
+    , public AttributeProxyPolicy<ListOf<T>>
+    , public RObjectMethods<ListOf<T>>
 {
 
 public:
