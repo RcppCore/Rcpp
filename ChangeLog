@@ -34,6 +34,10 @@
 	invalid pointer for empty vectors, which causes UB in e.g. std::copy
 	* inst/tinytest/test_vector.R: Add tests for std::copy
 	* inst/tinytest/cpp/Vector.cpp: Idem
+2026-03-27  Iñaki Ucar <iucar@fedoraproject.org>
+
+	* inst/include/Rcpp/vector/ListOf.h: Fix inheritance
+	* inst/include/Rcpp/proxy/NamesProxy.h: Fix compatibility
 
 2026-03-26  Dirk Eddelbuettel  <edd@debian.org>
 
