@@ -3,6 +3,10 @@
 	* inst/include/Rcpp/internal/r_vector.h: Return null start for empty vectors
 	instead of an invalid pointer, which causes UB in e.g. std::copy
 
+2026-03-26  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/bib/Rcpp.bib: Refreshed a few more references
+
 2026-03-06  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date (twice)
