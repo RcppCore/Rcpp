@@ -1,7 +1,7 @@
 2026-03-26  Iñaki Ucar <iucar@fedoraproject.org>
 
-	* inst/include/Rcpp/internal/r_vector.h: Return null start for empty vectors
-	instead of an invalid pointer, which causes UB in e.g. std::copy
+	* inst/include/Rcpp/internal/r_vector.h: Use dataptr() again to avoid an
+	invalid pointer for empty vectors, which causes UB in e.g. std::copy
 	* inst/tinytest/test_vector.R: Add tests for std::copy
 	* inst/tinytest/cpp/Vector.cpp: Idem
 
