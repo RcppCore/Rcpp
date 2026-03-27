@@ -1,4 +1,5 @@
-// Copyright (C) 2013 Romain Francois
+// Copyright (C) 2013 - 2025  Romain François
+// Copyright (C) 2026         Romain François and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -43,23 +44,11 @@ public:
         CLASS& parent;
 
         SEXP get() const {
-            return RCPP_GET_NAMES(parent.get__()) ;
+            return RCPP_GET_NAMES(parent) ;
         }
 
         void set(SEXP x) {
-            Shield<SEXP> safe_x(x);
-
-            /* check if we can use a fast version */
-            if( TYPEOF(x) == STRSXP && parent.size() == Rf_length(x) ){		// #nocov start
-                Rf_namesgets(parent, x);
-            } else {
-                /* use the slower and more flexible version (callback to R) */
-                SEXP namesSym = Rf_install( "names<-" );
-                Shield<SEXP> call(Rf_lang3(namesSym, parent, x));
-                Shield<SEXP> new_vec(Rcpp_fast_eval(call, R_GlobalEnv));
-                parent.set__(new_vec);										// #nocov end
-            }
-
+            Rf_namesgets(parent, Shield<SEXP>(x));
         }
 
     } ;
@@ -74,7 +63,7 @@ public:
         const CLASS& parent;
 
         SEXP get() const {
-            return RCPP_GET_NAMES(parent.get__()) ;
+            return RCPP_GET_NAMES(parent) ;
         }
 
     } ;
