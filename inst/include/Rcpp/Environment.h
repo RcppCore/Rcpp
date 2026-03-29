@@ -95,20 +95,8 @@ namespace Rcpp{
          * @return a SEXP (possibly R_NilValue)
          */
         SEXP get(const std::string& name) const {
-            SEXP env = Storage::get__() ;
-            SEXP nameSym = Rf_install(name.c_str());
-#if R_VERSION < R_Version(4,5,0)
-            SEXP res = Rf_findVarInFrame( env, nameSym ) ;
-#else
-            SEXP res = R_getVarEx(nameSym, env, FALSE, R_UnboundValue);
-#endif
-            if( res == R_UnboundValue ) return R_NilValue ;
-
-            /* We need to evaluate if it is a promise */
-            if( TYPEOF(res) == PROMSXP){
-                res = internal::Rcpp_eval_impl( res, env ) ;  // #nocov
-            }
-            return res ;
+            Symbol nameSym = Rf_install(name.c_str());
+            return get(nameSym);
         }
 
         /**
@@ -122,12 +110,10 @@ namespace Rcpp{
             SEXP env = Storage::get__() ;
 #if R_VERSION < R_Version(4,5,0)
             SEXP res = Rf_findVarInFrame( env, name ) ;
+            if (res == R_UnboundValue) return R_NilValue;
 #else
-            SEXP res = R_getVarEx(name, env, FALSE, R_UnboundValue);
+            SEXP res = R_getVarEx(name, env, FALSE, R_NilValue);
 #endif
-
-            if( res == R_UnboundValue ) return R_NilValue ;
-
             /* We need to evaluate if it is a promise */
             if( TYPEOF(res) == PROMSXP){
                 res = internal::Rcpp_eval_impl( res, env ) ;
@@ -144,21 +130,8 @@ namespace Rcpp{
          *
          */
         SEXP find( const std::string& name) const{
-            SEXP env = Storage::get__() ;
-            SEXP nameSym = Rf_install(name.c_str());
-#if R_VERSION < R_Version(4,5,0)
-            SEXP res = Rf_findVar( nameSym, env ) ;
-#else
-            SEXP res = R_getVarEx(nameSym, env, TRUE, R_UnboundValue);
-#endif
-
-            if( res == R_UnboundValue ) throw binding_not_found(name) ;
-
-            /* We need to evaluate if it is a promise */
-            if( TYPEOF(res) == PROMSXP){
-                res = internal::Rcpp_eval_impl( res, env ) ;
-            }
-            return res ;
+            Symbol nameSym = Rf_install(name.c_str());
+            return find(nameSym);
         }
 
         /**
@@ -171,15 +144,11 @@ namespace Rcpp{
             SEXP env = Storage::get__() ;
 #if R_VERSION < R_Version(4,5,0)
             SEXP res = Rf_findVar( name, env ) ;
+            if (res == R_UnboundValue) throw binding_not_found(name.c_str());
 #else
-            SEXP res = R_getVarEx(name, env, TRUE, R_UnboundValue);
+            SEXP res = R_getVarEx(name, env, TRUE, R_NilValue);
+            if (res == R_NilValue) throw binding_not_found(name.c_str());
 #endif
-            if( res == R_UnboundValue ) {
-                // Pass on the const char* to the RCPP_EXCEPTION_CLASS's
-                // const std::string& requirement
-                throw binding_not_found(name.c_str()) ;
-            }
-
             /* We need to evaluate if it is a promise */
             if( TYPEOF(res) == PROMSXP){
                 res = internal::Rcpp_eval_impl( res, env ) ;
@@ -199,10 +168,11 @@ namespace Rcpp{
             SEXP nameSym = Rf_install(name.c_str());
 #if R_VERSION < R_Version(4,5,0)
             SEXP res = Rf_findVarInFrame( Storage::get__() , nameSym  ) ;
+            return res != R_UnboundValue;
 #else
-            SEXP res = R_getVarEx(nameSym, Storage::get__(), FALSE, R_UnboundValue);
+            SEXP res = R_getVarEx(nameSym, Storage::get__(), FALSE, R_NilValue);
+            return res != R_NilValue;
 #endif
-            return res != R_UnboundValue ;
         }
 
         /**
