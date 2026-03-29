@@ -72,9 +72,9 @@ namespace Rcpp{
 #if R_VERSION < R_Version(4,5,0)
             Shield<SEXP> env(Rf_findVarInFrame(R_NamespaceRegistry, Rf_install(ns.c_str())));
 #else
-            Shield<SEXP> env(R_getVarEx(Rf_install(ns.c_str()), R_NamespaceRegistry, FALSE, R_UnboundValue));
+            Shield<SEXP> env(R_getVarEx(Rf_install(ns.c_str()), R_NamespaceRegistry, FALSE, R_NilValue));
 #endif
-            if (env == R_UnboundValue) {
+            if (env == R_NilValue) {
                 stop("there is no namespace called \"%s\"", ns);
             }
             get_function(name, env);
