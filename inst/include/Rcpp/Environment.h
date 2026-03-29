@@ -2,7 +2,8 @@
 // Environment.h: Rcpp R/C++ interface class library -- access R environments
 //
 // Copyright (C) 2009-2013  Dirk Eddelbuettel and Romain François
-// Copyright (C) 2014-2026  Dirk Eddelbuettel, Romain François and Kevin Ushey
+// Copyright (C) 2014-2025  Dirk Eddelbuettel, Romain François and Kevin Ushey
+// Copyright (C) 2026       Dirk Eddelbuettel, Romain François, Kevin Ushey and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //

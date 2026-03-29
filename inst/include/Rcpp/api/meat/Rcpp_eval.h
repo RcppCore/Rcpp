@@ -1,5 +1,5 @@
 // Copyright (C) 2013 - 2025 Romain Francois
-// Copyright (C) 2026        Romain Francois and Dirk Eddelbuettel
+// Copyright (C) 2026        Romain Francois, Dirk Eddelbuettel and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //

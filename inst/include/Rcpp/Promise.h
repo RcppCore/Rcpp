@@ -2,7 +2,8 @@
 //
 // Promise.h: Rcpp R/C++ interface class library -- promises (PROMSXP)
 //
-// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2025 Dirk Eddelbuettel and Romain François
+// Copyright (C) 2026        Dirk Eddelbuettel, Romain François and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
