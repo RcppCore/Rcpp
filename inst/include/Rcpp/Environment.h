@@ -112,13 +112,11 @@ namespace Rcpp{
 #if R_VERSION < R_Version(4,5,0)
             SEXP res = Rf_findVarInFrame( env, name ) ;
             if (res == R_UnboundValue) return R_NilValue;
+            if (TYPEOF(res) == PROMSXP)
+                res = internal::Rcpp_eval_impl(res, env);
 #else
             SEXP res = R_getVarEx(name, env, FALSE, R_NilValue);
 #endif
-            /* We need to evaluate if it is a promise */
-            if( TYPEOF(res) == PROMSXP){
-                res = internal::Rcpp_eval_impl( res, env ) ;
-            }
             return res ;
         }
 
@@ -146,14 +144,12 @@ namespace Rcpp{
 #if R_VERSION < R_Version(4,5,0)
             SEXP res = Rf_findVar( name, env ) ;
             if (res == R_UnboundValue) throw binding_not_found(name.c_str());
+            if (TYPEOF(res) == PROMSXP)
+                res = internal::Rcpp_eval_impl(res, env);
 #else
             SEXP res = R_getVarEx(name, env, TRUE, R_NilValue);
             if (res == R_NilValue) throw binding_not_found(name.c_str());
 #endif
-            /* We need to evaluate if it is a promise */
-            if( TYPEOF(res) == PROMSXP){
-                res = internal::Rcpp_eval_impl( res, env ) ;
-            }
             return res ;
         }
 
