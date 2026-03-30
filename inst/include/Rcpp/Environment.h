@@ -167,8 +167,8 @@ namespace Rcpp{
             SEXP res = Rf_findVarInFrame( Storage::get__() , nameSym  ) ;
             return res != R_UnboundValue;
 #else
-            SEXP res = R_getVarEx(nameSym, Storage::get__(), FALSE, R_NilValue);
-            return res != R_NilValue;
+            SEXP res = R_getVarEx(nameSym, Storage::get__(), FALSE, NULL);
+            return res != NULL;
 #endif
         }
 
