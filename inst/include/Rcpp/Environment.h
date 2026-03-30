@@ -147,8 +147,8 @@ namespace Rcpp{
             if (TYPEOF(res) == PROMSXP)
                 res = internal::Rcpp_eval_impl(res, env);
 #else
-            SEXP res = R_getVarEx(name, env, TRUE, R_NilValue);
-            if (res == R_NilValue) throw binding_not_found(name.c_str());
+            SEXP res = R_getVarEx(name, env, TRUE, NULL);
+            if (res == NULL) throw binding_not_found(name.c_str());
 #endif
             return res ;
         }
