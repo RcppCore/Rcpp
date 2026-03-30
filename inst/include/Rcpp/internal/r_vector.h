@@ -3,7 +3,8 @@
 //
 // r_vector.h: Rcpp R/C++ interface class library -- information about R vectors
 //
-// Copyright (C) 2010 - 2017  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2025  Dirk Eddelbuettel and Romain François
+// Copyright (C) 2026         Dirk Eddelbuettel, Romain François and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -31,21 +32,6 @@ typename Rcpp::traits::storage_type<RTYPE>::type* r_vector_start(SEXP x) {
     typedef typename Rcpp::traits::storage_type<RTYPE>::type* pointer;
     return reinterpret_cast<pointer>(dataptr(x));
 }
-
-// add specializations to avoid use of dataptr
-#define RCPP_VECTOR_START_IMPL(__RTYPE__, __ACCESSOR__)                                              \
-    template <>                                                                                      \
-    inline typename Rcpp::traits::storage_type<__RTYPE__>::type* r_vector_start<__RTYPE__>(SEXP x) { \
-        return __ACCESSOR__(x);                                                                      \
-    }
-
-RCPP_VECTOR_START_IMPL(LGLSXP,  LOGICAL);
-RCPP_VECTOR_START_IMPL(INTSXP,  INTEGER);
-RCPP_VECTOR_START_IMPL(RAWSXP,  RAW);
-RCPP_VECTOR_START_IMPL(CPLXSXP, COMPLEX);
-RCPP_VECTOR_START_IMPL(REALSXP, REAL);
-
-#undef RCPP_VECTOR_START_IMPL
 
 /**
  * The value 0 statically casted to the appropriate type for
