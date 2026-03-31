@@ -70,8 +70,10 @@ expect_error(function_cons_env("fun_child", parent_env),
 #    test.Function.cons.ns <- function() {
 expect_equal(Rcpp::sourceCpp, function_cons_ns("sourceCpp", "Rcpp"),
              info = "namespace-lookup constructor")
-expect_error(function_cons_ns("sourceCpp", "Rcppp"),
-             info = "namespace-lookup constructor: fail when ns does not exist")
+if (getRversion() > "4.5.0") {
+    expect_error(function_cons_ns("sourceCpp", "Rcppp"),
+                 info = "namespace-lookup constructor: fail when ns does not exist")
+}
 expect_error(function_cons_ns("sourceCppp", "Rcpp"),
              info = "namespace-lookup constructor: fail when function not found")
 
