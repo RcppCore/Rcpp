@@ -1,5 +1,5 @@
 // Copyright (C) 2013 - 2025 Romain Francois
-// Copyright (C) 2026        Romain Francois and Dirk Eddelbuettel
+// Copyright (C) 2026        Romain Francois, Dirk Eddelbuettel and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -55,10 +55,6 @@ inline SEXP Rcpp_eval(SEXP expr, SEXP env) {
 
     // 'identity' function used to capture errors, interrupts
     Shield<SEXP> identity(Rf_findFun(::Rf_install("identity"), R_BaseNamespace));
-
-    if (identity == R_UnboundValue) {
-        stop("Failed to find 'base::identity()'");
-    }
 
     // define the evalq call -- the actual R evaluation we want to execute
     Shield<SEXP> evalqCall(Rf_lang3(::Rf_install("evalq"), expr, env));
