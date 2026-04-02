@@ -1,3 +1,14 @@
+2026-04-01  Mattias Ellert  <mattias.ellert@physics.uu.se>
+
+	* inst/discovery/cxx0x.R: Set execute permissions for script
+	with shebang
+	* inst/examples/ConvolveBenchmarks/overhead.r: Idem
+	* inst/examples/ConvolveBenchmarks/overhead.sh: Idem
+	* inst/examples/Misc/ifelseLooped.r: Idem
+	* inst/examples/Misc/newFib.r: Idem
+	* inst/examples/OpenMP/OpenMPandInline.r: Idem
+	* inst/tinytest/test_dispatch.R: Idem
+
 2026-03-27  Iñaki Ucar <iucar@fedoraproject.org>
 
 	* inst/include/Rcpp/vector/ListOf.h: Fix inheritance
