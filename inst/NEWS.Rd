@@ -3,7 +3,7 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp release version 1.1.2 [unreleased] (expected 2026-07-xx)}{
+\section{Changes in Rcpp release version 1.1.2 [unreleased] (expected 2026-07-01)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
@@ -21,6 +21,18 @@
       (Iñaki in \ghpr{1457} fixing \ghpr{1454})
       \item The parent environment is now accessed via \code{R_ParentEnv}
       (Dirk in \ghpr{1460} fixing \ghit{1459})
+      \item Change to returning \code{dataptr} again for better handling of
+      empty vectors (Iñaki in \ghpr{1462} fixing \ghit{1461})
+    }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item Reference in the bibliography used by the package vignettes have
+      been updated.
+    }
+    \item Changes in Rcpp Deployment:
+    \itemize{
+      \item Excute permissions are set consistently on scripts with shebangs
+      (Mattias Ellert in \ghpr{1467})
     }
   }
 }
