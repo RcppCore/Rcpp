@@ -8,6 +8,9 @@
 
 	* inst/include/Rcpp/Function.h: Further refinement for 4.6.0 to not
 	require R_NamespaceRegistry, using R_getRegisteredNamespace() instead
+2026-04-03  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/proxy/NamesProxy.h (set): Only set non-null values
 
 2026-04-01  Mattias Ellert  <mattias.ellert@physics.uu.se>
 

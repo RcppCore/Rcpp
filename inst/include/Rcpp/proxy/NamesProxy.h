@@ -1,5 +1,5 @@
 // Copyright (C) 2013 - 2025  Romain François
-// Copyright (C) 2026         Romain François and Iñaki Ucar
+// Copyright (C) 2026         Romain François, Iñaki Ucar and Dirk Eddelbuettel
 //
 // This file is part of Rcpp.
 //
@@ -48,7 +48,8 @@ public:
         }
 
         void set(SEXP x) {
-            Rf_namesgets(parent, Shield<SEXP>(x));
+            if (!Rf_isNull(x))
+               Rf_namesgets(parent, Shield<SEXP>(x));
         }
 
     } ;
