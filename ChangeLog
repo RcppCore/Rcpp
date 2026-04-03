@@ -1,3 +1,7 @@
+2026-04-03  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/proxy/NamesProxy.h (set): Only set non-null values
+
 2026-04-01  Mattias Ellert  <mattias.ellert@physics.uu.se>
 
 	* inst/discovery/cxx0x.R: Set execute permissions for script
