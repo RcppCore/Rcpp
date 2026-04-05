@@ -1,7 +1,8 @@
 
 // Function.h: Rcpp R/C++ interface class library -- functions (also primitives and builtins)
 //
-// Copyright (C) 2010 - 2026  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2025  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2026         Dirk Eddelbuettel, Romain François and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -71,12 +72,13 @@ namespace Rcpp{
         Function_Impl(const std::string& name, const std::string& ns) {
 #if R_VERSION < R_Version(4,5,0)
             Shield<SEXP> env(Rf_findVarInFrame(R_NamespaceRegistry, Rf_install(ns.c_str())));
-#else
-            Shield<SEXP> env(R_getVarEx(Rf_install(ns.c_str()), R_NamespaceRegistry, FALSE, R_UnboundValue));
-#endif
-            if (env == R_UnboundValue) {
+            if (env == R_UnboundValue)
                 stop("there is no namespace called \"%s\"", ns);
-            }
+#else
+            Shield<SEXP> env(R_getVarEx(Rf_install(ns.c_str()), R_NamespaceRegistry, FALSE, R_NilValue));
+            if (env == R_NilValue)
+                stop("there is no namespace called \"%s\"", ns);
+#endif
             get_function(name, env);
         }
 

@@ -9,6 +9,14 @@
 	* inst/examples/OpenMP/OpenMPandInline.r: Idem
 	* inst/tinytest/test_dispatch.R: Idem
 
+2026-03-29  Iñaki Ucar <iucar@fedoraproject.org>
+
+	* inst/include/Rcpp/api/meat/Rcpp_eval.h: Remove check for non-API
+	R_UnboundValue, which is never returned anyway from Rf_findFun
+	* inst/include/Rcpp/Function.h: Use alternative to R_UnboundValue
+	* inst/include/Rcpp/Promise.h: Idem
+	* inst/include/Rcpp/Environment.h: Idem + some refactoring
+
 2026-03-26  Iñaki Ucar <iucar@fedoraproject.org>
 
 	* inst/include/Rcpp/internal/r_vector.h: Use dataptr() again to avoid an
