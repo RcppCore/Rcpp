@@ -49,7 +49,8 @@ public:
 
         void set(SEXP x) {
             if (!Rf_isNull(x))
-               Rf_namesgets(parent, Shield<SEXP>(x));
+               Rf_namesgets(parent, x);
+            else Rf_setAttrib(parent, R_NamesSymbol, x);
         }
 
     } ;
