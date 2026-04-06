@@ -118,7 +118,10 @@ expect_equal( fun(), 0:3, info = "assign(int*, int*)" )
 
 #    test.IntegerVector.names.set <- function(){
 fun <- integer_names_set
-expect_equal(names(fun()), c("foo", "bar"), info = "Vector::names" )
+x <- 1:2
+expect_equal(names(fun(x, c("foo", "bar"))), c("foo", "bar"), info = "Vector::names set" )
+expect_equal(names(fun(x, "foo")), c("foo", NA), info = "Vector::names set shorter" )
+expect_equal(names(fun(x, NULL)), NULL, info = "Vector::names unset" )
 
 #    test.IntegerVector.names.get <- function(){
 fun <- integer_names_get

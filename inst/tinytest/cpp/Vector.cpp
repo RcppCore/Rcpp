@@ -171,11 +171,7 @@ IntegerVector integer_range_ctor_2(){
 }
 
 // [[Rcpp::export]]
-IntegerVector integer_names_set(){
-    IntegerVector y(2) ;
-    std::vector<std::string> names(2)  ;
-    names[0] = "foo" ;
-    names[1] = "bar" ;
+IntegerVector integer_names_set(IntegerVector y, SEXP names) {
     y.names() = names ;
     return y ;
 }
