@@ -71,11 +71,19 @@ namespace Rcpp{
 
         Function_Impl(const std::string& name, const std::string& ns) {
 #if R_VERSION < R_Version(4,5,0)
+            // before R 4.5.0 we would use Rf_findVarInFrame
             Shield<SEXP> env(Rf_findVarInFrame(R_NamespaceRegistry, Rf_install(ns.c_str())));
             if (env == R_UnboundValue)
                 stop("there is no namespace called \"%s\"", ns);
-#else
+#elif R_VERSION < R_Version(4,6,0) || R_SVN_REVISION < 89746
+            // during R 4.5.* and before final R 4.6.0 we could use R_getVarEx
+            // along with R_NamespaceRegistry but avoid R_UnboundValue
             Shield<SEXP> env(R_getVarEx(Rf_install(ns.c_str()), R_NamespaceRegistry, FALSE, R_NilValue));
+            if (env == R_NilValue)
+                stop("there is no namespace called \"%s\"", ns);
+#else
+            // late R 4.6.0 development got us R_getRegisteredNamespace
+            Shield<SEXP> env(R_getRegisteredNamespace(ns.c_str()));
             if (env == R_NilValue)
                 stop("there is no namespace called \"%s\"", ns);
 #endif

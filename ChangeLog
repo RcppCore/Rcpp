@@ -1,3 +1,8 @@
+2026-04-02  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/Function.h: Further refinement for 4.6.0 to not
+	require R_NamespaceRegistry, using R_getRegisteredNamespace() instead
+
 2026-04-01  Mattias Ellert  <mattias.ellert@physics.uu.se>
 
 	* inst/discovery/cxx0x.R: Set execute permissions for script
