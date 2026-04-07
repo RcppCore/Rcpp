@@ -1,3 +1,9 @@
+2026-04-07  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date (twice)
+	* inst/include/Rcpp/config.h: Idem
+	* inst/NEWS.Rd: Stress interim status
+
 2026-04-02  Dirk Eddelbuettel  <edd@debian.org>
 
 	* inst/include/Rcpp/Function.h: Further refinement for 4.6.0 to not
