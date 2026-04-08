@@ -1,6 +1,10 @@
 2026-04-09  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
+2026-04-08  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/Nullable.h (as): Enhance by adding an explicit
+	Rcpp::as<T>() aiding cases where implicit as<> does not suffice
 
 2026-04-07  Dirk Eddelbuettel  <edd@debian.org>
 

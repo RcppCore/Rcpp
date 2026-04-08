@@ -126,7 +126,7 @@ namespace Rcpp {
         /**
          * Returns m_sexp as a T
          */
-        inline T as() { return get(); }
+        inline T as() { return Rcpp::as<T>(get()); }
 
         /**
          * Return a clone of m_sexp as a T
