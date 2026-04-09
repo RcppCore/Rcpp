@@ -217,6 +217,7 @@ SEXP testNullableIsUsable(const Nullable<NumericMatrix>& M) {
     }
 }
 
+#if R_VERSION > R_Version(4,3,0)
 // [[Rcpp::export]]
 String testNullableString(Rcpp::Nullable<Rcpp::String> param = R_NilValue) {
   if (param.isNotNull())
@@ -224,6 +225,7 @@ String testNullableString(Rcpp::Nullable<Rcpp::String> param = R_NilValue) {
   else
     return String("");
 }
+#endif
 
 // [[Rcpp::export]]
 void messageWrapper(SEXP s) {
