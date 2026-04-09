@@ -82,6 +82,16 @@ namespace Rcpp {
         }
 
         /**
+         * operator T() to return nullable object
+         *
+         * @throw 'not initialized' if object has not been set
+         */
+        inline operator T() const {
+            checkIfSet();
+            return Rcpp::as<T>(m_sexp);
+        }
+
+        /**
          * get() accessor for object
          *
          * @throw 'not initialized' if object has not been set
