@@ -81,6 +81,7 @@ namespace Rcpp {
             return m_sexp;
         }
 
+#if R_VERSION > R_Version(4,3,0)
         /**
          * operator T() to return nullable object
          *
@@ -90,6 +91,7 @@ namespace Rcpp {
             checkIfSet();
             return Rcpp::as<T>(m_sexp);
         }
+#endif
 
         /**
          * get() accessor for object

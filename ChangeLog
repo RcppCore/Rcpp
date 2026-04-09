@@ -2,6 +2,7 @@
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
 	* inst/include/Rcpp/Nullable.h (T): Also add 'operator T()'
+	(conditional on R (>= 4.3.0) as older versions croak)
 
 2026-04-08  Dirk Eddelbuettel  <edd@debian.org>
 

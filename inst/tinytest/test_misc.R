@@ -169,10 +169,8 @@ expect_equal( testNullableIsUsable(M), M)
 expect_true(is.null(testNullableIsUsable(NULL)))
 
 ##    test.NullableString <- function() {
-if (getRversion() > "4.3.0") {
-    expect_equal(testNullableString(), "")
-    expect_equal(testNullableString("blah"), "blah")
-}
+expect_equal(testNullableString(), "")
+expect_equal(testNullableString("blah"), "blah")
 
 #    test.bib <- function() {
 expect_true(nchar(Rcpp:::bib()) > 0, info="bib file")
