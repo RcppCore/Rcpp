@@ -81,7 +81,7 @@ namespace Rcpp {
             return m_sexp;
         }
 
-#if R_VERSION > R_Version(4,3,0)
+#if R_VERSION > R_Version(4,3,0) && defined(RCPP_ENABLE_NULLABLE_T)
         /**
          * operator T() to return nullable object
          *

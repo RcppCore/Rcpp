@@ -1,3 +1,8 @@
+2026-04-12  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/Nullable.h (Nullable): 'operator T()' is now
+	behind an opt-in #define
+
 2026-04-09  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
