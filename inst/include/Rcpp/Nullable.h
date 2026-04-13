@@ -81,6 +81,18 @@ namespace Rcpp {
             return m_sexp;
         }
 
+#if R_VERSION > R_Version(4,3,0) && defined(RCPP_ENABLE_NULLABLE_T)
+        /**
+         * operator T() to return nullable object
+         *
+         * @throw 'not initialized' if object has not been set
+         */
+        inline operator T() const {
+            checkIfSet();
+            return Rcpp::as<T>(m_sexp);
+        }
+#endif
+
         /**
          * get() accessor for object
          *
@@ -126,7 +138,7 @@ namespace Rcpp {
         /**
          * Returns m_sexp as a T
          */
-        inline T as() { return get(); }
+        inline T as() { return Rcpp::as<T>(get()); }
 
         /**
          * Return a clone of m_sexp as a T

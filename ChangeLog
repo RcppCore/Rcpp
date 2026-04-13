@@ -1,6 +1,18 @@
+2026-04-12  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/Nullable.h (Nullable): 'operator T()' is now
+	behind an opt-in #define
+
 2026-04-09  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
+	* inst/include/Rcpp/Nullable.h (T): Also add 'operator T()'
+	(conditional on R (>= 4.3.0) as older versions croak)
+
+2026-04-08  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/include/Rcpp/Nullable.h (as): Enhance by adding an explicit
+	Rcpp::as<T>() aiding cases where implicit as<> does not suffice
 
 2026-04-07  Dirk Eddelbuettel  <edd@debian.org>
 

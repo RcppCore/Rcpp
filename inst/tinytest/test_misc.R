@@ -168,7 +168,7 @@ expect_equal( testNullableIsUsable(M), M)
 #    test.NullableIsUsableFalse <- function() {
 expect_true(is.null(testNullableIsUsable(NULL)))
 
-#    test.NullableString <- function() {
+##    test.NullableString <- function() {
 expect_equal(testNullableString(), "")
 expect_equal(testNullableString("blah"), "blah")
 
