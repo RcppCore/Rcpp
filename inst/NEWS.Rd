@@ -25,6 +25,12 @@
       (Dirk in \ghpr{1460} fixing \ghit{1459})
       \item Change to returning \code{dataptr} again for better handling of
       empty vectors (Iñaki in \ghpr{1462} fixing \ghit{1461})
+      \item Undefined behavior errors in use of \code{ListOf} proxies have
+      been addressed (Iñaki in \ghpr{1464} fixing \ghit{1463})
+      \item Under newer R version, \code{R_UnboundValue} is no longer used
+      (Iñaki in \ghpr{1466} fixing \ghit{1465})
+      \item New R API access point \code{R_getRegisteredNamespace()} is used
+      with current R versions (Dirk in \ghpr{1469} fixing \ghit{1468})
     }
     \item Changes in Rcpp Documentation:
     \itemize{
