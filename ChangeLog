@@ -1,3 +1,14 @@
+2026-04-02  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Date, Version): Hotfix non-release 1.1.1-1
+
+	* Rcpp/inst/include/Rcpp/api/meat/Rcpp_eval.h: Changes from PR 1466
+	that address the sudden disappearance of R_UnboundValue
+	* Rcpp/inst/include/Rcpp/Environment.h: Idem, also carried over one
+	change from PR 1460
+	* Rcpp/inst/include/Rcpp/Function.h: Idem, also R_getRegisteredNamespace
+	* Rcpp/inst/include/Rcpp/Function.h: Idem
+
 2026-01-08  Dirk Eddelbuettel  <edd@debian.org>
 
         * DESCRIPTION (Date, Version): Release 1.1.1
@@ -9,7 +20,7 @@
 
 	* vignettes/pdf/*: Rebuilt
 
-	* vignettes/rmd/Rcpp.bib: Updates to several URLs
+	* vignettes/rmd/Rcpp.bib: Update to several URLs
 	* inst/bib/Rcpp.bib: Idem
 	* vignettes/rmd/*: Idem
 	* README.md: Idem

@@ -69,14 +69,15 @@ namespace Rcpp{
         }
 
         Function_Impl(const std::string& name, const std::string& ns) {
-#if R_VERSION < R_Version(4,5,0)
+#if R_VERSION < R_Version(4,6,0)
             Shield<SEXP> env(Rf_findVarInFrame(R_NamespaceRegistry, Rf_install(ns.c_str())));
-#else
-            Shield<SEXP> env(R_getVarEx(Rf_install(ns.c_str()), R_NamespaceRegistry, FALSE, R_UnboundValue));
-#endif
-            if (env == R_UnboundValue) {
+            if (env == R_UnboundValue)
                 stop("there is no namespace called \"%s\"", ns);
-            }
+#else
+            Shield<SEXP> env(R_getRegisteredNamespace(ns.c_str()));
+            if (env == R_NilValue)
+                stop("there is no namespace called \"%s\"", ns);
+#endif
             get_function(name, env);
         }
 

@@ -3,6 +3,15 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
+\section{Changes in Rcpp non-release version 1.1.1-1 (2026-04-02)}{
+  \itemize{
+    \item Please see pr \ghpr{1466} addressing \ghit{1465} for context (plus
+    change from \ghpr{1460} closing \ghit{1459}, and R_getRegisteredNamespace)
+    \item This is an unplanned, unscheduled and uncalled for non-release
+    made solely to unplug CRAN from late-breaking changes in R 4.6.0
+  }
+}
+
 \section{Changes in Rcpp release version 1.1.1 (2026-01-08)}{
   \itemize{
     \item Changes in Rcpp API:

@@ -14,7 +14,8 @@ if (requireNamespace("tinytest", quietly=TRUE)) {
 
     ## Force tests to be executed if in dev release which we define as
     ## having a sub-release, eg 0.9.15.5 is one whereas 0.9.16 is not
-    if (length(strsplit(format(packageVersion("Rcpp")), "\\.")[[1]]) > 3) {	# dev rel, and
+    if (length(strsplit(format(packageVersion("Rcpp")), "\\.")[[1]]) > 3 &&   # dev rel, and
+        isFALSE(grepl("-", packageDescription("Rcpp", field="Version")))) {   # not hotfix
         if (Sys.getenv("RunAllRcppTests") != "no") { 			# if env.var not yet set
             message("Setting \"RunAllRcppTests\"=\"yes\" for development release")
             Sys.setenv("RunAllRcppTests"="yes")

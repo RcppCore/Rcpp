@@ -48,13 +48,18 @@ namespace Rcpp{
          * Return the result of the PRVALUE macro on the promise
          */
         SEXP value() const{
-            SEXP val = PRVALUE( Storage::get__() ) ;
-            if( val == R_UnboundValue ) throw unevaluated_promise() ;
-            return val ;
+            if (!was_evaluated()) throw unevaluated_promise();
+            return PRVALUE(Storage::get__());
         }
 
         bool was_evaluated() const {
+#if R_VERSION < R_Version(4,6,0)
             return PRVALUE(Storage::get__()) != R_UnboundValue ;
+#else
+            SEXP env = environment();
+            R_BindingType_t bt = R_GetBindingType(Storage::get__(), env);
+            return bt != R_BindingTypeUnbound;
+#endif
         }
 
         /**

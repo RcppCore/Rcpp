@@ -1,7 +1,7 @@
 Package: Rcpp
 Title: Seamless R and C++ Integration
-Version: 1.1.1
-Date: 2026-01-07
+Version: 1.1.1-1
+Date: 2026-04-02
 Authors@R: c(person("Dirk", "Eddelbuettel", role = c("aut", "cre"), email = "edd@debian.org",
                     comment = c(ORCID = "0000-0001-6419-907X")),
              person("Romain", "Francois", role = "aut",
@@ -33,6 +33,19 @@ Suggests: tinytest, inline, rbenchmark, pkgKitten (>= 0.1.2)
 URL: https://www.rcpp.org, https://dirk.eddelbuettel.com/code/rcpp.html, https://github.com/RcppCore/Rcpp
 License: GPL (>= 2)
 BugReports: https://github.com/RcppCore/Rcpp/issues
+MailingList: rcpp-devel@lists.r-forge.r-project.org
 RoxygenNote: 6.1.1
 Encoding: UTF-8
 VignetteBuilder: Rcpp
+NeedsCompilation: yes
+Packaged: 2026-04-02 12:55:00 UTC; edd
+Author: Dirk Eddelbuettel [aut, cre] (ORCID: <https://orcid.org/0000-0001-6419-907X>),
+  Romain Francois [aut] (ORCID: <https://orcid.org/0000-0002-2444-4226>),
+  JJ Allaire [aut] (ORCID: <https://orcid.org/0000-0003-0174-9868>),
+  Kevin Ushey [aut] (ORCID: <https://orcid.org/0000-0003-2880-7407>),
+  Qiang Kou [aut] (ORCID: <https://orcid.org/0000-0001-6786-5453>),
+  Nathan Russell [aut],
+  Iñaki Ucar [aut] (ORCID: <https://orcid.org/0000-0001-6403-5550>),
+  Doug Bates [aut] (ORCID: <https://orcid.org/0000-0001-8316-9503>),
+  John Chambers [aut]
+Maintainer: Dirk Eddelbuettel <edd@debian.org>
