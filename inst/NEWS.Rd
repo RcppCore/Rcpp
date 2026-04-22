@@ -3,9 +3,8 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp release version 1.1.1.7 (2026-04-07)}{
+\section{Changes in Rcpp release version 1.1.1.9 (2026-04-13)}{
   \itemize{
-    \item UNOFFICIAL AND UNRELEASED
     \item Interim release candidate for Rcpp 1.1.2 expected July 2026
     \item Changes in Rcpp API:
     \itemize{
@@ -31,6 +30,8 @@
       (Iñaki in \ghpr{1466} fixing \ghit{1465})
       \item New R API access point \code{R_getRegisteredNamespace()} is used
       with current R versions (Dirk in \ghpr{1469} fixing \ghit{1468})
+      \item The \code{Nullable::as()} exporter now uses an explicit cast to
+      the templated type (Dirk in \ghpr{1471} fixing \ghit{1470})
     }
     \item Changes in Rcpp Documentation:
     \itemize{
@@ -41,6 +42,12 @@
     \itemize{
       \item Excute permissions are set consistently on scripts with shebangs
       (Mattias Ellert in \ghpr{1467})
+    }
+    \item Non-release Changes:
+    \itemize{
+      \item A non-release hotfix 1.1.1-1 used by CRAN accommodates breaking
+      changes to the API in R 4.6.0. It would be nice to have the same level
+      of release management in R itself that CRAN expects from us.
     }
   }
 }
