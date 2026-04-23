@@ -1,3 +1,9 @@
+2026-04-23  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/rmd/Rcpp.bib: Update one arXiv URL
+	* inst/bib/Rcpp.bib: Idem
+	* vignettes/Rcpp-libraries.pdf: Regenerated
+
 2026-04-13  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
