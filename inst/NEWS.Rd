@@ -32,6 +32,11 @@
       with current R versions (Dirk in \ghpr{1469} fixing \ghit{1468})
       \item The \code{Nullable::as()} exporter now uses an explicit cast to
       the templated type (Dirk in \ghpr{1471} fixing \ghit{1470})
+      \item A memory leak in the variadic \code{Rcpp::warning()} template
+      has been fixed by copying the formatted message into a stack buffer
+      before \code{Rf_warning()} is invoked, so the \code{std::string}
+      destructor runs even when an R warning handler triggers a
+      \code{longjmp} (Kevin fixing \ghit{1474})
     }
     \item Changes in Rcpp Documentation:
     \itemize{
