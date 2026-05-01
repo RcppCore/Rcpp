@@ -1,3 +1,14 @@
+2026-05-01  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+	* inst/include/Rcpp/config.h: Idem
+
+2026-04-29  Kevin Ushey <kevinushey@gmail.com>
+
+	* inst/include/Rcpp/exceptions.h: Use stack buffer for warning
+	message to avoid string memory leakage in case of longjump
+	* inst/tinytest/test_dataframe.R: New test
+
 2026-04-23  Dirk Eddelbuettel  <edd@debian.org>
 
 	* vignettes/rmd/Rcpp.bib: Update one arXiv URL
@@ -320,7 +331,7 @@
 	* man/Rcpp-deprecated.Rd: Idem
 	* vignettes/rmd/Rcpp-modules.Rmd: Idem
 
-2025-12-01  Kevin Ushey <kevinushey@gmail.com>
+2025-12-01  Kevin Ushey  <kevinushey@gmail.com>
 
 	* R/Attributes.R: Update OpenMP plugin for macOS
 

@@ -3,7 +3,7 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp release version 1.1.1.9 (2026-04-13)}{
+\section{Changes in Rcpp release version 1.1.1.10 (2026-05-01)}{
   \itemize{
     \item Interim release candidate for Rcpp 1.1.2 expected July 2026
     \item Changes in Rcpp API:
@@ -33,10 +33,7 @@
       \item The \code{Nullable::as()} exporter now uses an explicit cast to
       the templated type (Dirk in \ghpr{1471} fixing \ghit{1470})
       \item A memory leak in the variadic \code{Rcpp::warning()} template
-      has been fixed by copying the formatted message into a stack buffer
-      before \code{Rf_warning()} is invoked, so the \code{std::string}
-      destructor runs even when an R warning handler triggers a
-      \code{longjmp} (Kevin fixing \ghit{1474})
+      has been fixed (Kevin in \ghpr{1475} fixing \ghit{1474})
     }
     \item Changes in Rcpp Documentation:
     \itemize{
