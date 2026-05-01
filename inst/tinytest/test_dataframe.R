@@ -117,3 +117,13 @@ expect_warning( DataFrame_PushZeroLength())
 ## issue #1232: push on empty data.frame
 df <- DataFrame_PushOnEmpty()
 expect_equal(ncol(df), 3L)
+
+## issue #1474: warning thrown from DataFrame::push_back used to leak the
+## formatted std::string when a tryCatch handler longjmp-ed past its dtor.
+## Loop a few iterations so valgrind makes any regression obvious.
+got_warning <- FALSE
+for (i in 1:5) {
+    tryCatch(DataFrame_PushWrongSize(),
+             warning = function(w) { got_warning <<- TRUE })
+}
+expect_true(got_warning)

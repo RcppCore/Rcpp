@@ -24,6 +24,7 @@
 #define Rcpp__exceptions__h
 
 #include <Rversion.h>
+#include <cstdio>
 
 #ifndef RCPP_DEFAULT_INCLUDE_CALL
 #define RCPP_DEFAULT_INCLUDE_CALL true
@@ -186,7 +187,17 @@ struct LongjumpException {
 
     template <typename... Args>
     inline void warning(const char* fmt, Args&&... args ) {
-        Rf_warning("%s", tfm::format(fmt, std::forward<Args>(args)... ).c_str());
+        // Rf_warning() may longjmp out of this frame (e.g. when the caller
+        // installs a warning handler via tryCatch(warning=...)). A longjmp
+        // skips C++ destructors, so the std::string returned by tfm::format()
+        // would leak its heap buffer. Copy into a stack buffer and let the
+        // std::string be destroyed before Rf_warning() is invoked.
+        char buf[8192];
+        {
+            const std::string msg = tfm::format(fmt, std::forward<Args>(args)...);
+            std::snprintf(buf, sizeof(buf), "%s", msg.c_str());
+        }
+        Rf_warning("%s", buf);
     }                                                           // #nocov end
 
     template <typename... Args>
