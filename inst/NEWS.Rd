@@ -34,6 +34,8 @@
       the templated type (Dirk in \ghpr{1471} fixing \ghit{1470})
       \item A memory leak in the variadic \code{Rcpp::warning()} template
       has been fixed (Kevin in \ghpr{1475} fixing \ghit{1474})
+      \item The \code{Nullable::operatorT()} has been added as a 'opt-out'
+      (Dirk in \ghpr{1477} with coordination in \ghit{1472})
     }
     \item Changes in Rcpp Documentation:
     \itemize{
@@ -44,6 +46,7 @@
     \itemize{
       \item Excute permissions are set consistently on scripts with shebangs
       (Mattias Ellert in \ghpr{1467})
+      \item R 4.5.* has been added to the CI matrix (Dirk in \ghpr{1476})
     }
     \item Non-release Changes:
     \itemize{
