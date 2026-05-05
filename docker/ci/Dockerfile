@@ -18,8 +18,8 @@ RUN apt-get update \
                 git \
         && install.r rbenchmark
 
-ENV _R_CHECK_FORCE_SUGGESTS_ FALSE
-ENV _R_CHECK_TESTS_NLINES_ 0
-ENV RunAllRcppTests yes
+ENV _R_CHECK_FORCE_SUGGESTS_=FALSE
+ENV _R_CHECK_TESTS_NLINES_=0
+ENV RunAllRcppTests=yes
 
 CMD ["bash"]
