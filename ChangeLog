@@ -1,3 +1,8 @@
+2026-05-05  Dirk Eddelbuettel  <edd@debian.org>
+
+	* docker/ci-4.5/Dockerfile: Added based on r-base:4.5.3
+	* .github/workflows/ci.yaml (jobs): Add rcpp/ci-4.5 to matrix
+
 2026-05-01  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
