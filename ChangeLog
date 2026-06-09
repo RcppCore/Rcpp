@@ -1,3 +1,11 @@
+2026-06-09  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .github/workflows/ci.yaml: Update actions to current versions
+	* .github/workflows/docker.yaml: Idem
+	* .github/workflows/macos.yaml: Idem
+	* .github/workflows/stale.yaml: Idem
+	* .github/workflows/linuxarm.yaml: Idem
+
 2026-06-08  Dirk Eddelbuettel  <edd@debian.org>
 
 	* R/RcppLdpath.R: Prefix three messages with 'Rcpp:::' to make it
