@@ -54,7 +54,7 @@ jobs:
             r: RD
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: SessionInfo
         run: ${{ matrix.r }} -q -e 'sessionInfo()'
@@ -69,7 +69,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Project
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Setup
         uses: eddelbuettel/github-actions/r-ci@master
