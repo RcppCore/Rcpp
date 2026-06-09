@@ -1,3 +1,8 @@
+2026-06-08  Dirk Eddelbuettel  <edd@debian.org>
+
+	* R/RcppLdpath.R: Prefix three messages with 'Rcpp:::' to make it
+	more obvious where they originate from
+
 2026-05-05  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
