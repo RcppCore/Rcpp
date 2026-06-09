@@ -3,7 +3,7 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp release version 1.1.1.10 (2026-05-01)}{
+\section{Changes in Rcpp release version 1.1.1.12 (2026-06-09)}{
   \itemize{
     \item Interim release candidate for Rcpp 1.1.2 expected July 2026
     \item Changes in Rcpp API:
@@ -47,6 +47,10 @@
       \item Excute permissions are set consistently on scripts with shebangs
       (Mattias Ellert in \ghpr{1467})
       \item R 4.5.* has been added to the CI matrix (Dirk in \ghpr{1476})
+      \item Three nag messages issued when obsolete build flag accessors are
+      used now show \code{Rcpp:::} (Dirk in \ghpr{1480} fixing \ghit{1456})
+      \item Reference GitHub Actions have been updated to their current
+      versions (Dirk in \ghpr{1481})
     }
     \item Non-release Changes:
     \itemize{
