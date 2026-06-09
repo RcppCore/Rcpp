@@ -69,13 +69,13 @@ RcppCxxFlags <- function(cxx0x=FALSE) {
 CxxFlags <- function(cxx0x=FALSE) {				# #nocov start
     #.Deprecated(msg=paste("This function is now deprecated as R uses minimally",
     #                      "viable compilers om all platforme."))
-    message("'CxxFlags' has not been needed since 2013 (!!) and may get removed in 2027. Please update your 'Makevars'.")
+    message("'Rcpp:::CxxFlags' has not been needed since 2013 (!!) and may get removed in 2027. Please update your 'Makevars'.")
     cat(RcppCxxFlags(cxx0x=cxx0x))				# #nocov end
 }
 
 ## LdFlags defaults to static linking on the non-Linux platforms Windows and OS X
 LdFlags <- function() {
-    message("'LdFlags' has not been needed since 2013 (!!) and may get removed in 2027. Please update your 'Makevars'.")
+    message("'Rcpp:::LdFlags' has not been needed since 2013 (!!) and may get removed in 2027. Please update your 'Makevars'.")
     cat(RcppLdFlags())
 }
 
@@ -94,6 +94,6 @@ RcppCxx0xFlags <- function() {								# #nocov start
 }
 
 Cxx0xFlags <- function() {
-    message("'Cxx0xFlags' has not been needed since 2013 (!!) and may get removed in 2027. Please update your 'Makevars'.")
+    message("'Rcpp:::Cxx0xFlags' has not been needed since 2013 (!!) and may get removed in 2027. Please update your 'Makevars'.")
     cat(RcppCxx0xFlags())									# #nocov end
 }
