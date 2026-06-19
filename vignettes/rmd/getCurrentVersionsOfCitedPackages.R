@@ -14,4 +14,5 @@ pkg <- data.table(Package=pkgs)
 
 db <- data.table(tools::CRAN_package_db())
 
-print(db[pkg, on="Package"][, .(Package, Version, Date, Title)])
+#print(db[pkg, on="Package"][, .(Package, Version, Date, Title)])
+print(db[pkg, on="Package"][, .(Package, Version, `Date/Publication`, Title)][order(`Date/Publication`)])
