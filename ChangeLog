@@ -1,3 +1,8 @@
+2026-06-23  Jeroen Ooms  <jeroenooms@gmail.com>
+
+	* Add templated integer-index overload on platforms without
+	LONG_VECTOR_SUPPORT such as wasm32 (PR #1482)
+
 2026-06-18  Dirk Eddelbuettel  <edd@debian.org>
 
 	* vignettes/rmd/Rcpp.bib: Updated references

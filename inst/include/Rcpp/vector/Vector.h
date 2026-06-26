@@ -21,6 +21,7 @@
 #define Rcpp__vector__Vector_h
 
 #include <Rcpp/vector/Subsetter.h>
+#include <type_traits>
 
 namespace Rcpp{
 
@@ -337,6 +338,20 @@ public:
 
     inline Proxy operator[]( R_xlen_t i ){ return cache.ref(i) ; }
     inline const_Proxy operator[]( R_xlen_t i ) const { return cache.ref(i) ; }
+#ifndef LONG_VECTOR_SUPPORT
+    // On platforms without long vector support (notably wasm32) R_xlen_t is
+    // int while ptrdiff_t is long, so subscripting with any wider integer
+    // type would otherwise be ambiguous with the built-in pointer subscript
+    // synthesised via the implicit Vector -> SEXP conversion. The template
+    // overloads below provide an exact-match member candidate for every
+    // integer index type other than R_xlen_t itself.
+    template <typename T>
+    inline typename std::enable_if<std::is_integral<T>::value && !std::is_same<T, R_xlen_t>::value, Proxy>::type
+    operator[]( T i ){ return cache.ref(static_cast<R_xlen_t>(i)) ; }
+    template <typename T>
+    inline typename std::enable_if<std::is_integral<T>::value && !std::is_same<T, R_xlen_t>::value, const_Proxy>::type
+    operator[]( T i ) const { return cache.ref(static_cast<R_xlen_t>(i)) ; }
+#endif
 
     inline Proxy operator()( const size_t& i) {
         return cache.ref( offset(i) ) ;
