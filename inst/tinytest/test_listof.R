@@ -72,3 +72,15 @@ expect_equal(listof_names(l), c("a", "b", "c"))
 l <- list(a = 1L)
 attr(l, "foo") <- "bar"
 expect_equal(listof_attr_foo(l), "bar")
+
+#    test.ListOf.has.attribute <- function() {     # GH issue #1483
+l <- list(a = 1L)
+attr(l, "foo") <- "bar"
+expect_true(listof_has_attr(l, "foo"))
+expect_true(listof_has_attr(l, "names"))
+expect_false(listof_has_attr(l, "missing"))
+
+#    test.ListOf.attribute.names <- function() {   # GH issue #1483
+l <- list(a = 1L)
+attr(l, "foo") <- "bar"
+expect_true(all(c("names", "foo") %in% listof_attribute_names(l)))

@@ -113,3 +113,13 @@ CharacterVector listof_names(ListOf<NumericVector> x) {
 SEXP listof_attr_foo(ListOf<NumericVector> x) {
     return x.attr("foo");
 }
+
+// [[Rcpp::export]]
+bool listof_has_attr(ListOf<NumericVector> x, std::string name) {
+    return x.hasAttribute(name);
+}
+
+// [[Rcpp::export]]
+std::vector<std::string> listof_attribute_names(ListOf<NumericVector> x) {
+    return x.attributeNames();
+}
