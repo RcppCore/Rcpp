@@ -1,5 +1,12 @@
 2026-06-28  David Seifert  <soap@gentoo.org>
 
+	* inst/include/Rcpp/date_datetime/newDateVector.h: Explicitly default the
+	copy constructor (the class has a user-provided copy assignment operator)
+	to silence -Wdeprecated-copy-with-user-provided-copy under -Wextra
+	* inst/include/Rcpp/date_datetime/newDatetimeVector.h: Idem
+
+2026-06-28  David Seifert  <soap@gentoo.org>
+
 	* inst/include/Rcpp/Module.h: Anonymize unused function parameters to
 	silence -Wunused-parameter (part of -Wextra)
 	* inst/include/Rcpp/Promise.h: Idem

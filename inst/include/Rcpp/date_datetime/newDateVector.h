@@ -48,6 +48,8 @@ namespace Rcpp {
             return v;
         }
 
+        newDateVector(const newDateVector&) = default;
+
         inline newDateVector &operator=(const newDateVector &rhs) {
             if (this != &rhs) {
                 NumericVector::operator=(rhs);
