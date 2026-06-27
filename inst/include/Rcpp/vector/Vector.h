@@ -529,7 +529,7 @@ public:
     }
 
     template <typename U>
-    static void replace_element__dispatch( traits::false_type, iterator it, SEXP names, R_xlen_t index, const U& u){
+    static void replace_element__dispatch( traits::false_type, iterator it, SEXP /*names*/, R_xlen_t /*index*/, const U& u){
         *it = converter_type::get(u);
     }
 

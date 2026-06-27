@@ -147,7 +147,7 @@ private:
 #endif
     }
 
-    void get_indices( traits::identity< traits::int2type<INTSXP> > t ) {
+    void get_indices( traits::identity< traits::int2type<INTSXP> > /*t*/ ) {
         indices.reserve(rhs_n);
         int* ptr = INTEGER(rhs); // ok to use int * here, we'll catch any problems inside check_indices
         check_indices(ptr, rhs_n, lhs_n);
@@ -157,7 +157,7 @@ private:
         indices_n = rhs_n;
     }
 
-    void get_indices( traits::identity< traits::int2type<REALSXP> > t ) {
+    void get_indices( traits::identity< traits::int2type<REALSXP> > /*t*/ ) {
         indices.reserve(rhs_n);
         std::vector<R_xlen_t> tmp(rhs.size()); // create temp R_xlen_t type indices from reals
         for(size_t i = 0 ; i < tmp.size() ; ++i) {
@@ -170,7 +170,7 @@ private:
         indices_n = rhs_n;
     }
 
-    void get_indices( traits::identity< traits::int2type<STRSXP> > t ) {
+    void get_indices( traits::identity< traits::int2type<STRSXP> > /*t*/ ) {
         indices.reserve(rhs_n);
         SEXP names = Rf_getAttrib(lhs, R_NamesSymbol);
         if (Rf_isNull(names)) stop("names is null");
@@ -185,7 +185,7 @@ private:
         indices_n = indices.size();
     }
 
-    void get_indices( traits::identity< traits::int2type<LGLSXP> > t ) {
+    void get_indices( traits::identity< traits::int2type<LGLSXP> > /*t*/ ) {
         indices.reserve(rhs_n);
         if (lhs_n != rhs_n) {
             stop("logical subsetting requires vectors of identical size");

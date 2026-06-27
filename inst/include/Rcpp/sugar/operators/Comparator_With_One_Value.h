@@ -54,7 +54,7 @@ private:
 	METHOD m ;
 	Operator op ;
 
-	inline int rhs_is_na(int i) const { return rhs ; }
+	inline int rhs_is_na(int /*i*/) const { return rhs ; }
 	inline int rhs_is_not_na(int i) const {
 		STORAGE x = lhs[i] ;
 		return Rcpp::traits::is_na<RTYPE>(x) ? NA_INTEGER : op( x, rhs ) ;
@@ -93,7 +93,7 @@ private:
 	METHOD m ;
 	Operator op ;
 
-	inline int rhs_is_na(int i) const { return rhs ; }
+	inline int rhs_is_na(int /*i*/) const { return rhs ; }
 	inline int rhs_is_not_na(int i) const {
 		return op( lhs[i], rhs ) ;
 	}

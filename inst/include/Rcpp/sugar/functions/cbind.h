@@ -151,11 +151,11 @@ public:
     
     inline R_xlen_t ncol() const { return 1; }
     
-    inline stored_type operator[](R_xlen_t i) const {
+    inline stored_type operator[](R_xlen_t /*i*/) const {
         return t;
     }
     
-    inline stored_type operator()(R_xlen_t i, R_xlen_t j) const {
+    inline stored_type operator()(R_xlen_t /*i*/, R_xlen_t /*j*/) const {
         return t;
     }
 };
@@ -443,7 +443,7 @@ inline typename Rcpp::traits::enable_if<
     has_stored_type<T>::value, 
     MakeBindableCall<T, true> 
 >::type 
-MakeBindable(const T& t) {
+MakeBindable(const T& /*t*/) {
     return MakeBindableCall<T, true>();
 }
 
@@ -452,7 +452,7 @@ inline typename Rcpp::traits::enable_if<
     !has_stored_type<T>::value, 
     MakeBindableCall<T, false> 
 >::type
-MakeBindable(const T& t) {
+MakeBindable(const T& /*t*/) {
     return MakeBindableCall<T, false>();
 }
 

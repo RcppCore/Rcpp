@@ -48,7 +48,7 @@ namespace Rcpp{
             Storage::set__(r_cast<LISTSXP>(x)) ;
         }
 
-        void update(SEXP x){}
+        void update(SEXP /*x*/){}
 
         inline operator SEXP() const{
             return CDR(Storage::get__() );

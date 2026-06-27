@@ -226,7 +226,7 @@ SEXP rcpp_can_use_cxx11() {
 }
 
 // [[Rcpp::register]]
-SEXP stack_trace(const char* file, int line) {
+SEXP stack_trace(const char* /*file*/, int /*line*/) {
     return R_NilValue;
 }                                                               // #nocov end
 

@@ -54,7 +54,7 @@ public:
 	prop_class(doc), ptr(ptr_), class_name(DEMANGLE(PROP)) {}
 
     SEXP get(Class* object) { return Rcpp::wrap( object->*ptr ) ; }
-    void set(Class* object, SEXP value) { throw std::range_error("read only data member") ; }
+    void set(Class* /*object*/, SEXP /*value*/) { throw std::range_error("read only data member") ; }
     bool is_readonly(){ return true ; }
     std::string get_class(){ return class_name; }
 
