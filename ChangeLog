@@ -1,3 +1,8 @@
+2026-06-29  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+	* inst/include/Rcpp/config.h: Idem
+
 2026-06-26  Kevin Ushey <kevinushey@gmail.com>
 
 	* inst/include/Rcpp/proxy/AttributeProxy.h: Do not rely on get__()
