@@ -36,6 +36,9 @@
       has been fixed (Kevin in \ghpr{1475} fixing \ghit{1474})
       \item The \code{Nullable::operatorT()} has been added as a 'opt-out'
       (Dirk in \ghpr{1477} with coordination in \ghit{1472})
+      \item The attribute accessors in \code{AttributeProxyPolicy} no longer
+      rely on \code{get__()} so that classes such as \code{ListOf} compile
+      (Kevin in \ghpr{1484} fixing \ghit{1483})
     }
     \item Changes in Rcpp Documentation:
     \itemize{

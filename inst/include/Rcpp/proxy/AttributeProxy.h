@@ -86,7 +86,7 @@ public:
             v.push_back(std::string(CHAR(STRING_ELT(attrs, i))));
         }
 #else
-        SEXP attrs = ATTRIB( static_cast<const CLASS&>(*this).get__());
+        SEXP attrs = ATTRIB( static_cast<const CLASS&>(*this) );
         while( attrs != R_NilValue ){
             v.push_back( std::string(CHAR(PRINTNAME(TAG(attrs)))) ) ;
             attrs = CDR( attrs ) ;
@@ -97,7 +97,7 @@ public:
 
     bool hasAttribute(const std::string& attr) const {
 #if R_VERSION >= R_Version(4, 6, 0)
-        return R_hasAttrib(static_cast<const CLASS&>(*this).get__(), Rf_install(attr.c_str()));
+        return R_hasAttrib(static_cast<const CLASS&>(*this), Rf_install(attr.c_str()));
 #else
         return static_cast<const CLASS&>(*this).attr(attr) != R_NilValue;
 #endif

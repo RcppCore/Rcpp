@@ -1,3 +1,10 @@
+2026-06-26  Kevin Ushey <kevinushey@gmail.com>
+
+	* inst/include/Rcpp/proxy/AttributeProxy.h: Do not rely on get__()
+	in attribute accessors so that classes such as ListOf compile
+	* inst/tinytest/cpp/ListOf.cpp: Added tests
+	* inst/tinytest/test_listof.R: Idem
+
 2026-06-23  Jeroen Ooms  <jeroenooms@gmail.com>
 
 	* Add templated integer-index overload on platforms without
