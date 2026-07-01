@@ -184,7 +184,8 @@ exhaustive as CRAN by now has \textsl{many} helpful packages:
   testing; \pkg{Rcpp} uses \pkg{tinytest} as it is lightweight and installs the
   tests along with the package by default but note that no testing package is
   \textsl{required}: all are optional;
-\item[\pkg{rbenchmark}, \pkg{microbenchmark}] to run simple timing
+\item[\pkg{rbenchmark} \citep{CRAN:rbenchmark}, \pkg{microbenchmark}]
+\citep{CRAN:microbenchmark} to run simple timing
   comparisons and benchmarks; they are also  recommended but not required.
 \end{description}
 
