@@ -3,9 +3,8 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp release version 1.1.1.12 (2026-06-09)}{
+\section{Changes in Rcpp release version 1.1.2 (2026-07-01)}{
   \itemize{
-    \item Interim release candidate for Rcpp 1.1.2 expected July 2026
     \item Changes in Rcpp API:
     \itemize{
       \item Use of \code{execinfo.h} is again conditional to avoid build

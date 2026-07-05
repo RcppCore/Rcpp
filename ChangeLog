@@ -1,3 +1,9 @@
+2026-07-01  Dirk Eddelbuettel  <edd@debian.org>
+
+	* inst/bib/Rcpp.bib: Small correction and reference update
+	* vignettes/rmd/Rcpp.bib: Idem
+	* vignettes/rmd/Rcpp-FAQ.Rmd: Quote rbenchmark package once
+
 2026-06-29  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
