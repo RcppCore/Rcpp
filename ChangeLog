@@ -1,4 +1,14 @@
+2026-07-13  Dirk Eddelbuettel  <edd@debian.org>
+
+	* README.md: Revert back to mentioning rcpp-devel as R-forge is back,
+	mention updated doxygen documentation
+
 2026-07-01  Dirk Eddelbuettel  <edd@debian.org>
+
+        * DESCRIPTION (Date, Version): Release 1.1.2
+
+        * inst/include/Rcpp/config.h: Idem
+        * inst/NEWS.Rd: Idem
 
 	* inst/bib/Rcpp.bib: Small correction and reference update
 	* vignettes/rmd/Rcpp.bib: Idem
