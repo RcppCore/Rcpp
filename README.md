@@ -13,6 +13,7 @@
 [![CRAN use](https://jangorecki.gitlab.io/rdeps/Rcpp/CRAN_usage.svg?sanitize=true)](https://cran.r-project.org/package=Rcpp)
 [![CRAN indirect](https://jangorecki.gitlab.io/rdeps/Rcpp/indirect_usage.svg?sanitize=true)](https://cran.r-project.org/package=Rcpp)
 [![BioConductor use](https://jangorecki.gitlab.io/rdeps/Rcpp/BioC_usage.svg?sanitize=true)](https://cran.r-project.org/package=Rcpp)
+[![Doxygen Documentation](https://img.shields.io/badge/document-doxygen-brightgreen)](https://dirk.eddelbuettel.com/code/rcpp/html/)
 [![JSS](https://img.shields.io/badge/JSS-10.18637%2Fjss.v040.i08-brightgreen)](https://doi.org/10.18637/jss.v040.i08)
 [![Springer useR!](https://img.shields.io/badge/Springer%20useR!-10.1007%2F978--1--4614--6868--4-brightgreen)](https://link.springer.com/book/10.1007/978-1-4614-6868-4)
 [![TAS](https://img.shields.io/badge/TAS-10.1080%2F00031305.2017.1375990-brightgreen)](https://doi.org/10.1080/00031305.2017.1375990)
