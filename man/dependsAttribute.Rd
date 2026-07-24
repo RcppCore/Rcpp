@@ -4,10 +4,16 @@
 \title{Rcpp::depends Attribute}
 
 \description{
-The \code{Rcpp::depends} attribute is added to a C++ source file to indicate that it has a compilation dependency on one or more other packages. For example:
+The \code{Rcpp::depends} attribute is added to a C++ source file to indicate
+that it has a compilation dependency on one or more other packages. For example:
 \preformatted{
 // [[Rcpp::depends(RcppArmadillo)]]
 }
+}
+
+\usage{
+# In C++ code:
+#   // [[Rcpp::depends(...)]]
 }
 
 \arguments{

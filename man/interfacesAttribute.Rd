@@ -10,6 +10,11 @@ The \code{Rcpp::interfaces} attribute is added to a C++ source file to specify w
 }
 }
 
+\usage{
+# In C++ code:
+#   // [[Rcpp::interfaces(...)]]
+}
+
 \arguments{
  \item{\dots}{
     Interfaces to generate for exported functions within the source file. Valid values are \code{r} and \code{cpp}, and more than one interface can be specified.

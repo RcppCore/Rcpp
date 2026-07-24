@@ -11,6 +11,11 @@ The \code{Rcpp::plugins} attribute is added to a C++ source file to specify the
 }
 }
 
+\usage{
+# In C++ code:
+#  // [[Rcpp::plugins(...)]]
+}
+
 \arguments{
  \item{\dots}{
    Plugins to add to the compilation.
@@ -19,10 +24,10 @@ The \code{Rcpp::plugins} attribute is added to a C++ source file to specify the
 
 \details{
 Plugins must be registered using the \code{\link{registerPlugin}}
-function. 
+function.
 
 When included within a \code{\link{sourceCpp}} translation unit,
-the configuration-related fields of the plugin (e.g. \code{env} and 
+the configuration-related fields of the plugin (e.g. \code{env} and
 \code{LinkingTo}) are utilized, however the code-generation fields
 (e.g. \code{includes} and \code{body}) are not.
 
@@ -48,4 +53,3 @@ int useCpp11() {
 }
 }
 }
-

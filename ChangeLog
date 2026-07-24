@@ -1,3 +1,10 @@
+2026-07-24  Dirk Eddelbuettel  <edd@debian.org>
+
+	* man/dependsAttribute.Rd: Add \usage{} section to appease R-devel
+	* man/exportAttribute.Rd: Idem
+	* man/interfacesAttribute.Rd: Idem
+	* man/pluginsAttribute.Rd: Idem
+
 2026-07-13  Dirk Eddelbuettel  <edd@debian.org>
 
 	* README.md: Revert back to mentioning rcpp-devel as R-forge is back,
