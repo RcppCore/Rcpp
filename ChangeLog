@@ -1,5 +1,8 @@
 2026-07-24  Dirk Eddelbuettel  <edd@debian.org>
 
+	* DESCRIPTION (Version, Date): Roll micro version and date
+	* inst/include/Rcpp/config.h: Idem
+
 	* man/dependsAttribute.Rd: Add \usage{} section to appease R-devel
 	* man/exportAttribute.Rd: Idem
 	* man/interfacesAttribute.Rd: Idem
