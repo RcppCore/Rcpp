@@ -7,9 +7,16 @@
 The \code{Rcpp::export} attribute is added to a C++ function definition to indicate that it should be made available as an R function. The \code{\link{sourceCpp}} and \code{\link{compileAttributes}} functions process the \code{Rcpp::export} attribute by generating the code required to call the C++ function from R.
 }
 
+\usage{
+# In C++ code:
+#  // [[Rcpp::export]]
+# or
+#  // [[Rcpp::export(name)]]
+}
+
 \arguments{
   \item{name}{
-    Specify an alternate name for the generated R function (optional, defaults to the name of the C++ function if not specified).
+    Specify an alternate (quoted) name for the generated R function (optional, defaults to the name of the C++ function if not specified).
 }
 }
 
