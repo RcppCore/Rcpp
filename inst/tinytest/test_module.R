@@ -109,15 +109,11 @@ expect_equal( test_const( seq(0,10) ), 11L )
 
 ## mixed-voidness method overloads dispatch through class_::invoke(),
 ## which must protect the freshly allocated method result while it
-## wraps it in the result list (#1493)
+## wraps it in the result list (#1493); under gctorture every
+## allocation triggers a collection, so a single call exercises the
+## unprotected window deterministically
 gadget <- new( ModuleGadget )
-ok <- TRUE
 gctorture(TRUE)
-for (i in 1:20) {
-    if (!identical(gadget$value(), c(1, 2, 3))) {
-        ok <- FALSE
-        break
-    }
-}
+res <- gadget$value()
 gctorture(FALSE)
-expect_true( ok )
+expect_identical( res, c(1, 2, 3) )
