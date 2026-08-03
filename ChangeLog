@@ -1,3 +1,13 @@
+2026-08-03  Kevin Ushey  <kevinushey@gmail.com>
+
+	* src/module.cpp (class__newInstance, CppMethod__invoke,
+	CppMethod__invoke_void, CppMethod__invoke_notvoid): Convert C++
+	exceptions to R errors at these .External entry points, so that
+	e.g. calling a method on an uninitialized module object raises
+	the intended R error rather than terminating the R session
+	(#1495)
+	* inst/tinytest/test_module.R: Add regression test
+
 2026-07-24  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date

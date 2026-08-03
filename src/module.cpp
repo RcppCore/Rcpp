@@ -135,12 +135,14 @@ END_RCPP
 }														// #nocov end
 
 SEXP class__newInstance(SEXP args) {
+BEGIN_RCPP
     SEXP p = CDR(args);
 
     XP_Module module(CAR(p)); p = CDR(p);
     XP_Class clazz(CAR(p)); p = CDR(p);
     UNPACK_EXTERNAL_ARGS(cargs,p)
     return clazz->newInstance(cargs, nargs);
+END_RCPP
 }
 
 // relies on being set in .onLoad()
@@ -164,6 +166,7 @@ SEXP class__dummyInstance(SEXP args) {
 }
 
 SEXP CppMethod__invoke(SEXP args) {						// #nocov start
+BEGIN_RCPP
     SEXP p = CDR(args);
 
     // the external pointer to the class
@@ -180,9 +183,11 @@ SEXP CppMethod__invoke(SEXP args) {						// #nocov start
     UNPACK_EXTERNAL_ARGS(cargs,p)
 
     return clazz->invoke(met, obj, cargs, nargs);
-}														// #nocov end 
+END_RCPP
+}														// #nocov end
 
 SEXP CppMethod__invoke_void(SEXP args) {
+BEGIN_RCPP
     SEXP p = CDR(args);
 
     // the external pointer to the class
@@ -199,9 +204,11 @@ SEXP CppMethod__invoke_void(SEXP args) {
     UNPACK_EXTERNAL_ARGS(cargs,p)
     clazz->invoke_void(met, obj, cargs, nargs);
     return R_NilValue;
+END_RCPP
 }
 
 SEXP CppMethod__invoke_notvoid(SEXP args) {
+BEGIN_RCPP
     SEXP p = CDR(args);
 
     // the external pointer to the class
@@ -218,6 +225,7 @@ SEXP CppMethod__invoke_notvoid(SEXP args) {
     UNPACK_EXTERNAL_ARGS(cargs,p)
 
     return clazz->invoke_notvoid(met, obj, cargs, nargs);
+END_RCPP
 }
 
 namespace Rcpp{
