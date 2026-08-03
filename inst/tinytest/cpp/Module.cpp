@@ -136,6 +136,27 @@ double Test_get_x_pointer(ModuleTest* x) {
     return x->value;
 }
 
+class ModuleGadget {
+public:
+    ModuleGadget() {}
+
+    // void overload: forces dispatch through class_::invoke(), which
+    // wraps method results as list(voidness, result)
+    void value(int x) {
+        (void) x;
+    }
+
+    // non-void overload: nothing protects the raw SEXP result while
+    // class_::invoke() allocates the result list
+    SEXP value() {
+        SEXP x = Rf_allocVector(REALSXP, 3);
+        REAL(x)[0] = 1;
+        REAL(x)[1] = 2;
+        REAL(x)[2] = 3;
+        return x;
+    }
+};
+
 RCPP_MODULE(demoModule) {
     function("hello", &hello);
     function("bar"  , &bar  );
@@ -193,6 +214,12 @@ RCPP_MODULE(demoModule) {
         .constructor<double,double>()
 
         .method("get" , &ModuleRandomizer::get)
+        ;
+
+    class_<ModuleGadget>("ModuleGadget")
+        .constructor()
+        .method("value", static_cast<void (ModuleGadget::*)(int)>(&ModuleGadget::value))
+        .method("value", static_cast<SEXP (ModuleGadget::*)()>(&ModuleGadget::value))
         ;
 }
 

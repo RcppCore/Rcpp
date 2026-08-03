@@ -60,8 +60,9 @@ namespace Rcpp {
                 throw std::range_error( "incorrect number of arguments" ) ;
             }
 
+            Shield<SEXP> res( fun->operator()( args ) ) ;
             return List::create(
-                _["result"] = fun->operator()( args ),
+                _["result"] = static_cast<SEXP>(res),
                 _["void"]   = fun->is_void()
             ) ;
         }

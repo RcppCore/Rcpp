@@ -106,3 +106,18 @@ expect_equal(r$get(10), x10)
 expect_equal( test_reference( seq(0,10) ), 11L )
 expect_equal( test_const_reference( seq(0,10) ), 11L )
 expect_equal( test_const( seq(0,10) ), 11L )
+
+## mixed-voidness method overloads dispatch through class_::invoke(),
+## which must protect the freshly allocated method result while it
+## wraps it in the result list (#1493)
+gadget <- new( ModuleGadget )
+ok <- TRUE
+gctorture(TRUE)
+for (i in 1:20) {
+    if (!identical(gadget$value(), c(1, 2, 3))) {
+        ok <- FALSE
+        break
+    }
+}
+gctorture(FALSE)
+expect_true( ok )
