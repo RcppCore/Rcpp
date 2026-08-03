@@ -129,6 +129,17 @@ expect_equal(stretchy_list(), pairlist( "foo", 1L, 3.2 ))
 #    test.named_StretchyList <- function(){
 expect_equal(named_stretchy_list(), pairlist( a = "foo", b = 1L, c = 3.2 ))
 
+#    test.named_StretchyList_gc <- function(){
+## push_back() must keep the new cell protected across the Rf_install()
+## needed for a not-yet-interned tag name (#1489)
+name <- paste(sample(c(letters, LETTERS), 32, TRUE), collapse = "")
+gctorture(TRUE)
+result <- named_stretchy_list_dynamic(name)
+gctorture(FALSE)
+expected <- pairlist(42L)
+names(expected) <- name
+expect_equal(result, expected)
+
 #    test.FieldProxy.gc <- function(){
 ## copying a field whose value is computed freshly on access must keep
 ## that value protected across the assignment (#1491)
