@@ -193,7 +193,8 @@
                 m->operator()( XP(object), args );
                 return Rcpp::List::create( true ) ;
             } else {
-                return Rcpp::List::create( false, m->operator()( XP(object), args ) ) ;
+                Shield<SEXP> res( m->operator()( XP(object), args ) ) ;
+                return Rcpp::List::create( false, static_cast<SEXP>(res) ) ;
             }
             END_RCPP
                 }
