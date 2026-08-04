@@ -7,6 +7,7 @@
 	the intended R error rather than terminating the R session
 	(#1495)
 	* inst/tinytest/test_module.R: Add regression test
+
 	* inst/include/Rcpp/module/class.h (invoke): Protect freshly
 	computed method results while wrapping them in the result list
 	(#1493)
@@ -14,7 +15,6 @@
 	function results
 	* inst/tinytest/cpp/Module.cpp: Add regression test
 	* inst/tinytest/test_module.R: Idem
-2026-08-03  Kevin Ushey <kevinushey@gmail.com>
 
 	* inst/include/Rcpp/api/meat/proxy.h: Protect fresh SEXPs returned
 	from proxy get() in conversion and assignment operators (#1491)
