@@ -37,7 +37,8 @@ AttributeProxyPolicy<CLASS>::AttributeProxy::operator=(const T& rhs) {
 template <typename CLASS>
 template <typename T>
 AttributeProxyPolicy<CLASS>::AttributeProxy::operator T() const {
-    return as<T>(get());
+    Shield<SEXP> x(get());
+    return as<T>(x);
 }
 
 template <typename CLASS>
@@ -48,7 +49,8 @@ AttributeProxyPolicy<CLASS>::AttributeProxy::operator SEXP() const {
 template <typename CLASS>
 template <typename T>
 AttributeProxyPolicy<CLASS>::const_AttributeProxy::operator T() const {
-    return as<T>(get());
+    Shield<SEXP> x(get());
+    return as<T>(x);
 }
 
 template <typename CLASS>
@@ -68,13 +70,15 @@ NamesProxyPolicy<CLASS>::NamesProxy::operator=(const T& rhs) {
 template <typename CLASS>
 template <typename T>
 NamesProxyPolicy<CLASS>::NamesProxy::operator T() const {
-    return as<T>( get() );
+    Shield<SEXP> x(get());
+    return as<T>(x);
 }
 
 template <typename CLASS>
 template <typename T>
 NamesProxyPolicy<CLASS>::const_NamesProxy::operator T() const {
-    return as<T>( get() );
+    Shield<SEXP> x(get());
+    return as<T>(x);
 }
 
 // SlotProxy
@@ -89,7 +93,8 @@ SlotProxyPolicy<CLASS>::SlotProxy::operator=(const T& rhs) {
 template <typename CLASS>
 template <typename T>
 SlotProxyPolicy<CLASS>::SlotProxy::operator T() const {
-    return as<T>(get());
+    Shield<SEXP> x(get());
+    return as<T>(x);
 }
 
 // TagProxy
@@ -104,7 +109,8 @@ TagProxyPolicy<CLASS>::TagProxy::operator=(const T& rhs) {
 template <typename CLASS>
 template <typename T>
 TagProxyPolicy<CLASS>::TagProxy::operator T() const {
-    return as<T>(get());
+    Shield<SEXP> x(get());
+    return as<T>(x);
 }
 
 template <typename CLASS>
@@ -115,7 +121,8 @@ TagProxyPolicy<CLASS>::TagProxy::operator SEXP() const {
 template <typename CLASS>
 template <typename T>
 TagProxyPolicy<CLASS>::const_TagProxy::operator T() const {
-    return as<T>(get());
+    Shield<SEXP> x(get());
+    return as<T>(x);
 }
 
 template <typename CLASS>
@@ -135,13 +142,15 @@ BindingPolicy<CLASS>::Binding::operator=(const T& rhs) {
 template <typename CLASS>
 template <typename T>
 BindingPolicy<CLASS>::Binding::operator T() const {
-    return as<T>(get());
+    Shield<SEXP> x(get());
+    return as<T>(x);
 }
 
 template <typename CLASS>
 template <typename T>
 BindingPolicy<CLASS>::const_Binding::operator T() const {
-    return as<T>(get());
+    Shield<SEXP> x(get());
+    return as<T>(x);
 }
 
 // DottedPairProxy
@@ -163,20 +172,25 @@ DottedPairProxyPolicy<CLASS>::DottedPairProxy::operator=(const traits::named_obj
 template <typename CLASS>
 template <typename T>
 DottedPairProxyPolicy<CLASS>::DottedPairProxy::operator T() const {
-    return as<T>(get());
+    Shield<SEXP> x(get());
+    return as<T>(x);
 }
 
 template <typename CLASS>
 template <typename T>
 DottedPairProxyPolicy<CLASS>::const_DottedPairProxy::operator T() const {
-    return as<T>(get());
+    Shield<SEXP> x(get());
+    return as<T>(x);
 }
 
 // FieldProxy
 template <typename CLASS>
 typename FieldProxyPolicy<CLASS>::FieldProxy&
 FieldProxyPolicy<CLASS>::FieldProxy::operator=(const FieldProxyPolicy<CLASS>::FieldProxy& rhs) {
-    if (this != &rhs) set(rhs.get());
+    if (this != &rhs) {
+        Shield<SEXP> x(rhs.get());
+        set(x);
+    }
     return *this;
 }
 
@@ -191,13 +205,15 @@ FieldProxyPolicy<CLASS>::FieldProxy::operator=(const T& rhs) {
 template <typename CLASS>
 template <typename T>
 FieldProxyPolicy<CLASS>::FieldProxy::operator T() const {
-    return as<T>(get());
+    Shield<SEXP> x(get());
+    return as<T>(x);
 }
 
 template <typename CLASS>
 template <typename T>
 FieldProxyPolicy<CLASS>::const_FieldProxy::operator T() const {
-    return as<T>(get());
+    Shield<SEXP> x(get());
+    return as<T>(x);
 }
 
 }

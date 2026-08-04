@@ -174,6 +174,16 @@ StretchyList named_stretchy_list() {
 }
 
 // [[Rcpp::export]]
+void copy_field_gc(Reference a, Reference b) {
+    a.field("x") = b.field("y");
+}
+
+// [[Rcpp::export]]
+void copy_binding_gc(Environment a, Environment b) {
+    a["x"] = b["y"];
+}
+
+// [[Rcpp::export]]
 void test_stop_variadic() {
     stop( "%s %d", "foo", 3 );
 }
