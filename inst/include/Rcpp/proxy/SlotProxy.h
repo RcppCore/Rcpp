@@ -33,7 +33,8 @@ public:
         }
 
         SlotProxy& operator=(const SlotProxy& rhs){
-            set( rhs.get() ) ;
+            Shield<SEXP> x( rhs.get() ) ;
+            set(x) ;
             return *this ;
         }
 
@@ -65,7 +66,8 @@ public:
         }
 
         template <typename T> operator T() const {
-          return as<T>( get() );
+          Shield<SEXP> x( get() );
+          return as<T>(x);
         }
         inline operator SEXP() const {
             return get() ;

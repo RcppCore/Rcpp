@@ -129,6 +129,34 @@ expect_equal(stretchy_list(), pairlist( "foo", 1L, 3.2 ))
 #    test.named_StretchyList <- function(){
 expect_equal(named_stretchy_list(), pairlist( a = "foo", b = 1L, c = 3.2 ))
 
+#    test.FieldProxy.gc <- function(){
+## copying a field whose value is computed freshly on access must keep
+## that value protected across the assignment (#1491)
+FooGC <- setRefClass("FooGC", fields = list(
+    x = "ANY",
+    y = function(value) {
+        if (missing(value)) new.env(parent = emptyenv()) else stop("read-only")
+    }
+))
+a <- FooGC$new(x = NULL)
+b <- FooGC$new(x = NULL)
+gctorture(TRUE)
+for (i in 1:20)
+    copy_field_gc(a, b)
+gctorture(FALSE)
+expect_true(is.environment(a$x))
+
+#    test.Binding.gc <- function(){
+## same for environment-to-environment binding copies (#1491)
+ea <- new.env()
+eb <- new.env()
+makeActiveBinding("y", function() new.env(parent = emptyenv()), eb)
+gctorture(TRUE)
+for (i in 1:20)
+    copy_binding_gc(ea, eb)
+gctorture(FALSE)
+expect_true(is.environment(ea$x))
+
 #    test.stop.variadic <- function(){
 m <- tryCatch( test_stop_variadic(), error = function(e){
     conditionMessage(e)

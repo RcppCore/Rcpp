@@ -45,8 +45,12 @@ public:
             env.unlockBinding(name) ;
         }
         Binding& operator=(const Binding& rhs){
-            if( *this != rhs )
-                set( rhs.get() ) ;
+            // NB: '*this != rhs' previously used here would not compile
+            // when this operator was instantiated
+            if( env.get__() != rhs.env.get__() || name != rhs.name ) {
+                Shield<SEXP> x( rhs.get() ) ;
+                set(x) ;
+            }
             return *this ;
         }
 

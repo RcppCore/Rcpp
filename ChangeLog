@@ -1,3 +1,13 @@
+2026-08-03  Kevin Ushey <kevinushey@gmail.com>
+
+	* inst/include/Rcpp/api/meat/proxy.h: Protect fresh SEXPs returned
+	from proxy get() in conversion and assignment operators (#1491)
+	* inst/include/Rcpp/proxy/Binding.h: Idem
+	* inst/include/Rcpp/proxy/NamesProxy.h: Idem
+	* inst/include/Rcpp/proxy/SlotProxy.h: Idem
+	* inst/tinytest/cpp/misc.cpp: Add regression tests
+	* inst/tinytest/test_misc.R: Idem
+
 2026-07-24  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
