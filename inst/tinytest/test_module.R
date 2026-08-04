@@ -102,6 +102,12 @@ x10 <- runif(10, 10.0, 20.0)
 set.seed(123)
 expect_equal(r$get(10), x10)
 
+## calling a method on an uninitialized module object (created via the
+## dummy-object path for classes without a default constructor) should
+## raise an R error rather than terminating the R session (#1495)
+r <- new( ModuleRandomizer )
+expect_error( r$get(10L), "not initialized" )
+
 #    test.Module.flexible.semantics <- function( ){
 expect_equal( test_reference( seq(0,10) ), 11L )
 expect_equal( test_const_reference( seq(0,10) ), 11L )
