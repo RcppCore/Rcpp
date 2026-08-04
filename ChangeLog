@@ -22,6 +22,12 @@
 	* inst/include/Rcpp/proxy/NamesProxy.h: Idem
 	* inst/include/Rcpp/proxy/SlotProxy.h: Idem
 	* inst/tinytest/cpp/misc.cpp: Add regression tests
+
+2026-08-02  Kevin Ushey <kevinushey@gmail.com>
+
+	* inst/include/Rcpp/api/meat/StretchyList.h: Protect the new cell
+	from collection during Rf_install() in named push_back() (#1489)
+	* inst/tinytest/cpp/misc.cpp: Add regression test
 	* inst/tinytest/test_misc.R: Idem
 
 2026-07-24  Dirk Eddelbuettel  <edd@debian.org>

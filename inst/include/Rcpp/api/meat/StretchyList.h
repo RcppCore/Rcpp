@@ -35,8 +35,8 @@ namespace Rcpp{
     template< typename T>
     StretchyList_Impl<StoragePolicy>& StretchyList_Impl<StoragePolicy>::push_back__impl( const T& obj, traits::true_type ){
         Shield<SEXP> s( wrap(obj.object) ) ;
-        SEXP tmp  = Rf_cons( s, R_NilValue );
         Symbol tag  = obj.name ;
+        SEXP tmp  = Rf_cons( s, R_NilValue );
         SET_TAG(tmp, tag) ;
         SEXP self = Storage::get__() ;
         SETCDR( CAR(self), tmp) ;

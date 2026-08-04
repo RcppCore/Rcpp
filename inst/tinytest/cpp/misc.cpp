@@ -174,6 +174,13 @@ StretchyList named_stretchy_list() {
 }
 
 // [[Rcpp::export]]
+StretchyList named_stretchy_list_dynamic(std::string name) {
+    StretchyList out;
+    out.push_back( Named(name, 42) );
+    return out;
+}
+
+// [[Rcpp::export]]
 void copy_field_gc(Reference a, Reference b) {
     a.field("x") = b.field("y");
 }
