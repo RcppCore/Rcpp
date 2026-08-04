@@ -112,3 +112,14 @@ expect_error( r$get(10L), "not initialized" )
 expect_equal( test_reference( seq(0,10) ), 11L )
 expect_equal( test_const_reference( seq(0,10) ), 11L )
 expect_equal( test_const( seq(0,10) ), 11L )
+
+## mixed-voidness method overloads dispatch through class_::invoke(),
+## which must protect the freshly allocated method result while it
+## wraps it in the result list (#1493); under gctorture every
+## allocation triggers a collection, so a single call exercises the
+## unprotected window deterministically
+gadget <- new( ModuleGadget )
+gctorture(TRUE)
+res <- gadget$value()
+gctorture(FALSE)
+expect_identical( res, c(1, 2, 3) )
