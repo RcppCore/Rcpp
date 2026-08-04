@@ -1,3 +1,12 @@
+2026-08-03  Kevin Ushey  <kevinushey@gmail.com>
+
+	* inst/include/Rcpp/module/class.h (invoke): Protect freshly
+	computed method results while wrapping them in the result list
+	(#1493)
+	* inst/include/Rcpp/module/Module.h (invoke): Idem for module
+	function results
+	* inst/tinytest/cpp/Module.cpp: Add regression test
+	* inst/tinytest/test_module.R: Idem
 2026-08-03  Kevin Ushey <kevinushey@gmail.com>
 
 	* inst/include/Rcpp/api/meat/proxy.h: Protect fresh SEXPs returned
