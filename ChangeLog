@@ -1,3 +1,8 @@
+2026-08-08  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+	* inst/include/Rcpp/config.h: Idem
+
 2026-08-03  Kevin Ushey  <kevinushey@gmail.com>
 
 	* src/module.cpp (class__newInstance, CppMethod__invoke,
