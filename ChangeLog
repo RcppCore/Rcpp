@@ -3,6 +3,8 @@
 	* DESCRIPTION (Version, Date): Roll micro version and date
 	* inst/include/Rcpp/config.h: Idem
 
+	* README.md: Update package usage and download figures
+
 2026-08-03  Kevin Ushey  <kevinushey@gmail.com>
 
 	* src/module.cpp (class__newInstance, CppMethod__invoke,
