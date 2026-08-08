@@ -3,6 +3,27 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
+\section{Changes in Rcpp release version 1.1.2.2 [github] (2026-08-08)}{
+  \itemize{
+    \item Changes in Rcpp API:
+    \itemize{
+      \item Ensure protection in \code{StretchyList::push_back()} (Kevin in
+      \ghpr{1490} closing \ghit{1489})
+      \item Ensure protection in fresh proxy \code{get()} calls (Kevin in
+      \ghpr{1492} closing \ghit{1491})
+      \item Ensure protection in Module method and function results (Kevin in
+      \ghpr{1494} closing \ghit{1493})
+      \item Convert C++ exception to R errors in Module \code{.External}
+      entries (Kevin in \ghpr{1496} closing \ghit{1495})
+    }
+    \item Changes in Rcpp Documentation:
+    \itemize{
+      \item Mention updated doxygen2 documentation and once again working
+      R-forge list rcpp-devel in README.md
+    }
+  }
+}
+
 \section{Changes in Rcpp release version 1.1.2 (2026-07-01)}{
   \itemize{
     \item Changes in Rcpp API:
