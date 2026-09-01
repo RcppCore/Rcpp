@@ -1,3 +1,7 @@
+2026-09-01  Iñaki Ucar <iucar@fedoraproject.org>
+
+	* .github/workflows/ci.yaml: Add -Werror to CXXFLAGS for dev CI job
+
 2026-08-08  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date

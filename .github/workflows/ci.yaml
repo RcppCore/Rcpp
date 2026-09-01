@@ -52,6 +52,7 @@ jobs:
           - name: dev
             cntr: rcpp/ci-dev
             r: RD
+            cxxflags: -Werror
 
     steps:
       - uses: actions/checkout@v6
@@ -61,6 +62,9 @@ jobs:
 
       - name: Build
         run: ${{matrix.r }} CMD build --no-build-vignettes --no-manual .
+
+      - name: Set flags
+        run: mkdir -p ~/.R && echo "CXXFLAGS += ${{ matrix.cxxflags }}" >> ~/.R/Makevars
 
       - name: Check
         run: CI=true ${{ matrix.r }} CMD check --no-vignettes --no-manual Rcpp_*.tar.gz
