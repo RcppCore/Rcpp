@@ -1,6 +1,6 @@
 2026-09-01  Iñaki Ucar <iucar@fedoraproject.org>
 
-	* .github/workflows/warnings.yaml: Add new CI file with -Werror enabled
+	* .github/workflows/werror.yaml: Add new CI file with -Werror enabled
 
 2026-08-08  Dirk Eddelbuettel  <edd@debian.org>
 
