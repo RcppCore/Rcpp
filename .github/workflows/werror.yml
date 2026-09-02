@@ -1,0 +1,36 @@
+# Run CI for R using https://eddelbuettel.github.io/r-ci/
+
+name: werror
+
+on:
+  push:
+  pull_request:
+
+env:
+  _R_CHECK_FORCE_SUGGESTS_: "false"
+  RCPP_CXXFLAGS: "-Werror"
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    container: rocker/drd
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup
+        uses: eddelbuettel/github-actions/r-ci@master
+
+      - name: Dependencies
+        run: ./run.sh install_deps
+
+      - name: Set flags
+        run: mkdir -p ~/.R && echo "CXXFLAGS += $RCPP_CXXFLAGS" >> ~/.R/Makevars
+
+      - name: Test
+        run: ./run.sh run_tests
+
+      - name: Logs
+        run: ./run.sh dump_logs
+        if: failure()
