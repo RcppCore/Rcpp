@@ -36,7 +36,7 @@ public:
 
 	Row( const LHS_TYPE& lhs) : nr( lhs.nrow() ), nc( lhs.ncol() ) {}
 
-	inline int operator()( int i, int j ) const {
+	inline int operator()( int i, int /*j*/ ) const {
 		return i + 1 ;
 	}
 

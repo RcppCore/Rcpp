@@ -8,12 +8,12 @@ on:
 
 env:
   _R_CHECK_FORCE_SUGGESTS_: "false"
-  RCPP_CXXFLAGS: "-Werror -Wcast-function-type -Wdeprecated-copy -Wimplicit-fallthrough"
+  RCPP_CXXFLAGS: "-Werror -Wall -Wextra"
 
 jobs:
   ci:
     runs-on: ubuntu-latest
-    container: rocker/drd
+    container: eddelbuettel/drd:26.04
 
     steps:
       - name: Checkout

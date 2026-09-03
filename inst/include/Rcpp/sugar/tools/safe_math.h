@@ -68,7 +68,7 @@ namespace detail {
 
     template <typename T>
     inline typename std::enable_if<!std::is_integral<T>::value, T>::type
-    safe_add(T a, T b, const char* caller = nullptr) { return a + b; }
+    safe_add(T a, T b, const char* /*caller*/ = nullptr) { return a + b; }
 
     // Subtraction
     template <typename T>
@@ -94,7 +94,7 @@ namespace detail {
 
     template <typename T>
     inline typename std::enable_if<!std::is_integral<T>::value, T>::type
-    safe_sub(T a, T b, const char* caller = nullptr) { return a - b; }
+    safe_sub(T a, T b, const char* /*caller*/ = nullptr) { return a - b; }
 
     // Multiplication
     template <typename T>
@@ -123,7 +123,7 @@ namespace detail {
 
     template <typename T>
     inline typename std::enable_if<!std::is_integral<T>::value, T>::type
-    safe_mul(T a, T b, const char* caller = nullptr) { return a * b; }
+    safe_mul(T a, T b, const char* /*caller*/ = nullptr) { return a * b; }
 
 } // namespace detail
 } // namespace sugar

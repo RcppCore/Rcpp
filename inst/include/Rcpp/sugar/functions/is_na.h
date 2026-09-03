@@ -55,7 +55,7 @@ public:
 
 	IsNa( const BASE& obj_) : obj(obj_){}
 
-        inline int operator[]( R_xlen_t i ) const {
+        inline int operator[]( R_xlen_t /*i*/ ) const {
 		return FALSE ;
 	}
 

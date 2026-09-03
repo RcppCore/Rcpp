@@ -23,15 +23,18 @@ std::string parse_declaration_test(std::string msg = "Parse function declaration
 
 // [[Rcpp::export]]
 std::string parse_default_values_with_str_parenthesis(const char* a = "(", const char* b= ")", std::string msg = "Parse function header with parenthis inside default string values.") {
+	(void)a; (void)b;
 	return msg;
 }
 
 // [[Rcpp::export]]
 std::string parse_default_values_with_chr_parenthesis(char a = '(', char b= ')', std::string msg = "Parse function header with parenthis inside default char values.") {
+	(void)a; (void)b;
 	return msg;
 }
 
 // [[Rcpp::export]]
 std::string parse_default_values_with_chr_backslash(char a = '\\', std::string msg = "Parse function header with backslash inside default char values.") {
+	(void)a;
 	return msg;
 }

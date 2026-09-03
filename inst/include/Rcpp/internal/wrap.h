@@ -906,7 +906,7 @@ namespace Rcpp {
      template <> inline SEXP wrap<Rcpp::String>(const Rcpp::String& object);
 
      template <typename T>
-     inline SEXP module_wrap_dispatch(const T& obj, Rcpp::traits::void_wrap_tag) {
+     inline SEXP module_wrap_dispatch(const T& /*obj*/, Rcpp::traits::void_wrap_tag) {
          return R_NilValue;
      }
 

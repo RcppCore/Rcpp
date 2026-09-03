@@ -27,7 +27,7 @@ int add(int a, int b) {
 	return a + b;
 }
 
-void dummy(int a, int b) {
+void dummy(int /*a*/, int /*b*/) {
 	Rcpp::Rcout << "dummy called" << std::endl;
 }
 

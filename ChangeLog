@@ -25,6 +25,29 @@
 	* inst/include/Rcpp/vector/RangeIndexer.h: Idem
 	* inst/include/Rcpp/macros/unroll.h: Idem
 
+	* .github/workflows/werror.yaml: Add -Wall -Wextra, substituting the
+	previous ones, which enables them but also -Wunused-parameter and more,
+	and switch to a container with gcc16
+
+	* src/api.cpp: Comment out parameters to avoid -Wunused-parameter warnings
+	* inst/include/Rcpp/Module.h: Idem
+	* inst/include/Rcpp/Promise.h: Idem
+	* inst/include/Rcpp/StretchyList.h: Idem
+	* inst/include/Rcpp/internal/wrap.h: Idem
+	* inst/include/Rcpp/module/Module_Field.h: Idem
+	* inst/include/Rcpp/sugar/functions/cbind.h: Idem
+	* inst/include/Rcpp/sugar/functions/is_na.h: Idem
+	* inst/include/Rcpp/sugar/matrix/col.h: Idem
+	* inst/include/Rcpp/sugar/matrix/row.h: Idem
+	* inst/include/Rcpp/sugar/operators/Comparator_With_One_Value.h: Idem
+	* inst/include/Rcpp/sugar/tools/safe_math.h: Idem
+	* inst/include/Rcpp/vector/Subsetter.h: Idem
+	* inst/include/Rcpp/vector/Vector.h: Idem
+	* inst/tinytest/cpp/InternalFunction.cpp: Idem
+	* inst/tinytest/cpp/attributes.cpp: Reference parameters in the body instead
+	* inst/tinytest/cpp/ListOf.cpp: Idem
+	* inst/tinytest/cpp/Vector.cpp: Idem
+
 2026-09-01  Iñaki Ucar <iucar@fedoraproject.org>
 
 	* .github/workflows/werror.yaml: Add new CI file with -Werror enabled

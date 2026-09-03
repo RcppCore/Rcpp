@@ -25,6 +25,7 @@ NumericVector test_sapply_sum(NVList x) {
 
 // [[Rcpp::export]]
 NVList test_assign(NVList x, NumericVector y, CharacterVector z) {
+    (void)z;
     x[1] = y;
     x[2] = 1;
     return x;
