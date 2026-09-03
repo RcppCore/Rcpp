@@ -35,11 +35,11 @@
     }                                                \
     switch (size_ - i){                              \
       case 3:                                        \
-          start[i] OP input[i] ; i++ ;               \
+          start[i] OP input[i] ; i++ ; /* fallthrough */ \
       case 2:                                        \
-          start[i] OP input[i] ; i++ ;               \
+          start[i] OP input[i] ; i++ ; /* fallthrough */ \
       case 1:                                        \
-          start[i] OP input[i] ; i++ ;               \
+          start[i] OP input[i] ; i++ ; /* fallthrough */ \
       case 0:                                        \
       default:                                       \
           return *this ;                             \
