@@ -18,6 +18,13 @@
 	copy operator to avoid -Wdeprecated-copy warnings
 	* inst/include/Rcpp/date_datetime/newDatetimeVector.h: Idem
 
+	* .github/workflows/werror.yaml: Add -Wimplicit-fallthrough
+
+	* inst/include/Rcpp/algo.h: Add explicit fallthrough comments to avoid
+	-Wimplicit-fallthrough warnings
+	* inst/include/Rcpp/vector/RangeIndexer.h: Idem
+	* inst/include/Rcpp/macros/unroll.h: Idem
+
 2026-09-01  Iñaki Ucar <iucar@fedoraproject.org>
 
 	* .github/workflows/werror.yaml: Add new CI file with -Werror enabled
