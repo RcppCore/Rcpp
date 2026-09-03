@@ -8,7 +8,7 @@ on:
 
 env:
   _R_CHECK_FORCE_SUGGESTS_: "false"
-  RCPP_CXXFLAGS: "-Werror"
+  RCPP_CXXFLAGS: "-Werror -Wcast-function-type"
 
 jobs:
   ci:
