@@ -26,7 +26,8 @@
 	* inst/include/Rcpp/macros/unroll.h: Idem
 
 	* .github/workflows/werror.yaml: Add -Wall -Wextra, substituting the
-	previous ones, which enables them but also -Wunused-parameter and more
+	previous ones, which enables them but also -Wunused-parameter and more,
+	and switch to a container with gcc16
 
 	* src/api.cpp: Comment out parameters to avoid -Wunused-parameter warnings
 	* inst/include/Rcpp/Module.h: Idem

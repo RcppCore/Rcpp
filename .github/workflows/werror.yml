@@ -13,7 +13,7 @@ env:
 jobs:
   ci:
     runs-on: ubuntu-latest
-    container: rocker/drd
+    container: eddelbuettel/drd:26.04
 
     steps:
       - name: Checkout
