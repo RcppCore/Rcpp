@@ -12,7 +12,7 @@ SEXP overhead_cpp(SEXP a, SEXP b) {
 extern "C" void R_init_overhead_1(DllInfo *info){
 
      R_CallMethodDef callMethods[]  = {
-       {"overhead_cpp", (DL_FUNC) &overhead_cpp, 2},
+       {"overhead_cpp", (DL_FUNC) (RCPP_FUNC) &overhead_cpp, 2},
        {NULL, NULL, 0}
      };
 

@@ -25,6 +25,10 @@
 
 #include <Rcpp/iostream/Rstreambuf.h>
 
+// Necessary to cast a function pointer to a seemingly incompatible function
+// pointer type while avoiding gcc's -Wcast-function-type warnings.
+typedef void (*RCPP_FUNC)(void);
+
 #if defined(COMPILING_RCPP)
 
 // the idea is that this file should be generated automatically by Rcpp::register
@@ -79,7 +83,7 @@ SEXP          rcpp_get_current_error();
 
 namespace Rcpp {
 
-    #define GET_CALLABLE(__FUN__) (Fun) R_GetCCallable( "Rcpp", __FUN__ )
+    #define GET_CALLABLE(__FUN__) (Fun) (RCPP_FUNC) R_GetCCallable( "Rcpp", __FUN__ )
 
     inline attribute_hidden const char* type2name(SEXP x){
         typedef const char* (*Fun)(SEXP);

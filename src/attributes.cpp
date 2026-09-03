@@ -2103,7 +2103,7 @@ namespace attributes {
             ostr() << "static const R_CallMethodDef CallEntries[] = {" << std::endl;
             for (std::size_t i=0;i<routineNames.size(); i++) {
                 ostr() << "    {\"" << routineNames[i] <<  "\", " <<
-                    "(DL_FUNC) &" << routineNames[i] << ", " <<
+                    "(DL_FUNC) (RCPP_FUNC) &" << routineNames[i] << ", " <<
                         routineArgs[i] <<  "}," << std::endl;
             }
             if (callEntries.size() > 0) {
@@ -2148,7 +2148,7 @@ namespace attributes {
         std::string indentStr(indent, ' ');
         ostr <<  indentStr << "R_RegisterCCallable(\"" << package() << "\", "
               << "\"" << packageCppPrefix() << "_" << exportedName << "\", "
-              << "(DL_FUNC)" << packageCppPrefix() << "_" << name << ");";
+              << "(DL_FUNC) (RCPP_FUNC) " << packageCppPrefix() << "_" << name << ");";
         return ostr.str();					// #nocov end
     }
 
@@ -2221,7 +2221,7 @@ namespace attributes {
 
         std::string ptrName = "p_" + validate;
         ostr() << "            static " << fnType << " " << ptrName << " = "
-               << "(" << fnType << ")" << std::endl
+               << "(" << fnType << ") (RCPP_FUNC)" << std::endl
                << "                "
                << getCCallable(exportValidationFunctionRegisteredName())
                << ";" << std::endl;
@@ -2279,7 +2279,7 @@ namespace attributes {
                        << "(\"" << function.signature() << "\");"
                        << std::endl;
                 ostr() << "            " << ptrName << " = "
-                       << "(" << fnType << ")"
+                       << "(" << fnType << ") (RCPP_FUNC)"
                        << getCCallable(packageCppPrefix() + "_" + function.name()) << ";"
                        << std::endl;
                 ostr() << "        }" << std::endl;

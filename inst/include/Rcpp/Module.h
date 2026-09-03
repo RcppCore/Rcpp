@@ -113,7 +113,7 @@ namespace Rcpp {
             inline int nargs() { return sizeof...(T); }
             inline bool is_void() { return std::is_void<RESULT_TYPE>::value; }
             inline void signature(std::string& s, const char* name) { Rcpp::signature<RESULT_TYPE, T...>(s, name); }
-            inline DL_FUNC get_function_ptr() { return (DL_FUNC)ptr_fun; }
+            inline DL_FUNC get_function_ptr() { return (DL_FUNC)(RCPP_FUNC)ptr_fun; }
 
         private:
             RESULT_TYPE (*ptr_fun)(T...);

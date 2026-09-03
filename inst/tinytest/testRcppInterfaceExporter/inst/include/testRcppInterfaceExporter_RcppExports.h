@@ -15,7 +15,7 @@ namespace testRcppInterfaceExporter {
             Rcpp::Function require = Rcpp::Environment::base_env()["require"];
             require("testRcppInterfaceExporter", Rcpp::Named("quietly") = true);
             typedef int(*Ptr_validate)(const char*);
-            static Ptr_validate p_validate = (Ptr_validate)
+            static Ptr_validate p_validate = (Ptr_validate) (RCPP_FUNC)
                 R_GetCCallable("testRcppInterfaceExporter", "_testRcppInterfaceExporter_RcppExport_validate");
             if (!p_validate(sig)) {
                 throw Rcpp::function_not_exported(
@@ -29,7 +29,7 @@ namespace testRcppInterfaceExporter {
         static Ptr_test_cpp_interface p_test_cpp_interface = NULL;
         if (p_test_cpp_interface == NULL) {
             validateSignature("SEXP(*test_cpp_interface)(SEXP,bool)");
-            p_test_cpp_interface = (Ptr_test_cpp_interface)R_GetCCallable("testRcppInterfaceExporter", "_testRcppInterfaceExporter_test_cpp_interface");
+            p_test_cpp_interface = (Ptr_test_cpp_interface) (RCPP_FUNC)R_GetCCallable("testRcppInterfaceExporter", "_testRcppInterfaceExporter_test_cpp_interface");
         }
         RObject rcpp_result_gen;
         {
