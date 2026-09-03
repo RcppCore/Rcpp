@@ -56,15 +56,6 @@ namespace Rcpp {
             return v;
         }
 
-        inline newDatetimeVector &operator=(const newDatetimeVector &rhs) {
-            if (this != &rhs) {
-                NumericVector::operator=(rhs);
-                this->attr("tzone") = rhs.attr("tzone");
-            }
-
-            return *this;
-        }
-
         friend inline std::ostream &operator<<(std::ostream & s, const newDatetimeVector d);
 
     private:
