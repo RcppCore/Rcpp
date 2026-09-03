@@ -48,14 +48,6 @@ namespace Rcpp {
             return v;
         }
 
-        inline newDateVector &operator=(const newDateVector &rhs) {
-            if (this != &rhs) {
-                NumericVector::operator=(rhs);
-            }
-
-            return *this;
-        }
-
         friend inline std::ostream &operator<<(std::ostream & s, const newDateVector d);
 
     private:
