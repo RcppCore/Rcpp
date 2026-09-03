@@ -1,3 +1,17 @@
+2026-09-03  Iñaki Ucar <iucar@fedoraproject.org>
+
+	* .github/workflows/werror.yaml: Add -Wcast-function-type
+
+	* inst/include/Rcpp/routines.h: New function pointer RCPP_FUNC typedef used
+	as an intermediate cast target to avoid gcc's -Wcast-function-type warnings
+	* inst/include/Rcpp/Module.h: Idem
+	* src/rcpp_init.cpp: Idem
+
+	* src/attributes.cpp: Generate RCPP_FUNC-routed casts in interface code
+	* inst/examples/ConvolveBenchmarks/overhead_1.cpp: Update generated code
+	* inst/tinytest/testRcppInterfaceExporter/src/RcppExports.cpp: Idem
+	* inst/tinytest/testRcppInterfaceExporter/inst/include/testRcppInterfaceExporter_RcppExports.h: Idem
+
 2026-09-01  Iñaki Ucar <iucar@fedoraproject.org>
 
 	* .github/workflows/werror.yaml: Add new CI file with -Werror enabled

@@ -60,14 +60,14 @@ static int _testRcppInterfaceExporter_RcppExport_validate(const char* sig) {
 
 // registerCCallable (register entry points for exported C++ functions)
 RcppExport SEXP _testRcppInterfaceExporter_RcppExport_registerCCallable() { 
-    R_RegisterCCallable("testRcppInterfaceExporter", "_testRcppInterfaceExporter_test_cpp_interface", (DL_FUNC)_testRcppInterfaceExporter_test_cpp_interface_try);
-    R_RegisterCCallable("testRcppInterfaceExporter", "_testRcppInterfaceExporter_RcppExport_validate", (DL_FUNC)_testRcppInterfaceExporter_RcppExport_validate);
+    R_RegisterCCallable("testRcppInterfaceExporter", "_testRcppInterfaceExporter_test_cpp_interface", (DL_FUNC) (RCPP_FUNC) _testRcppInterfaceExporter_test_cpp_interface_try);
+    R_RegisterCCallable("testRcppInterfaceExporter", "_testRcppInterfaceExporter_RcppExport_validate", (DL_FUNC) (RCPP_FUNC) _testRcppInterfaceExporter_RcppExport_validate);
     return R_NilValue;
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_testRcppInterfaceExporter_test_cpp_interface", (DL_FUNC) &_testRcppInterfaceExporter_test_cpp_interface, 2},
-    {"_testRcppInterfaceExporter_RcppExport_registerCCallable", (DL_FUNC) &_testRcppInterfaceExporter_RcppExport_registerCCallable, 0},
+    {"_testRcppInterfaceExporter_test_cpp_interface", (DL_FUNC) (RCPP_FUNC) &_testRcppInterfaceExporter_test_cpp_interface, 2},
+    {"_testRcppInterfaceExporter_RcppExport_registerCCallable", (DL_FUNC) (RCPP_FUNC) &_testRcppInterfaceExporter_RcppExport_registerCCallable, 0},
     {NULL, NULL, 0}
 };
 

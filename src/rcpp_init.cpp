@@ -25,8 +25,8 @@
 #include "internal.h"
 
 // borrowed from Matrix
-#define CALLDEF(name, n)  {#name, (DL_FUNC) &name, n}
-#define EXTDEF(name)  {#name, (DL_FUNC) &name, -1}
+#define CALLDEF(name, n)  {#name, (DL_FUNC) (RCPP_FUNC) &name, n}
+#define EXTDEF(name)  {#name, (DL_FUNC) (RCPP_FUNC) &name, -1}
 
 static R_CallMethodDef callEntries[]  = {
     CALLDEF(Class__name,1),
@@ -89,7 +89,7 @@ void registerFunctions(){
     using namespace Rcpp;
     using namespace Rcpp::internal;
 
-    #define RCPP_REGISTER(__FUN__) R_RegisterCCallable( "Rcpp", #__FUN__ , (DL_FUNC)__FUN__ );
+    #define RCPP_REGISTER(__FUN__) R_RegisterCCallable( "Rcpp", #__FUN__ , (DL_FUNC) (RCPP_FUNC) __FUN__ );
     RCPP_REGISTER(rcpp_get_stack_trace)
     RCPP_REGISTER(rcpp_set_stack_trace)
     RCPP_REGISTER(type2name)
