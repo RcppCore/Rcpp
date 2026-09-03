@@ -77,7 +77,7 @@ namespace Rcpp{
             return Environment( PRENV(Storage::get__() ) ) ;
         }
 
-        inline void update(SEXP data){}
+        inline void update(SEXP /*data*/){}
 
     } ;
 

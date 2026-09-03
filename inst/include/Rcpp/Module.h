@@ -205,7 +205,7 @@ namespace Rcpp{
 
     private:
         template <int... Is>
-        Class* get_new_impl(SEXP* args, int nargs, traits::index_sequence<Is...>) {
+        Class* get_new_impl(SEXP* args, int /*nargs*/, traits::index_sequence<Is...>) {
             return new Class( as<T>(args[Is])... ) ;
         }
     };
@@ -222,7 +222,7 @@ namespace Rcpp{
     class Factory : public Factory_Base<Class> {
     public:
         Factory( Class* (*fun)(T...) ) : ptr_fun(fun){}
-        virtual Class* get_new( SEXP* args, int nargs ){
+        virtual Class* get_new( SEXP* args, int /*nargs*/ ){
             return get_new( args, traits::make_index_sequence<sizeof...(T)>() ) ;
         }
         virtual int nargs(){ return sizeof...(T) ; }
