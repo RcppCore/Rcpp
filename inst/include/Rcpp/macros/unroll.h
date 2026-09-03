@@ -33,11 +33,11 @@ for ( ; __trip_count > 0 ; --__trip_count) {   \
 }                                              \
 switch (n - i){                                \
   case 3:                                      \
-    *TARGET++ = SOURCE[i++] ;                  \
+    *TARGET++ = SOURCE[i++] ; /* fallthrough */ \
   case 2:                                      \
-    *TARGET++ = SOURCE[i++] ;                  \
+    *TARGET++ = SOURCE[i++] ; /* fallthrough */ \
   case 1:                                      \
-    *TARGET++ = SOURCE[i++] ;                  \
+    *TARGET++ = SOURCE[i++] ; /* fallthrough */ \
   case 0:                                      \
   default:                                     \
       {}                                       \

@@ -64,14 +64,17 @@ inline bool __any( RandomAccessIterator __first, RandomAccessIterator __last, co
 	  if (*__first == __val)
 	    return true;
 	  ++__first;
+	  // fallthrough
 	case 2:
 	  if (*__first == __val)
 	    return true;
 	  ++__first;
+	  // fallthrough
 	case 1:
 	  if (*__first == __val)
 	    return true;
 	  ++__first;
+	  // fallthrough
 	case 0:
 	default:
 	  return false;
