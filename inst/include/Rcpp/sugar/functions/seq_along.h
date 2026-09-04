@@ -2,7 +2,8 @@
 //
 // seq_along.h: Rcpp R/C++ interface class library -- any
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2025 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2026        Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -29,8 +30,8 @@ class SeqLen : public VectorBase< INTSXP,false,SeqLen > {
 public:
         SeqLen( R_xlen_t len_ ) : len(len_){}
 
-        inline R_xlen_t operator[]( R_xlen_t i ) const {
-		return 1 + i ;
+        inline int operator[]( R_xlen_t i ) const {
+		return static_cast<int>(1 + i) ;
 	}
         inline R_xlen_t size() const { return len ; }
 

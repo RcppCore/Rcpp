@@ -279,7 +279,7 @@ public:
     /**
      * offset based on the dimensions of this vector
      */
-    R_xlen_t offset(const int& i, const int& j) const {
+    R_xlen_t offset(const R_xlen_t& i, const R_xlen_t& j) const {
         if( !::Rf_isMatrix(Storage::get__()) ) throw not_a_matrix() ;
 
         /* we need to extract the dimensions */
@@ -292,7 +292,7 @@ public:
                               "column index=%i; column extent=%i].";
             throw index_out_of_bounds(fmt, i, nrow, j, ncol);
         }
-        return i + static_cast<R_xlen_t>(nrow)*j ;
+        return i + nrow*j ;
     }
 
     /**
@@ -369,10 +369,10 @@ public:
     }																				// #nocov end
 
     inline Proxy operator()( const size_t& i, const size_t& j) {
-        return cache.ref( offset(i,j) ) ;
+        return cache.ref( offset(i, j) ) ;
     }
     inline const_Proxy operator()( const size_t& i, const size_t& j) const {
-        return cache.ref( offset(i,j) ) ;
+        return cache.ref( offset(i, j) ) ;
     }
 
     inline NameProxy operator[]( const std::string& name ){

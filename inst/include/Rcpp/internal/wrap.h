@@ -564,7 +564,7 @@ namespace Rcpp {
 	template <typename T>
         inline SEXP wrap_dispatch_matrix_logical(const T& object, ::Rcpp::traits::true_type) {
             int nr = object.nrow(), nc = object.ncol();
-            Shield<SEXP> res(Rf_allocVector(LGLSXP, nr * nc));
+            Shield<SEXP> res(Rf_allocVector(LGLSXP, static_cast<R_xlen_t>(nr) * nc));
             int k=0;
             int* p = LOGICAL(res);
             for (int j=0; j<nc; j++)
@@ -581,7 +581,7 @@ namespace Rcpp {
         inline SEXP wrap_dispatch_matrix_primitive(const T& object) {
             const int RTYPE = ::Rcpp::traits::r_sexptype_traits<STORAGE>::rtype;
             int nr = object.nrow(), nc = object.ncol();
-            Shield<SEXP> res(Rf_allocVector(RTYPE, nr*nc));
+            Shield<SEXP> res(Rf_allocVector(RTYPE, static_cast<R_xlen_t>(nr)*nc));
 
             int k=0;
             STORAGE* p = r_vector_start< RTYPE>(res);
@@ -603,7 +603,7 @@ namespace Rcpp {
 	template <typename T>
         inline SEXP wrap_dispatch_matrix_not_logical(const T& object, ::Rcpp::traits::r_type_string_tag) {
             int nr = object.nrow(), nc = object.ncol();
-            Shield<SEXP> res(Rf_allocVector(STRSXP, nr*nc));
+            Shield<SEXP> res(Rf_allocVector(STRSXP, static_cast<R_xlen_t>(nr)*nc));
 
             int k=0;
             for (int j=0; j<nc; j++)
@@ -619,7 +619,7 @@ namespace Rcpp {
     	template <typename T>
         inline SEXP wrap_dispatch_matrix_not_logical(const T& object, ::Rcpp::traits::r_type_generic_tag) {
             int nr = object.nrow(), nc = object.ncol();
-            Shield<SEXP> res(Rf_allocVector(VECSXP, nr*nc));
+            Shield<SEXP> res(Rf_allocVector(VECSXP, static_cast<R_xlen_t>(nr)*nc));
 
             int k=0;
             for (int j=0; j<nc; j++)
