@@ -2,7 +2,8 @@
 //
 // cbind.h: Rcpp R/C++ interface class library -- cbind
 //
-// Copyright (C) 2016 Nathan Russell
+// Copyright (C) 2016 - 2025 Nathan Russell
+// Copyright (C) 2026        Nathan Russell and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //

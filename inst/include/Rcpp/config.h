@@ -1,7 +1,7 @@
 
 // config.h: Rcpp R/C++ interface class library -- Rcpp configuration
 //
-// Copyright (C) 2010-2026  Dirk Eddelbuettel and Romain François
+// Copyright (C) 2010-2026  Dirk Eddelbuettel, Romain François and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //

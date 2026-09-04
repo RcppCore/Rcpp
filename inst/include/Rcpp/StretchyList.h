@@ -1,6 +1,7 @@
 // StretchyList.h: Rcpp R/C++ interface class library -- stretchy lists
 //
-// Copyright (C) 2013 Romain Francois
+// Copyright (C) 2013 - 2025 Romain Francois
+// Copyright (C) 2026        Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
