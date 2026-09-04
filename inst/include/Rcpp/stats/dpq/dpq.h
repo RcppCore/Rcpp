@@ -2,7 +2,8 @@
 //
 // dpq.h: Rcpp R/C++ interface class library -- normal distribution
 //
-// Copyright (C) 2010 - 2016  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2025  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2026         Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -38,11 +39,11 @@ public:
     D0( FunPtr ptr_, const VEC_TYPE& vec_, bool log_ ) :
         ptr(ptr_), vec(vec_), log(log_) {}
 
-    inline double operator[]( int i) const {
+    inline double operator[]( R_xlen_t i) const {
         return ptr( vec[i], log );
     }
 
-    inline int size() const { return vec.size(); }
+    inline R_xlen_t size() const { return vec.size(); }
 
 private:
     FunPtr ptr ;
@@ -59,11 +60,11 @@ public:
     D1( FunPtr ptr_, const VEC_TYPE& vec_, double p0_ , bool log_) :
         ptr(ptr_), vec(vec_), p0(p0_), log(log_) {}
 
-    inline double operator[]( int i) const {
+    inline double operator[]( R_xlen_t i) const {
         return ptr( vec[i], p0, log );
     }
 
-    inline int size() const { return vec.size(); }
+    inline R_xlen_t size() const { return vec.size(); }
 
 private:
     FunPtr ptr ;
@@ -81,11 +82,11 @@ public:
     D2( FunPtr ptr_, const VEC_TYPE& vec_, double p0_, double p1_ , bool log_) :
         ptr(ptr_), vec(vec_), p0(p0_), p1(p1_), log(log_) {}
 
-    inline double operator[]( int i) const {
+    inline double operator[]( R_xlen_t i) const {
         return ptr( vec[i], p0, p1, log );
     }
 
-    inline int size() const { return vec.size(); }
+    inline R_xlen_t size() const { return vec.size(); }
 
 private:
     FunPtr ptr ;
@@ -103,11 +104,11 @@ public:
     D3( FunPtr ptr_, const VEC_TYPE& vec_, double p0_, double p1_, double p2_ , bool log_ ) :
         ptr(ptr_), vec(vec_), p0(p0_), p1(p1_), p2(p2_), log(log_) {}
 
-    inline double operator[]( int i) const {
+    inline double operator[]( R_xlen_t i) const {
         return ptr( vec[i], p0, p1, p2, log );
     }
 
-    inline int size() const { return vec.size(); }
+    inline R_xlen_t size() const { return vec.size(); }
 
 private:
     FunPtr ptr ;
@@ -129,11 +130,11 @@ public:
         bool lower_tail = true, bool log_ = false ) :
         ptr(ptr_), vec(vec_), lower(lower_tail), log(log_) {}
 
-    inline double operator[]( int i) const {
+    inline double operator[]( R_xlen_t i) const {
         return ptr( vec[i], lower, log );
     }
 
-    inline int size() const { return vec.size(); }
+    inline R_xlen_t size() const { return vec.size(); }
 
 private:
     FunPtr ptr ;
@@ -153,11 +154,11 @@ public:
         bool lower_tail = true, bool log_ = false ) :
         ptr(ptr_), vec(vec_), p0(p0_), lower(lower_tail), log(log_) {}
 
-    inline double operator[]( int i) const {
+    inline double operator[]( R_xlen_t i) const {
         return ptr( vec[i], p0, lower, log );
     }
 
-    inline int size() const { return vec.size(); }
+    inline R_xlen_t size() const { return vec.size(); }
 
 private:
     FunPtr ptr ;
@@ -178,11 +179,11 @@ public:
         bool lower_tail = true, bool log_ = false ) :
         ptr(ptr_), vec(vec_), p0(p0_), p1(p1_), lower(lower_tail), log(log_) {}
 
-    inline double operator[]( int i) const {
+    inline double operator[]( R_xlen_t i) const {
         return ptr( vec[i], p0, p1, lower, log );
     }
 
-    inline int size() const { return vec.size(); }
+    inline R_xlen_t size() const { return vec.size(); }
 
 private:
     FunPtr ptr ;
@@ -201,11 +202,11 @@ public:
         bool lower_tail = true, bool log_ = false ) :
         ptr(ptr_), vec(vec_), p0(p0_), p1(p1_), p2(p2_), lower(lower_tail), log(log_) {}
 
-    inline double operator[]( int i) const {
+    inline double operator[]( R_xlen_t i) const {
         return ptr( vec[i], p0, p1, p2, lower, log );
     }
 
-    inline int size() const { return vec.size(); }
+    inline R_xlen_t size() const { return vec.size(); }
 
 private:
     FunPtr ptr ;
@@ -227,11 +228,11 @@ public:
         bool lower_tail = true, bool log_ = false ) :
         ptr(ptr_), vec(vec_), lower(lower_tail), log(log_) {}
 
-    inline double operator[]( int i) const {
+    inline double operator[]( R_xlen_t i) const {
         return ptr( vec[i], lower, log );
     }
 
-    inline int size() const { return vec.size(); }
+    inline R_xlen_t size() const { return vec.size(); }
 
 private:
     FunPtr ptr ;
@@ -250,11 +251,11 @@ public:
         bool lower_tail = true, bool log_ = false ) :
         ptr(ptr_), vec(vec_), p0(p0_), lower(lower_tail), log(log_) {}
 
-    inline double operator[]( int i) const {
+    inline double operator[]( R_xlen_t i) const {
         return ptr( vec[i], p0, lower, log );
     }
 
-    inline int size() const { return vec.size(); }
+    inline R_xlen_t size() const { return vec.size(); }
 
 private:
     FunPtr ptr ;
@@ -274,11 +275,11 @@ public:
         bool lower_tail = true, bool log_ = false ) :
         ptr(ptr_), vec(vec_), p0(p0_), p1(p1_), lower(lower_tail), log(log_) {}
 
-    inline double operator[]( int i) const {
+    inline double operator[]( R_xlen_t i) const {
         return ptr( vec[i], p0, p1, lower, log );
     }
 
-    inline int size() const { return vec.size(); }
+    inline R_xlen_t size() const { return vec.size(); }
 
 private:
     FunPtr ptr ;
@@ -298,11 +299,11 @@ public:
         bool lower_tail = true, bool log_ = false ) :
         ptr(ptr_), vec(vec_), p0(p0_), p1(p1_), p2(p2_), lower(lower_tail), log(log_) {}
 
-    inline double operator[]( int i) const {
+    inline double operator[]( R_xlen_t i) const {
         return ptr( vec[i], p0, p1, p2, lower, log );
     }
 
-    inline int size() const { return vec.size(); }
+    inline R_xlen_t size() const { return vec.size(); }
 
 private:
     FunPtr ptr ;

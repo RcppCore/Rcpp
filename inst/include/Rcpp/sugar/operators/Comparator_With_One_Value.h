@@ -31,7 +31,7 @@ class Comparator_With_One_Value : public ::Rcpp::VectorBase< LGLSXP, true, Compa
 public:
 	typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-	typedef int (Comparator_With_One_Value::*METHOD)(int) const ;
+	typedef int (Comparator_With_One_Value::*METHOD)(R_xlen_t) const ;
 
 	Comparator_With_One_Value( const VEC_TYPE& lhs_, STORAGE rhs_ ) :
 		lhs(lhs_), rhs(rhs_), m(), op() {
@@ -54,8 +54,8 @@ private:
 	METHOD m ;
 	Operator op ;
 
-	inline int rhs_is_na(int /*i*/) const { return rhs ; }
-	inline int rhs_is_not_na(int i) const {
+	inline int rhs_is_na(R_xlen_t /*i*/) const { return NA_INTEGER ; }
+	inline int rhs_is_not_na(R_xlen_t i) const {
 		STORAGE x = lhs[i] ;
 		return Rcpp::traits::is_na<RTYPE>(x) ? NA_INTEGER : op( x, rhs ) ;
 	}
@@ -70,7 +70,7 @@ class Comparator_With_One_Value<RTYPE,Operator,false,T> :
 public:
 	typedef typename Rcpp::VectorBase<RTYPE,false,T> VEC_TYPE ;
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-	typedef int (Comparator_With_One_Value::*METHOD)(int) const ;
+	typedef int (Comparator_With_One_Value::*METHOD)(R_xlen_t) const ;
 
 	Comparator_With_One_Value( const VEC_TYPE& lhs_, STORAGE rhs_ ) :
 		lhs(lhs_), rhs(rhs_), m(), op() {
@@ -93,8 +93,8 @@ private:
 	METHOD m ;
 	Operator op ;
 
-	inline int rhs_is_na(int /*i*/) const { return rhs ; }
-	inline int rhs_is_not_na(int i) const {
+	inline int rhs_is_na(R_xlen_t /*i*/) const { return NA_INTEGER ; }
+	inline int rhs_is_not_na(R_xlen_t i) const {
 		return op( lhs[i], rhs ) ;
 	}
 

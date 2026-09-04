@@ -2,7 +2,8 @@
 //
 // MatrixColumn.h: Rcpp R/C++ interface class library -- matrices column
 //
-// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2025  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2026         Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -76,11 +77,11 @@ public:
         return *this ;
     }
 
-    inline Proxy operator[]( int i ){
+    inline Proxy operator[]( R_xlen_t i ){
         return start[i] ;
     }
 
-    inline const_Proxy operator[]( int i ) const {
+    inline const_Proxy operator[]( R_xlen_t i ) const {
         return const_start[i] ;
     }
 
@@ -142,7 +143,7 @@ public:
         n(other.n),
         const_start(other.const_start) {}
 
-    inline const_Proxy operator[]( int i ) const {
+    inline const_Proxy operator[]( R_xlen_t i ) const {
         return const_start[i] ;
     }
 

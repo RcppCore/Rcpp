@@ -2,7 +2,8 @@
 //
 // MatrixRow.h: Rcpp R/C++ interface class library -- matrices row
 //
-// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2025  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2026         Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -164,12 +165,12 @@ public:
             return *this ;
     }
 
-    inline reference operator[]( int i ){
+    inline reference operator[]( R_xlen_t i ){
         return start[ get_parent_index(i) ] ;
     }
 
-    inline reference operator[]( int i ) const {
-        return parent[ row + static_cast<R_xlen_t>(i) * parent_nrow ] ;
+    inline reference operator[]( R_xlen_t i ) const {
+        return parent[ row + i * parent_nrow ] ;
     }
 
     inline iterator begin(){
@@ -206,9 +207,9 @@ private:
     int parent_nrow ;
     int row ;
 
-    inline R_xlen_t get_parent_index(int i) const {
-        RCPP_DEBUG_4( "MatrixRow<%d>::get_parent_index(int = %d), parent_nrow = %d >> %d\n", RTYPE, i, parent_nrow, static_cast<R_xlen_t>(i) * parent_nrow )
-        return static_cast<R_xlen_t>(i) * parent_nrow ;
+    inline R_xlen_t get_parent_index(R_xlen_t i) const {
+        RCPP_DEBUG_4( "MatrixRow<%d>::get_parent_index(R_xlen_t = %ld), parent_nrow = %d >> %ld\n", RTYPE, i, parent_nrow, i * parent_nrow )
+        return i * parent_nrow ;
     }
 } ;
 
@@ -309,8 +310,8 @@ public:
         row(other.row)
     {} ;
 
-    inline const_reference operator[]( int i ) const {
-        return parent[ row + static_cast<R_xlen_t>(i) * parent_nrow ] ;
+    inline const_reference operator[]( R_xlen_t i ) const {
+        return parent[ row + i * parent_nrow ] ;
     }
 
     inline const_iterator begin() const {
@@ -331,9 +332,9 @@ private:
     int parent_nrow ;
     int row ;
 
-    inline R_xlen_t get_parent_index(int i) const {
-        RCPP_DEBUG_4( "ConstMatrixRow<%d>::get_parent_index(int = %d), parent_nrow = %d >> %d\n", RTYPE, i, parent_nrow, static_cast<R_xlen_t>(i) * parent_nrow )
-        return static_cast<R_xlen_t>(i) * parent_nrow ;
+    inline R_xlen_t get_parent_index(R_xlen_t i) const {
+        RCPP_DEBUG_4( "ConstMatrixRow<%d>::get_parent_index(R_xlen_t = %ld), parent_nrow = %d >> %ld\n", RTYPE, i, parent_nrow, i * parent_nrow )
+        return i * parent_nrow ;
     }
 } ;
 }
