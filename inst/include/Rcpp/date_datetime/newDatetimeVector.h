@@ -2,7 +2,8 @@
 //
 // newDatetimeVector.h: Rcpp R/C++ interface class library -- Datetime vector support
 //
-// Copyright (C) 2016         Dirk Eddelbuettel
+// Copyright (C) 2016 - 2025 Dirk Eddelbuettel
+// Copyright (C) 2026        Dirk Eddelbuettel and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //

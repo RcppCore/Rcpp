@@ -2,7 +2,8 @@
 //
 // Subsetter.h: Rcpp R/C++ interface class library -- vector subsetting
 //
-// Copyright (C) 2014  Dirk Eddelbuettel, Romain Francois and Kevin Ushey
+// Copyright (C) 2014 - 2025 Dirk Eddelbuettel, Romain Francois and Kevin Ushey
+// Copyright (C) 2026        Dirk Eddelbuettel, Romain Francois, Kevin Ushey and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //

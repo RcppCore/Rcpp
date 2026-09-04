@@ -2,7 +2,8 @@
 //
 // InternalFunction.cpp: Rcpp R/C++ interface class library -- InternalFunction unit tests
 //
-// Copyright (C) 2014 Christian Authmann
+// Copyright (C) 2014 - 2025 Christian Authmann
+// Copyright (C) 2026        Christian Authmann and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
