@@ -1,7 +1,8 @@
 
 // SubMatrix.h: Rcpp R/C++ interface class library -- sub matrices
 //
-// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2025  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2026         Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -34,33 +35,33 @@ public:
         m(m_),
         iter( static_cast< Vector<RTYPE>& >(m_).begin() + row_range_.get_start() + col_range_.get_start() * m_.nrow() ),
         m_nr( m.nrow() ),
-        nc( col_range_.size() ),
-        nr( row_range_.size() )
+        nc( static_cast<int>(col_range_.size()) ),
+        nr( static_cast<int>(row_range_.size()) )
     {}
 
-    inline R_xlen_t size() const { return ((R_xlen_t)ncol()) * nrow() ; }
-    inline R_xlen_t ncol() const { return nc ; }
-    inline R_xlen_t nrow() const { return nr ; }
+    inline R_xlen_t size() const { return static_cast<R_xlen_t>(ncol()) * nrow() ; }
+    inline int ncol() const { return nc ; }
+    inline int nrow() const { return nr ; }
 
     inline Proxy operator()(int i, int j) const {
-        return iter[ i + j*m_nr ] ;
+        return iter[ i + static_cast<R_xlen_t>(m_nr)*j ] ;
     }
 
-    inline vec_iterator column_iterator( int j ) const { return iter + j*m_nr ; }
+    inline vec_iterator column_iterator( int j ) const { return iter + static_cast<R_xlen_t>(m_nr)*j ; }
 
 private:
     MATRIX& m ;
     vec_iterator iter ;
-    R_xlen_t m_nr, nc, nr ;
+    int m_nr, nc, nr ;
 } ;
 
 template <int RTYPE, template <class> class StoragePolicy >
-Matrix<RTYPE,StoragePolicy>::Matrix( const SubMatrix<RTYPE>& sub ) : VECTOR( Rf_allocMatrix( RTYPE, (int)sub.nrow(), (int)sub.ncol() )), nrows((int)sub.nrow()) {
-    R_xlen_t nc = sub.ncol() ;
+Matrix<RTYPE,StoragePolicy>::Matrix( const SubMatrix<RTYPE>& sub ) : VECTOR( Rf_allocMatrix( RTYPE, sub.nrow(), sub.ncol() )), nrows(sub.nrow()) {
+    int nc = sub.ncol() ;
     iterator start = VECTOR::begin() ;
 	iterator rhs_it ;
-	for( R_xlen_t j=0; j<nc; j++){
-	    rhs_it = sub.column_iterator((int)j) ;
+	for( int j=0; j<nc; j++){
+	    rhs_it = sub.column_iterator(j) ;
 	    for( int i=0; i<nrows; i++, ++start){
 	        *start = rhs_it[i] ;
 	    }

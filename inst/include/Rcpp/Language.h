@@ -1,7 +1,8 @@
 
 // Language.h: Rcpp R/C++ interface class library -- language objects (calls)
 //
-// Copyright (C) 2010 - 2025 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2025  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2026         Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -189,7 +190,7 @@ namespace Rcpp{
         class unary_call : public std::function<RESULT_TYPE(T)> {
     public:
         unary_call( Language call_ ) : call(call_), proxy(call_,1) {}
-        unary_call( Language call_, R_xlen_t index ) : call(call_), proxy(call_,index){}
+        unary_call( Language call_, int index ) : call(call_), proxy(call_,index){}
         unary_call( Function fun ) : call( fun, R_NilValue), proxy(call,1) {}
 
         RESULT_TYPE operator()( const T& object ){
@@ -206,7 +207,7 @@ namespace Rcpp{
         class binary_call : public std::function<RESULT_TYPE(T1,T2)> {
     public:
         binary_call( Language call_ ) : call(call_), proxy1(call_,1), proxy2(call_,2) {}
-        binary_call( Language call_, R_xlen_t index1, R_xlen_t index2 ) : call(call_), proxy1(call_,index1), proxy2(call_,index2){}
+        binary_call( Language call_, int index1, int index2 ) : call(call_), proxy1(call_,index1), proxy2(call_,index2){}
         binary_call( Function fun) : call(fun, R_NilValue, R_NilValue), proxy1(call,1), proxy2(call,2){}
 
         RESULT_TYPE operator()( const T1& o1, const T2& o2 ){
