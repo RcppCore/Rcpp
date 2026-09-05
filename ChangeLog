@@ -1,27 +1,4 @@
-2026-09-04  Dirk Eddelbuettel  <edd@debian.org>
-
-	* DESCRIPTION (Version, Date): Roll micro version and date
-	* inst/include/Rcpp/config.h: Idem
-
-2026-09-04  Iñaki Ucar <iucar@fedoraproject.org>
-
-	* inst/include/Rcpp/Module.h: Update copyright
-	* inst/include/Rcpp/StretchyList.h: Idem
-	* inst/include/Rcpp/algo.h: Idem
-	* inst/include/Rcpp/config.h: Idem
-	* inst/include/Rcpp/date_datetime/newDateVector.h: Idem
-	* inst/include/Rcpp/date_datetime/newDatetimeVector.h: Idem
-	* inst/include/Rcpp/internal/wrap.h: Idem
-	* inst/include/Rcpp/macros/unroll.h: Idem
-	* inst/include/Rcpp/module/Module_Field.h: Idem
-	* inst/include/Rcpp/sugar/functions/cbind.h: Idem
-	* inst/include/Rcpp/sugar/functions/is_na.h: Idem
-	* inst/include/Rcpp/sugar/matrix/col.h: Idem
-	* inst/include/Rcpp/sugar/matrix/row.h: Idem
-	* inst/include/Rcpp/vector/RangeIndexer.h: Idem
-	* inst/include/Rcpp/vector/Subsetter.h: Idem
-	* inst/include/Rcpp/vector/Vector.h: Idem
-	* inst/tinytest/cpp/InternalFunction.cpp: Idem
+2026-09-05  Iñaki Ucar <iucar@fedoraproject.org>
 
 	* .github/workflows/werror.yaml: Add -Wconversion
 
@@ -67,6 +44,31 @@
 	* inst/include/Rcpp/sugar/functions/var.h: Add static_cast to double
 	* inst/include/Rcpp/vector/Subsetter.h: Add several necessary static_cast
 	* inst/include/Rcpp/vector/MatrixBase.h: Idem
+
+2026-09-04  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+	* inst/include/Rcpp/config.h: Idem
+
+2026-09-04  Iñaki Ucar <iucar@fedoraproject.org>
+
+	* inst/include/Rcpp/Module.h: Update copyright
+	* inst/include/Rcpp/StretchyList.h: Idem
+	* inst/include/Rcpp/algo.h: Idem
+	* inst/include/Rcpp/config.h: Idem
+	* inst/include/Rcpp/date_datetime/newDateVector.h: Idem
+	* inst/include/Rcpp/date_datetime/newDatetimeVector.h: Idem
+	* inst/include/Rcpp/internal/wrap.h: Idem
+	* inst/include/Rcpp/macros/unroll.h: Idem
+	* inst/include/Rcpp/module/Module_Field.h: Idem
+	* inst/include/Rcpp/sugar/functions/cbind.h: Idem
+	* inst/include/Rcpp/sugar/functions/is_na.h: Idem
+	* inst/include/Rcpp/sugar/matrix/col.h: Idem
+	* inst/include/Rcpp/sugar/matrix/row.h: Idem
+	* inst/include/Rcpp/vector/RangeIndexer.h: Idem
+	* inst/include/Rcpp/vector/Subsetter.h: Idem
+	* inst/include/Rcpp/vector/Vector.h: Idem
+	* inst/tinytest/cpp/InternalFunction.cpp: Idem
 
 2026-09-03  Iñaki Ucar <iucar@fedoraproject.org>
 
