@@ -183,7 +183,7 @@ namespace Rcpp{
             }
 
             inline R_xlen_t index() const {
-                return i + nr * j ;
+                return i + static_cast<R_xlen_t>(nr) * j ;
             }
 
         } ;

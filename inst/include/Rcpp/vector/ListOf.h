@@ -40,10 +40,9 @@ public:
         std::transform(list.begin(), list.end(), list.begin(), as<T>);
     }
 
-    template <typename U>
-    ListOf(const U& data_): list(data_) {
-        std::transform(list.begin(), list.end(), list.begin(), as<T>);
-    }
+    template <typename U,
+              typename std::enable_if<std::is_convertible<U, SEXP>::value, int>::type = 0>
+    ListOf(const U& data_): ListOf(static_cast<SEXP>(data_)) {}
 
     ListOf(const ListOf& other): list(other.list) {}
 

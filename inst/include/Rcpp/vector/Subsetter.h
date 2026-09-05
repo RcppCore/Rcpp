@@ -58,11 +58,11 @@ public:
 
         if (n == 1) {
             for (R_xlen_t i=0; i < indices_n; ++i) {
-                lhs[ indices[i] ] = other[0];
+                lhs[ indices[i] ] = static_cast<typename LHS_t::stored_type>(other[0]);
             }
         } else if (n == indices_n) {
             for (R_xlen_t i=0; i < n; ++i) {
-                lhs[ indices[i] ] = other[i];
+                lhs[ indices[i] ] = static_cast<typename LHS_t::stored_type>(other[i]);
             }
         } else {
             stop("index error");
@@ -162,7 +162,7 @@ private:
         indices.reserve(rhs_n);
         std::vector<R_xlen_t> tmp(rhs.size()); // create temp R_xlen_t type indices from reals
         for(size_t i = 0 ; i < tmp.size() ; ++i) {
-            tmp[i] = rhs[i];
+            tmp[i] = static_cast<R_xlen_t>(rhs[i]);
         }
         check_indices(&tmp[0], rhs_n, lhs_n);
         for (R_xlen_t i=0; i < rhs_n; ++i) {

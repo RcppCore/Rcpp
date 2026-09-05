@@ -1,6 +1,7 @@
 // Date.cpp: Rcpp R/C++ interface class library -- Date type
 //
-// Copyright (C) 2010 - 2023  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2025 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2026        Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 //    The mktime00() as well as the gmtime_() replacement function are
 //    Copyright (C) 2000 - 2010  The R Development Core Team.
@@ -821,7 +822,7 @@ struct tzhead {
 	    */
 	    if (u.tzhead.tzh_version[0] == '\0')
 		break;
-	    nread -= p - u.buf;
+	    nread -= (int)(p - u.buf);
 	    for (i = 0; i < nread; ++i)
 		u.buf[i] = p[i];
 	    /*
@@ -1184,7 +1185,7 @@ struct tzhead {
         }
         sp->charcnt = (int)(stdlen + 1);
         if (dstlen != 0)
-            sp->charcnt += dstlen + 1;
+            sp->charcnt += (int)(dstlen + 1);
         if ((size_t) sp->charcnt > sizeof sp->chars)
             return -1;
         cp = sp->chars;

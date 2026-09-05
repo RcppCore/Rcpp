@@ -8,7 +8,7 @@ on:
 
 env:
   _R_CHECK_FORCE_SUGGESTS_: "false"
-  RCPP_CXXFLAGS: "-Werror -Wall -Wextra"
+  RCPP_CXXFLAGS: "-Werror -Wall -Wextra -Wconversion"
 
 jobs:
   ci:

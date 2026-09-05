@@ -2,7 +2,8 @@
 //
 // sample.h: Rcpp R/C++ interface class library -- sample
 //
-// Copyright (C) 2016 Nathan Russell
+// Copyright (C) 2016 - 2025 Nathan Russell
+// Copyright (C) 2026        Nathan Russell and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -113,7 +114,7 @@ inline Vector<INTSXP> SampleReplace(Vector<REALSXP>& p, int n, int k, bool one_b
 template <int RTYPE>
 inline Vector<RTYPE> SampleReplace(Vector<REALSXP>& p, int k, const Vector<RTYPE>& ref)
 {
-    int n = ref.size();
+    int n = static_cast<int>(ref.size());
 
     Vector<INTSXP> perm = no_init(n);
     Vector<RTYPE> ans = no_init(k);
@@ -200,7 +201,7 @@ inline Vector<INTSXP> WalkerSample(const Vector<REALSXP>& p, int n, int nans, bo
 template <int RTYPE>
 inline Vector<RTYPE> WalkerSample(const Vector<REALSXP>& p, int nans, const Vector<RTYPE>& ref)
 {
-    int n = ref.size();
+    int n = static_cast<int>(ref.size());
 
     Vector<INTSXP> a = no_init(n);
     Vector<RTYPE> ans = no_init(nans);
@@ -294,7 +295,7 @@ inline Vector<INTSXP> SampleNoReplace(Vector<REALSXP>& p, int n, int nans, bool 
 template <int RTYPE>
 inline Vector<RTYPE> SampleNoReplace(Vector<REALSXP>& p, int nans, const Vector<RTYPE>& ref)
 {
-    int n = ref.size();
+    int n = static_cast<int>(ref.size());
 
     Vector<INTSXP> perm = no_init(n);
     Vector<RTYPE> ans = no_init(nans);
@@ -366,7 +367,7 @@ inline Vector<INTSXP> EmpiricalSample(int n, int size, bool replace, bool one_ba
 template <int RTYPE>
 inline Vector<RTYPE> EmpiricalSample(int size, bool replace, const Vector<RTYPE>& ref)
 {
-    int n = ref.size();
+    int n = static_cast<int>(ref.size());
 
     Vector<RTYPE> ans = no_init(size);
     typename Vector<RTYPE>::iterator ians = ans.begin(), eans = ans.end();
@@ -436,7 +437,7 @@ template <int RTYPE>
 inline Vector<RTYPE>
 sample(const Vector<RTYPE>& x, int size, bool replace = false, sugar::probs_t probs = R_NilValue)
 {
-    int n = x.size();
+    int n = static_cast<int>(x.size());
 
     if (probs.isNotNull()) {
         Vector<REALSXP> p = clone(probs.get());

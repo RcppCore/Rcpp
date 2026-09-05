@@ -2,7 +2,8 @@
 //
 // Matrix.cpp: Rcpp R/C++ interface class library -- Matrix unit tests
 //
-// Copyright (C) 2013 - 2016  Dirk Eddelbuettel, Romain Francois and Kevin Ushey
+// Copyright (C) 2013 - 2025 Dirk Eddelbuettel, Romain Francois and Kevin Ushey
+// Copyright (C) 2026        Dirk Eddelbuettel, Romain Francois, Kevin Ushey and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -87,7 +88,7 @@ int integer_matrix_indexing( IntegerMatrix m){
 
 // [[Rcpp::export]]
 IntegerVector integer_matrix_indexing_lhs( IntegerVector m ){
-    for( size_t i=0 ; i<4; i++){
+    for( int i=0 ; i<4; i++){
         m(i,i) = 2 * i ;
     }
     return m ;

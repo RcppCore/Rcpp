@@ -35,7 +35,7 @@ class Row : public MatrixBase<
 public:
 	typedef Rcpp::MatrixBase<RTYPE,LHS_NA,LHS_T> LHS_TYPE ;
 
-	Row( const LHS_TYPE& lhs) : nr( lhs.nrow() ), nc( lhs.ncol() ) {}
+	Row( const LHS_TYPE& lhs) : nr( static_cast<int>(lhs.nrow()) ), nc( static_cast<int>(lhs.ncol()) ) {}
 
 	inline int operator()( int i, int /*j*/ ) const {
 		return i + 1 ;
