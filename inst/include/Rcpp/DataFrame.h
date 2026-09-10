@@ -47,8 +47,9 @@ namespace Rcpp{
             set__(other) ;
         }
 
-        template <typename T>
-        explicit DataFrame_Impl( const T& obj ) ;
+        template <typename T,
+                  typename std::enable_if<std::is_convertible<T, SEXP>::value, int>::type = 0>
+        DataFrame_Impl( const T& obj ) ;
 
         DataFrame_Impl& operator=( DataFrame_Impl& other){
             if (*this != other) set__(other);
