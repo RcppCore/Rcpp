@@ -22,10 +22,8 @@
 namespace Rcpp{
 
      template <template <class> class StoragePolicy>
-     template <class T,
-               typename std::enable_if<
-                   !std::is_convertible<T, DataFrame_Impl<StoragePolicy> >::value,
-               int>::type>
+     template <class T, typename std::enable_if<
+         !traits::is_input_parameter<T>::value, int>::type>
      DataFrame_Impl<StoragePolicy>::DataFrame_Impl( const T& obj){
         set__(Shield<SEXP>(wrap(obj)));
      }

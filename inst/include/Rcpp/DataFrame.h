@@ -47,13 +47,12 @@ namespace Rcpp{
             set__(other) ;
         }
 
-        // enabled only when T doesn't already provide its own conversion
-        // so this doesn't compete with that conversion, while still accepting
-        // anything wrap()-able, including third-party types (e.g. arma::mat)
-        template <typename T,
-                  typename std::enable_if<
-                      !std::is_convertible<T, DataFrame_Impl<StoragePolicy>>::value,
-                  int>::type = 0>
+        // enabled for everything except the InputParameter family (which
+        // each offer their own operator T() conversion), so this doesn't
+        // compete with that conversion, while still accepting anything
+        // wrap()-able, including third-party types (e.g. arma::mat)
+        template <typename T, typename std::enable_if<
+            !traits::is_input_parameter<T>::value, int>::type = 0>
         DataFrame_Impl( const T& obj ) ;
 
         DataFrame_Impl& operator=( DataFrame_Impl& other){
