@@ -3,7 +3,7 @@
 \newcommand{\ghpr}{\href{https://github.com/RcppCore/Rcpp/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/RcppCore/Rcpp/issues/#1}{##1}}
 
-\section{Changes in Rcpp release version 1.1.2.2 [github] (2026-08-08)}{
+\section{Changes in Rcpp release version 1.1.2.4 [github] (2026-09-22)}{
   \itemize{
     \item Changes in Rcpp API:
     \itemize{
@@ -15,11 +15,30 @@
       \ghpr{1494} closing \ghit{1493})
       \item Convert C++ exception to R errors in Module \code{.External}
       entries (Kevin in \ghpr{1496} closing \ghit{1495})
+      \item Ensure flag \code{-Wcast-function-type} no longer triggers
+      warnings (Iñaki in \ghpr{1502} closing \ghit{1500})
+      \item Ensure flag \code{-Wdeprecated-copy-with-user-provided-copy} no
+      longer triggers warnings (Iñaki in \ghpr{1503} closing \ghit{1498})
+      \item Ensure flag \code{-Wimplicit-fallthrough} no longer triggers
+      warnings (Iñaki in \ghpr{1503} closing \ghit{1504})
+      \item Ensure flag \code{-Wunused-parameter} no longer triggers
+      warnings (Iñaki in \ghpr{1506} closing \ghit{1499})
+      \item Ensure flag \code{-Wconversion} no longer triggers
+      warnings (Iñaki in \ghpr{1508} closing \ghit{1497})
+      \item The \code{col} constructor now uses \code{nrow} in an
+      initialization (Iñaki in \ghpr{1509})
     }
     \item Changes in Rcpp Documentation:
     \itemize{
       \item Mention updated doxygen2 documentation and once again working
       R-forge list rcpp-devel in README.md
+      \item Copyright headers have been updated in corresponding source files
+      (Iñaki in \ghpr{1507})
+    }
+    \item Changes in Rcpp Deployment:
+    \itemize{
+      \item A new CI job checks with flag \code{-Werror} and ensure this not
+      cause failures (Iñaki in \ghpr{1501})
     }
   }
 }
