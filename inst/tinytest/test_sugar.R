@@ -592,6 +592,14 @@ target <- list( row = row(m), col = col(m) )
 expect_equal( res, target )
 
 
+#    test.sugar.matrix.row.nonsquare <- function( ){
+fx <- runit_row
+m <- matrix(1:24, nrow = 6, ncol = 4)
+res <- fx(m)
+target <- list(row = row(m), col = col(m))
+expect_equal(res, target)
+
+
 #    test.sugar.diag <- function( ){
 fx <- runit_diag
 

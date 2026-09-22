@@ -1,3 +1,10 @@
+2026-09-22  Iñaki Ucar <iucar@fedoraproject.org>
+
+	* inst/include/Rcpp/sugar/matrix/col.h: Fix Col constructor using ncol()
+	instead of nrow() to set the number of rows
+	* inst/tinytest/test_sugar.R: Add a non-square matrix test case for the
+	row()/col() sugar functions
+
 2026-09-05  Iñaki Ucar <iucar@fedoraproject.org>
 
 	* .github/workflows/werror.yaml: Add -Wconversion
