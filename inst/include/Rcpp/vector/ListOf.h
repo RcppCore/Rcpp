@@ -40,7 +40,11 @@ public:
         std::transform(list.begin(), list.end(), list.begin(), as<T>);
     }
 
-    template <typename U>
+    // enabled only when List itself can be constructed from data_, so this
+    // does not compete with a converting operator T() offered by data_'s own
+    // type while preserving every constructor List/Vector accepts
+    // (SEXP, size, Dimension, wrap()-able third-party types, ...)
+    template <typename U, typename = decltype(List(std::declval<const U&>()))>
     ListOf(const U& data_): list(data_) {
         std::transform(list.begin(), list.end(), list.begin(), as<T>);
     }

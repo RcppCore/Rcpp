@@ -564,7 +564,7 @@ namespace Rcpp {
 	template <typename T>
         inline SEXP wrap_dispatch_matrix_logical(const T& object, ::Rcpp::traits::true_type) {
             int nr = object.nrow(), nc = object.ncol();
-            Shield<SEXP> res(Rf_allocVector(LGLSXP, nr * nc));
+            Shield<SEXP> res(Rf_allocVector(LGLSXP, static_cast<R_xlen_t>(nr) * nc));
             int k=0;
             int* p = LOGICAL(res);
             for (int j=0; j<nc; j++)
@@ -581,7 +581,7 @@ namespace Rcpp {
         inline SEXP wrap_dispatch_matrix_primitive(const T& object) {
             const int RTYPE = ::Rcpp::traits::r_sexptype_traits<STORAGE>::rtype;
             int nr = object.nrow(), nc = object.ncol();
-            Shield<SEXP> res(Rf_allocVector(RTYPE, nr*nc));
+            Shield<SEXP> res(Rf_allocVector(RTYPE, static_cast<R_xlen_t>(nr)*nc));
 
             int k=0;
             STORAGE* p = r_vector_start< RTYPE>(res);
@@ -603,7 +603,7 @@ namespace Rcpp {
 	template <typename T>
         inline SEXP wrap_dispatch_matrix_not_logical(const T& object, ::Rcpp::traits::r_type_string_tag) {
             int nr = object.nrow(), nc = object.ncol();
-            Shield<SEXP> res(Rf_allocVector(STRSXP, nr*nc));
+            Shield<SEXP> res(Rf_allocVector(STRSXP, static_cast<R_xlen_t>(nr)*nc));
 
             int k=0;
             for (int j=0; j<nc; j++)
@@ -619,7 +619,7 @@ namespace Rcpp {
     	template <typename T>
         inline SEXP wrap_dispatch_matrix_not_logical(const T& object, ::Rcpp::traits::r_type_generic_tag) {
             int nr = object.nrow(), nc = object.ncol();
-            Shield<SEXP> res(Rf_allocVector(VECSXP, nr*nc));
+            Shield<SEXP> res(Rf_allocVector(VECSXP, static_cast<R_xlen_t>(nr)*nc));
 
             int k=0;
             for (int j=0; j<nc; j++)
@@ -665,12 +665,12 @@ namespace Rcpp {
 
 	template <typename T, typename elem_type>
         inline SEXP wrap_dispatch_importer__impl__prim(const T& object, ::Rcpp::traits::false_type) {
-            int size = object.size();
+            R_xlen_t size = object.size();
             const int RTYPE = ::Rcpp::traits::r_sexptype_traits<elem_type>::rtype;
             Shield<SEXP> x(Rf_allocVector(RTYPE, size));
             typedef typename ::Rcpp::traits::storage_type<RTYPE>::type CTYPE;
             CTYPE* start = r_vector_start<RTYPE>(x);
-            for (int i=0; i<size; i++) {
+            for (R_xlen_t i=0; i<size; i++) {
 		start[i] = object.get(i);
             }
             return x;
@@ -679,12 +679,12 @@ namespace Rcpp {
 
     	template <typename T, typename elem_type>
     	inline SEXP wrap_dispatch_importer__impl__prim(const T& object, ::Rcpp::traits::true_type) {
-            int size = object.size();
+            R_xlen_t size = object.size();
             const int RTYPE = ::Rcpp::traits::r_sexptype_traits<elem_type>::rtype;
             Shield<SEXP> x(Rf_allocVector(RTYPE, size));
             typedef typename ::Rcpp::traits::storage_type<RTYPE>::type CTYPE;
             CTYPE* start = r_vector_start<RTYPE>(x);
-            for (int i=0; i<size; i++) {
+            for (R_xlen_t i=0; i<size; i++) {
 		start[i] = caster<elem_type,CTYPE>(object.get(i));
             }
             return x;
@@ -698,9 +698,9 @@ namespace Rcpp {
 
 	template <typename T, typename elem_type>
         inline SEXP wrap_dispatch_importer__impl(const T& object, ::Rcpp::traits::r_type_string_tag) {
-            int size = object.size();
+            R_xlen_t size = object.size();
             Shield<SEXP> x(Rf_allocVector(STRSXP, size));
-            for (int i=0; i<size; i++) {
+            for (R_xlen_t i=0; i<size; i++) {
 		SET_STRING_ELT(x, i, make_charsexp(object.get(i)));
             }
             return x;
@@ -708,9 +708,9 @@ namespace Rcpp {
 
     	template <typename T, typename elem_type>
     	inline SEXP wrap_dispatch_importer__impl(const T& object, ::Rcpp::traits::r_type_generic_tag) {
-            int size = object.size();
+            R_xlen_t size = object.size();
             Shield<SEXP> x(Rf_allocVector(VECSXP, size));
-            for (int i=0; i<size; i++) {
+            for (R_xlen_t i=0; i<size; i++) {
 		SET_VECTOR_ELT(x, i, object.wrap(i));
             }
             return x;

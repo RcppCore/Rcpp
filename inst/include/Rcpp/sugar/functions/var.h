@@ -2,8 +2,9 @@
 //
 // var.h: Rcpp R/C++ interface class library -- var
 //
-// Copyright (C) 2011 Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2015 Wush Wu
+// Copyright (C) 2011 - 2014 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2015 - 2025 Dirk Eddelbuettel, Romain Francois and Wush Wu
+// Copyright (C) 2026        Dirk Eddelbuettel, Romain Francois, Wush Wu and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -39,7 +40,7 @@ public:
         double sum_squared_deviations = 0.0;
         for (R_xlen_t i = 0; i != sample_size; ++i)
             sum_squared_deviations += std::pow(object[i] - average, 2.0);
-        return sum_squared_deviations / (sample_size - 1);
+        return sum_squared_deviations / static_cast<double>(sample_size - 1);
     }
 
 private:
@@ -61,7 +62,7 @@ public:
             const Rcomplex deviation = object[i] - average;
             sum_squared_deviations_magnitudes += deviation.r * deviation.r + deviation.i * deviation.i;
         }
-        return sum_squared_deviations_magnitudes / (sample_size - 1);
+        return sum_squared_deviations_magnitudes / static_cast<double>(sample_size - 1);
     }
 
 private:

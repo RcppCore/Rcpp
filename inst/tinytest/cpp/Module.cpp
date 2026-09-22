@@ -3,7 +3,8 @@
 //
 // Module.cpp: Rcpp R/C++ interface class library -- module unit tests
 //
-// Copyright (C) 2013 - 2015  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2013 - 2025 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2026        Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -49,13 +50,13 @@ void bla2(int x, double y) {
 }
 
 int test_reference(std::vector<double>& ref) {
-    return ref.size();
+    return static_cast<int>(ref.size());
 }
 int test_const_reference(const std::vector<double>& ref) {
-    return ref.size();
+    return static_cast<int>(ref.size());
 }
 int test_const(const std::vector<double> ref) {
-    return ref.size();
+    return static_cast<int>(ref.size());
 }
 
 class ModuleWorld {

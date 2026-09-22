@@ -2,7 +2,8 @@
 //
 // language.cpp: Rcpp R/C++ interface class library -- Language unit tests
 //
-// Copyright (C) 2012 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2012 - 2025 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2026        Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -205,7 +206,7 @@ int runit_pl_size(){
 	p.push_back( 1 ) ;
 	p.push_back( 10.0 ) ;
 	p.push_back( 20.0 ) ;
-	return p.size() ;
+	return static_cast<int>(p.size()) ;
 }
 
 // [[Rcpp::export]]

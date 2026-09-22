@@ -26,8 +26,8 @@
 #define UNROLL_LOOP(OP)                              \
     typedef typename ::Rcpp::traits::Extractor<RTYPE,NA,T>::type EXT ; \
     const EXT& input( x.get_ref() ) ;                   \
-    int __trip_count = (size_) >> 2;                 \
-    int i=0 ;                                        \
+    R_xlen_t __trip_count = (size_) >> 2;            \
+    R_xlen_t i=0 ;                                   \
     for ( ; __trip_count > 0 ; --__trip_count) {     \
         start[i] OP input[i] ; i++ ;                 \
         start[i] OP input[i] ; i++ ;                 \

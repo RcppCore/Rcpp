@@ -2,7 +2,8 @@
 //
 // Matrix.h: Rcpp R/C++ interface class library -- matrices
 //
-// Copyright (C) 2010 - 2016  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2025 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2026        Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -74,7 +75,7 @@ public:
     Matrix( const Matrix& other) : VECTOR( other.get__() ), nrows(other.nrows) {}
 
     template <bool NA, typename MAT>
-    Matrix( const MatrixBase<RTYPE,NA,MAT>& other ) : VECTOR( Rf_allocMatrix( RTYPE, other.nrow(), other.ncol() ) ), nrows(other.nrow()) {
+    Matrix( const MatrixBase<RTYPE,NA,MAT>& other ) : VECTOR( Rf_allocMatrix( RTYPE, static_cast<int>(other.nrow()), static_cast<int>(other.ncol()) ) ), nrows(static_cast<int>(other.nrow())) {
         import_matrix_expression<NA,MAT>( other, nrows, ncol() ) ;
     }
 
@@ -135,10 +136,10 @@ public:
     }
 
     inline Proxy operator()( const size_t& i, const size_t& j) {
-      return static_cast< Vector<RTYPE>* >( this )->operator[]( offset( i, j ) ) ;
+      return static_cast< Vector<RTYPE>* >( this )->operator[]( offset( static_cast<int>(i), static_cast<int>(j) ) ) ;
     }
     inline const_Proxy operator()( const size_t& i, const size_t& j) const {
-       return static_cast< const Vector<RTYPE>* >( this )->operator[]( offset( i, j ) ) ;
+       return static_cast< const Vector<RTYPE>* >( this )->operator[]( offset( static_cast<int>(i), static_cast<int>(j) ) ) ;
     }
 
     inline Proxy at( const size_t& i, const size_t& j) {

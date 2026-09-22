@@ -96,8 +96,8 @@ ComplexVector complex_(){
 
 // [[Rcpp::export]]
 ComplexVector complex_CPLXSXP( ComplexVector x ){
-    int nn = x.size();
-    for( int i=0; i<nn; i++) {
+    R_xlen_t nn = x.size();
+    for( R_xlen_t i=0; i<nn; i++) {
         x[i].r = x[i].r*2 ;
         x[i].i = x[i].i*2 ;
     }
@@ -107,7 +107,7 @@ ComplexVector complex_CPLXSXP( ComplexVector x ){
 // [[Rcpp::export]]
 ComplexVector complex_INTSXP( SEXP vec ){
     ComplexVector x(vec);
-    int nn = x.size();
+    R_xlen_t nn = x.size();
     IntegerVector tmp(nn, 2.0);
     ComplexVector tmp1(tmp);
     x = x * tmp1;
@@ -117,7 +117,7 @@ ComplexVector complex_INTSXP( SEXP vec ){
 // [[Rcpp::export]]
 ComplexVector complex_REALSXP(SEXP vec){
     ComplexVector x(vec);
-    int nn = x.size();
+    R_xlen_t nn = x.size();
     NumericVector tmp(nn, 3.0);
     ComplexVector tmp1(tmp);
     x = x * tmp1;
@@ -165,7 +165,7 @@ IntegerVector integer_range_ctor_1(){
 // [[Rcpp::export]]
 IntegerVector integer_range_ctor_2(){
     std::vector<int> vec(4) ;
-    for( size_t i = 0; i<4; i++) vec[i] = i;
+    for( size_t i = 0; i<4; i++) vec[i] = static_cast<int>(i);
     IntegerVector y( vec.begin(), vec.end() ) ;
     return y;
 }
@@ -281,7 +281,7 @@ List integer_create_(){
 IntegerVector integer_clone_( IntegerVector vec ){
     IntegerVector dolly = clone( vec ) ;
     for( size_t i=0; i<10; i++){
-        dolly[i] = 10 - i ;
+        dolly[i] = static_cast<int>(10 - i) ;
     }
     return dolly ;
 }
@@ -622,7 +622,7 @@ List character_listOf( List ll ){
 // [[Rcpp::export]]
 int character_find_(CharacterVector y){
     CharacterVector::iterator it = std::find( y.begin(), y.end(), "foo" ) ;
-    return std::distance( y.begin(), it );
+    return static_cast<int>(std::distance( y.begin(), it ));
 }
 
 // [[Rcpp::export]]
@@ -671,9 +671,9 @@ bool containsElementNamed( List l, CharacterVector n){
 
 // [[Rcpp::export]]
 List CharacterVectorEqualityOperator( CharacterVector x, CharacterVector y){
-    int n = x.size() ;
+    R_xlen_t n = x.size() ;
     LogicalVector eq(n), neq(n);
-    for( int i=0; i<n; i++){
+    for( R_xlen_t i=0; i<n; i++){
         eq[i]  = x[i] == y[i] ;
         neq[i] = x[i] != y[i] ;
     }
@@ -687,42 +687,42 @@ List List_rep_ctor(IntegerVector x){
 
 // [[Rcpp::export]]
 int stdVectorDouble(std::vector<double> x) {
-    return x.size();
+    return static_cast<int>(x.size());
 }
 
 // [[Rcpp::export]]
 int stdVectorDoubleConst(const std::vector<double> x) {
-    return x.size();
+    return static_cast<int>(x.size());
 }
 
 // [[Rcpp::export]]
 int stdVectorDoubleRef(std::vector<double> & x) {
-    return x.size();
+    return static_cast<int>(x.size());
 }
 
 // [[Rcpp::export]]
 int stdVectorDoubleConstRef(const std::vector<double> & x) {
-    return x.size();
+    return static_cast<int>(x.size());
 }
 
 // [[Rcpp::export]]
 int stdVectorInt(std::vector<int> x) {
-    return x.size();
+    return static_cast<int>(x.size());
 }
 
 // [[Rcpp::export]]
 int stdVectorIntConst(const std::vector<int> x) {
-    return x.size();
+    return static_cast<int>(x.size());
 }
 
 // [[Rcpp::export]]
 int stdVectorIntRef(std::vector<int> & x) {
-    return x.size();
+    return static_cast<int>(x.size());
 }
 
 // [[Rcpp::export]]
 int stdVectorIntConstRef(const std::vector<int> & x) {
-    return x.size();
+    return static_cast<int>(x.size());
 }
 
 // [[Rcpp::export]]
@@ -808,7 +808,7 @@ void no_op(int major) {
 
 // [[Rcpp::export]]
 int noprotect_vector( Vector<REALSXP, NoProtectStorage> x){
-  return x.size() ;
+  return static_cast<int>(x.size()) ;
 }
 
 // [[Rcpp::export]]
@@ -850,7 +850,7 @@ IntegerVector vec_subset(IntegerVector x, IntegerVector y) {
 // [[Rcpp::export]]
 int CharacterVectorNoProtect(Vector<STRSXP, NoProtectStorage> s){
     s[0] = "";
-    return s.size();
+    return static_cast<int>(s.size());
 }
 
 // [[Rcpp::export]]

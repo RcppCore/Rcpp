@@ -2,6 +2,7 @@
 // dates.cpp: Rcpp R/C++ interface class library -- Date + Datetime tests
 //
 // Copyright (C) 2010 - 2025   Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2026          Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -205,7 +206,7 @@ Date gmtime_mktime(Date d) {
     tm.tm_mday  = d.getDay();
     tm.tm_mon   = d.getMonth() - 1;    // range 0 to 11
     tm.tm_year  = d.getYear() - baseYear;
-    time_t tmp = mktime00(tm);    // use mktime() replacement borrowed from R
+    time_t tmp = static_cast<time_t>(mktime00(tm));    // use mktime() replacement borrowed from R
 
     struct tm chk = *gmtime_(&tmp);
     Date newd(chk.tm_year, chk.tm_mon + 1, chk.tm_mday);
@@ -221,7 +222,7 @@ double test_mktime(Date d) {
     tm.tm_mday  = d.getDay();
     tm.tm_mon   = d.getMonth() - 1;    // range 0 to 11
     tm.tm_year  = d.getYear() - baseYear;
-    time_t t = mktime00(tm);    // use mktime() replacement borrowed from R
+    time_t t = static_cast<time_t>(mktime00(tm));    // use mktime() replacement borrowed from R
     return static_cast<double>(t);
 }
 

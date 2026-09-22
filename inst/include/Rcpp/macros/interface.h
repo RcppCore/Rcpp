@@ -1,4 +1,5 @@
-// Copyright (C) 2013 Romain Francois
+// Copyright (C) 2013 - 2025  Romain Francois
+// Copyright (C) 2026         Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -31,7 +32,7 @@ __CLASS__& operator=(const __CLASS__& rhs) {                                   \
     return Storage::copy__(rhs) ;                                              \
 }                                                                              \
 template <typename Proxy>                                                      \
-__CLASS__( const GenericProxy<Proxy>& proxy ){                                 \
+explicit __CLASS__( const GenericProxy<Proxy>& proxy ){                        \
     Storage::set__( proxy.get() ) ;                                            \
 }
 
@@ -42,7 +43,7 @@ __CLASS__& operator=(const __CLASS__& rhs) {                                   \
     return Storage::copy__(rhs) ;                                              \
 }                                                                              \
 template <typename Proxy>                                                      \
-__CLASS__( const GenericProxy<Proxy>& proxy ){                                 \
+explicit __CLASS__( const GenericProxy<Proxy>& proxy ){                        \
     Storage::set__( proxy.get() ) ;                                            \
 }
 

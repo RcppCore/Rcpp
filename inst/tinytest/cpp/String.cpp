@@ -28,14 +28,14 @@ public:
         nr(old_.size()), old(old_), new_(new__){}
 
     String operator()(String text) const {
-        for( int i=0; i<nr; i++){
+        for( R_xlen_t i=0; i<nr; i++){
             text.replace_all( old[i], new_[i] ) ;
         }
         return text ;
     }
 
 private:
-    int nr ;
+    R_xlen_t nr ;
     CharacterVector old ;
     CharacterVector new_ ;
 } ;

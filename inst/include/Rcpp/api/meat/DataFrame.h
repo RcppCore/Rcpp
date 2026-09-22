@@ -1,4 +1,5 @@
-// Copyright (C) 2013 Romain Francois
+// Copyright (C) 2013 - 2025 Romain Francois
+// Copyright (C) 2026        Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -21,7 +22,8 @@
 namespace Rcpp{
 
      template <template <class> class StoragePolicy>
-     template <class T>
+     template <class T, typename std::enable_if<
+         !traits::is_input_parameter<T>::value, int>::type>
      DataFrame_Impl<StoragePolicy>::DataFrame_Impl( const T& obj){
         set__(Shield<SEXP>(wrap(obj)));
      }

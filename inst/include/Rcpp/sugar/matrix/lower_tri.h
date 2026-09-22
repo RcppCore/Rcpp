@@ -3,7 +3,8 @@
 // lower_tri.h: Rcpp R/C++ interface class library -- lower.tri
 //
 // Copyright (C) 2010 - 2017 Dirk Eddelbuettel and Romain Francois
-// Copyright (C) 2017    Dirk Eddelbuettel, Romain Francois, and Nathan Russell
+// Copyright (C) 2017 - 2025 Dirk Eddelbuettel, Romain Francois, and Nathan Russell
+// Copyright (C) 2026        Dirk Eddelbuettel, Romain Francois, Nathan Russell and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -32,8 +33,8 @@ public:
     typedef Rcpp::MatrixBase<RTYPE, NA, T> MatBase;
 
     LowerTri(const T& lhs, bool diag)
-        : nr(lhs.nrow()),
-          nc(lhs.ncol()),
+        : nr(static_cast<int>(lhs.nrow())),
+          nc(static_cast<int>(lhs.ncol())),
           getter(diag ? (&LowerTri::get_diag_true) : (&LowerTri::get_diag_false))
     {}
 

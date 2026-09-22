@@ -2,7 +2,8 @@
 //
 // diag.h: Rcpp R/C++ interface class library -- diag
 //
-// Copyright (C) 2010 - 2011 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2025 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2026        Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -32,13 +33,13 @@ public:
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 
 	Diag_Extractor( const MAT_TYPE& object_ ) : object(object_), n(0) {
-		int nr = object.nrow() ;
-		int nc = object.ncol() ;
+		int nr = static_cast<int>(object.nrow()) ;
+		int nc = static_cast<int>(object.ncol()) ;
 		n = (nc < nr ) ? nc : nr ;
 	}
 
-	inline STORAGE operator[]( int i ) const {
-		return object( i, i ) ;
+	inline STORAGE operator[]( R_xlen_t i ) const {
+		return object( static_cast<int>(i), static_cast<int>(i) ) ;
 	}
 	inline R_xlen_t size() const { return n; }
 
@@ -54,7 +55,7 @@ public:
 	typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 
-	Diag_Maker( const VEC_TYPE& object_ ) : object(object_), n(object_.size()) {}
+	Diag_Maker( const VEC_TYPE& object_ ) : object(object_), n(static_cast<int>(object_.size())) {}
 
 	inline STORAGE operator()( int i, int j ) const {
 		return (i==j) ? object[i] : 0 ;

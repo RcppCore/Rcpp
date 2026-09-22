@@ -2,7 +2,8 @@
 //
 // Range.h: Rcpp R/C++ interface class library --
 //
-// Copyright (C) 2010 - 2013 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2010 - 2025 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2026        Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -36,8 +37,8 @@ namespace Rcpp{
             return end_ - start + 1;
         }
 
-        inline R_xlen_t operator[]( R_xlen_t i) const {
-            return start + i ;
+        inline int operator[]( R_xlen_t i) const {
+            return static_cast<int>(start + i) ;
         }
 
         Range& operator++() {

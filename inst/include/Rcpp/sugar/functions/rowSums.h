@@ -120,7 +120,7 @@ public:
     {}
 
     return_vector get() const {
-        R_xlen_t i, j, nr = ref.nrow(), nc = ref.ncol();
+        int i, j, nr = static_cast<int>(ref.nrow()), nc = static_cast<int>(ref.ncol());
         return_vector res(nr);
 
         for (j = 0; j < nc; j++) {
@@ -164,7 +164,7 @@ public:                                                                         
     {}                                                                                                      \
                                                                                                             \
     return_vector get() const {                                                                             \
-        R_xlen_t i, j, nr = ref.nrow(), nc = ref.ncol();                                                    \
+        int i, j, nr = static_cast<int>(ref.nrow()), nc = static_cast<int>(ref.ncol());                     \
         return_vector res(nr);                                                                              \
                                                                                                             \
         for (j = 0; j < nc; j++) {                                                                          \
@@ -207,7 +207,7 @@ public:
     {}
 
     return_vector get() const {
-        R_xlen_t i, j, nr = ref.nrow(), nc = ref.ncol();
+        int i, j, nr = static_cast<int>(ref.nrow()), nc = static_cast<int>(ref.ncol());
         return_vector res(nr);
 
         stored_type current = stored_type();
@@ -248,7 +248,7 @@ public:                                                                         
     {}                                                                                                      \
                                                                                                             \
     return_vector get() const {                                                                             \
-        R_xlen_t i, j, nr = ref.nrow(), nc = ref.ncol();                                                    \
+        int i, j, nr = static_cast<int>(ref.nrow()), nc = static_cast<int>(ref.ncol());                     \
         return_vector res(nr);                                                                              \
                                                                                                             \
         stored_type current = stored_type();                                                                \
@@ -301,7 +301,7 @@ public:
     {}
 
     return_vector get() const {
-        R_xlen_t i, j, nr = ref.nrow(), nc = ref.ncol();
+        int i, j, nr = static_cast<int>(ref.nrow()), nc = static_cast<int>(ref.ncol());
         return_vector res(nc);
 
         for (j = 0; j < nc; j++) {
@@ -337,7 +337,7 @@ public:                                                                         
     {}                                                                                                      \
                                                                                                             \
     return_vector get() const {                                                                             \
-        R_xlen_t i, j, nr = ref.nrow(), nc = ref.ncol();                                                    \
+        int i, j, nr = static_cast<int>(ref.nrow()), nc = static_cast<int>(ref.ncol());                     \
         return_vector res(nc);                                                                              \
                                                                                                             \
         for (j = 0; j < nc; j++) {                                                                          \
@@ -380,7 +380,7 @@ public:
     {}
 
     return_vector get() const {
-        R_xlen_t i, j, nr = ref.nrow(), nc = ref.ncol();
+        int i, j, nr = static_cast<int>(ref.nrow()), nc = static_cast<int>(ref.ncol());
         return_vector res(nc);
 
         stored_type current = stored_type();
@@ -421,7 +421,7 @@ public:                                                                         
     {}                                                                                                      \
                                                                                                             \
     return_vector get() const {                                                                             \
-        R_xlen_t i, j, nr = ref.nrow(), nc = ref.ncol();                                                    \
+        int i, j, nr = static_cast<int>(ref.nrow()), nc = static_cast<int>(ref.ncol());                     \
         return_vector res(nc);                                                                              \
                                                                                                             \
         stored_type current = stored_type();                                                                \
@@ -477,7 +477,7 @@ public:
     {}
 
     return_vector get() const {
-        R_xlen_t i, j, nr = ref.nrow(), nc = ref.ncol();
+        int i, j, nr = static_cast<int>(ref.nrow()), nc = static_cast<int>(ref.ncol());
         return_vector res(nr);
 
         for (j = 0; j < nc; j++) {
@@ -517,7 +517,7 @@ public:                                                                         
     {}                                                                                                          \
                                                                                                                 \
     return_vector get() const {                                                                                 \
-        R_xlen_t i, j, nr = ref.nrow(), nc = ref.ncol();                                                        \
+        int i, j, nr = static_cast<int>(ref.nrow()), nc = static_cast<int>(ref.ncol());                         \
         return_vector res(nr);                                                                                  \
                                                                                                                 \
         for (j = 0; j < nc; j++) {                                                                              \
@@ -564,7 +564,7 @@ public:
     {}
 
     return_vector get() const {
-        R_xlen_t i, j, nr = ref.nrow(), nc = ref.ncol();
+        int i, j, nr = static_cast<int>(ref.nrow()), nc = static_cast<int>(ref.ncol());
         return_vector res(nr);
 
         std::vector<R_xlen_t> n_ok(nr, 0);
@@ -616,7 +616,7 @@ public:                                                                         
     {}                                                                                                          \
                                                                                                                 \
     return_vector get() const {                                                                                 \
-        R_xlen_t i, j, nr = ref.nrow(), nc = ref.ncol();                                                        \
+        int i, j, nr = static_cast<int>(ref.nrow()), nc = static_cast<int>(ref.ncol());                         \
         return_vector res(nr);                                                                                  \
                                                                                                                 \
         std::vector<R_xlen_t> n_ok(nr, 0);                                                                      \
@@ -677,7 +677,7 @@ public:
     {}
 
     return_vector get() const {
-        R_xlen_t i, j, nr = ref.nrow(), nc = ref.ncol();
+        int i, j, nr = static_cast<int>(ref.nrow()), nc = static_cast<int>(ref.ncol());
         return_vector res(nc);
 
         for (j = 0; j < nc; j++) {
@@ -717,7 +717,7 @@ public:                                                                         
     {}                                                                                                          \
                                                                                                                 \
     return_vector get() const {                                                                                 \
-        R_xlen_t i, j, nr = ref.nrow(), nc = ref.ncol();                                                        \
+        int i, j, nr = static_cast<int>(ref.nrow()), nc = static_cast<int>(ref.ncol());                         \
         return_vector res(nc);                                                                                  \
                                                                                                                 \
         for (j = 0; j < nc; j++) {                                                                              \
@@ -764,7 +764,7 @@ public:
     {}
 
     return_vector get() const {
-        R_xlen_t i, j, nr = ref.nrow(), nc = ref.ncol();
+        int i, j, nr = static_cast<int>(ref.nrow()), nc = static_cast<int>(ref.ncol());
         return_vector res(nc);
 
         std::vector<R_xlen_t> n_ok(nc, 0);
@@ -816,7 +816,7 @@ public:                                                                         
     {}                                                                                                          \
                                                                                                                 \
     return_vector get() const {                                                                                 \
-        R_xlen_t i, j, nr = ref.nrow(), nc = ref.ncol();                                                        \
+        int i, j, nr = static_cast<int>(ref.nrow()), nc = static_cast<int>(ref.ncol());                         \
         return_vector res(nc);                                                                                  \
                                                                                                                 \
         std::vector<R_xlen_t> n_ok(nc, 0);                                                                      \

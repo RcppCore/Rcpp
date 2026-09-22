@@ -52,7 +52,7 @@ public:
     typedef typename Rcpp::traits::storage_type<RESULT_R_TYPE>::type STORAGE ;
 
     Outer( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_, Function fun_ ) :
-        lhs(lhs_), rhs(rhs_), fun(fun_), nr(lhs_.size()), nc(rhs_.size()) {}
+        lhs(lhs_), rhs(rhs_), fun(fun_), nr(static_cast<int>(lhs_.size())), nc(static_cast<int>(rhs_.size())) {}
 
     inline STORAGE operator()( int i, int j ) const {
         return converter_type::get( fun( lhs[i], rhs[j] ) );

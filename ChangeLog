@@ -1,3 +1,50 @@
+2026-09-05  Iñaki Ucar <iucar@fedoraproject.org>
+
+	* .github/workflows/werror.yaml: Add -Wconversion
+
+	* inst/include/Rcpp/macros/interface.h: Mark GenericProxy constructor as
+	explicit to resolve ambiguities with validated SEXP constructors
+	* inst/include/Rcpp/vector/Vector.h: Idem
+	* inst/include/Rcpp/DataFrame.h: Idem with ad hoc constructor
+	* inst/include/Rcpp/vector/ListOf.h: In this case, the implicit conversion
+	of ListOf<T> e.g. from List is intentional, so the previously generic
+	constructor now gets restricted to cases that are convertible to SEXP
+
+	* inst/include/Rcpp/stats/dpq/dpq.h: Expand and homogenize R_xlen_t use
+	* inst/include/Rcpp/sugar/functions/head.h: Idem
+	* inst/include/Rcpp/vector/MatrixColumn.h: Idem
+	* inst/include/Rcpp/vector/MatrixRow.h: Idem
+	* inst/include/Rcpp/vector/RangeIndexer.h: Idem
+	* inst/include/Rcpp/internal/wrap.h: Idem and fix potential integer overflow
+	* inst/include/Rcpp/sugar/operators/Comparator_With_One_Value.h: Idem and
+	fix a bug where rhs_is_na may return NaN instead of NA_INTEGER
+	* inst/include/Rcpp/Language.h: Revert incorrect use of R_xlen_t
+	* inst/include/Rcpp/vector/SubMatrix.h: Idem, because Matrix rows and cols
+	are restricted to int anyway
+
+	* src/date.cpp: Add missing explicit integer narrowing
+	* inst/tinytest/cpp/dates.cpp: Add static_cast to time_t
+	* inst/tinytest/cpp/language.cpp: Fix implicit cast to int
+	* inst/tinytest/cpp/Matrix.cpp: Idem
+	* inst/tinytest/cpp/Module.cpp: Idem
+	* inst/tinytest/cpp/String.cpp: Idem
+	* inst/tinytest/cpp/Vector.cpp: Idem
+	* inst/include/Rcpp/vector/Matrix.h: Idem
+	* inst/include/Rcpp/vector/Vector.h: Idem
+	* inst/include/Rcpp/sugar/Range.h: Idem
+	* inst/include/Rcpp/sugar/functions/seq_along.h: Idem
+	* inst/include/Rcpp/sugar/functions/rowSums.h: Idem
+	* inst/include/Rcpp/sugar/functions/sample.h: Idem
+	* inst/include/Rcpp/sugar/matrix/col.h: Idem
+	* inst/include/Rcpp/sugar/matrix/diag.h: Idem
+	* inst/include/Rcpp/sugar/matrix/lower_tri.h: Idem
+	* inst/include/Rcpp/sugar/matrix/outer.h: Idem
+	* inst/include/Rcpp/sugar/matrix/row.h: Idem
+	* inst/include/Rcpp/sugar/matrix/upper_tri.h: Idem
+	* inst/include/Rcpp/sugar/functions/var.h: Add static_cast to double
+	* inst/include/Rcpp/vector/Subsetter.h: Add several necessary static_cast
+	* inst/include/Rcpp/vector/MatrixBase.h: Idem
+
 2026-09-04  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date

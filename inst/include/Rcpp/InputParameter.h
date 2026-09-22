@@ -2,7 +2,8 @@
 //
 // InputParameter.h: Rcpp R/C++ interface class library --
 //
-// Copyright (C) 2013    Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2013 - 2025 Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2026        Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -94,6 +95,21 @@ namespace Rcpp {
         struct input_parameter<const T&> {
             typedef typename Rcpp::ConstReferenceInputParameter<T> type ;
         } ;
+
+        // detects the InputParameter family, which each offer their own
+        // operator T() converting to whatever type they wrap. Generic
+        // wrap()-based converting constructors (e.g. DataFrame_Impl) use this
+        // to exclude these types, so that they don't compete with them
+        template <typename T>
+        struct is_input_parameter : false_type {};
+        template <typename T>
+        struct is_input_parameter<InputParameter<T>> : true_type {};
+        template <typename T>
+        struct is_input_parameter<ReferenceInputParameter<T>> : true_type {};
+        template <typename T>
+        struct is_input_parameter<ConstInputParameter<T>> : true_type {};
+        template <typename T>
+        struct is_input_parameter<ConstReferenceInputParameter<T>> : true_type {};
     }
 
 }

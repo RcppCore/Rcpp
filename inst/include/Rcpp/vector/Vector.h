@@ -1,6 +1,7 @@
 // Vector.h: Rcpp R/C++ interface class library -- vectors
 //
-// Copyright (C) 2010 - 2026  Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
+// Copyright (C) 2010 - 2025  Dirk Eddelbuettel and Romain Francois
+// Copyright (C) 2026         Dirk Eddelbuettel, Romain Francois and Iñaki Ucar
 //
 // This file is part of Rcpp.
 //
@@ -75,7 +76,7 @@ public:
     }
 
     template <typename Proxy>
-    Vector( const GenericProxy<Proxy>& proxy ){
+    explicit Vector( const GenericProxy<Proxy>& proxy ){
         Rcpp::Shield<SEXP> safe(proxy.get());
         Storage::set__( r_cast<RTYPE>(safe) ) ;
     }
@@ -278,7 +279,7 @@ public:
     /**
      * offset based on the dimensions of this vector
      */
-    R_xlen_t offset(const int& i, const int& j) const {
+    R_xlen_t offset(const R_xlen_t& i, const R_xlen_t& j) const {
         if( !::Rf_isMatrix(Storage::get__()) ) throw not_a_matrix() ;
 
         /* we need to extract the dimensions */
@@ -291,7 +292,7 @@ public:
                               "column index=%i; column extent=%i].";
             throw index_out_of_bounds(fmt, i, nrow, j, ncol);
         }
-        return i + static_cast<R_xlen_t>(nrow)*j ;
+        return i + nrow*j ;
     }
 
     /**
@@ -368,10 +369,10 @@ public:
     }																				// #nocov end
 
     inline Proxy operator()( const size_t& i, const size_t& j) {
-        return cache.ref( offset(i,j) ) ;
+        return cache.ref( offset(i, j) ) ;
     }
     inline const_Proxy operator()( const size_t& i, const size_t& j) const {
-        return cache.ref( offset(i,j) ) ;
+        return cache.ref( offset(i, j) ) ;
     }
 
     inline NameProxy operator[]( const std::string& name ){
