@@ -288,3 +288,65 @@ NumericMatrix length_row(NumericMatrix m, NumericVector y) {
     m(0, _) = y;
     return m;
 }
+
+// [[Rcpp::export]]
+SEXP single_and(LogicalVector a, LogicalVector b) {
+    return all(a) && all(b);
+}
+
+// [[Rcpp::export]]
+SEXP single_or(LogicalVector a, LogicalVector b) {
+    return all(a) || all(b);
+}
+
+// [[Rcpp::export]]
+SEXP single_not(LogicalVector a) {
+    return !all(a);
+}
+
+// [[Rcpp::export]]
+SEXP single_and_nona_lhs(LogicalVector a, LogicalVector b) {
+    return all(noNA(a)) && all(b);
+}
+
+// [[Rcpp::export]]
+SEXP single_and_nona_rhs(LogicalVector a, LogicalVector b) {
+    return all(a) && all(noNA(b));
+}
+
+// [[Rcpp::export]]
+SEXP single_and_nona_both(LogicalVector a, LogicalVector b) {
+    return all(noNA(a)) && all(noNA(b));
+}
+
+// [[Rcpp::export]]
+SEXP single_or_nona_lhs(LogicalVector a, LogicalVector b) {
+    return all(noNA(a)) || all(b);
+}
+
+// [[Rcpp::export]]
+SEXP single_or_nona_rhs(LogicalVector a, LogicalVector b) {
+    return all(a) || all(noNA(b));
+}
+
+// [[Rcpp::export]]
+SEXP single_or_nona_both(LogicalVector a, LogicalVector b) {
+    return all(noNA(a)) || all(noNA(b));
+}
+
+// [[Rcpp::export]]
+SEXP single_and_bool(LogicalVector a, bool b) {
+    return all(a) && b;
+}
+
+// [[Rcpp::export]]
+SEXP single_or_bool(LogicalVector a, bool b) {
+    return b || all(a);
+}
+
+// [[Rcpp::export]]
+SEXP single_stored(LogicalVector a, LogicalVector b) {
+    auto e = !(all(a) && any(b));
+    clobber_stack();
+    return e;
+}

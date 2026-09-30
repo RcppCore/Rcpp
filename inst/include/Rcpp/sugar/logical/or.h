@@ -41,22 +41,29 @@ public:
 	> BASE ;
 
 	Or_SingleLogicalResult_SingleLogicalResult( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_) :
-		lhs(lhs_), rhs(rhs_){} ;
+		lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){} ;
 
 	inline void apply(){
 		int left = lhs.get() ;
-		if( Rcpp::traits::is_na<LGLSXP>( left ) ){
-			BASE::set( left ) ;
-		} else if( left == TRUE ){
+		if( left == TRUE ){
 			BASE::set( TRUE ) ;
+			return ;
+		}
+
+		// NA || TRUE is TRUE
+		int right = rhs.get() ;
+		if( Rcpp::traits::is_na<LGLSXP>( left ) && right != TRUE ){
+			BASE::set( left ) ;
 		} else {
-			BASE::set( rhs.get() ) ;
+			BASE::set( right ) ;
 		}
 	}
 
 private:
-	const LHS_TYPE& lhs ;
-	const RHS_TYPE& rhs ;
+	// by value, since these are usually temporaries, and non-const, since
+	// evaluating them caches their result
+	LHS_T lhs ;
+	RHS_T rhs ;
 
 } ;
 
@@ -77,7 +84,7 @@ public:
 	> BASE ;
 
 	Or_SingleLogicalResult_SingleLogicalResult( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_) :
-		lhs(lhs_), rhs(rhs_){} ;
+		lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){} ;
 
 	inline void apply(){
 		// here we know rhs does not have NA, so we start with the rhs
@@ -90,8 +97,8 @@ public:
 	}
 
 private:
-	const LHS_TYPE& lhs ;
-	const RHS_TYPE& rhs ;
+	LHS_T lhs ;
+	RHS_T rhs ;
 
 } ;
 
@@ -113,7 +120,7 @@ public:
 	> BASE ;
 
 	Or_SingleLogicalResult_SingleLogicalResult( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_) :
-		lhs(lhs_), rhs(rhs_){} ;
+		lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){} ;
 
 	inline void apply(){
 		// here we know lhs does not have NA, so we start with the rhs
@@ -126,8 +133,8 @@ public:
 	}
 
 private:
-	const LHS_TYPE& lhs ;
-	const RHS_TYPE& rhs ;
+	LHS_T lhs ;
+	RHS_T rhs ;
 
 } ;
 
@@ -148,7 +155,7 @@ public:
 	> BASE ;
 
 	Or_SingleLogicalResult_SingleLogicalResult( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_) :
-		lhs(lhs_), rhs(rhs_){} ;
+		lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){} ;
 
 	inline void apply(){
 		int left = lhs.get() ;
@@ -160,8 +167,8 @@ public:
 	}
 
 private:
-	const LHS_TYPE& lhs ;
-	const RHS_TYPE& rhs ;
+	LHS_T lhs ;
+	RHS_T rhs ;
 
 } ;
 
@@ -170,7 +177,7 @@ template <bool LHS_NA, typename LHS_T>
 class Or_SingleLogicalResult_bool :
 public SingleLogicalResult<
 	LHS_NA ,
-	And_SingleLogicalResult_bool<LHS_NA,LHS_T>
+	Or_SingleLogicalResult_bool<LHS_NA,LHS_T>
 	>
 {
 public:
@@ -181,7 +188,7 @@ public:
 	> BASE ;
 
 	Or_SingleLogicalResult_bool( const LHS_TYPE& lhs_, bool rhs_) :
-		lhs(lhs_), rhs(rhs_){} ;
+		lhs(lhs_.get_ref()), rhs(rhs_){} ;
 
 	inline void apply(){
 		if( rhs ){
@@ -192,7 +199,7 @@ public:
 	}
 
 private:
-	const LHS_TYPE& lhs ;
+	LHS_T lhs ;
 	bool rhs ;
 
 } ;
@@ -298,7 +305,7 @@ template <bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T>
 inline Rcpp::sugar::Or_SingleLogicalResult_SingleLogicalResult<LHS_NA,LHS_T,RHS_NA,RHS_T>
 operator||(
 	const Rcpp::sugar::SingleLogicalResult<LHS_NA,LHS_T>& lhs,
-	const Rcpp::sugar::SingleLogicalResult<LHS_NA,LHS_T>& rhs
+	const Rcpp::sugar::SingleLogicalResult<RHS_NA,RHS_T>& rhs
 ){
 	return Rcpp::sugar::Or_SingleLogicalResult_SingleLogicalResult<LHS_NA,LHS_T,RHS_NA,RHS_T>( lhs, rhs ) ;
 }

@@ -14,6 +14,14 @@
 	* inst/include/Rcpp/stats/dpq/dpq.h: Idem
 	* inst/include/Rcpp/sugar/block/SugarBlock_3.h: Also fix the type of the
 	third operand
+	* inst/include/Rcpp/sugar/logical/and.h: Fix operator&& on two single
+	logical results, hold their operands by value, and make NA && FALSE
+	return FALSE
+	* inst/include/Rcpp/sugar/logical/or.h: Idem for operator||, making
+	NA || TRUE return TRUE, and fix the base class of Or_SingleLogicalResult_bool
+	* inst/include/Rcpp/sugar/logical/not.h: Hold the operand of operator!
+	by value
+	* inst/include/Rcpp/sugar/logical/SingleLogicalResult.h: Add get_ref()
 	* inst/include/Rcpp/vector/Vector.h: Evaluate sugar expressions that
 	aren't elementwise before assigning them in place
 	* inst/include/Rcpp/vector/RangeIndexer.h: Idem, and check lengths

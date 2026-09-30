@@ -1782,3 +1782,29 @@ expect_error(length_range(c(1, 2, 3, 4, 5), c(7, 8)), "cannot assign", info = "x
 expect_error(length_range(c(1, 2, 3, 4, 5), c(6, 7, 8, 9)), "cannot assign", info = "x[0:2] = <longer y>")
 expect_error(length_column(matrix(1, 3, 2), c(7, 8)), "cannot assign", info = "m(_, 0) = <shorter y>")
 expect_error(length_row(matrix(1, 3, 2), c(7, 8, 9)), "cannot assign", info = "m(0, _) = <longer y>")
+
+## &&, || and ! on single logical results (e.g. all(), any()) follow R's
+## three-valued logic
+vals <- c(TRUE, FALSE, NA)
+for (a in vals) {
+    expect_identical(single_not(a), !a, info = sprintf("!%s", a))
+    for (b in vals) {
+        expect_identical(single_and(a, b), a && b, info = sprintf("%s && %s", a, b))
+        expect_identical(single_or(a, b), a || b, info = sprintf("%s || %s", a, b))
+        if (!is.na(a)) {
+            expect_identical(single_and_nona_lhs(a, b), a && b, info = sprintf("noNA(%s) && %s", a, b))
+            expect_identical(single_or_nona_lhs(a, b), a || b, info = sprintf("noNA(%s) || %s", a, b))
+        }
+        if (!is.na(b)) {
+            expect_identical(single_and_nona_rhs(a, b), a && b, info = sprintf("%s && noNA(%s)", a, b))
+            expect_identical(single_or_nona_rhs(a, b), a || b, info = sprintf("%s || noNA(%s)", a, b))
+            expect_identical(single_and_bool(a, b), a && b, info = sprintf("%s && <bool %s>", a, b))
+            expect_identical(single_or_bool(a, b), b || a, info = sprintf("<bool %s> || %s", b, a))
+        }
+        if (!is.na(a) && !is.na(b)) {
+            expect_identical(single_and_nona_both(a, b), a && b, info = sprintf("noNA(%s) && noNA(%s)", a, b))
+            expect_identical(single_or_nona_both(a, b), a || b, info = sprintf("noNA(%s) || noNA(%s)", a, b))
+        }
+    }
+}
+expect_identical(single_stored(c(TRUE, TRUE), c(FALSE, TRUE)), FALSE, info = "auto: !(all(a) && any(b))")

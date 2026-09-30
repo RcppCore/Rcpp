@@ -31,6 +31,9 @@
       stored, evaluate expressions that may read the target before assigning
       them in place, and signal an error for operands of different lengths
       (Kevin in \ghpr{1513} closing \ghit{1512})
+      \item The sugar operators \code{!}, \code{&&} and \code{||} on single
+      logical results such as \code{all()} compile again, and follow R's
+      handling of \code{NA} (Kevin in \ghpr{1513})
     }
     \item Changes in Rcpp Documentation:
     \itemize{
