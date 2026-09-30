@@ -27,6 +27,10 @@
       warnings (Iñaki in \ghpr{1508} closing \ghit{1497})
       \item The \code{col} constructor now uses \code{nrow} in an
       initialization (Iñaki in \ghpr{1509})
+      \item Sugar expressions hold nested expressions by value so they can be
+      stored, evaluate expressions that may read the target before assigning
+      them in place, and signal an error for operands of different lengths
+      (Kevin in \ghpr{1513} closing \ghit{1512})
     }
     \item Changes in Rcpp Documentation:
     \itemize{
