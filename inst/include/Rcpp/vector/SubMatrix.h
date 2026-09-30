@@ -56,7 +56,7 @@ private:
 } ;
 
 template <int RTYPE, template <class> class StoragePolicy >
-Matrix<RTYPE,StoragePolicy>::Matrix( const SubMatrix<RTYPE>& sub ) : VECTOR( Rf_allocMatrix( RTYPE, sub.nrow(), sub.ncol() )), nrows(sub.nrow()) {
+Matrix<RTYPE,StoragePolicy>::Matrix( const SubMatrix<RTYPE>& sub ) : VECTOR( Rf_allocMatrix( RTYPE, sub.nrow(), sub.ncol() )), nrows(sub.nrow()), ncols(sub.ncol()) {
     int nc = sub.ncol() ;
     iterator start = VECTOR::begin() ;
 	iterator rhs_it ;
@@ -73,6 +73,7 @@ Matrix<RTYPE,StoragePolicy>& Matrix<RTYPE,StoragePolicy>::operator=( const SubMa
     int nc = sub.ncol(), nr = sub.nrow() ;
     if( nc != nrow() || nr != ncol() ){
         nrows = nr ;
+        ncols = nc ;
         VECTOR::set__( Rf_allocMatrix( RTYPE, nr, nc ) ) ;
 	}
 	iterator start = VECTOR::begin() ;

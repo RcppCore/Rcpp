@@ -28,6 +28,7 @@ namespace Rcpp{
 template <int RTYPE, template <class> class StoragePolicy = PreserveStorage >
 class Matrix : public Vector<RTYPE, StoragePolicy>, public MatrixBase<RTYPE, true, Matrix<RTYPE,StoragePolicy> > {
     int nrows ;
+    int ncols ;
 
 public:
     using Vector<RTYPE, StoragePolicy>::size; 	// disambiguate diamond pattern for g++-6 and later
@@ -49,33 +50,33 @@ public:
     typedef typename VECTOR::Proxy Proxy ;
     typedef typename VECTOR::const_Proxy const_Proxy ;
 
-    Matrix() : VECTOR(Dimension(0, 0)), nrows(0) {}
+    Matrix() : VECTOR(Dimension(0, 0)), nrows(0), ncols(0) {}
 
-    Matrix(SEXP x) : VECTOR(x), nrows( VECTOR::dims()[0] ) {}
+    Matrix(SEXP x) : VECTOR(x), nrows( VECTOR::dims()[0] ), ncols( VECTOR::dims()[1] ) {}
 
-    Matrix( const Dimension& dims) : VECTOR( Rf_allocMatrix( RTYPE, dims[0], dims[1] ) ), nrows(dims[0]) {
+    Matrix( const Dimension& dims) : VECTOR( Rf_allocMatrix( RTYPE, dims[0], dims[1] ) ), nrows(dims[0]), ncols(dims[1]) {
         if( dims.size() != 2 ) throw not_a_matrix();
         VECTOR::init() ;
     }
-    Matrix( const int& nrows_, const int& ncols) : VECTOR( Dimension( nrows_, ncols ) ),
-      nrows(nrows_)
+    Matrix( const int& nrows_, const int& ncols_) : VECTOR( Dimension( nrows_, ncols_ ) ),
+      nrows(nrows_), ncols(ncols_)
     {}
 
     template <typename Iterator>
-    Matrix( const int& nrows_, const int& ncols, Iterator start ) :
-        VECTOR( start, start + (static_cast<R_xlen_t>(nrows_)*ncols) ),
-        nrows(nrows_)
+    Matrix( const int& nrows_, const int& ncols_, Iterator start ) :
+        VECTOR( start, start + (static_cast<R_xlen_t>(nrows_)*ncols_) ),
+        nrows(nrows_), ncols(ncols_)
     {
         VECTOR::attr( "dim" ) = Dimension( nrows, ncols ) ;
     }
 
-    Matrix( const int& n) : VECTOR( Dimension( n, n ) ), nrows(n) {}
+    Matrix( const int& n) : VECTOR( Dimension( n, n ) ), nrows(n), ncols(n) {}
 
 
-    Matrix( const Matrix& other) : VECTOR( other.get__() ), nrows(other.nrows) {}
+    Matrix( const Matrix& other) : VECTOR( other.get__() ), nrows(other.nrows), ncols(other.ncols) {}
 
     template <bool NA, typename MAT>
-    Matrix( const MatrixBase<RTYPE,NA,MAT>& other ) : VECTOR( Rf_allocMatrix( RTYPE, static_cast<int>(other.nrow()), static_cast<int>(other.ncol()) ) ), nrows(static_cast<int>(other.nrow())) {
+    Matrix( const MatrixBase<RTYPE,NA,MAT>& other ) : VECTOR( Rf_allocMatrix( RTYPE, static_cast<int>(other.nrow()), static_cast<int>(other.ncol()) ) ), nrows(static_cast<int>(other.nrow())), ncols(static_cast<int>(other.ncol())) {
         import_matrix_expression<NA,MAT>( other, nrows, ncol() ) ;
     }
 
@@ -86,20 +87,21 @@ public:
         if( ! ::Rf_isMatrix(x) ) throw not_a_matrix();
         VECTOR::set__( x ) ;
         nrows = other.nrows ;
+        ncols = other.ncols ;
         return *this ;
     }
     Matrix& operator=( const SubMatrix<RTYPE>& ) ;
 
-    explicit Matrix( const no_init_matrix& obj) : VECTOR(Rf_allocMatrix(RTYPE, obj.nrow(), obj.ncol())), nrows(obj.nrow()) {}
+    explicit Matrix( const no_init_matrix& obj) : VECTOR(Rf_allocMatrix(RTYPE, obj.nrow(), obj.ncol())), nrows(obj.nrow()), ncols(obj.ncol()) {}
 
     inline int ncol() const {
-        return VECTOR::dims()[1];
+        return ncols ;
     }
     inline int nrow() const {
         return nrows ;
     }
     inline int cols() const {
-        return VECTOR::dims()[1];
+        return ncols ;
     }
     inline int rows() const {
         return nrows ;

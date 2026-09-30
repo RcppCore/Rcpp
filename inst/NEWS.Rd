@@ -27,6 +27,9 @@
       warnings (Iñaki in \ghpr{1508} closing \ghit{1497})
       \item The \code{col} constructor now uses \code{nrow} in an
       initialization (Iñaki in \ghpr{1509})
+      \item Bounds-checked element access is faster, and vector lengths and
+      matrix column counts are now cached (Kevin in \ghpr{1511} closing
+      \ghit{1510})
     }
     \item Changes in Rcpp Documentation:
     \itemize{
