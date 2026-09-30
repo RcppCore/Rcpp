@@ -28,6 +28,8 @@ namespace sugar{
 
 class SeqLen : public VectorBase< INTSXP,false,SeqLen > {
 public:
+        typedef Rcpp::traits::elementwise_operands<> rcpp_elementwise ;
+
         SeqLen( R_xlen_t len_ ) : len(len_){}
 
         inline int operator[]( R_xlen_t i ) const {

@@ -48,7 +48,7 @@ public:
 		return result ;
 	}
 private:
-	const VEC_EXT& object ;
+	typename Rcpp::traits::sugar_operand< VEC_EXT >::type object ;
 } ;
 // RTYPE = REALSXP
 template <bool NA, typename T>
@@ -68,7 +68,7 @@ public:
 		return result ;
 	}
 private:
-	const VEC_EXT& object ;
+	typename Rcpp::traits::sugar_operand< VEC_EXT >::type object ;
 } ;
 
 
@@ -90,7 +90,7 @@ public:
 		return result ;
 	}
 private:
-	const VEC_EXT& object ;
+	typename Rcpp::traits::sugar_operand< VEC_EXT >::type object ;
 } ;
 
 } // sugar

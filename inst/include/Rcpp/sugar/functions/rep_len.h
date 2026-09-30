@@ -32,7 +32,7 @@ public:
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 
         Rep_len( const VEC_TYPE& object_, R_xlen_t len_ ) :
-		object(object_), len(len_), n(object_.size()){}
+		object(object_.get_ref()), len(len_), n(object_.size()){}
 
         inline STORAGE operator[]( R_xlen_t i ) const {
 		return object[ i % n ] ;
@@ -40,7 +40,7 @@ public:
         inline R_xlen_t size() const { return len ; }
 
 private:
-	const VEC_TYPE& object ;
+	typename Rcpp::traits::sugar_operand< VEC_TYPE >::type object ;
         R_xlen_t len, n ;
 } ;
 

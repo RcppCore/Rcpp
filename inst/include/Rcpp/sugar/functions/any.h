@@ -30,7 +30,7 @@ class Any : public SingleLogicalResult< true, Any<NA,T> >{
 public:
 	typedef Rcpp::VectorBase<LGLSXP,NA,T> VEC_TYPE ;
 	typedef SingleLogicalResult< true , Any<NA,T> > PARENT ;
-	Any( const VEC_TYPE& t ) : PARENT() , object(t) {}
+	Any( const VEC_TYPE& t ) : PARENT() , object(t.get_ref()) {}
 
 	void apply(){
 		R_xlen_t n = object.size() ;
@@ -51,7 +51,7 @@ public:
 		}
 	}
 private:
-	const VEC_TYPE& object ;
+	typename Rcpp::traits::sugar_operand< VEC_TYPE >::type object ;
 } ;
 
 template <typename T>
@@ -59,7 +59,7 @@ class Any<false,T> : public SingleLogicalResult< false, Any<false,T> >{
 public:
 	typedef Rcpp::VectorBase<LGLSXP,false,T> VEC_TYPE ;
 	typedef SingleLogicalResult< false , Any<false,T> > PARENT ;
-	Any( const VEC_TYPE& t ) : PARENT() , object(t) {}
+	Any( const VEC_TYPE& t ) : PARENT() , object(t.get_ref()) {}
 
 	void apply(){
 		R_xlen_t n = object.size() ;
@@ -72,7 +72,7 @@ public:
 		}
 	}
 private:
-	const VEC_TYPE& object ;
+	typename Rcpp::traits::sugar_operand< VEC_TYPE >::type object ;
 } ;
 
 } // sugar

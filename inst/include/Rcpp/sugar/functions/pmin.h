@@ -104,8 +104,11 @@ class Pmin_Vector_Vector : public VectorBase<
 public:
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 	typedef pmin_op<RTYPE,LHS_NA,RHS_NA> OPERATOR ;
+	typedef Rcpp::traits::elementwise_operands< LHS_T, RHS_T > rcpp_elementwise ;
 
-	Pmin_Vector_Vector( const LHS_T& lhs_, const RHS_T& rhs_ ) : lhs(lhs_), rhs(rhs_), op() {}
+	Pmin_Vector_Vector( const LHS_T& lhs_, const RHS_T& rhs_ ) : lhs(lhs_), rhs(rhs_), op() {
+		check_sizes(lhs.size(), rhs.size()) ;
+	}
 
         inline STORAGE operator[]( R_xlen_t i ) const {
 		return op( lhs[i], rhs[i] ) ;
@@ -113,8 +116,8 @@ public:
         inline R_xlen_t size() const { return lhs.size() ; }
 
 private:
-	const LHS_T& lhs ;
-	const RHS_T& rhs ;
+	typename Rcpp::traits::sugar_operand< LHS_T >::type lhs ;
+	typename Rcpp::traits::sugar_operand< RHS_T >::type rhs ;
 	OPERATOR op ;
 } ;
 
@@ -132,6 +135,7 @@ class Pmin_Vector_Primitive : public VectorBase<
 public:
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 	typedef pmin_op_Vector_Primitive<RTYPE,LHS_NA> OPERATOR ;
+	typedef Rcpp::traits::elementwise_operands< LHS_T > rcpp_elementwise ;
 
 	Pmin_Vector_Primitive( const LHS_T& lhs_, STORAGE rhs_ ) : lhs(lhs_), op(rhs_) {}
 
@@ -139,7 +143,7 @@ public:
         inline R_xlen_t size() const { return lhs.size() ; }
 
 private:
-	const LHS_T& lhs ;
+	typename Rcpp::traits::sugar_operand< LHS_T >::type lhs ;
 	OPERATOR op ;
 } ;
 

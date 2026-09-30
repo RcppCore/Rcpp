@@ -33,9 +33,12 @@ public:
 	typedef typename Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T> LHS_TYPE ;
 	typedef typename Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T> RHS_TYPE ;
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
+	typedef Rcpp::traits::elementwise_operands< LHS_TYPE, RHS_TYPE > rcpp_elementwise ;
 
 	Comparator( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_) :
-		lhs(lhs_), rhs(rhs_), op() {}
+		lhs(lhs_.get_ref()), rhs(rhs_.get_ref()), op() {
+		check_sizes(lhs.size(), rhs.size()) ;
+	}
 
 	inline int operator[]( R_xlen_t i ) const {
 		STORAGE x = lhs[i] ;
@@ -48,8 +51,8 @@ public:
 	inline R_xlen_t size() const { return lhs.size() ; }
 
 private:
-	const LHS_TYPE& lhs ;
-	const RHS_TYPE& rhs ;
+	typename Rcpp::traits::sugar_operand< LHS_TYPE >::type lhs ;
+	typename Rcpp::traits::sugar_operand< RHS_TYPE >::type rhs ;
 	Operator op ;
 
 } ;
@@ -64,9 +67,12 @@ public:
 	typedef typename Rcpp::VectorBase<RTYPE,false,LHS_T> LHS_TYPE ;
 	typedef typename Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T> RHS_TYPE ;
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
+	typedef Rcpp::traits::elementwise_operands< LHS_TYPE, RHS_TYPE > rcpp_elementwise ;
 
 	Comparator( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_) :
-		lhs(lhs_), rhs(rhs_), op() {}
+		lhs(lhs_.get_ref()), rhs(rhs_.get_ref()), op() {
+		check_sizes(lhs.size(), rhs.size()) ;
+	}
 
 	inline int operator[]( R_xlen_t i ) const {
 		STORAGE y = rhs[i] ;
@@ -77,8 +83,8 @@ public:
 	inline R_xlen_t size() const { return lhs.size() ; }
 
 private:
-	const LHS_TYPE& lhs ;
-	const RHS_TYPE& rhs ;
+	typename Rcpp::traits::sugar_operand< LHS_TYPE >::type lhs ;
+	typename Rcpp::traits::sugar_operand< RHS_TYPE >::type rhs ;
 	Operator op ;
 
 } ;
@@ -92,9 +98,12 @@ public:
 	typedef typename Rcpp::VectorBase<RTYPE,false,LHS_T> LHS_TYPE ;
 	typedef typename Rcpp::VectorBase<RTYPE,false,RHS_T> RHS_TYPE ;
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
+	typedef Rcpp::traits::elementwise_operands< LHS_TYPE, RHS_TYPE > rcpp_elementwise ;
 
 	Comparator( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_) :
-		lhs(lhs_), rhs(rhs_), op() {}
+		lhs(lhs_.get_ref()), rhs(rhs_.get_ref()), op() {
+		check_sizes(lhs.size(), rhs.size()) ;
+	}
 
 	inline int operator[]( R_xlen_t i ) const {
 		return op( lhs[i], rhs[i] ) ;
@@ -103,8 +112,8 @@ public:
 	inline R_xlen_t size() const { return lhs.size() ; }
 
 private:
-	const LHS_TYPE& lhs ;
-	const RHS_TYPE& rhs ;
+	typename Rcpp::traits::sugar_operand< LHS_TYPE >::type lhs ;
+	typename Rcpp::traits::sugar_operand< RHS_TYPE >::type rhs ;
 	Operator op ;
 
 } ;

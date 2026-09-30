@@ -65,6 +65,13 @@ expect_error(subset_assign_subset5(1:6), info = "index error")
 
 expect_identical(subset_assign_vector_size_1(1:6,7), c(7,7,7,4,5,6))
 
+## assigning between subsets of the same vector reads every source element
+## before any is overwritten
+expect_identical(subset_assign_alias(c(1, 2, 3)), c(1, 1, 2), info = "x[1:2] = x[0:1]")
+expect_identical(subset_assign_alias_string(c("a", "b", "c")), c("a", "a", "b"), info = "x[1:2] = x[0:1], strings")
+expect_identical(subset_assign_alias_disjoint(c(1, 2, 3, 4)), c(3, 4, 3, 4), info = "x[0:1] = x[2:3]")
+expect_identical(subset_assign_alias_single(c(1, 2, 3)), c(3, 3, 3), info = "x[0:2] = x[2]")
+
 x <- rnorm(10)
 y <- sample(10, 5)
 expect_identical(subset_sugar_add(x, y - 1L), x[y] + x[y])

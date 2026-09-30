@@ -51,7 +51,9 @@ public:
 	typedef typename Rcpp::traits::Extractor<RTYPE_3,NA_3,T_3>::type EXT_3 ;
 
 	Mapply_3( const VEC_1& vec_1_, const VEC_2& vec_2_, const VEC_3& vec_3_, Function fun_ ) :
-		vec_1(vec_1_.get_ref()), vec_2(vec_2_.get_ref()), vec_3(vec_3_.get_ref()), fun(fun_){}
+		vec_1(vec_1_.get_ref()), vec_2(vec_2_.get_ref()), vec_3(vec_3_.get_ref()), fun(fun_){
+		check_sizes(vec_1.size(), vec_2.size(), vec_3.size()) ;
+	}
 
         inline result_type operator[]( R_xlen_t i ) const {
 		return fun( vec_1[i], vec_2[i], vec_3[i] );
@@ -59,9 +61,9 @@ public:
         inline R_xlen_t size() const { return vec_1.size() ; }
 
 private:
-	const EXT_1& vec_1 ;
-	const EXT_2& vec_2 ;
-	const EXT_3& vec_3 ;
+	typename Rcpp::traits::sugar_operand< EXT_1 >::type vec_1 ;
+	typename Rcpp::traits::sugar_operand< EXT_2 >::type vec_2 ;
+	typename Rcpp::traits::sugar_operand< EXT_3 >::type vec_3 ;
 	Function fun ;
 } ;
 

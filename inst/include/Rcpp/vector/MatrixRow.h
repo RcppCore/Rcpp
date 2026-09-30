@@ -28,6 +28,7 @@ namespace Rcpp{
 template <int RTYPE>
 class MatrixRow : public VectorBase< RTYPE, true, MatrixRow<RTYPE> > {
 public:
+    typedef traits::row_view rcpp_view ;
     typedef Matrix<RTYPE> MATRIX ;
     typedef typename MATRIX::Proxy Proxy ;
     typedef typename MATRIX::Proxy reference ;
@@ -153,6 +154,14 @@ public:
 
     template <int RT, bool NA, typename T>
     MatrixRow& operator=( const Rcpp::VectorBase<RT,NA,T>& rhs ){
+        sugar::check_assign_size(size(), rhs.size()) ;
+
+        if( ! traits::is_elementwise<T, traits::row_target>::value ){
+            // rhs may read from this row's matrix, so evaluate it first
+            const Vector<RT> tmp(rhs) ;
+            return operator=( tmp ) ;
+        }
+
         int n = size() ;
         const T& ref = rhs.get_ref() ;
         RCPP_LOOP_UNROLL_LHSFUN(start,get_parent_index,ref)
@@ -160,6 +169,8 @@ public:
     }
 
     MatrixRow& operator=( const MatrixRow& rhs ){
+        sugar::check_assign_size(size(), rhs.size()) ;
+
         int n = size() ;
         RCPP_LOOP_UNROLL_LHSFUN(start,get_parent_index,rhs)
             return *this ;
@@ -216,6 +227,7 @@ private:
 template <int RTYPE>
 class ConstMatrixRow : public VectorBase< RTYPE, true, ConstMatrixRow<RTYPE> > {
 public:
+    typedef traits::row_view rcpp_view ;
     typedef Matrix<RTYPE> MATRIX ;
     typedef typename MATRIX::const_Proxy const_reference ;
     typedef typename MATRIX::value_type value_type ;
