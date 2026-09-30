@@ -37,6 +37,7 @@ class SugarBlock_3_VVV : public Rcpp::VectorBase<
     SugarBlock_3_VVV<NA,RESULT_TYPE,U1,T1,U2,T2,U3,T3> > {
 public:
     typedef RESULT_TYPE (*FunPtr)(U1,U2,U3) ;
+    typedef Rcpp::traits::are_elementwise< T1, T2, T3 > rcpp_elementwise ;
     SugarBlock_3_VVV( FunPtr ptr_, const T1 & x_, const T2& y_, const T3& z_ ) :
         ptr(ptr_), x(x_.get_ref()), y(y_.get_ref()), z(z_.get_ref()) {
         // TODO: size checks, recycling, etc ...

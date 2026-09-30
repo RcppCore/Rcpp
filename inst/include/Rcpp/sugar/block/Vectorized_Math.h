@@ -32,6 +32,7 @@ class Vectorized : public VectorBase<REALSXP, NA, Vectorized<Func,NA,VEC> >{
 public:
     typedef typename Rcpp::VectorBase<REALSXP,NA,VEC> VEC_TYPE ;
     typedef typename Rcpp::traits::Extractor<REALSXP,NA,VEC>::type VEC_EXT ;
+    typedef Rcpp::traits::is_elementwise< VEC_EXT > rcpp_elementwise ;
 
     Vectorized( const VEC_TYPE& object_) : object( object_.get_ref() ){}
     inline double operator[]( R_xlen_t i) const {
@@ -48,6 +49,7 @@ class Vectorized_INTSXP : public VectorBase<REALSXP, NA, Vectorized_INTSXP<Func,
 public:
     typedef typename Rcpp::VectorBase<INTSXP,NA,VEC> VEC_TYPE ;
     typedef typename Rcpp::traits::Extractor<INTSXP,NA,VEC>::type VEC_EXT ;
+    typedef Rcpp::traits::is_elementwise< VEC_EXT > rcpp_elementwise ;
 
     Vectorized_INTSXP( const VEC_TYPE& object_) : object( object_.get_ref() ){}
     inline double operator[]( R_xlen_t i) const {
@@ -66,6 +68,7 @@ class Vectorized_INTSXP<Func,false,VEC> :
 public:
     typedef typename Rcpp::VectorBase<INTSXP,false,VEC> VEC_TYPE ;
     typedef typename Rcpp::traits::Extractor<INTSXP,false,VEC>::type VEC_EXT ;
+    typedef Rcpp::traits::is_elementwise< VEC_EXT > rcpp_elementwise ;
 
     Vectorized_INTSXP( const VEC_TYPE& object_) : object( object_.get_ref() ){}
     inline double operator[]( R_xlen_t i) const {

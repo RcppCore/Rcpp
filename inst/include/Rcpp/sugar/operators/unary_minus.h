@@ -90,6 +90,7 @@ namespace sugar{
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		typedef typename unary_minus_result_type<RTYPE>::type RESULT ;
 		typedef unary_minus<RTYPE,NA> OPERATOR ;
+		typedef Rcpp::traits::is_elementwise< VEC_TYPE > rcpp_elementwise ;
 
 		UnaryMinus_Vector( const VEC_TYPE& lhs_ ) :
 			lhs(lhs_.get_ref()), op() {}

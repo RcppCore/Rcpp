@@ -110,3 +110,92 @@ NumericVector lifetime_dnorm(NumericVector x) {
     clobber_stack();
     return e;
 }
+
+// [[Rcpp::export]]
+NumericVector alias_rev(NumericVector x) {
+    x = rev(x);
+    return x;
+}
+
+// [[Rcpp::export]]
+NumericVector alias_rev_copy(NumericVector x) {
+    NumericVector y = x;
+    y = rev(x);
+    return y;
+}
+
+// [[Rcpp::export]]
+NumericVector alias_mixed(NumericVector x) {
+    x = x + rev(x);
+    return x;
+}
+
+// [[Rcpp::export]]
+NumericVector alias_sapply(NumericVector x) {
+    x = sapply(x, [&](double v) { return v - x[0]; });
+    return x;
+}
+
+// [[Rcpp::export]]
+NumericVector alias_elementwise(NumericVector x) {
+    x = x * 2.0 + x;
+    return x;
+}
+
+// [[Rcpp::export]]
+NumericVector alias_range_shift(NumericVector x) {
+    R_xlen_t n = x.size();
+    x[Range(1, n - 1)] = head(x, n - 1);
+    return x;
+}
+
+// [[Rcpp::export]]
+NumericVector alias_range_rev(NumericVector x) {
+    R_xlen_t n = x.size();
+    x[Range(0, n - 1)] = rev(x);
+    return x;
+}
+
+// [[Rcpp::export]]
+NumericVector alias_range_add_rev(NumericVector x) {
+    R_xlen_t n = x.size();
+    x[Range(0, n - 1)] += rev(x);
+    return x;
+}
+
+// [[Rcpp::export]]
+NumericMatrix alias_column_rev(NumericMatrix m) {
+    m(_, 0) = rev(m(_, 0));
+    return m;
+}
+
+// [[Rcpp::export]]
+NumericMatrix alias_row_rev(NumericMatrix m) {
+    m(0, _) = rev(m(0, _));
+    return m;
+}
+
+// [[Rcpp::export]]
+LogicalVector elementwise_flags(NumericVector x, NumericMatrix m) {
+    // copy into locals, since binding the static `value` members by
+    // reference would require them to have definitions
+    bool vector    = traits::is_elementwise<decltype(x)>::value;
+    bool arith     = traits::is_elementwise<decltype(x * 2.0 + x)>::value;
+    bool math      = traits::is_elementwise<decltype(sqrt(x))>::value;
+    bool if_else   = traits::is_elementwise<decltype(ifelse(x > 0.0, x, -x))>::value;
+    bool reversed  = traits::is_elementwise<decltype(rev(x))>::value;
+    bool arith_rev = traits::is_elementwise<decltype(x + rev(x))>::value;
+    bool first     = traits::is_elementwise<decltype(head(x, 1))>::value;
+    bool column    = traits::is_elementwise<decltype(m(_, 0) + 1.0)>::value;
+
+    return LogicalVector::create(
+        _["vector"]    = vector,
+        _["arith"]     = arith,
+        _["math"]      = math,
+        _["ifelse"]    = if_else,
+        _["rev"]       = reversed,
+        _["arith_rev"] = arith_rev,
+        _["head"]      = first,
+        _["column"]    = column
+    );
+}

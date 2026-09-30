@@ -32,6 +32,7 @@ public:
 	typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 	typedef int (Comparator_With_One_Value::*METHOD)(R_xlen_t) const ;
+	typedef Rcpp::traits::is_elementwise< VEC_TYPE > rcpp_elementwise ;
 
 	Comparator_With_One_Value( const VEC_TYPE& lhs_, STORAGE rhs_ ) :
 		lhs(lhs_.get_ref()), rhs(rhs_), m(), op() {
@@ -71,6 +72,7 @@ public:
 	typedef typename Rcpp::VectorBase<RTYPE,false,T> VEC_TYPE ;
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 	typedef int (Comparator_With_One_Value::*METHOD)(R_xlen_t) const ;
+	typedef Rcpp::traits::is_elementwise< VEC_TYPE > rcpp_elementwise ;
 
 	Comparator_With_One_Value( const VEC_TYPE& lhs_, STORAGE rhs_ ) :
 		lhs(lhs_.get_ref()), rhs(rhs_), m(), op() {

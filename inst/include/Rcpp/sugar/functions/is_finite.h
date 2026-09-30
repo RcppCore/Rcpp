@@ -29,6 +29,8 @@ template <int RTYPE, bool NA, typename VEC_TYPE>
 class IsFinite : public ::Rcpp::VectorBase< LGLSXP, false, IsFinite<RTYPE,NA,VEC_TYPE> > {
 public:
 
+	typedef Rcpp::traits::is_elementwise< VEC_TYPE > rcpp_elementwise ;
+
 	IsFinite( const VEC_TYPE& obj_) : obj(obj_){}
 
 	inline int operator[]( R_xlen_t i ) const {

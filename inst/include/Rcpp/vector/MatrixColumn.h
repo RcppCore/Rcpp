@@ -66,6 +66,12 @@ public:
 
     template <int RT, bool NA, typename T>
     MatrixColumn& operator=( const Rcpp::VectorBase<RT,NA,T>& rhs ){
+        if( ! traits::is_elementwise<T>::value ){
+            // rhs may read from this column's matrix, so evaluate it first
+            const Vector<RT> tmp(rhs) ;
+            return operator=( tmp ) ;
+        }
+
         const T& ref = rhs.get_ref() ;
         RCPP_LOOP_UNROLL(start,ref)
         return *this ;

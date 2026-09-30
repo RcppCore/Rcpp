@@ -1723,3 +1723,34 @@ expect_equal(lifetime_sum(x), sum(x * 2), info = "auto: sum(x * 2)")
 m <- matrix(c(1, 2, 3, 4, 5, 6), 3)
 expect_equal(lifetime_column(m), m[, 1] + 1, info = "auto: m(_, 0) + 1")
 expect_equal(lifetime_dnorm(x), dnorm(x), info = "auto: dnorm(x * 1)")
+
+## same-length assignment writes into the existing storage, so an expression
+## that reads from the target has to be evaluated before it is written. The
+## writes also modify the argument itself, hence the fresh copies.
+x <- function() c(1, 2, 3, 4, 5)
+expect_equal(alias_rev(x()), rev(x()), info = "x = rev(x)")
+expect_equal(alias_rev_copy(x()), rev(x()), info = "y = x; y = rev(x)")
+expect_equal(alias_mixed(x()), x() + rev(x()), info = "x = x + rev(x)")
+expect_equal(alias_sapply(x()), x() - x()[1], info = "x = sapply(x, <reads x[0]>)")
+expect_equal(alias_elementwise(x()), x() * 2 + x(), info = "x = x * 2 + x")
+expect_equal(alias_range_shift(x()), c(1, 1, 2, 3, 4), info = "x[1:n-1] = head(x, n-1)")
+expect_equal(alias_range_rev(x()), rev(x()), info = "x[0:n-1] = rev(x)")
+expect_equal(alias_range_add_rev(x()), x() + rev(x()), info = "x[0:n-1] += rev(x)")
+m <- function() matrix(c(1, 2, 3, 4, 5, 6), 3)
+expect_equal(alias_column_rev(m())[, 1], rev(m()[, 1]), info = "m(_, 0) = rev(m(_, 0))")
+m <- function() matrix(c(1, 2, 3, 4, 5, 6), 2)
+expect_equal(alias_row_rev(m())[1, ], rev(m()[1, ]), info = "m(0, _) = rev(m(0, _))")
+
+## assignment still happens in place, keeping attributes
+x <- function() c(a = 1, b = 2, c = 3)
+expect_equal(names(alias_rev(x())), names(x()), info = "x = rev(x) keeps names")
+expect_equal(names(alias_elementwise(x())), names(x()), info = "x = x * 2 + x keeps names")
+
+## only vectors and elementwise expressions over them are written in place
+flags <- elementwise_flags(c(1, 2, 3), matrix(1, 2, 2))
+expect_equal(
+    flags,
+    c(vector = TRUE, arith = TRUE, math = TRUE, ifelse = TRUE,
+      rev = FALSE, arith_rev = FALSE, head = FALSE, column = FALSE),
+    info = "traits::is_elementwise"
+)

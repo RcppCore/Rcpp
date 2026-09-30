@@ -50,6 +50,7 @@ public:
 	typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 	typedef int r_import_type ;
+	typedef Rcpp::traits::is_elementwise< VEC_TYPE > rcpp_elementwise ;
 
 	Sign( const VEC_TYPE& object_ ) : object(object_.get_ref()){}
 

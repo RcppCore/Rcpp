@@ -78,6 +78,7 @@ namespace sugar{
 		typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		typedef not_<RTYPE,NA> OPERATOR ;
+		typedef Rcpp::traits::is_elementwise< VEC_TYPE > rcpp_elementwise ;
 
 		Not_Vector( const VEC_TYPE& lhs_ ) :
 			lhs(lhs_.get_ref()), op() {}

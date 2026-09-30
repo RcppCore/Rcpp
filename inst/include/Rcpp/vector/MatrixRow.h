@@ -153,6 +153,12 @@ public:
 
     template <int RT, bool NA, typename T>
     MatrixRow& operator=( const Rcpp::VectorBase<RT,NA,T>& rhs ){
+        if( ! traits::is_elementwise<T>::value ){
+            // rhs may read from this row's matrix, so evaluate it first
+            const Vector<RT> tmp(rhs) ;
+            return operator=( tmp ) ;
+        }
+
         int n = size() ;
         const T& ref = rhs.get_ref() ;
         RCPP_LOOP_UNROLL_LHSFUN(start,get_parent_index,ref)

@@ -31,6 +31,7 @@ class IsNa : public ::Rcpp::VectorBase< LGLSXP, false, IsNa<RTYPE,NA,VEC_TYPE> >
 public:
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 	typedef Rcpp::VectorBase<RTYPE,NA,VEC_TYPE> BASE ;
+	typedef Rcpp::traits::is_elementwise< BASE > rcpp_elementwise ;
 
 	IsNa( const BASE& obj_) : obj(obj_.get_ref()){}
 
@@ -53,6 +54,7 @@ class IsNa<RTYPE,false,VEC_TYPE> : public ::Rcpp::VectorBase< LGLSXP, false, IsN
 public:
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 	typedef Rcpp::VectorBase<RTYPE,false,VEC_TYPE> BASE ;
+	typedef Rcpp::traits::is_elementwise< BASE > rcpp_elementwise ;
 
 	IsNa( const BASE& obj_) : obj(obj_.get_ref()){}
 

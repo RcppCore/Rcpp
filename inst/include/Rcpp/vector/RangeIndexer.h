@@ -24,6 +24,12 @@
 #define Rcpp__vector__RangeIndexer_h
 
 #define UNROLL_LOOP(OP)                              \
+    if( ! ::Rcpp::traits::is_elementwise<T>::value ){  \
+        /* x may read from the vector this range */  \
+        /* indexes, so evaluate it first */          \
+        const Vector<RTYPE, PreserveStorage> tmp(x) ; \
+        return operator OP ( tmp ) ;                 \
+    }                                                \
     typedef typename ::Rcpp::traits::Extractor<RTYPE,NA,T>::type EXT ; \
     const EXT& input( x.get_ref() ) ;                   \
     R_xlen_t __trip_count = (size_) >> 2;            \
