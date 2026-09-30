@@ -1734,6 +1734,8 @@ expect_equal(alias_mixed(x()), x() + rev(x()), info = "x = x + rev(x)")
 expect_equal(alias_sapply(x()), x() - x()[1], info = "x = sapply(x, <reads x[0]>)")
 expect_equal(alias_elementwise(x()), x() * 2 + x(), info = "x = x * 2 + x")
 expect_equal(alias_range_shift(x()), c(1, 1, 2, 3, 4), info = "x[1:n-1] = head(x, n-1)")
+expect_equal(alias_range_range(x()), c(1, 1, 2, 3, 4), info = "x[1:n-1] = x[0:n-2]")
+expect_equal(alias_range_range_add(x()), c(1, 3, 5, 7, 9), info = "x[1:n-1] += x[0:n-2]")
 expect_equal(alias_range_rev(x()), rev(x()), info = "x[0:n-1] = rev(x)")
 expect_equal(alias_range_add_rev(x()), x() + rev(x()), info = "x[0:n-1] += rev(x)")
 m <- function() matrix(c(1, 2, 3, 4, 5, 6), 3)
@@ -1761,7 +1763,7 @@ expect_equal(
     c(vector = TRUE, arith = TRUE, math = TRUE, ifelse = TRUE,
       rev = FALSE, arith_rev = FALSE, head = FALSE,
       column_vector = TRUE, column_column = TRUE, column_row = FALSE,
-      row_row = TRUE, row_column = FALSE, range_range = FALSE),
+      row_row = TRUE, row_column = FALSE, range_range = FALSE, seq = TRUE),
     info = "traits::is_elementwise"
 )
 
@@ -1780,6 +1782,7 @@ expect_error(length_ifelse(c(TRUE, FALSE), c(1, 2), c(1, 2, 3)), "different leng
 expect_equal(length_range(c(1, 2, 3, 4, 5), c(7, 8, 9)), c(7, 8, 9, 4, 5), info = "x[0:2] = y")
 expect_error(length_range(c(1, 2, 3, 4, 5), c(7, 8)), "cannot assign", info = "x[0:2] = <shorter y>")
 expect_error(length_range(c(1, 2, 3, 4, 5), c(6, 7, 8, 9)), "cannot assign", info = "x[0:2] = <longer y>")
+expect_error(length_range_range(c(1, 2, 3, 4, 5)), "cannot assign", info = "x[0:1] = x[0:3]")
 expect_error(length_column(matrix(1, 3, 2), c(7, 8)), "cannot assign", info = "m(_, 0) = <shorter y>")
 expect_error(length_row(matrix(1, 3, 2), c(7, 8, 9)), "cannot assign", info = "m(0, _) = <longer y>")
 

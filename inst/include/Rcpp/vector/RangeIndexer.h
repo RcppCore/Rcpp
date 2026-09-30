@@ -67,9 +67,18 @@ public:
 	RangeIndexer( VECTOR& vec_, const Rcpp::Range& range_) :
 		start(vec_.begin() + range_.get_start() ), size_( range_.size() ) {}
 
+	RangeIndexer( const RangeIndexer& other ) :
+		start(other.start), size_(other.size_) {}
+
 	template <bool NA_, typename T>
 	RangeIndexer& operator=( const Rcpp::VectorBase<RTYPE,NA_,T>& x){
 	    UNROLL_LOOP(=)
+	}
+
+	// without this, assigning one range to another would use the implicit
+	// copy assignment, which rebinds this range instead of copying elements
+	RangeIndexer& operator=( const RangeIndexer& x ){
+	    return operator=( static_cast<const Rcpp::VectorBase<RTYPE,NA,RangeIndexer>&>(x) ) ;
 	}
 
 	template <bool NA_, typename T>

@@ -150,6 +150,20 @@ NumericVector alias_range_shift(NumericVector x) {
 }
 
 // [[Rcpp::export]]
+NumericVector alias_range_range(NumericVector x) {
+    R_xlen_t n = x.size();
+    x[Range(1, n - 1)] = x[Range(0, n - 2)];
+    return x;
+}
+
+// [[Rcpp::export]]
+NumericVector alias_range_range_add(NumericVector x) {
+    R_xlen_t n = x.size();
+    x[Range(1, n - 1)] += x[Range(0, n - 2)];
+    return x;
+}
+
+// [[Rcpp::export]]
 NumericVector alias_range_rev(NumericVector x) {
     R_xlen_t n = x.size();
     x[Range(0, n - 1)] = rev(x);
@@ -223,6 +237,7 @@ LogicalVector elementwise_flags(NumericVector x, NumericMatrix m) {
     bool row_row         = traits::is_elementwise<decltype(m(0, _) + 1.0), RT>::value;
     bool row_column      = traits::is_elementwise<decltype(m(0, _) + 1.0), CT>::value;
     bool range_range     = traits::is_elementwise<decltype(x[Range(0, 1)] + 1.0), GT>::value;
+    bool sequence        = traits::is_elementwise<decltype(seq(0, 1)), GT>::value;
 
     return LogicalVector::create(
         _["vector"]        = vector,
@@ -237,7 +252,8 @@ LogicalVector elementwise_flags(NumericVector x, NumericMatrix m) {
         _["column_row"]    = column_row,
         _["row_row"]       = row_row,
         _["row_column"]    = row_column,
-        _["range_range"]   = range_range
+        _["range_range"]   = range_range,
+        _["seq"]           = sequence
     );
 }
 
@@ -274,6 +290,12 @@ NumericVector length_ifelse(LogicalVector cond, NumericVector x, NumericVector y
 // [[Rcpp::export]]
 NumericVector length_range(NumericVector x, NumericVector y) {
     x[Range(0, 2)] = y;
+    return x;
+}
+
+// [[Rcpp::export]]
+NumericVector length_range_range(NumericVector x) {
+    x[Range(0, 1)] = x[Range(0, 3)];
     return x;
 }
 

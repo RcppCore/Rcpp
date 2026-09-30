@@ -287,9 +287,7 @@ public:
 	typedef Rcpp::traits::elementwise_operands< COND_TYPE > rcpp_elementwise ;
 
 	IfElse_Primitive_Primitive( const COND_TYPE& cond_, STORAGE lhs_, STORAGE rhs_ ) :
-		cond(cond_.get_ref()), lhs(lhs_), rhs(rhs_)  {
-			/* FIXME : cond, lhs and rhs must all have the same size */
-	}
+		cond(cond_.get_ref()), lhs(lhs_), rhs(rhs_) {}
 
 	inline STORAGE operator[]( R_xlen_t i ) const {
 		int x = cond[i] ;
@@ -321,9 +319,7 @@ public:
 	typedef Rcpp::traits::elementwise_operands< COND_TYPE > rcpp_elementwise ;
 
 	IfElse_Primitive_Primitive( const COND_TYPE& cond_, STORAGE lhs_, STORAGE rhs_ ) :
-		cond(cond_.get_ref()), lhs(lhs_), rhs(rhs_) {
-			/* FIXME : cond, lhs and rhs must all have the same size */
-	}
+		cond(cond_.get_ref()), lhs(lhs_), rhs(rhs_) {}
 
 	inline STORAGE operator[]( R_xlen_t i ) const {
 		return cond[i] ? lhs : rhs ;

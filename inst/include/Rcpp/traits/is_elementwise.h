@@ -23,6 +23,8 @@
 #ifndef Rcpp__traits__is_elementwise_h
 #define Rcpp__traits__is_elementwise_h
 
+#include <Rcpp/traits/sugar_operand.h>
+
 namespace Rcpp{
 namespace traits{
 
