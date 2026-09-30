@@ -40,7 +40,7 @@ public:
     typedef Rcpp::traits::are_elementwise< T1, T2, T3 > rcpp_elementwise ;
     SugarBlock_3_VVV( FunPtr ptr_, const T1 & x_, const T2& y_, const T3& z_ ) :
         ptr(ptr_), x(x_.get_ref()), y(y_.get_ref()), z(z_.get_ref()) {
-        // TODO: size checks, recycling, etc ...
+        check_sizes(x.size(), y.size(), z.size()) ;
     }
     inline RESULT_TYPE operator[]( R_xlen_t i) const {
         return ptr( x[i], y[i], z[i] ) ;

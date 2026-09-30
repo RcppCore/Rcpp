@@ -199,3 +199,51 @@ LogicalVector elementwise_flags(NumericVector x, NumericMatrix m) {
         _["column"]    = column
     );
 }
+
+// [[Rcpp::export]]
+NumericVector length_plus(NumericVector x, NumericVector y) {
+    return x + y;
+}
+
+// [[Rcpp::export]]
+NumericVector length_plus_scalar(NumericVector x) {
+    return x + 1.0;
+}
+
+// [[Rcpp::export]]
+LogicalVector length_compare(NumericVector x, NumericVector y) {
+    return x < y;
+}
+
+// [[Rcpp::export]]
+LogicalVector length_and(LogicalVector x, LogicalVector y) {
+    return x & y;
+}
+
+// [[Rcpp::export]]
+NumericVector length_pmax(NumericVector x, NumericVector y) {
+    return pmax(x, y);
+}
+
+// [[Rcpp::export]]
+NumericVector length_ifelse(LogicalVector cond, NumericVector x, NumericVector y) {
+    return ifelse(cond, x, y);
+}
+
+// [[Rcpp::export]]
+NumericVector length_range(NumericVector x, NumericVector y) {
+    x[Range(0, 2)] = y;
+    return x;
+}
+
+// [[Rcpp::export]]
+NumericMatrix length_column(NumericMatrix m, NumericVector y) {
+    m(_, 0) = y;
+    return m;
+}
+
+// [[Rcpp::export]]
+NumericMatrix length_row(NumericMatrix m, NumericVector y) {
+    m(0, _) = y;
+    return m;
+}

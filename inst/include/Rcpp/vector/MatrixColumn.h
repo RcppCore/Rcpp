@@ -66,6 +66,8 @@ public:
 
     template <int RT, bool NA, typename T>
     MatrixColumn& operator=( const Rcpp::VectorBase<RT,NA,T>& rhs ){
+        sugar::check_assign_size(n, rhs.size()) ;
+
         if( ! traits::is_elementwise<T>::value ){
             // rhs may read from this column's matrix, so evaluate it first
             const Vector<RT> tmp(rhs) ;
@@ -78,6 +80,8 @@ public:
     }
 
     MatrixColumn& operator=( const MatrixColumn& rhs ){
+        sugar::check_assign_size(n, rhs.n) ;
+
         iterator rhs_start = rhs.start ;
         RCPP_LOOP_UNROLL(start,rhs_start)
         return *this ;

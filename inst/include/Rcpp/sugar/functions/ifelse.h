@@ -48,7 +48,7 @@ public:
 
 	IfElse( const COND_TYPE& cond_, const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
 		cond(cond_.get_ref()), lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
-			/* FIXME : cond, lhs and rhs must all have the same size */
+		check_sizes(cond.size(), lhs.size(), rhs.size()) ;
 
 		RCPP_DEBUG( DEMANGLE(IfElse) ) ;
 	}
@@ -92,7 +92,7 @@ public:
 
 	IfElse( const COND_TYPE& cond_, const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
 		cond(cond_.get_ref()), lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
-			/* FIXME : cond, lhs and rhs must all have the same size */
+		check_sizes(cond.size(), lhs.size(), rhs.size()) ;
 	}
 
 	inline STORAGE operator[]( R_xlen_t i ) const {
@@ -133,7 +133,7 @@ public:
 
 	IfElse_Primitive_Vector( const COND_TYPE& cond_, STORAGE lhs_, const RHS_TYPE& rhs_ ) :
 		cond(cond_.get_ref()), lhs(lhs_), rhs(rhs_.get_ref()) {
-			/* FIXME : cond, lhs and rhs must all have the sale size */
+		check_sizes(cond.size(), rhs.size()) ;
 	}
 
 	inline STORAGE operator[]( R_xlen_t i ) const {
@@ -171,7 +171,7 @@ public:
 
 	IfElse_Primitive_Vector( const COND_TYPE& cond_, STORAGE lhs_, const RHS_TYPE& rhs_ ) :
 		cond(cond_.get_ref()), lhs(lhs_), rhs(rhs_.get_ref()) {
-			/* FIXME : cond, lhs and rhs must all have the same size */
+		check_sizes(cond.size(), rhs.size()) ;
 	}
 
 	inline STORAGE operator[]( R_xlen_t i ) const {
@@ -211,7 +211,7 @@ public:
 
 	IfElse_Vector_Primitive( const COND_TYPE& cond_, const LHS_TYPE& lhs_, STORAGE rhs_ ) :
 		cond(cond_.get_ref()), lhs(lhs_.get_ref()), rhs(rhs_) {
-			/* FIXME : cond, lhs and rhs must all have the same size */
+		check_sizes(cond.size(), lhs.size()) ;
 	}
 
 	inline STORAGE operator[]( R_xlen_t i ) const {
@@ -249,7 +249,7 @@ public:
 
 	IfElse_Vector_Primitive( const COND_TYPE& cond_, const LHS_TYPE& lhs_, STORAGE rhs_ ) :
 		cond(cond_.get_ref()), lhs(lhs_.get_ref()), rhs(rhs_) {
-			/* FIXME : cond, lhs and rhs must all have the sale size */
+		check_sizes(cond.size(), lhs.size()) ;
 	}
 
 	inline STORAGE operator[]( R_xlen_t i ) const {

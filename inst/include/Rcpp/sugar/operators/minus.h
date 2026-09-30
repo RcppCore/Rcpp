@@ -38,7 +38,9 @@ namespace sugar{
 		typedef Rcpp::traits::are_elementwise< LHS_EXT, RHS_EXT > rcpp_elementwise ;
 
 		Minus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
-			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
+			check_sizes(lhs.size(), rhs.size()) ;
+		}
 
 		inline STORAGE operator[]( R_xlen_t i ) const {
 			STORAGE x = lhs[i] ;
@@ -65,7 +67,9 @@ namespace sugar{
 		typedef Rcpp::traits::are_elementwise< LHS_EXT, RHS_EXT > rcpp_elementwise ;
 
 		Minus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
-			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
+			check_sizes(lhs.size(), rhs.size()) ;
+		}
 
 		inline double operator[]( R_xlen_t i ) const {
 		    return lhs[i] - rhs[i] ;
@@ -90,7 +94,9 @@ namespace sugar{
 		typedef Rcpp::traits::are_elementwise< LHS_EXT, RHS_EXT > rcpp_elementwise ;
 
 		Minus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
-			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
+			check_sizes(lhs.size(), rhs.size()) ;
+		}
 
 		inline STORAGE operator[]( R_xlen_t i ) const {
 			STORAGE y = rhs[i] ;
@@ -116,7 +122,9 @@ namespace sugar{
 		typedef Rcpp::traits::are_elementwise< LHS_EXT, RHS_EXT > rcpp_elementwise ;
 
 		Minus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
-			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
+			check_sizes(lhs.size(), rhs.size()) ;
+		}
 
 		inline double operator[]( R_xlen_t i ) const {
 			return lhs[i] - rhs[i] ;
@@ -141,7 +149,9 @@ namespace sugar{
 		typedef Rcpp::traits::are_elementwise< LHS_EXT, RHS_EXT > rcpp_elementwise ;
 
 		Minus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
-			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
+			check_sizes(lhs.size(), rhs.size()) ;
+		}
 
 		inline STORAGE operator[]( R_xlen_t i ) const {
 			STORAGE x = lhs[i] ;
@@ -167,7 +177,9 @@ namespace sugar{
 		typedef Rcpp::traits::are_elementwise< LHS_EXT, RHS_EXT > rcpp_elementwise ;
 
 		Minus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
-			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
+			check_sizes(lhs.size(), rhs.size()) ;
+		}
 
 		inline double operator[]( R_xlen_t i ) const {
 			return lhs[i] - rhs[i] ;
@@ -193,7 +205,9 @@ namespace sugar{
 		typedef Rcpp::traits::are_elementwise< LHS_EXT, RHS_EXT > rcpp_elementwise ;
 
 		Minus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
-			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
+			check_sizes(lhs.size(), rhs.size()) ;
+		}
 
 		inline STORAGE operator[]( R_xlen_t i ) const {
 			return lhs[i] - rhs[i];
@@ -216,7 +230,9 @@ namespace sugar{
 		typedef Rcpp::traits::are_elementwise< LHS_EXT, RHS_EXT > rcpp_elementwise ;
 
 		Minus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
-			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
+			check_sizes(lhs.size(), rhs.size()) ;
+		}
 
 		inline double operator[]( R_xlen_t i ) const {
 			return lhs[i] - rhs[i] ;

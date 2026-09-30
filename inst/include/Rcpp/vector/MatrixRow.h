@@ -153,6 +153,8 @@ public:
 
     template <int RT, bool NA, typename T>
     MatrixRow& operator=( const Rcpp::VectorBase<RT,NA,T>& rhs ){
+        sugar::check_assign_size(size(), rhs.size()) ;
+
         if( ! traits::is_elementwise<T>::value ){
             // rhs may read from this row's matrix, so evaluate it first
             const Vector<RT> tmp(rhs) ;
@@ -166,6 +168,8 @@ public:
     }
 
     MatrixRow& operator=( const MatrixRow& rhs ){
+        sugar::check_assign_size(size(), rhs.size()) ;
+
         int n = size() ;
         RCPP_LOOP_UNROLL_LHSFUN(start,get_parent_index,rhs)
             return *this ;

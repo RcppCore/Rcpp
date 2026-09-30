@@ -32,7 +32,7 @@ public:
     typedef Rcpp::traits::are_elementwise< T1, T2 > rcpp_elementwise ;
     SugarBlock_2( FunPtr ptr_, const T1 & x_, const T2& y_ ) :
         ptr(ptr_), x(x_.get_ref()), y(y_.get_ref()){
-        // TODO: check that x and y have same size
+        check_sizes(x.size(), y.size()) ;
     }
 
     inline RESULT_TYPE operator[]( R_xlen_t i) const {

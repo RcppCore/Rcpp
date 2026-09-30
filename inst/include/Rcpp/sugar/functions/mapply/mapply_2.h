@@ -42,7 +42,9 @@ public:
 	typedef typename ::Rcpp::traits::result_of<Function, T_1, T_2>::type result_type ;
 
 	Mapply_2( const T_1& vec_1_, const T_2& vec_2_, Function fun_ ) :
-		vec_1(vec_1_), vec_2(vec_2_), fun(fun_){}
+		vec_1(vec_1_), vec_2(vec_2_), fun(fun_){
+		check_sizes(vec_1.size(), vec_2.size()) ;
+	}
 
         inline result_type operator[]( R_xlen_t i ) const {
 		return fun( vec_1[i], vec_2[i] );

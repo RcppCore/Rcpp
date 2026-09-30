@@ -36,7 +36,9 @@ public:
 	typedef Rcpp::traits::are_elementwise< LHS_TYPE, RHS_TYPE > rcpp_elementwise ;
 
 	Comparator( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_) :
-		lhs(lhs_.get_ref()), rhs(rhs_.get_ref()), op() {}
+		lhs(lhs_.get_ref()), rhs(rhs_.get_ref()), op() {
+		check_sizes(lhs.size(), rhs.size()) ;
+	}
 
 	inline int operator[]( R_xlen_t i ) const {
 		STORAGE x = lhs[i] ;
@@ -68,7 +70,9 @@ public:
 	typedef Rcpp::traits::are_elementwise< LHS_TYPE, RHS_TYPE > rcpp_elementwise ;
 
 	Comparator( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_) :
-		lhs(lhs_.get_ref()), rhs(rhs_.get_ref()), op() {}
+		lhs(lhs_.get_ref()), rhs(rhs_.get_ref()), op() {
+		check_sizes(lhs.size(), rhs.size()) ;
+	}
 
 	inline int operator[]( R_xlen_t i ) const {
 		STORAGE y = rhs[i] ;
@@ -97,7 +101,9 @@ public:
 	typedef Rcpp::traits::are_elementwise< LHS_TYPE, RHS_TYPE > rcpp_elementwise ;
 
 	Comparator( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_) :
-		lhs(lhs_.get_ref()), rhs(rhs_.get_ref()), op() {}
+		lhs(lhs_.get_ref()), rhs(rhs_.get_ref()), op() {
+		check_sizes(lhs.size(), rhs.size()) ;
+	}
 
 	inline int operator[]( R_xlen_t i ) const {
 		return op( lhs[i], rhs[i] ) ;

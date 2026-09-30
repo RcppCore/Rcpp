@@ -106,7 +106,9 @@ public:
 	typedef pmax_op<RTYPE,LHS_NA,RHS_NA> OPERATOR ;
 	typedef Rcpp::traits::are_elementwise< LHS_T, RHS_T > rcpp_elementwise ;
 
-	Pmax_Vector_Vector( const LHS_T& lhs_, const RHS_T& rhs_ ) : lhs(lhs_), rhs(rhs_), op() {}
+	Pmax_Vector_Vector( const LHS_T& lhs_, const RHS_T& rhs_ ) : lhs(lhs_), rhs(rhs_), op() {
+		check_sizes(lhs.size(), rhs.size()) ;
+	}
 
         inline STORAGE operator[]( R_xlen_t i ) const {
 		return op( lhs[i], rhs[i] ) ;

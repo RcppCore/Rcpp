@@ -24,6 +24,7 @@
 #define Rcpp__vector__RangeIndexer_h
 
 #define UNROLL_LOOP(OP)                              \
+    ::Rcpp::sugar::check_assign_size(size_, x.size()) ; \
     if( ! ::Rcpp::traits::is_elementwise<T>::value ){  \
         /* x may read from the vector this range */  \
         /* indexes, so evaluate it first */          \
