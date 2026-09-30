@@ -71,7 +71,7 @@ public:
         inline R_xlen_t size() const { return vec.size() ; }
 
 private:
-	const T& vec ;
+	typename Rcpp::traits::sugar_operand< T >::type vec ;
 	OPERATOR op ;
 } ;
 

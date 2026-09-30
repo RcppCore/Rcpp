@@ -32,7 +32,7 @@ public:
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 	typedef Rcpp::VectorBase<RTYPE,NA,VEC_TYPE> BASE ;
 
-	IsNa( const BASE& obj_) : obj(obj_){}
+	IsNa( const BASE& obj_) : obj(obj_.get_ref()){}
 
         inline int operator[]( R_xlen_t i ) const {
 		return ::Rcpp::traits::is_na<RTYPE>( obj[i] ) ;
@@ -41,7 +41,7 @@ public:
         inline R_xlen_t size() const { return obj.size() ; }
 
 private:
-	const BASE& obj ;
+	typename Rcpp::traits::sugar_operand< BASE >::type obj ;
 
 } ;
 
@@ -54,7 +54,7 @@ public:
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 	typedef Rcpp::VectorBase<RTYPE,false,VEC_TYPE> BASE ;
 
-	IsNa( const BASE& obj_) : obj(obj_){}
+	IsNa( const BASE& obj_) : obj(obj_.get_ref()){}
 
         inline int operator[]( R_xlen_t /*i*/ ) const {
 		return FALSE ;
@@ -63,7 +63,7 @@ public:
         inline R_xlen_t size() const { return obj.size() ; }
 
 private:
-	const BASE& obj ;
+	typename Rcpp::traits::sugar_operand< BASE >::type obj ;
 
 } ;
 

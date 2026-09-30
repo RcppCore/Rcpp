@@ -113,8 +113,8 @@ public:
         inline R_xlen_t size() const { return lhs.size() ; }
 
 private:
-	const LHS_T& lhs ;
-	const RHS_T& rhs ;
+	typename Rcpp::traits::sugar_operand< LHS_T >::type lhs ;
+	typename Rcpp::traits::sugar_operand< RHS_T >::type rhs ;
 	OPERATOR op ;
 } ;
 
@@ -139,7 +139,7 @@ public:
         inline R_xlen_t size() const { return lhs.size() ; }
 
 private:
-	const LHS_T& lhs ;
+	typename Rcpp::traits::sugar_operand< LHS_T >::type lhs ;
 	OPERATOR op ;
 } ;
 

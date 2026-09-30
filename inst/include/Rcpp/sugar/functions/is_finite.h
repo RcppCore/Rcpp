@@ -38,7 +38,7 @@ public:
 	inline R_xlen_t size() const { return obj.size() ; }
 
 private:
-	const VEC_TYPE& obj ;
+	typename Rcpp::traits::sugar_operand< VEC_TYPE >::type obj ;
 
 } ;
 

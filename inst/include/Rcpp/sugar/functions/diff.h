@@ -36,7 +36,7 @@ public:
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 
 	Diff( const LHS_TYPE& lhs_ ) :
-	    lhs(lhs_),
+	    lhs(lhs_.get_ref()),
 	    previous(lhs_[0]),
 	    previous_index(0),
 	    was_na(traits::is_na<RTYPE>(previous))
@@ -66,7 +66,7 @@ public:
 	inline R_xlen_t size() const { return lhs.size() - 1 ; }
 
 private:
-	const LHS_TYPE& lhs ;
+	typename Rcpp::traits::sugar_operand< LHS_TYPE >::type lhs ;
 	mutable STORAGE previous ;
 	mutable R_xlen_t previous_index ;
 	mutable bool was_na ;
@@ -77,7 +77,7 @@ class Diff<REALSXP, LHS_NA, LHS_T> : public Rcpp::VectorBase< REALSXP, LHS_NA, D
 public:
 	typedef typename Rcpp::VectorBase<REALSXP,LHS_NA,LHS_T> LHS_TYPE ;
 
-	Diff( const LHS_TYPE& lhs_ ) : lhs(lhs_), previous(lhs_[0]), previous_index(0) {}
+	Diff( const LHS_TYPE& lhs_ ) : lhs(lhs_.get_ref()), previous(lhs_[0]), previous_index(0) {}
 
 	inline double operator[]( R_xlen_t i ) const {
 		double y = lhs[i+1] ;
@@ -90,7 +90,7 @@ public:
 	inline R_xlen_t size() const { return lhs.size() - 1 ; }
 
 private:
-	const LHS_TYPE& lhs ;
+	typename Rcpp::traits::sugar_operand< LHS_TYPE >::type lhs ;
 	mutable double previous ;
 	mutable R_xlen_t previous_index ;
 } ;
@@ -101,7 +101,7 @@ public:
 	typedef typename Rcpp::VectorBase<RTYPE,false,LHS_T> LHS_TYPE ;
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 
-	Diff( const LHS_TYPE& lhs_ ) : lhs(lhs_), previous(lhs[0]), previous_index(0) {}
+	Diff( const LHS_TYPE& lhs_ ) : lhs(lhs_.get_ref()), previous(lhs[0]), previous_index(0) {}
 
 	inline STORAGE operator[]( R_xlen_t i ) const {
 		STORAGE y = lhs[i+1] ;
@@ -114,7 +114,7 @@ public:
 	inline R_xlen_t size() const { return lhs.size() - 1 ; }
 
 private:
-	const LHS_TYPE& lhs ;
+	typename Rcpp::traits::sugar_operand< LHS_TYPE >::type lhs ;
 	mutable STORAGE previous ;
 	mutable R_xlen_t previous_index ;
 } ;

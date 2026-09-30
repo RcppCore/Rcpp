@@ -37,7 +37,7 @@ public:
 	typedef typename ::Rcpp::traits::result_of<Function, T>::type result_type ;
 
 	Lapply( const VEC& vec_, Function fun_ ) :
-		vec(vec_), fun(fun_){}
+		vec(vec_.get_ref()), fun(fun_){}
 
         inline SEXP operator[]( R_xlen_t i ) const {
 		return Rcpp::wrap( fun( vec[i] ) );
@@ -45,7 +45,7 @@ public:
         inline R_xlen_t size() const { return vec.size() ; }
 
 private:
-	const VEC& vec ;
+	typename Rcpp::traits::sugar_operand< VEC >::type vec ;
 	Function fun ;
 } ;
 

@@ -22,6 +22,7 @@ if (Sys.getenv("RunAllRcppTests") != "yes") exit_file("Set 'RunAllRcppTests' to 
 Rcpp::sourceCpp("cpp/sugar.cpp")
 Rcpp::sourceCpp("cpp/sugar_safe_math.cpp")
 Rcpp::sourceCpp("cpp/sugar_safe_math_fallback.cpp")
+Rcpp::sourceCpp("cpp/sugar_expressions.cpp")
 
 ## There are some (documented, see https://blog.r-project.org/2020/11/02/will-r-work-on-apple-silicon/index.html)
 ## issues with NA propagation on arm64 / macOS. We not (yet ?) do anything special so we just skip some tests
@@ -1704,3 +1705,21 @@ expect_equal(intmin(c(1:10)),        1L,   info = "min(integer(...))")
 expect_equal(doublemin(1.0*c(1:10)), 1.0,  info = "min(numeric(...))")
 expect_equal(intmax(c(1:10)),        10L,  info = "min(integer(...))")
 expect_equal(doublemax(1.0*c(1:10)), 10.0, info = "min(numeric(...))")
+
+
+## sugar expressions hold nested expressions by value, so they remain valid
+## when stored (e.g. in an `auto` variable) past the full-expression that
+## created them
+x <- c(1, 2, 3)
+expect_equal(lifetime_arith(x), x + x * 2, info = "auto: x + x * 2")
+expect_equal(lifetime_unary(x), -(x * 2), info = "auto: -(x * 2)")
+expect_equal(lifetime_math(x), sqrt(x * 4), info = "auto: sqrt(x * 4)")
+expect_equal(lifetime_compare(x), (x * 2) > (x + 1), info = "auto: (x * 2) > (x + 1)")
+expect_equal(lifetime_ifelse(x), ifelse(x > 1, x * 10, x * 0), info = "auto: ifelse()")
+expect_equal(lifetime_rev(x), rev(x * 2), info = "auto: rev(x * 2)")
+expect_equal(lifetime_rep_scalar(), rep(2.5, 3), info = "auto: rep(2.5, 3)")
+expect_equal(lifetime_pmax(x), pmax(x * 2, x + 1), info = "auto: pmax()")
+expect_equal(lifetime_sum(x), sum(x * 2), info = "auto: sum(x * 2)")
+m <- matrix(c(1, 2, 3, 4, 5, 6), 3)
+expect_equal(lifetime_column(m), m[, 1] + 1, info = "auto: m(_, 0) + 1")
+expect_equal(lifetime_dnorm(x), dnorm(x), info = "auto: dnorm(x * 1)")

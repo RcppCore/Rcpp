@@ -36,7 +36,7 @@ public:
 
 	typedef Rcpp::VectorBase<CPLXSXP,NA,T> VEC_TYPE ;
 
-	SugarComplex( FunPtr ptr_, const VEC_TYPE & vec_) : ptr(ptr_), vec(vec_){}
+	SugarComplex( FunPtr ptr_, const VEC_TYPE & vec_) : ptr(ptr_), vec(vec_.get_ref()){}
 
         inline RESULT_TYPE operator[]( R_xlen_t i) const {
 		Rcomplex x = vec[i] ;
@@ -48,7 +48,7 @@ public:
 
 private:
 	FunPtr ptr ;
-	const VEC_TYPE& vec ;
+	typename Rcpp::traits::sugar_operand< VEC_TYPE >::type vec ;
 };
 } // sugar
 

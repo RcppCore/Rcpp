@@ -37,7 +37,7 @@ namespace sugar {
         inline STORAGE operator[](R_xlen_t i) const { return data[i] ; }
 
     private:
-        const VECTOR& data ;
+        typename Rcpp::traits::sugar_operand< VECTOR >::type data ;
     } ;
 
     // specialization when the expression is actually a vector expression

@@ -38,7 +38,7 @@ class SugarBlock_3_VVV : public Rcpp::VectorBase<
 public:
     typedef RESULT_TYPE (*FunPtr)(U1,U2,U3) ;
     SugarBlock_3_VVV( FunPtr ptr_, const T1 & x_, const T2& y_, const T3& z_ ) :
-        ptr(ptr_), x(x_), y(y_), z(z_) {
+        ptr(ptr_), x(x_.get_ref()), y(y_.get_ref()), z(z_.get_ref()) {
         // TODO: size checks, recycling, etc ...
     }
     inline RESULT_TYPE operator[]( R_xlen_t i) const {
@@ -48,9 +48,9 @@ public:
 
 private:
     FunPtr ptr ;
-    const T1& x ;
-    const T2& y ;
-    const T2& z ;
+    typename Rcpp::traits::sugar_operand< T1 >::type x ;
+    typename Rcpp::traits::sugar_operand< T2 >::type y ;
+    typename Rcpp::traits::sugar_operand< T3 >::type z ;
 };
 
 

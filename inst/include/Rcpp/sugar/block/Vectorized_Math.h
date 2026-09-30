@@ -40,7 +40,7 @@ public:
     inline R_xlen_t size() const { return object.size(); }
 
 private:
-    const VEC_EXT& object ;
+    typename Rcpp::traits::sugar_operand< VEC_EXT >::type object ;
 } ;
 
 template <DDFun Func, bool NA, typename VEC>
@@ -58,7 +58,7 @@ public:
     inline R_xlen_t size() const { return object.size(); }
 
 private:
-    const VEC_EXT& object ;
+    typename Rcpp::traits::sugar_operand< VEC_EXT >::type object ;
 } ;
 template <DDFun Func, typename VEC>
 class Vectorized_INTSXP<Func,false,VEC> :
@@ -74,7 +74,7 @@ public:
     inline R_xlen_t size() const { return object.size(); }
 
 private:
-    const VEC_EXT& object ;
+    typename Rcpp::traits::sugar_operand< VEC_EXT >::type object ;
 } ;
 
 } // sugar

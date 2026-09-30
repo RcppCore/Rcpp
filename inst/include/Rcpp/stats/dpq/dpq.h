@@ -37,7 +37,7 @@ public:
     typedef double (*FunPtr)(double,int) ;
 
     D0( FunPtr ptr_, const VEC_TYPE& vec_, bool log_ ) :
-        ptr(ptr_), vec(vec_), log(log_) {}
+        ptr(ptr_), vec(vec_.get_ref()), log(log_) {}
 
     inline double operator[]( R_xlen_t i) const {
         return ptr( vec[i], log );
@@ -47,7 +47,7 @@ public:
 
 private:
     FunPtr ptr ;
-    const VEC_TYPE& vec;
+    typename Rcpp::traits::sugar_operand< VEC_TYPE >::type vec;
     int log;
 };
 
@@ -58,7 +58,7 @@ public:
     typedef double (*FunPtr)(double,double,int) ;
 
     D1( FunPtr ptr_, const VEC_TYPE& vec_, double p0_ , bool log_) :
-        ptr(ptr_), vec(vec_), p0(p0_), log(log_) {}
+        ptr(ptr_), vec(vec_.get_ref()), p0(p0_), log(log_) {}
 
     inline double operator[]( R_xlen_t i) const {
         return ptr( vec[i], p0, log );
@@ -68,7 +68,7 @@ public:
 
 private:
     FunPtr ptr ;
-    const VEC_TYPE& vec;
+    typename Rcpp::traits::sugar_operand< VEC_TYPE >::type vec;
     double p0 ;
     int log;
 } ;
@@ -80,7 +80,7 @@ public:
     typedef double (*FunPtr)(double,double,double,int) ;
 
     D2( FunPtr ptr_, const VEC_TYPE& vec_, double p0_, double p1_ , bool log_) :
-        ptr(ptr_), vec(vec_), p0(p0_), p1(p1_), log(log_) {}
+        ptr(ptr_), vec(vec_.get_ref()), p0(p0_), p1(p1_), log(log_) {}
 
     inline double operator[]( R_xlen_t i) const {
         return ptr( vec[i], p0, p1, log );
@@ -90,7 +90,7 @@ public:
 
 private:
     FunPtr ptr ;
-    const VEC_TYPE& vec;
+    typename Rcpp::traits::sugar_operand< VEC_TYPE >::type vec;
     double p0, p1 ;
     int log;
 } ;
@@ -102,7 +102,7 @@ public:
     typedef double (*FunPtr)(double,double,double,double,int) ;
 
     D3( FunPtr ptr_, const VEC_TYPE& vec_, double p0_, double p1_, double p2_ , bool log_ ) :
-        ptr(ptr_), vec(vec_), p0(p0_), p1(p1_), p2(p2_), log(log_) {}
+        ptr(ptr_), vec(vec_.get_ref()), p0(p0_), p1(p1_), p2(p2_), log(log_) {}
 
     inline double operator[]( R_xlen_t i) const {
         return ptr( vec[i], p0, p1, p2, log );
@@ -112,7 +112,7 @@ public:
 
 private:
     FunPtr ptr ;
-    const VEC_TYPE& vec;
+    typename Rcpp::traits::sugar_operand< VEC_TYPE >::type vec;
     double p0, p1, p2 ;
     int log;
 } ;
@@ -128,7 +128,7 @@ public:
 
     P0( FunPtr ptr_, const VEC_TYPE& vec_,
         bool lower_tail = true, bool log_ = false ) :
-        ptr(ptr_), vec(vec_), lower(lower_tail), log(log_) {}
+        ptr(ptr_), vec(vec_.get_ref()), lower(lower_tail), log(log_) {}
 
     inline double operator[]( R_xlen_t i) const {
         return ptr( vec[i], lower, log );
@@ -138,7 +138,7 @@ public:
 
 private:
     FunPtr ptr ;
-    const VEC_TYPE& vec;
+    typename Rcpp::traits::sugar_operand< VEC_TYPE >::type vec;
     int lower, log;
 
 };
@@ -152,7 +152,7 @@ public:
 
     P1( FunPtr ptr_, const VEC_TYPE& vec_, double p0_,
         bool lower_tail = true, bool log_ = false ) :
-        ptr(ptr_), vec(vec_), p0(p0_), lower(lower_tail), log(log_) {}
+        ptr(ptr_), vec(vec_.get_ref()), p0(p0_), lower(lower_tail), log(log_) {}
 
     inline double operator[]( R_xlen_t i) const {
         return ptr( vec[i], p0, lower, log );
@@ -162,7 +162,7 @@ public:
 
 private:
     FunPtr ptr ;
-    const VEC_TYPE& vec;
+    typename Rcpp::traits::sugar_operand< VEC_TYPE >::type vec;
     double p0 ;
     int lower, log;
 
@@ -177,7 +177,7 @@ public:
 
     P2( FunPtr ptr_, const VEC_TYPE& vec_, double p0_, double p1_,
         bool lower_tail = true, bool log_ = false ) :
-        ptr(ptr_), vec(vec_), p0(p0_), p1(p1_), lower(lower_tail), log(log_) {}
+        ptr(ptr_), vec(vec_.get_ref()), p0(p0_), p1(p1_), lower(lower_tail), log(log_) {}
 
     inline double operator[]( R_xlen_t i) const {
         return ptr( vec[i], p0, p1, lower, log );
@@ -187,7 +187,7 @@ public:
 
 private:
     FunPtr ptr ;
-    const VEC_TYPE& vec;
+    typename Rcpp::traits::sugar_operand< VEC_TYPE >::type vec;
     double p0, p1 ;
     int lower, log;
 };
@@ -200,7 +200,7 @@ public:
 
     P3( FunPtr ptr_, const VEC_TYPE& vec_, double p0_, double p1_, double p2_,
         bool lower_tail = true, bool log_ = false ) :
-        ptr(ptr_), vec(vec_), p0(p0_), p1(p1_), p2(p2_), lower(lower_tail), log(log_) {}
+        ptr(ptr_), vec(vec_.get_ref()), p0(p0_), p1(p1_), p2(p2_), lower(lower_tail), log(log_) {}
 
     inline double operator[]( R_xlen_t i) const {
         return ptr( vec[i], p0, p1, p2, lower, log );
@@ -210,7 +210,7 @@ public:
 
 private:
     FunPtr ptr ;
-    const VEC_TYPE& vec;
+    typename Rcpp::traits::sugar_operand< VEC_TYPE >::type vec;
     double p0, p1,p2 ;
     int lower, log;
 
@@ -226,7 +226,7 @@ public:
 
     Q0( FunPtr ptr_, const VEC_TYPE& vec_,
         bool lower_tail = true, bool log_ = false ) :
-        ptr(ptr_), vec(vec_), lower(lower_tail), log(log_) {}
+        ptr(ptr_), vec(vec_.get_ref()), lower(lower_tail), log(log_) {}
 
     inline double operator[]( R_xlen_t i) const {
         return ptr( vec[i], lower, log );
@@ -236,7 +236,7 @@ public:
 
 private:
     FunPtr ptr ;
-    const VEC_TYPE& vec;
+    typename Rcpp::traits::sugar_operand< VEC_TYPE >::type vec;
     int lower, log;
 
 };
@@ -249,7 +249,7 @@ public:
 
     Q1( FunPtr ptr_, const VEC_TYPE& vec_, double p0_,
         bool lower_tail = true, bool log_ = false ) :
-        ptr(ptr_), vec(vec_), p0(p0_), lower(lower_tail), log(log_) {}
+        ptr(ptr_), vec(vec_.get_ref()), p0(p0_), lower(lower_tail), log(log_) {}
 
     inline double operator[]( R_xlen_t i) const {
         return ptr( vec[i], p0, lower, log );
@@ -259,7 +259,7 @@ public:
 
 private:
     FunPtr ptr ;
-    const VEC_TYPE& vec;
+    typename Rcpp::traits::sugar_operand< VEC_TYPE >::type vec;
     double p0 ;
     int lower, log;
 
@@ -273,7 +273,7 @@ public:
 
     Q2( FunPtr ptr_, const VEC_TYPE& vec_, double p0_, double p1_,
         bool lower_tail = true, bool log_ = false ) :
-        ptr(ptr_), vec(vec_), p0(p0_), p1(p1_), lower(lower_tail), log(log_) {}
+        ptr(ptr_), vec(vec_.get_ref()), p0(p0_), p1(p1_), lower(lower_tail), log(log_) {}
 
     inline double operator[]( R_xlen_t i) const {
         return ptr( vec[i], p0, p1, lower, log );
@@ -283,7 +283,7 @@ public:
 
 private:
     FunPtr ptr ;
-    const VEC_TYPE& vec;
+    typename Rcpp::traits::sugar_operand< VEC_TYPE >::type vec;
     double p0, p1 ;
     int lower, log;
 
@@ -297,7 +297,7 @@ public:
 
     Q3( FunPtr ptr_, const VEC_TYPE& vec_, double p0_, double p1_, double p2_,
         bool lower_tail = true, bool log_ = false ) :
-        ptr(ptr_), vec(vec_), p0(p0_), p1(p1_), p2(p2_), lower(lower_tail), log(log_) {}
+        ptr(ptr_), vec(vec_.get_ref()), p0(p0_), p1(p1_), p2(p2_), lower(lower_tail), log(log_) {}
 
     inline double operator[]( R_xlen_t i) const {
         return ptr( vec[i], p0, p1, p2, lower, log );
@@ -307,7 +307,7 @@ public:
 
 private:
     FunPtr ptr ;
-    const VEC_TYPE& vec;
+    typename Rcpp::traits::sugar_operand< VEC_TYPE >::type vec;
     double p0, p1, p2 ;
     int lower, log;
 };

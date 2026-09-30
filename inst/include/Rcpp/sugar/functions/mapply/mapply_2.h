@@ -50,8 +50,8 @@ public:
         inline R_xlen_t size() const { return vec_1.size() ; }
 
 private:
-	const T_1& vec_1 ;
-	const T_2& vec_2 ;
+	typename Rcpp::traits::sugar_operand< T_1 >::type vec_1 ;
+	typename Rcpp::traits::sugar_operand< T_2 >::type vec_2 ;
 	Function fun ;
 } ;
 
@@ -81,7 +81,7 @@ public:
         inline R_xlen_t size() const { return vec_1.size() ; }
 
 private:
-	const T_1& vec_1 ;
+	typename Rcpp::traits::sugar_operand< T_1 >::type vec_1 ;
 	PRIM_2 prim_2 ;
 	Function fun ;
 } ;
@@ -113,7 +113,7 @@ public:
 
 private:
 	PRIM_1 prim_1 ;
-    const T_2& vec_2 ;
+    typename Rcpp::traits::sugar_operand< T_2 >::type vec_2 ;
 	Function fun ;
 } ;
 

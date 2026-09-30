@@ -204,7 +204,7 @@ public:
     typedef typename Rcpp::VectorBase<LGLSXP,LHS_NA,LHS_T> LHS_TYPE ;
     typedef typename Rcpp::VectorBase<LGLSXP,RHS_NA,RHS_T> RHS_TYPE ;
 
-    Or_LogicalExpression_LogicalExpression( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_), rhs(rhs_){}
+    Or_LogicalExpression_LogicalExpression( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){}
 
     inline int operator[]( R_xlen_t i ) const{
         if( lhs[i] == TRUE || rhs[i] == TRUE ) return TRUE ;
@@ -214,8 +214,8 @@ public:
     inline R_xlen_t size() const { return lhs.size(); }
 
 private:
-    const LHS_TYPE& lhs ;
-    const RHS_TYPE& rhs ;
+    typename Rcpp::traits::sugar_operand< LHS_TYPE >::type lhs ;
+    typename Rcpp::traits::sugar_operand< RHS_TYPE >::type rhs ;
 } ;
 template <typename LHS_T, bool RHS_NA, typename RHS_T>
 class Or_LogicalExpression_LogicalExpression<false,LHS_T,RHS_NA,RHS_T>
@@ -224,7 +224,7 @@ public:
     typedef typename Rcpp::VectorBase<LGLSXP,false,LHS_T> LHS_TYPE ;
     typedef typename Rcpp::VectorBase<LGLSXP,RHS_NA,RHS_T> RHS_TYPE ;
 
-    Or_LogicalExpression_LogicalExpression( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_), rhs(rhs_){}
+    Or_LogicalExpression_LogicalExpression( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){}
 
     inline int operator[]( R_xlen_t i ) const{
         if( lhs[i] == TRUE || rhs[i] == TRUE ) return TRUE ;
@@ -234,8 +234,8 @@ public:
     inline R_xlen_t size() const { return lhs.size(); }
 
 private:
-    const LHS_TYPE& lhs ;
-    const RHS_TYPE& rhs ;
+    typename Rcpp::traits::sugar_operand< LHS_TYPE >::type lhs ;
+    typename Rcpp::traits::sugar_operand< RHS_TYPE >::type rhs ;
 } ;
 template <bool LHS_NA, typename LHS_T, typename RHS_T>
 class Or_LogicalExpression_LogicalExpression<LHS_NA,LHS_T,false,RHS_T>
@@ -244,7 +244,7 @@ public:
     typedef typename Rcpp::VectorBase<LGLSXP,LHS_NA,LHS_T> LHS_TYPE ;
     typedef typename Rcpp::VectorBase<LGLSXP,false,RHS_T> RHS_TYPE ;
 
-    Or_LogicalExpression_LogicalExpression( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_), rhs(rhs_){}
+    Or_LogicalExpression_LogicalExpression( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){}
 
     inline int operator[]( R_xlen_t i ) const{
         if( lhs[i] == TRUE || rhs[i] == TRUE ) return TRUE ;
@@ -254,8 +254,8 @@ public:
     inline R_xlen_t size() const { return lhs.size(); }
 
 private:
-    const LHS_TYPE& lhs ;
-    const RHS_TYPE& rhs ;
+    typename Rcpp::traits::sugar_operand< LHS_TYPE >::type lhs ;
+    typename Rcpp::traits::sugar_operand< RHS_TYPE >::type rhs ;
 } ;
 template <typename LHS_T, typename RHS_T>
 class Or_LogicalExpression_LogicalExpression<false,LHS_T,false,RHS_T>
@@ -264,7 +264,7 @@ public:
     typedef typename Rcpp::VectorBase<LGLSXP,false,LHS_T> LHS_TYPE ;
     typedef typename Rcpp::VectorBase<LGLSXP,false,RHS_T> RHS_TYPE ;
 
-    Or_LogicalExpression_LogicalExpression( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_), rhs(rhs_){}
+    Or_LogicalExpression_LogicalExpression( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){}
 
     inline int operator[]( R_xlen_t i ) const{
         if( lhs[i] == TRUE || rhs[i] == TRUE ) return TRUE ;
@@ -273,8 +273,8 @@ public:
     inline R_xlen_t size() const { return lhs.size(); }
 
 private:
-    const LHS_TYPE& lhs ;
-    const RHS_TYPE& rhs ;
+    typename Rcpp::traits::sugar_operand< LHS_TYPE >::type lhs ;
+    typename Rcpp::traits::sugar_operand< RHS_TYPE >::type rhs ;
 } ;
 
 

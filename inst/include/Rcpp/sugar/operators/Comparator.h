@@ -35,7 +35,7 @@ public:
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 
 	Comparator( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_) :
-		lhs(lhs_), rhs(rhs_), op() {}
+		lhs(lhs_.get_ref()), rhs(rhs_.get_ref()), op() {}
 
 	inline int operator[]( R_xlen_t i ) const {
 		STORAGE x = lhs[i] ;
@@ -48,8 +48,8 @@ public:
 	inline R_xlen_t size() const { return lhs.size() ; }
 
 private:
-	const LHS_TYPE& lhs ;
-	const RHS_TYPE& rhs ;
+	typename Rcpp::traits::sugar_operand< LHS_TYPE >::type lhs ;
+	typename Rcpp::traits::sugar_operand< RHS_TYPE >::type rhs ;
 	Operator op ;
 
 } ;
@@ -66,7 +66,7 @@ public:
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 
 	Comparator( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_) :
-		lhs(lhs_), rhs(rhs_), op() {}
+		lhs(lhs_.get_ref()), rhs(rhs_.get_ref()), op() {}
 
 	inline int operator[]( R_xlen_t i ) const {
 		STORAGE y = rhs[i] ;
@@ -77,8 +77,8 @@ public:
 	inline R_xlen_t size() const { return lhs.size() ; }
 
 private:
-	const LHS_TYPE& lhs ;
-	const RHS_TYPE& rhs ;
+	typename Rcpp::traits::sugar_operand< LHS_TYPE >::type lhs ;
+	typename Rcpp::traits::sugar_operand< RHS_TYPE >::type rhs ;
 	Operator op ;
 
 } ;
@@ -94,7 +94,7 @@ public:
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 
 	Comparator( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_) :
-		lhs(lhs_), rhs(rhs_), op() {}
+		lhs(lhs_.get_ref()), rhs(rhs_.get_ref()), op() {}
 
 	inline int operator[]( R_xlen_t i ) const {
 		return op( lhs[i], rhs[i] ) ;
@@ -103,8 +103,8 @@ public:
 	inline R_xlen_t size() const { return lhs.size() ; }
 
 private:
-	const LHS_TYPE& lhs ;
-	const RHS_TYPE& rhs ;
+	typename Rcpp::traits::sugar_operand< LHS_TYPE >::type lhs ;
+	typename Rcpp::traits::sugar_operand< RHS_TYPE >::type rhs ;
 	Operator op ;
 
 } ;

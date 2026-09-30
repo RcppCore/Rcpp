@@ -30,7 +30,7 @@ class SugarBlock_2 : public Rcpp::VectorBase< Rcpp::traits::r_sexptype_traits<RE
 public:
     typedef RESULT_TYPE (*FunPtr)(U1,U2) ;
     SugarBlock_2( FunPtr ptr_, const T1 & x_, const T2& y_ ) :
-        ptr(ptr_), x(x_), y(y_){
+        ptr(ptr_), x(x_.get_ref()), y(y_.get_ref()){
         // TODO: check that x and y have same size
     }
 
@@ -41,8 +41,8 @@ public:
 
 private:
     FunPtr ptr ;
-    const T1& x ;
-    const T2& y ;
+    typename Rcpp::traits::sugar_operand< T1 >::type x ;
+    typename Rcpp::traits::sugar_operand< T2 >::type y ;
 };
 
 
@@ -51,7 +51,7 @@ class SugarBlock_2__VP : public Rcpp::VectorBase< Rcpp::traits::r_sexptype_trait
 public:
     typedef RESULT_TYPE (*FunPtr)(U1,U2) ;
     SugarBlock_2__VP( FunPtr ptr_, const T1 & x_, U2 u2 ) :
-        ptr(ptr_), x(x_), y(u2){}
+        ptr(ptr_), x(x_.get_ref()), y(u2){}
 
     inline RESULT_TYPE operator[]( R_xlen_t i) const {
         return ptr( x[i], y ) ;
@@ -60,7 +60,7 @@ public:
 
 private:
     FunPtr ptr ;
-    const T1& x ;
+    typename Rcpp::traits::sugar_operand< T1 >::type x ;
     U2 y ;
 };
 
@@ -69,7 +69,7 @@ class SugarBlock_2__PV : public Rcpp::VectorBase< Rcpp::traits::r_sexptype_trait
 public:
     typedef RESULT_TYPE (*FunPtr)(U1,U2) ;
     SugarBlock_2__PV( FunPtr ptr_, U1 u1, const T2& y_ ) :
-        ptr(ptr_), x(u1), y(y_){}
+        ptr(ptr_), x(u1), y(y_.get_ref()){}
 
     inline RESULT_TYPE operator[]( R_xlen_t i) const {
         return ptr( x, y[i] ) ;
@@ -79,7 +79,7 @@ public:
 private:
     FunPtr ptr ;
     U1 x ;
-    const T2& y ;
+    typename Rcpp::traits::sugar_operand< T2 >::type y ;
 };
 
 

@@ -38,7 +38,7 @@ public:
         inline R_xlen_t size() const { return object.size() ; }
 
 private:
-	const T& object ;
+	typename Rcpp::traits::sugar_operand< T >::type object ;
 	EXPONENT_TYPE op ;
 } ;
 
@@ -54,7 +54,7 @@ public:
         inline R_xlen_t size() const { return object.size() ; }
 
 private:
-	const T& object ;
+	typename Rcpp::traits::sugar_operand< T >::type object ;
 	EXPONENT_TYPE op ;
 } ;
 template <typename T, typename EXPONENT_TYPE>
@@ -68,7 +68,7 @@ public:
         inline R_xlen_t size() const { return object.size() ; }
 
 private:
-	const T& object ;
+	typename Rcpp::traits::sugar_operand< T >::type object ;
 	EXPONENT_TYPE op ;
 } ;
 

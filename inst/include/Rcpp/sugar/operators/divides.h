@@ -47,8 +47,8 @@ namespace sugar{
 		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
-		const LHS_EXT& lhs ;
-		const RHS_EXT& rhs ;
+		typename Rcpp::traits::sugar_operand< LHS_EXT >::type lhs ;
+		typename Rcpp::traits::sugar_operand< RHS_EXT >::type rhs ;
 	} ;
 	// RTYPE = REALSXP
 	template <bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T >
@@ -70,8 +70,8 @@ namespace sugar{
 		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
-		const LHS_EXT& lhs ;
-		const RHS_EXT& rhs ;
+		typename Rcpp::traits::sugar_operand< LHS_EXT >::type lhs ;
+		typename Rcpp::traits::sugar_operand< RHS_EXT >::type rhs ;
 	} ;
 
 
@@ -96,8 +96,8 @@ namespace sugar{
 		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
-		const LHS_EXT& lhs ;
-		const RHS_EXT& rhs ;
+		typename Rcpp::traits::sugar_operand< LHS_EXT >::type lhs ;
+		typename Rcpp::traits::sugar_operand< RHS_EXT >::type rhs ;
 	} ;
 	// RTYPE = REALSXP
 	template <typename LHS_T, bool RHS_NA, typename RHS_T >
@@ -119,8 +119,8 @@ namespace sugar{
 		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
-		const LHS_EXT& lhs ;
-		const RHS_EXT& rhs ;
+		typename Rcpp::traits::sugar_operand< LHS_EXT >::type lhs ;
+		typename Rcpp::traits::sugar_operand< RHS_EXT >::type rhs ;
 	} ;
 
 
@@ -145,8 +145,8 @@ namespace sugar{
 		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
-		const LHS_EXT& lhs ;
-		const RHS_EXT& rhs ;
+		typename Rcpp::traits::sugar_operand< LHS_EXT >::type lhs ;
+		typename Rcpp::traits::sugar_operand< RHS_EXT >::type rhs ;
 	} ;
 	// RTYPE = REALSXP
 	template <bool LHS_NA, typename LHS_T, typename RHS_T >
@@ -167,8 +167,8 @@ namespace sugar{
 		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
-		const LHS_EXT& lhs ;
-		const RHS_EXT& rhs ;
+		typename Rcpp::traits::sugar_operand< LHS_EXT >::type lhs ;
+		typename Rcpp::traits::sugar_operand< RHS_EXT >::type rhs ;
 	} ;
 
 
@@ -192,8 +192,8 @@ namespace sugar{
 		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
-		const LHS_EXT& lhs ;
-		const RHS_EXT& rhs ;
+		typename Rcpp::traits::sugar_operand< LHS_EXT >::type lhs ;
+		typename Rcpp::traits::sugar_operand< RHS_EXT >::type rhs ;
 	} ;
     // RTYPE : REALSXP
     template <typename LHS_T, typename RHS_T >
@@ -215,8 +215,8 @@ namespace sugar{
 		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
-		const LHS_EXT& lhs ;
-		const RHS_EXT& rhs ;
+		typename Rcpp::traits::sugar_operand< LHS_EXT >::type lhs ;
+		typename Rcpp::traits::sugar_operand< RHS_EXT >::type rhs ;
 	} ;
 
 
@@ -243,7 +243,7 @@ namespace sugar{
 		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
-		const VEC_EXT& lhs ;
+		typename Rcpp::traits::sugar_operand< VEC_EXT >::type lhs ;
 		STORAGE rhs ;
 		bool rhs_na ;
 	} ;
@@ -266,7 +266,7 @@ namespace sugar{
 		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
-		const VEC_EXT& lhs ;
+		typename Rcpp::traits::sugar_operand< VEC_EXT >::type lhs ;
 		double rhs ;
 	} ;
 
@@ -291,7 +291,7 @@ namespace sugar{
 		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
-		const VEC_EXT& lhs ;
+		typename Rcpp::traits::sugar_operand< VEC_EXT >::type lhs ;
 		STORAGE rhs ;
 		bool rhs_na ;
 	} ;
@@ -304,7 +304,7 @@ namespace sugar{
 		typedef typename Rcpp::traits::Extractor<REALSXP,false,T>::type VEC_EXT ;
 
 		Divides_Vector_Primitive( const VEC_TYPE& lhs_, double rhs_ ) :
-			lhs(lhs_), rhs(rhs_){}
+			lhs(lhs_.get_ref()), rhs(rhs_){}
 
 		inline double operator[]( R_xlen_t i ) const {
 			return lhs[i] / rhs ;
@@ -312,7 +312,7 @@ namespace sugar{
 		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
-		const VEC_EXT& lhs ;
+		typename Rcpp::traits::sugar_operand< VEC_EXT >::type lhs ;
 		double rhs ;
 	} ;
 
@@ -337,7 +337,7 @@ namespace sugar{
 		inline R_xlen_t size() const { return rhs.size() ; }
 	private:
 		STORAGE lhs ;
-		const VEC_EXT& rhs ;
+		typename Rcpp::traits::sugar_operand< VEC_EXT >::type rhs ;
 		bool lhs_na ;
 	} ;
 	// RTYPE = REALSXP
@@ -357,7 +357,7 @@ namespace sugar{
 		inline R_xlen_t size() const { return rhs.size() ; }
 	private:
 		double lhs ;
-		const VEC_EXT& rhs ;
+		typename Rcpp::traits::sugar_operand< VEC_EXT >::type rhs ;
 	} ;
 
 
@@ -381,7 +381,7 @@ namespace sugar{
 
 	private:
 		STORAGE lhs ;
-		const VEC_EXT& rhs ;
+		typename Rcpp::traits::sugar_operand< VEC_EXT >::type rhs ;
 		bool lhs_na ;
 	} ;
 	// RTYPE = REALSXP
@@ -402,7 +402,7 @@ namespace sugar{
 
 	private:
 		double lhs ;
-		const VEC_EXT& rhs ;
+		typename Rcpp::traits::sugar_operand< VEC_EXT >::type rhs ;
 	} ;
 
 

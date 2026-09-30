@@ -46,7 +46,7 @@ public:
 	// typedef typename Rcpp::traits::Extractor<RTYPE ,RHS_NA ,RHS_T>::type  RHS_EXT ;
 
 	IfElse( const COND_TYPE& cond_, const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
-		cond(cond_), lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
+		cond(cond_.get_ref()), lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
 			/* FIXME : cond, lhs and rhs must all have the same size */
 
 		RCPP_DEBUG( DEMANGLE(IfElse) ) ;
@@ -62,9 +62,9 @@ public:
 	inline R_xlen_t size() const { return cond.size() ; }
 
 private:
-	const COND_TYPE& cond ;
-	const LHS_T& lhs ;
-	const RHS_T& rhs ;
+	typename Rcpp::traits::sugar_operand< COND_TYPE >::type cond ;
+	typename Rcpp::traits::sugar_operand< LHS_T >::type lhs ;
+	typename Rcpp::traits::sugar_operand< RHS_T >::type rhs ;
 
 } ;
 
@@ -89,7 +89,7 @@ public:
 	typedef typename Rcpp::traits::Extractor<RTYPE ,RHS_NA ,RHS_T>::type  RHS_EXT ;
 
 	IfElse( const COND_TYPE& cond_, const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
-		cond(cond_), lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
+		cond(cond_.get_ref()), lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
 			/* FIXME : cond, lhs and rhs must all have the same size */
 	}
 
@@ -102,9 +102,9 @@ public:
 
 private:
 
-	const COND_TYPE& cond ;
-	const LHS_EXT& lhs ;
-	const RHS_EXT& rhs ;
+	typename Rcpp::traits::sugar_operand< COND_TYPE >::type cond ;
+	typename Rcpp::traits::sugar_operand< LHS_EXT >::type lhs ;
+	typename Rcpp::traits::sugar_operand< RHS_EXT >::type rhs ;
 
 } ;
 
@@ -129,7 +129,7 @@ public:
 	typedef typename Rcpp::traits::Extractor<RTYPE ,RHS_NA ,RHS_T>::type  RHS_EXT ;
 
 	IfElse_Primitive_Vector( const COND_TYPE& cond_, STORAGE lhs_, const RHS_TYPE& rhs_ ) :
-		cond(cond_), lhs(lhs_), rhs(rhs_.get_ref()) {
+		cond(cond_.get_ref()), lhs(lhs_), rhs(rhs_.get_ref()) {
 			/* FIXME : cond, lhs and rhs must all have the sale size */
 	}
 
@@ -143,9 +143,9 @@ public:
 	inline R_xlen_t size() const { return cond.size() ; }
 
 private:
-	const COND_TYPE& cond ;
+	typename Rcpp::traits::sugar_operand< COND_TYPE >::type cond ;
 	STORAGE lhs ;
-	const RHS_EXT& rhs ;
+	typename Rcpp::traits::sugar_operand< RHS_EXT >::type rhs ;
 
 } ;
 
@@ -166,7 +166,7 @@ public:
 	typedef typename Rcpp::traits::Extractor<RTYPE ,RHS_NA ,RHS_T>::type  RHS_EXT ;
 
 	IfElse_Primitive_Vector( const COND_TYPE& cond_, STORAGE lhs_, const RHS_TYPE& rhs_ ) :
-		cond(cond_), lhs(lhs_), rhs(rhs_.get_ref()) {
+		cond(cond_.get_ref()), lhs(lhs_), rhs(rhs_.get_ref()) {
 			/* FIXME : cond, lhs and rhs must all have the same size */
 	}
 
@@ -178,9 +178,9 @@ public:
 	inline R_xlen_t size() const { return cond.size() ; }
 
 private:
-	const COND_TYPE& cond ;
+	typename Rcpp::traits::sugar_operand< COND_TYPE >::type cond ;
 	STORAGE lhs ;
-	const RHS_EXT& rhs ;
+	typename Rcpp::traits::sugar_operand< RHS_EXT >::type rhs ;
 
 } ;
 
@@ -205,7 +205,7 @@ public:
 	typedef typename Rcpp::traits::Extractor<RTYPE ,LHS_NA ,LHS_T>::type  LHS_EXT ;
 
 	IfElse_Vector_Primitive( const COND_TYPE& cond_, const LHS_TYPE& lhs_, STORAGE rhs_ ) :
-		cond(cond_), lhs(lhs_.get_ref()), rhs(rhs_) {
+		cond(cond_.get_ref()), lhs(lhs_.get_ref()), rhs(rhs_) {
 			/* FIXME : cond, lhs and rhs must all have the same size */
 	}
 
@@ -219,8 +219,8 @@ public:
 	inline R_xlen_t size() const { return cond.size() ; }
 
 private:
-	const COND_TYPE& cond ;
-	const LHS_EXT& lhs ;
+	typename Rcpp::traits::sugar_operand< COND_TYPE >::type cond ;
+	typename Rcpp::traits::sugar_operand< LHS_EXT >::type lhs ;
 	const STORAGE rhs ;
 
 } ;
@@ -242,7 +242,7 @@ public:
 	typedef typename Rcpp::traits::Extractor<RTYPE ,LHS_NA ,LHS_T>::type  LHS_EXT ;
 
 	IfElse_Vector_Primitive( const COND_TYPE& cond_, const LHS_TYPE& lhs_, STORAGE rhs_ ) :
-		cond(cond_), lhs(lhs_.get_ref()), rhs(rhs_) {
+		cond(cond_.get_ref()), lhs(lhs_.get_ref()), rhs(rhs_) {
 			/* FIXME : cond, lhs and rhs must all have the sale size */
 	}
 
@@ -254,8 +254,8 @@ public:
 	inline R_xlen_t size() const { return cond.size() ; }
 
 private:
-	const COND_TYPE& cond ;
-	const LHS_EXT& lhs ;
+	typename Rcpp::traits::sugar_operand< COND_TYPE >::type cond ;
+	typename Rcpp::traits::sugar_operand< LHS_EXT >::type lhs ;
 	const STORAGE rhs ;
 
 } ;
@@ -280,7 +280,7 @@ public:
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 
 	IfElse_Primitive_Primitive( const COND_TYPE& cond_, STORAGE lhs_, STORAGE rhs_ ) :
-		cond(cond_), lhs(lhs_), rhs(rhs_)  {
+		cond(cond_.get_ref()), lhs(lhs_), rhs(rhs_)  {
 			/* FIXME : cond, lhs and rhs must all have the same size */
 	}
 
@@ -293,7 +293,7 @@ public:
 	inline R_xlen_t size() const { return cond.size() ; }
 
 private:
-	const COND_TYPE& cond ;
+	typename Rcpp::traits::sugar_operand< COND_TYPE >::type cond ;
 	STORAGE lhs ;
 	STORAGE rhs ;
 	STORAGE na ;
@@ -313,7 +313,7 @@ public:
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 
 	IfElse_Primitive_Primitive( const COND_TYPE& cond_, STORAGE lhs_, STORAGE rhs_ ) :
-		cond(cond_), lhs(lhs_), rhs(rhs_) {
+		cond(cond_.get_ref()), lhs(lhs_), rhs(rhs_) {
 			/* FIXME : cond, lhs and rhs must all have the same size */
 	}
 
@@ -324,7 +324,7 @@ public:
 	inline R_xlen_t size() const { return cond.size() ; }
 
 private:
-	const COND_TYPE& cond ;
+	typename Rcpp::traits::sugar_operand< COND_TYPE >::type cond ;
 	STORAGE lhs ;
 	STORAGE rhs ;
 

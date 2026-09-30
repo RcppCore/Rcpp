@@ -80,7 +80,7 @@ namespace sugar{
 		typedef not_<RTYPE,NA> OPERATOR ;
 
 		Not_Vector( const VEC_TYPE& lhs_ ) :
-			lhs(lhs_), op() {}
+			lhs(lhs_.get_ref()), op() {}
 
 		inline STORAGE operator[]( R_xlen_t i ) const {
 			return op.apply( lhs[i] ) ;
@@ -89,7 +89,7 @@ namespace sugar{
 		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
-		const VEC_TYPE& lhs ;
+		typename Rcpp::traits::sugar_operand< VEC_TYPE >::type lhs ;
 		OPERATOR op ;
 	} ;
 
