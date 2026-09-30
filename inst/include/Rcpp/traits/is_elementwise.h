@@ -1,7 +1,7 @@
 // -*- mode: C++; c-indent-level: 4; c-basic-offset: 4; tab-width: 4 -*-
 //
 // is_elementwise.h: Rcpp R/C++ interface class library -- whether a sugar
-// expression can be written into one of its own operands in place
+// expression can be written in place into storage it may read from
 //
 // Copyright (C) 2026 Kevin Ushey
 //
@@ -26,6 +26,41 @@
 namespace Rcpp{
 namespace traits{
 
+    // Sugar expressions declare `typedef elementwise_operands<...>
+    // rcpp_elementwise` when their element i depends only on element i of
+    // those operands, all of which have the expression's length.
+    template <typename T1 = void, typename T2 = void, typename T3 = void>
+    struct elementwise_operands {} ;
+
+    // Views declare `typedef ... rcpp_view` with the kind of view they are.
+    struct range_view {} ;
+    struct column_view {} ;
+    struct row_view {} ;
+
+    // Where an expression is being written, and so which views it may read
+    // while it is written in place. Reading a view of the target's own
+    // storage is harmless if the view always covers either exactly the
+    // target's positions or none of them:
+    //
+    // - a whole vector: given matching lengths, any view of its storage
+    //   covers all of it;
+    // - a matrix column (row): any other column (row) of the same matrix is
+    //   either the same one or disjoint from it;
+    // - a range: another range of the same vector may overlap it at an
+    //   offset, so no views are allowed.
+    struct vector_target {
+        template <typename VIEW> struct reads : true_type {} ;
+    } ;
+    struct column_target {
+        template <typename VIEW> struct reads : same_type<VIEW, column_view> {} ;
+    } ;
+    struct row_target {
+        template <typename VIEW> struct reads : same_type<VIEW, row_view> {} ;
+    } ;
+    struct range_target {
+        template <typename VIEW> struct reads : false_type {} ;
+    } ;
+
     template <typename T>
     class _has_elementwise_marker_helper : __sfinae_types {
         template <typename U> static __one __test(typename U::rcpp_elementwise*);
@@ -34,38 +69,57 @@ namespace traits{
         static const bool value = sizeof(__test<T>(0)) == 1;
     };
 
-    // An expression is elementwise when its element i depends only on
-    // element i of the vectors it reads, all of which have the expression's
-    // length. Writing such an expression into one of those vectors (or a
-    // view of one) in place is safe; anything else has to be evaluated into
-    // a temporary first.
-    //
-    // Vectors and matrices are elementwise; sugar expressions opt in with a
-    // nested `rcpp_elementwise` type (usually defined in terms of their
-    // operands), and are assumed not to be elementwise otherwise.
+    template <typename T>
+    class _has_view_tag_helper : __sfinae_types {
+        template <typename U> static __one __test(typename U::rcpp_view*);
+        template <typename U> static __two __test(...);
+    public:
+        static const bool value = sizeof(__test<T>(0)) == 1;
+    };
+
+    template <typename OPERANDS, typename TARGET>
+    struct _operands_are_elementwise : false_type {} ;
+
+    // Whether an expression can be written in place into TARGET even if it
+    // reads from TARGET's storage, i.e. whether it is elementwise. Vectors
+    // and matrices are; views are if TARGET allows them; sugar expressions
+    // are if they declare elementwise operands that are. Anything else is
+    // assumed not to be, and has to be evaluated before it is written.
     template <
         typename T,
+        typename TARGET,
         bool = _has_storage_policy_helper<T>::value,
-        bool = _has_elementwise_marker_helper<T>::value
+        bool = _has_elementwise_marker_helper<T>::value,
+        bool = _has_view_tag_helper<T>::value
     >
     struct is_elementwise : false_type {} ;
 
-    template <typename T, bool MARKED>
-    struct is_elementwise<T, true, MARKED> : true_type {} ;
+    template <typename T, typename TARGET, bool MARKED, bool VIEW>
+    struct is_elementwise<T, TARGET, true, MARKED, VIEW> : true_type {} ;
 
-    template <typename T>
-    struct is_elementwise<T, false, true> :
-        integral_constant<bool, T::rcpp_elementwise::value> {} ;
+    template <typename T, typename TARGET>
+    struct is_elementwise<T, TARGET, false, true, false> :
+        _operands_are_elementwise<typename T::rcpp_elementwise, TARGET> {} ;
 
-    template <int RTYPE, bool NA, typename T>
-    struct is_elementwise< VectorBase<RTYPE, NA, T>, false, false > : is_elementwise<T> {} ;
+    template <typename T, typename TARGET>
+    struct is_elementwise<T, TARGET, false, false, true> :
+        TARGET::template reads<typename T::rcpp_view> {} ;
 
-    template <typename T1, typename T2, typename T3 = T2>
-    struct are_elementwise : integral_constant<bool,
-        is_elementwise<T1>::value &&
-        is_elementwise<T2>::value &&
-        is_elementwise<T3>::value
-    > {} ;
+    // unused operand slots
+    template <typename TARGET>
+    struct is_elementwise<void, TARGET, false, false, false> : true_type {} ;
+
+    template <int RTYPE, bool NA, typename T, typename TARGET>
+    struct is_elementwise< VectorBase<RTYPE, NA, T>, TARGET, false, false, false > :
+        is_elementwise<T, TARGET> {} ;
+
+    template <typename T1, typename T2, typename T3, typename TARGET>
+    struct _operands_are_elementwise< elementwise_operands<T1, T2, T3>, TARGET > :
+        integral_constant<bool,
+            is_elementwise<T1, TARGET>::value &&
+            is_elementwise<T2, TARGET>::value &&
+            is_elementwise<T3, TARGET>::value
+        > {} ;
 
 } // traits
 } // Rcpp

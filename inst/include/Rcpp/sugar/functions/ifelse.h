@@ -41,7 +41,7 @@ public:
 	typedef Rcpp::VectorBase<RTYPE ,LHS_NA ,LHS_T>  LHS_TYPE ;
 	typedef Rcpp::VectorBase<RTYPE ,RHS_NA ,RHS_T>  RHS_TYPE ;
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-	typedef Rcpp::traits::are_elementwise< COND_TYPE, LHS_T, RHS_T > rcpp_elementwise ;
+	typedef Rcpp::traits::elementwise_operands< COND_TYPE, LHS_T, RHS_T > rcpp_elementwise ;
 
 	// typedef typename Rcpp::traits::Extractor<RTYPE ,LHS_NA ,LHS_T>::type  LHS_EXT ;
 	// typedef typename Rcpp::traits::Extractor<RTYPE ,RHS_NA ,RHS_T>::type  RHS_EXT ;
@@ -88,7 +88,7 @@ public:
 
 	typedef typename Rcpp::traits::Extractor<RTYPE ,LHS_NA ,LHS_T>::type  LHS_EXT ;
 	typedef typename Rcpp::traits::Extractor<RTYPE ,RHS_NA ,RHS_T>::type  RHS_EXT ;
-	typedef Rcpp::traits::are_elementwise< COND_TYPE, LHS_EXT, RHS_EXT > rcpp_elementwise ;
+	typedef Rcpp::traits::elementwise_operands< COND_TYPE, LHS_EXT, RHS_EXT > rcpp_elementwise ;
 
 	IfElse( const COND_TYPE& cond_, const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
 		cond(cond_.get_ref()), lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
@@ -129,7 +129,7 @@ public:
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 
 	typedef typename Rcpp::traits::Extractor<RTYPE ,RHS_NA ,RHS_T>::type  RHS_EXT ;
-	typedef Rcpp::traits::are_elementwise< COND_TYPE, RHS_EXT > rcpp_elementwise ;
+	typedef Rcpp::traits::elementwise_operands< COND_TYPE, RHS_EXT > rcpp_elementwise ;
 
 	IfElse_Primitive_Vector( const COND_TYPE& cond_, STORAGE lhs_, const RHS_TYPE& rhs_ ) :
 		cond(cond_.get_ref()), lhs(lhs_), rhs(rhs_.get_ref()) {
@@ -167,7 +167,7 @@ public:
 	typedef Rcpp::VectorBase<RTYPE ,RHS_NA ,RHS_T>  RHS_TYPE ;
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 	typedef typename Rcpp::traits::Extractor<RTYPE ,RHS_NA ,RHS_T>::type  RHS_EXT ;
-	typedef Rcpp::traits::are_elementwise< COND_TYPE, RHS_EXT > rcpp_elementwise ;
+	typedef Rcpp::traits::elementwise_operands< COND_TYPE, RHS_EXT > rcpp_elementwise ;
 
 	IfElse_Primitive_Vector( const COND_TYPE& cond_, STORAGE lhs_, const RHS_TYPE& rhs_ ) :
 		cond(cond_.get_ref()), lhs(lhs_), rhs(rhs_.get_ref()) {
@@ -207,7 +207,7 @@ public:
 	typedef Rcpp::VectorBase<RTYPE ,LHS_NA ,LHS_T>  LHS_TYPE ;
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 	typedef typename Rcpp::traits::Extractor<RTYPE ,LHS_NA ,LHS_T>::type  LHS_EXT ;
-	typedef Rcpp::traits::are_elementwise< COND_TYPE, LHS_EXT > rcpp_elementwise ;
+	typedef Rcpp::traits::elementwise_operands< COND_TYPE, LHS_EXT > rcpp_elementwise ;
 
 	IfElse_Vector_Primitive( const COND_TYPE& cond_, const LHS_TYPE& lhs_, STORAGE rhs_ ) :
 		cond(cond_.get_ref()), lhs(lhs_.get_ref()), rhs(rhs_) {
@@ -245,7 +245,7 @@ public:
 	typedef Rcpp::VectorBase<RTYPE ,LHS_NA ,LHS_T>  LHS_TYPE ;
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 	typedef typename Rcpp::traits::Extractor<RTYPE ,LHS_NA ,LHS_T>::type  LHS_EXT ;
-	typedef Rcpp::traits::are_elementwise< COND_TYPE, LHS_EXT > rcpp_elementwise ;
+	typedef Rcpp::traits::elementwise_operands< COND_TYPE, LHS_EXT > rcpp_elementwise ;
 
 	IfElse_Vector_Primitive( const COND_TYPE& cond_, const LHS_TYPE& lhs_, STORAGE rhs_ ) :
 		cond(cond_.get_ref()), lhs(lhs_.get_ref()), rhs(rhs_) {
@@ -284,7 +284,7 @@ class IfElse_Primitive_Primitive : public VectorBase<
 public:
 	typedef Rcpp::VectorBase<LGLSXP,COND_NA,COND_T> COND_TYPE ;
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-	typedef Rcpp::traits::is_elementwise< COND_TYPE > rcpp_elementwise ;
+	typedef Rcpp::traits::elementwise_operands< COND_TYPE > rcpp_elementwise ;
 
 	IfElse_Primitive_Primitive( const COND_TYPE& cond_, STORAGE lhs_, STORAGE rhs_ ) :
 		cond(cond_.get_ref()), lhs(lhs_), rhs(rhs_)  {
@@ -318,7 +318,7 @@ class IfElse_Primitive_Primitive<RTYPE,false,COND_T> : public VectorBase<
 public:
 	typedef Rcpp::VectorBase<LGLSXP,false,COND_T> COND_TYPE ;
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-	typedef Rcpp::traits::is_elementwise< COND_TYPE > rcpp_elementwise ;
+	typedef Rcpp::traits::elementwise_operands< COND_TYPE > rcpp_elementwise ;
 
 	IfElse_Primitive_Primitive( const COND_TYPE& cond_, STORAGE lhs_, STORAGE rhs_ ) :
 		cond(cond_.get_ref()), lhs(lhs_), rhs(rhs_) {

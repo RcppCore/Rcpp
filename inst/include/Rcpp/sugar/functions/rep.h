@@ -51,7 +51,7 @@ class Rep_Single : public Rcpp::VectorBase<
 	Rep_Single<T>
 > {
 public:
-        typedef Rcpp::traits::true_type rcpp_elementwise ;
+        typedef Rcpp::traits::elementwise_operands<> rcpp_elementwise ;
 
         Rep_Single( const T& x_, R_xlen_t n_) : x(x_), n(n_){}
 

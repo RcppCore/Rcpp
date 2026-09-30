@@ -29,7 +29,7 @@ template <bool NA, typename RESULT_TYPE, typename U1, typename T1>
 class SugarBlock_1 : public Rcpp::VectorBase< Rcpp::traits::r_sexptype_traits<RESULT_TYPE>::rtype , NA, SugarBlock_1<NA,RESULT_TYPE,U1,T1> > {
 public:
     typedef RESULT_TYPE (*FunPtr)(U1) ;
-    typedef Rcpp::traits::is_elementwise< T1 > rcpp_elementwise ;
+    typedef Rcpp::traits::elementwise_operands< T1 > rcpp_elementwise ;
     SugarBlock_1( FunPtr ptr_, const T1 & vec_) : ptr(ptr_), vec(vec_.get_ref()){}
 
     inline RESULT_TYPE operator[]( R_xlen_t i) const {

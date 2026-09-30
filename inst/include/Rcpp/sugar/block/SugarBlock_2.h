@@ -29,7 +29,7 @@ template <bool NA, typename RESULT_TYPE, typename U1, typename T1, typename U2, 
 class SugarBlock_2 : public Rcpp::VectorBase< Rcpp::traits::r_sexptype_traits<RESULT_TYPE>::rtype , NA, SugarBlock_2<NA,RESULT_TYPE,U1,T1,U2,T2> > {
 public:
     typedef RESULT_TYPE (*FunPtr)(U1,U2) ;
-    typedef Rcpp::traits::are_elementwise< T1, T2 > rcpp_elementwise ;
+    typedef Rcpp::traits::elementwise_operands< T1, T2 > rcpp_elementwise ;
     SugarBlock_2( FunPtr ptr_, const T1 & x_, const T2& y_ ) :
         ptr(ptr_), x(x_.get_ref()), y(y_.get_ref()){
         check_sizes(x.size(), y.size()) ;
@@ -51,7 +51,7 @@ template <bool NA, typename RESULT_TYPE, typename U1, typename T1, typename U2>
 class SugarBlock_2__VP : public Rcpp::VectorBase< Rcpp::traits::r_sexptype_traits<RESULT_TYPE>::rtype , NA, SugarBlock_2__VP<NA,RESULT_TYPE,U1,T1,U2> > {
 public:
     typedef RESULT_TYPE (*FunPtr)(U1,U2) ;
-    typedef Rcpp::traits::is_elementwise< T1 > rcpp_elementwise ;
+    typedef Rcpp::traits::elementwise_operands< T1 > rcpp_elementwise ;
     SugarBlock_2__VP( FunPtr ptr_, const T1 & x_, U2 u2 ) :
         ptr(ptr_), x(x_.get_ref()), y(u2){}
 
@@ -70,7 +70,7 @@ template <bool NA, typename RESULT_TYPE, typename U1, typename U2, typename T2>
 class SugarBlock_2__PV : public Rcpp::VectorBase< Rcpp::traits::r_sexptype_traits<RESULT_TYPE>::rtype , NA, SugarBlock_2__PV<NA,RESULT_TYPE,U1,U2,T2> > {
 public:
     typedef RESULT_TYPE (*FunPtr)(U1,U2) ;
-    typedef Rcpp::traits::is_elementwise< T2 > rcpp_elementwise ;
+    typedef Rcpp::traits::elementwise_operands< T2 > rcpp_elementwise ;
     SugarBlock_2__PV( FunPtr ptr_, U1 u1, const T2& y_ ) :
         ptr(ptr_), x(u1), y(y_.get_ref()){}
 

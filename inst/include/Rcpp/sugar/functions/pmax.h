@@ -104,7 +104,7 @@ class Pmax_Vector_Vector : public VectorBase<
 public:
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 	typedef pmax_op<RTYPE,LHS_NA,RHS_NA> OPERATOR ;
-	typedef Rcpp::traits::are_elementwise< LHS_T, RHS_T > rcpp_elementwise ;
+	typedef Rcpp::traits::elementwise_operands< LHS_T, RHS_T > rcpp_elementwise ;
 
 	Pmax_Vector_Vector( const LHS_T& lhs_, const RHS_T& rhs_ ) : lhs(lhs_), rhs(rhs_), op() {
 		check_sizes(lhs.size(), rhs.size()) ;
@@ -135,7 +135,7 @@ class Pmax_Vector_Primitive : public VectorBase<
 public:
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 	typedef pmax_op_Vector_Primitive<RTYPE,LHS_NA> OPERATOR ;
-	typedef Rcpp::traits::is_elementwise< LHS_T > rcpp_elementwise ;
+	typedef Rcpp::traits::elementwise_operands< LHS_T > rcpp_elementwise ;
 
 	Pmax_Vector_Primitive( const LHS_T& lhs_, STORAGE rhs_ ) : lhs(lhs_), op(rhs_) {}
 

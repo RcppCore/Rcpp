@@ -28,6 +28,7 @@ namespace Rcpp{
 template <int RTYPE>
 class MatrixRow : public VectorBase< RTYPE, true, MatrixRow<RTYPE> > {
 public:
+    typedef traits::row_view rcpp_view ;
     typedef Matrix<RTYPE> MATRIX ;
     typedef typename MATRIX::Proxy Proxy ;
     typedef typename MATRIX::Proxy reference ;
@@ -155,7 +156,7 @@ public:
     MatrixRow& operator=( const Rcpp::VectorBase<RT,NA,T>& rhs ){
         sugar::check_assign_size(size(), rhs.size()) ;
 
-        if( ! traits::is_elementwise<T>::value ){
+        if( ! traits::is_elementwise<T, traits::row_target>::value ){
             // rhs may read from this row's matrix, so evaluate it first
             const Vector<RT> tmp(rhs) ;
             return operator=( tmp ) ;
@@ -226,6 +227,7 @@ private:
 template <int RTYPE>
 class ConstMatrixRow : public VectorBase< RTYPE, true, ConstMatrixRow<RTYPE> > {
 public:
+    typedef traits::row_view rcpp_view ;
     typedef Matrix<RTYPE> MATRIX ;
     typedef typename MATRIX::const_Proxy const_reference ;
     typedef typename MATRIX::value_type value_type ;

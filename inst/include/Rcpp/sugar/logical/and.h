@@ -206,7 +206,7 @@ class And_LogicalExpression_LogicalExpression : public Rcpp::VectorBase< LGLSXP,
 public:
     typedef typename Rcpp::VectorBase<LGLSXP,LHS_NA,LHS_T> LHS_TYPE ;
     typedef typename Rcpp::VectorBase<LGLSXP,RHS_NA,RHS_T> RHS_TYPE ;
-    typedef Rcpp::traits::are_elementwise< LHS_TYPE, RHS_TYPE > rcpp_elementwise ;
+    typedef Rcpp::traits::elementwise_operands< LHS_TYPE, RHS_TYPE > rcpp_elementwise ;
 
     And_LogicalExpression_LogicalExpression( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){
         check_sizes(lhs.size(), rhs.size()) ;
@@ -229,7 +229,7 @@ class And_LogicalExpression_LogicalExpression<false,LHS_T,RHS_NA,RHS_T>
 public:
     typedef typename Rcpp::VectorBase<LGLSXP,false,LHS_T> LHS_TYPE ;
     typedef typename Rcpp::VectorBase<LGLSXP,RHS_NA,RHS_T> RHS_TYPE ;
-    typedef Rcpp::traits::are_elementwise< LHS_TYPE, RHS_TYPE > rcpp_elementwise ;
+    typedef Rcpp::traits::elementwise_operands< LHS_TYPE, RHS_TYPE > rcpp_elementwise ;
 
     And_LogicalExpression_LogicalExpression( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){
         check_sizes(lhs.size(), rhs.size()) ;
@@ -252,7 +252,7 @@ class And_LogicalExpression_LogicalExpression<LHS_NA,LHS_T,false,RHS_T>
 public:
     typedef typename Rcpp::VectorBase<LGLSXP,LHS_NA,LHS_T> LHS_TYPE ;
     typedef typename Rcpp::VectorBase<LGLSXP,false,RHS_T> RHS_TYPE ;
-    typedef Rcpp::traits::are_elementwise< LHS_TYPE, RHS_TYPE > rcpp_elementwise ;
+    typedef Rcpp::traits::elementwise_operands< LHS_TYPE, RHS_TYPE > rcpp_elementwise ;
 
     And_LogicalExpression_LogicalExpression( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){
         check_sizes(lhs.size(), rhs.size()) ;
@@ -275,7 +275,7 @@ class And_LogicalExpression_LogicalExpression<false,LHS_T,false,RHS_T>
 public:
     typedef typename Rcpp::VectorBase<LGLSXP,false,LHS_T> LHS_TYPE ;
     typedef typename Rcpp::VectorBase<LGLSXP,false,RHS_T> RHS_TYPE ;
-    typedef Rcpp::traits::are_elementwise< LHS_TYPE, RHS_TYPE > rcpp_elementwise ;
+    typedef Rcpp::traits::elementwise_operands< LHS_TYPE, RHS_TYPE > rcpp_elementwise ;
 
     And_LogicalExpression_LogicalExpression( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){
         check_sizes(lhs.size(), rhs.size()) ;

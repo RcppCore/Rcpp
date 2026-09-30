@@ -30,7 +30,7 @@ namespace sugar {
     public:
         typedef typename Rcpp::VectorBase<RTYPE,NA,VECTOR> SUGAR_TYPE ;
         typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-        typedef Rcpp::traits::is_elementwise< VECTOR > rcpp_elementwise ;
+        typedef Rcpp::traits::elementwise_operands< VECTOR > rcpp_elementwise ;
 
         Nona( const SUGAR_TYPE& expr) : data(expr.get_ref()){}
 
@@ -48,7 +48,7 @@ namespace sugar {
         typedef typename Rcpp::VectorBase<RTYPE,NA, Rcpp::Vector<RTYPE> > SUGAR_TYPE ;
         typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
         typedef typename Rcpp::Vector<RTYPE>::const_iterator iterator ;
-        typedef Rcpp::traits::true_type rcpp_elementwise ;
+        typedef Rcpp::traits::elementwise_operands<> rcpp_elementwise ;
 
         Nona( const SUGAR_TYPE& expr) : data(expr.get_ref().begin()), n(expr.size()){}
 

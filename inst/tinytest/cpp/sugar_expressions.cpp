@@ -176,27 +176,68 @@ NumericMatrix alias_row_rev(NumericMatrix m) {
 }
 
 // [[Rcpp::export]]
+NumericMatrix alias_column_scale(NumericMatrix m) {
+    for (int j = 0; j < m.ncol(); j++)
+        m(_, j) = m(_, j) * 2.0;
+    return m;
+}
+
+// [[Rcpp::export]]
+NumericMatrix alias_row_scale(NumericMatrix m) {
+    for (int i = 0; i < m.nrow(); i++)
+        m(i, _) = m(i, _) * 2.0;
+    return m;
+}
+
+// [[Rcpp::export]]
+NumericMatrix alias_row_from_column(NumericMatrix m) {
+    m(2, _) = m(_, 0) * 1.0;
+    return m;
+}
+
+// [[Rcpp::export]]
+NumericMatrix alias_column_from_row(NumericMatrix m) {
+    m(_, 2) = m(0, _) * 1.0;
+    return m;
+}
+
+typedef traits::vector_target VT;
+typedef traits::column_target CT;
+typedef traits::row_target RT;
+typedef traits::range_target GT;
+
+// [[Rcpp::export]]
 LogicalVector elementwise_flags(NumericVector x, NumericMatrix m) {
     // copy into locals, since binding the static `value` members by
     // reference would require them to have definitions
-    bool vector    = traits::is_elementwise<decltype(x)>::value;
-    bool arith     = traits::is_elementwise<decltype(x * 2.0 + x)>::value;
-    bool math      = traits::is_elementwise<decltype(sqrt(x))>::value;
-    bool if_else   = traits::is_elementwise<decltype(ifelse(x > 0.0, x, -x))>::value;
-    bool reversed  = traits::is_elementwise<decltype(rev(x))>::value;
-    bool arith_rev = traits::is_elementwise<decltype(x + rev(x))>::value;
-    bool first     = traits::is_elementwise<decltype(head(x, 1))>::value;
-    bool column    = traits::is_elementwise<decltype(m(_, 0) + 1.0)>::value;
+    bool vector          = traits::is_elementwise<decltype(x), GT>::value;
+    bool arith           = traits::is_elementwise<decltype(x * 2.0 + x), GT>::value;
+    bool math            = traits::is_elementwise<decltype(sqrt(x)), GT>::value;
+    bool if_else         = traits::is_elementwise<decltype(ifelse(x > 0.0, x, -x)), GT>::value;
+    bool reversed        = traits::is_elementwise<decltype(rev(x)), VT>::value;
+    bool arith_rev       = traits::is_elementwise<decltype(x + rev(x)), VT>::value;
+    bool first           = traits::is_elementwise<decltype(head(x, 1)), VT>::value;
+    bool column_vector   = traits::is_elementwise<decltype(m(_, 0) + 1.0), VT>::value;
+    bool column_column   = traits::is_elementwise<decltype(m(_, 0) + 1.0), CT>::value;
+    bool column_row      = traits::is_elementwise<decltype(m(_, 0) + 1.0), RT>::value;
+    bool row_row         = traits::is_elementwise<decltype(m(0, _) + 1.0), RT>::value;
+    bool row_column      = traits::is_elementwise<decltype(m(0, _) + 1.0), CT>::value;
+    bool range_range     = traits::is_elementwise<decltype(x[Range(0, 1)] + 1.0), GT>::value;
 
     return LogicalVector::create(
-        _["vector"]    = vector,
-        _["arith"]     = arith,
-        _["math"]      = math,
-        _["ifelse"]    = if_else,
-        _["rev"]       = reversed,
-        _["arith_rev"] = arith_rev,
-        _["head"]      = first,
-        _["column"]    = column
+        _["vector"]        = vector,
+        _["arith"]         = arith,
+        _["math"]          = math,
+        _["ifelse"]        = if_else,
+        _["rev"]           = reversed,
+        _["arith_rev"]     = arith_rev,
+        _["head"]          = first,
+        _["column_vector"] = column_vector,
+        _["column_column"] = column_column,
+        _["column_row"]    = column_row,
+        _["row_row"]       = row_row,
+        _["row_column"]    = row_column,
+        _["range_range"]   = range_range
     );
 }
 

@@ -1746,12 +1746,22 @@ x <- function() c(a = 1, b = 2, c = 3)
 expect_equal(names(alias_rev(x())), names(x()), info = "x = rev(x) keeps names")
 expect_equal(names(alias_elementwise(x())), names(x()), info = "x = x * 2 + x keeps names")
 
-## only vectors and elementwise expressions over them are written in place
+## views of the target's own matrix can be read in place when they cover the
+## same positions or disjoint ones (a column from columns, a row from rows)
+m <- function() matrix(as.numeric(1:9), 3)
+expect_equal(alias_column_scale(m()), m() * 2, info = "m(_, j) = m(_, j) * 2")
+expect_equal(alias_row_scale(m()), m() * 2, info = "m(i, _) = m(i, _) * 2")
+expect_equal(alias_row_from_column(m())[3, ], m()[, 1], info = "m(2, _) = m(_, 0) * 1")
+expect_equal(alias_column_from_row(m())[, 3], m()[1, ], info = "m(_, 2) = m(0, _) * 1")
+
+## which expressions are written in place, depending on the target
 flags <- elementwise_flags(c(1, 2, 3), matrix(1, 2, 2))
 expect_equal(
     flags,
     c(vector = TRUE, arith = TRUE, math = TRUE, ifelse = TRUE,
-      rev = FALSE, arith_rev = FALSE, head = FALSE, column = FALSE),
+      rev = FALSE, arith_rev = FALSE, head = FALSE,
+      column_vector = TRUE, column_column = TRUE, column_row = FALSE,
+      row_row = TRUE, row_column = FALSE, range_range = FALSE),
     info = "traits::is_elementwise"
 )
 

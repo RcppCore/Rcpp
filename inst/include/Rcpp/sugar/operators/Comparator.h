@@ -33,7 +33,7 @@ public:
 	typedef typename Rcpp::VectorBase<RTYPE,LHS_NA,LHS_T> LHS_TYPE ;
 	typedef typename Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T> RHS_TYPE ;
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-	typedef Rcpp::traits::are_elementwise< LHS_TYPE, RHS_TYPE > rcpp_elementwise ;
+	typedef Rcpp::traits::elementwise_operands< LHS_TYPE, RHS_TYPE > rcpp_elementwise ;
 
 	Comparator( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_) :
 		lhs(lhs_.get_ref()), rhs(rhs_.get_ref()), op() {
@@ -67,7 +67,7 @@ public:
 	typedef typename Rcpp::VectorBase<RTYPE,false,LHS_T> LHS_TYPE ;
 	typedef typename Rcpp::VectorBase<RTYPE,RHS_NA,RHS_T> RHS_TYPE ;
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-	typedef Rcpp::traits::are_elementwise< LHS_TYPE, RHS_TYPE > rcpp_elementwise ;
+	typedef Rcpp::traits::elementwise_operands< LHS_TYPE, RHS_TYPE > rcpp_elementwise ;
 
 	Comparator( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_) :
 		lhs(lhs_.get_ref()), rhs(rhs_.get_ref()), op() {
@@ -98,7 +98,7 @@ public:
 	typedef typename Rcpp::VectorBase<RTYPE,false,LHS_T> LHS_TYPE ;
 	typedef typename Rcpp::VectorBase<RTYPE,false,RHS_T> RHS_TYPE ;
 	typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-	typedef Rcpp::traits::are_elementwise< LHS_TYPE, RHS_TYPE > rcpp_elementwise ;
+	typedef Rcpp::traits::elementwise_operands< LHS_TYPE, RHS_TYPE > rcpp_elementwise ;
 
 	Comparator( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_) :
 		lhs(lhs_.get_ref()), rhs(rhs_.get_ref()), op() {

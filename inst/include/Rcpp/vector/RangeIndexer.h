@@ -25,7 +25,7 @@
 
 #define UNROLL_LOOP(OP)                              \
     ::Rcpp::sugar::check_assign_size(size_, x.size()) ; \
-    if( ! ::Rcpp::traits::is_elementwise<T>::value ){  \
+    if( ! ::Rcpp::traits::is_elementwise<T, ::Rcpp::traits::range_target>::value ){ \
         /* x may read from the vector this range */  \
         /* indexes, so evaluate it first */          \
         const Vector<RTYPE, PreserveStorage> tmp(x) ; \
@@ -60,6 +60,7 @@ namespace internal{
 template <int RTYPE, bool NA, typename VECTOR>
 class RangeIndexer : public VectorBase<RTYPE, NA, RangeIndexer<RTYPE,NA,VECTOR> >  {
 public:
+	typedef traits::range_view rcpp_view ;
 	typedef typename VECTOR::Proxy Proxy ;
 	typedef typename VECTOR::iterator iterator ;
 

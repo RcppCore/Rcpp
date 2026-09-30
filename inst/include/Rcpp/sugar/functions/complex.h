@@ -35,7 +35,7 @@ class SugarComplex : public Rcpp::VectorBase<
 public:
 
 	typedef Rcpp::VectorBase<CPLXSXP,NA,T> VEC_TYPE ;
-	typedef Rcpp::traits::is_elementwise< VEC_TYPE > rcpp_elementwise ;
+	typedef Rcpp::traits::elementwise_operands< VEC_TYPE > rcpp_elementwise ;
 
 	SugarComplex( FunPtr ptr_, const VEC_TYPE & vec_) : ptr(ptr_), vec(vec_.get_ref()){}
 

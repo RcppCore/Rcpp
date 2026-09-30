@@ -35,7 +35,7 @@ class D0 : public Rcpp::VectorBase< REALSXP, NA, D0<RTYPE,NA,T> > {
 public:
     typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
     typedef double (*FunPtr)(double,int) ;
-    typedef Rcpp::traits::is_elementwise< VEC_TYPE > rcpp_elementwise ;
+    typedef Rcpp::traits::elementwise_operands< VEC_TYPE > rcpp_elementwise ;
 
     D0( FunPtr ptr_, const VEC_TYPE& vec_, bool log_ ) :
         ptr(ptr_), vec(vec_.get_ref()), log(log_) {}
@@ -57,7 +57,7 @@ class D1 : public Rcpp::VectorBase< REALSXP, NA, D1<RTYPE,NA,T> > {
 public:
     typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
     typedef double (*FunPtr)(double,double,int) ;
-    typedef Rcpp::traits::is_elementwise< VEC_TYPE > rcpp_elementwise ;
+    typedef Rcpp::traits::elementwise_operands< VEC_TYPE > rcpp_elementwise ;
 
     D1( FunPtr ptr_, const VEC_TYPE& vec_, double p0_ , bool log_) :
         ptr(ptr_), vec(vec_.get_ref()), p0(p0_), log(log_) {}
@@ -80,7 +80,7 @@ class D2 : public Rcpp::VectorBase< REALSXP, NA, D2<RTYPE,NA,T> > {
 public:
     typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
     typedef double (*FunPtr)(double,double,double,int) ;
-    typedef Rcpp::traits::is_elementwise< VEC_TYPE > rcpp_elementwise ;
+    typedef Rcpp::traits::elementwise_operands< VEC_TYPE > rcpp_elementwise ;
 
     D2( FunPtr ptr_, const VEC_TYPE& vec_, double p0_, double p1_ , bool log_) :
         ptr(ptr_), vec(vec_.get_ref()), p0(p0_), p1(p1_), log(log_) {}
@@ -103,7 +103,7 @@ class D3 : public Rcpp::VectorBase< REALSXP, NA, D3<RTYPE,NA,T> > {
 public:
     typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
     typedef double (*FunPtr)(double,double,double,double,int) ;
-    typedef Rcpp::traits::is_elementwise< VEC_TYPE > rcpp_elementwise ;
+    typedef Rcpp::traits::elementwise_operands< VEC_TYPE > rcpp_elementwise ;
 
     D3( FunPtr ptr_, const VEC_TYPE& vec_, double p0_, double p1_, double p2_ , bool log_ ) :
         ptr(ptr_), vec(vec_.get_ref()), p0(p0_), p1(p1_), p2(p2_), log(log_) {}
@@ -129,7 +129,7 @@ class P0 : public Rcpp::VectorBase< REALSXP, NA, P0<RTYPE,NA,T> >{
 public:
     typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
     typedef double (*FunPtr)(double,int,int) ;
-    typedef Rcpp::traits::is_elementwise< VEC_TYPE > rcpp_elementwise ;
+    typedef Rcpp::traits::elementwise_operands< VEC_TYPE > rcpp_elementwise ;
 
     P0( FunPtr ptr_, const VEC_TYPE& vec_,
         bool lower_tail = true, bool log_ = false ) :
@@ -154,7 +154,7 @@ class P1 : public Rcpp::VectorBase< REALSXP, NA, P1<RTYPE,NA,T> >{
 public:
     typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
     typedef double (*FunPtr)(double,double,int,int) ;
-    typedef Rcpp::traits::is_elementwise< VEC_TYPE > rcpp_elementwise ;
+    typedef Rcpp::traits::elementwise_operands< VEC_TYPE > rcpp_elementwise ;
 
     P1( FunPtr ptr_, const VEC_TYPE& vec_, double p0_,
         bool lower_tail = true, bool log_ = false ) :
@@ -180,7 +180,7 @@ class P2 : public Rcpp::VectorBase< REALSXP, NA, P2<RTYPE,NA,T> >{
 public:
     typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
     typedef double (*FunPtr)(double,double,double,int,int) ;
-    typedef Rcpp::traits::is_elementwise< VEC_TYPE > rcpp_elementwise ;
+    typedef Rcpp::traits::elementwise_operands< VEC_TYPE > rcpp_elementwise ;
 
     P2( FunPtr ptr_, const VEC_TYPE& vec_, double p0_, double p1_,
         bool lower_tail = true, bool log_ = false ) :
@@ -204,7 +204,7 @@ class P3 : public Rcpp::VectorBase< REALSXP, NA, P3<RTYPE,NA,T> >{
 public:
     typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
     typedef double (*FunPtr)(double,double,double,double,int,int) ;
-    typedef Rcpp::traits::is_elementwise< VEC_TYPE > rcpp_elementwise ;
+    typedef Rcpp::traits::elementwise_operands< VEC_TYPE > rcpp_elementwise ;
 
     P3( FunPtr ptr_, const VEC_TYPE& vec_, double p0_, double p1_, double p2_,
         bool lower_tail = true, bool log_ = false ) :
@@ -231,7 +231,7 @@ class Q0 : public Rcpp::VectorBase< REALSXP, NA, Q0<RTYPE,NA,T> >{
 public:
     typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
     typedef double (*FunPtr)(double,int,int) ;
-    typedef Rcpp::traits::is_elementwise< VEC_TYPE > rcpp_elementwise ;
+    typedef Rcpp::traits::elementwise_operands< VEC_TYPE > rcpp_elementwise ;
 
     Q0( FunPtr ptr_, const VEC_TYPE& vec_,
         bool lower_tail = true, bool log_ = false ) :
@@ -255,7 +255,7 @@ class Q1 : public Rcpp::VectorBase< REALSXP, NA, Q1<RTYPE,NA,T> >{
 public:
     typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
     typedef double (*FunPtr)(double,double,int,int) ;
-    typedef Rcpp::traits::is_elementwise< VEC_TYPE > rcpp_elementwise ;
+    typedef Rcpp::traits::elementwise_operands< VEC_TYPE > rcpp_elementwise ;
 
     Q1( FunPtr ptr_, const VEC_TYPE& vec_, double p0_,
         bool lower_tail = true, bool log_ = false ) :
@@ -280,7 +280,7 @@ class Q2 : public Rcpp::VectorBase< REALSXP, NA, Q2<RTYPE,NA,T> >{
 public:
     typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
     typedef double (*FunPtr)(double,double,double,int,int) ;
-    typedef Rcpp::traits::is_elementwise< VEC_TYPE > rcpp_elementwise ;
+    typedef Rcpp::traits::elementwise_operands< VEC_TYPE > rcpp_elementwise ;
 
     Q2( FunPtr ptr_, const VEC_TYPE& vec_, double p0_, double p1_,
         bool lower_tail = true, bool log_ = false ) :
@@ -305,7 +305,7 @@ class Q3 : public Rcpp::VectorBase< REALSXP, NA, Q3<RTYPE,NA,T> >{
 public:
     typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
     typedef double (*FunPtr)(double,double,double,double,int,int) ;
-    typedef Rcpp::traits::is_elementwise< VEC_TYPE > rcpp_elementwise ;
+    typedef Rcpp::traits::elementwise_operands< VEC_TYPE > rcpp_elementwise ;
 
     Q3( FunPtr ptr_, const VEC_TYPE& vec_, double p0_, double p1_, double p2_,
         bool lower_tail = true, bool log_ = false ) :

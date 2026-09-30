@@ -34,7 +34,7 @@ class SugarMath_1 : public Rcpp::VectorBase<
 public:
 
 	typedef Rcpp::VectorBase< Rcpp::traits::r_sexptype_traits<RESULT_TYPE>::rtype ,NA,T1> VEC_TYPE ;
-	typedef Rcpp::traits::is_elementwise< VEC_TYPE > rcpp_elementwise ;
+	typedef Rcpp::traits::elementwise_operands< VEC_TYPE > rcpp_elementwise ;
 
 	SugarMath_1( FunPtr ptr_, const VEC_TYPE & vec_) : ptr(ptr_), vec(vec_.get_ref()){}
 
@@ -58,7 +58,7 @@ class SugarMath_1<NA,RESULT_TYPE,int,T1,FunPtr> : public Rcpp::VectorBase<
 	> {
 public:
 	typedef Rcpp::VectorBase< INTSXP ,NA,T1> VEC_TYPE ;
-	typedef Rcpp::traits::is_elementwise< VEC_TYPE > rcpp_elementwise ;
+	typedef Rcpp::traits::elementwise_operands< VEC_TYPE > rcpp_elementwise ;
 
 	SugarMath_1( FunPtr ptr_, const VEC_TYPE & vec_) : ptr(ptr_), vec(vec_.get_ref()){}
 
@@ -83,7 +83,7 @@ Rcpp::VectorBase<
 > {
 public:
 	typedef Rcpp::VectorBase< INTSXP ,false,T1> VEC_TYPE ;
-	typedef Rcpp::traits::is_elementwise< VEC_TYPE > rcpp_elementwise ;
+	typedef Rcpp::traits::elementwise_operands< VEC_TYPE > rcpp_elementwise ;
 	SugarMath_1( FunPtr ptr_, const VEC_TYPE & vec_) : ptr(ptr_), vec(vec_.get_ref()){}
 
 	inline RESULT_TYPE operator[]( R_xlen_t i) const {

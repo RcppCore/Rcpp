@@ -62,7 +62,7 @@ class Clamp_Primitive_Vector_Primitive : public VectorBase<
 public:
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 	typedef clamp_operator<RTYPE,NA> OPERATOR ;
-	typedef Rcpp::traits::is_elementwise< T > rcpp_elementwise ;
+	typedef Rcpp::traits::elementwise_operands< T > rcpp_elementwise ;
 
 	Clamp_Primitive_Vector_Primitive( STORAGE lhs_, const T& vec_, STORAGE rhs_) : vec(vec_), op(lhs_,rhs_) {}
 

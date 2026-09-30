@@ -33,7 +33,7 @@ namespace sugar{
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		typedef typename Rcpp::traits::Extractor< RTYPE, LHS_NA, LHS_T>::type LHS_EXT ;
 		typedef typename Rcpp::traits::Extractor< RTYPE, RHS_NA, RHS_T>::type RHS_EXT ;
-		typedef Rcpp::traits::are_elementwise< LHS_EXT, RHS_EXT > rcpp_elementwise ;
+		typedef Rcpp::traits::elementwise_operands< LHS_EXT, RHS_EXT > rcpp_elementwise ;
 
 		Divides_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
 			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
@@ -62,7 +62,7 @@ namespace sugar{
 		typedef typename Rcpp::VectorBase<REALSXP,RHS_NA,RHS_T> RHS_TYPE ;
 		typedef typename Rcpp::traits::Extractor<REALSXP, LHS_NA, LHS_T>::type LHS_EXT ;
 		typedef typename Rcpp::traits::Extractor<REALSXP, RHS_NA, RHS_T>::type RHS_EXT ;
-		typedef Rcpp::traits::are_elementwise< LHS_EXT, RHS_EXT > rcpp_elementwise ;
+		typedef Rcpp::traits::elementwise_operands< LHS_EXT, RHS_EXT > rcpp_elementwise ;
 
 		Divides_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
 			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
@@ -89,7 +89,7 @@ namespace sugar{
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		typedef typename Rcpp::traits::Extractor< RTYPE, false, LHS_T>::type LHS_EXT ;
 		typedef typename Rcpp::traits::Extractor< RTYPE, RHS_NA, RHS_T>::type RHS_EXT ;
-		typedef Rcpp::traits::are_elementwise< LHS_EXT, RHS_EXT > rcpp_elementwise ;
+		typedef Rcpp::traits::elementwise_operands< LHS_EXT, RHS_EXT > rcpp_elementwise ;
 
 		Divides_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
 			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
@@ -117,7 +117,7 @@ namespace sugar{
 		typedef typename Rcpp::VectorBase<REALSXP,RHS_NA,RHS_T> RHS_TYPE ;
 		typedef typename Rcpp::traits::Extractor<REALSXP, false, LHS_T>::type LHS_EXT ;
 		typedef typename Rcpp::traits::Extractor<REALSXP, RHS_NA, RHS_T>::type RHS_EXT ;
-		typedef Rcpp::traits::are_elementwise< LHS_EXT, RHS_EXT > rcpp_elementwise ;
+		typedef Rcpp::traits::elementwise_operands< LHS_EXT, RHS_EXT > rcpp_elementwise ;
 
 		Divides_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
 			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
@@ -145,7 +145,7 @@ namespace sugar{
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		typedef typename Rcpp::traits::Extractor< RTYPE, LHS_NA, LHS_T>::type LHS_EXT ;
 		typedef typename Rcpp::traits::Extractor< RTYPE, false, RHS_T>::type RHS_EXT ;
-		typedef Rcpp::traits::are_elementwise< LHS_EXT, RHS_EXT > rcpp_elementwise ;
+		typedef Rcpp::traits::elementwise_operands< LHS_EXT, RHS_EXT > rcpp_elementwise ;
 
 		Divides_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
 			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
@@ -172,7 +172,7 @@ namespace sugar{
 		typedef typename Rcpp::VectorBase<REALSXP,false,RHS_T> RHS_TYPE ;
 		typedef typename Rcpp::traits::Extractor<REALSXP, LHS_NA, LHS_T>::type LHS_EXT ;
 		typedef typename Rcpp::traits::Extractor<REALSXP, false, RHS_T>::type RHS_EXT ;
-		typedef Rcpp::traits::are_elementwise< LHS_EXT, RHS_EXT > rcpp_elementwise ;
+		typedef Rcpp::traits::elementwise_operands< LHS_EXT, RHS_EXT > rcpp_elementwise ;
 
 		Divides_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
 			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
@@ -199,7 +199,7 @@ namespace sugar{
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		typedef typename Rcpp::traits::Extractor<RTYPE, false, LHS_T>::type LHS_EXT ;
 		typedef typename Rcpp::traits::Extractor<RTYPE, false, RHS_T>::type RHS_EXT ;
-		typedef Rcpp::traits::are_elementwise< LHS_EXT, RHS_EXT > rcpp_elementwise ;
+		typedef Rcpp::traits::elementwise_operands< LHS_EXT, RHS_EXT > rcpp_elementwise ;
 
 		Divides_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
 			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
@@ -225,7 +225,7 @@ namespace sugar{
 		typedef typename Rcpp::VectorBase<REALSXP,false,RHS_T> RHS_TYPE ;
 		typedef typename Rcpp::traits::Extractor<REALSXP, false, LHS_T>::type LHS_EXT ;
 		typedef typename Rcpp::traits::Extractor<REALSXP, false, RHS_T>::type RHS_EXT ;
-		typedef Rcpp::traits::are_elementwise< LHS_EXT, RHS_EXT > rcpp_elementwise ;
+		typedef Rcpp::traits::elementwise_operands< LHS_EXT, RHS_EXT > rcpp_elementwise ;
 
 		Divides_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
 			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
@@ -253,7 +253,7 @@ namespace sugar{
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 		typedef typename Rcpp::traits::Extractor<RTYPE,NA,T>::type VEC_EXT ;
-		typedef Rcpp::traits::is_elementwise< VEC_EXT > rcpp_elementwise ;
+		typedef Rcpp::traits::elementwise_operands< VEC_EXT > rcpp_elementwise ;
 
 		Divides_Vector_Primitive( const VEC_TYPE& lhs_, STORAGE rhs_ ) :
 			lhs(lhs_.get_ref()), rhs(rhs_), rhs_na( Rcpp::traits::is_na<RTYPE>(rhs_) ) {
@@ -279,7 +279,7 @@ namespace sugar{
 	public:
 		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE ;
 		typedef typename Rcpp::traits::Extractor<REALSXP,NA,T>::type VEC_EXT ;
-		typedef Rcpp::traits::is_elementwise< VEC_EXT > rcpp_elementwise ;
+		typedef Rcpp::traits::elementwise_operands< VEC_EXT > rcpp_elementwise ;
 
 		Divides_Vector_Primitive( const VEC_TYPE& lhs_, double rhs_ ) :
 			lhs(lhs_.get_ref()), rhs(rhs_) {
@@ -305,7 +305,7 @@ namespace sugar{
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		typedef typename Rcpp::VectorBase<RTYPE,false,T> VEC_TYPE ;
 		typedef typename Rcpp::traits::Extractor<RTYPE,false,T>::type VEC_EXT ;
-		typedef Rcpp::traits::is_elementwise< VEC_EXT > rcpp_elementwise ;
+		typedef Rcpp::traits::elementwise_operands< VEC_EXT > rcpp_elementwise ;
 
 		Divides_Vector_Primitive( const VEC_TYPE& lhs_, STORAGE rhs_ ) :
 			lhs(lhs_.get_ref()), rhs(rhs_), rhs_na( Rcpp::traits::is_na<RTYPE>(rhs_) ) {}
@@ -329,7 +329,7 @@ namespace sugar{
 	public:
 		typedef typename Rcpp::VectorBase<REALSXP,false,T> VEC_TYPE ;
 		typedef typename Rcpp::traits::Extractor<REALSXP,false,T>::type VEC_EXT ;
-		typedef Rcpp::traits::is_elementwise< VEC_EXT > rcpp_elementwise ;
+		typedef Rcpp::traits::elementwise_operands< VEC_EXT > rcpp_elementwise ;
 
 		Divides_Vector_Primitive( const VEC_TYPE& lhs_, double rhs_ ) :
 			lhs(lhs_.get_ref()), rhs(rhs_){}
@@ -353,7 +353,7 @@ namespace sugar{
 		typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 		typedef typename Rcpp::traits::Extractor<RTYPE,NA,T>::type VEC_EXT ;
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
-		typedef Rcpp::traits::is_elementwise< VEC_EXT > rcpp_elementwise ;
+		typedef Rcpp::traits::elementwise_operands< VEC_EXT > rcpp_elementwise ;
 
 		Divides_Primitive_Vector( STORAGE lhs_, const VEC_TYPE& rhs_ ) :
 			lhs(lhs_), rhs(rhs_.get_ref()), lhs_na( Rcpp::traits::is_na<RTYPE>(lhs_) ) {}
@@ -376,7 +376,7 @@ namespace sugar{
 	public:
 		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE ;
 		typedef typename Rcpp::traits::Extractor<REALSXP,NA,T>::type VEC_EXT ;
-		typedef Rcpp::traits::is_elementwise< VEC_EXT > rcpp_elementwise ;
+		typedef Rcpp::traits::elementwise_operands< VEC_EXT > rcpp_elementwise ;
 
 		Divides_Primitive_Vector( double lhs_, const VEC_TYPE& rhs_ ) :
 			lhs(lhs_), rhs(rhs_.get_ref()) {}
@@ -399,7 +399,7 @@ namespace sugar{
 		typedef typename Rcpp::VectorBase<RTYPE,false,T> VEC_TYPE ;
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		typedef typename Rcpp::traits::Extractor<RTYPE,false,T>::type VEC_EXT ;
-		typedef Rcpp::traits::is_elementwise< VEC_EXT > rcpp_elementwise ;
+		typedef Rcpp::traits::elementwise_operands< VEC_EXT > rcpp_elementwise ;
 
 		Divides_Primitive_Vector( STORAGE lhs_, const VEC_TYPE& rhs_ ) :
 			lhs(lhs_), rhs(rhs_.get_ref()), lhs_na( Rcpp::traits::is_na<RTYPE>(lhs_) ) {}
@@ -422,7 +422,7 @@ namespace sugar{
 	public:
 		typedef typename Rcpp::VectorBase<REALSXP,false,T> VEC_TYPE ;
 		typedef typename Rcpp::traits::Extractor<REALSXP,false,T>::type VEC_EXT ;
-		typedef Rcpp::traits::is_elementwise< VEC_EXT > rcpp_elementwise ;
+		typedef Rcpp::traits::elementwise_operands< VEC_EXT > rcpp_elementwise ;
 
 		Divides_Primitive_Vector( double lhs_, const VEC_TYPE& rhs_ ) :
 			lhs(lhs_), rhs(rhs_.get_ref()) {}
