@@ -25,23 +25,32 @@
 namespace Rcpp{
 namespace sugar{
 
+    // Kept out of line: inlining the error path keeps the compiler from
+    // optimizing the loops that follow these checks.
+#if defined(__GNUC__)
+    __attribute__((noinline, cold))
+#endif
+    inline void NORET stop_sizes(const char* fmt, R_xlen_t n1, R_xlen_t n2) {
+        stop(fmt, n1, n2);
+    }
+
     // Sugar doesn't recycle the way R does: the vectors an expression
     // combines must all have the same length.
     inline void check_sizes(R_xlen_t n1, R_xlen_t n2) {
         if (n1 != n2)
-            stop("sugar operands have different lengths (%d and %d)", n1, n2);
+            stop_sizes("sugar operands have different lengths (%d and %d)", n1, n2);
     }
 
     inline void check_sizes(R_xlen_t n1, R_xlen_t n2, R_xlen_t n3) {
-        if (n1 != n2 || n1 != n3)
-            stop("sugar operands have different lengths (%d, %d and %d)", n1, n2, n3);
+        check_sizes(n1, n2);
+        check_sizes(n1, n3);
     }
 
     // Likewise, a vector assigned into a range, row or column must have the
     // same length as that target.
     inline void check_assign_size(R_xlen_t target, R_xlen_t value) {
         if (target != value)
-            stop("cannot assign a vector of length %d to a target of length %d", value, target);
+            stop_sizes("cannot assign a vector of length %d to a target of length %d", value, target);
     }
 
 } // sugar
