@@ -24,46 +24,71 @@ setClassUnion("refGenerator", c("refObjectGenerator", "refClassGeneratorFunction
 ## Stands in for a reference class with those fields.
 setClass( "Module",  contains = "environment" )
 
-setRefClass( "C++Field", 
-    fields = list( 
-        pointer       = "externalptr", 
-        cpp_class     = "character", 
-        read_only     = "logical", 
-        class_pointer = "externalptr", 
+## Plain S4 classes describing the fields, methods and constructors that a
+## C++ class exposes. These used to be reference classes; creating one
+## reference-class object per exposed method (via new()) dominated the
+## time spent loading a module. A "$" method is provided below so that
+## existing code using field-style access (x$pointer, x$info()) keeps working.
+setClass( "C++Field",
+    representation(
+        pointer       = "externalptr",
+        cpp_class     = "character",
+        read_only     = "logical",
+        class_pointer = "externalptr",
         docstring     = "character"
     )
 )
 
-setRefClass( "C++OverloadedMethods", 
-    fields = list( 
-        pointer       = "externalptr", 
-        class_pointer = "externalptr", 
-        size          = "integer", 
+setClass( "C++OverloadedMethods",
+    representation(
+        pointer       = "externalptr",
+        class_pointer = "externalptr",
+        size          = "integer",
         void          = "logical",
-        const         = "logical", 
-        docstrings    = "character", 
-        signatures    = "character", 
+        const         = "logical",
+        docstrings    = "character",
+        signatures    = "character",
         nargs         = "integer"
-    ), 
-    methods = list( 
-        info = function(prefix = "    " ){
-             paste( 
-                paste( prefix, signatures, ifelse(const, " const", "" ), "\n", prefix, prefix, 
-                    ifelse( nchar(docstrings), paste( "docstring :", docstrings) , "" ) 
-                ) , collapse = "\n" )   
-        }
     )
 )
 
-setRefClass( "C++Constructor", 
-    fields = list( 
-        pointer       = "externalptr", 
-        class_pointer = "externalptr", 
-        nargs         = "integer", 
-        signature     = "character", 
+setClass( "C++Constructor",
+    representation(
+        pointer       = "externalptr",
+        class_pointer = "externalptr",
+        nargs         = "integer",
+        signature     = "character",
         docstring     = "character"
     )
 )
+
+## formerly the 'info' reference method of C++OverloadedMethods
+.cpp_methods_info <- function( x, prefix = "    " ){
+    paste(
+        paste( prefix, x@signatures, ifelse(x@const, " const", "" ), "\n", prefix, prefix,
+            ifelse( nchar(x@docstrings), paste( "docstring :", x@docstrings) , "" )
+        ) , collapse = "\n" )
+}
+
+## backwards compatible field-style access
+setMethod( "$", "C++OverloadedMethods", function(x, name){
+    if( identical( name, "info" ) )
+        function( prefix = "    " ) .cpp_methods_info( x, prefix )
+    else
+        methods::slot( x, name )
+} )
+setMethod( "$", "C++Field",       function(x, name) methods::slot( x, name ) )
+setMethod( "$", "C++Constructor", function(x, name) methods::slot( x, name ) )
+
+## packages compiled against earlier versions of the Rcpp headers populate
+## these objects with `$<-` (FieldProxy); keep those binaries loadable
+.slot_dollar_assign <- function(x, name, value) {
+    methods::slot( x, name ) <- value
+    x
+}
+setReplaceMethod( "$", "C++OverloadedMethods", .slot_dollar_assign )
+setReplaceMethod( "$", "C++Field",             .slot_dollar_assign )
+setReplaceMethod( "$", "C++Constructor",       .slot_dollar_assign )
 
 setClass( "C++Class", 
 	representation( 

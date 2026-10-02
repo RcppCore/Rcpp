@@ -329,15 +329,15 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
 dealWith <- function( x ) if(isTRUE(x[[1]])) invisible(NULL) else x[[2]]        # #nocov
 
 method_wrapper <- function( METHOD, where ){
-        noargs <- all( METHOD$nargs == 0 )
+        noargs <- all( METHOD@nargs == 0 )
         stuff <- list(
-            class_pointer = METHOD$class_pointer,
-            pointer = METHOD$pointer,
+            class_pointer = METHOD@class_pointer,
+            pointer = METHOD@pointer,
             CppMethod__invoke = CppMethod__invoke,
             CppMethod__invoke_void = CppMethod__invoke_void,
             CppMethod__invoke_notvoid = CppMethod__invoke_notvoid,
             dealWith = dealWith,
-            docstring = METHOD$info("")
+            docstring = .cpp_methods_info( METHOD, "" )
         )
         f <- function(...) NULL
         if( noargs ){
@@ -345,7 +345,7 @@ method_wrapper <- function( METHOD, where ){
         }
 
         extCall <- if( noargs ) {
-            if( all( METHOD$void ) ){
+            if( all( METHOD@void ) ){
                 # all methods are void, so we know we want to return invisible(NULL)
                 substitute(
                 {
@@ -353,7 +353,7 @@ method_wrapper <- function( METHOD, where ){
                     .External(CppMethod__invoke_void, class_pointer, pointer, .pointer )
                     invisible(NULL)
                 } , stuff )
-            } else if( all( ! METHOD$void ) ){
+            } else if( all( ! METHOD@void ) ){
                 # none of the methods are void so we always return the result of
                 # .External
                 substitute(
@@ -371,7 +371,7 @@ method_wrapper <- function( METHOD, where ){
                 } , stuff )                                                     # #nocov end
             }
         } else {
-            if( all( METHOD$void ) ){
+            if( all( METHOD@void ) ){
                 # all methods are void, so we know we want to return invisible(NULL)
                 substitute(
                 {
@@ -379,7 +379,7 @@ method_wrapper <- function( METHOD, where ){
                     .External(CppMethod__invoke_void, class_pointer, pointer, .pointer, ...)
                     invisible(NULL)
                 } , stuff )
-            } else if( all( ! METHOD$void ) ){
+            } else if( all( ! METHOD@void ) ){
                 # none of the methods are void so we always return the result of
                 # .External
                 substitute(
@@ -431,8 +431,8 @@ binding_maker <- function( FIELD, where ){
             .Call( CppField__get, class_pointer, pointer, .pointer)
         else
             .Call( CppField__set, class_pointer, pointer, .pointer, x)
-    }, list(class_pointer = FIELD$class_pointer,
-            pointer = FIELD$pointer,
+    }, list(class_pointer = FIELD@class_pointer,
+            pointer = FIELD@pointer,
             CppField__get = CppField__get,
             CppField__set = CppField__set ))
     environment(f) <- where
