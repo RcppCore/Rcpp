@@ -41,8 +41,8 @@ setMethod( "show", "C++Class", function(object){
 	txt <- character( nctors )
 	for( i in seq_len(nctors) ){
 	    ctor <- ctors[[i]]
-	    doc  <- ctor$docstring
-	    txt[i] <- sprintf( "    %s%s", ctor$signature, if( nchar(doc) ) sprintf( "\n        docstring : %s", doc) else "" )
+	    doc  <- ctor@docstring
+	    txt[i] <- sprintf( "    %s%s", ctor@signature, if( nchar(doc) ) sprintf( "\n        docstring : %s", doc) else "" )
 	}
 	writeLines( "Constructors:" )
 	writeLines( paste( txt, collapse = "\n" ) )
@@ -55,11 +55,11 @@ setMethod( "show", "C++Class", function(object){
 	    writeLines( "\nFields: " )
 	    for( i in seq_len(nfields) ){
 	        f <- fields[[i]]
-	        doc <- f$docstring
+	        doc <- f@docstring
 	        txt[i] <- sprintf( "    %s %s%s%s",
-	            f$cpp_class, 
+	            f@cpp_class, 
 	            names[i], 
-	            if( f$read_only ) " [readonly]" else "", 
+	            if( f@read_only ) " [readonly]" else "", 
 	            if( nchar(doc) ) sprintf( "\n        docstring : %s", doc ) else ""
 	        )    
 	    }
@@ -74,7 +74,7 @@ setMethod( "show", "C++Class", function(object){
 	    writeLines( "\nMethods: " )
 	    txt <- character( nmethods )
 	    for( i in seq_len(nmethods) ){
-	        txt[i] <- mets[[i]]$info("    ")
+	        txt[i] <- .cpp_methods_info( mets[[i]], "    " )
 	    }
 	    writeLines( paste( txt, collapse = "\n" ) ) 
 	} else {

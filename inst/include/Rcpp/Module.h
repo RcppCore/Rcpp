@@ -310,20 +310,20 @@ namespace Rcpp{
     } ;
 
     template <typename Class>
-    class S4_CppConstructor : public Reference {
-        typedef Reference Base;
+    class S4_CppConstructor : public S4 {
+        typedef S4 Base;
     public:
         typedef XPtr<class_Base> XP_Class ;
-        typedef Reference::Storage Storage ;
+        typedef S4::Storage Storage ;
 
-        S4_CppConstructor( SignedConstructor<Class>* m, const XP_Class& class_xp, const std::string& class_name, std::string& buffer ) : Reference( "C++Constructor" ){
+        S4_CppConstructor( SignedConstructor<Class>* m, const XP_Class& class_xp, const std::string& class_name, std::string& buffer ) : S4( "C++Constructor" ){
             RCPP_DEBUG( "S4_CppConstructor( SignedConstructor<Class>* m, SEXP class_xp, const std::string& class_name, std::string& buffer" ) ;
-            field( "pointer" )       = Rcpp::XPtr< SignedConstructor<Class> >( m, false ) ;
-            field( "class_pointer" ) = class_xp ;
-            field( "nargs" )         = m->nargs() ;
+            slot( "pointer" )       = Rcpp::XPtr< SignedConstructor<Class> >( m, false ) ;
+            slot( "class_pointer" ) = class_xp ;
+            slot( "nargs" )         = m->nargs() ;
             m->signature( buffer, class_name ) ;
-            field( "signature" )     = buffer ;
-            field( "docstring" )     = m->docstring ;
+            slot( "signature" )     = buffer ;
+            slot( "docstring" )     = m->docstring ;
         }
 
         RCPP_CTOR_ASSIGN_WITH_BASE(S4_CppConstructor)
@@ -331,14 +331,14 @@ namespace Rcpp{
     } ;
 
     template <typename Class>
-    class S4_CppOverloadedMethods : public Rcpp::Reference {
-        typedef Rcpp::Reference Base;
+    class S4_CppOverloadedMethods : public Rcpp::S4 {
+        typedef Rcpp::S4 Base;
     public:
         typedef Rcpp::XPtr<class_Base> XP_Class ;
         typedef SignedMethod<Class> signed_method_class ;
         typedef std::vector<signed_method_class*> vec_signed_method ;
 
-        S4_CppOverloadedMethods( vec_signed_method* m, const XP_Class& class_xp, const char* name, std::string& buffer ) : Reference( "C++OverloadedMethods" ){
+        S4_CppOverloadedMethods( vec_signed_method* m, const XP_Class& class_xp, const char* name, std::string& buffer ) : S4( "C++OverloadedMethods" ){
             int n = static_cast<int>(m->size()) ;
             Rcpp::LogicalVector voidness(n), constness(n) ;
             Rcpp::CharacterVector docstrings(n), signatures(n) ;
@@ -354,14 +354,14 @@ namespace Rcpp{
                 signatures[i] = buffer ;
             }
 
-            field( "pointer" )       = Rcpp::XPtr< vec_signed_method >( m, false ) ;
-            field( "class_pointer" ) = class_xp ;
-            field( "size" )          = n ;
-            field( "void" )          = voidness ;
-            field( "const" )         = constness ;
-            field( "docstrings" )    = docstrings ;
-            field( "signatures" )    = signatures ;
-            field( "nargs" )         = nargs ;
+            slot( "pointer" )       = Rcpp::XPtr< vec_signed_method >( m, false ) ;
+            slot( "class_pointer" ) = class_xp ;
+            slot( "size" )          = n ;
+            slot( "void" )          = voidness ;
+            slot( "const" )         = constness ;
+            slot( "docstrings" )    = docstrings ;
+            slot( "signatures" )    = signatures ;
+            slot( "nargs" )         = nargs ;
 
         }
 
@@ -488,17 +488,17 @@ namespace Rcpp{
     } ;
 
     template <typename Class>
-    class S4_field : public Rcpp::Reference {
-        typedef Rcpp::Reference Base;
+    class S4_field : public Rcpp::S4 {
+        typedef Rcpp::S4 Base;
     public:
         typedef XPtr<class_Base> XP_Class ;
-        S4_field( CppProperty<Class>* p, const XP_Class& class_xp ) : Reference( "C++Field" ){
+        S4_field( CppProperty<Class>* p, const XP_Class& class_xp ) : S4( "C++Field" ){
             RCPP_DEBUG( "S4_field( CppProperty<Class>* p, const XP_Class& class_xp )" )
-            field( "read_only" )     = p->is_readonly() ;
-            field( "cpp_class" )     = p->get_class();
-            field( "pointer" )       = Rcpp::XPtr< CppProperty<Class> >( p, false ) ;
-            field( "class_pointer" ) = class_xp ;
-            field( "docstring" )     = p->docstring ;
+            slot( "read_only" )     = p->is_readonly() ;
+            slot( "cpp_class" )     = p->get_class();
+            slot( "pointer" )       = Rcpp::XPtr< CppProperty<Class> >( p, false ) ;
+            slot( "class_pointer" ) = class_xp ;
+            slot( "docstring" )     = p->docstring ;
         }
 
         RCPP_CTOR_ASSIGN_WITH_BASE(S4_field)
