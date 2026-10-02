@@ -222,15 +222,12 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
 
         fields <- cpp_fields( CLASS, where )
         methods <- cpp_refMethods(CLASS, where)
-        generator <- methods::setRefClass( clname,
-                                 fields = fields,
-                                 contains = "C++Object",
-                                 methods = methods,
-                                 where = where
-                                 )
         # just to make codetools happy
         .self <- .refClassDef <- NULL
-        generator$methods(initialize =
+        # Supply 'initialize' together with the other methods so that the
+        # reference class is analysed once, instead of a second full pass
+        # through refClassInformation() in generator$methods(...)
+        methods[["initialize"]] <-
               if (cpp_hasDefaultConstructor(CLASS))
                  function(...) Rcpp::cpp_object_initializer(.self,.refClassDef, ...)
               else
@@ -238,8 +235,13 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
                      if (nargs()) Rcpp::cpp_object_initializer(.self,.refClassDef, ...)
                      else Rcpp::cpp_object_dummy(.self, .refClassDef) 			# #nocov
                  }
-                          )
         rm( .self, .refClassDef )
+        generator <- methods::setRefClass( clname,
+                                 fields = fields,
+                                 contains = "C++Object",
+                                 methods = methods,
+                                 where = where
+                                 )
 
         classDef <- methods::getClass(clname)
         ## non-public (static) fields in class representation
@@ -281,7 +283,10 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
         CLASS <- classes[[i]]
         clname <- CLASS@.Data
         demangled_name <- sub( "^Rcpp_", "", clname )
-        .classes_map[[ CLASS@typeid ]] <- storage[[ demangled_name ]] <- .get_Module_Class( module, demangled_name, xp )
+        # reuse the C++Class object already built by Module__classes_info
+        # rather than rebuilding it (and all of its method/field objects)
+        CLASS@generator <- generators[[ clname ]]
+        .classes_map[[ CLASS@typeid ]] <- storage[[ demangled_name ]] <- CLASS
 
         # exposing enums values as CLASS.VALUE
         # (should really be CLASS$value but I don't know how to do it)
