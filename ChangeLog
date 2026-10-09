@@ -1,3 +1,10 @@
+2026-10-09  Kevin Ushey <kevinushey@gmail.com>
+
+	* inst/include/Rcpp/sugar/functions/lapply.h: Index the operand through
+	VectorBase so vectors yield their stored type rather than a proxy
+	* inst/tinytest/cpp/sugar.cpp: Add a test
+	* inst/tinytest/test_sugar.R: Idem
+
 2026-09-30  Kevin Ushey <kevinushey@gmail.com>
 
 	* inst/include/Rcpp/traits/sugar_operand.h: New trait for how sugar
