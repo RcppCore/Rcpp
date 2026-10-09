@@ -22,6 +22,7 @@ if (Sys.getenv("RunAllRcppTests") != "yes") exit_file("Set 'RunAllRcppTests' to 
 Rcpp::sourceCpp("cpp/sugar.cpp")
 Rcpp::sourceCpp("cpp/sugar_safe_math.cpp")
 Rcpp::sourceCpp("cpp/sugar_safe_math_fallback.cpp")
+Rcpp::sourceCpp("cpp/sugar_expressions.cpp")
 
 ## There are some (documented, see https://blog.r-project.org/2020/11/02/will-r-work-on-apple-silicon/index.html)
 ## issues with NA propagation on arm64 / macOS. We not (yet ?) do anything special so we just skip some tests
@@ -339,6 +340,9 @@ expect_equal( fx( 1:10 ), as.list((1:10)^2) )
 #    test.sugar.lapply.seq <- function( ){
 fx <- runit_lapply_seq
 expect_equal( fx( 1:10 ), lapply( 1:10, seq_len ) )
+
+fx <- runit_lapply_string
+expect_equal( fx( c("abc", "de") ), list("cba", "ed") )
 
 
 #    test.sugar.mapply2 <- function( ){
@@ -1704,3 +1708,119 @@ expect_equal(intmin(c(1:10)),        1L,   info = "min(integer(...))")
 expect_equal(doublemin(1.0*c(1:10)), 1.0,  info = "min(numeric(...))")
 expect_equal(intmax(c(1:10)),        10L,  info = "min(integer(...))")
 expect_equal(doublemax(1.0*c(1:10)), 10.0, info = "min(numeric(...))")
+
+
+## sugar expressions hold nested expressions by value, so they remain valid
+## when stored (e.g. in an `auto` variable) past the full-expression that
+## created them
+x <- c(1, 2, 3)
+expect_equal(lifetime_arith(x), x + x * 2, info = "auto: x + x * 2")
+expect_equal(lifetime_unary(x), -(x * 2), info = "auto: -(x * 2)")
+expect_equal(lifetime_math(x), sqrt(x * 4), info = "auto: sqrt(x * 4)")
+expect_equal(lifetime_compare(x), (x * 2) > (x + 1), info = "auto: (x * 2) > (x + 1)")
+expect_equal(lifetime_ifelse(x), ifelse(x > 1, x * 10, x * 0), info = "auto: ifelse()")
+expect_equal(lifetime_rev(x), rev(x * 2), info = "auto: rev(x * 2)")
+expect_equal(lifetime_rep_scalar(), rep(2.5, 3), info = "auto: rep(2.5, 3)")
+expect_equal(lifetime_pmax(x), pmax(x * 2, x + 1), info = "auto: pmax()")
+expect_equal(lifetime_sum(x), sum(x * 2), info = "auto: sum(x * 2)")
+m <- matrix(c(1, 2, 3, 4, 5, 6), 3)
+expect_equal(lifetime_column(m), m[, 1] + 1, info = "auto: m(_, 0) + 1")
+expect_equal(lifetime_dnorm(x), dnorm(x), info = "auto: dnorm(x * 1)")
+
+## same-length assignment writes into the existing storage, so an expression
+## that reads from the target has to be evaluated before it is written. The
+## writes also modify the argument itself, hence the fresh copies.
+x <- function() c(1, 2, 3, 4, 5)
+expect_equal(alias_rev(x()), rev(x()), info = "x = rev(x)")
+expect_equal(alias_rev_copy(x()), rev(x()), info = "y = x; y = rev(x)")
+expect_equal(alias_mixed(x()), x() + rev(x()), info = "x = x + rev(x)")
+expect_equal(alias_sapply(x()), x() - x()[1], info = "x = sapply(x, <reads x[0]>)")
+expect_equal(alias_elementwise(x()), x() * 2 + x(), info = "x = x * 2 + x")
+expect_equal(alias_range_shift(x()), c(1, 1, 2, 3, 4), info = "x[1:n-1] = head(x, n-1)")
+expect_equal(alias_range_range(x()), c(1, 1, 2, 3, 4), info = "x[1:n-1] = x[0:n-2]")
+expect_equal(alias_range_range_add(x()), c(1, 3, 5, 7, 9), info = "x[1:n-1] += x[0:n-2]")
+expect_equal(alias_range_rev(x()), rev(x()), info = "x[0:n-1] = rev(x)")
+expect_equal(alias_range_add_rev(x()), x() + rev(x()), info = "x[0:n-1] += rev(x)")
+m <- function() matrix(c(1, 2, 3, 4, 5, 6), 3)
+expect_equal(alias_column_rev(m())[, 1], rev(m()[, 1]), info = "m(_, 0) = rev(m(_, 0))")
+m <- function() matrix(c(1, 2, 3, 4, 5, 6), 2)
+expect_equal(alias_row_rev(m())[1, ], rev(m()[1, ]), info = "m(0, _) = rev(m(0, _))")
+
+## assignment still happens in place, keeping attributes
+x <- function() c(a = 1, b = 2, c = 3)
+expect_equal(names(alias_rev(x())), names(x()), info = "x = rev(x) keeps names")
+expect_equal(names(alias_elementwise(x())), names(x()), info = "x = x * 2 + x keeps names")
+
+## views of the target's own matrix can be read in place when they cover the
+## same positions or disjoint ones (a column from columns, a row from rows)
+m <- function() matrix(as.numeric(1:9), 3)
+expect_equal(alias_column_scale(m()), m() * 2, info = "m(_, j) = m(_, j) * 2")
+expect_equal(alias_row_scale(m()), m() * 2, info = "m(i, _) = m(i, _) * 2")
+expect_equal(alias_row_from_column(m())[3, ], m()[, 1], info = "m(2, _) = m(_, 0) * 1")
+expect_equal(alias_column_from_row(m())[, 3], m()[1, ], info = "m(_, 2) = m(0, _) * 1")
+
+## which expressions are written in place, depending on the target
+flags <- elementwise_flags(c(1, 2, 3), matrix(1, 2, 2))
+expect_equal(
+    flags,
+    c(vector = TRUE, arith = TRUE, math = TRUE, ifelse = TRUE,
+      rev = FALSE, arith_rev = FALSE, head = FALSE,
+      column_vector = TRUE, column_column = TRUE, column_row = FALSE,
+      row_row = TRUE, row_column = FALSE, range_range = FALSE, seq = TRUE),
+    info = "traits::is_elementwise"
+)
+
+## sugar doesn't recycle: the vectors combined by an expression, and a vector
+## assigned into a range, row or column, must have matching lengths
+expect_equal(length_plus(c(1, 2), c(10, 20)), c(11, 22), info = "x + y, same length")
+expect_equal(length_plus(numeric(), numeric()), numeric(), info = "x + y, both empty")
+expect_equal(length_plus_scalar(c(1, 2)), c(2, 3), info = "x + scalar")
+expect_equal(length_range(c(1, 2, 3, 4, 5), c(7, 8, 9)), c(7, 8, 9, 4, 5), info = "x[0:2] = y")
+
+## the length checks are on in development versions and off in releases
+## (RCPP_SUGAR_LENGTH_CHECKS, see config.h)
+if (sugar_length_checks_enabled()) {
+    expect_error(length_plus(c(1, 2, 3, 4, 5), c(10, 20)), "different lengths", info = "x + <shorter y>")
+    expect_error(length_plus(c(1, 2), c(10, 20, 30, 40)), "different lengths", info = "x + <longer y>")
+    expect_error(length_compare(c(1, 2, 3), c(1, 2)), "different lengths", info = "x < y")
+    expect_error(length_and(c(TRUE, FALSE), TRUE), "different lengths", info = "x & y")
+    expect_error(length_pmax(c(1, 2, 3), c(1, 2)), "different lengths", info = "pmax(x, y)")
+    expect_error(length_ifelse(c(TRUE, FALSE), c(1, 2), c(1, 2, 3)), "different lengths", info = "ifelse(c, x, y)")
+
+    expect_error(length_range(c(1, 2, 3, 4, 5), c(7, 8)), "cannot assign", info = "x[0:2] = <shorter y>")
+    expect_error(length_range(c(1, 2, 3, 4, 5), c(6, 7, 8, 9)), "cannot assign", info = "x[0:2] = <longer y>")
+    expect_error(length_range_range(c(1, 2, 3, 4, 5)), "cannot assign", info = "x[0:1] = x[0:3]")
+    expect_error(length_column(matrix(1, 3, 2), c(7, 8)), "cannot assign", info = "m(_, 0) = <shorter y>")
+    expect_error(length_row(matrix(1, 3, 2), c(7, 8, 9)), "cannot assign", info = "m(0, _) = <longer y>")
+} else {
+    ## with the checks off, a longer operand is cut short, as before
+    expect_equal(length_plus(c(1, 2), c(10, 20, 30, 40)), c(11, 22), info = "x + <longer y>, checks off")
+    expect_equal(length_range(c(1, 2, 3, 4, 5), c(6, 7, 8, 9)), c(6, 7, 8, 4, 5), info = "x[0:2] = <longer y>, checks off")
+    expect_equal(length_row(matrix(1, 3, 2), c(7, 8, 9)), matrix(c(7, 1, 1, 8, 1, 1), 3, 2), info = "m(0, _) = <longer y>, checks off")
+}
+
+## &&, || and ! on single logical results (e.g. all(), any()) follow R's
+## three-valued logic
+vals <- c(TRUE, FALSE, NA)
+for (a in vals) {
+    expect_identical(single_not(a), !a, info = sprintf("!%s", a))
+    for (b in vals) {
+        expect_identical(single_and(a, b), a && b, info = sprintf("%s && %s", a, b))
+        expect_identical(single_or(a, b), a || b, info = sprintf("%s || %s", a, b))
+        if (!is.na(a)) {
+            expect_identical(single_and_nona_lhs(a, b), a && b, info = sprintf("noNA(%s) && %s", a, b))
+            expect_identical(single_or_nona_lhs(a, b), a || b, info = sprintf("noNA(%s) || %s", a, b))
+        }
+        if (!is.na(b)) {
+            expect_identical(single_and_nona_rhs(a, b), a && b, info = sprintf("%s && noNA(%s)", a, b))
+            expect_identical(single_or_nona_rhs(a, b), a || b, info = sprintf("%s || noNA(%s)", a, b))
+            expect_identical(single_and_bool(a, b), a && b, info = sprintf("%s && <bool %s>", a, b))
+            expect_identical(single_or_bool(a, b), b || a, info = sprintf("<bool %s> || %s", b, a))
+        }
+        if (!is.na(a) && !is.na(b)) {
+            expect_identical(single_and_nona_both(a, b), a && b, info = sprintf("noNA(%s) && noNA(%s)", a, b))
+            expect_identical(single_or_nona_both(a, b), a || b, info = sprintf("noNA(%s) || noNA(%s)", a, b))
+        }
+    }
+}
+expect_identical(single_stored(c(TRUE, TRUE), c(FALSE, TRUE)), FALSE, info = "auto: !(all(a) && any(b))")

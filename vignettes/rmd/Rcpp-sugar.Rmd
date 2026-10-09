@@ -191,7 +191,8 @@ arithmetic expression must be of the same type (for example they should be both
 
 The lhs and the rhs can either have the same size or one of them could
 be a primitive value of the appropriate type, for example adding a
-`NumericVector` and a `double`.
+`NumericVector` and a `double`. Unlike \proglang{R}, \sugar does not recycle
+vectors of different sizes; see the section on expressions and assignment.
 
 ## Binary logical operators
 
@@ -518,6 +519,77 @@ functions (\textsl{i.e.} you) should place an \code{RNGScope} at the
 appropriate level of your code.
 
 
+# Expressions and assignment
+
+\sugar expressions are evaluated lazily: `x + y` builds an object describing
+the computation, and its elements are only computed when the expression is
+assigned to a vector or otherwise consumed, for example by `sum()`.
+
+## Operand lengths
+
+Unlike \proglang{R}, \sugar does not recycle: the vectors combined by an
+expression must all have the same length. Likewise, a vector assigned into a
+range, row or column (as in `m(_, 0) = x`) must have the length of that
+target. Single values, like the `2.0` in `x + 2.0`, can be combined with
+vectors of any length.
+
+Development versions of \pkg{Rcpp} (those with a fourth version component,
+such as 1.1.2.5) check these lengths and signal an error on a mismatch, so
+that the problem is caught when a package is checked against them. Released
+versions do not check: the result takes the length of the first operand, or
+of the target, and a longer operand is silently cut short. Defining
+`RCPP_SUGAR_LENGTH_CHECKS` as `1` or `0` before including `Rcpp.h` turns the
+checks on or off regardless of the version.
+
+## Storing expressions
+
+An expression holds the vectors it reads by reference, and any nested
+expressions by value. It can be stored, for example in an `auto` variable,
+and evaluated later, as long as the vectors it reads are still alive:
+
+```cpp
+NumericVector x, y;
+
+// fine: x and y outlive e
+auto e = x * 2.0 + y;
+NumericVector z = e;
+```
+
+An expression reading from a temporary vector, however, has to be
+evaluated in the statement that creates it:
+
+```cpp
+// wrong: the clone is destroyed at the end of
+// the statement, while e still refers to it
+auto e = clone(x) + 1.0;
+
+// fine
+NumericVector z = clone(x) + 1.0;
+```
+
+## Assignment
+
+Assigning an expression to an existing vector of the same length writes the
+result into that vector's storage. As with any modification made through an
+\pkg{Rcpp} vector, this is visible through every other reference to the same
+\proglang{R} object, including the argument passed in from \proglang{R}:
+
+```cpp
+// [[Rcpp::export]]
+void twice(NumericVector x) {
+    // modifies the caller's vector
+    x = x * 2.0;
+}
+```
+
+When the lengths differ, a new vector is allocated instead.
+
+An expression may read from the vector it is assigned to, as in
+`x = rev(x)`. Expressions whose elements only depend on the corresponding
+elements of their operands (arithmetic, comparisons, mathematical functions,
+`ifelse()`, and so on) are written directly; others are first evaluated into
+a temporary vector.
+
 # Performance
 \label{sec:performance}
 
@@ -658,7 +730,7 @@ public:
         RESULT_R_TYPE>::type STORAGE;
 
     Sapply(const VEC& vec_, Function fun_) :
-        vec(vec_), fun(fun_){}
+        vec(vec_.get_ref()), fun(fun_){}
 
     inline STORAGE operator[]( int i ) const {
         return converter_type::get(fun(vec[i]));
@@ -669,7 +741,7 @@ public:
     }
 
 private:
-    const VEC& vec;
+    typename Rcpp::traits::sugar_operand<VEC>::type vec;
     Function fun;
 };
 
@@ -801,17 +873,21 @@ is the manifestation of the _CRTP_.
 
 
 The constructor of the `Sapply` class template is straightforward, it
-simply consists of holding the reference to the input expression and the
-function.
+simply consists of holding the input expression and the function.
 
 ```cpp
 Sapply(const VEC& vec_, Function fun_):
-    vec(vec_), fun(fun_){}
+    vec(vec_.get_ref()), fun(fun_){}
 
 private:
-    const VEC& vec;
+    typename Rcpp::traits::sugar_operand<VEC>::type vec;
     Function fun;
 ```
+
+The input is held through `sugar_operand`: by reference when it is a vector,
+and by value when it is itself a \sugar expression. Those are typically
+temporaries, so holding them by reference would leave `Sapply` referring to
+destroyed objects once the statement that created it ends.
 
 ### Implementation
 
@@ -829,6 +905,13 @@ inline int size() const {
     return vec.size();
 }
 ```
+
+Expressions whose $i^{\text{th}}$ element only depends on the
+$i^{\text{th}}$ elements of their operands can say so by declaring
+`typedef Rcpp::traits::elementwise_operands<VEC> rcpp_elementwise`, which
+lets them be written in place when assigned to one of those operands.
+`Sapply` does not, since the function it applies may read any element of
+the vector being assigned to.
 
 # Summary
 

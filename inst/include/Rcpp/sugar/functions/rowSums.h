@@ -108,7 +108,7 @@ template <int RTYPE, bool NA, typename T, bool NA_RM = false>
 class RowSumsImpl :
     public Lazy<typename detail::RowSumsReturn<RTYPE>::type, RowSumsImpl<RTYPE, NA, T, NA_RM> > {
 private:
-    const MatrixBase<RTYPE, NA, T>& ref;
+    typename Rcpp::traits::sugar_operand< MatrixBase<RTYPE, NA, T> >::type ref;
 
     typedef detail::RowSumsReturn<RTYPE> return_traits;
     typedef typename return_traits::type return_vector;
@@ -116,7 +116,7 @@ private:
 
 public:
     RowSumsImpl(const MatrixBase<RTYPE, NA, T>& ref_)
-        : ref(ref_)
+        : ref(ref_.get_ref())
     {}
 
     return_vector get() const {
@@ -152,7 +152,7 @@ template <bool NA, typename T, bool NA_RM>                                      
 class RowSumsImpl<__RTYPE__, NA, T, NA_RM>  :                                                               \
     public Lazy<typename detail::RowSumsReturn<__RTYPE__>::type, RowSumsImpl<__RTYPE__, NA, T, NA_RM> > {   \
 private:                                                                                                    \
-    const MatrixBase<__RTYPE__, NA, T>& ref;                                                                \
+    typename Rcpp::traits::sugar_operand< MatrixBase<__RTYPE__, NA, T> >::type ref;                         \
                                                                                                             \
     typedef detail::RowSumsReturn<__RTYPE__> return_traits;                                                 \
     typedef typename return_traits::type return_vector;                                                     \
@@ -160,7 +160,7 @@ private:                                                                        
                                                                                                             \
 public:                                                                                                     \
     RowSumsImpl(const MatrixBase<__RTYPE__, NA, T>& ref_)                                                   \
-        : ref(ref_)                                                                                         \
+        : ref(ref_.get_ref())                                                                               \
     {}                                                                                                      \
                                                                                                             \
     return_vector get() const {                                                                             \
@@ -195,7 +195,7 @@ template <int RTYPE, bool NA, typename T>
 class RowSumsImpl<RTYPE, NA, T, true> :
     public Lazy<typename detail::RowSumsReturn<RTYPE>::type, RowSumsImpl<RTYPE, NA, T, true> > {
 private:
-    const MatrixBase<RTYPE, NA, T>& ref;
+    typename Rcpp::traits::sugar_operand< MatrixBase<RTYPE, NA, T> >::type ref;
 
     typedef detail::RowSumsReturn<RTYPE> return_traits;
     typedef typename return_traits::type return_vector;
@@ -203,7 +203,7 @@ private:
 
 public:
     RowSumsImpl(const MatrixBase<RTYPE, NA, T>& ref_)
-        : ref(ref_)
+        : ref(ref_.get_ref())
     {}
 
     return_vector get() const {
@@ -236,7 +236,7 @@ template <bool NA, typename T>                                                  
 class RowSumsImpl<__RTYPE__, NA, T, true> :                                                                 \
     public Lazy<typename detail::RowSumsReturn<__RTYPE__>::type, RowSumsImpl<__RTYPE__, NA, T, true> > {    \
 private:                                                                                                    \
-    const MatrixBase<__RTYPE__, NA, T>& ref;                                                                \
+    typename Rcpp::traits::sugar_operand< MatrixBase<__RTYPE__, NA, T> >::type ref;                         \
                                                                                                             \
     typedef detail::RowSumsReturn<__RTYPE__> return_traits;                                                 \
     typedef typename return_traits::type return_vector;                                                     \
@@ -244,7 +244,7 @@ private:                                                                        
                                                                                                             \
 public:                                                                                                     \
     RowSumsImpl(const MatrixBase<__RTYPE__, NA, T>& ref_)                                                   \
-        : ref(ref_)                                                                                         \
+        : ref(ref_.get_ref())                                                                               \
     {}                                                                                                      \
                                                                                                             \
     return_vector get() const {                                                                             \
@@ -289,7 +289,7 @@ template <int RTYPE, bool NA, typename T, bool NA_RM = false>
 class ColSumsImpl :
     public Lazy<typename detail::ColSumsReturn<RTYPE>::type, ColSumsImpl<RTYPE, NA, T, NA_RM> > {
 private:
-    const MatrixBase<RTYPE, NA, T>& ref;
+    typename Rcpp::traits::sugar_operand< MatrixBase<RTYPE, NA, T> >::type ref;
 
     typedef detail::ColSumsReturn<RTYPE> return_traits;
     typedef typename return_traits::type return_vector;
@@ -297,7 +297,7 @@ private:
 
 public:
     ColSumsImpl(const MatrixBase<RTYPE, NA, T>& ref_)
-        : ref(ref_)
+        : ref(ref_.get_ref())
     {}
 
     return_vector get() const {
@@ -325,7 +325,7 @@ template <bool NA, typename T, bool NA_RM>                                      
 class ColSumsImpl<__RTYPE__, NA, T, NA_RM>  :                                                               \
     public Lazy<typename detail::ColSumsReturn<__RTYPE__>::type, ColSumsImpl<__RTYPE__, NA, T, NA_RM> > {   \
 private:                                                                                                    \
-    const MatrixBase<__RTYPE__, NA, T>& ref;                                                                \
+    typename Rcpp::traits::sugar_operand< MatrixBase<__RTYPE__, NA, T> >::type ref;                         \
                                                                                                             \
     typedef detail::ColSumsReturn<__RTYPE__> return_traits;                                                 \
     typedef typename return_traits::type return_vector;                                                     \
@@ -333,7 +333,7 @@ private:                                                                        
                                                                                                             \
 public:                                                                                                     \
     ColSumsImpl(const MatrixBase<__RTYPE__, NA, T>& ref_)                                                   \
-        : ref(ref_)                                                                                         \
+        : ref(ref_.get_ref())                                                                               \
     {}                                                                                                      \
                                                                                                             \
     return_vector get() const {                                                                             \
@@ -368,7 +368,7 @@ template <int RTYPE, bool NA, typename T>
 class ColSumsImpl<RTYPE, NA, T, true> :
     public Lazy<typename detail::ColSumsReturn<RTYPE>::type, ColSumsImpl<RTYPE, NA, T, true> > {
 private:
-    const MatrixBase<RTYPE, NA, T>& ref;
+    typename Rcpp::traits::sugar_operand< MatrixBase<RTYPE, NA, T> >::type ref;
 
     typedef detail::ColSumsReturn<RTYPE> return_traits;
     typedef typename return_traits::type return_vector;
@@ -376,7 +376,7 @@ private:
 
 public:
     ColSumsImpl(const MatrixBase<RTYPE, NA, T>& ref_)
-        : ref(ref_)
+        : ref(ref_.get_ref())
     {}
 
     return_vector get() const {
@@ -409,7 +409,7 @@ template <bool NA, typename T>                                                  
 class ColSumsImpl<__RTYPE__, NA, T, true> :                                                                 \
     public Lazy<typename detail::ColSumsReturn<__RTYPE__>::type, ColSumsImpl<__RTYPE__, NA, T, true> > {    \
 private:                                                                                                    \
-    const MatrixBase<__RTYPE__, NA, T>& ref;                                                                \
+    typename Rcpp::traits::sugar_operand< MatrixBase<__RTYPE__, NA, T> >::type ref;                         \
                                                                                                             \
     typedef detail::ColSumsReturn<__RTYPE__> return_traits;                                                 \
     typedef typename return_traits::type return_vector;                                                     \
@@ -417,7 +417,7 @@ private:                                                                        
                                                                                                             \
 public:                                                                                                     \
     ColSumsImpl(const MatrixBase<__RTYPE__, NA, T>& ref_)                                                   \
-        : ref(ref_)                                                                                         \
+        : ref(ref_.get_ref())                                                                               \
     {}                                                                                                      \
                                                                                                             \
     return_vector get() const {                                                                             \
@@ -465,7 +465,7 @@ template <int RTYPE, bool NA, typename T, bool NA_RM = false>
 class RowMeansImpl :
     public Lazy<typename detail::RowMeansReturn<RTYPE>::type, RowMeansImpl<RTYPE, NA, T, NA_RM> > {
 private:
-    const MatrixBase<RTYPE, NA, T>& ref;
+    typename Rcpp::traits::sugar_operand< MatrixBase<RTYPE, NA, T> >::type ref;
 
     typedef detail::RowMeansReturn<RTYPE> return_traits;
     typedef typename return_traits::type return_vector;
@@ -473,7 +473,7 @@ private:
 
 public:
     RowMeansImpl(const MatrixBase<RTYPE, NA, T>& ref_)
-        : ref(ref_)
+        : ref(ref_.get_ref())
     {}
 
     return_vector get() const {
@@ -505,7 +505,7 @@ template <bool NA, typename T, bool NA_RM>                                      
 class RowMeansImpl<__RTYPE__, NA, T, NA_RM> :                                                                   \
     public Lazy<typename detail::RowMeansReturn<__RTYPE__>::type, RowMeansImpl<__RTYPE__, NA, T, NA_RM> > {     \
 private:                                                                                                        \
-    const MatrixBase<__RTYPE__, NA, T>& ref;                                                                    \
+    typename Rcpp::traits::sugar_operand< MatrixBase<__RTYPE__, NA, T> >::type ref;                             \
                                                                                                                 \
     typedef detail::RowMeansReturn<__RTYPE__> return_traits;                                                    \
     typedef typename return_traits::type return_vector;                                                         \
@@ -513,7 +513,7 @@ private:                                                                        
                                                                                                                 \
 public:                                                                                                         \
     RowMeansImpl(const MatrixBase<__RTYPE__, NA, T>& ref_)                                                      \
-        : ref(ref_)                                                                                             \
+        : ref(ref_.get_ref())                                                                                   \
     {}                                                                                                          \
                                                                                                                 \
     return_vector get() const {                                                                                 \
@@ -552,7 +552,7 @@ template <int RTYPE, bool NA, typename T>
 class RowMeansImpl<RTYPE, NA, T, true> :
     public Lazy<typename detail::RowMeansReturn<RTYPE>::type, RowMeansImpl<RTYPE, NA, T, true> > {
 private:
-    const MatrixBase<RTYPE, NA, T>& ref;
+    typename Rcpp::traits::sugar_operand< MatrixBase<RTYPE, NA, T> >::type ref;
 
     typedef detail::RowMeansReturn<RTYPE> return_traits;
     typedef typename return_traits::type return_vector;
@@ -560,7 +560,7 @@ private:
 
 public:
     RowMeansImpl(const MatrixBase<RTYPE, NA, T>& ref_)
-        : ref(ref_)
+        : ref(ref_.get_ref())
     {}
 
     return_vector get() const {
@@ -604,7 +604,7 @@ template <bool NA, typename T>                                                  
 class RowMeansImpl<__RTYPE__, NA, T, true> :                                                                    \
     public Lazy<typename detail::RowMeansReturn<__RTYPE__>::type, RowMeansImpl<__RTYPE__, NA, T, true> > {      \
 private:                                                                                                        \
-    const MatrixBase<__RTYPE__, NA, T>& ref;                                                                    \
+    typename Rcpp::traits::sugar_operand< MatrixBase<__RTYPE__, NA, T> >::type ref;                             \
                                                                                                                 \
     typedef detail::RowMeansReturn<__RTYPE__> return_traits;                                                    \
     typedef typename return_traits::type return_vector;                                                         \
@@ -612,7 +612,7 @@ private:                                                                        
                                                                                                                 \
 public:                                                                                                         \
     RowMeansImpl(const MatrixBase<__RTYPE__, NA, T>& ref_)                                                      \
-        : ref(ref_)                                                                                             \
+        : ref(ref_.get_ref())                                                                                   \
     {}                                                                                                          \
                                                                                                                 \
     return_vector get() const {                                                                                 \
@@ -665,7 +665,7 @@ template <int RTYPE, bool NA, typename T, bool NA_RM = false>
 class ColMeansImpl :
     public Lazy<typename detail::ColMeansReturn<RTYPE>::type, ColMeansImpl<RTYPE, NA, T, NA_RM> > {
 private:
-    const MatrixBase<RTYPE, NA, T>& ref;
+    typename Rcpp::traits::sugar_operand< MatrixBase<RTYPE, NA, T> >::type ref;
 
     typedef detail::ColMeansReturn<RTYPE> return_traits;
     typedef typename return_traits::type return_vector;
@@ -673,7 +673,7 @@ private:
 
 public:
     ColMeansImpl(const MatrixBase<RTYPE, NA, T>& ref_)
-        : ref(ref_)
+        : ref(ref_.get_ref())
     {}
 
     return_vector get() const {
@@ -705,7 +705,7 @@ template <bool NA, typename T, bool NA_RM>                                      
 class ColMeansImpl<__RTYPE__, NA, T, NA_RM> :                                                                   \
     public Lazy<typename detail::ColMeansReturn<__RTYPE__>::type, ColMeansImpl<__RTYPE__, NA, T, NA_RM> > {     \
 private:                                                                                                        \
-    const MatrixBase<__RTYPE__, NA, T>& ref;                                                                    \
+    typename Rcpp::traits::sugar_operand< MatrixBase<__RTYPE__, NA, T> >::type ref;                             \
                                                                                                                 \
     typedef detail::ColMeansReturn<__RTYPE__> return_traits;                                                    \
     typedef typename return_traits::type return_vector;                                                         \
@@ -713,7 +713,7 @@ private:                                                                        
                                                                                                                 \
 public:                                                                                                         \
     ColMeansImpl(const MatrixBase<__RTYPE__, NA, T>& ref_)                                                      \
-        : ref(ref_)                                                                                             \
+        : ref(ref_.get_ref())                                                                                   \
     {}                                                                                                          \
                                                                                                                 \
     return_vector get() const {                                                                                 \
@@ -752,7 +752,7 @@ template <int RTYPE, bool NA, typename T>
 class ColMeansImpl<RTYPE, NA, T, true> :
     public Lazy<typename detail::ColMeansReturn<RTYPE>::type, ColMeansImpl<RTYPE, NA, T, true> > {
 private:
-    const MatrixBase<RTYPE, NA, T>& ref;
+    typename Rcpp::traits::sugar_operand< MatrixBase<RTYPE, NA, T> >::type ref;
 
     typedef detail::ColMeansReturn<RTYPE> return_traits;
     typedef typename return_traits::type return_vector;
@@ -760,7 +760,7 @@ private:
 
 public:
     ColMeansImpl(const MatrixBase<RTYPE, NA, T>& ref_)
-        : ref(ref_)
+        : ref(ref_.get_ref())
     {}
 
     return_vector get() const {
@@ -804,7 +804,7 @@ template <bool NA, typename T>                                                  
 class ColMeansImpl<__RTYPE__, NA, T, true> :                                                                    \
     public Lazy<typename detail::ColMeansReturn<__RTYPE__>::type, ColMeansImpl<__RTYPE__, NA, T, true> > {      \
 private:                                                                                                        \
-    const MatrixBase<__RTYPE__, NA, T>& ref;                                                                    \
+    typename Rcpp::traits::sugar_operand< MatrixBase<__RTYPE__, NA, T> >::type ref;                             \
                                                                                                                 \
     typedef detail::ColMeansReturn<__RTYPE__> return_traits;                                                    \
     typedef typename return_traits::type return_vector;                                                         \
@@ -812,7 +812,7 @@ private:                                                                        
                                                                                                                 \
 public:                                                                                                         \
     ColMeansImpl(const MatrixBase<__RTYPE__, NA, T>& ref_)                                                      \
-        : ref(ref_)                                                                                             \
+        : ref(ref_.get_ref())                                                                                   \
     {}                                                                                                          \
                                                                                                                 \
     return_vector get() const {                                                                                 \

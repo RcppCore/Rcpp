@@ -49,7 +49,7 @@ namespace sugar{
 
 
     private:
-        const T& obj ;
+        typename Rcpp::traits::sugar_operand< T >::type obj ;
         STORAGE min_, max_, current ;
     } ;
 
@@ -75,7 +75,7 @@ namespace sugar{
 
 
     private:
-        const T& obj ;
+        typename Rcpp::traits::sugar_operand< T >::type obj ;
         STORAGE min_, max_, current ;
     } ;
 

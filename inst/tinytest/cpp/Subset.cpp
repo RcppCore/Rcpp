@@ -103,6 +103,31 @@ NumericVector subset_assign_vector_size_1(NumericVector x, int i) {
 }
 
 // [[Rcpp::export]]
+NumericVector subset_assign_alias(NumericVector x) {
+    // overlapping subsets of the same vector
+    x[IntegerVector::create(1, 2)] = x[IntegerVector::create(0, 1)];
+    return x;
+}
+
+// [[Rcpp::export]]
+CharacterVector subset_assign_alias_string(CharacterVector x) {
+    x[IntegerVector::create(1, 2)] = x[IntegerVector::create(0, 1)];
+    return x;
+}
+
+// [[Rcpp::export]]
+NumericVector subset_assign_alias_disjoint(NumericVector x) {
+    x[IntegerVector::create(0, 1)] = x[IntegerVector::create(2, 3)];
+    return x;
+}
+
+// [[Rcpp::export]]
+NumericVector subset_assign_alias_single(NumericVector x) {
+    x[IntegerVector::create(0, 1, 2)] = x[IntegerVector::create(2)];
+    return x;
+}
+
+// [[Rcpp::export]]
 NumericVector subset_sugar_add(NumericVector x, IntegerVector y)
 {
     NumericVector result = x[y] + x[y];

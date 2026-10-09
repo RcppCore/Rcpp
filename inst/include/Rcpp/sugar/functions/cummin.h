@@ -32,7 +32,7 @@ public:
     typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE;
     typedef Rcpp::Vector<RTYPE> VECTOR;
     
-    Cummin(const VEC_TYPE& object_) : object(object_) {}
+    Cummin(const VEC_TYPE& object_) : object(object_.get_ref()) {}
     
     VECTOR get() const {
         R_xlen_t n = object.size();
@@ -49,7 +49,7 @@ public:
         return result ;
     }
 private:
-    const VEC_TYPE& object;    
+    typename Rcpp::traits::sugar_operand< VEC_TYPE >::type object;    
 };
 
 } // sugar

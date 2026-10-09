@@ -31,7 +31,7 @@ public:
 	typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 
-        Tail( const VEC_TYPE& object_, R_xlen_t n_ ) : object(object_), start(0), n(n_) {
+        Tail( const VEC_TYPE& object_, R_xlen_t n_ ) : object(object_.get_ref()), start(0), n(n_) {
 		if( n > 0 ){
 			start = object.size() - n ;
 		} else {
@@ -46,7 +46,7 @@ public:
         inline R_xlen_t size() const { return n; }
 
 private:
-	const VEC_TYPE& object ;
+	typename Rcpp::traits::sugar_operand< VEC_TYPE >::type object ;
         R_xlen_t start, n ;
 } ;
 

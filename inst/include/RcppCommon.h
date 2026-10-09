@@ -172,6 +172,8 @@ namespace Rcpp {
 
 #include <Rcpp/vector/VectorBase.h>
 #include <Rcpp/vector/MatrixBase.h>
+#include <Rcpp/traits/sugar_operand.h>
+#include <Rcpp/traits/is_elementwise.h>
 
 #include <Rcpp/internal/ListInitialization.h>
 #include <Rcpp/internal/Proxy_Iterator.h>

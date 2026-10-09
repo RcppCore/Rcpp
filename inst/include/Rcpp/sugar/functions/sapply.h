@@ -56,7 +56,7 @@ public:
 	inline R_xlen_t size() const { return vec.size() ; }
 
 private:
-	const EXT& vec ;
+	typename Rcpp::traits::sugar_operand< EXT >::type vec ;
 	Function fun ;
 
 } ;
@@ -90,7 +90,7 @@ public:
 	inline R_xlen_t size() const { return vec.size() ; }
 
 private:
-	const EXT& vec ;
+	typename Rcpp::traits::sugar_operand< EXT >::type vec ;
 	Function fun ;
 
 } ;

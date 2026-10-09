@@ -27,6 +27,22 @@
       warnings (Iñaki in \ghpr{1508} closing \ghit{1497})
       \item The \code{col} constructor now uses \code{nrow} in an
       initialization (Iñaki in \ghpr{1509})
+      \item Sugar expressions hold nested expressions by value so they can be
+      stored, and evaluate expressions that may read the target before
+      assigning them in place (Kevin in \ghpr{1513} closing \ghit{1512}).
+      Same-length assignment of an expression that is not elementwise, such
+      as \code{x = rev(x)}, now goes through a temporary vector.
+      \item Development versions check that sugar operands, and vectors
+      assigned into a range, row or column, have matching lengths, and signal
+      an error otherwise; releases do not check, and the define
+      \code{RCPP_SUGAR_LENGTH_CHECKS} overrides the default (Kevin in
+      \ghpr{1513})
+      \item Assignment between overlapping subsets of the same vector, as in
+      \code{x[i] = x[j]}, reads the source elements before writing (Kevin in
+      \ghpr{1513})
+      \item The sugar operators \code{!}, \code{&&} and \code{||} on single
+      logical results such as \code{all()} now compile, and follow R's
+      handling of \code{NA} (Kevin in \ghpr{1513})
     }
     \item Changes in Rcpp Documentation:
     \itemize{

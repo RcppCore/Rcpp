@@ -1,3 +1,58 @@
+2026-10-09  Kevin Ushey <kevinushey@gmail.com>
+
+	* inst/include/Rcpp/config.h: Define RCPP_SUGAR_LENGTH_CHECKS, on for
+	development versions and off for releases unless overridden
+	* inst/include/Rcpp/sugar/tools/check_sizes.h: Compile the length checks
+	out when RCPP_SUGAR_LENGTH_CHECKS is 0
+	* inst/tinytest/cpp/sugar_expressions.cpp: Report whether the checks are
+	enabled
+	* inst/tinytest/test_sugar.R: Test the length errors only when enabled,
+	and the truncation otherwise
+	* vignettes/rmd/Rcpp-sugar.Rmd: Document when the lengths are checked
+	* inst/NEWS.Rd: Idem
+
+2026-10-09  Kevin Ushey <kevinushey@gmail.com>
+
+	* inst/include/Rcpp/sugar/functions/lapply.h: Index the operand through
+	VectorBase so vectors yield their stored type rather than a proxy
+	* inst/tinytest/cpp/sugar.cpp: Add a test
+	* inst/tinytest/test_sugar.R: Idem
+
+2026-09-30  Kevin Ushey <kevinushey@gmail.com>
+
+	* inst/include/Rcpp/traits/sugar_operand.h: New trait for how sugar
+	expressions hold their operands: vectors by reference, and nested
+	expressions and views by value, so stored expressions don't dangle
+	* inst/include/Rcpp/traits/is_elementwise.h: New trait for whether a
+	sugar expression can be written in place into storage it may read from
+	* inst/include/Rcpp/sugar/tools/check_sizes.h: New helpers checking that
+	sugar operands, and vectors assigned into views, have matching lengths
+	* inst/include/RcppCommon.h: Include the above
+	* inst/include/Rcpp/sugar/sugar_forward.h: Idem
+	* inst/include/Rcpp/sugar/: Hold operands via sugar_operand, declare
+	elementwise operands, and check operand lengths
+	* inst/include/Rcpp/stats/dpq/dpq.h: Idem
+	* inst/include/Rcpp/sugar/block/SugarBlock_3.h: Also fix the type of the
+	third operand
+	* inst/include/Rcpp/sugar/logical/and.h: Fix operator&& on two single
+	logical results, hold their operands by value, and make NA && FALSE
+	return FALSE
+	* inst/include/Rcpp/sugar/logical/or.h: Idem for operator||, making
+	NA || TRUE return TRUE, and fix the base class of Or_SingleLogicalResult_bool
+	* inst/include/Rcpp/sugar/logical/not.h: Hold the operand of operator!
+	by value
+	* inst/include/Rcpp/sugar/logical/SingleLogicalResult.h: Add get_ref()
+	* inst/include/Rcpp/vector/Vector.h: Evaluate sugar expressions that
+	aren't elementwise before assigning them in place
+	* inst/include/Rcpp/vector/RangeIndexer.h: Idem, and check lengths
+	* inst/include/Rcpp/vector/MatrixColumn.h: Idem
+	* inst/include/Rcpp/vector/MatrixRow.h: Idem
+	* inst/include/Rcpp/vector/MatrixBase.h: Add a const get_ref()
+	* inst/tinytest/cpp/sugar_expressions.cpp: New tests
+	* inst/tinytest/test_sugar.R: Idem
+	* vignettes/rmd/Rcpp-sugar.Rmd: Document operand lengths, storing
+	expressions, and assignment
+
 2026-09-22  Iñaki Ucar <iucar@fedoraproject.org>
 
 	* inst/include/Rcpp/sugar/matrix/col.h: Fix Col constructor using ncol()
