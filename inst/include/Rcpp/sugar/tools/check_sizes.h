@@ -22,8 +22,12 @@
 #ifndef Rcpp__sugar__tools__check_sizes_h
 #define Rcpp__sugar__tools__check_sizes_h
 
+#include <Rcpp/config.h>
+
 namespace Rcpp{
 namespace sugar{
+
+#if RCPP_SUGAR_LENGTH_CHECKS
 
     // Kept out of line: inlining the error path keeps the compiler from
     // optimizing the loops that follow these checks.
@@ -41,16 +45,26 @@ namespace sugar{
             stop_sizes("sugar operands have different lengths (%d and %d)", n1, n2);
     }
 
-    inline void check_sizes(R_xlen_t n1, R_xlen_t n2, R_xlen_t n3) {
-        check_sizes(n1, n2);
-        check_sizes(n1, n3);
-    }
-
     // Likewise, a vector assigned into a range, row or column must have the
     // same length as that target.
     inline void check_assign_size(R_xlen_t target, R_xlen_t value) {
         if (target != value)
             stop_sizes("cannot assign a vector of length %d to a target of length %d", value, target);
+    }
+
+#else
+
+    // Checks disabled (the default in released versions, see config.h): the
+    // result is sized by the first operand, or by the target, as it always
+    // was, and a longer operand is cut short.
+    inline void check_sizes(R_xlen_t, R_xlen_t) {}
+    inline void check_assign_size(R_xlen_t, R_xlen_t) {}
+
+#endif
+
+    inline void check_sizes(R_xlen_t n1, R_xlen_t n2, R_xlen_t n3) {
+        check_sizes(n1, n2);
+        check_sizes(n1, n3);
     }
 
 } // sugar

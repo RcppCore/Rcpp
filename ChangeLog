@@ -1,5 +1,18 @@
 2026-10-09  Kevin Ushey <kevinushey@gmail.com>
 
+	* inst/include/Rcpp/config.h: Define RCPP_SUGAR_LENGTH_CHECKS, on for
+	development versions and off for releases unless overridden
+	* inst/include/Rcpp/sugar/tools/check_sizes.h: Compile the length checks
+	out when RCPP_SUGAR_LENGTH_CHECKS is 0
+	* inst/tinytest/cpp/sugar_expressions.cpp: Report whether the checks are
+	enabled
+	* inst/tinytest/test_sugar.R: Test the length errors only when enabled,
+	and the truncation otherwise
+	* vignettes/rmd/Rcpp-sugar.Rmd: Document when the lengths are checked
+	* inst/NEWS.Rd: Idem
+
+2026-10-09  Kevin Ushey <kevinushey@gmail.com>
+
 	* inst/include/Rcpp/sugar/functions/lapply.h: Index the operand through
 	VectorBase so vectors yield their stored type rather than a proxy
 	* inst/tinytest/cpp/sugar.cpp: Add a test

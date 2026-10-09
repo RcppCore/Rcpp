@@ -258,6 +258,11 @@ LogicalVector elementwise_flags(NumericVector x, NumericMatrix m) {
 }
 
 // [[Rcpp::export]]
+bool sugar_length_checks_enabled() {
+    return RCPP_SUGAR_LENGTH_CHECKS != 0;
+}
+
+// [[Rcpp::export]]
 NumericVector length_plus(NumericVector x, NumericVector y) {
     return x + y;
 }

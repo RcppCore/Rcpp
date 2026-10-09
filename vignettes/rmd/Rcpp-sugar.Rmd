@@ -528,10 +528,18 @@ assigned to a vector or otherwise consumed, for example by `sum()`.
 ## Operand lengths
 
 Unlike \proglang{R}, \sugar does not recycle: the vectors combined by an
-expression must all have the same length, and an error is signalled
-otherwise. Likewise, a vector assigned into a range, row or column (as in
-`m(_, 0) = x`) must have the length of that target. Single values, like the
-`2.0` in `x + 2.0`, can be combined with vectors of any length.
+expression must all have the same length. Likewise, a vector assigned into a
+range, row or column (as in `m(_, 0) = x`) must have the length of that
+target. Single values, like the `2.0` in `x + 2.0`, can be combined with
+vectors of any length.
+
+Development versions of \pkg{Rcpp} (those with a fourth version component,
+such as 1.1.2.5) check these lengths and signal an error on a mismatch, so
+that the problem is caught when a package is checked against them. Released
+versions do not check: the result takes the length of the first operand, or
+of the target, and a longer operand is silently cut short. Defining
+`RCPP_SUGAR_LENGTH_CHECKS` as `1` or `0` before including `Rcpp.h` turns the
+checks on or off regardless of the version.
 
 ## Storing expressions
 

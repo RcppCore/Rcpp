@@ -1775,19 +1775,29 @@ expect_equal(
 expect_equal(length_plus(c(1, 2), c(10, 20)), c(11, 22), info = "x + y, same length")
 expect_equal(length_plus(numeric(), numeric()), numeric(), info = "x + y, both empty")
 expect_equal(length_plus_scalar(c(1, 2)), c(2, 3), info = "x + scalar")
-expect_error(length_plus(c(1, 2, 3, 4, 5), c(10, 20)), "different lengths", info = "x + <shorter y>")
-expect_error(length_plus(c(1, 2), c(10, 20, 30, 40)), "different lengths", info = "x + <longer y>")
-expect_error(length_compare(c(1, 2, 3), c(1, 2)), "different lengths", info = "x < y")
-expect_error(length_and(c(TRUE, FALSE), TRUE), "different lengths", info = "x & y")
-expect_error(length_pmax(c(1, 2, 3), c(1, 2)), "different lengths", info = "pmax(x, y)")
-expect_error(length_ifelse(c(TRUE, FALSE), c(1, 2), c(1, 2, 3)), "different lengths", info = "ifelse(c, x, y)")
-
 expect_equal(length_range(c(1, 2, 3, 4, 5), c(7, 8, 9)), c(7, 8, 9, 4, 5), info = "x[0:2] = y")
-expect_error(length_range(c(1, 2, 3, 4, 5), c(7, 8)), "cannot assign", info = "x[0:2] = <shorter y>")
-expect_error(length_range(c(1, 2, 3, 4, 5), c(6, 7, 8, 9)), "cannot assign", info = "x[0:2] = <longer y>")
-expect_error(length_range_range(c(1, 2, 3, 4, 5)), "cannot assign", info = "x[0:1] = x[0:3]")
-expect_error(length_column(matrix(1, 3, 2), c(7, 8)), "cannot assign", info = "m(_, 0) = <shorter y>")
-expect_error(length_row(matrix(1, 3, 2), c(7, 8, 9)), "cannot assign", info = "m(0, _) = <longer y>")
+
+## the length checks are on in development versions and off in releases
+## (RCPP_SUGAR_LENGTH_CHECKS, see config.h)
+if (sugar_length_checks_enabled()) {
+    expect_error(length_plus(c(1, 2, 3, 4, 5), c(10, 20)), "different lengths", info = "x + <shorter y>")
+    expect_error(length_plus(c(1, 2), c(10, 20, 30, 40)), "different lengths", info = "x + <longer y>")
+    expect_error(length_compare(c(1, 2, 3), c(1, 2)), "different lengths", info = "x < y")
+    expect_error(length_and(c(TRUE, FALSE), TRUE), "different lengths", info = "x & y")
+    expect_error(length_pmax(c(1, 2, 3), c(1, 2)), "different lengths", info = "pmax(x, y)")
+    expect_error(length_ifelse(c(TRUE, FALSE), c(1, 2), c(1, 2, 3)), "different lengths", info = "ifelse(c, x, y)")
+
+    expect_error(length_range(c(1, 2, 3, 4, 5), c(7, 8)), "cannot assign", info = "x[0:2] = <shorter y>")
+    expect_error(length_range(c(1, 2, 3, 4, 5), c(6, 7, 8, 9)), "cannot assign", info = "x[0:2] = <longer y>")
+    expect_error(length_range_range(c(1, 2, 3, 4, 5)), "cannot assign", info = "x[0:1] = x[0:3]")
+    expect_error(length_column(matrix(1, 3, 2), c(7, 8)), "cannot assign", info = "m(_, 0) = <shorter y>")
+    expect_error(length_row(matrix(1, 3, 2), c(7, 8, 9)), "cannot assign", info = "m(0, _) = <longer y>")
+} else {
+    ## with the checks off, a longer operand is cut short, as before
+    expect_equal(length_plus(c(1, 2), c(10, 20, 30, 40)), c(11, 22), info = "x + <longer y>, checks off")
+    expect_equal(length_range(c(1, 2, 3, 4, 5), c(6, 7, 8, 9)), c(6, 7, 8, 4, 5), info = "x[0:2] = <longer y>, checks off")
+    expect_equal(length_row(matrix(1, 3, 2), c(7, 8, 9)), matrix(c(7, 1, 1, 8, 1, 1), 3, 2), info = "m(0, _) = <longer y>, checks off")
+}
 
 ## &&, || and ! on single logical results (e.g. all(), any()) follow R's
 ## three-valued logic
