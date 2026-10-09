@@ -263,17 +263,17 @@ public:
     #endif
 
     /**
-     * the length of the vector, uses Rf_xlength
+     * the length of the vector, as cached by update()
      */
     inline R_xlen_t length() const {
-        return ::Rf_xlength( Storage::get__() ) ;
+        return cache.get_size() ;
     }
 
     /**
      * alias of length
      */
     inline R_xlen_t size() const {
-        return ::Rf_xlength( Storage::get__() ) ;
+        return cache.get_size() ;
     }
 
     /**

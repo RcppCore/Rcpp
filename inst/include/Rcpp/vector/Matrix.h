@@ -27,6 +27,10 @@ namespace Rcpp{
 
 template <int RTYPE, template <class> class StoragePolicy = PreserveStorage >
 class Matrix : public Vector<RTYPE, StoragePolicy>, public MatrixBase<RTYPE, true, Matrix<RTYPE,StoragePolicy> > {
+    // The only data member. Packages pass Rcpp objects by reference across
+    // shared-library boundaries (e.g. rust calls into revdbayes through XPtr
+    // function pointers), and the two sides may have been compiled against
+    // different Rcpp versions. Adding a member changes the layout they share.
     int nrows ;
 
 public:
@@ -92,14 +96,17 @@ public:
 
     explicit Matrix( const no_init_matrix& obj) : VECTOR(Rf_allocMatrix(RTYPE, obj.nrow(), obj.ncol())), nrows(obj.nrow()) {}
 
+    // A matrix has exactly nrow * ncol elements, so the column count follows
+    // from the (cached) length without reading the dim attribute. Only an
+    // empty matrix, which may still have columns, needs the attribute.
     inline int ncol() const {
-        return VECTOR::dims()[1];
+        return nrows == 0 ? VECTOR::dims()[1] : static_cast<int>( VECTOR::size() / nrows ) ;
     }
     inline int nrow() const {
         return nrows ;
     }
     inline int cols() const {
-        return VECTOR::dims()[1];
+        return ncol() ;
     }
     inline int rows() const {
         return nrows ;

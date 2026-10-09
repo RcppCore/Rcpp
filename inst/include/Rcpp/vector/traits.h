@@ -24,6 +24,16 @@
 namespace Rcpp{
 namespace traits{
 
+	// Kept out of line and marked cold so that the (almost never taken)
+	// warning path doesn't bloat element access and block optimization of
+	// hot loops, e.g. in sugar expressions.
+#if defined(__GNUC__)
+	__attribute__((noinline, cold))
+#endif
+	inline void warn_index_out_of_bounds(R_xlen_t i, R_xlen_t size) {
+		warning("subscript out of bounds (index %s >= vector size %s)", i, size); // #nocov
+	}
+
 	template <int RTYPE, template <class> class StoragePolicy = PreserveStorage >
 	class r_vector_cache{
 	public:
@@ -38,11 +48,12 @@ namespace traits{
 
 		inline void update( const VECTOR& v ) {
 			start = ::Rcpp::internal::r_vector_start<RTYPE>(v) ;
-			size = v.size();
+			size = ::Rf_xlength(v.get__());
 		}
 
 		inline iterator get() const { return start; }
 		inline const_iterator get_const() const { return start; }
+		inline R_xlen_t get_size() const { return size; }
 
 		inline proxy ref() { check_index(0); return start[0] ;}
 		inline proxy ref(R_xlen_t i) { check_index(i); return start[i] ; }
@@ -55,7 +66,7 @@ namespace traits{
 		void check_index(R_xlen_t i) const {
 #ifndef RCPP_NO_BOUNDS_CHECK
 			if (i >= size) {
-				warning("subscript out of bounds (index %s >= vector size %s)", i, size); // #nocov
+				warn_index_out_of_bounds(i, size); // #nocov
 			}
 #endif
 		}
@@ -80,6 +91,10 @@ namespace traits{
 		}
 		inline iterator get() const { return iterator( proxy(*p, 0 ) ) ;}
 		inline const_iterator get_const() const { return const_iterator( const_proxy(*p, 0) ) ; }
+		// Not cached: a size member here would change the layout of List and
+		// CharacterVector, which packages pass by reference across
+		// shared-library boundaries (see the note in Matrix.h).
+		inline R_xlen_t get_size() const { return ::Rf_xlength(p->get__()); }
 
 		inline proxy ref() { check_index(0); return proxy(*p,0) ; }
 		inline proxy ref(R_xlen_t i) { check_index(i); return proxy(*p,i);}
@@ -92,8 +107,9 @@ namespace traits{
 
 		void check_index(R_xlen_t i) const {
 #ifndef RCPP_NO_BOUNDS_CHECK
-			if (i >= p->size()) {
-				warning("subscript out of bounds (index %s >= vector size %s)", i, p->size()); // #nocov
+			R_xlen_t size = get_size() ;
+			if (i >= size) {
+				warn_index_out_of_bounds(i, size); // #nocov
 			}
 #endif
 		}

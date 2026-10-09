@@ -27,6 +27,12 @@
       warnings (Iñaki in \ghpr{1508} closing \ghit{1497})
       \item The \code{col} constructor now uses \code{nrow} in an
       initialization (Iñaki in \ghpr{1509})
+      \item Bounds-checked element access is faster, \code{size()} of
+      atomic vectors uses the cached length, and \code{ncol()} no longer
+      reads the \code{dim} attribute; object layouts are unchanged, as
+      packages such as \pkg{rust} and \pkg{revdbayes} exchange Rcpp
+      objects across shared libraries (Kevin in \ghpr{1511} closing
+      \ghit{1510})
     }
     \item Changes in Rcpp Documentation:
     \itemize{
