@@ -341,6 +341,9 @@ expect_equal( fx( 1:10 ), as.list((1:10)^2) )
 fx <- runit_lapply_seq
 expect_equal( fx( 1:10 ), lapply( 1:10, seq_len ) )
 
+fx <- runit_lapply_string
+expect_equal( fx( c("abc", "de") ), list("cba", "ed") )
+
 
 #    test.sugar.mapply2 <- function( ){
 fx <- runit_mapply2

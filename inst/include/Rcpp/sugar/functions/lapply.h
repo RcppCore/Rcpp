@@ -40,7 +40,9 @@ public:
 		vec(vec_.get_ref()), fun(fun_){}
 
         inline SEXP operator[]( R_xlen_t i ) const {
-		return Rcpp::wrap( fun( vec[i] ) );
+		// index through VectorBase so that vectors yield their stored
+		// type (e.g. SEXP for character vectors) rather than a proxy
+		return Rcpp::wrap( fun( static_cast<const VEC&>(vec)[i] ) );
 	}
         inline R_xlen_t size() const { return vec.size() ; }
 
