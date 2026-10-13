@@ -30,8 +30,8 @@
 #define RCPP_VERSION_STRING     "1.1.2"
 
 // the current source snapshot (using four components, if a fifth is used in DESCRIPTION we ignore it)
-#define RCPP_DEV_VERSION        RcppDevVersion(1,1,2,4)
-#define RCPP_DEV_VERSION_STRING "1.1.2.4"
+#define RCPP_DEV_VERSION        RcppDevVersion(1,1,2,5)
+#define RCPP_DEV_VERSION_STRING "1.1.2.5"
 
 // Whether sugar checks that the operands of an expression, and a vector
 // assigned into a range, row or column, have matching lengths. On by default

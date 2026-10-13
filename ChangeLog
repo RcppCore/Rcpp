@@ -1,3 +1,14 @@
+2026-10-13  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+	* inst/include/Rcpp/config.h: Idem
+
+2026-10-12  Kevin Ushey <kevinushey@gmail.com>
+
+	* inst/include/Rcpp/vector/traits.h: Update copyright
+	* inst/include/Rcpp/vector/Vector.h: Idem
+	* inst/include/Rcpp/vector/Matrix.h: Idem
+
 2026-10-09  Kevin Ushey <kevinushey@gmail.com>
 
 	* inst/include/Rcpp/config.h: Define RCPP_SUGAR_LENGTH_CHECKS, on for
@@ -50,12 +61,6 @@
 	* inst/tinytest/test_sugar.R: Idem
 	* vignettes/rmd/Rcpp-sugar.Rmd: Document operand lengths, storing
 	expressions, and assignment
-
-2026-10-12  Kevin Ushey <kevinushey@gmail.com>
-
-	* inst/include/Rcpp/vector/traits.h: Update copyright
-	* inst/include/Rcpp/vector/Vector.h: Idem
-	* inst/include/Rcpp/vector/Matrix.h: Idem
 
 2026-09-30  Kevin Ushey <kevinushey@gmail.com>
 
