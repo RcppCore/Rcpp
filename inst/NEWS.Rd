@@ -43,6 +43,12 @@
       \item The sugar operators \code{!}, \code{&&} and \code{||} on single
       logical results such as \code{all()} now compile, and follow R's
       handling of \code{NA} (Kevin in \ghpr{1513})
+      \item Bounds-checked element access is faster, \code{size()} of
+      atomic vectors uses the cached length, and \code{ncol()} no longer
+      reads the \code{dim} attribute; object layouts are unchanged, as
+      packages such as \pkg{rust} and \pkg{revdbayes} exchange Rcpp
+      objects across shared libraries (Kevin in \ghpr{1511} closing
+      \ghit{1510})
     }
     \item Changes in Rcpp Documentation:
     \itemize{
