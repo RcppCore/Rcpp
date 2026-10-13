@@ -30,7 +30,7 @@ class WhichMax {
 public:
     typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
     typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-	WhichMax(const VEC_TYPE& obj_ ) : obj(obj_){}
+	WhichMax(const VEC_TYPE& obj_ ) : obj(obj_.get_ref()){}
 
         R_xlen_t get() const {
 	    STORAGE current = obj[0] ;
@@ -50,7 +50,7 @@ public:
 	}
 
 private:
-    const VEC_TYPE& obj ;
+    typename Rcpp::traits::sugar_operand< VEC_TYPE >::type obj ;
 
 } ;
 
@@ -59,7 +59,7 @@ class WhichMax<RTYPE,false,T> {
 public:
     typedef typename Rcpp::VectorBase<RTYPE,false,T> VEC_TYPE ;
     typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
-	WhichMax(const VEC_TYPE& obj_ ) : obj(obj_){}
+	WhichMax(const VEC_TYPE& obj_ ) : obj(obj_.get_ref()){}
 
         R_xlen_t get() const {
 	    STORAGE current = obj[0] ;
@@ -77,7 +77,7 @@ public:
 	}
 
 private:
-    const VEC_TYPE& obj ;
+    typename Rcpp::traits::sugar_operand< VEC_TYPE >::type obj ;
 
 } ;
 

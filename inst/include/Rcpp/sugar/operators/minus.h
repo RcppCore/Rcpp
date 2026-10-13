@@ -35,9 +35,12 @@ namespace sugar{
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		typedef typename Rcpp::traits::Extractor< RTYPE, LHS_NA, LHS_T>::type LHS_EXT ;
 		typedef typename Rcpp::traits::Extractor< RTYPE, RHS_NA, RHS_T>::type RHS_EXT ;
+		typedef Rcpp::traits::elementwise_operands< LHS_EXT, RHS_EXT > rcpp_elementwise ;
 
 		Minus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
-			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
+			check_sizes(lhs.size(), rhs.size()) ;
+		}
 
 		inline STORAGE operator[]( R_xlen_t i ) const {
 			STORAGE x = lhs[i] ;
@@ -49,8 +52,8 @@ namespace sugar{
 		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
-		const LHS_EXT& lhs ;
-		const RHS_EXT& rhs ;
+		typename Rcpp::traits::sugar_operand< LHS_EXT >::type lhs ;
+		typename Rcpp::traits::sugar_operand< RHS_EXT >::type rhs ;
 	} ;
 	// RTYPE = REALSXP
 	template <bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T >
@@ -61,9 +64,12 @@ namespace sugar{
 		typedef typename Rcpp::VectorBase<REALSXP,RHS_NA,RHS_T> RHS_TYPE ;
 		typedef typename Rcpp::traits::Extractor<REALSXP, LHS_NA, LHS_T>::type LHS_EXT ;
 		typedef typename Rcpp::traits::Extractor<REALSXP, RHS_NA, RHS_T>::type RHS_EXT ;
+		typedef Rcpp::traits::elementwise_operands< LHS_EXT, RHS_EXT > rcpp_elementwise ;
 
 		Minus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
-			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
+			check_sizes(lhs.size(), rhs.size()) ;
+		}
 
 		inline double operator[]( R_xlen_t i ) const {
 		    return lhs[i] - rhs[i] ;
@@ -72,8 +78,8 @@ namespace sugar{
 		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
-		const LHS_EXT& lhs ;
-		const RHS_EXT& rhs ;
+		typename Rcpp::traits::sugar_operand< LHS_EXT >::type lhs ;
+		typename Rcpp::traits::sugar_operand< RHS_EXT >::type rhs ;
 	} ;
 
 
@@ -85,9 +91,12 @@ namespace sugar{
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		typedef typename Rcpp::traits::Extractor<RTYPE, false, LHS_T>::type LHS_EXT ;
 		typedef typename Rcpp::traits::Extractor<RTYPE, RHS_NA, RHS_T>::type RHS_EXT ;
+		typedef Rcpp::traits::elementwise_operands< LHS_EXT, RHS_EXT > rcpp_elementwise ;
 
 		Minus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
-			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
+			check_sizes(lhs.size(), rhs.size()) ;
+		}
 
 		inline STORAGE operator[]( R_xlen_t i ) const {
 			STORAGE y = rhs[i] ;
@@ -98,8 +107,8 @@ namespace sugar{
 		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
-		const LHS_EXT& lhs ;
-		const RHS_EXT& rhs ;
+		typename Rcpp::traits::sugar_operand< LHS_EXT >::type lhs ;
+		typename Rcpp::traits::sugar_operand< RHS_EXT >::type rhs ;
 	} ;
 	// RTYPE = REALSXP
 	template <typename LHS_T, bool RHS_NA, typename RHS_T >
@@ -110,9 +119,12 @@ namespace sugar{
 		typedef typename Rcpp::VectorBase<REALSXP,RHS_NA,RHS_T> RHS_TYPE ;
 		typedef typename Rcpp::traits::Extractor<REALSXP, false, LHS_T>::type LHS_EXT ;
 		typedef typename Rcpp::traits::Extractor<REALSXP, RHS_NA, RHS_T>::type RHS_EXT ;
+		typedef Rcpp::traits::elementwise_operands< LHS_EXT, RHS_EXT > rcpp_elementwise ;
 
 		Minus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
-			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
+			check_sizes(lhs.size(), rhs.size()) ;
+		}
 
 		inline double operator[]( R_xlen_t i ) const {
 			return lhs[i] - rhs[i] ;
@@ -121,8 +133,8 @@ namespace sugar{
 		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
-		const LHS_EXT& lhs ;
-		const RHS_EXT& rhs ;
+		typename Rcpp::traits::sugar_operand< LHS_EXT >::type lhs ;
+		typename Rcpp::traits::sugar_operand< RHS_EXT >::type rhs ;
 	} ;
 
 
@@ -134,9 +146,12 @@ namespace sugar{
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		typedef typename Rcpp::traits::Extractor<RTYPE, LHS_NA, LHS_T>::type LHS_EXT ;
 		typedef typename Rcpp::traits::Extractor<RTYPE, false, RHS_T>::type RHS_EXT ;
+		typedef Rcpp::traits::elementwise_operands< LHS_EXT, RHS_EXT > rcpp_elementwise ;
 
 		Minus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
-			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
+			check_sizes(lhs.size(), rhs.size()) ;
+		}
 
 		inline STORAGE operator[]( R_xlen_t i ) const {
 			STORAGE x = lhs[i] ;
@@ -147,8 +162,8 @@ namespace sugar{
 		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
-		const LHS_EXT& lhs ;
-		const RHS_EXT& rhs ;
+		typename Rcpp::traits::sugar_operand< LHS_EXT >::type lhs ;
+		typename Rcpp::traits::sugar_operand< RHS_EXT >::type rhs ;
 	} ;
 	// RTYPE = REALSXP
 	template <bool LHS_NA, typename LHS_T, typename RHS_T >
@@ -159,9 +174,12 @@ namespace sugar{
 		typedef typename Rcpp::VectorBase<REALSXP,false,RHS_T> RHS_TYPE ;
 		typedef typename Rcpp::traits::Extractor<REALSXP, LHS_NA, LHS_T>::type LHS_EXT ;
 		typedef typename Rcpp::traits::Extractor<REALSXP, false, RHS_T>::type RHS_EXT ;
+		typedef Rcpp::traits::elementwise_operands< LHS_EXT, RHS_EXT > rcpp_elementwise ;
 
 		Minus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
-			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
+			check_sizes(lhs.size(), rhs.size()) ;
+		}
 
 		inline double operator[]( R_xlen_t i ) const {
 			return lhs[i] - rhs[i] ;
@@ -170,8 +188,8 @@ namespace sugar{
 		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
-		const LHS_EXT& lhs ;
-		const RHS_EXT& rhs ;
+		typename Rcpp::traits::sugar_operand< LHS_EXT >::type lhs ;
+		typename Rcpp::traits::sugar_operand< RHS_EXT >::type rhs ;
 	} ;
 
 
@@ -184,9 +202,12 @@ namespace sugar{
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		typedef typename Rcpp::traits::Extractor<RTYPE, false, LHS_T>::type LHS_EXT ;
 		typedef typename Rcpp::traits::Extractor<RTYPE, false, RHS_T>::type RHS_EXT ;
+		typedef Rcpp::traits::elementwise_operands< LHS_EXT, RHS_EXT > rcpp_elementwise ;
 
 		Minus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
-			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
+			check_sizes(lhs.size(), rhs.size()) ;
+		}
 
 		inline STORAGE operator[]( R_xlen_t i ) const {
 			return lhs[i] - rhs[i];
@@ -195,8 +216,8 @@ namespace sugar{
 		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
-		const LHS_EXT& lhs ;
-		const RHS_EXT& rhs ;
+		typename Rcpp::traits::sugar_operand< LHS_EXT >::type lhs ;
+		typename Rcpp::traits::sugar_operand< RHS_EXT >::type rhs ;
 	} ;
 	template <typename LHS_T, typename RHS_T >
 	class Minus_Vector_Vector<REALSXP,false,LHS_T,false,RHS_T> :
@@ -206,9 +227,12 @@ namespace sugar{
 		typedef typename Rcpp::VectorBase<REALSXP,false,RHS_T> RHS_TYPE ;
 		typedef typename Rcpp::traits::Extractor<REALSXP, false, LHS_T>::type LHS_EXT ;
 		typedef typename Rcpp::traits::Extractor<REALSXP, false, RHS_T>::type RHS_EXT ;
+		typedef Rcpp::traits::elementwise_operands< LHS_EXT, RHS_EXT > rcpp_elementwise ;
 
 		Minus_Vector_Vector( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) :
-			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {}
+			lhs(lhs_.get_ref()), rhs(rhs_.get_ref()) {
+			check_sizes(lhs.size(), rhs.size()) ;
+		}
 
 		inline double operator[]( R_xlen_t i ) const {
 			return lhs[i] - rhs[i] ;
@@ -217,8 +241,8 @@ namespace sugar{
 		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
-		const LHS_EXT& lhs ;
-		const RHS_EXT& rhs ;
+		typename Rcpp::traits::sugar_operand< LHS_EXT >::type lhs ;
+		typename Rcpp::traits::sugar_operand< RHS_EXT >::type rhs ;
 	} ;
 
 
@@ -232,6 +256,7 @@ namespace sugar{
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 		typedef typename Rcpp::traits::Extractor<RTYPE,NA,T>::type VEC_EXT ;
+		typedef Rcpp::traits::elementwise_operands< VEC_EXT > rcpp_elementwise ;
 
 		Minus_Vector_Primitive( const VEC_TYPE& lhs_, STORAGE rhs_ ) :
 			lhs(lhs_.get_ref()), rhs(rhs_), rhs_na( Rcpp::traits::is_na<RTYPE>(rhs_) ) {}
@@ -245,7 +270,7 @@ namespace sugar{
 		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
-		const VEC_EXT& lhs ;
+		typename Rcpp::traits::sugar_operand< VEC_EXT >::type lhs ;
 		STORAGE rhs ;
 		bool rhs_na ;
 	} ;
@@ -255,6 +280,7 @@ namespace sugar{
 	public:
 		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE ;
 		typedef typename Rcpp::traits::Extractor<REALSXP,NA,T>::type VEC_EXT ;
+		typedef Rcpp::traits::elementwise_operands< VEC_EXT > rcpp_elementwise ;
 
 		Minus_Vector_Primitive( const VEC_TYPE& lhs_, double rhs_ ) :
 			lhs(lhs_.get_ref()), rhs(rhs_){}
@@ -266,7 +292,7 @@ namespace sugar{
 		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
-		const VEC_EXT& lhs ;
+		typename Rcpp::traits::sugar_operand< VEC_EXT >::type lhs ;
 		double rhs ;
 	} ;
 
@@ -278,6 +304,7 @@ namespace sugar{
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		typedef typename Rcpp::VectorBase<RTYPE,false,T> VEC_TYPE ;
 		typedef typename Rcpp::traits::Extractor<RTYPE,false,T>::type VEC_EXT ;
+		typedef Rcpp::traits::elementwise_operands< VEC_EXT > rcpp_elementwise ;
 
 		Minus_Vector_Primitive( const VEC_TYPE& lhs_, STORAGE rhs_ ) :
 			lhs(lhs_.get_ref()), rhs(rhs_), rhs_na( Rcpp::traits::is_na<RTYPE>(rhs_) ) {}
@@ -291,7 +318,7 @@ namespace sugar{
 		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
-		const VEC_EXT& lhs ;
+		typename Rcpp::traits::sugar_operand< VEC_EXT >::type lhs ;
 		STORAGE rhs ;
 		bool rhs_na ;
 	} ;
@@ -301,6 +328,7 @@ namespace sugar{
 	public:
 		typedef typename Rcpp::VectorBase<REALSXP,false,T> VEC_TYPE ;
 		typedef typename Rcpp::traits::Extractor<REALSXP,false,T>::type VEC_EXT ;
+		typedef Rcpp::traits::elementwise_operands< VEC_EXT > rcpp_elementwise ;
 
 		Minus_Vector_Primitive( const VEC_TYPE& lhs_, double rhs_ ) :
 			lhs(lhs_.get_ref()), rhs(rhs_){}
@@ -312,7 +340,7 @@ namespace sugar{
 		inline R_xlen_t size() const { return lhs.size() ; }
 
 	private:
-		const VEC_EXT& lhs ;
+		typename Rcpp::traits::sugar_operand< VEC_EXT >::type lhs ;
 		double rhs ;
 	} ;
 
@@ -328,6 +356,7 @@ namespace sugar{
 		typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		typedef typename Rcpp::traits::Extractor<RTYPE,NA,T>::type VEC_EXT ;
+		typedef Rcpp::traits::elementwise_operands< VEC_EXT > rcpp_elementwise ;
 
 		Minus_Primitive_Vector( STORAGE lhs_, const VEC_TYPE& rhs_ ) :
 			lhs(lhs_), rhs(rhs_.get_ref()), lhs_na( Rcpp::traits::is_na<RTYPE>(lhs_) ) {}
@@ -340,7 +369,7 @@ namespace sugar{
 
 	private:
 		STORAGE lhs ;
-		const VEC_EXT& rhs ;
+		typename Rcpp::traits::sugar_operand< VEC_EXT >::type rhs ;
 		bool lhs_na ;
 	} ;
 	template <bool NA, typename T>
@@ -349,6 +378,7 @@ namespace sugar{
 	public:
 		typedef typename Rcpp::VectorBase<REALSXP,NA,T> VEC_TYPE ;
 		typedef typename Rcpp::traits::Extractor<REALSXP,NA,T>::type VEC_EXT ;
+		typedef Rcpp::traits::elementwise_operands< VEC_EXT > rcpp_elementwise ;
 
 		Minus_Primitive_Vector( double lhs_, const VEC_TYPE& rhs_ ) :
 			lhs(lhs_), rhs(rhs_.get_ref()){}
@@ -360,7 +390,7 @@ namespace sugar{
 
 	private:
 		double lhs ;
-		const VEC_EXT& rhs ;
+		typename Rcpp::traits::sugar_operand< VEC_EXT >::type rhs ;
 	} ;
 
 
@@ -372,6 +402,7 @@ namespace sugar{
 		typedef typename Rcpp::VectorBase<RTYPE,false,T> VEC_TYPE ;
 		typedef typename traits::storage_type<RTYPE>::type STORAGE ;
 		typedef typename Rcpp::traits::Extractor<RTYPE,false,T>::type VEC_EXT ;
+		typedef Rcpp::traits::elementwise_operands< VEC_EXT > rcpp_elementwise ;
 
 		Minus_Primitive_Vector( STORAGE lhs_, const VEC_TYPE& rhs_ ) :
 			lhs(lhs_), rhs(rhs_.get_ref()), lhs_na( Rcpp::traits::is_na<RTYPE>(lhs_) ) {}
@@ -385,7 +416,7 @@ namespace sugar{
 
 	private:
 		STORAGE lhs ;
-		const VEC_EXT& rhs ;
+		typename Rcpp::traits::sugar_operand< VEC_EXT >::type rhs ;
 		bool lhs_na ;
 
 	} ;
@@ -395,6 +426,7 @@ namespace sugar{
 	public:
 		typedef typename Rcpp::VectorBase<REALSXP,false,T> VEC_TYPE ;
 		typedef typename Rcpp::traits::Extractor<REALSXP,false,T>::type VEC_EXT ;
+		typedef Rcpp::traits::elementwise_operands< VEC_EXT > rcpp_elementwise ;
 
 		Minus_Primitive_Vector( double lhs_, const VEC_TYPE& rhs_ ) :
 			lhs(lhs_), rhs(rhs_.get_ref()){}
@@ -407,7 +439,7 @@ namespace sugar{
 
 	private:
 		double lhs ;
-		const VEC_EXT& rhs ;
+		typename Rcpp::traits::sugar_operand< VEC_EXT >::type rhs ;
 	} ;
 
 

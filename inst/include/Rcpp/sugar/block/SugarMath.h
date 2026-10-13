@@ -34,8 +34,9 @@ class SugarMath_1 : public Rcpp::VectorBase<
 public:
 
 	typedef Rcpp::VectorBase< Rcpp::traits::r_sexptype_traits<RESULT_TYPE>::rtype ,NA,T1> VEC_TYPE ;
+	typedef Rcpp::traits::elementwise_operands< VEC_TYPE > rcpp_elementwise ;
 
-	SugarMath_1( FunPtr ptr_, const VEC_TYPE & vec_) : ptr(ptr_), vec(vec_){}
+	SugarMath_1( FunPtr ptr_, const VEC_TYPE & vec_) : ptr(ptr_), vec(vec_.get_ref()){}
 
 	inline RESULT_TYPE operator[]( R_xlen_t i) const {
 		U1 x = vec[i] ;
@@ -46,7 +47,7 @@ public:
 
 private:
 	FunPtr ptr ;
-	const VEC_TYPE& vec ;
+	typename Rcpp::traits::sugar_operand< VEC_TYPE >::type vec ;
 };
 
 template <bool NA, typename RESULT_TYPE, typename T1, typename FunPtr>
@@ -57,8 +58,9 @@ class SugarMath_1<NA,RESULT_TYPE,int,T1,FunPtr> : public Rcpp::VectorBase<
 	> {
 public:
 	typedef Rcpp::VectorBase< INTSXP ,NA,T1> VEC_TYPE ;
+	typedef Rcpp::traits::elementwise_operands< VEC_TYPE > rcpp_elementwise ;
 
-	SugarMath_1( FunPtr ptr_, const VEC_TYPE & vec_) : ptr(ptr_), vec(vec_){}
+	SugarMath_1( FunPtr ptr_, const VEC_TYPE & vec_) : ptr(ptr_), vec(vec_.get_ref()){}
 
 	inline RESULT_TYPE operator[]( R_xlen_t i) const {
 		int x = vec[i] ;
@@ -69,7 +71,7 @@ public:
 
 private:
 	FunPtr ptr ;
-	const VEC_TYPE& vec ;
+	typename Rcpp::traits::sugar_operand< VEC_TYPE >::type vec ;
 };
 
 template <typename RESULT_TYPE, typename T1, typename FunPtr>
@@ -81,7 +83,8 @@ Rcpp::VectorBase<
 > {
 public:
 	typedef Rcpp::VectorBase< INTSXP ,false,T1> VEC_TYPE ;
-	SugarMath_1( FunPtr ptr_, const VEC_TYPE & vec_) : ptr(ptr_), vec(vec_){}
+	typedef Rcpp::traits::elementwise_operands< VEC_TYPE > rcpp_elementwise ;
+	SugarMath_1( FunPtr ptr_, const VEC_TYPE & vec_) : ptr(ptr_), vec(vec_.get_ref()){}
 
 	inline RESULT_TYPE operator[]( R_xlen_t i) const {
 		return ptr( vec[i] ) ;
@@ -90,7 +93,7 @@ public:
 
 private:
 	FunPtr ptr ;
-	const VEC_TYPE& vec ;
+	typename Rcpp::traits::sugar_operand< VEC_TYPE >::type vec ;
 };
 
 

@@ -29,6 +29,7 @@ template <int RTYPE, bool NA, typename T, typename EXPONENT_TYPE>
 class Pow : public Rcpp::VectorBase< REALSXP ,NA, Pow<RTYPE,NA,T,EXPONENT_TYPE> > {
 public:
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
+	typedef Rcpp::traits::elementwise_operands< T > rcpp_elementwise ;
 
 	Pow( const T& object_, EXPONENT_TYPE exponent ) : object(object_), op(exponent) {}
 
@@ -38,13 +39,15 @@ public:
         inline R_xlen_t size() const { return object.size() ; }
 
 private:
-	const T& object ;
+	typename Rcpp::traits::sugar_operand< T >::type object ;
 	EXPONENT_TYPE op ;
 } ;
 
 template <bool NA, typename T, typename EXPONENT_TYPE>
 class Pow<INTSXP,NA,T,EXPONENT_TYPE> : public Rcpp::VectorBase< REALSXP ,NA, Pow<INTSXP,NA,T,EXPONENT_TYPE> > {
 public:
+	typedef Rcpp::traits::elementwise_operands< T > rcpp_elementwise ;
+
 	Pow( const T& object_, EXPONENT_TYPE exponent ) : object(object_), op(exponent) {}
 
         inline double operator[]( R_xlen_t i ) const {
@@ -54,12 +57,14 @@ public:
         inline R_xlen_t size() const { return object.size() ; }
 
 private:
-	const T& object ;
+	typename Rcpp::traits::sugar_operand< T >::type object ;
 	EXPONENT_TYPE op ;
 } ;
 template <typename T, typename EXPONENT_TYPE>
 class Pow<INTSXP,false,T,EXPONENT_TYPE> : public Rcpp::VectorBase< REALSXP ,false, Pow<INTSXP,false,T,EXPONENT_TYPE> > {
 public:
+	typedef Rcpp::traits::elementwise_operands< T > rcpp_elementwise ;
+
 	Pow( const T& object_, EXPONENT_TYPE exponent ) : object(object_), op(exponent) {}
 
         inline double operator[]( R_xlen_t i ) const {
@@ -68,7 +73,7 @@ public:
         inline R_xlen_t size() const { return object.size() ; }
 
 private:
-	const T& object ;
+	typename Rcpp::traits::sugar_operand< T >::type object ;
 	EXPONENT_TYPE op ;
 } ;
 

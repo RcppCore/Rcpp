@@ -45,6 +45,14 @@ public:
 
 	SingleLogicalResult() : result(UNRESOLVED) {} ;
 
+	T& get_ref(){
+		return static_cast<T&>(*this) ;
+	}
+
+	const T& get_ref() const {
+		return static_cast<const T&>(*this) ;
+	}
+
 	void apply(){
 		if( result == UNRESOLVED ){
 			static_cast<T&>(*this).apply() ;

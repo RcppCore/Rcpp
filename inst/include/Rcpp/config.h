@@ -33,4 +33,18 @@
 #define RCPP_DEV_VERSION        RcppDevVersion(1,1,2,4)
 #define RCPP_DEV_VERSION_STRING "1.1.2.4"
 
+// Whether sugar checks that the operands of an expression, and a vector
+// assigned into a range, row or column, have matching lengths. On by default
+// in development versions (a non-zero fourth version component), so that
+// reverse-dependency checks catch mismatches; off in releases, so that
+// packages on CRAN are not affected. Define RCPP_SUGAR_LENGTH_CHECKS as 1 or
+// 0 before including Rcpp.h to override.
+#ifndef RCPP_SUGAR_LENGTH_CHECKS
+# if (RCPP_DEV_VERSION % 100) != 0
+#  define RCPP_SUGAR_LENGTH_CHECKS 1
+# else
+#  define RCPP_SUGAR_LENGTH_CHECKS 0
+# endif
+#endif
+
 #endif

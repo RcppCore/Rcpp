@@ -32,7 +32,7 @@ public:
 	typedef typename Rcpp::MatrixBase<RTYPE,NA,T> MAT_TYPE ;
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 
-	Diag_Extractor( const MAT_TYPE& object_ ) : object(object_), n(0) {
+	Diag_Extractor( const MAT_TYPE& object_ ) : object(object_.get_ref()), n(0) {
 		int nr = static_cast<int>(object.nrow()) ;
 		int nc = static_cast<int>(object.ncol()) ;
 		n = (nc < nr ) ? nc : nr ;
@@ -44,7 +44,7 @@ public:
 	inline R_xlen_t size() const { return n; }
 
 private:
-	const MAT_TYPE& object ;
+	typename Rcpp::traits::sugar_operand< MAT_TYPE >::type object ;
 	R_xlen_t n ;
 } ;
 
@@ -55,7 +55,7 @@ public:
 	typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 
-	Diag_Maker( const VEC_TYPE& object_ ) : object(object_), n(static_cast<int>(object_.size())) {}
+	Diag_Maker( const VEC_TYPE& object_ ) : object(object_.get_ref()), n(static_cast<int>(object_.size())) {}
 
 	inline STORAGE operator()( int i, int j ) const {
 		return (i==j) ? object[i] : 0 ;
@@ -65,7 +65,7 @@ public:
 	inline int nrow() const { return n; }
 
 private:
-	const VEC_TYPE& object ;
+	typename Rcpp::traits::sugar_operand< VEC_TYPE >::type object ;
 	int n ;
 } ;
 

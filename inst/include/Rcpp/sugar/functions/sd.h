@@ -31,13 +31,13 @@ public:
 	typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 
-	Sd( const VEC_TYPE& object_ ) : object(object_){}
+	Sd( const VEC_TYPE& object_ ) : object(object_.get_ref()){}
 
 	STORAGE get() const {
 	    return ::sqrt( var(object).get() ) ;
 	}
 private:
-	const VEC_TYPE& object ;
+	typename Rcpp::traits::sugar_operand< VEC_TYPE >::type object ;
 } ;
 
 } // sugar

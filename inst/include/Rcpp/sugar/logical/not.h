@@ -43,14 +43,16 @@ class Negate_SingleLogicalResult : public SingleLogicalResult<NA, Negate_SingleL
 public:
 	typedef SingleLogicalResult<NA,T> TYPE ;
 	typedef SingleLogicalResult<NA, Negate_SingleLogicalResult<NA,T> > BASE ;
-	Negate_SingleLogicalResult( const TYPE& orig_ ) : orig(orig_) {}
+	Negate_SingleLogicalResult( const TYPE& orig_ ) : orig(orig_.get_ref()) {}
 
 	inline void apply(){
 		BASE::set( negate<NA>::apply( orig.get() ) );
 	}
 
 private:
-	const TYPE& orig ;
+	// by value, since it is usually a temporary, and non-const, since
+	// evaluating it caches its result
+	T orig ;
 
 } ;
 

@@ -32,7 +32,7 @@ class Var : public Lazy< double , Var<RTYPE,NA,T> > {
 public:
     typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 
-    Var( const VEC_TYPE& object_ ) : object(object_){}
+    Var( const VEC_TYPE& object_ ) : object(object_.get_ref()){}
 
     double get() const{
         const double average = mean(object).get();
@@ -44,7 +44,7 @@ public:
     }
 
 private:
-    const VEC_TYPE& object ;
+    typename Rcpp::traits::sugar_operand< VEC_TYPE >::type object ;
 } ;
 
 template <bool NA, typename T>
@@ -52,7 +52,7 @@ class Var<CPLXSXP,NA,T> : public Lazy< double , Var<CPLXSXP,NA,T> > {
 public:
     typedef typename Rcpp::VectorBase<CPLXSXP,NA,T> VEC_TYPE ;
 
-    Var( const VEC_TYPE& object_ ) : object(object_){}
+    Var( const VEC_TYPE& object_ ) : object(object_.get_ref()){}
 
     double get() const{
         const Rcomplex average = mean(object).get();
@@ -66,7 +66,7 @@ public:
     }
 
 private:
-    const VEC_TYPE& object ;
+    typename Rcpp::traits::sugar_operand< VEC_TYPE >::type object ;
 } ;
 
 } // sugar

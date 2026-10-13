@@ -32,7 +32,7 @@ public:
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 
         Rep( const VEC_TYPE& object_, R_xlen_t times_ ) :
-		object(object_), times(times_), n(object_.size()){}
+		object(object_.get_ref()), times(times_), n(object_.size()){}
 
         inline STORAGE operator[]( R_xlen_t i ) const {
 		return object[ i % n ] ;
@@ -40,7 +40,7 @@ public:
         inline R_xlen_t size() const { return times * n ; }
 
 private:
-	const VEC_TYPE& object ;
+	typename Rcpp::traits::sugar_operand< VEC_TYPE >::type object ;
         R_xlen_t times, n ;
 } ;
 
@@ -51,6 +51,8 @@ class Rep_Single : public Rcpp::VectorBase<
 	Rep_Single<T>
 > {
 public:
+        typedef Rcpp::traits::elementwise_operands<> rcpp_elementwise ;
+
         Rep_Single( const T& x_, R_xlen_t n_) : x(x_), n(n_){}
 
         inline T operator[]( R_xlen_t ) const {
@@ -59,7 +61,7 @@ public:
         inline R_xlen_t size() const { return n ; }
 
 private:
-	const T& x ;
+	typename Rcpp::traits::sugar_operand< T >::type x ;
         R_xlen_t n;
 } ;
 

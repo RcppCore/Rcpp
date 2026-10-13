@@ -24,6 +24,13 @@
 #define Rcpp__vector__RangeIndexer_h
 
 #define UNROLL_LOOP(OP)                              \
+    ::Rcpp::sugar::check_assign_size(size_, x.size()) ; \
+    if( ! ::Rcpp::traits::is_elementwise<T, ::Rcpp::traits::range_target>::value ){ \
+        /* x may read from the vector this range */  \
+        /* indexes, so evaluate it first */          \
+        const Vector<RTYPE, PreserveStorage> tmp(x) ; \
+        return operator OP ( tmp ) ;                 \
+    }                                                \
     typedef typename ::Rcpp::traits::Extractor<RTYPE,NA,T>::type EXT ; \
     const EXT& input( x.get_ref() ) ;                   \
     R_xlen_t __trip_count = (size_) >> 2;            \
@@ -53,15 +60,25 @@ namespace internal{
 template <int RTYPE, bool NA, typename VECTOR>
 class RangeIndexer : public VectorBase<RTYPE, NA, RangeIndexer<RTYPE,NA,VECTOR> >  {
 public:
+	typedef traits::range_view rcpp_view ;
 	typedef typename VECTOR::Proxy Proxy ;
 	typedef typename VECTOR::iterator iterator ;
 
 	RangeIndexer( VECTOR& vec_, const Rcpp::Range& range_) :
 		start(vec_.begin() + range_.get_start() ), size_( range_.size() ) {}
 
+	RangeIndexer( const RangeIndexer& other ) :
+		start(other.start), size_(other.size_) {}
+
 	template <bool NA_, typename T>
 	RangeIndexer& operator=( const Rcpp::VectorBase<RTYPE,NA_,T>& x){
 	    UNROLL_LOOP(=)
+	}
+
+	// without this, assigning one range to another would use the implicit
+	// copy assignment, which rebinds this range instead of copying elements
+	RangeIndexer& operator=( const RangeIndexer& x ){
+	    return operator=( static_cast<const Rcpp::VectorBase<RTYPE,NA,RangeIndexer>&>(x) ) ;
 	}
 
 	template <bool NA_, typename T>

@@ -245,6 +245,18 @@ List runit_lapply_seq( IntegerVector xx){
     return res ;
 }
 
+CharacterVector lapply_string_rev( const CharacterVector& x ){
+    std::string s = as<std::string>( x[0] ) ;
+    return CharacterVector::create( std::string( s.rbegin(), s.rend() ) ) ;
+}
+
+// the element passed to the function must be the stored SEXP, not a proxy
+// [[Rcpp::export]]
+List runit_lapply_string( CharacterVector xx ){
+    List res = lapply( xx, lapply_string_rev ) ;
+    return res ;
+}
+
 // [[Rcpp::export]]
 NumericVector runit_mapply2(NumericVector xx, NumericVector yy){
     NumericVector res = mapply(xx, yy, std::plus<double>());

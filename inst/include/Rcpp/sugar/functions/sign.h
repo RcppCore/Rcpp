@@ -50,8 +50,9 @@ public:
 	typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE ;
 	typedef typename Rcpp::traits::storage_type<RTYPE>::type STORAGE ;
 	typedef int r_import_type ;
+	typedef Rcpp::traits::elementwise_operands< VEC_TYPE > rcpp_elementwise ;
 
-	Sign( const VEC_TYPE& object_ ) : object(object_){}
+	Sign( const VEC_TYPE& object_ ) : object(object_.get_ref()){}
 
         inline int operator[]( R_xlen_t i ) const {
 		return get(i) ;
@@ -61,7 +62,7 @@ public:
 	operator SEXP() const { return wrap( *this ); }
         inline int get(R_xlen_t i) const { return sign__impl<NA,RTYPE>::get( object[i] ); }
 private:
-	const VEC_TYPE& object ;
+	typename Rcpp::traits::sugar_operand< VEC_TYPE >::type object ;
 } ;
 
 } // sugar

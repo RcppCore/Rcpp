@@ -40,6 +40,10 @@ namespace Rcpp{
             return static_cast<MATRIX&>(*this) ;
         }
 
+        const MATRIX& get_ref() const {
+            return static_cast<const MATRIX&>(*this) ;
+        }
+
         inline stored_type operator()( int i, int j) const {
             return static_cast<const MATRIX*>(this)->operator()(i, j) ;
         }

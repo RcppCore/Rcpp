@@ -27,6 +27,8 @@ namespace Rcpp{
 
     class Range : public VectorBase<INTSXP,false, Range >{
     public:
+        typedef traits::elementwise_operands<> rcpp_elementwise ;
+
         Range( R_xlen_t start_, R_xlen_t end__ ) : start(start_), end_(end__){
             if( start_ > end__ ){
                 throw std::range_error( "upper value must be greater than lower value" ) ;

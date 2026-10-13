@@ -25,6 +25,9 @@
 // traits
 #include <Rcpp/sugar/operators/r_binary_op.h>
 
+// tools
+#include <Rcpp/sugar/tools/check_sizes.h>
+
 // abstractions
 #include <Rcpp/sugar/logical/logical.h>
 

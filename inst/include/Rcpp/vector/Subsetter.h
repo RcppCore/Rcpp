@@ -110,16 +110,28 @@ public:
 
     SubsetProxy& operator=(const SubsetProxy& other) {
         if (other.indices_n == 1) {
+            // a single source element is only ever overwritten with itself
             for (R_xlen_t i=0; i < indices_n; ++i) {
                 lhs[ indices[i] ] = other.lhs[other.indices[0]];
             }
         }
-        else if (indices_n == other.indices_n) {
-            for (R_xlen_t i=0; i < indices_n; ++i)
+        else if (indices_n != other.indices_n) {
+            stop("index error");
+        }
+        else if (lhs.get__() == other.lhs.get__()) {
+            // both subsets index the same vector, so a source element may
+            // be overwritten before it is read; copy the source elements
+            // first
+            Vector<RTYPE, StoragePolicy> tmp = no_init(other.indices_n);
+            for (R_xlen_t i=0; i < other.indices_n; ++i) {
+                tmp[i] = other.lhs[other.indices[i]];
+            }
+            return *this = tmp;
+        }
+        else {
+            for (R_xlen_t i=0; i < indices_n; ++i) {
                 lhs[ indices[i] ] = other.lhs[other.indices[i]];
             }
-        else {
-            stop("index error");
         }
         return *this;
     }
@@ -238,7 +250,7 @@ public:
     Vector<RTYPE, StoragePolicy> operator __OPERATOR__ (                              \
         const SubsetProxy<RTYPE_OTHER, StoragePolicyOther, RHS_RTYPE_OTHER,           \
                           RHS_NA_OTHER, RHS_T_OTHER>& other) {                        \
-        Vector<RTYPE, StoragePolicy> result(indices_n);                               \
+        Vector<RTYPE, StoragePolicy> result = no_init(indices_n);                     \
         if (other.indices_n == 1) {                                                   \
             for (R_xlen_t i = 0; i < indices_n; ++i)                                  \
                 result[i] = lhs[indices[i]] __OPERATOR__ other.lhs[other.indices[0]]; \

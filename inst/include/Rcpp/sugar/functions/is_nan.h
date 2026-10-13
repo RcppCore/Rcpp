@@ -29,6 +29,8 @@ template <int RTYPE, bool NA, typename VEC_TYPE>
 class IsNaN : public ::Rcpp::VectorBase< LGLSXP, false, IsNaN<RTYPE,NA,VEC_TYPE> > {
 public:
 
+	typedef Rcpp::traits::elementwise_operands< VEC_TYPE > rcpp_elementwise ;
+
 	IsNaN( const VEC_TYPE& obj_) : obj(obj_){}
 
         inline int operator[]( R_xlen_t i ) const {
@@ -38,7 +40,7 @@ public:
         inline R_xlen_t size() const { return obj.size() ; }
 
 private:
-	const VEC_TYPE& obj ;
+	typename Rcpp::traits::sugar_operand< VEC_TYPE >::type obj ;
 
 } ;
 

@@ -41,22 +41,29 @@ public:
 	> BASE ;
 
 	And_SingleLogicalResult_SingleLogicalResult( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_) :
-		lhs(lhs_), rhs(rhs_){} ;
+		lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){} ;
 
 	inline void apply(){
 		int left = lhs.get() ;
-		if( Rcpp::traits::is_na<LGLSXP>( left ) ){
-			BASE::set( left ) ;
-		} else if( left == FALSE ){
+		if( left == FALSE ){
 			BASE::set( FALSE ) ;
+			return ;
+		}
+
+		// NA && FALSE is FALSE
+		int right = rhs.get() ;
+		if( Rcpp::traits::is_na<LGLSXP>( left ) && right != FALSE ){
+			BASE::set( left ) ;
 		} else {
-			BASE::set( rhs.get() ) ;
+			BASE::set( right ) ;
 		}
 	}
 
 private:
-	const LHS_TYPE& lhs ;
-	const RHS_TYPE& rhs ;
+	// by value, since these are usually temporaries, and non-const, since
+	// evaluating them caches their result
+	LHS_T lhs ;
+	RHS_T rhs ;
 
 } ;
 
@@ -77,7 +84,7 @@ public:
 	> BASE ;
 
 	And_SingleLogicalResult_SingleLogicalResult( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_) :
-		lhs(lhs_), rhs(rhs_){} ;
+		lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){} ;
 
 	inline void apply(){
 		// here we know rhs does not have NA, so we start with the rhs
@@ -90,8 +97,8 @@ public:
 	}
 
 private:
-	const LHS_TYPE& lhs ;
-	const RHS_TYPE& rhs ;
+	LHS_T lhs ;
+	RHS_T rhs ;
 
 } ;
 
@@ -113,7 +120,7 @@ public:
 	> BASE ;
 
 	And_SingleLogicalResult_SingleLogicalResult( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_) :
-		lhs(lhs_), rhs(rhs_){} ;
+		lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){} ;
 
 	inline void apply(){
 		// here we know lhs does not have NA, so we start with the rhs
@@ -126,8 +133,8 @@ public:
 	}
 
 private:
-	const LHS_TYPE& lhs ;
-	const RHS_TYPE& rhs ;
+	LHS_T lhs ;
+	RHS_T rhs ;
 
 } ;
 
@@ -148,7 +155,7 @@ public:
 	> BASE ;
 
 	And_SingleLogicalResult_SingleLogicalResult( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_) :
-		lhs(lhs_), rhs(rhs_){} ;
+		lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){} ;
 
 	inline void apply(){
 		int left = lhs.get() ;
@@ -160,8 +167,8 @@ public:
 	}
 
 private:
-	const LHS_TYPE& lhs ;
-	const RHS_TYPE& rhs ;
+	LHS_T lhs ;
+	RHS_T rhs ;
 
 } ;
 
@@ -182,7 +189,7 @@ public:
 	> BASE ;
 
 	And_SingleLogicalResult_bool( const LHS_TYPE& lhs_, bool rhs_) :
-		lhs(lhs_), rhs(rhs_){} ;
+		lhs(lhs_.get_ref()), rhs(rhs_){} ;
 
 	inline void apply(){
 		if( !rhs ){
@@ -193,7 +200,7 @@ public:
 	}
 
 private:
-	const LHS_TYPE& lhs ;
+	LHS_T lhs ;
 	bool rhs ;
 
 } ;
@@ -206,8 +213,11 @@ class And_LogicalExpression_LogicalExpression : public Rcpp::VectorBase< LGLSXP,
 public:
     typedef typename Rcpp::VectorBase<LGLSXP,LHS_NA,LHS_T> LHS_TYPE ;
     typedef typename Rcpp::VectorBase<LGLSXP,RHS_NA,RHS_T> RHS_TYPE ;
+    typedef Rcpp::traits::elementwise_operands< LHS_TYPE, RHS_TYPE > rcpp_elementwise ;
 
-    And_LogicalExpression_LogicalExpression( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_), rhs(rhs_){}
+    And_LogicalExpression_LogicalExpression( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){
+        check_sizes(lhs.size(), rhs.size()) ;
+    }
 
     inline int operator[]( R_xlen_t i ) const{
         if( lhs[i] == TRUE && rhs[i] == TRUE ) return TRUE ;
@@ -217,8 +227,8 @@ public:
     inline R_xlen_t size() const { return lhs.size(); }
 
 private:
-    const LHS_TYPE& lhs ;
-    const RHS_TYPE& rhs ;
+    typename Rcpp::traits::sugar_operand< LHS_TYPE >::type lhs ;
+    typename Rcpp::traits::sugar_operand< RHS_TYPE >::type rhs ;
 } ;
 template <typename LHS_T, bool RHS_NA, typename RHS_T>
 class And_LogicalExpression_LogicalExpression<false,LHS_T,RHS_NA,RHS_T>
@@ -226,8 +236,11 @@ class And_LogicalExpression_LogicalExpression<false,LHS_T,RHS_NA,RHS_T>
 public:
     typedef typename Rcpp::VectorBase<LGLSXP,false,LHS_T> LHS_TYPE ;
     typedef typename Rcpp::VectorBase<LGLSXP,RHS_NA,RHS_T> RHS_TYPE ;
+    typedef Rcpp::traits::elementwise_operands< LHS_TYPE, RHS_TYPE > rcpp_elementwise ;
 
-    And_LogicalExpression_LogicalExpression( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_), rhs(rhs_){}
+    And_LogicalExpression_LogicalExpression( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){
+        check_sizes(lhs.size(), rhs.size()) ;
+    }
 
     inline int operator[]( R_xlen_t i ) const{
         if( lhs[i] == TRUE && rhs[i] == TRUE ) return TRUE ;
@@ -237,8 +250,8 @@ public:
     inline R_xlen_t size() const { return lhs.size(); }
 
 private:
-    const LHS_TYPE& lhs ;
-    const RHS_TYPE& rhs ;
+    typename Rcpp::traits::sugar_operand< LHS_TYPE >::type lhs ;
+    typename Rcpp::traits::sugar_operand< RHS_TYPE >::type rhs ;
 } ;
 template <bool LHS_NA, typename LHS_T, typename RHS_T>
 class And_LogicalExpression_LogicalExpression<LHS_NA,LHS_T,false,RHS_T>
@@ -246,8 +259,11 @@ class And_LogicalExpression_LogicalExpression<LHS_NA,LHS_T,false,RHS_T>
 public:
     typedef typename Rcpp::VectorBase<LGLSXP,LHS_NA,LHS_T> LHS_TYPE ;
     typedef typename Rcpp::VectorBase<LGLSXP,false,RHS_T> RHS_TYPE ;
+    typedef Rcpp::traits::elementwise_operands< LHS_TYPE, RHS_TYPE > rcpp_elementwise ;
 
-    And_LogicalExpression_LogicalExpression( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_), rhs(rhs_){}
+    And_LogicalExpression_LogicalExpression( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){
+        check_sizes(lhs.size(), rhs.size()) ;
+    }
 
     inline int operator[]( R_xlen_t i ) const{
         if( lhs[i] == TRUE && rhs[i] == TRUE ) return TRUE ;
@@ -257,8 +273,8 @@ public:
     inline R_xlen_t size() const { return lhs.size(); }
 
 private:
-    const LHS_TYPE& lhs ;
-    const RHS_TYPE& rhs ;
+    typename Rcpp::traits::sugar_operand< LHS_TYPE >::type lhs ;
+    typename Rcpp::traits::sugar_operand< RHS_TYPE >::type rhs ;
 } ;
 template <typename LHS_T, typename RHS_T>
 class And_LogicalExpression_LogicalExpression<false,LHS_T,false,RHS_T>
@@ -266,8 +282,11 @@ class And_LogicalExpression_LogicalExpression<false,LHS_T,false,RHS_T>
 public:
     typedef typename Rcpp::VectorBase<LGLSXP,false,LHS_T> LHS_TYPE ;
     typedef typename Rcpp::VectorBase<LGLSXP,false,RHS_T> RHS_TYPE ;
+    typedef Rcpp::traits::elementwise_operands< LHS_TYPE, RHS_TYPE > rcpp_elementwise ;
 
-    And_LogicalExpression_LogicalExpression( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_), rhs(rhs_){}
+    And_LogicalExpression_LogicalExpression( const LHS_TYPE& lhs_, const RHS_TYPE& rhs_ ) : lhs(lhs_.get_ref()), rhs(rhs_.get_ref()){
+        check_sizes(lhs.size(), rhs.size()) ;
+    }
 
     inline int operator[]( R_xlen_t i ) const{
         if( lhs[i] == TRUE && rhs[i] == TRUE ) return TRUE ;
@@ -276,8 +295,8 @@ public:
     inline R_xlen_t size() const { return lhs.size(); }
 
 private:
-    const LHS_TYPE& lhs ;
-    const RHS_TYPE& rhs ;
+    typename Rcpp::traits::sugar_operand< LHS_TYPE >::type lhs ;
+    typename Rcpp::traits::sugar_operand< RHS_TYPE >::type rhs ;
 } ;
 
 }
@@ -287,7 +306,7 @@ template <bool LHS_NA, typename LHS_T, bool RHS_NA, typename RHS_T>
 inline Rcpp::sugar::And_SingleLogicalResult_SingleLogicalResult<LHS_NA,LHS_T,RHS_NA,RHS_T>
 operator&&(
 	const Rcpp::sugar::SingleLogicalResult<LHS_NA,LHS_T>& lhs,
-	const Rcpp::sugar::SingleLogicalResult<LHS_NA,LHS_T>& rhs
+	const Rcpp::sugar::SingleLogicalResult<RHS_NA,RHS_T>& rhs
 ){
 	return Rcpp::sugar::And_SingleLogicalResult_SingleLogicalResult<LHS_NA,LHS_T,RHS_NA,RHS_T>( lhs, rhs ) ;
 }

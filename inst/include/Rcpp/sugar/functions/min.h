@@ -52,7 +52,7 @@ namespace sugar{
             return min ;
         }
 
-        const T& obj ;
+        typename Rcpp::traits::sugar_operand< T >::type obj ;
     } ;
 
     // version for NA = false
@@ -80,7 +80,7 @@ namespace sugar{
             return min ;
         }
 
-        const T& obj ;
+        typename Rcpp::traits::sugar_operand< T >::type obj ;
     } ;
 
 

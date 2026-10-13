@@ -29,7 +29,7 @@ public:
     typedef typename Rcpp::VectorBase<RTYPE,NA,T> VEC_TYPE;
     typedef Rcpp::Vector<RTYPE> VECTOR;
 
-    Mean(const VEC_TYPE& object_) : object(object_) {}
+    Mean(const VEC_TYPE& object_) : object(object_.get_ref()) {}
 
     double get() const {
         VECTOR input = object;
@@ -46,7 +46,7 @@ public:
         return (double)s ;
     }
 private:
-    const VEC_TYPE& object ;
+    typename Rcpp::traits::sugar_operand< VEC_TYPE >::type object ;
 };
 
 template <bool NA, typename T>
@@ -54,7 +54,7 @@ class Mean<CPLXSXP,NA,T> : public Lazy<Rcomplex, Mean<CPLXSXP,NA,T> > {
 public:
     typedef typename Rcpp::VectorBase<CPLXSXP,NA,T> VEC_TYPE;
 
-    Mean(const VEC_TYPE& object_) : object(object_) {}
+    Mean(const VEC_TYPE& object_) : object(object_.get_ref()) {}
 
     Rcomplex get() const {
         ComplexVector input = object;
@@ -83,7 +83,7 @@ public:
         return z;
     }
 private:
-    const VEC_TYPE& object ;
+    typename Rcpp::traits::sugar_operand< VEC_TYPE >::type object ;
 };
 
 template <bool NA, typename T>
@@ -91,7 +91,7 @@ class Mean<LGLSXP,NA,T> : public Lazy<double, Mean<LGLSXP,NA,T> > {
 public:
     typedef typename Rcpp::VectorBase<LGLSXP,NA,T> VEC_TYPE;
 
-    Mean(const VEC_TYPE& object_) : object(object_) {}
+    Mean(const VEC_TYPE& object_) : object(object_.get_ref()) {}
 
     double get() const {
         LogicalVector input = object;
@@ -105,7 +105,7 @@ public:
         return (double)s;
     }
 private:
-    const VEC_TYPE& object ;
+    typename Rcpp::traits::sugar_operand< VEC_TYPE >::type object ;
 };
 
 template <bool NA, typename T>
@@ -113,7 +113,7 @@ class Mean<INTSXP,NA,T> : public Lazy<double, Mean<INTSXP,NA,T> > {
 public:
     typedef typename Rcpp::VectorBase<INTSXP,NA,T> VEC_TYPE;
 
-    Mean(const VEC_TYPE& object_) : object(object_) {}
+    Mean(const VEC_TYPE& object_) : object(object_.get_ref()) {}
 
     double get() const {
         IntegerVector input = object;
@@ -129,7 +129,7 @@ public:
         return (double)s ;
     }
 private:
-    const VEC_TYPE& object ;
+    typename Rcpp::traits::sugar_operand< VEC_TYPE >::type object ;
 };
 
 } // sugar

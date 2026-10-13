@@ -1051,8 +1051,15 @@ private:
     inline void assign_sugar_expression( const T& x ) {
         R_xlen_t n = size() ;
         if( n == x.size() ){
-            // just copy the data
-            import_expression<T>(x, n ) ;
+            // write into the existing storage; an expression that isn't
+            // elementwise may read from this vector (e.g. `x = rev(x)`), so
+            // evaluate it first
+            if( traits::is_elementwise<T, traits::vector_target>::value ){
+                import_expression<T>(x, n ) ;
+            } else {
+                const Vector< T::r_type::value > tmp(x) ;
+                import_expression< Vector< T::r_type::value > >(tmp, n ) ;
+            }
         } else{
             // different size, so we change the memory
             Shield<SEXP> wrapped(wrap(x));
