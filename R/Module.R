@@ -243,7 +243,7 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
                                  where = where
                                  )
 
-        classDef <- methods::getClass(clname)
+        classDef <- generator$def
         ## non-public (static) fields in class representation
         ## <fixme>  Should these become real fields? </fixme>
         fields <- classDef@fieldPrototypes
@@ -270,7 +270,7 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
         }                                                               # #nocov end
 
         # promoting show to S4
-        if( any( grepl( "show", names(CLASS@methods) ) ) ){
+        if( "show" %in% names(CLASS@methods) ){
             setMethod( "show", clname, function(object) object$show(), where = where )  # #nocov
         }
 
@@ -304,23 +304,20 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
     functions <- .Call( Module__functions_names, xp )
     for( fun in functions ){
         storage[[ fun ]] <- .get_Module_function( module, fun, xp )
-
-        # register as(FROM, TO) methods
-        converter_rx <- "^[.]___converter___(.*)___(.*)$"
-        if( length( matches <- grep( converter_rx, functions ) ) ){             # #nocov start
-            for( i in matches ){
-                fun <- functions[i]
-                from <- sub( converter_rx, "\\1", fun )
-                to   <- sub( converter_rx, "\\2", fun )
-                converter <- function( from ){}
-                body( converter ) <- substitute( { CONVERT(from) },
-                    list( CONVERT = storage[[fun]] )
-                )
-                setAs( from, to, converter, where = where )
-            }
-        }                                                                       # #nocov end
-
     }
+
+    # register as(FROM, TO) methods once storage holds every function: the
+    # converter body captures storage[[fun]] by value via substitute()
+    converter_rx <- "^[.]___converter___(.*)___(.*)$"
+    for( fun in grep( converter_rx, functions, value = TRUE ) ){                # #nocov start
+        from <- sub( converter_rx, "\\1", fun )
+        to   <- sub( converter_rx, "\\2", fun )
+        converter <- function( from ){}
+        body( converter ) <- substitute( { CONVERT(from) },
+            list( CONVERT = storage[[fun]] )
+        )
+        setAs( from, to, converter, where = where )
+    }                                                                           # #nocov end
 
     assign( "storage", storage, envir = as.environment(module) )
     module
