@@ -222,15 +222,12 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
 
         fields <- cpp_fields( CLASS, where )
         methods <- cpp_refMethods(CLASS, where)
-        generator <- methods::setRefClass( clname,
-                                 fields = fields,
-                                 contains = "C++Object",
-                                 methods = methods,
-                                 where = where
-                                 )
         # just to make codetools happy
         .self <- .refClassDef <- NULL
-        generator$methods(initialize =
+        # Supply 'initialize' together with the other methods so that the
+        # reference class is analysed once, instead of a second full pass
+        # through refClassInformation() in generator$methods(...)
+        methods[["initialize"]] <-
               if (cpp_hasDefaultConstructor(CLASS))
                  function(...) Rcpp::cpp_object_initializer(.self,.refClassDef, ...)
               else
@@ -238,10 +235,15 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
                      if (nargs()) Rcpp::cpp_object_initializer(.self,.refClassDef, ...)
                      else Rcpp::cpp_object_dummy(.self, .refClassDef) 			# #nocov
                  }
-                          )
         rm( .self, .refClassDef )
+        generator <- methods::setRefClass( clname,
+                                 fields = fields,
+                                 contains = "C++Object",
+                                 methods = methods,
+                                 where = where
+                                 )
 
-        classDef <- methods::getClass(clname)
+        classDef <- generator$def
         ## non-public (static) fields in class representation
         ## <fixme>  Should these become real fields? </fixme>
         fields <- classDef@fieldPrototypes
@@ -268,7 +270,7 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
         }                                                               # #nocov end
 
         # promoting show to S4
-        if( any( grepl( "show", names(CLASS@methods) ) ) ){
+        if( "show" %in% names(CLASS@methods) ){
             setMethod( "show", clname, function(object) object$show(), where = where )  # #nocov
         }
 
@@ -281,7 +283,10 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
         CLASS <- classes[[i]]
         clname <- CLASS@.Data
         demangled_name <- sub( "^Rcpp_", "", clname )
-        .classes_map[[ CLASS@typeid ]] <- storage[[ demangled_name ]] <- .get_Module_Class( module, demangled_name, xp )
+        # reuse the C++Class object already built by Module__classes_info
+        # rather than rebuilding it (and all of its method/field objects)
+        CLASS@generator <- generators[[ clname ]]
+        .classes_map[[ CLASS@typeid ]] <- storage[[ demangled_name ]] <- CLASS
 
         # exposing enums values as CLASS.VALUE
         # (should really be CLASS$value but I don't know how to do it)
@@ -299,23 +304,20 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
     functions <- .Call( Module__functions_names, xp )
     for( fun in functions ){
         storage[[ fun ]] <- .get_Module_function( module, fun, xp )
-
-        # register as(FROM, TO) methods
-        converter_rx <- "^[.]___converter___(.*)___(.*)$"
-        if( length( matches <- grep( converter_rx, functions ) ) ){             # #nocov start
-            for( i in matches ){
-                fun <- functions[i]
-                from <- sub( converter_rx, "\\1", fun )
-                to   <- sub( converter_rx, "\\2", fun )
-                converter <- function( from ){}
-                body( converter ) <- substitute( { CONVERT(from) },
-                    list( CONVERT = storage[[fun]] )
-                )
-                setAs( from, to, converter, where = where )
-            }
-        }                                                                       # #nocov end
-
     }
+
+    # register as(FROM, TO) methods once storage holds every function: the
+    # converter body captures storage[[fun]] by value via substitute()
+    converter_rx <- "^[.]___converter___(.*)___(.*)$"
+    for( fun in grep( converter_rx, functions, value = TRUE ) ){                # #nocov start
+        from <- sub( converter_rx, "\\1", fun )
+        to   <- sub( converter_rx, "\\2", fun )
+        converter <- function( from ){}
+        body( converter ) <- substitute( { CONVERT(from) },
+            list( CONVERT = storage[[fun]] )
+        )
+        setAs( from, to, converter, where = where )
+    }                                                                           # #nocov end
 
     assign( "storage", storage, envir = as.environment(module) )
     module

@@ -1,3 +1,24 @@
+2026-10-21  Michael Sumner <mdsumner@gmail.com>
+
+	* R/Module.R (Module): Supply the 'initialize' method to setRefClass() with
+	the other methods instead of adding it in a second generator$methods()
+	call, which repeated the reference class analysis of every exposed
+	method, and reuse the C++Class objects returned by
+	Module__classes_info() rather than rebuilding each of them via
+	.get_Module_Class(); both reduce the time spent loading a module (#1515)
+	* R/Module.R (Module): Take the class representation from the generator
+	rather than looking it up by name with methods::getClass(), which
+	ignores 'where' and can return another loaded package's class of the same
+	name
+	* R/Module.R (Module): Register as(FROM, TO) converters after the loop
+	that populates 'storage' rather than once per function inside it
+	* R/Module.R (Module): Match the 'show' method name exactly rather than as
+	a substring, so a class exposing e.g. 'showInfo' keeps the C++Object show
+	method
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+	* inst/include/Rcpp/config.h: Idem
+
 2026-10-13  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
