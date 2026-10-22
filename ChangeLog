@@ -1,3 +1,17 @@
+2026-10-22  Michael Sumner <mdsumner@gmail.com>
+
+	* R/00_classes.R: Define C++Field, C++OverloadedMethods and C++Constructor
+	as plain S4 classes instead of reference classes, as creating one reference
+	class object per exposed method dominated the time spent loading a module;
+	add '$' and '$<-' methods for backwards compatibility
+	* R/00_classes.R (.cpp_methods_info): Former 'info' reference method
+	* R/01_show.R: Use slot access and .cpp_methods_info()
+	* R/Module.R (method_wrapper, binding_maker): Idem
+	* inst/include/Rcpp/Module.h: Derive from S4 instead of Reference
+	* man/CppConstructor-class.Rd: Document slots and '$' methods
+	* man/CppField-class.Rd: Idem
+	* man/CppOverloadedMethods-class.Rd: Idem
+
 2026-10-21  Michael Sumner <mdsumner@gmail.com>
 
 	* R/Module.R (Module): Supply the 'initialize' method to setRefClass() with
