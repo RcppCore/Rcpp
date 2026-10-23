@@ -1,9 +1,10 @@
 2026-10-22  Kevin Ushey  <kevinushey@gmail.com>
 
-	* R/Module.R (cpp_refMethods): Make finalize() a no-op for a module
-	object that was never constructed (created without arguments for a class
-	without a default constructor); it used to fail on the dummy pointer, and
-	the failure surfaced as an error message at garbage collection
+	* src/module.cpp (CppObject__finalize): Make finalize() a no-op for a
+	module object that was never constructed (created without arguments for a
+	class without a default constructor); it used to fail on the dummy
+	pointer, and the failure surfaced as an error message at garbage
+	collection
 	* inst/tinytest/test_module.R: Add test
 
 2026-10-22  Michael Sumner <mdsumner@gmail.com>
