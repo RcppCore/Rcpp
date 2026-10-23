@@ -400,14 +400,18 @@ method_wrapper <- function( METHOD, where ){
 ## create a named list of the R methods to invoke C++ methods
 ## from the C++ class with pointer xp
 cpp_refMethods <- function(CLASS, where) {
+    # an object created without arguments for a class lacking a default
+    # constructor holds the dummy pointer (see cpp_object_dummy), which is
+    # not an external pointer: there is nothing to finalize for it
     finalizer <- eval( substitute(
             function(){
-                .Call( CppObject__finalize, class_pointer , .pointer )
+                if( ! identical( .pointer, dummy ) )
+                    .Call( CppObject__finalize, class_pointer , .pointer )
             },
             list(
-                CLASS = CLASS@pointer,
                 CppObject__finalize = CppObject__finalize,
-                class_pointer = CLASS@pointer
+                class_pointer = CLASS@pointer,
+                dummy = .dummyInstancePointer
             )
         ) )
         mets <- c(
