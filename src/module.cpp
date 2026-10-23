@@ -108,7 +108,14 @@ RCPP_FUN_4(SEXP, CppField__set, XP_Class cl, SEXP field_xp, SEXP obj, SEXP value
     cl->setProperty(field_xp, obj, value);
     return R_NilValue;
 }
+
+extern SEXP rcpp_dummy_pointer;
+
 RCPP_FUN_2(SEXP, CppObject__finalize, XP_Class cl, SEXP obj) {
+    // an object created without arguments for a class lacking a default
+    // constructor holds the dummy pointer: there is nothing to finalize
+    if (obj == rcpp_dummy_pointer)
+        return R_NilValue;
     cl->run_finalizer(obj);
     return R_NilValue;
 }
