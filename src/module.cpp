@@ -119,6 +119,18 @@ BEGIN_RCPP
     SEXP p = CDR(args);
     XP_Function fun(CAR(p)); p = CDR(p);
     UNPACK_EXTERNAL_ARGS(cargs,p)
+
+    // Module::get_function() and InternalFunction store the arity in the
+    // tag; without this check, parameters beyond those supplied would be
+    // read from uninitialized slots of cargs
+    SEXP arity = R_ExternalPtrTag(fun);
+    if (TYPEOF(arity) == INTSXP && Rf_xlength(arity) == 1 && nargs < INTEGER(arity)[0])
+        Rcpp::stop(
+            "incorrect number of arguments: expecting %d, got %d",
+            INTEGER(arity)[0],
+            nargs
+        );
+
     return fun->operator()(cargs);
 END_RCPP
 }

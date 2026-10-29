@@ -1,3 +1,17 @@
+2026-10-29  Kevin Ushey <kevinushey@gmail.com>
+
+	* src/module.cpp (InternalFunction_invoke): Raise an error when fewer
+	arguments are supplied than the arity stored in the function pointer's
+	tag, instead of reading the missing ones from uninitialized memory
+	(#1521)
+	* inst/include/Rcpp/module/Module.h (Module::get_function): Store the
+	arity of module functions in the pointer tag
+	* inst/include/Rcpp/InternalFunction.h: Idem for InternalFunction
+	* inst/tinytest/cpp/Module.cpp: Add module functions with formals
+	* inst/tinytest/test_module.R: Test calls with too few arguments
+	* inst/tinytest/test_internal_function.R: Idem
+	* inst/tinytest/test_internal_function_cpp11.R: Idem
+
 2026-10-23  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date

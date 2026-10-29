@@ -41,6 +41,15 @@ expect_true(is_void(bla@.Data))
 expect_true(is_void(bla1@.Data))
 expect_true(is_void(bla2@.Data))
 
+## module functions must be called with at least as many arguments as
+## the C++ function takes, rather than reading the missing ones from
+## uninitialized memory (#1521)
+expect_error( foo( 2L ), "expecting 2, got 1" )
+expect_error( bar(), "expecting 1, got 0" )
+expect_equal( foo_formals(), 20.0 )
+expect_equal( foo_formals( y = 3.0 ), 6.0 )
+expect_error( foo_short_formals(), "expecting 2, got 1" )
+
 w <- new( ModuleWorld )
 expect_equal( w$greet(), "hello" )
 w$set( "hello world" )
