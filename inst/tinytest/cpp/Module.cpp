@@ -137,6 +137,27 @@ double Test_get_x_pointer(ModuleTest* x) {
     return x->value;
 }
 
+class ModuleBrackets {
+public:
+    ModuleBrackets() : value(1.0) {}
+
+    double at(int i) { return value * i; }
+    double at2(int i, int j) { return value * i * j; }
+    double total() { return value; }
+
+    double value;
+};
+
+class ModuleBracketsOnly {
+public:
+    ModuleBracketsOnly() : value(1.0) {}
+
+    double at(int i) { return value * i; }
+    double at2(int i, int j) { return value * i * j; }
+
+    double value;
+};
+
 class ModuleGadget {
 public:
     ModuleGadget() {}
@@ -215,6 +236,22 @@ RCPP_MODULE(demoModule) {
         .constructor<double,double>()
 
         .method("get" , &ModuleRandomizer::get)
+        ;
+
+    // overloaded [[, with and without an ordinary method
+    class_<ModuleBrackets>("ModuleBrackets")
+        .constructor()
+        .method("[[", &ModuleBrackets::at)
+        .method("[[", &ModuleBrackets::at2)
+        .method("total", &ModuleBrackets::total)
+        .field("value", &ModuleBrackets::value)
+        ;
+
+    class_<ModuleBracketsOnly>("ModuleBracketsOnly")
+        .constructor()
+        .method("[[", &ModuleBracketsOnly::at)
+        .method("[[", &ModuleBracketsOnly::at2)
+        .field("value", &ModuleBracketsOnly::value)
         ;
 
     class_<ModuleGadget>("ModuleGadget")
