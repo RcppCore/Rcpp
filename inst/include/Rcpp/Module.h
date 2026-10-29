@@ -610,18 +610,37 @@ namespace Rcpp {
 
 }
 
+namespace Rcpp {
+    namespace internal {
+
+        // makes module the target of class_<>, function(), etc. while an
+        // RCPP_MODULE body runs, and clears it however the body exits
+        class ModuleScope {
+        public:
+            explicit ModuleScope( Module* module ){ ::setCurrentScope( module ) ; }
+            ~ModuleScope(){ ::setCurrentScope( 0 ) ; }
+
+            ModuleScope( const ModuleScope& ) = delete ;
+            ModuleScope& operator=( const ModuleScope& ) = delete ;
+        } ;
+
+    }
+}
+
 #define RCPP_MODULE_BOOT(name) _rcpp_module_boot_##name
 
-#define RCPP_MODULE(name)                                               \
-    void _rcpp_module_##name##_init() ;                                 \
-    static Rcpp::Module _rcpp_module_##name( # name ) ;                 \
-    extern "C" SEXP _rcpp_module_boot_##name(){                         \
-        ::setCurrentScope( & _rcpp_module_##name ) ;                    \
-        _rcpp_module_##name##_init( ) ;                                 \
-        Rcpp::XPtr<Rcpp::Module> mod_xp(& _rcpp_module_##name , false); \
-        ::setCurrentScope( 0 ) ;                                        \
-        return mod_xp ;                                                 \
-    }                                                                   \
+// the boot function is called from R via .Call(), so exceptions thrown by
+// the module body must be turned into R errors
+#define RCPP_MODULE(name)                                                         \
+    void _rcpp_module_##name##_init() ;                                           \
+    static Rcpp::Module _rcpp_module_##name( # name ) ;                           \
+    extern "C" SEXP _rcpp_module_boot_##name(){                                   \
+        BEGIN_RCPP                                                                \
+        Rcpp::internal::ModuleScope _rcpp_module_scope( & _rcpp_module_##name ) ; \
+        _rcpp_module_##name##_init( ) ;                                           \
+        return Rcpp::XPtr<Rcpp::Module>( & _rcpp_module_##name , false ) ;       \
+        END_RCPP                                                                  \
+    }                                                                             \
     void _rcpp_module_##name##_init()
 
 // silly little dance to suppress a 'defined but not used variable' warning
