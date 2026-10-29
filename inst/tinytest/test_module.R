@@ -167,6 +167,15 @@ expect_error( r$get(10L), "not initialized" )
 expect_error( Rcpp::sourceCpp("cpp/ModuleInitError.cpp"), "no such class" )
 expect_true( Module_scope_is_cleared() )
 
+## a pointer returned from C++ is owned by the R object wrapping it, and
+## deleted when that object is garbage collected (#1533)
+destroyed <- ModuleOwned_destroyed()
+owned <- ModuleOwned_create( 7L )
+expect_equal( owned$id, 7L )
+rm( owned )
+invisible( gc() )
+expect_equal( ModuleOwned_destroyed(), destroyed + 1L )
+
 #    test.Module.flexible.semantics <- function( ){
 expect_equal( test_reference( seq(0,10) ), 11L )
 expect_equal( test_const_reference( seq(0,10) ), 11L )
