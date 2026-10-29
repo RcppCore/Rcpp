@@ -250,9 +250,10 @@
             typename map_vec_signed_method::iterator it = ptr->vec_methods.find( name_ ) ;
             if( it == ptr->vec_methods.end() ){
                 it = ptr->vec_methods.insert( vec_signed_method_pair( name_, new vec_signed_method() ) ).first ;
+                // complete() relies on this counting names, not overloads
+                if( *name_ == '[' ) ptr->specials++ ;
             }
             (it->second)->push_back( new signed_method_class(m, valid, docstring ) ) ;
-            if( *name_ == '[' ) ptr->specials++ ;
             return *this ;
         }
 
