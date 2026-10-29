@@ -21,10 +21,100 @@
 namespace Rcpp{
 namespace internal{
 
-    inline void* as_module_object_internal(SEXP obj){
-        Environment env(obj) ;
+    // the address of the C++ object held by the module object whose
+    // environment is env (see cpp_object_initializer() in R/Module.R)
+    inline void* module_object_address(const Environment& env){
         SEXP xp = env.get(".pointer") ;
-        return R_ExternalPtrAddr(xp );
+        if( xp == R_NilValue )
+            throw not_compatible( "Expecting a C++ module object" ) ;
+
+        // the dummy object of a class without a default constructor
+        if( TYPEOF(xp) != EXTPTRSXP )
+            throw not_initialized() ;
+
+        // e.g. a deserialized object
+        void* ptr = R_ExternalPtrAddr(xp) ;
+        if( ptr == NULL )
+            throw ::Rcpp::exception( "external pointer is not valid" ) ;
+
+        return ptr ;
+    }
+
+#ifndef RCPP_NO_MODULES
+    // whether the module class cl is the C++ class typeinfo_name, or derives
+    // from it through class_::derives(), which records each parent by its R
+    // class name, "Rcpp_" followed by its name in the module
+    inline bool module_class_is( class_Base* cl, Module* module, const char* typeinfo_name ){
+        if( cl->has_typeinfo_name(typeinfo_name) )
+            return true ;
+
+        std::vector<class_Base*> todo(1, cl) ;
+        std::set<class_Base*> seen ;
+        while( module && !todo.empty() ){
+            class_Base* current = todo.back() ;
+            todo.pop_back() ;
+            if( !seen.insert(current).second )
+                continue ;
+
+            if( current->has_typeinfo_name(typeinfo_name) )
+                return true ;
+
+            for( size_t i = 0; i < current->parents.size(); i++ ){
+                const std::string& parent = current->parents[i] ;
+                if( parent.compare(0, 5, "Rcpp_") != 0 )
+                    continue ;
+                std::string name = parent.substr(5) ;
+                if( module->has_class(name) )
+                    todo.push_back( module->get_class_pointer(name) ) ;
+            }
+        }
+        return false ;
+    }
+#endif
+
+    // packages call this one directly, so it stays; it cannot check the class
+    inline void* as_module_object_internal(SEXP obj){
+        if( !Rf_isS4(obj) )
+            throw not_compatible( "Expecting a C++ module object" ) ;
+        Environment env(obj) ;
+        return module_object_address(env) ;
+    }
+
+    inline void* as_module_object_internal(SEXP obj, const char* typeinfo_name){
+        if( !Rf_isS4(obj) ){
+            throw not_compatible(
+                "Expecting an object of C++ class '%s'",
+                demangle(typeinfo_name)
+            ) ;
+        }
+        Environment env(obj) ;
+        void* ptr = module_object_address(env) ;
+
+#ifndef RCPP_NO_MODULES
+        SEXP cppclass = env.get(".cppclass") ;
+        if( TYPEOF(cppclass) != EXTPTRSXP || R_ExternalPtrAddr(cppclass) == NULL ){
+            throw not_compatible(
+                "Expecting an object of C++ class '%s'",
+                demangle(typeinfo_name)
+            ) ;
+        }
+        class_Base* cl = reinterpret_cast<class_Base*>( R_ExternalPtrAddr(cppclass) ) ;
+
+        SEXP module_xp = env.get(".module") ;
+        Module* module = NULL ;
+        if( TYPEOF(module_xp) == EXTPTRSXP )
+            module = reinterpret_cast<Module*>( R_ExternalPtrAddr(module_xp) ) ;
+
+        if( !module_class_is(cl, module, typeinfo_name) ){
+            throw not_compatible(
+                "Expecting an object of C++ class '%s', got an object of class '%s'",
+                demangle(typeinfo_name),
+                cl->name
+            ) ;
+        }
+#endif
+
+        return ptr ;
     }
 
 }

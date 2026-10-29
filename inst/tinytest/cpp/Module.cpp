@@ -137,6 +137,24 @@ double Test_get_x_pointer(ModuleTest* x) {
     return x->value;
 }
 
+class ModuleBase {
+public:
+    ModuleBase() : value(1.0) {}
+    virtual ~ModuleBase() {}
+    double value;
+};
+
+class ModuleDerived : public ModuleBase {
+public:
+    ModuleDerived() { value = 2.0; }
+};
+
+RCPP_EXPOSED_CLASS_NODECL(ModuleBase)
+
+double ModuleBase_value(const ModuleBase& x) {
+    return x.value;
+}
+
 class ModuleGadget {
 public:
     ModuleGadget() {}
@@ -216,6 +234,17 @@ RCPP_MODULE(demoModule) {
 
         .method("get" , &ModuleRandomizer::get)
         ;
+
+    class_<ModuleBase>("ModuleBase")
+        .constructor()
+        ;
+
+    class_<ModuleDerived>("ModuleDerived")
+        .derives<ModuleBase>("ModuleBase")
+        .constructor()
+        ;
+
+    function("ModuleBase_value", &ModuleBase_value);
 
     class_<ModuleGadget>("ModuleGadget")
         .constructor()
