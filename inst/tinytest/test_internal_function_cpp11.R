@@ -29,3 +29,7 @@ expect_equal( fun(38), 42 )
 #    test.internal_function_concatenate <- function(){
 fun <- getConcatenate()
 expect_equal( fun("Hello"," World"), "Hello World" )
+
+## too few arguments raise an error rather than reading the missing ones
+## from uninitialized memory (#1521)
+expect_error( fun("Hello"), "expecting 2, got 1" )

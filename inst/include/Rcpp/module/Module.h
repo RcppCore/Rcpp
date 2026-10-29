@@ -164,8 +164,12 @@ namespace Rcpp {
             }
             std::string sign ;
             fun->signature( sign, name_.data() ) ;
+
+            // checked against the number of supplied arguments by InternalFunction_invoke
+            Shield<SEXP> arity( Rf_ScalarInteger( fun->nargs() ) ) ;
+
             return List::create(
-                XPtr<CppFunction>( fun, false ),
+                XPtr<CppFunction>( fun, false, arity ),
                 fun->is_void(),
                 fun->docstring,
                 sign,
