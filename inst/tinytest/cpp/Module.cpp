@@ -89,6 +89,24 @@ private:
     int y;
 };
 
+class ModuleProperties {
+public:
+    ModuleProperties() : value(0.0) {}
+
+    double get() { return value; }
+    double get_const() const { return value; }
+    void set(double value_) { value = value_; }
+
+    double value;
+};
+
+double ModuleProperties_get(ModuleProperties* p) {
+    return p->value;
+}
+void ModuleProperties_set(ModuleProperties* p, double value) {
+    p->value = value;
+}
+
 class ModuleNumber{
 public:
     ModuleNumber() : x(0.0), y(0) {};
@@ -191,6 +209,21 @@ RCPP_MODULE(demoModule) {
 
         // read-only property
         .property("y", &ModuleNum::getY)
+        ;
+
+    // one property per class_::property() overload: getters are member,
+    // const member or free functions, setters are member or free functions
+    class_<ModuleProperties>("ModuleProperties")
+        .constructor()
+        .property("get", &ModuleProperties::get)
+        .property("get_const", &ModuleProperties::get_const)
+        .property("get_free", &ModuleProperties_get, "free getter")
+        .property("get_set", &ModuleProperties::get, &ModuleProperties::set)
+        .property("get_const_set", &ModuleProperties::get_const, &ModuleProperties::set)
+        .property("get_set_free", &ModuleProperties::get, &ModuleProperties_set)
+        .property("get_const_set_free", &ModuleProperties::get_const, &ModuleProperties_set)
+        .property("get_free_set", &ModuleProperties_get, &ModuleProperties::set)
+        .property("get_free_set_free", &ModuleProperties_get, &ModuleProperties_set)
         ;
 
     class_<ModuleNumber>("ModuleNumber")

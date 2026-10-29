@@ -83,6 +83,7 @@
 			name_,
 			new CppProperty_GetPointer_SetMethod<Class,PROP>(GetMethod, SetMethod, docstring)
 		) ;
+		return *this ;
 	}
 
 	template <typename PROP>
