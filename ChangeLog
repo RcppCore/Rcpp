@@ -1,3 +1,22 @@
+2026-10-29  Kevin Ushey <kevinushey@gmail.com>
+
+	* inst/include/Rcpp/Module.h (internal::module_class_pointer): New
+	per-library record of the class_<Class> registered for a C++ type
+	* inst/include/Rcpp/Module.h (internal::make_new_object): Pass it to
+	the new cpp_object_maker_by_class(), so that objects returned from C++
+	are wrapped as the module class of the library that returned them
+	rather than as another library's class of the same name (#1531)
+	* inst/include/Rcpp/module/class.h (class_::get_instance): Record the
+	class
+	* R/Module.R (cpp_object_maker_by_class): New, looking the class up by
+	its pointer and creating the object through the class's generator
+	* R/Module.R (Module): Register classes by pointer as well
+	* R/zzz.R: Add .classes_by_pointer
+	* inst/tinytest/testRcppCollisionA: New test package
+	* inst/tinytest/testRcppCollisionB: Idem
+	* inst/tinytest/test_module_class_collision.R: Test objects returned
+	by both
+
 2026-10-23  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date

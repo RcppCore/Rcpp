@@ -89,6 +89,10 @@
                 RCPP_DEBUG_MODULE_2( "class_<%s>::get_instance(). [freshly created] class_pointer = class_pointer\n", DEMANGLE(Class), class_pointer ) ;
 
             }
+
+            // lets objects returned from C++ find this module class
+            internal::module_class_pointer<Class>() = static_cast<class_Base*>( class_pointer ) ;
+
             return class_pointer ;
         }
 
