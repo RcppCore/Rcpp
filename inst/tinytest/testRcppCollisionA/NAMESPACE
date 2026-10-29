@@ -1,0 +1,3 @@
+useDynLib(testRcppCollisionA)
+import(methods, Rcpp)
+export(Collision, make_collision)

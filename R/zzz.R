@@ -18,6 +18,7 @@
 .dummyInstancePointer <- new.env() # just something permanent
 
 .classes_map <- new.env()
+.classes_by_pointer <- new.env()
 
 .onLoad <- function(libname, pkgname){
     new_dummyObject(.dummyInstancePointer)   						# nocov start
