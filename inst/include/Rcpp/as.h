@@ -89,15 +89,17 @@ namespace Rcpp {
         }
 
         void* as_module_object_internal(SEXP obj);
+        void* as_module_object_internal(SEXP obj, const char* typeinfo_name);
 
         template <typename T> object<T> as_module_object(SEXP x) {
-            return (T*) as_module_object_internal(x);
+            return (T*) as_module_object_internal(x, typeid(T).name());
         }
 
         /** handling object<T> */
         template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_module_object_const_pointer_tag) {
             typedef typename Rcpp::traits::remove_const<T>::type T_NON_CONST;
-            return const_cast<T>((T_NON_CONST)as_module_object_internal(x));
+            typedef typename Rcpp::traits::un_pointer<T>::type CLASS;
+            return const_cast<T>((T_NON_CONST)as_module_object_internal(x, typeid(CLASS).name()));
         }
 
         template <typename T> T as(SEXP x, ::Rcpp::traits::r_type_module_object_pointer_tag) {

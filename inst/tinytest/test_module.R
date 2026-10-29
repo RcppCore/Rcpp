@@ -75,6 +75,24 @@ expect_equal( attr_Test_get_x_const_pointer(test), 3.0 )
 expect_equal( attr_Test_get_x_ref(test), 3.0 )
 expect_equal( attr_Test_get_x_pointer(test), 3.0 )
 
+## module object arguments are validated before their address is handed to
+## C++, instead of reinterpreting or dereferencing whatever is there (#1523);
+## patterns are regular expressions, as tinytest < 1.3.1 has no 'fixed'
+expect_error( Test_get_x_const_ref( new( ModuleWorld ) ),
+             "Expecting an object of C\\+\\+ class 'ModuleTest', got an object of class 'ModuleWorld'" )
+expect_error( attr_Test_get_x_ref( new( ModuleWorld ) ),
+             "got an object of class 'ModuleWorld'" )
+expect_error( Test_get_x_pointer( unserialize( serialize( test, NULL ) ) ),
+             "external pointer is not valid" )
+uninitialized <- new( ModuleTest )
+expect_error( Test_get_x_ref( uninitialized ), "not initialized" )
+expect_error( Test_get_x_const_pointer( 1 ),
+             "Expecting an object of C\\+\\+ class 'ModuleTest'" )
+
+## objects of a class that derives() from the expected one are accepted
+expect_equal( ModuleBase_value( new( ModuleBase ) ), 1.0 )
+expect_equal( ModuleBase_value( new( ModuleDerived ) ), 2.0 )
+
 #    test.Module.property <- function(){
 w <- new( ModuleNum )
 expect_equal( w$x, 0.0 )
