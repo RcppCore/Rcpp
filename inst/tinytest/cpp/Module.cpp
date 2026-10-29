@@ -137,6 +137,26 @@ double Test_get_x_pointer(ModuleTest* x) {
     return x->value;
 }
 
+// counts its destructions, to check who owns objects returned from C++
+class ModuleOwned {
+public:
+    ModuleOwned(int id_) : id(id_) {}
+    ~ModuleOwned() { destroyed++; }
+    int id;
+    static int destroyed;
+};
+int ModuleOwned::destroyed = 0;
+
+RCPP_EXPOSED_CLASS_NODECL(ModuleOwned)
+
+ModuleOwned* ModuleOwned_create(int id) {
+    return new ModuleOwned(id);
+}
+
+int ModuleOwned_destroyed() {
+    return ModuleOwned::destroyed;
+}
+
 class ModuleGadget {
 public:
     ModuleGadget() {}
@@ -216,6 +236,13 @@ RCPP_MODULE(demoModule) {
 
         .method("get" , &ModuleRandomizer::get)
         ;
+
+    class_<ModuleOwned>("ModuleOwned")
+        .field_readonly("id", &ModuleOwned::id)
+        ;
+
+    function("ModuleOwned_create", &ModuleOwned_create);
+    function("ModuleOwned_destroyed", &ModuleOwned_destroyed);
 
     class_<ModuleGadget>("ModuleGadget")
         .constructor()

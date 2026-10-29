@@ -1013,6 +1013,45 @@ bar$handleFoo(foo)
 #> Got a Foo!
 ```
 
+### Returning objects of exposed classes
+
+With `RCPP_EXPOSED_WRAP` (or `RCPP_EXPOSED_CLASS`), functions and
+methods can also return objects of a class exposed by a module. How
+the object is passed to \proglang{R} depends on the return type:
+
+- An object returned by value or by reference is _copied_, using the
+  copy constructor of the class, and the \proglang{R} object owns the
+  copy.
+- A pointer is not copied: the \proglang{R} object takes _ownership_
+  of the object it points to, and deletes it when the \proglang{R}
+  object is garbage collected. This is what a function returning a
+  newly allocated object needs, like the factories shown above, but
+  it means that a pointer may only be returned when nothing else owns
+  or deletes the object it points to. Returning `this` (e.g. to chain
+  method calls), a pointer to a data member or to an element of a
+  container, or the same pointer from more than one call results in the
+  object being deleted more than once, which typically crashes
+  \proglang{R} during garbage collection.
+
+```{Rcpp ownership, eval=FALSE}
+class Counter {
+public:
+    Counter() : n(0) {}
+
+    // fine: R owns, and eventually deletes, the new Counter
+    static Counter* create() { return new Counter; }
+
+    // wrong: the R object returned by inc() would delete *this
+    // a second time
+    Counter* inc() { n++; return this; }
+
+    // fine: return void, or a copy, and chain the calls in R
+    void increment() { n++; }
+
+    int n;
+};
+```
+
 ### Full example
 
 <!-- TODO: maybe replace this by something from wls or RcppModels ? -->
