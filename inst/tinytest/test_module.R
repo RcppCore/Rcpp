@@ -50,6 +50,12 @@ expect_equal( foo_formals(), 20.0 )
 expect_equal( foo_formals( y = 3.0 ), 6.0 )
 expect_error( foo_short_formals(), "expecting 2, got 1" )
 
+## formals<- finds the .External() call wherever it is in the body, e.g.
+## inside the block that coverage tools (covr) wrap each statement in
+wrapped <- quote({ if (TRUE) { covr:::count("key"); .External(entry, pointer, ...) } })
+expect_equal( deparse( Rcpp:::.cppfunction_set_external_args( wrapped, c("x", "y") ) ),
+              deparse( quote({ if (TRUE) { covr:::count("key"); .External(entry, pointer, x, y) } }) ) )
+
 w <- new( ModuleWorld )
 expect_equal( w$greet(), "hello" )
 w$set( "hello world" )
