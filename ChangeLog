@@ -1,3 +1,12 @@
+2026-10-29  Kevin Ushey <kevinushey@gmail.com>
+
+	* inst/include/Rcpp/module/class.h (class_::AddMethod): Count special
+	'[' methods once per name rather than once per overload, as complete()
+	expects; overloading '[[' dropped methods from completion or ran past
+	the end of the method map (#1529)
+	* inst/tinytest/cpp/Module.cpp: Add classes overloading '[['
+	* inst/tinytest/test_module.R: Test their completions
+
 2026-10-23  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
