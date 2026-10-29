@@ -85,6 +85,27 @@ expect_equal( w$x, 2.0 )
 
 expect_error( { w$y <- 3 } )
 
+## every class_::property() overload; the free getter + member setter one
+## did not return *this, which aborted loading the whole module (#1519)
+p <- new( ModuleProperties )
+p$get_set <- 1.0
+expect_equal( p$get_set, 1.0 )
+p$get_const_set <- 2.0
+expect_equal( p$get_const_set, 2.0 )
+p$get_set_free <- 3.0
+expect_equal( p$get_set_free, 3.0 )
+p$get_const_set_free <- 4.0
+expect_equal( p$get_const_set_free, 4.0 )
+p$get_free_set <- 5.0
+expect_equal( p$get_free_set, 5.0 )
+p$get_free_set_free <- 6.0
+expect_equal( p$get_free_set_free, 6.0 )
+
+expect_equal( c(p$get, p$get_const, p$get_free), c(6.0, 6.0, 6.0) )
+expect_error( { p$get <- 7.0 } )
+expect_error( { p$get_const <- 7.0 } )
+expect_error( { p$get_free <- 7.0 } )
+
 #    test.Module.member <- function(){
 w <- new( ModuleNumber )
 expect_equal( w$x, 0.0 )
