@@ -1,5 +1,13 @@
 2026-10-29  Kevin Ushey <kevinushey@gmail.com>
 
+	* inst/include/Rcpp/Module.h (RCPP_MODULE): Run the module body only the
+	first time the boot function is called, since it adds to the static
+	module and every Module() call boots the module again, which duplicated
+	constructors and methods (#1527)
+	* inst/tinytest/test_module.R: Test loading a module repeatedly
+
+2026-10-29  Kevin Ushey <kevinushey@gmail.com>
+
 	* inst/include/Rcpp/Module.h (RCPP_MODULE): Wrap the module boot
 	function in BEGIN_RCPP / END_RCPP so that an exception thrown while the
 	module initializes raises an R error instead of terminating the session
