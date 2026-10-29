@@ -1,0 +1,11 @@
+Package: testRcppCollisionA
+Type: Package
+Title: Module Class Name Collision Test A
+Version: 0.1
+Author: Kevin Ushey
+Maintainer: Kevin Ushey <kevinushey@gmail.com>
+Description: Exposes a module class whose name is also used by an unrelated
+ class in package testRcppCollisionB, for the Rcpp tests.
+License: GPL (>= 2)
+Imports: methods, Rcpp
+LinkingTo: Rcpp
