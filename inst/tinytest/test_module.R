@@ -189,3 +189,13 @@ expect_identical( res, c(1, 2, 3) )
 ## rather than an error (which used to surface at garbage collection)
 r <- new( ModuleRandomizer )
 expect_identical( r$finalize(), NULL )
+
+## loading a module again must not re-run its body, which used to add
+## every constructor and method to the static module once more (#1527);
+## this redefines the module's classes, so it comes last
+is_demo_module <- function(dll) is.loaded("_rcpp_module_boot_demoModule", PACKAGE = dll[["name"]])
+dll <- Filter(is_demo_module, getLoadedDLLs())[[1L]]
+mod <- Module( "demoModule", PACKAGE = dll, mustStart = TRUE )
+mod <- Module( "demoModule", PACKAGE = dll, mustStart = TRUE )
+expect_equal( length( mod$ModuleWorld@constructors ), 1L )
+expect_equal( length( mod$ModuleWorld@methods$greet@nargs ), 1L )
