@@ -244,3 +244,8 @@ double attr_Test_get_x_pointer(ModuleTest* x) {
     return x->value;
 }
 
+// [[Rcpp::export]]
+bool Module_scope_is_cleared() {
+    return getCurrentScope() == NULL;
+}
+

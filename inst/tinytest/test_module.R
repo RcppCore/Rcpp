@@ -108,6 +108,11 @@ expect_equal(r$get(10), x10)
 r <- new( ModuleRandomizer )
 expect_error( r$get(10L), "not initialized" )
 
+## an exception thrown while a module initializes raises an R error rather
+## than terminating the R session, and clears the module scope (#1525)
+expect_error( Rcpp::sourceCpp("cpp/ModuleInitError.cpp"), "no such class" )
+expect_true( Module_scope_is_cleared() )
+
 #    test.Module.flexible.semantics <- function( ){
 expect_equal( test_reference( seq(0,10) ), 11L )
 expect_equal( test_const_reference( seq(0,10) ), 11L )
