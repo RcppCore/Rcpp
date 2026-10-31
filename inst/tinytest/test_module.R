@@ -123,3 +123,10 @@ gctorture(TRUE)
 res <- gadget$value()
 gctorture(FALSE)
 expect_identical( res, c(1, 2, 3) )
+
+#    test.Module.finalize.dummy <- function(){
+## an object created without arguments for a class lacking a default
+## constructor holds the dummy pointer; finalizing it must be a no-op
+## rather than an error (which used to surface at garbage collection)
+r <- new( ModuleRandomizer )
+expect_identical( r$finalize(), NULL )
