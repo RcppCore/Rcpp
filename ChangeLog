@@ -1,3 +1,8 @@
+2026-10-23  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+	* inst/include/Rcpp/config.h: Idem
+
 2026-10-22  Kevin Ushey  <kevinushey@gmail.com>
 
 	* src/module.cpp (CppObject__finalize): Make finalize() a no-op for a
@@ -9,10 +14,10 @@
 
 2026-10-22  Michael Sumner <mdsumner@gmail.com>
 
-	* R/00_classes.R: Define C++Field, C++OverloadedMethods and C++Constructor
-	as plain S4 classes instead of reference classes, as creating one reference
-	class object per exposed method dominated the time spent loading a module;
-	add '$' and '$<-' methods for backwards compatibility
+	* R/00_classes.R: Define C++Field, C++OverloadedMethods and
+	C++Constructor as S4 classes as creating one reference class
+	object per exposed method dominated the time spent loading a
+	module; add '$' and '$<-' methods for backwards compatibility
 	* R/00_classes.R (.cpp_methods_info): Former 'info' reference method
 	* R/01_show.R: Use slot access and .cpp_methods_info()
 	* R/Module.R (method_wrapper, binding_maker): Idem
@@ -23,21 +28,15 @@
 
 2026-10-21  Michael Sumner <mdsumner@gmail.com>
 
-	* R/Module.R (Module): Supply the 'initialize' method to setRefClass() with
-	the other methods instead of adding it in a second generator$methods()
-	call, which repeated the reference class analysis of every exposed
-	method, and reuse the C++Class objects returned by
-	Module__classes_info() rather than rebuilding each of them via
-	.get_Module_Class(); both reduce the time spent loading a module (#1515)
-	* R/Module.R (Module): Take the class representation from the generator
-	rather than looking it up by name with methods::getClass(), which
-	ignores 'where' and can return another loaded package's class of the same
-	name
-	* R/Module.R (Module): Register as(FROM, TO) converters after the loop
+	* R/Module.R: Supply 'initialize' method to setRefClass() with
+	other methods instead of adding second generator$methods() call,
+	which repeated reference class analysis of every exposed method,
+	* R/Module.R (Module): Take class representation from generator
+	rather than looking up by name with methods::getClass()
+	* R/Module.R (Module): Register as(FROM, TO) converters after loop
 	that populates 'storage' rather than once per function inside it
-	* R/Module.R (Module): Match the 'show' method name exactly rather than as
-	a substring, so a class exposing e.g. 'showInfo' keeps the C++Object show
-	method
+	* R/Module.R (Module): Match 'show' method name exactly rather
+	than as a substring, so a class exposing C++Object show method
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
 	* inst/include/Rcpp/config.h: Idem
