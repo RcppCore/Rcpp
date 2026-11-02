@@ -1,5 +1,13 @@
 2026-10-29  Kevin Ushey <kevinushey@gmail.com>
 
+	* inst/include/Rcpp/module/Module_Add_Property.h: Return *this from
+	the property() overload taking a free-function getter and a member
+	function setter, which fell off the end and trapped at module load
+	(#1519)
+	* inst/tinytest/cpp/Module.cpp: Expose one property per property()
+	overload
+	* inst/tinytest/test_module.R: Test them
+
 	* src/module.cpp (InternalFunction_invoke): Raise an error when fewer
 	arguments are supplied than the arity stored in the function pointer's
 	tag, instead of reading the missing ones from uninitialized memory
