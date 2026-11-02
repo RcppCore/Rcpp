@@ -166,6 +166,10 @@ RCPP_MODULE(demoModule) {
     function("bla1" , &bla1 );
     function("bla2" , &bla2 );
 
+    // formals with defaults, and formals shorter than the parameter list
+    function("foo_formals", &foo, List::create(_["x"] = 2, _["y"] = 10.0));
+    function("foo_short_formals", &foo, List::create(_["x"] = 2));
+
     function("test_reference", test_reference);
     function("test_const_reference", test_const_reference);
     function("test_const", test_const);
