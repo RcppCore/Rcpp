@@ -7,6 +7,7 @@
 	* inst/tinytest/cpp/Module.cpp: Expose one property per property()
 	overload
 	* inst/tinytest/test_module.R: Test them
+
 	* src/module.cpp (InternalFunction_invoke): Raise an error when fewer
 	arguments are supplied than the arity stored in the function pointer's
 	tag, instead of reading the missing ones from uninitialized memory
