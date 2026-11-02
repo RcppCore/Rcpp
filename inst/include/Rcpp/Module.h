@@ -614,14 +614,21 @@ namespace Rcpp {
     namespace internal {
 
         // makes module the target of class_<>, function(), etc. while an
-        // RCPP_MODULE body runs, and clears it however the body exits
+        // RCPP_MODULE body runs, and restores the previous scope however the
+        // body exits, so a module loaded from within another module body
+        // does not clobber the outer scope
         class ModuleScope {
         public:
-            explicit ModuleScope( Module* module ){ ::setCurrentScope( module ) ; }
-            ~ModuleScope(){ ::setCurrentScope( 0 ) ; }
+            explicit ModuleScope( Module* module ) : previous( ::getCurrentScope() ){
+                ::setCurrentScope( module ) ;
+            }
+            ~ModuleScope(){ ::setCurrentScope( previous ) ; }
 
             ModuleScope( const ModuleScope& ) = delete ;
             ModuleScope& operator=( const ModuleScope& ) = delete ;
+
+        private:
+            Module* previous ;
         } ;
 
     }

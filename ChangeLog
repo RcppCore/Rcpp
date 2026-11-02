@@ -5,7 +5,7 @@
 	module initializes raises an R error instead of terminating the session
 	(#1525)
 	* inst/include/Rcpp/Module.h (internal::ModuleScope): New RAII guard
-	clearing the current module scope however the module body exits
+	restoring the previous module scope however the module body exits
 	* inst/tinytest/cpp/ModuleInitError.cpp: New module whose initialization
 	throws
 	* inst/tinytest/cpp/Module.cpp (Module_scope_is_cleared): New
