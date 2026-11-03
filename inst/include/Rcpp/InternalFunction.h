@@ -35,18 +35,24 @@ namespace Rcpp{
 
         RCPP_GENERATE_CTOR_ASSIGN(InternalFunction_Impl)
 
+        // the arity goes in the pointer tag, where InternalFunction_invoke
+        // checks it against the number of supplied arguments
+
         template <typename RESULT_TYPE, typename... Args>
         InternalFunction_Impl(const std::function<RESULT_TYPE(Args...)> &fun) {
+            Shield<SEXP> arity(Rf_ScalarInteger(static_cast<int>(sizeof...(Args))));
             set(
                 XPtr<Rcpp::InternalFunctionWithStdFunction::CppFunctionBaseFromStdFunction<RESULT_TYPE, Args...> >(
                     new Rcpp::InternalFunctionWithStdFunction::CppFunctionBaseFromStdFunction<RESULT_TYPE, Args...>(fun),
-                    false
+                    false,
+                    arity
                     )
                 );
         }
         template <typename RESULT_TYPE, typename... T>
         InternalFunction_Impl(RESULT_TYPE (*fun)(T...)) {
-            set(XPtr<CppFunctionN<RESULT_TYPE, T...> >(new CppFunctionN<RESULT_TYPE, T...>(fun), true));
+            Shield<SEXP> arity(Rf_ScalarInteger(static_cast<int>(sizeof...(T))));
+            set(XPtr<CppFunctionN<RESULT_TYPE, T...> >(new CppFunctionN<RESULT_TYPE, T...>(fun), true, arity));
         }
 
         void update(SEXP){}

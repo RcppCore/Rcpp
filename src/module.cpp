@@ -108,7 +108,14 @@ RCPP_FUN_4(SEXP, CppField__set, XP_Class cl, SEXP field_xp, SEXP obj, SEXP value
     cl->setProperty(field_xp, obj, value);
     return R_NilValue;
 }
+
+extern SEXP rcpp_dummy_pointer;
+
 RCPP_FUN_2(SEXP, CppObject__finalize, XP_Class cl, SEXP obj) {
+    // an object created without arguments for a class lacking a default
+    // constructor holds the dummy pointer: there is nothing to finalize
+    if (obj == rcpp_dummy_pointer)
+        return R_NilValue;
     cl->run_finalizer(obj);
     return R_NilValue;
 }
@@ -119,6 +126,18 @@ BEGIN_RCPP
     SEXP p = CDR(args);
     XP_Function fun(CAR(p)); p = CDR(p);
     UNPACK_EXTERNAL_ARGS(cargs,p)
+
+    // Module::get_function() and InternalFunction store the arity in the
+    // tag; without this check, parameters beyond those supplied would be
+    // read from uninitialized slots of cargs
+    SEXP arity = R_ExternalPtrTag(fun);
+    if (TYPEOF(arity) == INTSXP && Rf_xlength(arity) == 1 && nargs < INTEGER(arity)[0])
+        Rcpp::stop(
+            "incorrect number of arguments: expecting %d, got %d",
+            INTEGER(arity)[0],
+            nargs
+        );
+
     return fun->operator()(cargs);
 END_RCPP
 }

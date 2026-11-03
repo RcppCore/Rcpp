@@ -24,6 +24,10 @@ Rcpp::sourceCpp("cpp/InternalFunction.cpp")
 fun <- getAdd()
 expect_equal( fun(10,32), 42 )
 
+## too few arguments raise an error rather than reading the missing ones
+## from uninitialized memory (#1521)
+expect_error( fun(10), "expecting 2, got 1" )
+
 #    test.internal_function_concatenate <- function(){
 fun <- getConcatenate()
 expect_equal( fun("Hello"," World"), "Hello World" )
