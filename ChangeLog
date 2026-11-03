@@ -1,4 +1,45 @@
+2026-10-31  Dirk Eddelbuettel  <edd@debian.org>
+
+	* .github/workflows/macos.yaml (jobs): Retire macos-14 (but retain
+	macos-latest)
+
 2026-10-29  Kevin Ushey <kevinushey@gmail.com>
+
+	* inst/include/Rcpp/module/Module_Add_Property.h: Return *this from
+	the property() overload taking a free-function getter and a member
+	function setter, which fell off the end and trapped at module load
+	(#1519)
+	* inst/tinytest/cpp/Module.cpp: Expose one property per property()
+	overload
+	* inst/tinytest/test_module.R: Test them
+
+	* src/module.cpp (InternalFunction_invoke): Raise an error when fewer
+	arguments are supplied than the arity stored in the function pointer's
+	tag, instead of reading the missing ones from uninitialized memory
+	(#1521)
+	* inst/include/Rcpp/module/Module.h (Module::get_function): Store the
+	arity of module functions in the pointer tag
+	* inst/include/Rcpp/InternalFunction.h: Idem for InternalFunction
+	* inst/tinytest/cpp/Module.cpp: Add module functions with formals
+	* inst/tinytest/test_module.R: Test calls with too few arguments
+	* inst/tinytest/test_internal_function.R: Idem
+	* inst/tinytest/test_internal_function_cpp11.R: Idem
+
+	* R/00_classes.R (.cppfunction_formals_gets): Find the .External() call
+	in the body of the function instead of assuming it is the second
+	element, which it is not once coverage tools have instrumented the body
+	* R/00_classes.R (.cppfunction_set_external_args): New helper
+	* inst/tinytest/test_module.R: Test it with an instrumented body
+	* inst/include/Rcpp/api/meat/as.h (as_module_object_internal): Check
+	that the argument is a live module object, raising an error for
+	deserialized, uninitialized and non-module objects instead of handing
+	out a NULL or garbage address; a new overload taking the expected C++
+	type also requires the object's class to be that type or one that
+	derives() from it (#1523)
+	* inst/include/Rcpp/as.h: Use the new overload when converting to
+	module classes
+	* inst/tinytest/cpp/Module.cpp: Add a class deriving from another
+	* inst/tinytest/test_module.R: Test the new checks
 
 	* inst/include/Rcpp/Module.h (RCPP_MODULE): Wrap the module boot
 	function in BEGIN_RCPP / END_RCPP so that an exception thrown while the
@@ -15,6 +56,15 @@
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
 	* inst/include/Rcpp/config.h: Idem
+
+2026-10-22  Kevin Ushey  <kevinushey@gmail.com>
+
+	* src/module.cpp (CppObject__finalize): Make finalize() a no-op for a
+	module object that was never constructed (created without arguments for a
+	class without a default constructor); it used to fail on the dummy
+	pointer, and the failure surfaced as an error message at garbage
+	collection
+	* inst/tinytest/test_module.R: Add test
 
 2026-10-22  Michael Sumner <mdsumner@gmail.com>
 

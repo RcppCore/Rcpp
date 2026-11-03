@@ -117,13 +117,23 @@ setClass( "C++Function",
 	contains = "function"
 )
 
-.cppfunction_formals_gets <- function (fun, envir = environment(fun), value) {
-    bd <- body(fun)
-    b2 <- bd[[2L]]
-    for( i in seq_along(value) ){
-        b2[[3L+i]] <- as.name( names(value)[i] )
+## passes the arguments named in 'names' on from the .External(entry,
+## pointer, ...) call in expr; the call is searched for rather than assumed
+## to be a top-level statement, as coverage tools wrap each statement
+.cppfunction_set_external_args <- function( expr, names ){
+    if( !is.call( expr ) )
+        return( expr )
+    if( identical( expr[[1L]], as.name( ".External" ) ) )
+        return( as.call( c( as.list( expr )[1:3], lapply( names, as.name ) ) ) )
+    for( i in seq_along( expr )[-1L] ){
+        if( is.call( expr[[i]] ) )
+            expr[[i]] <- .cppfunction_set_external_args( expr[[i]], names )
     }
-    bd[[2]] <- b2
+    expr
+}
+
+.cppfunction_formals_gets <- function (fun, envir = environment(fun), value) {
+    bd <- .cppfunction_set_external_args( body(fun), names(value) )
     f <- fun@.Data
     formals(f) <- value
     body(f) <- bd

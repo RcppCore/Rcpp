@@ -89,6 +89,24 @@ private:
     int y;
 };
 
+class ModuleProperties {
+public:
+    ModuleProperties() : value(0.0) {}
+
+    double get() { return value; }
+    double get_const() const { return value; }
+    void set(double value_) { value = value_; }
+
+    double value;
+};
+
+double ModuleProperties_get(ModuleProperties* p) {
+    return p->value;
+}
+void ModuleProperties_set(ModuleProperties* p, double value) {
+    p->value = value;
+}
+
 class ModuleNumber{
 public:
     ModuleNumber() : x(0.0), y(0) {};
@@ -137,6 +155,24 @@ double Test_get_x_pointer(ModuleTest* x) {
     return x->value;
 }
 
+class ModuleBase {
+public:
+    ModuleBase() : value(1.0) {}
+    virtual ~ModuleBase() {}
+    double value;
+};
+
+class ModuleDerived : public ModuleBase {
+public:
+    ModuleDerived() { value = 2.0; }
+};
+
+RCPP_EXPOSED_CLASS_NODECL(ModuleBase)
+
+double ModuleBase_value(const ModuleBase& x) {
+    return x.value;
+}
+
 class ModuleGadget {
 public:
     ModuleGadget() {}
@@ -166,6 +202,10 @@ RCPP_MODULE(demoModule) {
     function("bla1" , &bla1 );
     function("bla2" , &bla2 );
 
+    // formals with defaults, and formals shorter than the parameter list
+    function("foo_formals", &foo, List::create(_["x"] = 2, _["y"] = 10.0));
+    function("foo_short_formals", &foo, List::create(_["x"] = 2));
+
     function("test_reference", test_reference);
     function("test_const_reference", test_const_reference);
     function("test_const", test_const);
@@ -193,6 +233,21 @@ RCPP_MODULE(demoModule) {
         .property("y", &ModuleNum::getY)
         ;
 
+    // one property per class_::property() overload: getters are member,
+    // const member or free functions, setters are member or free functions
+    class_<ModuleProperties>("ModuleProperties")
+        .constructor()
+        .property("get", &ModuleProperties::get)
+        .property("get_const", &ModuleProperties::get_const)
+        .property("get_free", &ModuleProperties_get, "free getter")
+        .property("get_set", &ModuleProperties::get, &ModuleProperties::set)
+        .property("get_const_set", &ModuleProperties::get_const, &ModuleProperties::set)
+        .property("get_set_free", &ModuleProperties::get, &ModuleProperties_set)
+        .property("get_const_set_free", &ModuleProperties::get_const, &ModuleProperties_set)
+        .property("get_free_set", &ModuleProperties_get, &ModuleProperties::set)
+        .property("get_free_set_free", &ModuleProperties_get, &ModuleProperties_set)
+        ;
+
     class_<ModuleNumber>("ModuleNumber")
 
         .constructor()
@@ -216,6 +271,17 @@ RCPP_MODULE(demoModule) {
 
         .method("get" , &ModuleRandomizer::get)
         ;
+
+    class_<ModuleBase>("ModuleBase")
+        .constructor()
+        ;
+
+    class_<ModuleDerived>("ModuleDerived")
+        .derives<ModuleBase>("ModuleBase")
+        .constructor()
+        ;
+
+    function("ModuleBase_value", &ModuleBase_value);
 
     class_<ModuleGadget>("ModuleGadget")
         .constructor()

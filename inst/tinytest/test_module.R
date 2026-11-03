@@ -41,6 +41,21 @@ expect_true(is_void(bla@.Data))
 expect_true(is_void(bla1@.Data))
 expect_true(is_void(bla2@.Data))
 
+## module functions must be called with at least as many arguments as
+## the C++ function takes, rather than reading the missing ones from
+## uninitialized memory (#1521)
+expect_error( foo( 2L ), "expecting 2, got 1" )
+expect_error( bar(), "expecting 1, got 0" )
+expect_equal( foo_formals(), 20.0 )
+expect_equal( foo_formals( y = 3.0 ), 6.0 )
+expect_error( foo_short_formals(), "expecting 2, got 1" )
+
+## formals<- finds the .External() call wherever it is in the body, e.g.
+## inside the block that coverage tools (covr) wrap each statement in
+wrapped <- quote({ if (TRUE) { covr:::count("key"); .External(entry, pointer, ...) } })
+expect_equal( deparse( Rcpp:::.cppfunction_set_external_args( wrapped, c("x", "y") ) ),
+              deparse( quote({ if (TRUE) { covr:::count("key"); .External(entry, pointer, x, y) } }) ) )
+
 w <- new( ModuleWorld )
 expect_equal( w$greet(), "hello" )
 w$set( "hello world" )
@@ -75,6 +90,24 @@ expect_equal( attr_Test_get_x_const_pointer(test), 3.0 )
 expect_equal( attr_Test_get_x_ref(test), 3.0 )
 expect_equal( attr_Test_get_x_pointer(test), 3.0 )
 
+## module object arguments are validated before their address is handed to
+## C++, instead of reinterpreting or dereferencing whatever is there (#1523);
+## patterns are regular expressions, as tinytest < 1.3.1 has no 'fixed'
+expect_error( Test_get_x_const_ref( new( ModuleWorld ) ),
+             "Expecting an object of C\\+\\+ class 'ModuleTest', got an object of class 'ModuleWorld'" )
+expect_error( attr_Test_get_x_ref( new( ModuleWorld ) ),
+             "got an object of class 'ModuleWorld'" )
+expect_error( Test_get_x_pointer( unserialize( serialize( test, NULL ) ) ),
+             "external pointer is not valid" )
+uninitialized <- new( ModuleTest )
+expect_error( Test_get_x_ref( uninitialized ), "not initialized" )
+expect_error( Test_get_x_const_pointer( 1 ),
+             "Expecting an object of C\\+\\+ class 'ModuleTest'" )
+
+## objects of a class that derives() from the expected one are accepted
+expect_equal( ModuleBase_value( new( ModuleBase ) ), 1.0 )
+expect_equal( ModuleBase_value( new( ModuleDerived ) ), 2.0 )
+
 #    test.Module.property <- function(){
 w <- new( ModuleNum )
 expect_equal( w$x, 0.0 )
@@ -84,6 +117,27 @@ w$x <- 2.0
 expect_equal( w$x, 2.0 )
 
 expect_error( { w$y <- 3 } )
+
+## every class_::property() overload; the free getter + member setter one
+## did not return *this, which aborted loading the whole module (#1519)
+p <- new( ModuleProperties )
+p$get_set <- 1.0
+expect_equal( p$get_set, 1.0 )
+p$get_const_set <- 2.0
+expect_equal( p$get_const_set, 2.0 )
+p$get_set_free <- 3.0
+expect_equal( p$get_set_free, 3.0 )
+p$get_const_set_free <- 4.0
+expect_equal( p$get_const_set_free, 4.0 )
+p$get_free_set <- 5.0
+expect_equal( p$get_free_set, 5.0 )
+p$get_free_set_free <- 6.0
+expect_equal( p$get_free_set_free, 6.0 )
+
+expect_equal( c(p$get, p$get_const, p$get_free), c(6.0, 6.0, 6.0) )
+expect_error( { p$get <- 7.0 } )
+expect_error( { p$get_const <- 7.0 } )
+expect_error( { p$get_free <- 7.0 } )
 
 #    test.Module.member <- function(){
 w <- new( ModuleNumber )
@@ -128,3 +182,10 @@ gctorture(TRUE)
 res <- gadget$value()
 gctorture(FALSE)
 expect_identical( res, c(1, 2, 3) )
+
+#    test.Module.finalize.dummy <- function(){
+## an object created without arguments for a class lacking a default
+## constructor holds the dummy pointer; finalizing it must be a no-op
+## rather than an error (which used to surface at garbage collection)
+r <- new( ModuleRandomizer )
+expect_identical( r$finalize(), NULL )
