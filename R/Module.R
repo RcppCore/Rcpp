@@ -161,6 +161,17 @@ cpp_object_maker <- function(typeid, pointer){
     new( Class, .object_pointer = pointer )
 }
 
+# called by make_new_object() with the module class that the calling library
+# registered for this C++ type, since other libraries' unrelated classes of
+# the same name share its typeid; the object is created through that class's
+# generator, as new() would look the reference class up by name
+cpp_object_maker_by_class <- function(typeid, pointer, class_pointer){
+    Class <- .classes_by_pointer[[ externalptr_address(class_pointer) ]]
+    if( is.null( Class ) )
+        return( cpp_object_maker( typeid, pointer ) )
+    Class@generator$new( .object_pointer = pointer )
+}
+
 Module <- function( module, PACKAGE = methods::getPackageName(where), where = topenv(parent.frame()), mustStart = FALSE ) {
     if (inherits(module, "DLLInfo") && missing(mustStart)) mustStart <- TRUE						# #nocov
     if (inherits(module, "Module")) {
@@ -287,6 +298,7 @@ Module <- function( module, PACKAGE = methods::getPackageName(where), where = to
         # rather than rebuilding it (and all of its method/field objects)
         CLASS@generator <- generators[[ clname ]]
         .classes_map[[ CLASS@typeid ]] <- storage[[ demangled_name ]] <- CLASS
+        .classes_by_pointer[[ externalptr_address( CLASS@pointer ) ]] <- CLASS
 
         # exposing enums values as CLASS.VALUE
         # (should really be CLASS$value but I don't know how to do it)
