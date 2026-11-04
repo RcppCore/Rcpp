@@ -51,7 +51,6 @@
 	throws
 	* inst/tinytest/cpp/Module.cpp (Module_scope_is_cleared): New
 	* inst/tinytest/test_module.R: Test loading the failing module
-2026-10-29  Kevin Ushey <kevinushey@gmail.com>
 
 	* inst/include/Rcpp/Module.h (internal::module_class_pointer): New
 	per-library record of the class_<Class> registered for a C++ type
