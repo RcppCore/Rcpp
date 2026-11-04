@@ -45,7 +45,15 @@
 	first time the boot function is called, since it adds to the static
 	module and every Module() call boots the module again, which duplicated
 	constructors and methods (#1527)
-	* inst/tinytest/test_module.R: Test loading a module repeatedly
+	* inst/include/Rcpp/module/Module.h (Module::clear): New, removes the
+	registered classes and functions
+	* inst/include/Rcpp/Module.h (RCPP_MODULE): Clear the module when the
+	body throws, so that a later load runs the body against an empty module
+	instead of appending to what the failed run registered
+	* inst/tinytest/cpp/ModuleInitRetry.cpp: New module whose first load
+	fails after registering a class and a function
+	* inst/tinytest/test_module.R: Test loading a module repeatedly, and
+	loading one again after its body threw
 
 	* inst/include/Rcpp/Module.h (RCPP_MODULE): Wrap the module boot
 	function in BEGIN_RCPP / END_RCPP so that an exception thrown while the

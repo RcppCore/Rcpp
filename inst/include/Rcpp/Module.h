@@ -639,7 +639,8 @@ namespace Rcpp {
 // the boot function is called from R via .Call(), so exceptions thrown by
 // the module body must be turned into R errors; it runs every time the
 // module is loaded, but the body adds to the static module, so it may only
-// run once
+// run once, and a body that throws part-way leaves nothing behind so that
+// the next load does not append to what it registered
 #define RCPP_MODULE(name)                                                             \
     void _rcpp_module_##name##_init() ;                                               \
     static Rcpp::Module _rcpp_module_##name( # name ) ;                               \
@@ -648,7 +649,12 @@ namespace Rcpp {
         BEGIN_RCPP                                                                    \
         if( ! _rcpp_module_##name##_initialized ){                                    \
             Rcpp::internal::ModuleScope _rcpp_module_scope( & _rcpp_module_##name ) ; \
-            _rcpp_module_##name##_init( ) ;                                           \
+            try {                                                                     \
+                _rcpp_module_##name##_init( ) ;                                       \
+            } catch( ... ) {                                                          \
+                _rcpp_module_##name.clear() ;                                         \
+                throw ;                                                               \
+            }                                                                         \
             _rcpp_module_##name##_initialized = true ;                                \
         }                                                                             \
         return Rcpp::XPtr<Rcpp::Module>( & _rcpp_module_##name , false ) ;           \
