@@ -167,6 +167,18 @@ expect_error( r$get(10L), "not initialized" )
 expect_error( Rcpp::sourceCpp("cpp/ModuleInitError.cpp"), "no such class" )
 expect_true( Module_scope_is_cleared() )
 
+## a body that throws after registering some of its classes and functions
+## leaves nothing behind, so loading the module again does not end up with
+## two copies of what the failed run registered
+expect_error( Rcpp::sourceCpp("cpp/ModuleInitRetry.cpp"), "first boot fails" )
+is_retry_module <- function(dll) is.loaded("_rcpp_module_boot_moduleInitRetry", PACKAGE = dll[["name"]])
+dll <- Filter(is_retry_module, getLoadedDLLs())[[1L]]
+mod <- Module( "moduleInitRetry", PACKAGE = dll, mustStart = TRUE )
+expect_equal( length( mod$ModuleInitRetry@constructors ), 1L )
+expect_equal( length( mod$ModuleInitRetry@methods$value@nargs ), 1L )
+expect_equal( mod$retry_add_one( 41L ), 42L )
+expect_equal( new( mod$ModuleInitRetry )$value(), 42L )
+
 #    test.Module.flexible.semantics <- function( ){
 expect_equal( test_reference( seq(0,10) ), 11L )
 expect_equal( test_const_reference( seq(0,10) ), 11L )
@@ -189,3 +201,13 @@ expect_identical( res, c(1, 2, 3) )
 ## rather than an error (which used to surface at garbage collection)
 r <- new( ModuleRandomizer )
 expect_identical( r$finalize(), NULL )
+
+## loading a module again must not re-run its body, which used to add
+## every constructor and method to the static module once more (#1527);
+## this redefines the module's classes, so it comes last
+is_demo_module <- function(dll) is.loaded("_rcpp_module_boot_demoModule", PACKAGE = dll[["name"]])
+dll <- Filter(is_demo_module, getLoadedDLLs())[[1L]]
+mod <- Module( "demoModule", PACKAGE = dll, mustStart = TRUE )
+mod <- Module( "demoModule", PACKAGE = dll, mustStart = TRUE )
+expect_equal( length( mod$ModuleWorld@constructors ), 1L )
+expect_equal( length( mod$ModuleWorld@methods$greet@nargs ), 1L )
