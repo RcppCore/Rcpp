@@ -203,6 +203,22 @@ namespace Rcpp {
             classes.insert( CLASS_PAIR( name_ , cptr ) ) ;
         }
 
+        // drops everything the module body registered; used when the body
+        // throws, so that running it again starts from an empty module (the
+        // C callables registered by Add() cannot be removed, but running the
+        // body again simply registers them again)
+        inline void clear(){
+            for( MAP::iterator it = functions.begin(); it != functions.end(); ++it ){
+                delete it->second ;
+            }
+            functions.clear() ;
+
+            for( CLASS_MAP::iterator it = classes.begin(); it != classes.end(); ++it ){
+                delete it->second ;
+            }
+            classes.clear() ;
+        }
+
         inline bool has_function( const std::string& m){											// #nocov start
             return functions.find(m) != functions.end() ;
         }
