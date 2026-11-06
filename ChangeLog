@@ -1,3 +1,8 @@
+2026-11-06  Dirk Eddelbuettel  <edd@debian.org>
+
+	* DESCRIPTION (Version, Date): Roll micro version and date
+	* inst/include/Rcpp/config.h: Idem
+
 2026-10-31  Dirk Eddelbuettel  <edd@debian.org>
 
 	* .github/workflows/macos.yaml (jobs): Retire macos-14 (but retain
