@@ -167,6 +167,15 @@ expect_error( r$get(10L), "not initialized" )
 expect_error( Rcpp::sourceCpp("cpp/ModuleInitError.cpp"), "no such class" )
 expect_true( Module_scope_is_cleared() )
 
+## a pointer returned from C++ is owned by the R object wrapping it, and
+## deleted when that object is garbage collected (#1533)
+destroyed <- ModuleOwned_destroyed()
+owned <- ModuleOwned_create( 7L )
+expect_equal( owned$id, 7L )
+rm( owned )
+invisible( gc() )
+expect_equal( ModuleOwned_destroyed(), destroyed + 1L )
+
 ## a body that throws after registering some of its classes and functions
 ## leaves nothing behind, so loading the module again does not end up with
 ## two copies of what the failed run registered

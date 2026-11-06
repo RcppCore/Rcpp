@@ -66,6 +66,13 @@
 	* inst/tinytest/cpp/Module.cpp (Module_scope_is_cleared): New
 	* inst/tinytest/test_module.R: Test loading the failing module
 
+	* vignettes/rmd/Rcpp-modules.Rmd: Document that objects of exposed
+	classes returned by value or reference are copied, while a returned
+	pointer is owned and eventually deleted by R, so that returning this or
+	another pointer the C++ side still owns deletes the object twice (#1533)
+	* inst/tinytest/cpp/Module.cpp: Add a class counting its destructions
+	* inst/tinytest/test_module.R: Test that R deletes a returned pointer
+
 	* inst/include/Rcpp/Module.h (internal::module_class_pointer): New
 	per-library record of the class_<Class> registered for a C++ type
 	* inst/include/Rcpp/Module.h (internal::make_new_object): Pass it to
