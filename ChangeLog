@@ -66,6 +66,13 @@
 	* inst/tinytest/cpp/Module.cpp (Module_scope_is_cleared): New
 	* inst/tinytest/test_module.R: Test loading the failing module
 
+	* inst/include/Rcpp/module/class.h (class_::AddMethod): Count special
+	'[' methods once per name rather than once per overload, as complete()
+	expects; overloading '[[' dropped methods from completion or ran past
+	the end of the method map (#1529)
+	* inst/tinytest/cpp/Module.cpp: Add classes overloading '[['
+	* inst/tinytest/test_module.R: Test their completions
+
 	* vignettes/rmd/Rcpp-modules.Rmd: Document that objects of exposed
 	classes returned by value or reference are copied, while a returned
 	pointer is owned and eventually deleted by R, so that returning this or

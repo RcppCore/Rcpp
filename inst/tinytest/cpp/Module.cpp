@@ -173,6 +173,27 @@ double ModuleBase_value(const ModuleBase& x) {
     return x.value;
 }
 
+class ModuleBrackets {
+public:
+    ModuleBrackets() : value(1.0) {}
+
+    double at(int i) { return value * i; }
+    double at2(int i, int j) { return value * i * j; }
+    double total() { return value; }
+
+    double value;
+};
+
+class ModuleBracketsOnly {
+public:
+    ModuleBracketsOnly() : value(1.0) {}
+
+    double at(int i) { return value * i; }
+    double at2(int i, int j) { return value * i * j; }
+
+    double value;
+};
+
 // counts its destructions, to check who owns objects returned from C++
 class ModuleOwned {
 public:
@@ -302,6 +323,22 @@ RCPP_MODULE(demoModule) {
         ;
 
     function("ModuleBase_value", &ModuleBase_value);
+
+    // overloaded [[, with and without an ordinary method
+    class_<ModuleBrackets>("ModuleBrackets")
+        .constructor()
+        .method("[[", &ModuleBrackets::at)
+        .method("[[", &ModuleBrackets::at2)
+        .method("total", &ModuleBrackets::total)
+        .field("value", &ModuleBrackets::value)
+        ;
+
+    class_<ModuleBracketsOnly>("ModuleBracketsOnly")
+        .constructor()
+        .method("[[", &ModuleBracketsOnly::at)
+        .method("[[", &ModuleBracketsOnly::at2)
+        .field("value", &ModuleBracketsOnly::value)
+        ;
 
     class_<ModuleOwned>("ModuleOwned")
         .field_readonly("id", &ModuleOwned::id)

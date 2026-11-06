@@ -167,6 +167,14 @@ expect_error( r$get(10L), "not initialized" )
 expect_error( Rcpp::sourceCpp("cpp/ModuleInitError.cpp"), "no such class" )
 expect_true( Module_scope_is_cleared() )
 
+## completion lists the ordinary methods and the fields; an overloaded [[
+## used to be counted once per overload, which dropped the last ordinary
+## method, or ran past the end of the method map when there was none (#1529)
+brackets <- new( ModuleBrackets )
+expect_equal( Rcpp:::complete( brackets ), c("total( ", "value") )
+expect_equal( brackets[[2L]], 2.0 )
+expect_equal( Rcpp:::complete( new( ModuleBracketsOnly ) ), "value" )
+
 ## a pointer returned from C++ is owned by the R object wrapping it, and
 ## deleted when that object is garbage collected (#1533)
 destroyed <- ModuleOwned_destroyed()
