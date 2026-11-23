@@ -1,3 +1,8 @@
+2026-11-23  Dirk Eddelbuettel  <edd@debian.org>
+
+	* vignettes/rmd/Rcpp.bib: Correct misspelling of gitlab
+	* inst/bib/Rcpp.bib: Idem
+
 2026-11-06  Dirk Eddelbuettel  <edd@debian.org>
 
 	* DESCRIPTION (Version, Date): Roll micro version and date
